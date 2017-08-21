@@ -1,0 +1,65 @@
+<aside id="left-panel">
+
+  <!-- User info -->
+  <sa-login-info></sa-login-info>
+
+
+  <nav>
+
+
+    <ul saSmartMenu>
+      <li>
+        <a title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span
+          class="menu-item-parent">{{'首页' | i18n}}</span></a>
+        <ul>
+          <li routerLinkActive="active">
+            <a routerLink="/dashboard/social">{{'动态墙' | i18n}}</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="#"><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i> <span
+                class="menu-item-parent">{{'人事管理' | i18n}}</span></a>
+        <ul>
+          <li routerLinkActive="active">
+            <a routerLink="/tables/staff">{{'员工列表' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/forms/employees">{{'添加员工' | i18n}}</a>
+          </li>
+        </ul>
+      </li>
+
+
+      <li>
+        <a href="#"><i class="fa fa-lg fa-fw fa-cubes"></i> <span
+                class="menu-item-parent">{{'产品管理' | i18n}}</span></a>
+        <ul>
+          <li routerLinkActive="active">
+            <a routerLink="/tables/staff">{{'产品列表' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/forms/validation">{{'库存' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/graphs/flot-charts">{{'订单' | i18n}}</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="#"><i class="fa fa-lg fa-fw fa-unlock-alt"></i> <span
+                class="menu-item-parent">{{'企业设置' | i18n}}</span></a>
+        <ul>
+          <li routerLinkActive="active">
+            <a routerLink="/forms/elements">{{'客户列表' | i18n}}</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+  <sa-minify-menu></sa-minify-menu>
+
+</aside>
