@@ -10,12 +10,15 @@ import {CookieService} from 'angular2-cookie/core';
 import {CookieStoreService} from '../shared/cookies/cookie-store.service';
 
 
+
 @NgModule({
   declarations: [
 
   ListStaffComponent,
 
-  ListProductComponent],
+  ListProductComponent,
+
+  ListClientComponent],
   imports: [
     SmartadminModule,
     SmartadminDatatableModule,

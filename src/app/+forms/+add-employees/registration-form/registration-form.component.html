@@ -19,6 +19,13 @@
           <b class="tooltip tooltip-bottom-right">请输入账号</b> </label>
       </section>
       <section class="col col-6">
+        <label class="label">姓名</label>
+        <label class="input"> <i class="icon-append fa fa-user"></i>
+          <input type="text" name="name" placeholder="姓名 "/>
+          <b class="tooltip tooltip-bottom-right">请输姓名</b> </label>
+      </section>
+
+      <section class="col col-6">
         <label class="label">角色</label>
         <label class="select">
           <select name="role" >
@@ -59,13 +66,7 @@
           <b class="tooltip tooltip-bottom-right">再次确定密码</b> </label>
       </section>
 
-      <section class="col col-6">
-        <label class="label">所属公司</label>
-        <label class="input"> <i class="icon-append fa fa-briefcase"></i>
-          <input name="company" placeholder="Company" placeholder="所属公司 " type="text">
-          <b class="tooltip tooltip-bottom-right">请输入所属公司</b>
-        </label>
-      </section>
+
 
       <section class="col col-6">
         <label class="label">联系电话</label>
@@ -80,22 +81,34 @@
 
     <section>
       <label class="label">所属部门</label>
-      <label class="select">
+      <div class="col col-10">
+        <label class="select">
         <select name="department" >
           <option value="0" disabled>选择所属部门</option>
           <option value="1">调度中心</option>
           <option value="2">综采队</option>
           <option value="3">综掘队</option>
-        </select> <i></i> </label>
+        </select> <i></i> </label></div>
+      <div class="col col-2">
+        <button type="button" class="btn btn-primary btn-sm btn-block">
+          添加部门
+        </button>
+      </div>
     </section>
-    <section>
-      <label class="label">备注说明</label>
-      <label class="textarea textarea-resizable">
-        <textarea class="custom-scroll" rows="3"></textarea>
-      </label>
-    </section>
-
   </fieldset>
+<fieldset>
+  <legend>备注说明</legend>
+  <section>
+  <label class="textarea textarea-resizable">
+    <textarea class="custom-scroll" rows="3"></textarea>
+  </label>
+</section>
+</fieldset>
+
+
+
+
+
   <fieldset>
     <legend>上传照片</legend>
     <section class="col col-6">
@@ -115,9 +128,12 @@
     <section class="col col-6">
       <label class="label">预览图</label>
       <label class="select">
-
+        <img class="" src="assets/img/demo/widget-colorpicker.png">
          </label>
     </section>
+
+
+
   </fieldset>
   <fieldset>
     <legend>其他信息</legend>
@@ -131,11 +147,22 @@
                saUiDatepicker date-format="dd/mm/yy" />
       </label>
     </section>
+
     <section class="col col-6">
-      <label class="label">职务</label>
-      <label class="input">
-        <input  name='job' placeholder="请输入职务名称"  type="text">
-      </label>
+      <label class="label ">职务</label>
+      <div class="col col-8">
+        <label class="select">
+          <select name="department" >
+            <option value="0" disabled>选择职务</option>
+            <option value="1">调度中心</option>
+            <option value="2">综采队</option>
+            <option value="3">综掘队</option>
+          </select> <i></i> </label></div>
+      <div class="col col-4">
+        <button type="button" class="btn btn-primary btn-sm btn-block">
+          添加职务
+        </button>
+      </div>
     </section>
     <section class="col col-6">
       <label class="label">选择合同类型</label>
@@ -149,51 +176,53 @@
     </section>
     <section class="col col-6">
       <label class="label">籍贯</label>
-      <label class="select">
-        <select name="native" >
-          <option value="0" disabled>选择籍贯</option>
-          <option value="1">全国</option>
-          <option value="2">四川</option>
-          <option value="3">河北</option>
-          <option value="4">山西</option>
-          <option value="5">吉林</option>
-          <option value="6">江苏</option>
-          <option value="7">浙江</option>
-          <option value="8">安徽</option>
-          <option value="9">江西</option>
-          <option value="10">山东</option>
-          <option value="11">河南</option>
-          <option value="12">广东</option>
-          <option value="13">海南</option>
-          <option value="14">云南</option>
-          <option value="15">内蒙古</option>
-          <option value="16">广西</option>
-          <option value="17">西藏</option>
-          <option value="18">宁夏</option>
-          <option value="19">新疆</option>
-          <option value="20">北京</option>
-          <option value="21">天津</option>
-          <option value="22">上海</option>
-          <option value="23">港澳台</option>
-          <option value="24">湖北</option>
-          <option value="25">福建</option>
-          <option value="26">湖南</option>
-          <option value="27">重庆</option>
-          <option value="28">陕西</option>
-          <option value="29">黑龙江</option>
-          <option value="30">青海</option>
-          <option value="31">甘肃</option>
-          <option value="32">辽宁</option>
-          <option value="33">贵州</option>
-          <option value="34">海外</option>
-          <option value="35">亚洲</option>
-          <option value="36">欧洲</option>
-          <option value="37">非洲</option>
-          <option value="38">南美洲</option>
-          <option value="39">北美洲</option>
-          <option value="40">大洋洲</option>
-          <option value="41">南极洲</option>
-        </select> <i></i> </label>
+      <div class="col col-6">
+        <label class="select ">
+          <select name="native" >
+            <option value="0" disabled>选择籍贯</option>
+            <option value="1">全国</option>
+            <option value="2">四川</option>
+            <option value="3">河北</option>
+            <option value="4">山西</option>
+            <option value="5">吉林</option>
+            <option value="6">江苏</option>
+            <option value="7">浙江</option>
+            <option value="8">安徽</option>
+            <option value="9">江西</option>
+            <option value="10">山东</option>
+            <option value="11">河南</option>
+            <option value="12">广东</option>
+            <option value="13">海南</option>
+            <option value="14">云南</option>
+            <option value="15">内蒙古</option>
+            <option value="16">广西</option>
+            <option value="17">西藏</option>
+            <option value="18">宁夏</option>
+            <option value="19">新疆</option>
+            <option value="20">北京</option>
+            <option value="21">天津</option>
+            <option value="22">上海</option>
+            <option value="23">港澳台</option>
+            <option value="24">湖北</option>
+            <option value="25">福建</option>
+            <option value="26">湖南</option>
+            <option value="27">重庆</option>
+            <option value="28">陕西</option>
+            <option value="29">黑龙江</option>
+            <option value="30">青海</option>
+            <option value="31">甘肃</option>
+            <option value="32">辽宁</option>
+            <option value="33">贵州</option>
+            <option value="34">海外</option>
+          </select> <i></i> </label>
+      </div>
+      <div class="col col-6">
+        <label class="select ">
+          <select name="native" >
+            <option value="0" disabled>选择籍贯</option>
+            <option value="1">全国</option>
+          </select> <i></i> </label>
+      </div>
     </section>
     <section class="col col-6">
       <label class="label">身份证号</label>
@@ -300,7 +329,7 @@
           <option value="6">硕士</option>
           <option value="7">博士</option>
           <option value="8">MBA/EMBA</option>
-        </select>  </label>
+        </select> <i></i> </label>
     </section>
 
     <section class="col col-6">
@@ -311,7 +340,7 @@
           <option value="1">全日制</option>
           <option value="2">成人考试</option>
           <option value="3">自学考试</option>
-        </select>  </label>
+        </select> <i></i> </label>
     </section>
     <section class="col col-6">
       <label class="label">个人邮箱</label>
@@ -329,7 +358,7 @@
       </section>
       <section class="col col-5">
         <label class="input"> <i class="icon-append fa fa-phone"></i>
-          <input name="phone" placeholder="请输入联系电话" samaskedinput="(999) 999-9999" type="tel" ng-reflect-sa-masked-input="(999) 999-9999" aria-required="true" class="valid" aria-invalid="false">
+          <input name="phone" placeholder="请输入固定电话" samaskedinput="(999) 999-9999" type="tel" ng-reflect-sa-masked-input="(999) 999-9999" aria-required="true" class="valid" aria-invalid="false">
         </label>
       </section>
 
@@ -341,13 +370,27 @@
   <fieldset>
     <section class="col col-6">
       <label class="label">家庭住址</label>
-      <label class="select">
-        <select name=" address" >
-          <option value="0" disabled>选择家庭住址</option>
-          <option value="1"></option>
-          <option value="2"></option>
-
-        </select>  </label>
+      <div class="col col-4">
+        <label class="select ">
+          <select name="native" >
+            <option value="0" disabled>选择籍贯</option>
+            <option value="1">全国</option>
+          </select> <i></i> </label>
+      </div>
+      <div class="col col-4">
+        <label class="select ">
+          <select name="native" >
+            <option value="0" disabled>选择籍贯</option>
+            <option value="1">全国</option>
+          </select> <i></i> </label>
+      </div>
+      <div class="col col-4">
+        <label class="select ">
+          <select name="native" >
+            <option value="0" disabled>选择籍贯</option>
+            <option value="1">全国</option>
+          </select> <i></i> </label>
+      </div>
     </section>
     <section class="col col-6">
       <label class="label">详细地址</label>

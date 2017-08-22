@@ -19,6 +19,11 @@ export const routes:Routes = [
         loadChildren: 'app/+forms/+add-employees/add-employees.module#AddEmployeesModule',
         data: {pageTitle: 'Employees'}
     },
+    {
+        path: 'customer',
+        loadChildren: 'app/+forms/add-customer/add-customer.module#AddCustomerModule',
+        data: {pageTitle: 'Customer'}
+    }
 ];
 
 export const routing = RouterModule.forChild(routes);
