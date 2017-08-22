@@ -2,334 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4c2508f7-1bb9-44d4-a67e-f499f01c05e3" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/css/i3ot-angular-next.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/css/i3ot-common.main.css" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/npm-debug.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+app-views/+blog/blog-routing.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+app-views/+blog/blog.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+app-views/+blog/blog.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+app-views/+blog/blog.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+app-views/+forum/+general-view/general-view-routing.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+app-views/+forum/+general-view/general-view.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+app-views/+forum/+general-view/general-view.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+app-views/+forum/+general-view/general-view.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+app-views/+forum/+post-view/post-view-routing.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+app-views/+forum/+post-view/post-view.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+app-views/+forum/+post-view/post-view.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+app-views/+forum/+post-view/post-view.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+app-views/+forum/+topic-view/topic-view-routing.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+app-views/+forum/+topic-view/topic-view.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+app-views/+forum/+topic-view/topic-view.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+app-views/+forum/+topic-view/topic-view.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+app-views/+forum/forum-routing.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+app-views/+forum/forum.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+app-views/+gallery/gallery-demo-routing.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+app-views/+gallery/gallery-demo.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+app-views/+gallery/gallery-demo.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+app-views/+gallery/gallery-demo.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+app-views/+profile/profile-routing.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+app-views/+profile/profile.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+app-views/+profile/profile.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+app-views/+profile/profile.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+app-views/+projects/projects-list-routing.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+app-views/+projects/projects-list.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+app-views/+projects/projects-list.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+app-views/+projects/projects-list.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+app-views/+timeline/timeline-routing.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+app-views/+timeline/timeline.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+app-views/+timeline/timeline.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+app-views/+timeline/timeline.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+app-views/app-views.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+app-views/app-views.routing.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+calendar/add-event/add-event.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+calendar/add-event/add-event.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+calendar/add-event/index.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+calendar/calendar-widget/calendar-widget.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+calendar/calendar-widget/calendar-widget.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+calendar/calendar-widget/index.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+calendar/calendar.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+calendar/calendar.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+calendar/calendar.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+calendar/calendar.routing.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+calendar/draggable-event/draggable-event.directive.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+calendar/draggable-event/index.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+calendar/external-events/external-events.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+calendar/external-events/external-events.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+calendar/external-events/index.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+calendar/shared/EVENTS_MOCK.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+calendar/shared/EXTERNAL_EVENTS_MOCK.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+calendar/shared/events.service.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+calendar/shared/index.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+dashboard/+analytics/analytics-routing.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+dashboard/+analytics/analytics.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+dashboard/+analytics/analytics.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+dashboard/+analytics/analytics.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+dashboard/+analytics/bird-eye/bird-eye.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+dashboard/+analytics/bird-eye/bird-eye.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+dashboard/+analytics/live-feeds/live-feeds.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+dashboard/+analytics/live-feeds/live-feeds.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+dashboard/+analytics/live-feeds/live-stats.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+dashboard/+analytics/live-feeds/live-stats.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+dashboard/+analytics/live-feeds/revenue.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+dashboard/+analytics/live-feeds/revenue.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+dashboard/+analytics/live-feeds/social-network.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+dashboard/+analytics/live-feeds/social-network.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+dashboard/+analytics/todo-widget/todo-list.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+dashboard/+analytics/todo-widget/todo-list.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+dashboard/+analytics/todo-widget/todo-widget.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+dashboard/+analytics/todo-widget/todo-widget.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+dashboard/+analytics/todo-widget/todo.service.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+dashboard/+analytics/todo-widget/todo.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+e-commerce/e-commerce.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+e-commerce/e-commerce.routing.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+e-commerce/orders/orders.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+e-commerce/orders/orders.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+e-commerce/product-details/product-details.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+e-commerce/product-details/product-details.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+e-commerce/products-view/products-view.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+e-commerce/products-view/products-view.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+e-commerce/shopping-cart/shopping-cart.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+e-commerce/shopping-cart/shopping-cart.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+bootstrap-editors/bootstrap-editors.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+bootstrap-editors/bootstrap-editors.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+bootstrap-editors/bootstrap-editors.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+bootstrap-editors/bootstrap-editors.routing.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+bootstrap-elements/bootstrap-elements.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+bootstrap-elements/bootstrap-elements.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+bootstrap-elements/bootstrap-elements.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+bootstrap-elements/bootstrap-elements.routing.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+bootstrap-validation/attribute-form/attribute-form.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+bootstrap-validation/attribute-form/attribute-form.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+bootstrap-validation/attribute-form/index.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+bootstrap-validation/bootstrap-validation.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+bootstrap-validation/bootstrap-validation.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+bootstrap-validation/bootstrap-validation.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+bootstrap-validation/bootstrap-validation.routing.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+bootstrap-validation/button-group-form/button-group-form.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+bootstrap-validation/button-group-form/button-group-form.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+bootstrap-validation/button-group-form/index.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+bootstrap-validation/contact-form/contact-form.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+bootstrap-validation/contact-form/contact-form.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+bootstrap-validation/contact-form/index.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+bootstrap-validation/movie-form/index.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+bootstrap-validation/movie-form/movie-form.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+bootstrap-validation/movie-form/movie-form.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+bootstrap-validation/product-form/index.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+bootstrap-validation/product-form/product-form.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+bootstrap-validation/product-form/product-form.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+bootstrap-validation/profile-form/index.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+bootstrap-validation/profile-form/profile-form.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+bootstrap-validation/profile-form/profile-form.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+bootstrap-validation/toggling-form/index.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+bootstrap-validation/toggling-form/toggling-form.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+bootstrap-validation/toggling-form/toggling-form.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+dropzone-showcase/dropzone-showcase.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+dropzone-showcase/dropzone-showcase.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+dropzone-showcase/dropzone-showcase.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+dropzone-showcase/dropzone-showcase.routing.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+form-layouts/checkout-form/checkout-form.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+form-layouts/checkout-form/checkout-form.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+form-layouts/checkout-form/index.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+form-layouts/comment-form/comment-form.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+form-layouts/comment-form/comment-form.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+form-layouts/comment-form/index.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+form-layouts/contact-form/contact-form.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+form-layouts/contact-form/contact-form.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+form-layouts/contact-form/index.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+form-layouts/form-layouts.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+form-layouts/form-layouts.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+form-layouts/form-layouts.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+form-layouts/form-layouts.routing.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+form-layouts/order-form/index.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+form-layouts/order-form/order-form.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+form-layouts/order-form/order-form.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+form-layouts/registration-form/index.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+form-layouts/registration-form/registration-form.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+form-layouts/registration-form/registration-form.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+form-layouts/review-form/index.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+form-layouts/review-form/review-form.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+form-layouts/review-form/review-form.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+form-plugins/duallistbox-widget/duallistbox-widget.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+form-plugins/duallistbox-widget/duallistbox-widget.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+form-plugins/form-plugins.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+form-plugins/form-plugins.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+form-plugins/form-plugins.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+form-plugins/form-plugins.routing.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+form-plugins/x-editable-widget/x-editable-widget.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+form-plugins/x-editable-widget/x-editable-widget.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+image-cropping/animations-panel/animations-panel.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+image-cropping/animations-panel/animations-panel.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+image-cropping/api-panel/api-panel.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+image-cropping/api-panel/api-panel.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+image-cropping/default-panel/default-panel.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+image-cropping/image-editor.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+image-cropping/image-editor.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+image-cropping/image-editor.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+image-cropping/image-editor.reducer.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+image-cropping/image-editor.routing.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+image-cropping/preview-panel/preview-panel.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+image-cropping/preview-panel/preview-panel.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+image-cropping/show-selection-panel/show-selection-panel.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+image-cropping/show-selection-panel/show-selection-panel.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+image-cropping/styling-panel/styling-panel.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+image-cropping/styling-panel/styling-panel.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+wizards/basic-wizard-widget/basic-wizard-widget.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+wizards/basic-wizard-widget/basic-wizard-widget.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+wizards/fuel-ux-wizard-widget/fuel-ux-wizard-widget.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+wizards/fuel-ux-wizard-widget/fuel-ux-wizard-widget.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+wizards/wizards.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+wizards/wizards.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+wizards/wizards.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+forms/+wizards/wizards.routing.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+graphs/+chart-js/chart-js-showcase.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+graphs/+chart-js/chart-js-showcase.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+graphs/+chart-js/chart-js-showcase.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+graphs/+chart-js/chart-js-showcase.routing.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+graphs/+dygraphs/dygraphs.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+graphs/+dygraphs/dygraphs.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+graphs/+dygraphs/dygraphs.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+graphs/+dygraphs/dygraphs.routing.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+graphs/+easy-pie-charts/easy-pie-charts.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+graphs/+easy-pie-charts/easy-pie-charts.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+graphs/+highchart-tables/highchart-tables.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+graphs/+highchart-tables/highchart-tables.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+graphs/+highchart-tables/highchart-tables.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+graphs/+highchart-tables/highchart-tables.routing.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+maps/maps.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+maps/maps.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+maps/maps.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+maps/maps.routing.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+maps/shared/google-api.service.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+maps/shared/index.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+maps/shared/map-style.service.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+miscellaneous/+blank/blank-routing.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+miscellaneous/+blank/blank.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+miscellaneous/+blank/blank.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+miscellaneous/+blank/blank.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+miscellaneous/+ckeditor/ckeditor-routing.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+miscellaneous/+ckeditor/ckeditor.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+miscellaneous/+ckeditor/ckeditor.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+miscellaneous/+ckeditor/ckeditor.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+miscellaneous/+email-template/email-template-routing.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+miscellaneous/+email-template/email-template.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+miscellaneous/+email-template/email-template.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+miscellaneous/+email-template/email-template.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+miscellaneous/+invoice/invoice-routing.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+miscellaneous/+invoice/invoice.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+miscellaneous/+invoice/invoice.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+miscellaneous/+invoice/invoice.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+miscellaneous/+pricing-tables/pricing-tables-routing.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+miscellaneous/+pricing-tables/pricing-tables.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+miscellaneous/+pricing-tables/pricing-tables.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+miscellaneous/+pricing-tables/pricing-tables.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+miscellaneous/+search/search-routing.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+miscellaneous/+search/search.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+miscellaneous/+search/search.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+miscellaneous/+search/search.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+outlook/compose/compose.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+outlook/compose/compose.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+outlook/details/details.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+outlook/details/details.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+outlook/folder/folder.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+outlook/folder/folder.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+outlook/outlook.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+outlook/outlook.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+outlook/outlook.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+outlook/outlook.routing.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+outlook/replay/replay.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+outlook/replay/replay.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+outlook/shared/message-labels.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+outlook/shared/outlook-message.class.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+outlook/shared/outlook.service.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+outlook/shared/outlook.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+smartadmin-intel/app-layouts/app-layouts.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+smartadmin-intel/app-layouts/app-layouts.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+smartadmin-intel/prebuilt-skins/prebuilt-skins.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+smartadmin-intel/prebuilt-skins/prebuilt-skins.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+smartadmin-intel/smartadmin-intel.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+smartadmin-intel/smartadmin-intel.routing.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+tables/+datatables-showcase/datatables-rest-demo.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+tables/+datatables-showcase/datatables-rest-demo.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+tables/+datatables-showcase/datatables-showcase.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+tables/+datatables-showcase/datatables-showcase.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+tables/+normal-tables/normal-tables.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+tables/+normal-tables/normal-tables.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+buttons/buttons.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+buttons/buttons.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+buttons/buttons.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+buttons/buttons.routing.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+general-elements/general-elements.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+general-elements/general-elements.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+general-elements/general-elements.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+general-elements/general-elements.routing.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+grid/grid.component.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+grid/grid.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+grid/grid.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+grid/grid.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+grid/grid.routing.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+icons/+flags/flags.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+icons/+flags/flags.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+icons/+font-awesome/font-awesome.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+icons/+font-awesome/font-awesome.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+icons/+glyphicons/glyphicons.component.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+icons/+glyphicons/glyphicons.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+icons/+glyphicons/glyphicons.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+icons/icons.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+icons/icons.routing.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+jquery-ui/jquery-ui.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+jquery-ui/jquery-ui.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+jquery-ui/jquery-ui.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+jquery-ui/jquery-ui.routing.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+nestable-lists/nestable-lists.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+nestable-lists/nestable-lists.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+nestable-lists/nestable-lists.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+nestable-lists/nestable-lists.routing.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+tree-views/tree-views.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+tree-views/tree-views.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+tree-views/tree-views.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+tree-views/tree-views.routing.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+typography/typography.component.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+typography/typography.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+typography/typography.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+typography/typography.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/+typography/typography.routing.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/ui-elements.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+ui-elements/ui-elements.routing.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+widgets/widgets-showcase.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+widgets/widgets-showcase.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+widgets/widgets-showcase.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/+widgets/widgets-showcase.routing.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/assets/css/smartadmin-production.min.css" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/+forms/add-customer/add-customer-routing.module.ts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/+forms/add-customer/add-customer.component.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/+forms/add-customer/add-customer.component.ts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/+forms/add-customer/add-customer.module.ts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/+tables/list-client/list-client.component.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/+tables/list-client/list-client.component.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+auth/+forgot/forgot.component.html" afterPath="$PROJECT_DIR$/src/app/+auth/+forgot/forgot.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+auth/+forgot/forgot.component.ts" afterPath="$PROJECT_DIR$/src/app/+auth/+forgot/forgot.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+auth/+locked/locked.component.ts" afterPath="$PROJECT_DIR$/src/app/+auth/+locked/locked.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+auth/+login/login.component.html" afterPath="$PROJECT_DIR$/src/app/+auth/+login/login.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+auth/+login/login.component.ts" afterPath="$PROJECT_DIR$/src/app/+auth/+login/login.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+auth/+register/register.component.html" afterPath="$PROJECT_DIR$/src/app/+auth/+register/register.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+dashboard/+social/social.component.html" afterPath="$PROJECT_DIR$/src/app/+dashboard/+social/social.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+dashboard/dashboard.routing.ts" afterPath="$PROJECT_DIR$/src/app/+dashboard/dashboard.routing.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+forms/+form-elements/form-elements.component.html" afterPath="$PROJECT_DIR$/src/app/+forms/+form-elements/form-elements.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+forms/+form-validation/form-validation.component.html" afterPath="$PROJECT_DIR$/src/app/+forms/+form-validation/form-validation.component.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+forms/+add-employees/registration-form/registration-form.component.html" afterPath="$PROJECT_DIR$/src/app/+forms/+add-employees/registration-form/registration-form.component.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+forms/forms-showcase.module.ts" afterPath="$PROJECT_DIR$/src/app/+forms/forms-showcase.module.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+forms/forms-showcase.routing.ts" afterPath="$PROJECT_DIR$/src/app/+forms/forms-showcase.routing.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+graphs/+flot-charts/flot-charts.component.html" afterPath="$PROJECT_DIR$/src/app/+graphs/+flot-charts/flot-charts.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+graphs/+morris-charts/morris-charts.component.html" afterPath="$PROJECT_DIR$/src/app/+graphs/+morris-charts/morris-charts.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+graphs/+sparklines/sparklines.component.html" afterPath="$PROJECT_DIR$/src/app/+graphs/+sparklines/sparklines.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+graphs/graphs-showcase.module.ts" afterPath="$PROJECT_DIR$/src/app/+graphs/graphs-showcase.module.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+graphs/graphs-showcase.routing.ts" afterPath="$PROJECT_DIR$/src/app/+graphs/graphs-showcase.routing.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+miscellaneous/miscellaneous.routing.ts" afterPath="$PROJECT_DIR$/src/app/+miscellaneous/miscellaneous.routing.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+tables/tables.module.ts" afterPath="$PROJECT_DIR$/src/app/+tables/tables.module.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+tables/tables.routing.ts" afterPath="$PROJECT_DIR$/src/app/+tables/tables.routing.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/app.component.ts" afterPath="$PROJECT_DIR$/src/app/app.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/app.routing.ts" afterPath="$PROJECT_DIR$/src/app/app.routing.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/shared/layout/footer/footer.component.html" afterPath="$PROJECT_DIR$/src/app/shared/layout/footer/footer.component.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/shared/layout/navigation/navigation.component.html" afterPath="$PROJECT_DIR$/src/app/shared/layout/navigation/navigation.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/shared/layout/shortcut/shortcut.component.html" afterPath="$PROJECT_DIR$/src/app/shared/layout/shortcut/shortcut.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/shared/smartadmin.config.ts" afterPath="$PROJECT_DIR$/src/app/shared/smartadmin.config.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/shared/smartadmin.module.ts" afterPath="$PROJECT_DIR$/src/app/shared/smartadmin.module.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/index.html" afterPath="$PROJECT_DIR$/src/index.html" />
     </list>
     <ignored path="$PROJECT_DIR$/dist/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -345,22 +30,70 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="list-staff.component.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/app/+tables/list-staff/list-staff.component.html">
+      <file leaf-file-name="add-customer.module.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/+forms/add-customer/add-customer.module.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="50">
-              <caret line="2" column="23" lean-forward="false" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="23" />
+            <state relative-caret-position="175">
+              <caret line="13" column="28" lean-forward="true" selection-start-line="13" selection-start-column="28" selection-end-line="13" selection-end-column="28" />
               <folding>
-                <element signature="n#tr#5;n#tbody#0;n#sa-datatable#0;n#div#0;n#div#0;n#sa-widget#0;n#div#0;n#!!top" expanded="false" />
-                <element signature="n#tr#6;n#tbody#0;n#sa-datatable#0;n#div#0;n#div#0;n#sa-widget#0;n#div#0;n#!!top" expanded="false" />
-                <element signature="n#tr#7;n#tbody#0;n#sa-datatable#0;n#div#0;n#div#0;n#sa-widget#0;n#div#0;n#!!top" expanded="false" />
-                <element signature="n#tr#8;n#tbody#0;n#sa-datatable#0;n#div#0;n#div#0;n#sa-widget#0;n#div#0;n#!!top" expanded="false" />
-                <element signature="n#tr#9;n#tbody#0;n#sa-datatable#0;n#div#0;n#div#0;n#sa-widget#0;n#div#0;n#!!top" expanded="false" />
-                <element signature="n#tr#10;n#tbody#0;n#sa-datatable#0;n#div#0;n#div#0;n#sa-widget#0;n#div#0;n#!!top" expanded="false" />
-                <marker date="1503292050469" expanded="true" signature="587:1082" ph="{&quot;ajax&quot;: 'assets/api/tables/enterprise.staff.json'...}" />
-                <marker date="1503292050469" expanded="true" signature="692:989" ph="[...]" />
-                <marker date="1503292050469" expanded="true" signature="1017:1063" ph="[...]" />
+                <element signature="e#0#41#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="forms-showcase.routing.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/+forms/forms-showcase.routing.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="177">
+              <caret line="23" column="33" lean-forward="true" selection-start-line="23" selection-start-column="33" selection-end-line="23" selection-end-column="33" />
+              <folding>
+                <element signature="e#1#50#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="add-employees.component.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/+forms/+add-employees/add-employees.component.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="275">
+              <caret line="11" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="forms-showcase.module.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/+forms/forms-showcase.module.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="12" column="2" lean-forward="true" selection-start-line="12" selection-start-column="2" selection-end-line="12" selection-end-column="2" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="form-elements.module.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/+forms/+form-elements/form-elements.module.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="200">
+              <caret line="12" column="38" lean-forward="false" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="38" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="add-customer.component.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/+forms/add-customer/add-customer.component.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="9639">
+              <caret line="413" column="0" lean-forward="true" selection-start-line="413" selection-start-column="0" selection-end-line="414" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -368,8 +101,8 @@
       <file leaf-file-name="registration-form.component.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/app/+forms/+add-employees/registration-form/registration-form.component.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="296">
-              <caret line="141" column="23" lean-forward="false" selection-start-line="141" selection-start-column="23" selection-end-line="141" selection-end-column="23" />
+            <state relative-caret-position="377">
+              <caret line="133" column="0" lean-forward="false" selection-start-line="133" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -378,9 +111,31 @@
       <file leaf-file-name="navigation.component.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/shared/layout/navigation/navigation.component.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1375">
-              <caret line="55" column="42" lean-forward="false" selection-start-line="55" selection-start-column="34" selection-end-line="55" selection-end-column="42" />
+            <state relative-caret-position="175">
+              <caret line="58" column="42" lean-forward="false" selection-start-line="58" selection-start-column="34" selection-end-line="58" selection-end-column="42" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.routing.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/app.routing.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="250">
+              <caret line="31" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="add-customer-routing.module.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/+forms/add-customer/add-customer-routing.module.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -460,7 +215,6 @@
         <option value="$PROJECT_DIR$/src/app/+forms/+add-employees/employee-form/employee-form.component.ts" />
         <option value="$PROJECT_DIR$/src/app/+forms/+add-employees/employee-form/index.ts" />
         <option value="$PROJECT_DIR$/src/app/+forms/+add-employees/add-employees-routing.module.ts" />
-        <option value="$PROJECT_DIR$/src/app/+forms/forms-showcase.routing.ts" />
         <option value="$PROJECT_DIR$/src/app/+forms/+add-employees/add-employees.component.spec.ts" />
         <option value="$PROJECT_DIR$/src/app/+forms/+add-employees/add-employees.component.ts" />
         <option value="$PROJECT_DIR$/src/app/+forms/+add-employees/add-employees.module.ts" />
@@ -468,12 +222,20 @@
         <option value="$PROJECT_DIR$/src/app/+tables/list-product/list-product.component.ts" />
         <option value="$PROJECT_DIR$/src/app/+tables/list-product/list-product.component.html" />
         <option value="$PROJECT_DIR$/src/app/+forms/+add-employees/add-employees.component.html" />
-        <option value="$PROJECT_DIR$/src/app/+tables/tables.routing.ts" />
         <option value="$PROJECT_DIR$/src/app/+tables/tables.module.ts" />
         <option value="$PROJECT_DIR$/src/app/+forms/+add-employees/registration-form/registration-form.component.ts" />
         <option value="$PROJECT_DIR$/src/assets/css/smartadmin-production.min.css" />
         <option value="$PROJECT_DIR$/src/app/+tables/list-staff/list-staff.component.html" />
+        <option value="$PROJECT_DIR$/src/app/+tables/list-client/list-client.component.ts" />
+        <option value="$PROJECT_DIR$/src/app/+tables/tables.routing.ts" />
+        <option value="$PROJECT_DIR$/src/app/+tables/list-client/list-client.component.html" />
+        <option value="$PROJECT_DIR$/src/app/+forms/add-customer/add-customer.component.ts" />
+        <option value="$PROJECT_DIR$/src/app/+forms/forms-showcase.module.ts" />
+        <option value="$PROJECT_DIR$/src/app/+forms/add-customer/add-customer-routing.module.ts" />
+        <option value="$PROJECT_DIR$/src/app/+forms/add-customer/add-customer.module.ts" />
         <option value="$PROJECT_DIR$/src/app/shared/layout/navigation/navigation.component.html" />
+        <option value="$PROJECT_DIR$/src/app/+forms/forms-showcase.routing.ts" />
+        <option value="$PROJECT_DIR$/src/app/+forms/add-customer/add-customer.component.html" />
         <option value="$PROJECT_DIR$/src/app/+forms/+add-employees/registration-form/registration-form.component.html" />
       </list>
     </option>
@@ -498,10 +260,10 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="652" />
-    <option name="y" value="46" />
+    <option name="x" value="411" />
+    <option name="y" value="70" />
     <option name="width" value="1225" />
-    <option name="height" value="915" />
+    <option name="height" value="923" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -522,6 +284,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -545,13 +308,88 @@
               <item name="i3ot-project" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="+forms" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="i3ot-project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="i3ot-project" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="+forms" type="462c0819:PsiDirectoryNode" />
+              <item name="+add-employees" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="i3ot-project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="i3ot-project" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="+forms" type="462c0819:PsiDirectoryNode" />
+              <item name="+add-employees" type="462c0819:PsiDirectoryNode" />
+              <item name="registration-form" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="i3ot-project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="i3ot-project" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="+forms" type="462c0819:PsiDirectoryNode" />
+              <item name="add-customer" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="i3ot-project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="i3ot-project" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="+tables" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="i3ot-project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="i3ot-project" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="+tables" type="462c0819:PsiDirectoryNode" />
+              <item name="list-client" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="i3ot-project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="i3ot-project" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="shared" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="i3ot-project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="i3ot-project" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="shared" type="462c0819:PsiDirectoryNode" />
+              <item name="layout" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="i3ot-project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="i3ot-project" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="shared" type="462c0819:PsiDirectoryNode" />
+              <item name="layout" type="462c0819:PsiDirectoryNode" />
+              <item name="navigation" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="i3ot-project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="i3ot-project" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="i3ot-project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="i3ot-project" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="environments" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -646,12 +484,13 @@
       <workItem from="1503043189257" duration="4557000" />
       <workItem from="1503277459821" duration="11663000" />
       <workItem from="1503294510463" duration="2001000" />
-      <workItem from="1503298338224" duration="47000" />
+      <workItem from="1503298338224" duration="3661000" />
+      <workItem from="1503363547788" duration="7872000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="155504000" />
+    <option name="totallyTimeSpent" value="166990000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -663,7 +502,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="652" y="46" width="1225" height="915" extended-state="0" />
+    <frame x="411" y="70" width="1225" height="923" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32162923" sideWeight="0.4963899" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31676495" sideWeight="0.4847397" order="0" side_tool="false" content_ui="combo" />
@@ -673,7 +513,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3258427" sideWeight="0.7563177" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32761732" sideWeight="0.51526034" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2991014" sideWeight="0.66787004" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29479036" sideWeight="0.66787004" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32761732" sideWeight="0.50784314" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -756,25 +596,6 @@
     <select />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/app/enterprise/staff/staff.component.html" />
-    <entry file="file://$PROJECT_DIR$/src/app/enterprise/staff/staff.component.ts" />
-    <entry file="file://$PROJECT_DIR$/src/app/+tables/list-staff/list-staff.component.spec.ts" />
-    <entry file="file://$PROJECT_DIR$/src/app/enterprise/staff/staff.component.css" />
-    <entry file="file://$PROJECT_DIR$/src/app/+forms/+form-validation/form-validation.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+forms/forms-showcase.module.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="9" column="4" lean-forward="true" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+forms/+add-employees/employee-form/index.ts" />
     <entry file="file://$PROJECT_DIR$/src/app/+forms/+add-employees/employee-form/employee-form.component.html" />
     <entry file="file://$PROJECT_DIR$/src/app/+forms/+add-employees/employee-form/employee-form.component.ts" />
     <entry file="file://$PROJECT_DIR$/src/app/+forms/+add-employees/add-employees.component.spec.ts" />
@@ -782,13 +603,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="25">
           <caret line="1046" column="0" lean-forward="false" selection-start-line="1046" selection-start-column="0" selection-end-line="1047" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+forms/forms-showcase.routing.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="19" column="36" lean-forward="false" selection-start-line="19" selection-start-column="27" selection-end-line="19" selection-end-column="36" />
         </state>
       </provider>
     </entry>
@@ -806,13 +620,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+forms/+form-elements/form-elements.module.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="10" column="20" lean-forward="false" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/+forms/+form-elements/form-elements.routing.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="25">
@@ -827,69 +634,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+forms/+form-layouts/form-layouts.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-975">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+forms/+form-layouts/form-layouts.module.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-375">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+forms/+form-layouts/form-layouts.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+forms/+form-layouts/registration-form/registration-form.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-250">
-          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+forms/+form-layouts/form-layouts.routing.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+forms/+add-employees/add-employees.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="5" column="30" lean-forward="false" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+forms/+add-employees/add-employees-routing.module.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="9" column="22" lean-forward="false" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+forms/+add-employees/registration-form/index.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25">
-          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+forms/+add-employees/add-employees.module.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
-          <caret line="19" column="35" lean-forward="false" selection-start-line="19" selection-start-column="35" selection-end-line="19" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/+forms/+form-layouts/form-layouts.component.html" />
+    <entry file="file://$PROJECT_DIR$/src/app/+forms/+form-layouts/form-layouts.module.ts" />
+    <entry file="file://$PROJECT_DIR$/src/app/+forms/+form-layouts/form-layouts.component.ts" />
+    <entry file="file://$PROJECT_DIR$/src/app/+forms/+form-layouts/registration-form/registration-form.component.html" />
+    <entry file="file://$PROJECT_DIR$/src/app/+forms/+form-layouts/form-layouts.routing.ts" />
     <entry file="file://$PROJECT_DIR$/src/assets/css/i3ot-common.main.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="436">
@@ -901,13 +650,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-125">
           <caret line="46" column="10" lean-forward="false" selection-start-line="46" selection-start-column="10" selection-end-line="46" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/app.routing.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-156">
-          <caret line="31" column="8" lean-forward="true" selection-start-line="31" selection-start-column="8" selection-end-line="31" selection-end-column="8" />
         </state>
       </provider>
     </entry>
@@ -923,7 +665,7 @@
         <state relative-caret-position="200">
           <caret line="8" column="34" lean-forward="false" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="34" />
           <folding>
-            <element signature="e#0#40#0" expanded="true" />
+            <element signature="e#0#40#0" expanded="false" />
             <marker date="1495895804000" expanded="true" signature="209:265" ph="..." />
           </folding>
         </state>
@@ -943,53 +685,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+tables/list-product/list-product.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="6" column="25" lean-forward="false" selection-start-line="6" selection-start-column="25" selection-end-line="6" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+tables/tables.module.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="11" column="17" lean-forward="true" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+tables/tables.routing.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="11" column="34" lean-forward="true" selection-start-line="11" selection-start-column="34" selection-end-line="11" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+forms/+form-layouts/review-form/review-form.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="3" column="11" lean-forward="true" selection-start-line="3" selection-start-column="11" selection-end-line="3" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/+forms/+form-layouts/review-form/review-form.component.html" />
     <entry file="file://$PROJECT_DIR$/src/assets/css/smartadmin-production.min.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="500">
           <caret line="41" column="13" lean-forward="true" selection-start-line="41" selection-start-column="13" selection-end-line="41" selection-end-column="13" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+forms/+add-employees/registration-form/registration-form.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="8" column="1" lean-forward="false" selection-start-line="8" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+forms/+add-employees/add-employees.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1475">
-          <caret line="59" column="0" lean-forward="false" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1029,10 +730,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="56" column="37" lean-forward="true" selection-start-line="56" selection-start-column="37" selection-end-line="56" selection-end-column="37" />
-          <folding>
-            <marker date="1495895804000" expanded="true" signature="238:287" ph="..." />
-            <marker date="1495895804000" expanded="true" signature="2484:2534" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1041,7 +738,7 @@
         <state relative-caret-position="-1944">
           <caret line="21" column="19" lean-forward="false" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
           <folding>
-            <element signature="e#0#82#0" expanded="true" />
+            <element signature="e#0#82#0" expanded="false" />
             <marker date="1495895804000" expanded="true" signature="256:295" ph="..." />
           </folding>
         </state>
@@ -1052,7 +749,7 @@
         <state relative-caret-position="470">
           <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
           <folding>
-            <element signature="e#0#57#0" expanded="true" />
+            <element signature="e#0#57#0" expanded="false" />
             <marker date="1495895804000" expanded="true" signature="333:382" ph="..." />
           </folding>
         </state>
@@ -1065,36 +762,181 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/shared/layout/navigation/navigation.component.html">
+    <entry file="file://$PROJECT_DIR$/src/app/+tables/list-product/list-product.component.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1375">
-          <caret line="55" column="42" lean-forward="false" selection-start-line="55" selection-start-column="34" selection-end-line="55" selection-end-column="42" />
-          <folding />
+        <state relative-caret-position="125">
+          <caret line="6" column="25" lean-forward="false" selection-start-line="6" selection-start-column="25" selection-end-line="6" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/+tables/list-client/list-client.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="4" column="46" lean-forward="false" selection-start-line="4" selection-start-column="46" selection-end-line="4" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/+tables/tables.routing.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="393">
+          <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/+tables/list-staff/list-staff.component.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="50">
-          <caret line="2" column="23" lean-forward="false" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="23" />
+        <state relative-caret-position="225">
+          <caret line="9" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/+tables/tables.module.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="21" lean-forward="true" selection-start-line="20" selection-start-column="21" selection-end-line="20" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/+tables/list-client/list-client.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="14" column="9" lean-forward="true" selection-start-line="14" selection-start-column="9" selection-end-line="14" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/+forms/+add-employees/registration-form/registration-form.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="8" column="19" lean-forward="true" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/+forms/+add-employees/registration-form/index.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="44" lean-forward="false" selection-start-line="0" selection-start-column="35" selection-end-line="0" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/+forms/+add-employees/add-employees.module.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25">
+          <caret line="1" column="34" lean-forward="true" selection-start-line="1" selection-start-column="34" selection-end-line="1" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/+forms/+add-employees/add-employees.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="5" column="30" lean-forward="false" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/+forms/+add-employees/add-employees-routing.module.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="7" lean-forward="true" selection-start-line="0" selection-start-column="7" selection-end-line="0" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/+forms/add-customer/add-customer.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="6" column="24" lean-forward="false" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
           <folding>
-            <element signature="n#tr#5;n#tbody#0;n#sa-datatable#0;n#div#0;n#div#0;n#sa-widget#0;n#div#0;n#!!top" expanded="false" />
-            <element signature="n#tr#6;n#tbody#0;n#sa-datatable#0;n#div#0;n#div#0;n#sa-widget#0;n#div#0;n#!!top" expanded="false" />
-            <element signature="n#tr#7;n#tbody#0;n#sa-datatable#0;n#div#0;n#div#0;n#sa-widget#0;n#div#0;n#!!top" expanded="false" />
-            <element signature="n#tr#8;n#tbody#0;n#sa-datatable#0;n#div#0;n#div#0;n#sa-widget#0;n#div#0;n#!!top" expanded="false" />
-            <element signature="n#tr#9;n#tbody#0;n#sa-datatable#0;n#div#0;n#div#0;n#sa-widget#0;n#div#0;n#!!top" expanded="false" />
-            <element signature="n#tr#10;n#tbody#0;n#sa-datatable#0;n#div#0;n#div#0;n#sa-widget#0;n#div#0;n#!!top" expanded="false" />
-            <marker date="1503292050469" expanded="true" signature="587:1082" ph="{&quot;ajax&quot;: 'assets/api/tables/enterprise.staff.json'...}" />
-            <marker date="1503292050469" expanded="true" signature="692:989" ph="[...]" />
-            <marker date="1503292050469" expanded="true" signature="1017:1063" ph="[...]" />
+            <element signature="e#0#50#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/+forms/+form-elements/form-elements.module.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="12" column="38" lean-forward="false" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/+forms/forms-showcase.module.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="12" column="2" lean-forward="true" selection-start-line="12" selection-start-column="2" selection-end-line="12" selection-end-column="2" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/+forms/add-customer/add-customer.module.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="13" column="28" lean-forward="true" selection-start-line="13" selection-start-column="28" selection-end-line="13" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/shared/layout/navigation/navigation.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="58" column="42" lean-forward="false" selection-start-line="58" selection-start-column="34" selection-end-line="58" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/app.routing.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="31" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/+forms/add-customer/add-customer-routing.module.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/+forms/forms-showcase.routing.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="23" column="33" lean-forward="true" selection-start-line="23" selection-start-column="33" selection-end-line="23" selection-end-column="33" />
+          <folding>
+            <element signature="e#1#50#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/+forms/+add-employees/add-employees.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="11" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/+forms/add-customer/add-customer.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9639">
+          <caret line="413" column="0" lean-forward="true" selection-start-line="413" selection-start-column="0" selection-end-line="414" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/+forms/+add-employees/registration-form/registration-form.component.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="141" column="23" lean-forward="false" selection-start-line="141" selection-start-column="23" selection-end-line="141" selection-end-column="23" />
+        <state relative-caret-position="377">
+          <caret line="133" column="0" lean-forward="false" selection-start-line="133" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
           <folding />
         </state>
       </provider>

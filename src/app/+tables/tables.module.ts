@@ -6,6 +6,7 @@ import {routing} from './tables.routing';
 import {SmartadminDatatableModule} from "../shared/ui/datatable/smartadmin-datatable.module";
 import { ListStaffComponent } from './list-staff/list-staff.component';
 import { ListProductComponent } from './list-product/list-product.component';
+import { ListClientComponent } from './list-client/list-client.component';
 
 
 @NgModule({
@@ -13,7 +14,9 @@ import { ListProductComponent } from './list-product/list-product.component';
 
   ListStaffComponent,
 
-  ListProductComponent],
+  ListProductComponent,
+
+  ListClientComponent],
   imports: [
     SmartadminModule,
     SmartadminDatatableModule,
