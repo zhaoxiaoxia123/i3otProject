@@ -18,7 +18,8 @@ import {CookieStoreService} from '../shared/cookies/cookie-store.service';
 
   ListProductComponent,
 
-  ListClientComponent],
+  // ListClientComponent
+  ],
   imports: [
     SmartadminModule,
     SmartadminDatatableModule,
