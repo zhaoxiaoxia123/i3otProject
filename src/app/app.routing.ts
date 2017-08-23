@@ -30,6 +30,11 @@ export const routes: Routes = [
         loadChildren: 'app/+forms/forms-showcase.module#FormsShowcaseModule',
         data: {pageTitle: 'Forms'}
       },
+        {
+            path: 'management',
+            loadChildren: 'app/+management/management.module#ManagementModule',
+            data: {pageTitle: 'Management'}
+        },
       {
         path: 'graphs',
         loadChildren: 'app/+graphs/graphs-showcase.module#GraphsShowcaseModule',
@@ -43,7 +48,7 @@ export const routes: Routes = [
     ]
   },
   {path: 'auth', component: AuthLayoutComponent, loadChildren: 'app/+auth/auth.module#AuthModule'},
-  {path: '**', redirectTo: 'miscellaneous/error404'}
+  // {path: '**', redirectTo: 'miscellaneous/error404'}
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(routes, {useHash: true});
