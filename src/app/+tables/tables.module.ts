@@ -8,6 +8,7 @@ import { ListStaffComponent } from './list-staff/list-staff.component';
 import { ListProductComponent } from './list-product/list-product.component';
 import {CookieService} from 'angular2-cookie/core';
 import {CookieStoreService} from '../shared/cookies/cookie-store.service';
+import {ListClientComponent} from './list-client/list-client.component';
 
 
 
@@ -18,7 +19,7 @@ import {CookieStoreService} from '../shared/cookies/cookie-store.service';
 
   ListProductComponent,
 
-  // ListClientComponent
+    ListClientComponent,
   ],
   imports: [
     SmartadminModule,

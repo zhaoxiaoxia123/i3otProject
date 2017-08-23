@@ -1,35 +1,26 @@
-<form id="smart-form-register" class="smart-form">
+<form id="smart-form-register" class="smart-form"  [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate>
 
   <fieldset>
     <legend>主要信息</legend>
     <div class="row">
-<!--      <section class="col col-6">
-        <label class="label">ID</label>
-
-        <div class="input-group">
-          <input class="form-control" disabled="disabled" placeholder="提交后自动生成" type="text">
-          <span class="input-group-addon"><i class="fa fa-warning"></i></span>
-        </div>
-      </section>-->
-
       <section class="col col-6">
-        <label class="label">账号</label>
+        <label class="label">员工编号</label>
         <label class="input"> <i class="icon-append fa fa-user"></i>
-          <input type="text" name="account" placeholder="账号 "/>
-          <b class="tooltip tooltip-bottom-right">请输入账号</b> </label>
+          <input type="text" name="employee_id" placeholder="员工编号 " maxlength="20" formControlName="employee_id"/>
+          <b class="tooltip tooltip-bottom-right">请输入员工编号</b> </label>
       </section>
       <section class="col col-6">
         <label class="label">姓名</label>
         <label class="input"> <i class="icon-append fa fa-user"></i>
-          <input type="text" name="name" placeholder="姓名 "/>
+          <input type="text" name="name" placeholder="姓名 " maxlength="20" formControlName="name"/>
           <b class="tooltip tooltip-bottom-right">请输姓名</b> </label>
       </section>
 
       <section class="col col-6">
         <label class="label">角色</label>
         <label class="select">
-          <select name="role" >
-            <option value="0" disabled>选择角色</option>
+          <select name="role"  formControlName="role">
+            <option value="0" selected>选择角色</option>
             <option value="1">管理员</option>
             <option value="2">员工</option>
           </select> <i></i> </label>
@@ -37,8 +28,8 @@
       <section class="col col-6">
         <label class="label">性别</label>
         <label class="select">
-          <select name="gender" >
-            <option value="0" disabled>选择性别</option>
+          <select name="gender" formControlName="gender" >
+            <option value="0" selected>选择性别</option>
             <option value="1">男</option>
             <option value="2">女</option>
             <option value="3">暂不回答</option>
@@ -47,44 +38,51 @@
       <section class="col col-6">
         <label class="label">年龄</label>
         <label class="input">
-          <input name="age" placeholder="请输入年龄" type="number">
+          <input name="age" formControlName="age" placeholder="请输入年龄" type="number"  maxlength="3">
         </label>
       </section>
 
-
+      <div formGroupName="passwords">
       <section class="col col-6">
         <label class="label">密码</label>
         <label class="input"> <i class="icon-append fa fa-lock"></i>
-          <input type="password" name="password" placeholder="密码" id="password"/>
-          <b class="tooltip tooltip-bottom-right">请输入密码</b> </label>
+          <input type="password" name="password" placeholder="密码" id="password" maxlength="16" minlength="6" formControlName="password"/>
+          <b class="tooltip tooltip-bottom-right">请输入密码</b>
+          <div [hidden]="!formModel.hasError('minlength',['passwords','password'])">
+            用户名最小长度是6
+          </div>
+        </label>
       </section>
 
       <section class="col col-6">
         <label class="label">确定密码</label>
         <label class="input"> <i class="icon-append fa fa-lock"></i>
-          <input type="password" name="passwordConfirm" placeholder="确认密码"/>
-          <b class="tooltip tooltip-bottom-right">再次确定密码</b> </label>
+          <input type="password" name="pconfirm" placeholder="确认密码" maxlength="16" minlength="6" formControlName="pconfirm"/>
+          <b class="tooltip tooltip-bottom-right">再次确定密码</b>
+          <div [hidden]="!formModel.hasError('valid','passwords')">
+            {{formModel.getError('valid','passwords')?.desc}}
+          </div>
+        </label>
       </section>
+      </div>
 
 
 
       <section class="col col-6">
         <label class="label">联系电话</label>
         <label class="input"> <i class="icon-append fa fa-phone"></i>
-          <input name="phone" placeholder="请输入联系电话" samaskedinput="(999) 999-9999" type="tel" ng-reflect-sa-masked-input="(999) 999-9999" aria-required="true" class="valid" aria-invalid="false">
+          <input name="phone" formControlName="phone" placeholder="请输入联系电话" aria-required="true" class="valid" aria-invalid="false" maxlength="11">
         </label>
       </section>
 
-
     </div>
-
 
     <section>
       <label class="label">所属部门</label>
       <div class="col col-10">
         <label class="select">
-        <select name="department" >
-          <option value="0" disabled>选择所属部门</option>
+        <select name="department"  formControlName="department">
+          <option value="0"  selected>选择所属部门</option>
           <option value="1">调度中心</option>
           <option value="2">综采队</option>
           <option value="3">综掘队</option>
@@ -100,7 +98,7 @@
   <legend>备注说明</legend>
   <section>
   <label class="textarea textarea-resizable">
-    <textarea class="custom-scroll" rows="3"></textarea>
+    <textarea class="custom-scroll" rows="3" name="notes" formControlName="notes"></textarea>
   </label>
 </section>
 </fieldset>
@@ -143,8 +141,8 @@
     <section class="col col-6">
       <label class="label">入职时间</label>
       <label class="input"> <i class="icon-append fa fa-calendar"></i>
-        <input type="text" name="hiredate" placeholder="入职时间"
-               saUiDatepicker date-format="dd/mm/yy" />
+        <input type="text" name="enrol_time" placeholder="入职时间"
+               saUiDatepicker date-format="dd/mm/yy"  formControlName="enrol_time"/>
       </label>
     </section>
 
@@ -152,8 +150,8 @@
       <label class="label ">职务</label>
       <div class="col col-8">
         <label class="select">
-          <select name="department" >
-            <option value="0" disabled>选择职务</option>
+          <select name="position"  formControlName="position">
+            <option value="0" selected>选择职务</option>
             <option value="1">调度中心</option>
             <option value="2">综采队</option>
             <option value="3">综掘队</option>
@@ -167,8 +165,8 @@
     <section class="col col-6">
       <label class="label">选择合同类型</label>
       <label class="select">
-        <select name="contract" >
-          <option value="0" disabled>合同类型</option>
+        <select name="contract_type" formControlName="contract_type">
+          <option value="0" selected>合同类型</option>
           <option value="1">固定期限</option>
           <option value="2">无固定期限</option>
           <option value="3">一定工作任务为期限</option>
@@ -178,64 +176,31 @@
       <label class="label">籍贯</label>
       <div class="col col-6">
         <label class="select ">
-          <select name="native" >
-            <option value="0" disabled>选择籍贯</option>
-            <option value="1">全国</option>
-            <option value="2">四川</option>
-            <option value="3">河北</option>
-            <option value="4">山西</option>
-            <option value="5">吉林</option>
-            <option value="6">江苏</option>
-            <option value="7">浙江</option>
-            <option value="8">安徽</option>
-            <option value="9">江西</option>
-            <option value="10">山东</option>
-            <option value="11">河南</option>
-            <option value="12">广东</option>
-            <option value="13">海南</option>
-            <option value="14">云南</option>
-            <option value="15">内蒙古</option>
-            <option value="16">广西</option>
-            <option value="17">西藏</option>
-            <option value="18">宁夏</option>
-            <option value="19">新疆</option>
-            <option value="20">北京</option>
-            <option value="21">天津</option>
-            <option value="22">上海</option>
-            <option value="23">港澳台</option>
-            <option value="24">湖北</option>
-            <option value="25">福建</option>
-            <option value="26">湖南</option>
-            <option value="27">重庆</option>
-            <option value="28">陕西</option>
-            <option value="29">黑龙江</option>
-            <option value="30">青海</option>
-            <option value="31">甘肃</option>
-            <option value="32">辽宁</option>
-            <option value="33">贵州</option>
-            <option value="34">海外</option>
+          <select name="birthplace1" formControlName="birthplace1" (change)="getBrithplaceCity()">
+            <option value="0">--请选择省--</option>
+            <option *ngFor="let p of birthplace_province" value="{{p}}">{{p}}</option>
           </select> <i></i> </label>
       </div>
       <div class="col col-6">
         <label class="select ">
-          <select name="native" >
-            <option value="0" disabled>选择籍贯</option>
-            <option value="1">全国</option>
+          <select  name="birthplace2" formControlName="birthplace2">
+            <option value="0">--请选择市--</option>
+            <option *ngFor="let c of birthplace_city" value="{{c}}">{{c}}</option>
           </select> <i></i> </label>
       </div>
     </section>
     <section class="col col-6">
       <label class="label">身份证号</label>
       <label class="input">
-        <input  name='numberID' placeholder="请输入身份证号" size="18" maxlength="18" type="text">
+        <input  name='id_card' formControlName="id_card" placeholder="请输入身份证号" size="18" maxlength="18" type="text">
       </label>
     </section>
 
     <section class="col col-6">
       <label class="label">民族</label>
       <label class="select">
-        <select name="nation" >
-          <option value="0" disabled>选择民族</option>
+        <select name="nation" formControlName="nation">
+          <option value="0" selected>选择民族</option>
           <option value="汉族">汉族</option>
           <option value="蒙古族">蒙古族</option>
           <option value="彝族">彝族</option>
@@ -298,8 +263,8 @@
     <section class="col col-6">
       <label class="label">婚姻状况</label>
       <label class="select">
-        <select name="position" >
-          <option value="0" disabled>选择婚姻状况</option>
+        <select name="marital_status"  formControlName="marital_status">
+          <option value="0" selected>选择婚姻状况</option>
           <option value="1">未婚</option>
           <option value="2">已婚</option>
         </select> <i></i> </label>
@@ -307,20 +272,20 @@
     <section class="col col-6">
       <label class="label">毕业院校</label>
       <label class="input">
-        <input  name='school' placeholder="请输入毕业院校"  type="text">
+        <input  name='graduate_institutions' formControlName="graduate_institutions" placeholder="请输入毕业院校"  type="text" maxlength="25">
       </label>
     </section>
     <section class="col col-6">
       <label class="label">专业</label>
       <label class="input">
-        <input  name='professional' placeholder="请输入专业名称"  type="text">
+        <input  name='study_major' formControlName="study_major" placeholder="请输入专业名称"  type="text" maxlength="20">
       </label>
     </section>
     <section class="col col-6">
       <label class="label">文凭</label>
       <label class="select">
-        <select name="position" >
-          <option value="0" disabled>选择文凭</option>
+        <select name="study_diploma"  formControlName="study_diploma">
+          <option value="0" selected>选择文凭</option>
           <option value="1">高中以下</option>
           <option value="2">高中</option>
           <option value="3">中专/技校</option>
@@ -335,8 +300,8 @@
     <section class="col col-6">
       <label class="label">学历来源</label>
       <label class="select">
-        <select name=" sources" >
-          <option value="0" disabled>选择学历来源</option>
+        <select name="study_category"  formControlName="study_category">
+          <option value="0" selected>选择学历来源</option>
           <option value="1">全日制</option>
           <option value="2">成人考试</option>
           <option value="3">自学考试</option>
@@ -345,26 +310,24 @@
     <section class="col col-6">
       <label class="label">个人邮箱</label>
       <label class="input"> <i class="icon-append fa fa-envelope-o"></i>
-        <input name="email" placeholder="E-mail" type="email">
+        <input name="email" formControlName="email" placeholder="E-mail" type="email" maxlength="20">
       </label>
     </section>
 
     <div class="col col-6">
       <label class="label">紧急联系人</label>
-      <section class="col col-3">
+      <section class="col col-6">
         <label class="input">
-          <input  name='contact' placeholder="请输入姓名"  type="text">
+          <input  name='emergency_contact' formControlName="emergency_contact" placeholder="请输入姓名"  type="text" maxlength="20">
         </label>
       </section>
-      <section class="col col-5">
+      <section class="col col-6">
         <label class="input"> <i class="icon-append fa fa-phone"></i>
-          <input name="phone" placeholder="请输入固定电话" samaskedinput="(999) 999-9999" type="tel" ng-reflect-sa-masked-input="(999) 999-9999" aria-required="true" class="valid" aria-invalid="false">
+          <input name="emergency_phone" formControlName="emergency_phone" placeholder="请输入固定电话" samaskedinput="(999) 999-9999" type="tel" ng-reflect-sa-masked-input="(999) 999-9999" maxlength="20" aria-required="true" class="valid" aria-invalid="false">
         </label>
       </section>
 
     </div>
-
-
   </fieldset>
 
   <fieldset>
@@ -372,45 +335,43 @@
       <label class="label">家庭住址</label>
       <div class="col col-4">
         <label class="select ">
-          <select name="native" >
-            <option value="0" disabled>选择籍贯</option>
-            <option value="1">全国</option>
+          <select name="address1"  formControlName="address1" (change)="getCity()">
+            <option value="0">--请选择省--</option>
+            <option *ngFor="let p of province" value="{{p}}">{{p}}</option>
           </select> <i></i> </label>
       </div>
       <div class="col col-4">
         <label class="select ">
-          <select name="native" >
-            <option value="0" disabled>选择籍贯</option>
-            <option value="1">全国</option>
+          <select name="address2"  formControlName="address2" (change)="getArea()">
+            <option value="0">--请选择市--</option>
+            <option *ngFor="let c of city" value="{{c}}">{{c}}</option>
           </select> <i></i> </label>
       </div>
       <div class="col col-4">
         <label class="select ">
-          <select name="native" >
-            <option value="0" disabled>选择籍贯</option>
-            <option value="1">全国</option>
+          <select name="address3"  formControlName="address3">
+            <option value="0">--请选择区--</option>
+            <option *ngFor="let a of area" value="{{a}}">{{a}}</option>
           </select> <i></i> </label>
       </div>
     </section>
     <section class="col col-6">
       <label class="label">详细地址</label>
       <label class="input">
-        <input  name='source' placeholder="请输入详细地址"  type="text">
+        <input  name='address4' formControlName="address4" placeholder="请输入详细地址"  type="text" maxlength="20">
       </label>
     </section>
 
   </fieldset>
 
 
-  <fieldset>
-
-
-    <section>
-      <label class="checkbox">
-        <input type="checkbox" name="terms" id="terms"/>
-        <i></i>我同意</label>
-    </section>
-  </fieldset>
+  <!--<fieldset>-->
+    <!--<section>-->
+      <!--<label class="checkbox">-->
+        <!--<input type="checkbox" name="terms" id="terms"/>-->
+        <!--<i></i>我同意</label>-->
+    <!--</section>-->
+  <!--</fieldset>-->
   <footer>
     <button type="submit" class="btn btn-primary">
       提交
