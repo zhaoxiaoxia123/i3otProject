@@ -1,0 +1,141 @@
+<div id="content">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="['设置', '企业设置']" icon="pencil-square-o" class="col-xs-12 col-sm-9 col-md-9 col-lg-9"></sa-big-breadcrumbs>
+
+  </div>
+
+
+
+
+
+  <sa-widget [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+    <!-- widget options:
+    usage: <sa-widget [editbutton]="false">
+
+    [colorbutton]="false"
+    [editbutton]="false"
+    [togglebutton]="false"
+    [deletebutton]="false"
+    [fullscreenbutton]="false"
+    [custombutton]="false"
+    [collapsed]="true"
+    [sortable]="false"
+
+    -->
+    <header>
+      <ul class="nav nav-tabs pull-left in">
+
+        <li [class.active]="state.tabs.demo3=='hr1'">
+
+          <a (click)="state.tabs.demo3 = 'hr1'"> <i class="fa fa-lg fa-arrow-circle-o-down"></i> <span
+                  class="hidden-mobile hidden-tablet"> 产品</span> </a>
+
+        </li>
+
+        <li [class.active]="state.tabs.demo3=='hr2'">
+          <a (click)="state.tabs.demo3 = 'hr2'"> <i class="fa fa-lg fa-arrow-circle-o-up"></i> <span
+                  class="hidden-mobile hidden-tablet"> 订单 <span
+                  class="label bg-color-blue txt-color-white"> 标注 <i class="fa fa-exclamation"></i> </span> </span>
+          </a>
+        </li>
+
+        <li [class.active]="state.tabs.demo3=='hr3'">
+          <a (click)="state.tabs.demo3 = 'hr3'"> <i class="fa fa-lg fa-arrow-circle-o-up"></i> <span
+                  class="hidden-mobile hidden-tablet"> 客户 </span>
+          </a>
+        </li>
+
+        <li [class.active]="state.tabs.demo3=='hr4'">
+          <a (click)="state.tabs.demo3 = 'hr4'"> <i class="fa fa-lg fa-arrow-circle-o-up"></i> <span
+                  class="hidden-mobile hidden-tablet"> 库存 </span>
+          </a>
+        </li>
+
+        <li [class.active]="state.tabs.demo3=='hr5'">
+          <a (click)="state.tabs.demo3 = 'hr3'"> <i class="fa fa-lg fa-arrow-circle-o-up"></i> <span
+                  class="hidden-mobile hidden-tablet"> 员工 </span>
+          </a>
+        </li>
+
+      </ul>
+    </header>
+
+    <!-- widget div-->
+    <div>
+
+
+      <!-- widget content -->
+      <div class="widget-body">
+
+        <tabset>
+          <tab [active]="state.tabs.demo3 == 'hr1'">
+
+            <div class="tabbable tabs-below">
+              <tabset class="padding-10">
+                <tab [active]="state.tabs.demo4 == 'AA'">
+                  <p>
+                   类型
+                  </p>
+
+
+                </tab>
+
+              </tabset>
+
+            </div>
+
+          </tab>
+          <tab [active]="state.tabs.demo3 == 'hr2'">
+
+            <ul class="nav nav-tabs">
+              <li [class.active]="state.tabs.demo5=='iss1'" class="active">
+                <a (click)="state.tabs.demo5 = 'iss1'">结算方式</a>
+              </li>
+              <li [class.active]="state.tabs.demo5=='iss2'">
+                <a (click)="state.tabs.demo5 = 'iss2'">类型</a>
+              </li>
+              <li [class.active]="state.tabs.demo5=='iss3'">
+                <a (click)="state.tabs.demo5 = 'iss3'">运输方式</a>
+              </li>
+            </ul>
+            <tabset class="padding-10">
+              <tab [active]="state.tabs.demo5 == 'iss1'">
+                <p>
+
+                </p>
+              </tab>
+              <tab [active]="state.tabs.demo5 == 'iss2'">
+                <p>
+
+                </p>
+              </tab>
+              <tab [active]="state.tabs.demo5 == 'iss3'">
+                <p>
+
+                </p>
+              </tab>
+            </tabset>
+
+          </tab>
+        </tabset>
+
+      </div>
+      <!-- end widget content -->
+
+    </div>
+    <!-- end widget div -->
+
+  </sa-widget>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>

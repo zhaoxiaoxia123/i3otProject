@@ -15,9 +15,9 @@ import {ListClientComponent} from './list-client/list-client.component';
 @NgModule({
   declarations: [
 
-  ListStaffComponent,
+    ListStaffComponent,
 
-  ListProductComponent,
+    ListProductComponent,
 
     ListClientComponent,
   ],

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FadeInTop} from '../../shared/animations/fade-in-top.decorator';
+import {ModalDirective} from 'ngx-bootstrap';
 
 @FadeInTop()
 @Component({
@@ -12,5 +13,13 @@ export class ListProductComponent implements OnInit {
 
   ngOnInit() {
   }
+    @ViewChild('lgModal') public lgModal:ModalDirective;
 
+    public showChildModal():void {
+        this.lgModal.show();
+    }
+
+    public hideChildModal():void {
+        this.lgModal.hide();
+    }
 }

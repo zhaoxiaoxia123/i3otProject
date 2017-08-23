@@ -148,29 +148,27 @@
 
     <section class="col col-6">
       <label class="label ">职务</label>
+      <label class="input">
+        <input name="position" formControlName="position" maxlength="10" placeholder="请输入职务" type="text">
+      </label>
+    </section>
+
+    <section class="col col-6">
+      <label class="label">选择合同类型</label>
+
       <div class="col col-8">
         <label class="select">
-          <select name="position"  formControlName="position">
-            <option value="0" selected>选择职务</option>
-            <option value="1">调度中心</option>
-            <option value="2">综采队</option>
-            <option value="3">综掘队</option>
+          <select name="contract_type" formControlName="contract_type">
+            <option value="0" selected>合同类型</option>
+            <option value="1">固定期限</option>
+            <option value="2">无固定期限</option>
+            <option value="3">一定工作任务为期限</option>
           </select> <i></i> </label></div>
       <div class="col col-4">
         <button type="button" class="btn btn-primary btn-sm btn-block">
-          添加职务
+          添加合同类型
         </button>
       </div>
-    </section>
-    <section class="col col-6">
-      <label class="label">选择合同类型</label>
-      <label class="select">
-        <select name="contract_type" formControlName="contract_type">
-          <option value="0" selected>合同类型</option>
-          <option value="1">固定期限</option>
-          <option value="2">无固定期限</option>
-          <option value="3">一定工作任务为期限</option>
-        </select> <i></i> </label>
     </section>
     <section class="col col-6">
       <label class="label">籍贯</label>
@@ -299,13 +297,20 @@
 
     <section class="col col-6">
       <label class="label">学历来源</label>
-      <label class="select">
-        <select name="study_category"  formControlName="study_category">
-          <option value="0" selected>选择学历来源</option>
-          <option value="1">全日制</option>
-          <option value="2">成人考试</option>
-          <option value="3">自学考试</option>
-        </select> <i></i> </label>
+      <div class="col col-8">
+        <label class="select">
+          <select name="study_category"  formControlName="study_category">
+            <option value="0" disabled>选择学历来源</option>
+            <option value="1">全日制</option>
+            <option value="2">成人考试</option>
+            <option value="3">自学考试</option>
+          </select> <i></i> </label></div>
+      <div class="col col-4">
+        <button type="button" class="btn btn-primary btn-sm btn-block">
+          添加学历来源
+        </button>
+      </div>
+
     </section>
     <section class="col col-6">
       <label class="label">个人邮箱</label>
@@ -323,7 +328,7 @@
       </section>
       <section class="col col-6">
         <label class="input"> <i class="icon-append fa fa-phone"></i>
-          <input name="emergency_phone" formControlName="emergency_phone" placeholder="请输入固定电话" samaskedinput="(999) 999-9999" type="tel" ng-reflect-sa-masked-input="(999) 999-9999" maxlength="20" aria-required="true" class="valid" aria-invalid="false">
+          <input name="emergency_phone" formControlName="emergency_phone" placeholder="请输入联系电话" samaskedinput="(999) 999-9999" type="tel" ng-reflect-sa-masked-input="(999) 999-9999" maxlength="20" aria-required="true" class="valid" aria-invalid="false">
         </label>
       </section>
 
