@@ -3,10 +3,6 @@
     <sa-big-breadcrumbs [items]="['人事管理', '员工列表']" icon="table"
                         class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
   </div>
-
-
-
-
   <sa-widget [editbutton]="false" color="blueDark">
     <header>
       <span class="widget-icon"> <i class="fa fa-table"></i> </span>
@@ -53,37 +49,35 @@
             <td>{{ ul.u_role }}</td>
             <td *ngIf="ul.u_gender == 1">男</td>
             <td *ngIf="ul.u_gender == 2">女</td>
-            <td *ngIf="ul.u_gender == 3">未知</td>
+            <td *ngIf="ul.u_gender != 2 && ul.u_gender != 1">未知</td>
             <td>{{ ul.u_age }}</td>
             <td>{{ ul.c_name }}</td>
             <td>{{ ul.u_department }}</td>
             <td>{{ ul.u_phone }}</td>
-            <td><a class="btn btn-warning btn-xs" (click)="update(stock)"><span class="glyphicon glyphicon-pencil"></span>修改</a>
-              <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a></td>
+            <td>
+              <a class="btn btn-warning btn-xs" (click)="update(stock)">
+                <span class="glyphicon glyphicon-pencil"></span>修改
+              </a>
+              <a class="btn btn-danger btn-xs" (click)="deleteUser( ul.u_id ,userList.result?.current_page)">
+                <span class="glyphicon glyphicon-remove"></span>删除
+              </a>
+            </td>
           </tr>
-
           </tbody>
-
-
         </sa-datatable>
         <!-- 分页部分-->
         <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
-          <ul class="pagination">
-            <li class="paginate_button previous" [ngClass]="{'disabled':prev == true}" id="DataTables_Table_0_previous">
+          <ul class="pagination"><!-- [ngClass]="{'disabled':prev == true}"   [ngClass]="{'disabled':next == true}" -->
+            <li class="paginate_button previous" id="DataTables_Table_0_previous">
               <a (click)="pagination(userList.result?.prev_page_url)" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0">上一页</a>
             </li>
-            <li class="paginate_button next" [ngClass]="{'disabled':next == true}" id="DataTables_Table_0_next">
+            <li class="paginate_button next" id="DataTables_Table_0_next">
               <a (click)="pagination(userList.result?.next_page_url)" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0">下一页</a>
             </li>
           </ul>
         </div>
-
       </div>
     </div>
   </sa-widget>
-
-
-
-
 
 </div>

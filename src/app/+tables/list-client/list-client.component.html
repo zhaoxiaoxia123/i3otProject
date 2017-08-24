@@ -38,31 +38,49 @@
           </tr>
           </thead>
           <tbody>
-          <tr>
+
+          <tr style="display: none;">
+            <td></td><td></td><td></td><td></td>
+            <td></td><td></td><td></td><td></td>
+            <td></td><td></td><td></td><td></td>
+          </tr>
+          <tr *ngFor="let cl of customerList.result?.data">
             <td>
               <label class="checkbox">
                 <input type="checkbox" name="checkbox-inline">
                 <i></i>
               </label>
             </td>
-            <td>1</td>
-            <td>成都矿易帮信息科技有限公司</td>
-            <td>矿易帮</td>
-            <td>金属冶炼</td>
-            <td>四川省成都市下南大街59号世代锦江国际酒店25楼</td>
-            <td>易先生</td>
-            <td>1-342-463-8341</td>
-            <td>info@kuangyibang.com</td>
-            <td>四川省成都市下南大街59号世代锦四川省成都市下南大街59号世代锦江国际酒店25楼四川省成都市下南大街59号世代锦江国际酒店25楼江国际酒店25楼-8341</td>
-            <td>03/04/14</td>
+            <td>{{ cl.c_id }}</td>
+            <td>{{ cl.c_name }}</td>
+            <td>{{ cl.c_abbreviation }}</td>
+            <td>{{ cl.c_industry_category }}</td>
+            <td>{{ cl.c_address }}</td>
+            <td>{{ cl.c_contacts }}</td>
+            <td>{{ cl.c_phone }}</td>
+            <td>{{ cl.c_email }}</td>
+            <td>{{ cl.c_products }}</td>
+            <td>{{ cl.updated_at }}</td>
+
             <td><a class="btn btn-warning btn-xs" (click)="update(stock)"><span class="glyphicon glyphicon-pencil"></span>修改</a>
-              <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a></td>
+              <a class="btn btn-danger btn-xs" (click)="deleteCustomer(cl.c_id ,customerList.result?.current_page)"><span class="glyphicon glyphicon-remove"></span>删除</a></td>
           </tr>
 
           </tbody>
 
 
         </sa-datatable>
+        <!-- 分页部分-->
+        <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+          <ul class="pagination">
+            <li class="paginate_button previous" id="DataTables_Table_0_previous">
+              <a (click)="pagination(customerList.result?.prev_page_url)" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0">上一页</a>
+            </li>
+            <li class="paginate_button next" id="DataTables_Table_0_next">
+              <a (click)="pagination(customerList.result?.next_page_url)" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0">下一页</a>
+            </li>
+          </ul>
+        </div>
 
       </div>
     </div>
