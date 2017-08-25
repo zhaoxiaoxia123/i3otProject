@@ -14,7 +14,6 @@
           </a>
         </li>
 
-
         <li [class.active]="state.tabs.demo3=='hr2'">
           <a (click)="state.tabs.demo3 = 'hr2'"> <i class="fa fa-lg fa-child"></i> <span
                   class="hidden-mobile hidden-tablet"> 员工 </span>
@@ -961,9 +960,9 @@
                                     </label>
                                   </div>
                                   <div class="col col-4" >
-                                    <button class="btn btn-warning btn-xs text-center"style="padding:10px;margin:24px 0;" >
+                                   <!-- <button class="btn btn-warning btn-xs text-center"style="padding:10px;margin:24px 0;" >
                                       <i class="fa fa-plus"></i> <span class="hidden-mobile">添加类型</span>
-                                    </button>
+                                    </button>-->
                                     <button class="btn btn-danger btn-xs text-center "style="padding:10px;margin:24px 0;" >
                                       <i class="fa fa-times"></i> <span class="hidden-mobile">删除类型</span>
                                     </button>
@@ -975,33 +974,14 @@
 
                             </fieldset>
 
-                            <fieldset>
-
-                              <section >
-
-                                <div class="row">
-
-                                  <div class="col col-8">
-                                    <label class="label ">一级</label>
-                                    <label class="input"  >
-                                      <input class="input-lg" type="text"   name="title"
-                                             placeholder="请输入类型">
-                                    </label>
-                                  </div>
-                                  <div class="col col-4" >
-                                    <button class="btn btn-warning btn-xs text-center"style="padding:10px;margin:24px 0;" >
-                                      <i class="fa fa-plus"></i> <span class="hidden-mobile">添加类型</span>
-                                    </button>
-                                    <button class="btn btn-danger btn-xs text-center "style="padding:10px;margin:24px 0;" >
-                                      <i class="fa fa-times"></i> <span class="hidden-mobile">删除类型</span>
-                                    </button>
-                                  </div>
-                                </div>
-
-                              </section>
-
-
-                            </fieldset>
+                            <footer>
+                              <button  type="button" class="btn btn-primary">
+                                保存
+                              </button>
+                              <button type="button" class="btn btn-default" >
+                                取消
+                              </button>
+                            </footer>
 
 
                           </form>
@@ -1026,7 +1006,7 @@
                             类型
                           </alert>
                           <div class="widget-body">
-                            <div class="row text-center" style="padding:0px 80px;">
+                            <div class="row text-center" style="padding:0px 40px;">
                               <button  type="button" class="btn btn-primary"
                               >
                                 保存
