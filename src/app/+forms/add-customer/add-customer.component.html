@@ -60,29 +60,29 @@
                       </label>
                     </section>
 
-                    <div formGroupName="passwords">
-                      <section class="col col-6">
-                        <label class="label">密码</label>
-                        <label class="input"> <i class="icon-append fa fa-lock"></i>
-                          <input type="password" name="password" placeholder="密码" id="password" maxlength="16" minlength="6" formControlName="password"/>
-                          <b class="tooltip tooltip-bottom-right">请输入密码</b>
-                          <div [hidden]="!formModel.hasError('minlength',['passwords','password'])">
-                            用户名最小长度是6
-                          </div>
-                        </label>
-                      </section>
+                    <!--<div formGroupName="passwords">-->
+                      <!--<section class="col col-6">-->
+                        <!--<label class="label">密码</label>-->
+                        <!--<label class="input"> <i class="icon-append fa fa-lock"></i>-->
+                          <!--<input type="password" name="password" placeholder="密码" id="password" maxlength="16" minlength="6" formControlName="password"/>-->
+                          <!--<b class="tooltip tooltip-bottom-right">请输入密码</b>-->
+                          <!--<div [hidden]="!formModel.hasError('minlength',['passwords','password'])">-->
+                            <!--用户名最小长度是6-->
+                          <!--</div>-->
+                        <!--</label>-->
+                      <!--</section>-->
 
-                      <section class="col col-6">
-                        <label class="label">确定密码</label>
-                        <label class="input"> <i class="icon-append fa fa-lock"></i>
-                          <input type="password" name="pconfirm" placeholder="确认密码" maxlength="16" minlength="6" formControlName="pconfirm"/>
-                          <b class="tooltip tooltip-bottom-right">再次确定密码</b>
-                          <div [hidden]="!formModel.hasError('valid','passwords')">
-                            {{formModel.getError('valid','passwords')?.desc}}
-                          </div>
-                        </label>
-                      </section>
-                    </div>
+                      <!--<section class="col col-6">-->
+                        <!--<label class="label">确定密码</label>-->
+                        <!--<label class="input"> <i class="icon-append fa fa-lock"></i>-->
+                          <!--<input type="password" name="pconfirm" placeholder="确认密码" maxlength="16" minlength="6" formControlName="pconfirm"/>-->
+                          <!--<b class="tooltip tooltip-bottom-right">再次确定密码</b>-->
+                          <!--<div [hidden]="!formModel.hasError('valid','passwords')">-->
+                            <!--{{formModel.getError('valid','passwords')?.desc}}-->
+                          <!--</div>-->
+                        <!--</label>-->
+                      <!--</section>-->
+                    <!--</div>-->
 
                     <section class="col col-6">
                       <label class="label ">所属行业</label>
@@ -167,11 +167,7 @@
                           <input name="phone" placeholder="请输入联系电话" formControlName="phone" samaskedinput="(999) 999-9999" type="tel" ng-reflect-sa-masked-input="(999) 999-9999" aria-required="true" class="valid" aria-invalid="false">
                         </label>
                       </section>
-
                     </div>
-
-
-
                   </div>
                   <section>
                     <label class="label">主要产品</label>
@@ -207,10 +203,7 @@
                     <label class="label">协助跟进人</label>
                     <label class="select">
                       <select name="service_person" formControlName="service_person">
-                        <option value="0" disabled>选择协助跟进人</option>
-                        <option value="1">廖轩</option>
-                        <option value="2">廖轩1</option>
-                        <option value="3">廖轩2</option>
+                        <option *ngFor="let u of userList.result" value="{{u.u_id}}">{{u.u_name}}</option>
                       </select> <i></i> </label>
                   </section>
                   <section class="col col-6">
