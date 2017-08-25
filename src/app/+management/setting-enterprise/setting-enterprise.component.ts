@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FadeInTop} from '../../shared/animations/fade-in-top.decorator';
+import {JsonApiService} from '../../core/api/json-api.service';
 
 @FadeInTop()
 @Component({
@@ -8,7 +9,7 @@ import {FadeInTop} from '../../shared/animations/fade-in-top.decorator';
 })
 export class SettingEnterpriseComponent implements OnInit {
 
-
+    public states: Array<any>;
     public state: any = {
         tabs: {
             demo1: 0,
@@ -25,10 +26,24 @@ export class SettingEnterpriseComponent implements OnInit {
 
 
     };
+    public demo2: any;
+    public nestable2DemoOutput: any;
 
-  constructor() { }
+    constructor(private jsonApiService:JsonApiService) {
+    }
+
+
 
   ngOnInit() {
+
+      this.jsonApiService.fetch('/ui-examples/nestable-lists.json').subscribe(data=> {
+          this.demo2 = data.demo2;
+      })
+
   }
+    public onChange2(payload){
+        this.nestable2DemoOutput = payload
+    }
+
 
 }

@@ -4,119 +4,1514 @@
 
   </div>
 
-
-
-
-
   <sa-widget [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
-    <!-- widget options:
-    usage: <sa-widget [editbutton]="false">
-
-    [colorbutton]="false"
-    [editbutton]="false"
-    [togglebutton]="false"
-    [deletebutton]="false"
-    [fullscreenbutton]="false"
-    [custombutton]="false"
-    [collapsed]="true"
-    [sortable]="false"
-
-    -->
     <header>
       <ul class="nav nav-tabs pull-left in">
 
         <li [class.active]="state.tabs.demo3=='hr1'">
-
-          <a (click)="state.tabs.demo3 = 'hr1'"> <i class="fa fa-lg fa-arrow-circle-o-down"></i> <span
-                  class="hidden-mobile hidden-tablet"> 产品</span> </a>
-
-        </li>
-
-        <li [class.active]="state.tabs.demo3=='hr2'">
-          <a (click)="state.tabs.demo3 = 'hr2'"> <i class="fa fa-lg fa-arrow-circle-o-up"></i> <span
-                  class="hidden-mobile hidden-tablet"> 订单 <span
-                  class="label bg-color-blue txt-color-white"> 标注 <i class="fa fa-exclamation"></i> </span> </span>
-          </a>
-        </li>
-
-        <li [class.active]="state.tabs.demo3=='hr3'">
-          <a (click)="state.tabs.demo3 = 'hr3'"> <i class="fa fa-lg fa-arrow-circle-o-up"></i> <span
+          <a (click)="state.tabs.demo3 = 'hr1'"> <i class="fa fa-lg fa-suitcase"></i> <span
                   class="hidden-mobile hidden-tablet"> 客户 </span>
           </a>
         </li>
 
-        <li [class.active]="state.tabs.demo3=='hr4'">
-          <a (click)="state.tabs.demo3 = 'hr4'"> <i class="fa fa-lg fa-arrow-circle-o-up"></i> <span
-                  class="hidden-mobile hidden-tablet"> 库存 </span>
+
+        <li [class.active]="state.tabs.demo3=='hr2'">
+          <a (click)="state.tabs.demo3 = 'hr2'"> <i class="fa fa-lg fa-child"></i> <span
+                  class="hidden-mobile hidden-tablet"> 员工 </span>
           </a>
         </li>
 
-        <li [class.active]="state.tabs.demo3=='hr5'">
-          <a (click)="state.tabs.demo3 = 'hr3'"> <i class="fa fa-lg fa-arrow-circle-o-up"></i> <span
-                  class="hidden-mobile hidden-tablet"> 员工 </span>
+        <li [class.active]="state.tabs.demo3=='hr3'">
+
+          <a (click)="state.tabs.demo3 = 'hr3'"> <i class="fa fa-lg fa-cubes"></i> <span
+                  class="hidden-mobile hidden-tablet"> 产品</span> </a>
+
+        </li>
+
+        <li [class.active]="state.tabs.demo3=='hr4'">
+          <a (click)="state.tabs.demo3 = 'hr4'"> <i class="fa fa-lg  fa-truck"></i> <span
+                  class="hidden-mobile hidden-tablet"> 订单 <span
+                  class="label bg-color-blue txt-color-white"> 标注 <i class="fa fa-exclamation"></i> </span> </span>
           </a>
         </li>
 
       </ul>
     </header>
 
-    <!-- widget div-->
     <div>
 
-
-      <!-- widget content -->
       <div class="widget-body">
 
         <tabset>
+
           <tab [active]="state.tabs.demo3 == 'hr1'">
 
-            <div class="tabbable tabs-below">
-              <tabset class="padding-10">
-                <tab [active]="state.tabs.demo4 == 'AA'">
-                  <p>
-                   类型
-                  </p>
+            <ul class="nav nav-tabs">
+              <li [class.active]="state.tabs.demo1=='0'" class="active">
+                <a (click)="state.tabs.demo1 = '0'">所属行业</a>
+              </li>
+              <li [class.active]="state.tabs.demo1=='1'">
+                <a (click)="state.tabs.demo1 = '1'">客户来源</a>
+              </li>
+
+            </ul>
+            <tabset class="padding-10">
+
+              <tab [active]="state.tabs.demo1 == '0'">
+
+                <div class="row">
+
+                  <article class="col-sm-12 col-md-12 col-lg-6">
+
+                    <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                               [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+
+                      <div>
+                        <div class="widget-body no-padding">
+                          <alert type="info" class="no-margin" >
+                            <i class="fa-fw fa fa-plus"></i>
+                            添加行业
+                          </alert>
+
+                          <form #newTodoForm="ngForm" class="smart-form ">
+                            <fieldset>
+                              <section>
+                                <label class="input">
+                                  <input type="text" required class="input-lg"  name="title"
+                                         placeholder="请输入行业">
+                                </label>
+                              </section>
+                            </fieldset>
+                            <footer>
+                              <button  type="button" class="btn btn-primary">
+                                保存
+                              </button>
+                              <button type="button" class="btn btn-default" >
+                                取消
+                              </button>
+                            </footer>
+                          </form>
+
+                        </div>
+                      </div>
+
+                    </sa-widget>
 
 
-                </tab>
+                  </article>
 
-              </tabset>
+                  <article class="col-sm-12 col-md-12 col-lg-6">
 
-            </div>
+
+                    <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                               [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+
+
+                      <div>
+                        <div class="widget-body no-padding">
+                          <alert type="info" class="no-margin" >
+                            <i class="fa-fw fa fa-spoon"></i>
+                            行业
+                          </alert>
+                          <div class="table-responsive">
+
+                            <table class="table table-hover table-bordered">
+                              <thead>
+                              <tr>
+                                <th>行业</th>
+                                <th>操作</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr>
+                                <td>矿业服务</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>采矿</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>能源</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>金属冶炼</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>保险业</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>餐饮</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>宾馆</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>电讯业</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>房地产</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>服务</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+
+
+
+
+
+
+
+
+                              </tbody>
+
+
+                            </table>
+
+                            <div class="dataTables_paginate">
+                              <ul class="pagination">
+                                <li>
+                                  <a (click)="(null)"><i class="fa fa-arrow-left"></i></a>
+                                </li>
+                                <li>
+                                  <a (click)="(null)">2</a>
+                                </li>
+                                <li>
+                                  <a (click)="(null)">...</a>
+                                </li>
+                                <li>
+                                  <a (click)="(null)">15</a>
+                                </li>
+                                <li>
+                                  <a (click)="(null)"><i class="fa fa-arrow-right"></i></a>
+                                </li>
+                              </ul>
+                            </div>
+
+
+                          </div>
+
+                        </div>
+                      </div>
+
+                    </sa-widget>
+
+
+
+                  </article>
+
+                  <article class="col-sm-12 col-md-12 col-lg-6">
+
+                    <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                               [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+
+
+                      <div>
+                        <div class="widget-body no-padding">
+                          <alert type="info" class="no-margin" >
+                            <i class="fa-fw fa fa-pencil-square-o"></i>
+                            修改行业
+                          </alert>
+
+                          <form #newTodoForm="ngForm" class="smart-form ">
+                            <fieldset>
+                              <section>
+                                <label class="input">
+                                  <input type="text" required class="input-lg"  name="title"
+                                         placeholder="采矿">
+                                </label>
+                              </section>
+                            </fieldset>
+                            <footer>
+                              <button  type="button" class="btn btn-primary">
+                                保存
+                              </button>
+                              <button type="button" class="btn btn-default" >
+                                取消
+                              </button>
+                            </footer>
+                          </form>
+
+
+                        </div>
+                      </div>
+
+                    </sa-widget>
+                    <!-- end widget -->
+
+
+                  </article>
+
+                </div>
+              </tab>
+
+              <tab [active]="state.tabs.demo1 == '1'">
+
+                <div class="row">
+                  <article class="col-sm-12 col-md-12 col-lg-6">
+
+                    <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                               [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+
+                      <div>
+                        <div class="widget-body no-padding">
+                          <alert type="info" class="no-margin" >
+                            <i class="fa-fw fa fa-plus"></i>
+                            添加客户来源
+                          </alert>
+
+                          <form #newTodoForm="ngForm" class="smart-form ">
+                            <fieldset>
+                              <section>
+                                <label class="input">
+                                  <input type="text" required class="input-lg"  name="title"
+                                         placeholder="请输入客户来源">
+                                </label>
+                              </section>
+                            </fieldset>
+                            <footer>
+                              <button  type="button" class="btn btn-primary">
+                                保存
+                              </button>
+                              <button type="button" class="btn btn-default" >
+                                取消
+                              </button>
+                            </footer>
+                          </form>
+
+                        </div>
+                      </div>
+
+                    </sa-widget>
+
+
+                  </article>
+
+                  <article class="col-sm-12 col-md-12 col-lg-6">
+
+
+                    <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                               [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+
+                      <div>
+                        <div class="widget-body no-padding">
+                          <alert type="info" class="no-margin" >
+                            <i class="fa-fw fa fa-spoon"></i>
+                            客户来源
+                          </alert>
+                          <div class="table-responsive">
+
+                            <table class="table table-hover table-bordered">
+                              <thead>
+                              <tr>
+                                <th>客户来源</th>
+                                <th>人数</th>
+                                <th>操作</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr>
+                                <td>网络</td>
+                                <td>2</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>广告</td>
+                                <td>2</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>报刊</td>
+                                <td>2</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>推荐</td>
+                                <td>2</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+
+                              </tbody>
+
+                            </table>
+
+                            <div class="dataTables_paginate">
+                              <ul class="pagination">
+                                <li>
+                                  <a (click)="(null)"><i class="fa fa-arrow-left"></i></a>
+                                </li>
+                                <li>
+                                  <a (click)="(null)">1</a>
+                                </li>
+                                <li>
+                                  <a (click)="(null)"><i class="fa fa-arrow-right"></i></a>
+                                </li>
+                              </ul>
+                            </div>
+
+
+                          </div>
+
+                        </div>
+                      </div>
+
+                    </sa-widget>
+
+
+                  </article>
+
+                </div>
+              </tab>
+
+            </tabset>
 
           </tab>
+
           <tab [active]="state.tabs.demo3 == 'hr2'">
+
+            <ul class="nav nav-tabs">
+              <li [class.active]="state.tabs.demo4=='AA'" class="active">
+                <a (click)="state.tabs.demo4 = 'AA'">所属部门</a>
+              </li>
+              <li [class.active]="state.tabs.demo4=='BB'">
+                <a (click)="state.tabs.demo4 = 'BB'">合同类型</a>
+              </li>
+              <li [class.active]="state.tabs.demo4=='CC'">
+                <a (click)="state.tabs.demo4 = 'CC'">学历来源 </a>
+              </li>
+            </ul>
+            <tabset class="padding-10">
+
+              <tab [active]="state.tabs.demo4 == 'AA'">
+
+                <div class="row">
+
+                  <article class="col-sm-12 col-md-12 col-lg-6">
+
+                    <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                               [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+
+                      <div>
+                        <div class="widget-body no-padding">
+                          <alert type="info" class="no-margin" >
+                            <i class="fa-fw fa fa-plus"></i>
+                            添加部门
+                          </alert>
+
+                          <form #newTodoForm="ngForm" class="smart-form ">
+                            <fieldset>
+                              <section>
+                                <label class="input">
+                                  <input type="text" required class="input-lg"  name="title"
+                                         placeholder="请输入部门">
+                                </label>
+                              </section>
+                            </fieldset>
+                            <footer>
+                              <button  type="button" class="btn btn-primary">
+                                保存
+                              </button>
+                              <button type="button" class="btn btn-default" >
+                                取消
+                              </button>
+                            </footer>
+                          </form>
+
+                        </div>
+                      </div>
+
+                    </sa-widget>
+
+
+                  </article>
+
+                  <article class="col-sm-12 col-md-12 col-lg-6">
+
+                    <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                               [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+
+                          <div>
+                            <div class="widget-body no-padding">
+                              <alert type="info" class="no-margin" >
+                                <i class="fa-fw fa fa-spoon"></i>
+                                部门
+                              </alert>
+                              <div class="table-responsive">
+
+                                <table class="table table-hover table-bordered">
+                                  <thead>
+                                  <tr>
+                                    <th>部门</th>
+                                    <th>人数</th>
+                                    <th>操作</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody>
+                                  <tr>
+                                    <td>调度中心</td>
+                                    <td>2</td>
+                                    <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                                  </tr>
+                                  <tr>
+                                    <td>综采队</td>
+                                    <td>4</td>
+                                    <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                                  </tr>
+                                  <tr>
+                                    <td>综掘队</td>
+                                    <td>8</td>
+                                    <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                                  </tr>
+                                  <tr>
+                                    <td>技术部</td>
+                                    <td>8</td>
+                                    <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                                  </tr>
+                                  <tr>
+                                    <td>地测部</td>
+                                    <td>2</td>
+                                    <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                                  </tr>
+                                  <tr>
+                                    <td>机电部</td>
+                                    <td>3</td>
+                                    <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                                  </tr>
+                                  <tr>
+                                    <td>水电队</td>
+                                    <td>5</td>
+                                    <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                                  </tr>
+                                  <tr>
+                                    <td>办公室</td>
+                                    <td>6</td>
+                                    <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                                  </tr>
+                                  <tr>
+                                    <td>劳资部</td>
+                                    <td>7</td>
+                                    <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                                  </tr>
+                                  <tr>
+                                    <td>财务部</td>
+                                    <td>2</td>
+                                    <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                                  </tr>
+                                  <tr>
+                                    <td>安检部</td>
+                                    <td>5</td>
+                                    <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                                  </tr>
+                                  <tr>
+                                    <td>通风部</td>
+                                    <td>8</td>
+                                    <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                                  </tr>
+                                  <tr>
+                                    <td>供应部</td>
+                                    <td>9</td>
+                                    <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                                  </tr>
+                                  <tr>
+                                    <td>保卫部</td>
+                                    <td>9</td>
+                                    <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                                  </tr>
+                                  <tr>
+                                    <td>纪检室</td>
+                                    <td>9</td>
+                                    <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                                  </tr>
+                                  <tr>
+                                    <td>政工部</td>
+                                    <td>9</td>
+                                    <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                                  </tr>
+                                  <tr>
+                                    <td>工会</td>
+                                    <td>9</td>
+                                    <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                                  </tr>
+                                  <tr>
+                                    <td>销售部</td>
+                                    <td>9</td>
+                                    <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                                  </tr>
+                                  </tbody>
+
+                                </table>
+
+                                <div class="dataTables_paginate">
+                                  <ul class="pagination">
+                                    <li>
+                                      <a (click)="(null)"><i class="fa fa-arrow-left"></i></a>
+                                    </li>
+                                    <li>
+                                      <a (click)="(null)">1</a>
+                                    </li>
+                                    <li class="active">
+                                      <a (click)="(null)">2</a>
+                                    </li>
+                                    <li>
+                                      <a (click)="(null)">3</a>
+                                    </li>
+                                    <li>
+                                      <a (click)="(null)">4</a>
+                                    </li>
+                                    <li>
+                                      <a (click)="(null)">5</a>
+                                    </li>
+                                    <li>
+                                      <a (click)="(null)"><i class="fa fa-arrow-right"></i></a>
+                                    </li>
+                                  </ul>
+                                </div>
+
+
+                              </div>
+
+                            </div>
+                          </div>
+
+                    </sa-widget>
+                    <!-- end widget -->
+
+
+                  </article>
+
+                </div>
+
+              </tab>
+
+              <tab [active]="state.tabs.demo4 == 'BB'">
+
+                <div class="row">
+
+                  <article class="col-sm-12 col-md-12 col-lg-6">
+
+                    <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                               [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+
+                      <div>
+                        <div class="widget-body no-padding">
+                          <alert type="info" class="no-margin" >
+                            <i class="fa-fw fa fa-plus"></i>
+                            添加合同类型
+                          </alert>
+
+                          <form #newTodoForm="ngForm" class="smart-form ">
+                            <fieldset>
+                              <section>
+                                <label class="input">
+                                  <input type="text" required class="input-lg"  name="title"
+                                         placeholder="请输入合同类型">
+                                </label>
+                              </section>
+                            </fieldset>
+                            <footer>
+                              <button  type="button" class="btn btn-primary">
+                                保存
+                              </button>
+                              <button type="button" class="btn btn-default" >
+                                取消
+                              </button>
+                            </footer>
+                          </form>
+
+                        </div>
+                      </div>
+
+                    </sa-widget>
+
+
+                  </article>
+
+
+                  <article class="col-sm-12 col-md-12 col-lg-6">
+
+
+                    <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                               [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+
+
+                      <div>
+                        <div class="widget-body no-padding">
+                          <alert type="info" class="no-margin" >
+                            <i class="fa-fw fa fa-spoon"></i>
+                            合同类型
+                          </alert>
+                          <div class="table-responsive">
+
+                            <table class="table table-hover table-bordered">
+                              <thead>
+                              <tr>
+                                <th>合同类型</th>
+                                <th>操作</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr>
+                                <td>固定期限</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>无固定期限</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>一定工作任务为期限</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+
+                              </tbody>
+
+
+                            </table>
+
+                            <div class="dataTables_paginate">
+                              <ul class="pagination">
+                                <li>
+                                  <a (click)="(null)"><i class="fa fa-arrow-left"></i></a>
+                                </li>
+                                <li>
+                                  <a (click)="(null)">1</a>
+                                </li>
+                                <li>
+                                  <a (click)="(null)"><i class="fa fa-arrow-right"></i></a>
+                                </li>
+                              </ul>
+                            </div>
+
+
+                          </div>
+
+                        </div>
+                      </div>
+
+                    </sa-widget>
+                    <!-- end widget -->
+
+
+                  </article>
+
+                </div>
+              </tab>
+              <tab [active]="state.tabs.demo4 == 'CC'">
+                <div class="row">
+
+                  <article class="col-sm-12 col-md-12 col-lg-6">
+
+                    <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                               [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+
+                      <div>
+                        <div class="widget-body no-padding">
+                          <alert type="info" class="no-margin" >
+                            <i class="fa-fw fa fa-plus"></i>
+                            添加学历来源
+                          </alert>
+
+                          <form #newTodoForm="ngForm" class="smart-form ">
+                            <fieldset>
+                              <section>
+                                <label class="input">
+                                  <input type="text" required class="input-lg"  name="title"
+                                         placeholder="请输入学历来源">
+                                </label>
+                              </section>
+                            </fieldset>
+                            <footer>
+                              <button  type="button" class="btn btn-primary">
+                                保存
+                              </button>
+                              <button type="button" class="btn btn-default" >
+                                取消
+                              </button>
+                            </footer>
+                          </form>
+
+                        </div>
+                      </div>
+
+                    </sa-widget>
+
+
+                  </article>
+
+                  <article class="col-sm-12 col-md-12 col-lg-6">
+
+                    <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                               [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+
+                      <div>
+                        <div class="widget-body no-padding">
+                          <alert type="info" class="no-margin" >
+                            <i class="fa-fw fa fa-spoon"></i>
+                            学历来源
+                          </alert>
+                          <div class="table-responsive">
+
+                            <table class="table table-hover table-bordered">
+                              <thead>
+                              <tr>
+                                <th>学历来源 </th>
+                                <th>人数 </th>
+                                <th>操作</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr>
+                                <td>全日制</td>
+                                <td>2</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>成人考试</td>
+                                <td>3</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>自学考试</td>
+                                <td>4</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+
+                              </tbody>
+
+
+                            </table>
+
+                            <div class="dataTables_paginate">
+                              <ul class="pagination">
+                                <li>
+                                  <a (click)="(null)"><i class="fa fa-arrow-left"></i></a>
+                                </li>
+                                <li>
+                                  <a (click)="(null)">1</a>
+                                </li>
+                                <li>
+                                  <a (click)="(null)"><i class="fa fa-arrow-right"></i></a>
+                                </li>
+                              </ul>
+                            </div>
+
+
+                          </div>
+
+                        </div>
+                      </div>
+
+                    </sa-widget>
+
+                  </article>
+
+                </div>
+              </tab>
+            </tabset>
+
+          </tab>
+
+          <tab [active]="state.tabs.demo3 == 'hr3'">
+
+            <ul class="nav nav-tabs">
+              <li [class.active]="state.tabs.demo2=='tab-r1'" class="active">
+                <a (click)="state.tabs.demo2 = 'tab-r1'">类型</a>
+              </li>
+              <li [class.active]="state.tabs.demo2=='tab-r2'">
+                <a (click)="state.tabs.demo2 = 'tab-r2'">规格/参数</a>
+              </li>
+            </ul>
+            <tabset class="padding-10">
+
+              <tab [active]="state.tabs.demo2 == 'tab-r1'">
+
+                <div class="row">
+
+                  <article class="col-sm-8">
+
+                    <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                               [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+
+                      <div>
+                        <div class="widget-body no-padding">
+                          <alert type="info" class="no-margin" >
+                            <i class="fa-fw fa fa-plus"></i>
+                            添加类型
+                          </alert>
+
+                          <form #newTodoForm="ngForm" class="smart-form ">
+
+                            <fieldset>
+
+                              <section >
+
+                              <div class="row">
+                                <div class="col col-8">
+                                  <label class="label ">一级</label>
+                                  <label class="input"  >
+                                    <input class="input-lg" type="text"   name="title"
+                                           placeholder="请输入类型">
+                                  </label>
+                                </div>
+                                <div class="col col-4" >
+                                  <button class="btn btn-warning btn-xs text-center"style="padding:10px;margin:24px 0;" >
+                                    <i class="fa fa-plus"></i> <span class="hidden-mobile">添加类型</span>
+                                  </button>
+                                  <button class="btn btn-danger btn-xs text-center "style="padding:10px;margin:24px 0;" >
+                                    <i class="fa fa-times"></i> <span class="hidden-mobile">删除类型</span>
+                                  </button>
+                                </div>
+                              </div>
+
+                              </section>
+
+                              <section >
+
+                                <div class="row"  style="padding-left:60px;">
+
+                                  <div class="col col-6">
+                                    <label class="label ">二级</label>
+                                    <label class="input"  >
+                                      <input class="input-lg" type="text"   name="title"
+                                             placeholder="请输入类型">
+                                    </label>
+                                  </div>
+                                  <div class="col col-4" >
+                                    <button class="btn btn-warning btn-xs text-center"style="padding:10px;margin:24px 0;" >
+                                      <i class="fa fa-plus"></i> <span class="hidden-mobile">添加类型</span>
+                                    </button>
+                                    <button class="btn btn-danger btn-xs text-center "style="padding:10px;margin:24px 0;" >
+                                      <i class="fa fa-times"></i> <span class="hidden-mobile">删除类型</span>
+                                    </button>
+                                  </div>
+                                </div>
+
+                              </section>
+
+
+                            </fieldset>
+
+                            <fieldset>
+
+                              <section >
+
+                                <div class="row">
+
+                                  <div class="col col-8">
+                                    <label class="label ">一级</label>
+                                    <label class="input"  >
+                                      <input class="input-lg" type="text"   name="title"
+                                             placeholder="请输入类型">
+                                    </label>
+                                  </div>
+                                  <div class="col col-4" >
+                                    <button class="btn btn-warning btn-xs text-center"style="padding:10px;margin:24px 0;" >
+                                      <i class="fa fa-plus"></i> <span class="hidden-mobile">添加类型</span>
+                                    </button>
+                                    <button class="btn btn-danger btn-xs text-center "style="padding:10px;margin:24px 0;" >
+                                      <i class="fa fa-times"></i> <span class="hidden-mobile">删除类型</span>
+                                    </button>
+                                  </div>
+                                </div>
+
+                              </section>
+
+
+                            </fieldset>
+
+
+                          </form>
+
+                        </div>
+                      </div>
+
+                    </sa-widget>
+
+
+                  </article>
+
+                  <article class="col-sm-4">
+
+                    <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                               [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+
+                      <div>
+                        <div class="widget-body no-padding">
+                          <alert type="info" class="no-margin" >
+                            <i class="fa-fw fa fa-spoon"></i>
+                            类型
+                          </alert>
+                          <div class="widget-body">
+                            <div class="row text-center" style="padding:0px 80px;">
+                              <button  type="button" class="btn btn-primary"
+                              >
+                                保存
+                              </button>
+
+                              <sa-nestable-list [items]="demo2"
+                                                (change)="onChange2($event)"
+                                                [options]="{group: 1}">
+
+                              </sa-nestable-list>
+
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+
+                    </sa-widget>
+
+                  </article>
+
+                </div>
+              </tab>
+
+              <tab [active]="state.tabs.demo2 == 'tab-r2'">
+                <div class="row">
+
+                  <article class="col-sm-4">
+
+                    <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                               [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+
+                      <div>
+                        <div class="widget-body no-padding">
+                          <alert type="info" class="no-margin" >
+                            <i class="fa-fw fa fa-plus"></i>
+                            添加规格/参数
+                          </alert>
+
+                          <form #newTodoForm="ngForm" class="smart-form ">
+                            <fieldset>
+
+                              <section >
+                                <label class="label">型号</label>
+                                <div class="col col-8">
+                                  <label class="select">
+                                    <select name=" sources" >
+                                      <option value="0" disabled>选择型号</option>
+                                      <option value="1">CD4</option>
+                                      <option value="2">JCB4</option>
+                                      <option value="3">CTH1000</option>
+                                    </select> <i></i> </label></div>
+                                <div class="col col-4">
+                                  <button type="button" class="btn btn-primary btn-sm btn-block">
+                                    添加型号
+                                  </button>
+                                </div>
+                              </section>
+
+
+                            </fieldset>
+                            <fieldset>
+                              <section >
+
+                                <label class="label ">参数名称</label>
+                                <label class="input">
+                                  <input class="input-lg" type="text"   name="title"
+                                         placeholder="请输入参数名称">
+                                </label>
+
+                              </section>
+
+                              <section>
+                                <label class="label">参数内容</label>
+                                <label class="textarea textarea-resizable">
+                                  <textarea class="custom-scroll" rows="5"></textarea>
+                                </label>
+                              </section>
+
+                            </fieldset>
+                            <footer>
+                              <button  type="button" class="btn btn-primary">
+                                保存
+                              </button>
+                              <button type="button" class="btn btn-default" >
+                                取消
+                              </button>
+                            </footer>
+                          </form>
+
+                        </div>
+                      </div>
+
+                    </sa-widget>
+
+
+                  </article>
+
+                  <article class="col-sm-8">
+
+                    <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                               [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+
+
+                      <div>
+                        <div class="widget-body no-padding">
+                          <alert type="info" class="no-margin" >
+                            <i class="fa-fw fa fa-spoon"></i>
+                            规格/参数
+                          </alert>
+                          <div class="table-responsive">
+
+                            <table class="table table-hover table-bordered">
+                              <thead>
+                              <tr>
+                                <th>规格/参数</th>
+                                <th>CD4</th>
+                                <th>JCB4</th>
+                                <th>CTH1000</th>
+                                <th>操作</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr>
+                                <td>品牌</td>
+                                <td>卓安</td>
+                                <td>FDKORS/爱德克斯仪器仪表</td>
+                                <td>CEM</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>颜色分类</td>
+                                <td>V型透气红色、V型透气白色、标准V型橙色</td>
+                                <td>V型透气蓝色、V型透气蓝色、标准V型橙色</td>
+                                <td>V型透气白色、V型透气蓝色、标准V型橙色</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>颜色分类</td>
+                                <td>V型透气红色、V型透气白色、标准V型橙色</td>
+                                <td>V型透气蓝色、V型透气蓝色、标准V型橙色</td>
+                                <td>V型透气白色、V型透气蓝色、标准V型橙色</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>检测气体</td>
+                                <td>空气中的氯气(CL 2)</td>
+                                <td>空气中的氯气(CL 2)</td>
+                                <td>空气中的氯气(CL 2)</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>量程</td>
+                                <td>0-20ppm  量程范围可根据实际要求而定</td>
+                                <td>0-20ppm  量程范围可根据实际要求而定</td>
+                                <td>0-20ppm  量程范围可根据实际要求而定</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>工作方式</td>
+                                <td>连续工作200小时</td>
+                                <td>连续工作200小时</td>
+                                <td>连续工作200小时</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>检测方式</td>
+                                <td>扩散式</td>
+                                <td>扩散式</td>
+                                <td>扩散式</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>工作温度</td>
+                                <td>-10～40℃（特殊要求根据需要而定）</td>
+                                <td>-10～40℃（特殊要求根据需要而定）</td>
+                                <td>-10～40℃（特殊要求根据需要而定）</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+                              </tbody>
+
+                            </table>
+
+                            <div class="dataTables_paginate">
+                              <ul class="pagination">
+                                <li>
+                                  <a (click)="(null)"><i class="fa fa-arrow-left"></i></a>
+                                </li>
+                                <li>
+                                  <a (click)="(null)">1</a>
+                                </li>
+                                <li>
+                                  <a (click)="(null)"><i class="fa fa-arrow-right"></i></a>
+                                </li>
+                              </ul>
+                            </div>
+
+                          </div>
+
+                        </div>
+                      </div>
+
+                    </sa-widget>
+
+
+                  </article>
+
+                </div>
+
+              </tab>
+
+            </tabset>
+
+          </tab>
+
+          <tab [active]="state.tabs.demo3 == 'hr4'">
 
             <ul class="nav nav-tabs">
               <li [class.active]="state.tabs.demo5=='iss1'" class="active">
                 <a (click)="state.tabs.demo5 = 'iss1'">结算方式</a>
               </li>
               <li [class.active]="state.tabs.demo5=='iss2'">
-                <a (click)="state.tabs.demo5 = 'iss2'">类型</a>
-              </li>
-              <li [class.active]="state.tabs.demo5=='iss3'">
-                <a (click)="state.tabs.demo5 = 'iss3'">运输方式</a>
+                <a (click)="state.tabs.demo5 = 'iss2'">运输方式</a>
               </li>
             </ul>
+
             <tabset class="padding-10">
               <tab [active]="state.tabs.demo5 == 'iss1'">
-                <p>
+                <div class="row">
+                  <article class="col-sm-12 col-md-12 col-lg-6">
 
-                </p>
+                    <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                               [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+
+                      <div>
+                        <div class="widget-body no-padding">
+                          <alert type="info" class="no-margin" >
+                            <i class="fa-fw fa fa-plus"></i>
+                            添加结算方式
+                          </alert>
+
+                          <form #newTodoForm="ngForm" class="smart-form ">
+                            <fieldset>
+                              <section>
+                                <label class="input">
+                                  <input type="text" required class="input-lg"  name="title"
+                                         placeholder="请输入结算方式">
+                                </label>
+                              </section>
+                            </fieldset>
+                            <footer>
+                              <button  type="button" class="btn btn-primary">
+                                保存
+                              </button>
+                              <button type="button" class="btn btn-default" >
+                                取消
+                              </button>
+                            </footer>
+                          </form>
+
+                        </div>
+                      </div>
+
+                    </sa-widget>
+
+
+                  </article>
+
+                  <article class="col-sm-12 col-md-12 col-lg-6">
+
+                    <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                               [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+
+
+                      <div>
+                        <div class="widget-body no-padding">
+                          <alert type="info" class="no-margin" >
+                            <i class="fa-fw fa fa-spoon"></i>
+                            结算方式
+                          </alert>
+                          <div class="table-responsive">
+
+                            <table class="table table-hover table-bordered">
+                              <thead>
+                              <tr>
+                                <th>结算方式 </th>
+                                <th>操作</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr>
+                                <td>现金</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>转账</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>分期</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+
+                              </tbody>
+
+
+                            </table>
+
+                            <div class="dataTables_paginate">
+                              <ul class="pagination">
+                                <li>
+                                  <a (click)="(null)"><i class="fa fa-arrow-left"></i></a>
+                                </li>
+                                <li>
+                                  <a (click)="(null)">1</a>
+                                </li>
+                                <li>
+                                  <a (click)="(null)"><i class="fa fa-arrow-right"></i></a>
+                                </li>
+                              </ul>
+                            </div>
+
+
+                          </div>
+
+                        </div>
+                      </div>
+
+                    </sa-widget>
+
+
+
+                  </article>
+
+                </div>
               </tab>
               <tab [active]="state.tabs.demo5 == 'iss2'">
-                <p>
+                <div class="row">
+                  <article class="col-sm-12 col-md-12 col-lg-6">
 
-                </p>
-              </tab>
-              <tab [active]="state.tabs.demo5 == 'iss3'">
-                <p>
+                    <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                               [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
 
-                </p>
+                      <div>
+                        <div class="widget-body no-padding">
+                          <alert type="info" class="no-margin" >
+                            <i class="fa-fw fa fa-plus"></i>
+                            添加运输方式
+                          </alert>
+
+                          <form #newTodoForm="ngForm" class="smart-form ">
+                            <fieldset>
+                              <section>
+                                <label class="input">
+                                  <input type="text" required class="input-lg"  name="title"
+                                         placeholder="请输入运输方式">
+                                </label>
+                              </section>
+                            </fieldset>
+                            <footer>
+                              <button  type="button" class="btn btn-primary">
+                                保存
+                              </button>
+                              <button type="button" class="btn btn-default" >
+                                取消
+                              </button>
+                            </footer>
+                          </form>
+
+                        </div>
+                      </div>
+
+                    </sa-widget>
+
+
+                  </article>
+
+                  <article class="col-sm-12 col-md-12 col-lg-6">
+
+                    <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                               [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+
+                      <div>
+                        <div class="widget-body no-padding">
+                          <alert type="info" class="no-margin" >
+                            <i class="fa-fw fa fa-spoon"></i>
+                            运输方式
+                          </alert>
+                          <div class="table-responsive">
+
+                            <table class="table table-hover table-bordered">
+                              <thead>
+                              <tr>
+                                <th>运输方式 </th>
+                                <th>操作</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr>
+                                <td>公路运输</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>铁路运输</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>水路运输</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>航空运输</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>快递运输</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+
+                              </tbody>
+
+
+                            </table>
+
+                            <div class="dataTables_paginate">
+                              <ul class="pagination">
+                                <li>
+                                  <a (click)="(null)"><i class="fa fa-arrow-left"></i></a>
+                                </li>
+                                <li>
+                                  <a (click)="(null)">1</a>
+                                </li>
+                                <li>
+                                  <a (click)="(null)"><i class="fa fa-arrow-right"></i></a>
+                                </li>
+                              </ul>
+                            </div>
+
+                          </div>
+
+                        </div>
+                      </div>
+
+                    </sa-widget>
+
+                  </article>
+
+                </div>
               </tab>
             </tabset>
 
           </tab>
+
         </tabset>
 
       </div>
@@ -124,18 +1519,5 @@
 
     </div>
     <!-- end widget div -->
-
   </sa-widget>
-
-
-
-
-
-
-
-
-
-
-
-
 </div>

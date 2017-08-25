@@ -6,12 +6,16 @@ import { SettingEnterpriseComponent } from './setting-enterprise.component';
 import {SmartadminEditorsModule} from '../../shared/forms/editors/smartadmin-editors.module';
 import {SmartadminModule} from '../../shared/smartadmin.module';
 
+
+import {NestableListModule} from "../../shared/ui/nestable-list/nestable-list.module";
+
 @NgModule({
   imports: [
     CommonModule,
     SmartadminEditorsModule,
     SmartadminModule,
-    settingEnterpriseRouting
+    settingEnterpriseRouting,
+      NestableListModule,
   ],
   declarations: [SettingEnterpriseComponent]
 })
