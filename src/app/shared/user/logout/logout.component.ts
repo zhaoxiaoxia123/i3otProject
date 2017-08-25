@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
 import {NotificationService} from "../../utils/notification.service";
+import {CookieStoreService} from "../../cookies/cookie-store.service";
+
 
 declare var $:any;
 
@@ -18,7 +20,8 @@ declare var $:any;
 export class LogoutComponent implements OnInit {
 
   constructor(private router: Router,
-              private notificationService: NotificationService) { }
+              private notificationService: NotificationService,
+              private cookieStoreService:CookieStoreService) { }
 
   showPopup(){
     this.notificationService.smartMessageBox({
@@ -34,7 +37,8 @@ export class LogoutComponent implements OnInit {
   }
 
   logout(){
-      this.router.navigate(['/auth/login'])
+    this.cookieStoreService.removeAll();
+    this.router.navigate(['/auth/login'])
   }
 
   ngOnInit() {

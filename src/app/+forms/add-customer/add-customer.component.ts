@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FadeInTop} from '../../shared/animations/fade-in-top.decorator';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {mobileAsyncValidator, mobileValidator, passwordValidator} from '../../shared/common/validator';
+import {mobileAsyncValidator, mobileValidator} from '../../shared/common/validator';//passwordValidator
 
 import {Http} from '@angular/http';
 import {Router} from '@angular/router';
@@ -14,6 +14,7 @@ import {Router} from '@angular/router';
 export class AddCustomerComponent implements OnInit {
 
   formModel : FormGroup;
+  userList : Array<any> = [];
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -25,10 +26,10 @@ export class AddCustomerComponent implements OnInit {
       abbreviation:[''],
       industry_category:[''],
       email:[''],
-      passwords : fb.group({
-        password:['',[Validators.minLength(6)]],
-        pconfirm:['']
-      },{validator:passwordValidator}),
+      // passwords : fb.group({
+      //   password:['',[Validators.minLength(6)]],
+      //   pconfirm:['']
+      // },{validator:passwordValidator}),
       phone:['',mobileValidator,mobileAsyncValidator],
       department:[''],
       address:[''],
@@ -42,17 +43,30 @@ export class AddCustomerComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getUserByCid();
+  }
+
+  getUserByCid() {
+      this.http.get('/api/getUserByCid')
+        .map((res)=>res.json())
+        .subscribe((data)=>{
+          this.userList = data;
+      });
+
+    setTimeout(() => {
+      console.log('this.userList:----');
+      console.log(this.userList);
+    }, 300);
   }
 
   onSubmit(){
-    console.log(this.formModel.value['passwords']['password']);
     console.log(this.formModel.value['name']);
 
     this.http.post('/api/addCustomer',{
       'number':this.formModel.value['number'],
       'name':this.formModel.value['name'],
       'phone':this.formModel.value['phone'],
-      'password':this.formModel.value['passwords']['password'],
+      // 'password':this.formModel.value['passwords']['password'],
       'email':this.formModel.value['email'],
       'abbreviation':this.formModel.value['abbreviation'],
       'industry_category':this.formModel.value['industry_category'],

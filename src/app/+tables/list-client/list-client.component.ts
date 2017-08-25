@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Http} from '@angular/http';
-import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
+// import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 
 @Component({
   selector: 'app-list-client',
@@ -14,9 +14,8 @@ export class ListClientComponent implements OnInit {
   next : boolean = false;
   constructor(
       private http:Http,
-      private cookiestore:CookieStoreService
+      // private cookiestore:CookieStoreService
   ) {
-    this.cookiestore.setCookie('cid',1);
     this.getCustomerList('1');
   }
 
@@ -70,8 +69,6 @@ export class ListClientComponent implements OnInit {
    * @param uid
    */
   deleteCustomer(cid:any,current_page:any){
-    // console.log('current_page-----');
-    // console.log(current_page);
     if(confirm('您确定要删除该条信息吗？')) {
       this.http.delete('/api/deleteCustomerById?cid=' + cid + '&page=' + current_page)
           .map((res) => res.json())

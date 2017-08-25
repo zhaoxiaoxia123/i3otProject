@@ -50,36 +50,64 @@
           </tr>
           </thead>
           <tbody>
-          <tr>
+          <tr style="display: none;">
+            <td></td><td></td><td></td><td></td>
+            <td></td><td></td><td></td><td></td>
+            <td></td><td></td><td></td><td></td>
+            <td></td><td></td><td></td><td></td>
+          </tr>
+          <tr *ngFor="let pl of productList.result?.data">
             <td>
               <label class="checkbox">
                 <input type="checkbox" name="checkbox-inline">
                 <i></i>
               </label>
             </td>
-            <td>1</td>
-            <td>矿易帮</td>
-            <td>4141542</td>
-            <td>金属冶炼</td>
-            <td>12</td>
-            <td>成都矿易帮信息科技有限公司</td>
-            <td>4536666666663</td>
-            <td>info@kuangyibang.com</td>
-            <td>03/04/14</td>
-            <td>矿易帮</td>
-            <td>03/04/14</td>
-            <td>是</td>
-            <td>成都矿易帮信息科技有限公司成都矿易帮信息科技有限公司</td>
-            <td>03/04/14</td>
-            <td><a class="btn btn-warning btn-xs" (click)="update(stock)"><span class="glyphicon glyphicon-pencil"></span>修改</a>
-              <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a></td>
+            <td>{{ pl.p_id }}</td>
+            <td>{{ pl.p_category_id }}</td>
+            <td>{{ pl.p_product_id }}</td>
+            <td>{{ pl.p_name }}</td>
+            <td>{{ pl.p_quantity }}</td>
+            <td>{{ pl.p_unit }}</td>
+            <td>{{ pl.p_specification }}</td>
+            <td>{{ pl.p_inspector }}</td>
+            <td>{{ pl.p_production_date }}</td>
+            <td>{{ pl.p_storehouse }}</td>
+            <td>{{ pl.p_storage_time }}</td>
+            <td>
+              <span [ngSwitch]="pl.p_is_acceptable">
+                <span *ngSwitchCase="1">合格</span>
+                <span *ngSwitchCase="0">不合格</span>
+                <span *ngSwitchDefault>未知</span>
+              </span>
+            </td>
+            <td>{{ pl.p_notes }}</td>
+            <td>{{ pl.updated_at }}</td>
+            <td>
+              <a class="btn btn-warning btn-xs" (click)="update(stock)">
+                <span class="glyphicon glyphicon-pencil"></span>修改
+              </a>
+              <a class="btn btn-danger btn-xs" (click)="deleteProduct( pl.p_id ,productList.result?.current_page)">
+                <span class="glyphicon glyphicon-remove"></span>删除
+              </a>
+            </td>
           </tr>
 
           </tbody>
 
 
         </sa-datatable>
-
+        <!-- 分页部分-->
+        <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+          <ul class="pagination"><!-- [ngClass]="{'disabled':prev == true}"   [ngClass]="{'disabled':next == true}" -->
+            <li class="paginate_button previous" id="DataTables_Table_0_previous">
+              <a (click)="pagination(productList.result?.prev_page_url)" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0">上一页</a>
+            </li>
+            <li class="paginate_button next" id="DataTables_Table_0_next">
+              <a (click)="pagination(productList.result?.next_page_url)" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0">下一页</a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </sa-widget>

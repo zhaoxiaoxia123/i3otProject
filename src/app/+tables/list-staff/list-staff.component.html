@@ -47,9 +47,13 @@
             <td>{{ ul.u_id }}</td>
             <td>{{ ul.u_name }}</td>
             <td>{{ ul.u_role }}</td>
-            <td *ngIf="ul.u_gender == 1">男</td>
-            <td *ngIf="ul.u_gender == 2">女</td>
-            <td *ngIf="ul.u_gender != 2 && ul.u_gender != 1">未知</td>
+            <td>
+              <span [ngSwitch]="ul.u_gender">
+                <span *ngSwitchCase="1">男</span>
+                <span *ngSwitchCase="2">女</span>
+                <span *ngSwitchDefault>未知</span>
+              </span>
+            </td>
             <td>{{ ul.u_age }}</td>
             <td>{{ ul.c_name }}</td>
             <td>{{ ul.u_department }}</td>
