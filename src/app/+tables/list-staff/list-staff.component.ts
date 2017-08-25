@@ -21,6 +21,10 @@ export class ListStaffComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * 获取用户列表
+   * @param number
+   */
   getUserList(number:string) {
     this.http.get('/api/getUserList?cid='+this.cookiestore.getCookie('cid')+'&page='+number)
         .map((res)=>res.json())
@@ -46,13 +50,50 @@ export class ListStaffComponent implements OnInit {
     }, 300);
   }
 
+  /**
+   * 分页
+   * @param url
+   */
   pagination(url : string) {
-    console.log('url:'+url);
+    // console.log('url:'+url);
     if(url) {
-      this.page = url.substring((url.lastIndexOf('=') + 1), url.length);
-      console.log(this.page);
-      this.getUserList(this.page);
+        this.page = url.substring((url.lastIndexOf('=') + 1), url.length);
+        // console.log(this.page);
+        this.getUserList(this.page);
+
     }
   }
+
+  /**
+   * 删除用户信息
+   * @param uid
+   */
+  deleteUser(uid:any,current_page:any){
+    // console.log('current_page-----');
+    // console.log(current_page);
+    if(confirm('您确定要删除该条信息吗？')) {
+      this.http.delete('/api/deleteUserById?uid=' + uid + '&page=' + current_page)
+          .map((res) => res.json())
+          .subscribe((data) => {
+            this.userList = data;
+          });
+      setTimeout(() => {
+        // console.log(this.userList);
+        if (this.userList) {
+          if (this.userList['result']['current_page'] == this.userList['result']['last_page']) {
+            this.next = true;
+          } else {
+            this.next = false;
+          }
+          if (this.userList['result']['current_page'] == 1) {
+            this.prev = true;
+          } else {
+            this.prev = false;
+          }
+        }
+      }, 300);
+    }
+  }
+
 
 }

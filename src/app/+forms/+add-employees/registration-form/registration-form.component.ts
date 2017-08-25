@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {CookieStoreService} from '../../../shared/cookies/cookie-store.service';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {mobileAsyncValidator, mobileValidator, passwordValidator} from "../../../shared/common/validator";
-import {getAddress,getProvince,getCity,getArea} from "../../../shared/common/area";
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {mobileAsyncValidator, mobileValidator, passwordValidator} from '../../../shared/common/validator';
+import {getProvince,getCity,getArea} from '../../../shared/common/area';
 
-import {Http} from "@angular/http";
-import {Router} from "@angular/router";
+import {Http} from '@angular/http';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-registration-form',
@@ -28,11 +28,12 @@ export class RegistrationFormComponent implements OnInit {
       fb:FormBuilder,
       private http:Http,
       private router : Router,
-      private cookieStoreService:CookieStoreService
+      private cookieStoreService:CookieStoreService,
+      // private uploader:FileUploaderOptions
   ) {
     this.formModel = fb.group({
       employee_id:['',[Validators.required,Validators.minLength(1)]],
-      name:['',[Validators.required,Validators.minLength(5)]],
+      name:['',[Validators.required,Validators.minLength(1)]],
       role:[''],
       gender:[''],
       age:[''],
@@ -71,30 +72,52 @@ export class RegistrationFormComponent implements OnInit {
     this.province = getProvince(); //家庭住址
     this.birthplace_province = getProvince();  //籍贯
 
-
-
   }
 
   onSubmit(){
     console.log(this.formModel.value['passwords']['password']);
     console.log(this.formModel.value['name']);
 
-    // this.http.post('/api/register',{
-    //   'username':this.formModel.value['name'],
-    //   'mobile':this.formModel.value['phone'],
-    //   'password':this.formModel.value['passwords']['password'],
-    // }).subscribe(
-    //     (data)=>{
-    //       this.cookieStoreService.setCookie('name', this.formModel.value['username']);
-    //       this.router.navigateByUrl('/dashboard/social');
-    //     },
-    //     response => {
-    //       console.log("PATCH call in error", response);
-    //     },
-    //     () => {
-    //       console.log("The PATCH observable is now completed.");
-    //     }
-    // );
+    this.http.post('/api/addUser',{
+      'employee_id':this.formModel.value['employee_id'],
+      'name':this.formModel.value['name'],
+      'phone':this.formModel.value['phone'],
+      'password':this.formModel.value['passwords']['password'],
+      'role':this.formModel.value['role'],
+      'gender':this.formModel.value['gender'],
+      'age':this.formModel.value['age'],
+      'department':this.formModel.value['department'],
+      'notes':this.formModel.value['notes'],
+      'enrol_time':this.formModel.value['enrol_time'],
+      'position':this.formModel.value['position'],
+      'contract_type':this.formModel.value['contract_type'],
+      'birthplace':this.formModel.value['birthplace1']+ ' '+this.formModel.value['birthplace2'],
+      'id_card':this.formModel.value['id_card'],
+      'nation':this.formModel.value['nation'],
+      'marital_status':this.formModel.value['marital_status'],
+      'graduate_institutions':this.formModel.value['graduate_institutions'],
+      'study_major':this.formModel.value['study_major'],
+      'study_diploma':this.formModel.value['study_diploma'],
+      'study_category':this.formModel.value['study_category'],
+      'email':this.formModel.value['email'],
+      'emergency_contact':this.formModel.value['emergency_contact'],
+      'emergency_phone':this.formModel.value['emergency_phone'],
+      'address':this.formModel.value['address1']+' '+this.formModel.value['address2'] +' '+ this.formModel.value['address3']+' '+this.formModel.value['address4'],
+    }).subscribe(
+        (data)=>{
+          alert(JSON.parse(data['_body'])['msg']);
+          if(data['status'] == 200) {
+            this.router.navigateByUrl('/tables/staff');
+          }
+
+        },
+        response => {
+          console.log('PATCH call in error', response);
+        },
+        () => {
+          console.log('The PATCH observable is now completed.');
+        }
+    );
   }
 
   getCity(){
