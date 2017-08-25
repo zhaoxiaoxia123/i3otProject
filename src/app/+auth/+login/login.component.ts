@@ -21,9 +21,9 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if(this.cookieStoreService.getCookie('username')) {
-      this.router.navigate(['/dashboard/social']);
-    }
+    // if(this.cookieStoreService.getCookie('username')) {
+    //   this.router.navigate(['/dashboard/social']);
+    // }
   }
 
   login(value){

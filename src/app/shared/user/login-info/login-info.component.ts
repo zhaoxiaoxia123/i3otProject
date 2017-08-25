@@ -31,7 +31,7 @@ export class LoginInfoComponent implements OnInit {
         "activity": 12
       };
     }else{
-      this.router.navigate(['/auth/login']);
+     /* this.router.navigate(['/auth/login']);*/
     }
   }
 
