@@ -23,6 +23,11 @@ export const routes:Routes = [
         path: 'customer',
         loadChildren: 'app/+forms/add-customer/add-customer.module#AddCustomerModule',
         data: {pageTitle: 'Customer'}
+    },
+    {
+        path: 'customer1',
+        loadChildren: 'app/+forms/add-customer1/add-customer1.module#AddCustomer1Module',
+        data: {pageTitle: 'Customer1'}
     }
 ];
 
