@@ -71,13 +71,13 @@
                             添加行业
                           </alert>
 
-                          <form [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate class="smart-form ">
+                          <form   novalidate class="smart-form ">
                             <fieldset>
                               <section>
                                 <label class="input">
-                                  <input type="text" required class="input-lg"
-                                         placeholder="请输入行业" minlength="1" maxlength="20" formControlName="category_desc" name="category_desc">
-                                  <input type="hidden" value="1" formControlName="category_type" name="category_type">
+                                  <input type="text"  class="input-lg"
+                                         placeholder="请输入行业" minlength="1" maxlength="20"  name="category_desc">
+                                  <input type="hidden" value="1"  name="category_type">
                                 </label>
                               </section>
                             </fieldset>
