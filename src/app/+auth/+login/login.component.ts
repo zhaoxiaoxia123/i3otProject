@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(value){
-    this.http.get('/api/login?cNumber='+value['cNumber']+'&uNumber='+value['uNumber']+'&password='+value['password'])
+    this.http.get('/api/v1/login?cNumber='+value['cNumber']+'&uNumber='+value['uNumber']+'&password='+value['password'])
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.loginInfo = data;

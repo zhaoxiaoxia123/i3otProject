@@ -26,7 +26,7 @@ export class ListStaffComponent implements OnInit {
    * @param number
    */
   getUserList(number:string) {
-    this.http.get('/api/getUserList?cid='+this.cookiestore.getCookie('cid')+'&page='+number)
+    this.http.get('/api/v1/getUserList?cid='+this.cookiestore.getCookie('cid')+'&page='+number)
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.userList = data;
@@ -72,7 +72,7 @@ export class ListStaffComponent implements OnInit {
     // console.log('current_page-----');
     // console.log(current_page);
     if(confirm('您确定要删除该条信息吗？')) {
-      this.http.delete('/api/deleteUserById?uid=' + uid + '&page=' + current_page)
+      this.http.delete('/api/v1/deleteUserById?uid=' + uid + '&page=' + current_page)
           .map((res) => res.json())
           .subscribe((data) => {
             this.userList = data;

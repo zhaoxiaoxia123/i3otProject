@@ -43,11 +43,14 @@ export class AddCustomerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getUserByCid();
+    this.getCustomerDefault();
   }
 
-  getUserByCid() {
-      this.http.get('/api/getUserByCid')
+  /**
+   * 获取添加客户的默认参数
+   */
+  getCustomerDefault() {
+      this.http.get('/api/v1/getCustomerDefault')
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.userList = data;
@@ -60,9 +63,8 @@ export class AddCustomerComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log(this.formModel.value['name']);
-
-    this.http.post('/api/addCustomer',{
+    // console.log(this.formModel.value['name']);
+    this.http.post('/api/v1/addCustomer',{
       'number':this.formModel.value['number'],
       'name':this.formModel.value['name'],
       'phone':this.formModel.value['phone'],

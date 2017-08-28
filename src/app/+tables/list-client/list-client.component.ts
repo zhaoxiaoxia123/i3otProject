@@ -27,7 +27,7 @@ export class ListClientComponent implements OnInit {
    * @param number
    */
   getCustomerList(number:string) {
-    this.http.get('/api/getCustomerList?page='+number)
+    this.http.get('/api/v1/getCustomerList?page='+number)
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.customerList = data;
@@ -70,7 +70,7 @@ export class ListClientComponent implements OnInit {
    */
   deleteCustomer(cid:any,current_page:any){
     if(confirm('您确定要删除该条信息吗？')) {
-      this.http.delete('/api/deleteCustomerById?cid=' + cid + '&page=' + current_page)
+      this.http.delete('/api/v1/deleteCustomerById?cid=' + cid + '&page=' + current_page)
           .map((res) => res.json())
           .subscribe((data) => {
             this.customerList = data;

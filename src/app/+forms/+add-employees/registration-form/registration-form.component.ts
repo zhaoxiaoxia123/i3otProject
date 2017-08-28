@@ -22,7 +22,7 @@ export class RegistrationFormComponent implements OnInit {
   birthplace_province : string[] = [];
   birthplace_city : string[] = [];
 
-
+  userList : Array<any> = [];
 
   constructor(
       fb:FormBuilder,
@@ -71,14 +71,31 @@ export class RegistrationFormComponent implements OnInit {
     // }
     this.province = getProvince(); //家庭住址
     this.birthplace_province = getProvince();  //籍贯
+    this.getUserDefault();
+  }
 
+
+  /**
+   * 获取添加员工的默认参数
+   */
+  getUserDefault() {
+    this.http.get('/api/v1/getUserDefault')
+        .map((res)=>res.json())
+        .subscribe((data)=>{
+          this.userList = data;
+        });
+
+    setTimeout(() => {
+      console.log('this.userList:----');
+      console.log(this.userList);
+    }, 300);
   }
 
   onSubmit(){
     console.log(this.formModel.value['passwords']['password']);
     console.log(this.formModel.value['name']);
 
-    this.http.post('/api/addUser',{
+    this.http.post('/api/v1/addUser',{
       'employee_id':this.formModel.value['employee_id'],
       'name':this.formModel.value['name'],
       'phone':this.formModel.value['phone'],

@@ -79,9 +79,7 @@
       <div class="col col-10">
         <label class="select">
         <select name="department"  formControlName="department">
-          <option value="1">调度中心</option>
-          <option value="2">综采队</option>
-          <option value="3">综掘队</option>
+          <option *ngFor="let c of userList.result?.departmentList" value="{{c.category_id}}">{{c.category_desc}}</option>
         </select> <i></i> </label></div>
       <div class="col col-2">
         <button type="button" class="btn btn-primary btn-sm btn-block">
@@ -156,9 +154,7 @@
       <div class="col col-8">
         <label class="select">
           <select name="contract_type" formControlName="contract_type">
-            <option value="1">固定期限</option>
-            <option value="2">无固定期限</option>
-            <option value="3">一定工作任务为期限</option>
+            <option *ngFor="let c of userList.result?.contractTypeList" value="{{c.category_id}}">{{c.category_desc}}</option>
           </select> <i></i> </label></div>
       <div class="col col-4">
         <button type="button" class="btn btn-primary btn-sm btn-block">
@@ -293,9 +289,7 @@
       <div class="col col-8">
         <label class="select">
           <select name="study_category"  formControlName="study_category">
-            <option value="1">全日制</option>
-            <option value="2">成人考试</option>
-            <option value="3">自学考试</option>
+            <option *ngFor="let c of userList.result?.studyCategoryList" value="{{c.category_id}}">{{c.category_desc}}</option>
           </select> <i></i> </label></div>
       <div class="col col-4">
         <button type="button" class="btn btn-primary btn-sm btn-block">
@@ -323,10 +317,8 @@
           <input name="emergency_phone" formControlName="emergency_phone" placeholder="请输入联系电话" samaskedinput="(999) 999-9999" type="tel" ng-reflect-sa-masked-input="(999) 999-9999" maxlength="20" aria-required="true" class="valid" aria-invalid="false">
         </label>
       </section>
-
     </div>
   </fieldset>
-
   <fieldset>
     <section class="col col-6">
       <label class="label">家庭住址</label>
@@ -358,10 +350,7 @@
         <input  name='address4' formControlName="address4" placeholder="请输入详细地址"  type="text" maxlength="20">
       </label>
     </section>
-
   </fieldset>
-
-
   <!--<fieldset>-->
     <!--<section>-->
       <!--<label class="checkbox">-->

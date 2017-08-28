@@ -27,7 +27,7 @@ export class ListProductComponent implements OnInit {
    * @param number
    */
   getProductList(number:string) {
-    this.http.get('/api/getProductList?cid='+this.cookiestore.getCookie('cid')+'&page='+number)
+    this.http.get('/api/v1/getProductList?cid='+this.cookiestore.getCookie('cid')+'&page='+number)
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.productList = data;
@@ -72,7 +72,7 @@ export class ListProductComponent implements OnInit {
     // console.log('current_page-----');
     // console.log(current_page);
     if(confirm('您确定要删除该条信息吗？')) {
-      this.http.delete('/api/deleteProductById?pid=' + uid + '&page=' + current_page)
+      this.http.delete('/api/v1/deleteProductById?pid=' + uid + '&page=' + current_page)
           .map((res) => res.json())
           .subscribe((data) => {
             this.productList = data;

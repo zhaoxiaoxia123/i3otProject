@@ -2,19 +2,9 @@
 <div id="content">
   <div class="row">
     <sa-big-breadcrumbs [items]="['企业设置', '添加客户']" icon="pencil-square-o" class="col-xs-12 col-sm-9 col-md-9 col-lg-9"></sa-big-breadcrumbs>
-
   </div>
-
-
-
   <sa-widgets-grid>
-
-
-
-
     <div class="row">
-
-
       <article class="col-sm-12 ">
 
         <!-- Widget ID (each widget will need unique ID)-->
@@ -27,11 +17,7 @@
             <h2>添加客户 </h2>
 
           </header>
-
-
           <div>
-
-
             <!-- widget content -->
             <div class="widget-body no-padding">
 
@@ -89,53 +75,7 @@
                       <div class="col col-8">
                         <label class="select">
                           <select name="industry_category" formControlName="industry_category">
-                            <option value="0" disabled>选择所属行业</option>
-                            <option value="1">矿业服务</option>
-                            <option value="2">采矿</option>
-                            <option value="3">能源</option>
-                            <option value="4">金属冶炼</option>
-                            <option value="5">保险业</option>
-                            <option value="6">餐饮</option>
-                            <option value="7">宾馆</option>
-                            <option value="8">电讯业</option>
-                            <option value="9">房地产</option>
-                            <option value="10">服务</option>
-                            <option value="11">服装业</option>
-                            <option value="12">公益组织</option>
-                            <option value="13">广告业</option>
-                            <option value="14">航空航天</option>
-                            <option value="15">化学</option>
-                            <option value="16">保健</option>
-                            <option value="17">建筑业</option>
-                            <option value="18">教育</option>
-                            <option value="19">培训</option>
-                            <option value="20">计算机</option>
-                            <option value="21">警察</option>
-                            <option value="22">消防</option>
-                            <option value="23">军人</option>
-                            <option value="24">会计</option>
-                            <option value="25">媒体</option>
-                            <option value="26">出版</option>
-                            <option value="27">木材</option>
-                            <option value="28">造纸</option>
-                            <option value="29">零售</option>
-                            <option value="30">批发</option>
-                            <option value="31">农业</option>
-                            <option value="32">旅游业</option>
-                            <option value="33">司法</option>
-                            <option value="34">律师</option>
-                            <option value="35">体育运动</option>
-                            <option value="36">学术研究</option>
-                            <option value="37">医疗服务</option>
-                            <option value="38">设计</option>
-                            <option value="39">银行</option>
-                            <option value="40">金融</option>
-                            <option value="41">互联网</option>
-                            <option value="42">邮政快递</option>
-                            <option value="43">运输业</option>
-                            <option value="44">政府机关</option>
-                            <option value="45">机械制造</option>
-                            <option value="46">咨询</option>
+                            <option *ngFor="let c of userList.result?.industryCategoryList" value="{{c.category_id}}">{{c.category_desc}}</option>
                           </select> <i></i> </label></div>
                       <div class="col col-4">
                         <button type="button" class="btn btn-primary btn-sm btn-block">
@@ -186,11 +126,7 @@
                     <div class="col col-8">
                       <label class="select">
                         <select name="source" formControlName="source">
-                          <option value="0" disabled>选择客户来源</option>
-                          <option value="1">网络</option>
-                          <option value="2">广告</option>
-                          <option value="3">报刊</option>
-                          <option value="4">推荐</option>
+                          <option *ngFor="let c of userList.result?.sourceList" value="{{c.category_id}}">{{c.category_desc}}</option>
                         </select> <i></i> </label></div>
                     <div class="col col-4">
                       <button type="button" class="btn btn-primary btn-sm btn-block">
@@ -203,7 +139,7 @@
                     <label class="label">协助跟进人</label>
                     <label class="select">
                       <select name="service_person" formControlName="service_person">
-                        <option *ngFor="let u of userList.result" value="{{u.u_id}}">{{u.u_name}}</option>
+                        <option *ngFor="let u of userList.result?.userList" value="{{u.u_id}}">{{u.u_name}}</option>
                       </select> <i></i> </label>
                   </section>
                   <section class="col col-6">

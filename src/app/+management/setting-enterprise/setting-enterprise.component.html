@@ -72,27 +72,28 @@
                             添加行业
                           </alert>
 
-                          <form #newTodoForm="ngForm" class="smart-form ">
+                          <form [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate class="smart-form ">
                             <fieldset>
                               <section>
                                 <label class="input">
-                                  <input type="text" required class="input-lg"  name="title"
-                                         placeholder="请输入行业">
+                                  <input type="text" required class="input-lg"
+                                         placeholder="请输入行业" minlength="1" maxlength="20" formControlName="category_desc" name="category_desc">
+                                  <input type="hidden" value="1" formControlName="category_type" name="category_type"/>
                                 </label>
                               </section>
                             </fieldset>
                             <fieldset>
                               <section>
-                                <button class="btn btn-warning btn-xs text-center"style="padding:10px;margin:24px 0;" >
+                                <button class="btn btn-warning btn-xs text-center" style="padding:10px;margin:24px 0;" >
                                   <i class="fa fa-plus"></i> <span class="hidden-mobile">添加行业</span>
                                 </button>
                               </section>
                             </fieldset>
                             <footer>
-                              <button  type="button" class="btn btn-primary">
+                              <button type="submit" class="btn btn-primary">
                                 保存
                               </button>
-                              <button type="button" class="btn btn-default" >
+                              <button type="reset" class="btn btn-default" >
                                 取消
                               </button>
                             </footer>
@@ -102,7 +103,6 @@
                       </div>
 
                     </sa-widget>
-
 
                   </article>
 

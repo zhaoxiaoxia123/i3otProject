@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FadeInTop} from '../../shared/animations/fade-in-top.decorator';
 import {JsonApiService} from '../../core/api/json-api.service';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @FadeInTop()
 @Component({
@@ -29,10 +30,35 @@ export class SettingEnterpriseComponent implements OnInit {
     public demo2: any;
     public nestable2DemoOutput: any;
 
-    constructor(private jsonApiService:JsonApiService) {
+    formModel : FormGroup;
+    constructor(private jsonApiService:JsonApiService,
+    fb:FormBuilder) {
+        this.formModel = fb.group({
+            category_desc:[''],
+            category_type:[''],
+        });
     }
 
+    onSubmit(){
 
+    // this.http.post('/api/addUser',{
+    //     'employee_id':this.formModel.value['employee_id'],
+    //     'name':this.formModel.value['name'],
+    // }).subscribe(
+    //     (data)=>{
+    //         alert(JSON.parse(data['_body'])['msg']);
+    //         if(data['status'] == 200) {
+    //             this.router.navigateByUrl('/tables/staff');
+    //         }
+    //     },
+    //     response => {
+    //         console.log('PATCH call in error', response);
+    //     },
+    //     () => {
+    //         console.log('The PATCH observable is now completed.');
+    //     }
+    // );
+    }
 
   ngOnInit() {
 
