@@ -1,7 +1,7 @@
 <!-- MAIN CONTENT -->
 <div id="content">
   <div class="row">
-    <sa-big-breadcrumbs [items]="['SIM管理', '添加客户']" icon="pencil-square-o" class="col-xs-12 col-sm-9 col-md-9 col-lg-9"></sa-big-breadcrumbs>
+    <sa-big-breadcrumbs [items]="['SRM设置', '添加客户']" icon="pencil-square-o" class="col-xs-12 col-sm-9 col-md-9 col-lg-9"></sa-big-breadcrumbs>
 
   </div>
 
@@ -35,60 +35,29 @@
             <!-- widget content -->
             <div class="widget-body no-padding">
 
-              <form id="smart-form-register" class="smart-form" [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate>
+              <form id="smart-form-register" class="smart-form">
 
                 <fieldset>
                   <legend>主要信息</legend>
                   <div class="row">
 
                     <section class="col col-6">
-                      <label class="label">客户编号</label>
-                      <label class="input">
-                        <input type="text" name="number" placeholder="请输入客户编号" maxlength="20" formControlName="number"/>
-                      </label>
-                    </section>
-                    <section class="col col-6">
                       <label class="label">全称</label>
                       <label class="input">
-                        <input type="text" name="name" placeholder="请输入全称 " maxlength="30" formControlName="name"/>
+                        <input type="text" name="account" placeholder="请输入全称 "/>
                       </label>
                     </section>
                     <section class="col col-6">
                       <label class="label">简称</label>
                       <label class="input">
-                        <input type="text" name="abbreviation" placeholder="请输入简称 " maxlength="10" formControlName="abbreviation"/>
+                        <input type="text" name="account" placeholder="请输入简称 "/>
                       </label>
                     </section>
-
-                    <!--<div formGroupName="passwords">-->
-                    <!--<section class="col col-6">-->
-                    <!--<label class="label">密码</label>-->
-                    <!--<label class="input"> <i class="icon-append fa fa-lock"></i>-->
-                    <!--<input type="password" name="password" placeholder="密码" id="password" maxlength="16" minlength="6" formControlName="password"/>-->
-                    <!--<b class="tooltip tooltip-bottom-right">请输入密码</b>-->
-                    <!--<div [hidden]="!formModel.hasError('minlength',['passwords','password'])">-->
-                    <!--用户名最小长度是6-->
-                    <!--</div>-->
-                    <!--</label>-->
-                    <!--</section>-->
-
-                    <!--<section class="col col-6">-->
-                    <!--<label class="label">确定密码</label>-->
-                    <!--<label class="input"> <i class="icon-append fa fa-lock"></i>-->
-                    <!--<input type="password" name="pconfirm" placeholder="确认密码" maxlength="16" minlength="6" formControlName="pconfirm"/>-->
-                    <!--<b class="tooltip tooltip-bottom-right">再次确定密码</b>-->
-                    <!--<div [hidden]="!formModel.hasError('valid','passwords')">-->
-                    <!--{{formModel.getError('valid','passwords')?.desc}}-->
-                    <!--</div>-->
-                    <!--</label>-->
-                    <!--</section>-->
-                    <!--</div>-->
-
                     <section class="col col-6">
                       <label class="label ">所属行业</label>
                       <div class="col col-8">
                         <label class="select">
-                          <select name="industry_category" formControlName="industry_category">
+                          <select name="department" >
                             <option value="0" disabled>选择所属行业</option>
                             <option value="1">矿业服务</option>
                             <option value="2">采矿</option>
@@ -146,46 +115,54 @@
                     <section class="col col-6">
                       <label class="label">企业邮箱</label>
                       <label class="input"> <i class="icon-append fa fa-envelope-o"></i>
-                        <input name="email" placeholder="E-mail" type="email" formControlName="email">
+                        <input name="email" placeholder="E-mail" type="email">
                       </label>
                     </section>
                     <section class="col col-6">
                       <label class="label">详细地址</label>
                       <label class="input">
-                        <input  name='address' placeholder="请输入详细地址"  type="text" formControlName="address">
+                        <input  name='source' placeholder="请输入详细地址"  type="text">
                       </label>
                     </section>
                     <div class="col col-6">
                       <label class="label">联系人</label>
                       <section class="col col-4">
                         <label class="input">
-                          <input  name='contacts' placeholder="请输入姓名"  type="text" formControlName="contacts">
+                          <input  name='contact' placeholder="请输入姓名"  type="text">
                         </label>
                       </section>
                       <section class="col col-8">
                         <label class="input"> <i class="icon-append fa fa-phone"></i>
-                          <input name="phone" placeholder="请输入联系电话" formControlName="phone" samaskedinput="(999) 999-9999" type="tel" ng-reflect-sa-masked-input="(999) 999-9999" aria-required="true" class="valid" aria-invalid="false">
+                          <input name="phone" placeholder="请输入联系电话" samaskedinput="(999) 999-9999" type="tel" ng-reflect-sa-masked-input="(999) 999-9999" aria-required="true" class="valid" aria-invalid="false">
                         </label>
                       </section>
+
                     </div>
+
+
+
                   </div>
                   <section>
                     <label class="label">主要产品</label>
                     <label class="textarea textarea-resizable">
-                      <textarea class="custom-scroll" rows="3" name="products" formControlName="products"></textarea>
+                      <textarea class="custom-scroll" rows="3"></textarea>
                     </label>
                   </section>
+
+
+
 
                 </fieldset>
 
                 <fieldset>
                   <legend>其他信息</legend>
 
+
                   <section class="col col-6">
                     <label class="label">客户来源</label>
                     <div class="col col-8">
                       <label class="select">
-                        <select name="source" formControlName="source">
+                        <select name=" sources" >
                           <option value="0" disabled>选择客户来源</option>
                           <option value="1">网络</option>
                           <option value="2">广告</option>
@@ -202,26 +179,34 @@
                   <section class="col col-6">
                     <label class="label">协助跟进人</label>
                     <label class="select">
-                      <select name="service_person" >
-                        <option ></option>
+                      <select name=" sources" >
+                        <option value="0" disabled>选择协助跟进人</option>
+                        <option value="1">廖轩</option>
+                        <option value="2">廖轩1</option>
+                        <option value="3">廖轩2</option>
                       </select> <i></i> </label>
                   </section>
                   <section class="col col-6">
                     <label class="label">客户配置</label>
                     <label class="input">
-                      <input type="text" formControlName="config" name="config" placeholder="请输入客户配置 "/>
+                      <input type="text" name="account" placeholder="请输入客户配置 "/>
                     </label>
                   </section>
+
 
                 </fieldset>
                 <fieldset>
                   <legend>备注说明</legend>
                   <section>
+
                     <label class="textarea textarea-resizable">
-                      <textarea formControlName="notes" name="notes" class="custom-scroll" rows="3"></textarea>
+                      <textarea class="custom-scroll" rows="3"></textarea>
                     </label>
                   </section>
+
                 </fieldset>
+
+
 
                 <footer>
                   <button type="submit" class="btn btn-primary">
@@ -230,15 +215,31 @@
                 </footer>
               </form>
 
+
             </div>
             <!-- end widget content -->
+
           </div>
           <!-- end widget div -->
+
         </sa-widget>
+
+
+
       </article>
       <!-- END COL -->
+
     </div>
+
     <!-- END ROW -->
+
   </sa-widgets-grid>
+
   <!-- end widget grid -->
+
+
+
+
+
+
 </div>
