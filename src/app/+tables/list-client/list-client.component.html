@@ -67,14 +67,15 @@
 
         </sa-datatable>
         <!-- 分页部分-->
-        <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+        <div class="dataTables_paginate">
           <ul class="pagination">
-            <li class="paginate_button previous" id="DataTables_Table_0_previous">
-              <a (click)="pagination(customerList.result?.prev_page_url)" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0">上一页</a>
+            <li>
+              <a (click)="pagination(customerList.result?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>
             </li>
-            <li class="paginate_button next" id="DataTables_Table_0_next">
-              <a (click)="pagination(customerList.result?.next_page_url)" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0">下一页</a>
-            </li>          </ul>
+            <li>
+              <a (click)="pagination(customerList.result?.next_page_url)"><i class="fa fa-arrow-right"></i></a>
+            </li>
+          </ul>
         </div>
 
       </div>

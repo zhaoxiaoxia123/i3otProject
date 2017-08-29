@@ -78,7 +78,7 @@
             <td>
               <span [ngSwitch]="pl.p_is_acceptable">
                 <span *ngSwitchCase="1">合格</span>
-                <span *ngSwitchCase="0">不合格</span>
+                <span *ngSwitchCase="2">不合格</span>
                 <span *ngSwitchDefault>未知</span>
               </span>
             </td>
@@ -101,26 +101,16 @@
         <div class="dataTables_paginate">
           <ul class="pagination">
             <li>
-              <a (click)="(null)"><i class="fa fa-arrow-left"></i></a>
+              <a (click)="pagination(productList.result?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>
             </li>
             <li>
-              <a (click)="(null)">2</a>
-            </li>
-            <li>
-              <a (click)="(null)">...</a>
-            </li>
-            <li>
-              <a (click)="(null)">15</a>
-            </li>
-            <li>
-              <a (click)="(null)"><i class="fa fa-arrow-right"></i></a>
+              <a (click)="pagination(productList.result?.next_page_url)"><i class="fa fa-arrow-right"></i></a>
             </li>
           </ul>
         </div>
       </div>
     </div>
   </sa-widget>
-
 
   <div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
        aria-hidden="true">
