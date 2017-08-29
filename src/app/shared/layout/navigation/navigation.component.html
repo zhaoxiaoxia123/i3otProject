@@ -49,7 +49,10 @@
                 class="menu-item-parent">{{'产品管理' | i18n}}</span></a>
         <ul>
           <li routerLinkActive="active">
-            <a routerLink="/tables/product">{{'产品' | i18n}}</a>
+            <a routerLink="/tables/product">{{'产品列表' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/forms/product1">{{'添加产品' | i18n}}</a>
           </li>
 
         </ul>
@@ -65,8 +68,20 @@
           <li routerLinkActive="active">
             <a routerLink="/forms/customer1">{{'添加客户' | i18n}}</a>
           </li>
+
+
+        </ul>
+      </li>
+
+      <li>
+        <a href="#"><i class="fa fa-lg fa-fw fa-cube  fa-truck"></i> <span
+                class="menu-item-parent">{{'销售管理' | i18n}}</span></a>
+        <ul>
           <li routerLinkActive="active">
-            <a routerLink="/tables/indent">{{'订单' | i18n}}</a>
+            <a routerLink="/tables/indent">{{'订单列表' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/forms/indent1">{{'添加订单' | i18n}}</a>
           </li>
 
         </ul>
@@ -74,12 +89,14 @@
 
       <li>
         <a href="#"><i class="fa fa-lg fa-fw  fa-database"></i> <span
-                class="menu-item-parent">{{'库存管理' | i18n}}</span></a>
+                class="menu-item-parent">{{'仓储管理' | i18n}}</span></a>
         <ul>
           <li routerLinkActive="active">
-            <a routerLink="/tables/inventory">{{'库存' | i18n}}</a>
+            <a routerLink="/tables/inventory">{{'仓储列表' | i18n}}</a>
           </li>
-
+          <li routerLinkActive="active">
+            <a routerLink="/forms/inventory1">{{'添加仓储' | i18n}}</a>
+          </li>
         </ul>
       </li>
 

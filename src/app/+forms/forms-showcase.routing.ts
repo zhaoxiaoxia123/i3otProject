@@ -1,9 +1,9 @@
 
-import {ModuleWithProviders} from "@angular/core"
-import {RouterModule, Routes} from "@angular/router";
+
+import {Routes, RouterModule} from '@angular/router';
 
 
-export const routes:Routes = [
+export const routes: Routes = [
   {
     path: 'elements',
     loadChildren: 'app/+forms/+form-elements/form-elements.module#FormElementsModule',
@@ -28,7 +28,27 @@ export const routes:Routes = [
         path: 'customer1',
         loadChildren: 'app/+forms/add-customer1/add-customer1.module#AddCustomer1Module',
         data: {pageTitle: 'Customer1'}
+    },
+    {
+        path: 'product1',
+        loadChildren: 'app/+forms/add-product1/add-product1.module#AddProduct1Module',
+        data: {pageTitle: 'Product1'}
+    },
+    {
+        path: 'indent1',
+        loadChildren: 'app/+forms/add-indent1/add-indent1.module#AddIndent1Module',
+        data: {pageTitle: 'Indent1'}
+    },
+    {
+        path: 'inventory1',
+        loadChildren: 'app/+forms/add-inventory1/add-inventory1.module#AddInventory1Module',
+        data: {pageTitle: 'Inventory1'}
     }
+/*    {
+        path: 'inventory1',
+        loadChildren: 'app/+forms/add-inventory1/add-inventory1.module#AddInventory1Module',
+        data: {pageTitle: 'Inventory1'}
+    }*/
 ];
 
 export const routing = RouterModule.forChild(routes);

@@ -32,11 +32,6 @@ export const routes:Routes = [
         data: {pageTitle: 'Product'}
     },
     {
-        path: 'product1',
-        component: ListProduct1Component,
-        data: {pageTitle: 'Product1'}
-    },
-    {
         path: 'indent',
         component: ListIndentComponent,
         data: {pageTitle: 'Indent'}

@@ -1,6 +1,6 @@
-import {NgModule} from "@angular/core";
 
-import {routing} from "./forms-showcase.routing";
+import {NgModule} from '@angular/core';
+import {routing} from './forms-showcase.routing';
 
 @NgModule({
     declarations: [
