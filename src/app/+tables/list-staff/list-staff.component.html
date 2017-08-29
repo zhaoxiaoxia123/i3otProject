@@ -46,7 +46,14 @@
             </td>
             <td>{{ ul.u_id }}</td>
             <td>{{ ul.u_name }}</td>
-            <td>{{ ul.u_role }}</td>
+            <td>
+              <span [ngSwitch]="ul.u_role">
+                <span *ngSwitchCase="1">超级管理员</span>
+                <span *ngSwitchCase="2">管理员</span>
+                <span *ngSwitchCase="3">员工</span>
+                <span *ngSwitchDefault>未知</span>
+              </span>
+            </td>
             <td>
               <span [ngSwitch]="ul.u_gender">
                 <span *ngSwitchCase="1">男</span>

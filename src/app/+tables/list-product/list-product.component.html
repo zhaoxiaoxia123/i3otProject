@@ -37,15 +37,15 @@
             <th>产品编号 </th>
             <th>名称 </th>
             <th>数量</th>
-            <th>单位 </th>
-            <th>规格/参数</th>
+            <!--<th>单位 </th>-->
+            <!--<th>规格/参数</th>-->
             <th>内部质检员</th>
             <th>生产日期</th>
-            <th>存放仓库</th>
-            <th>入库时间</th>
+            <!--<th>存放仓库</th>-->
+            <!--<th>入库时间</th>-->
             <th>是否合格</th>
-            <th>备注说明</th>
-            <th>更新时间</th>
+            <!--<th>备注说明</th>-->
+            <!--<th>更新时间</th>-->
             <th>操作</th>
           </tr>
           </thead>
@@ -53,8 +53,9 @@
           <tr style="display: none;">
             <td></td><td></td><td></td><td></td>
             <td></td><td></td><td></td><td></td>
-            <td></td><td></td><td></td><td></td>
-            <td></td><td></td><td></td><td></td>
+            <td></td><td></td>
+            <!--<td></td><td></td>-->
+            <!--<td></td><td></td><td></td><td></td>-->
           </tr>
           <tr *ngFor="let pl of productList.result?.data">
             <td>
@@ -67,13 +68,13 @@
             <td>{{ pl.p_category_id }}</td>
             <td>{{ pl.p_product_id }}</td>
             <td>{{ pl.p_name }}</td>
-            <td>{{ pl.p_quantity }}</td>
-            <td>{{ pl.p_unit }}</td>
-            <td>{{ pl.p_specification }}</td>
+            <td>{{ pl.p_quantity }}/{{ pl.p_unit }}</td>
+            <!--<td>{{ pl.p_unit }}</td>-->
+            <!--<td>{{ pl.p_specification }}</td>-->
             <td>{{ pl.p_inspector }}</td>
             <td>{{ pl.p_production_date }}</td>
-            <td>{{ pl.p_storehouse }}</td>
-            <td>{{ pl.p_storage_time }}</td>
+            <!--<td>{{ pl.p_storehouse }}</td>-->
+            <!--<td>{{ pl.p_storage_time }}</td>-->
             <td>
               <span [ngSwitch]="pl.p_is_acceptable">
                 <span *ngSwitchCase="1">合格</span>
@@ -81,8 +82,8 @@
                 <span *ngSwitchDefault>未知</span>
               </span>
             </td>
-            <td>{{ pl.p_notes }}</td>
-            <td>{{ pl.updated_at }}</td>
+            <!--<td>{{ pl.p_notes }}</td>-->
+            <!--<td>{{ pl.updated_at }}</td>-->
             <td>
               <a class="btn btn-warning btn-xs" (click)="update(stock)">
                 <span class="glyphicon glyphicon-pencil"></span>修改
@@ -94,7 +95,6 @@
           </tr>
 
           </tbody>
-
 
         </sa-datatable>
         <!-- 分页部分-->

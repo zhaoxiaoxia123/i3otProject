@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FadeInTop} from '../../shared/animations/fade-in-top.decorator';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {mobileAsyncValidator, mobileValidator} from '../../shared/common/validator';//passwordValidator
+import {mobileAsyncValidator, mobileValidator,passwordValidator} from '../../shared/common/validator';//passwordValidator
 
 import {Http} from '@angular/http';
 import {Router} from '@angular/router';
@@ -26,10 +26,10 @@ export class AddCustomerComponent implements OnInit {
       abbreviation:[''],
       industry_category:[''],
       email:[''],
-      // passwords : fb.group({
-      //   password:['',[Validators.minLength(6)]],
-      //   pconfirm:['']
-      // },{validator:passwordValidator}),
+      passwords : fb.group({
+        password:['',[Validators.minLength(6)]],
+        pconfirm:['']
+      },{validator:passwordValidator}),
       phone:['',mobileValidator,mobileAsyncValidator],
       department:[''],
       address:[''],
@@ -68,7 +68,7 @@ export class AddCustomerComponent implements OnInit {
       'number':this.formModel.value['number'],
       'name':this.formModel.value['name'],
       'phone':this.formModel.value['phone'],
-      // 'password':this.formModel.value['passwords']['password'],
+      'password':this.formModel.value['passwords']['password'],
       'email':this.formModel.value['email'],
       'abbreviation':this.formModel.value['abbreviation'],
       'industry_category':this.formModel.value['industry_category'],
@@ -80,6 +80,7 @@ export class AddCustomerComponent implements OnInit {
       'service_person':this.formModel.value['service_person'],
       'config':this.formModel.value['config'],
       'notes':this.formModel.value['notes'],
+      'role':1
     }).subscribe(
         (data)=>{
           alert(JSON.parse(data['_body'])['msg']);
