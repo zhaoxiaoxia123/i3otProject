@@ -98,13 +98,22 @@
 
         </sa-datatable>
         <!-- 分页部分-->
-        <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
-          <ul class="pagination"><!-- [ngClass]="{'disabled':prev == true}"   [ngClass]="{'disabled':next == true}" -->
-            <li class="paginate_button previous" id="DataTables_Table_0_previous">
-              <a (click)="pagination(productList.result?.prev_page_url)" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0">上一页</a>
+        <div class="dataTables_paginate">
+          <ul class="pagination">
+            <li>
+              <a (click)="(null)"><i class="fa fa-arrow-left"></i></a>
             </li>
-            <li class="paginate_button next" id="DataTables_Table_0_next">
-              <a (click)="pagination(productList.result?.next_page_url)" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0">下一页</a>
+            <li>
+              <a (click)="(null)">2</a>
+            </li>
+            <li>
+              <a (click)="(null)">...</a>
+            </li>
+            <li>
+              <a (click)="(null)">15</a>
+            </li>
+            <li>
+              <a (click)="(null)"><i class="fa fa-arrow-right"></i></a>
             </li>
           </ul>
         </div>
@@ -124,61 +133,162 @@
           <h4 class="modal-title">添加客户</h4>
         </div>
         <div class="modal-body">
-
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-4">
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Title" required>
+                <label > 一级类型</label>
+                <select class="form-control" >
+                  <option value="0" disabled>选择一级类型</option>
+                  <option>煤矿</option>
+                  <option>磷矿</option>
+                  <option>铅锌矿</option>
+                </select>
               </div>
+            </div>
+            <div class="col-md-4">
               <div class="form-group">
-                <textarea class="form-control" placeholder="Content" rows="5" required></textarea>
+                <label > 二级类型</label>
+                <select class="form-control" >
+                  <option value="0" disabled>选择二级类型</option>
+                  <option>贫煤(PM)</option>
+                  <option>贫瘦煤(PS)</option>
+                  <option>焦煤(JM)</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label > </label>
+                <button type="button" class="btn btn-primary btn-sm btn-block">
+                  添加类型
+                </button>
+               <!-- 直接跳到设置产品类型页面-->
               </div>
             </div>
           </div>
+
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label for="category"> Category</label>
-                <select class="form-control" id="category">
-                  <option>Articles</option>
-                  <option>Tutorials</option>
-                  <option>Freebies</option>
+                <label > 产品编号</label>
+                <input type="text" class="form-control"  placeholder="请输入产品编号">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label > 名称</label>
+                <input type="text" class="form-control"  placeholder="请输入名称">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label > 数量</label>
+                <input type="text" class="form-control"  placeholder="请输入数量">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label > 单位</label>
+                <input type="text" class="form-control"  placeholder="请输入单位">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-8">
+              <div class="form-group">
+                <label > 型号</label>
+                <select class="form-control" >
+                  <option value="0" disabled>选择型号</option>
+                  <option>PM5</option>
+                  <option>PS2</option>
+                  <option>JM6</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label > </label>
+                <button type="button" class="btn btn-primary btn-sm btn-block">
+                  添加型号
+                </button>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label > 参数名称</label>
+                <input type="text" class="form-control" placeholder="请输入参数名称" required>
+              </div>
+              <div class="form-group">
+                <label > 参数内容</label>
+                <textarea class="form-control" placeholder="请输入参数内容" rows="3" required></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label > 内部质检员</label>
+                <select class="form-control" >
+                  <option value="0" disabled>选择内部质检员</option>
+                  <option></option>
+                  <option></option>
                 </select>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label for="tags"> Tags</label>
-                <input type="text" class="form-control" id="tags" placeholder="Tags">
+                <label > 生产日期</label>
+                <select class="form-control" >
+                  <option value="0" disabled>选择生产日期</option>
+                  <option></option>
+                  <option></option>
+                </select>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="well well-sm well-primary">
-                <form class="form form-inline " role="form">
-                  <div class="form-group">
-                    <input type="text" class="form-control" value="" placeholder="Date" required>
-                  </div>
-                  <div class="form-group">
-                    <select class="form-control">
-                      <option>Draft</option>
-                      <option>Published</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <button type="submit" class="btn btn-success btn-sm">
-                      <span class="glyphicon glyphicon-floppy-disk"></span> Save
-                    </button>
-                    <button type="button" class="btn btn-default btn-sm">
-                      <span class="glyphicon glyphicon-eye-open"></span> Preview
-                    </button>
-                  </div>
-                </form>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label > 存放仓库</label>
+                <select class="form-control" >
+                  <option value="0" disabled>选择存放仓库</option>
+                  <option></option>
+                  <option></option>
+                </select>
               </div>
             </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label > 入库时间</label>
+                <select class="form-control" >
+                  <option value="0" disabled>选择入库时间</option>
+                  <option></option>
+                  <option></option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label >是否合格</label>
+              <div class="inline-group">
+                <label >
+                  <input type="radio" name="" checked="checked">
+                  <i></i>是</label>
+                <label >
+                  <input type="radio" name="">
+                  <i></i>否</label>
+              </div>
+            </div>
+
           </div>
 
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label >备注说明</label>
+                <textarea class="form-control" placeholder="备注说明" rows="5" required></textarea>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" (click)="lgModal.hide()">

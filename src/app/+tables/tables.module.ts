@@ -10,6 +10,9 @@ import {CookieService} from 'angular2-cookie/core';
 import {CookieStoreService} from '../shared/cookies/cookie-store.service';
 import {ListClientComponent} from './list-client/list-client.component';
 import { ListProduct1Component } from './list-product1/list-product1.component';
+import { ListClient1Component } from './list-client1/list-client1.component';
+import { ListIndentComponent } from './list-indent/list-indent.component';
+import { ListInventoryComponent } from './list-inventory/list-inventory.component';
 
 
 
@@ -23,6 +26,12 @@ import { ListProduct1Component } from './list-product1/list-product1.component';
     ListClientComponent,
 
     ListProduct1Component,
+
+    ListClient1Component,
+
+    ListIndentComponent,
+
+    ListInventoryComponent,
   ],
   imports: [
     SmartadminModule,
