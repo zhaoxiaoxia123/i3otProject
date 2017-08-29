@@ -5,9 +5,8 @@ import {settingEnterpriseRouting} from './setting-enterprise-routing.module';
 import { SettingEnterpriseComponent } from './setting-enterprise.component';
 import {SmartadminEditorsModule} from '../../shared/forms/editors/smartadmin-editors.module';
 import {SmartadminModule} from '../../shared/smartadmin.module';
-
-
 import {NestableListModule} from "../../shared/ui/nestable-list/nestable-list.module";
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -16,6 +15,7 @@ import {NestableListModule} from "../../shared/ui/nestable-list/nestable-list.mo
     SmartadminModule,
     settingEnterpriseRouting,
       NestableListModule,
+      ReactiveFormsModule,
   ],
   declarations: [SettingEnterpriseComponent]
 })
