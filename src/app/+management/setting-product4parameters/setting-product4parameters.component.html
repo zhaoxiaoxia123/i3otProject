@@ -1,0 +1,232 @@
+<div id="content">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="['产品管理', '产品规格/参数设置']" icon="pencil-square-o" class="col-xs-12 col-sm-9 col-md-9 col-lg-9"></sa-big-breadcrumbs>
+
+  </div>
+  <sa-widget [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+    <header>
+      <ul class="nav nav-tabs pull-left in">
+
+        <li [class.active]="state.tabs.demo2=='tab-r1'" class="active">
+          <a (click)="state.tabs.demo2 = 'tab-r1'">规格/参数</a>
+        </li>
+      </ul>
+    </header>
+    <div>
+      <div class="widget-body">
+        <tabset>
+          <tab [active]="state.tabs.demo2 == 'tab-r1'">
+
+            <tabset class="padding-10">
+
+              <tab [active]="state.tabs.demo2 == 'tab-r1'">
+
+                <div class="row">
+
+                  <article class="col-sm-4">
+
+                    <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                               [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+
+                      <div>
+                        <div class="widget-body no-padding">
+                          <alert type="info" class="no-margin" >
+                            <i class="fa-fw fa fa-plus"></i>
+                            添加规格/参数
+                          </alert>
+
+                          <form #newTodoForm="ngForm" class="smart-form ">
+                            <fieldset>
+
+                              <section >
+                                <label class="label">型号</label>
+                                <div class="col col-8">
+                                  <label class="select">
+                                    <select name=" sources" >
+                                      <option value="0" disabled>选择型号</option>
+                                      <option value="1">CD4</option>
+                                      <option value="2">JCB4</option>
+                                      <option value="3">CTH1000</option>
+                                    </select> <i></i> </label></div>
+                                <div class="col col-4">
+                                  <button type="button" class="btn btn-primary btn-sm btn-block">
+                                    添加型号
+                                  </button>
+                                </div>
+                              </section>
+
+
+                            </fieldset>
+                            <fieldset>
+                              <section >
+
+                                <label class="label ">参数名称</label>
+                                <label class="input">
+                                  <input  type="text"   name="title"
+                                          placeholder="请输入参数名称">
+                                </label>
+
+                              </section>
+
+                              <section>
+                                <label class="label">参数内容</label>
+                                <label class="textarea textarea-resizable">
+                                  <textarea class="custom-scroll" rows="5"></textarea>
+                                </label>
+                              </section>
+
+                            </fieldset>
+                            <footer>
+                              <button  type="button" class="btn btn-primary">
+                                保存
+                              </button>
+
+                            </footer>
+                          </form>
+
+                        </div>
+                      </div>
+
+                    </sa-widget>
+
+
+                  </article>
+
+                  <article class="col-sm-8">
+
+                    <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                               [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+
+
+                      <div>
+                        <div class="widget-body no-padding">
+                          <alert type="info" class="no-margin" >
+                            <i class="fa-fw fa fa-spoon"></i>
+                            规格/参数
+                          </alert>
+                          <p>
+                            类型:
+                            <span ><a>CD4</a></span>
+                            <span><a>CDDD4</a></span>
+                            <span><a>CW4</a></span>
+                            <span><a>FG2</a></span>
+                          </p>
+                          <div class="table-responsive">
+
+                            <table class="table table-hover table-bordered">
+                              <thead>
+                              <tr>
+                                <th>规格/参数</th>
+                                <th>CD4</th>
+                                <th>操作</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr>
+                                <td>品牌</td>
+                                <td>卓安</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>颜色分类</td>
+                                <td>V型透气红色、V型透气白色、标准V型橙色</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>颜色分类</td>
+                                <td>V型透气红色、V型透气白色、标准V型橙色</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>检测气体</td>
+                                <td>空气中的氯气(CL 2)</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>量程</td>
+                                <td>0-20ppm  量程范围可根据实际要求而定</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>工作方式</td>
+                                <td>连续工作200小时</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>检测方式</td>
+                                <td>扩散式</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>工作温度</td>
+                                <td>-10～40℃（特殊要求根据需要而定）</td>
+                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </td>
+                              </tr>
+                              </tbody>
+
+                            </table>
+
+                            <div class="dataTables_paginate">
+                              <ul class="pagination">
+                                <li>
+                                  <a (click)="(null)"><i class="fa fa-arrow-left"></i></a>
+                                </li>
+                                <li>
+                                  <a (click)="(null)">1</a>
+                                </li>
+                                <li>
+                                  <a (click)="(null)"><i class="fa fa-arrow-right"></i></a>
+                                </li>
+                              </ul>
+                            </div>
+
+                          </div>
+
+                        </div>
+                      </div>
+
+                    </sa-widget>
+
+
+                  </article>
+
+                </div>
+              </tab>
+            </tabset>
+
+          </tab>
+
+
+        </tabset>
+
+
+      </div>
+
+    </div>
+
+
+  </sa-widget>
+
+
+
+
+
+
+
+</div>

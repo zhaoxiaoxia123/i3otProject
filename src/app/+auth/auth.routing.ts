@@ -8,6 +8,10 @@ export const routes:Routes = [
     path: 'login',
     loadChildren: './+login/login.module#LoginModule'
   },
+    {
+        path: 'homepage',
+        loadChildren: './homepage/homepage.module#HomepageModule'
+    },
   {
     path: 'register',
     loadChildren: './+register/register.module#RegisterModule'
