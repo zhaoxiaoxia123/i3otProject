@@ -1,13 +1,13 @@
 <div id="content">
   <div class="row">
-    <sa-big-breadcrumbs [items]="['CRM管理', '订单']" icon="table"
+    <sa-big-breadcrumbs [items]="['销售管理', '订单列表']" icon="table"
                         class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
 
   </div>
 
   <div class="box-header with-border" >
     <a class="btn btn-success btn-sm"  (click)="lgModal.show()">
-      <span class="glyphicon glyphicon-plus"></span>创建</a>
+      <span class="glyphicon glyphicon-plus"></span>添加订单</a>
 
   </div>
 
@@ -21,78 +21,8 @@
 
       <div class="widget-body no-padding">
 
-        <div class="row">
 
-          <article class="col-sm-12">
-
-            <div class="navbar navbar-default">
-
-              <!-- Collect the nav links, forms, and other content for toggling -->
-              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                  <li dropdown class="dropdown dropdown-large">
-                    <a dropdownToggle>自定义显示内容 <b class="caret"></b></a>
-
-                    <ul *dropdownMenu class="dropdown-menu dropdown-menu-large row">
-
-
-                      <li>
-                        <a (click)="(null)">订单号/合同号</a>
-                      </li>
-                      <li>
-                        <a (click)="(null)">类型</a>
-                      </li>
-                      <li>
-                        <a (click)="(null)">规格/参数</a>
-                      </li>
-                      <li class="divider"></li>
-                      <li>
-                        <a (click)="(null)">购买公司</a>
-                      </li>
-
-                    </ul>
-                  </li>
-                </ul>
-                <form class="navbar-form navbar-left" role="search">
-                  <div class="form-group">
-                    <input type="text" class="form-control" placeholder="请输入搜索内容">
-                  </div>
-                  <button type="submit" class="btn btn-default">
-                    搜索
-                  </button>
-                </form>
-                <ul class="nav navbar-nav navbar-right">
-                  <li dropdown class="dropdown">
-                    <a (click)="(null)" dropdownToggle>自定义显示内容 <span class="caret"></span></a>
-                    <ul *dropdownMenu class="dropdown-menu" role="menu">
-                      <li>
-                        <a (click)="(null)">订单号/合同号</a>
-                      </li>
-                      <li>
-                        <a (click)="(null)">类型</a>
-                      </li>
-                      <li>
-                        <a (click)="(null)">规格/参数</a>
-                      </li>
-                      <li class="divider"></li>
-                      <li>
-                        <a (click)="(null)">购买公司</a>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </div><!-- /.navbar-collapse -->
-
-            </div>
-
-
-
-          </article>
-
-        </div>
-
-
-        <sa-datatable tableClass="table table-striped table-bordered table-hover">
+        <sa-datatable tableClass="table table-striped table-bordered table-hover smart-form">
 
 
 

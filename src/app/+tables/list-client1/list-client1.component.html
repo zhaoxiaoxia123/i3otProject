@@ -4,6 +4,12 @@
                         class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
 
   </div>
+
+  <div class="box-header with-border" >
+    <a class="btn btn-success btn-sm"  >
+      <span class="glyphicon glyphicon-plus"></span>添加客户</a>
+
+  </div>
   <sa-widget [editbutton]="false" color="blueDark">
     <header>
       <span class="widget-icon"> <i class="fa fa-table"></i> </span>
@@ -12,7 +18,7 @@
     <div>
       <div class="widget-body no-padding">
 
-        <sa-datatable tableClass="table table-striped table-bordered table-hover">
+        <sa-datatable tableClass="table table-striped table-bordered table-hover smart-form">
           <thead>
           <tr>
             <td>
@@ -23,14 +29,14 @@
             </td>
             <th>ID  </th>
             <th>全称</th>
-            <th>简称 </th>
+            <!--<th>简称 </th>-->
             <th>所属行业 </th>
             <th>联系人 </th>
             <th>联系电话</th>
             <th>企业邮箱</th>
             <th>主要产品</th>
-            <th>详细地址</th>
-            <th>更新时间</th>
+            <!--<th>详细地址</th>-->
+            <!--<th>更新时间</th>-->
             <th>操作</th>
           </tr>
           </thead>
@@ -39,27 +45,29 @@
           <tr style="display: none;">
             <td></td><td></td><td></td><td></td>
             <td></td><td></td><td></td><td></td>
-            <td></td><td></td><td></td><td></td>
+            <td></td>
+            <!--<td></td>-->
+            <!--<td></td><td></td>-->
           </tr>
-          <tr >
+          <tr *ngFor="let cl of customerList.result?.data">
             <td>
               <label class="checkbox">
                 <input type="checkbox" name="checkbox-inline">
                 <i></i>
               </label>
             </td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-              <a class="btn btn-danger btn-xs" ><span class="glyphicon glyphicon-remove"></span>删除</a></td>
+            <td>{{ cl.c_id }}</td>
+            <td>{{ cl.c_name }}</td>
+            <!--<td>{{ cl.c_abbreviation }}</td>-->
+            <td>{{ cl.category_desc }}</td>
+            <td>{{ cl.c_contacts }}</td>
+            <td>{{ cl.c_phone }}</td>
+            <td>{{ cl.c_email }}</td>
+            <td>{{ cl.c_products }}</td>
+            <!--<td>{{ cl.c_address }}</td>-->
+            <!--<td>{{ cl.updated_at }}</td>-->
+            <td><a class="btn btn-warning btn-xs" (click)="update(stock)"><span class="glyphicon glyphicon-pencil"></span>修改</a>
+              <a class="btn btn-danger btn-xs" (click)="deleteCustomer(cl.c_id ,customerList.result?.current_page)"><span class="glyphicon glyphicon-remove"></span>删除</a></td>
           </tr>
           </tbody>
 
@@ -68,19 +76,10 @@
         <div class="dataTables_paginate">
           <ul class="pagination">
             <li>
-              <a (click)="(null)"><i class="fa fa-arrow-left"></i></a>
+              <a (click)="pagination(customerList.result?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>
             </li>
             <li>
-              <a (click)="(null)">2</a>
-            </li>
-            <li>
-              <a (click)="(null)">...</a>
-            </li>
-            <li>
-              <a (click)="(null)">15</a>
-            </li>
-            <li>
-              <a (click)="(null)"><i class="fa fa-arrow-right"></i></a>
+              <a (click)="pagination(customerList.result?.next_page_url)"><i class="fa fa-arrow-right"></i></a>
             </li>
           </ul>
         </div>

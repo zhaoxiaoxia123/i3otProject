@@ -12,6 +12,7 @@ import {ListClientComponent} from './list-client/list-client.component';
 import { ListClient1Component } from './list-client1/list-client1.component';
 import { ListIndentComponent } from './list-indent/list-indent.component';
 import { ListInventoryComponent } from './list-inventory/list-inventory.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 
 
@@ -32,7 +33,7 @@ import { ListInventoryComponent } from './list-inventory/list-inventory.componen
   imports: [
     SmartadminModule,
     SmartadminDatatableModule,
-
+    ReactiveFormsModule,
     routing
   ],
   providers:[ CookieService,CookieStoreService ]

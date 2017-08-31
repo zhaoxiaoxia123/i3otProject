@@ -27,7 +27,7 @@ export class ListClientComponent implements OnInit {
    * @param number
    */
   getCustomerList(number:string) {
-    this.http.get('/api/v1/getCustomerList?page='+number)
+    this.http.get('/api/v1/getCustomerList?role=1&page='+number)
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.customerList = data;
@@ -60,17 +60,16 @@ export class ListClientComponent implements OnInit {
         this.page = url.substring((url.lastIndexOf('=') + 1), url.length);
         // console.log(this.page);
         this.getCustomerList(this.page);
-
     }
   }
 
   /**
-   * 删除用户信息
-   * @param uid
+   * 删除客户信息
+   * @param cid
    */
   deleteCustomer(cid:any,current_page:any){
     if(confirm('您确定要删除该条信息吗？')) {
-      this.http.delete('/api/v1/deleteCustomerById?cid=' + cid + '&page=' + current_page)
+      this.http.delete('/api/v1/deleteCustomerById?cid=' + cid + '&role=1&page=' + current_page)
           .map((res) => res.json())
           .subscribe((data) => {
             this.customerList = data;
