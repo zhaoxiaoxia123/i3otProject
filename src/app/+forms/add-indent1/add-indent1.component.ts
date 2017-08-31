@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FadeInTop} from '../../shared/animations/fade-in-top.decorator';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Http} from '@angular/http';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Router,Params} from '@angular/router';
 
 @FadeInTop()
 @Component({
@@ -50,7 +50,9 @@ export class AddIndent1Component implements OnInit {
   }
 
   ngOnInit() {
-    this.o_id = this.routInfo.snapshot.params['o_id'];
+    // this.o_id = this.routInfo.snapshot.params['o_id'];
+    this.routInfo.params.subscribe((param : Params)=>this.o_id=param['o_id']); //这种获取方式是参数订阅，解决在本页传参不生效问题
+
     console.log( 'this.storehouse_id:----');
     console.log( this.o_id);
     if(this.o_id != 0){

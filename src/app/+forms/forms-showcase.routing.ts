@@ -15,22 +15,22 @@ export const routes: Routes = [
     data: {pageTitle: 'Validation'}
   },
     {
-        path: 'employees',
+        path: 'employees/:u_id',
         loadChildren: 'app/+forms/+add-employees/add-employees.module#AddEmployeesModule',
         data: {pageTitle: 'Employees'}
     },
     {
-        path: 'customer',
+        path: 'customer/:c_id',
         loadChildren: 'app/+forms/add-customer/add-customer.module#AddCustomerModule',
         data: {pageTitle: 'Customer'}
     },
     {
-        path: 'customer1',
+        path: 'customer1/:c_id',
         loadChildren: 'app/+forms/add-customer1/add-customer1.module#AddCustomer1Module',
         data: {pageTitle: 'Customer1'}
     },
     {
-        path: 'product1',
+        path: 'product1/:p_id',
         loadChildren: 'app/+forms/add-product1/add-product1.module#AddProduct1Module',
         data: {pageTitle: 'Product1'}
     },

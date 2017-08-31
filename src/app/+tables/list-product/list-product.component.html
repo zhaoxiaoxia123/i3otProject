@@ -4,11 +4,9 @@
                         class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
 
   </div>
-
   <div class="box-header with-border" >
     <a class="btn btn-success btn-sm"  (click)="lgModal.show()">
       <span class="glyphicon glyphicon-plus"></span>添加产品</a>
-
   </div>
 
   <sa-widget [editbutton]="false" color="blueDark">
@@ -17,14 +15,8 @@
       <h2>产品列表 </h2>
     </header>
     <div>
-
-
       <div class="widget-body no-padding">
-
-
-
         <sa-datatable tableClass="table table-striped table-bordered table-hover smart-form">
-
           <thead>
           <tr>
             <td>
@@ -37,7 +29,7 @@
             <th>类型</th>
             <th>产品编号 </th>
             <th>名称 </th>
-            <th>数量</th>
+            <th>数量/单位</th>
             <!--<th>单位 </th>-->
             <!--<th>规格/参数</th>-->
             <th>内部质检员</th>
@@ -66,13 +58,13 @@
               </label>
             </td>
             <td>{{ pl.p_id }}</td>
-            <td>{{ pl.p_category_id }}</td>
+            <td>{{ pl.category }}</td>
             <td>{{ pl.p_product_id }}</td>
             <td>{{ pl.p_name }}</td>
             <td>{{ pl.p_quantity }}/{{ pl.p_unit }}</td>
             <!--<td>{{ pl.p_unit }}</td>-->
             <!--<td>{{ pl.p_specification }}</td>-->
-            <td>{{ pl.p_inspector }}</td>
+            <td>{{ pl.u_name }}</td>
             <td>{{ pl.p_production_date }}</td>
             <!--<td>{{ pl.p_storehouse }}</td>-->
             <!--<td>{{ pl.p_storage_time }}</td>-->
@@ -86,7 +78,7 @@
             <!--<td>{{ pl.p_notes }}</td>-->
             <!--<td>{{ pl.updated_at }}</td>-->
             <td>
-              <a class="btn btn-warning btn-xs" (click)="update(stock)">
+              <a class="btn btn-warning btn-xs" [routerLink]="['/forms/product1', pl.p_id]">
                 <span class="glyphicon glyphicon-pencil"></span>修改
               </a>
               <a class="btn btn-danger btn-xs" (click)="deleteProduct( pl.p_id ,productList.result?.current_page)">

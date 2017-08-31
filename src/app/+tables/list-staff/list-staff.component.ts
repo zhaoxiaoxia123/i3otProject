@@ -14,7 +14,6 @@ export class ListStaffComponent implements OnInit {
   prev : boolean = false;
   next : boolean = false;
   constructor(private http:Http,private cookiestore:CookieStoreService) {
-    this.cookiestore.setCookie('cid',1);
     this.getUserList('1');
   }
 
@@ -26,7 +25,7 @@ export class ListStaffComponent implements OnInit {
    * @param number
    */
   getUserList(number:string) {
-    this.http.get('/api/v1/getUserList?cid='+this.cookiestore.getCookie('cid')+'&page='+number)
+    this.http.get('/api/v1/getUserList?page='+number)
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.userList = data;
@@ -94,6 +93,5 @@ export class ListStaffComponent implements OnInit {
       }, 300);
     }
   }
-
 
 }

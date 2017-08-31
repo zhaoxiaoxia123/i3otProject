@@ -5,7 +5,7 @@ import {mobileAsyncValidator, mobileValidator, passwordValidator} from '../../..
 import {getProvince,getCity,getArea} from '../../../shared/common/area';
 
 import {Http} from '@angular/http';
-import {Router} from '@angular/router';
+import {Router,ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-registration-form',
@@ -24,14 +24,18 @@ export class RegistrationFormComponent implements OnInit {
 
   userList : Array<any> = [];
 
+  u_id : number = 0;
+  user_info : Array<any> = [];
   constructor(
       fb:FormBuilder,
       private http:Http,
       private router : Router,
       private cookieStoreService:CookieStoreService,
+      private routInfo : ActivatedRoute
       // private uploader:FileUploaderOptions
   ) {
     this.formModel = fb.group({
+      u_id:[''],
       employee_id:['',[Validators.required,Validators.minLength(1)]],
       name:['',[Validators.required,Validators.minLength(1)]],
       role:[''],
@@ -64,14 +68,76 @@ export class RegistrationFormComponent implements OnInit {
       address3:[''],
       address4:[''],
     });
-
     // for(var p in this.area1){
     //   console.log(p);
     //   console.log(this.area1[p]);
     // }
     this.province = getProvince(); //家庭住址
     this.birthplace_province = getProvince();  //籍贯
+  }
+
+  ngOnInit() {
+    this.u_id = this.routInfo.snapshot.params['u_id'];
+    console.log( 'this.u_id:----');
+    console.log( this.u_id);
+    if(this.u_id != 0){
+      this.getUserInfo(this.u_id);
+    }
     this.getUserDefault();
+  }
+
+
+  getUserInfo(u_id:number){
+    this.http.get('/api/v1/getUserInfo?u_id='+u_id)
+        .map((res)=>res.json())
+        .subscribe((data)=>{
+          this.user_info = data;
+        });
+    setTimeout(() => {
+      console.log(this.user_info);
+      this.formModel.patchValue({
+        'u_id':this.user_info['result']['u_id'],
+        'employee_id':this.user_info['result']['u_employee_id'],
+        'name':this.user_info['result']['u_name'],
+        'phone':this.user_info['result']['u_phone'],
+        // 'password':this.user_info['result']['passwords']['password'],
+        'role':this.user_info['result']['u_role'],
+        'gender':this.user_info['result']['u_gender'],
+        'age':this.user_info['result']['u_age'],
+        'department':this.user_info['result']['u_department'],
+        'notes':this.user_info['result']['u_notes'],
+        'enrol_time':this.user_info['result']['u_enrol_time'],
+        'position':this.user_info['result']['u_position'],
+        'contract_type':this.user_info['result']['u_contract_type'],
+        'birthplace1':this.user_info['result']['birthplace1'],
+        'birthplace2':this.user_info['result']['birthplace2'],
+        // 'birthplace':this.user_info['result']['birthplace1']+ ' '+this.user_info['result']['birthplace2'],
+        'id_card':this.user_info['result']['u_id_card'],
+        'nation':this.user_info['result']['u_nation'],
+        'marital_status':this.user_info['result']['u_marital_status'],
+        'graduate_institutions':this.user_info['result']['u_graduate_institutions'],
+        'study_major':this.user_info['result']['u_study_major'],
+        'study_diploma':this.user_info['result']['u_study_diploma'],
+        'study_category':this.user_info['result']['u_study_category'],
+        'email':this.user_info['result']['u_email'],
+        'emergency_contact':this.user_info['result']['u_emergency_contact'],
+        'emergency_phone':this.user_info['result']['u_emergency_phone'],
+        'address1':this.user_info['result']['address1'],
+        'address2':this.user_info['result']['address2'],
+        'address3':this.user_info['result']['address3'],
+        'address4':this.user_info['result']['address4'],
+        // 'address':this.user_info['result']['address1']+' '+this.user_info['result']['address2'] +' '+ this.user_info['result']['address3']+' '+this.user_info['result']['address4'],
+      });
+      if(this.user_info['result']['birthplace1'] != 0){
+        this.getBrithplaceCity();
+      }
+      if(this.user_info['result']['address1'] != 0){
+        this.getCity();
+      }
+      if(this.user_info['result']['address2'] != 0){
+        this.getArea();
+      }
+    }, 500);
   }
 
 
@@ -96,6 +162,7 @@ export class RegistrationFormComponent implements OnInit {
     console.log(this.formModel.value['name']);
 
     this.http.post('/api/v1/addUser',{
+      'u_id':this.formModel.value['u_id'],
       'employee_id':this.formModel.value['employee_id'],
       'name':this.formModel.value['name'],
       'phone':this.formModel.value['phone'],
@@ -108,7 +175,7 @@ export class RegistrationFormComponent implements OnInit {
       'enrol_time':this.formModel.value['enrol_time'],
       'position':this.formModel.value['position'],
       'contract_type':this.formModel.value['contract_type'],
-      'birthplace':this.formModel.value['birthplace1']+ ' '+this.formModel.value['birthplace2'],
+      'birthplace':this.formModel.value['birthplace1']+ ','+this.formModel.value['birthplace2'],
       'id_card':this.formModel.value['id_card'],
       'nation':this.formModel.value['nation'],
       'marital_status':this.formModel.value['marital_status'],
@@ -119,7 +186,7 @@ export class RegistrationFormComponent implements OnInit {
       'email':this.formModel.value['email'],
       'emergency_contact':this.formModel.value['emergency_contact'],
       'emergency_phone':this.formModel.value['emergency_phone'],
-      'address':this.formModel.value['address1']+' '+this.formModel.value['address2'] +' '+ this.formModel.value['address3']+' '+this.formModel.value['address4'],
+      'address':this.formModel.value['address1']+','+this.formModel.value['address2'] +','+ this.formModel.value['address3']+','+this.formModel.value['address4'],
     }).subscribe(
         (data)=>{
           alert(JSON.parse(data['_body'])['msg']);
@@ -155,8 +222,6 @@ export class RegistrationFormComponent implements OnInit {
     this.birthplace_city = getCity(brithplacePro);
   }
 
-  ngOnInit() {
-  }
 
 }
 

@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FadeInTop} from '../../shared/animations/fade-in-top.decorator';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {mobileAsyncValidator, mobileValidator,passwordValidator} from '../../shared/common/validator';//passwordValidator
-
 import {Http} from '@angular/http';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router,Params} from '@angular/router';
 
 @FadeInTop()
 @Component({
@@ -16,12 +14,16 @@ export class AddProduct1Component implements OnInit {
   formModel : FormGroup;
   productList : Array<any> = [];
   childCategory : Array<any> = [];
+  p_id : number = 0;
+  product_info : Array<any> = [];
   constructor(
       fb:FormBuilder,
       private http:Http,
-      private router : Router
+      private router : Router,
+      private routInfo : ActivatedRoute
   ) {
     this.formModel = fb.group({
+      p_id:[''],
       category_id1:[''],
       category_id2:[''],
       product_id:['',[Validators.required,Validators.minLength(1)]],
@@ -41,8 +43,48 @@ export class AddProduct1Component implements OnInit {
   }
 
   ngOnInit() {
+    this.routInfo.params.subscribe((param : Params)=>this.p_id=param['p_id']); //这种获取方式是参数订阅，解决在本页传参不生效问题
+    console.log( 'this.p_id:----');
+    console.log( this.p_id);
+    if(this.p_id != 0){
+      this.getproductInfo(this.p_id);
+    }
     this.getProductDefault();
   }
+
+  getproductInfo(p_id:number){
+    this.http.get('/api/v1/getProdcutInfo?p_id='+p_id)
+        .map((res)=>res.json())
+        .subscribe((data)=>{
+          this.product_info = data;
+        });
+
+    setTimeout(() => {
+      console.log(this.product_info);
+      this.formModel.patchValue({
+        p_id:this.product_info['result']['p_id'],
+        category_id1:this.product_info['result']['category_id1'],
+        category_id2:this.product_info['result']['category_id2'],
+        product_id:this.product_info['result']['p_product_id'],
+        name:this.product_info['result']['p_name'],
+        quantity:this.product_info['result']['p_quantity'],
+        unit:this.product_info['result']['p_unit'],
+        specification:this.product_info['result']['p_specification'],
+        inspector:this.product_info['result']['p_inspector'],
+        production_date:this.product_info['result']['p_production_date'],
+        storehouse:this.product_info['result']['p_storehouse'],
+        storage_time:this.product_info['result']['p_storage_time'],
+        is_acceptable:this.product_info['result']['p_is_acceptable'],
+        notes:this.product_info['result']['p_notes'],
+        plate_number:this.product_info['result']['p_plate_number'],
+        courier:this.product_info['result']['p_courier']
+      });
+      if(this.product_info['result']['category_id1'] != 0){
+        this.getProductChild(this.product_info['result']['category_id1']);
+      }
+    }, 500);
+  }
+
 
   /**
    * 获取添加客户的默认参数
@@ -79,6 +121,7 @@ export class AddProduct1Component implements OnInit {
 
   onSubmit(){
     this.http.post('/api/v1/addProduct',{
+      'p_id':this.formModel.value['p_id'],
       'category_id1':this.formModel.value['category_id1'],
       'category_id2':this.formModel.value['category_id2'],
       'product_id':this.formModel.value['product_id'],

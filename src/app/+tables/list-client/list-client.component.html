@@ -65,7 +65,7 @@
             <td>{{ cl.c_products }}</td>
             <!--<td>{{ cl.c_address }}</td>-->
             <!--<td>{{ cl.updated_at }}</td>-->
-            <td><a class="btn btn-warning btn-xs" (click)="update(stock)"><span class="glyphicon glyphicon-pencil"></span>修改</a>
+            <td><a class="btn btn-warning btn-xs" [routerLink]="['/forms/customer',cl.c_id]"><span class="glyphicon glyphicon-pencil"></span>修改</a>
               <a class="btn btn-danger btn-xs" (click)="deleteCustomer(cl.c_id ,customerList.result?.current_page)"><span class="glyphicon glyphicon-remove"></span>删除</a></td>
           </tr>
           </tbody>

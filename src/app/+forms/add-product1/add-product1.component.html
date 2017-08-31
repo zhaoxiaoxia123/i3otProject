@@ -18,19 +18,20 @@
               <form id="smart-form-register" class="smart-form" [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate>
                 <fieldset>
                   <legend>主要信息</legend>
+                  <input type="hidden" name="p_id" formControlName="p_id" >
                   <div class="row">
                     <section class="col col-6">
                       <div class="col col-4">
                         <label class="label "> 一级类型</label>
                         <label class="select">
                           <select name="category_id1" formControlName="category_id1" (change)="getProductChild($event.target.value)">
-                            <option *ngFor="let c of productList.result?.categoryIdList" value="{{c.category_id}}">{{c.category_desc}}</option>
+                            <option *ngFor="let c of productList.result?.categoryIdList" [selected]="product_info.result?.category_id1 == c.category_id" value="{{c.category_id}}">{{c.category_desc}}</option>
                           </select> <i></i> </label></div>
                       <div class="col col-4">
                         <label class="label "> 二级类型</label>
                         <label class="select">
                           <select name="category_id2" formControlName="category_id2">
-                            <option *ngFor="let pc of childCategory.result" value="{{pc.category_id}}">{{pc.category_desc}}</option>
+                            <option *ngFor="let pc of childCategory.result" [selected]="product_info.result?.category_id2 == pc.category_id" value="{{pc.category_id}}">{{pc.category_desc}}</option>
                           </select> <i></i> </label></div>
                       <div class="col col-4">
                         <label > </label>
@@ -67,7 +68,7 @@
                         <label class="label "> 内部质检员</label>
                         <label class="select">
                           <select  name="inspector" formControlName="inspector" >
-                            <option *ngFor="let u of productList.result?.inspectorList" value="{{u.u_id}}">{{u.u_name}}</option>
+                            <option *ngFor="let u of productList.result?.inspectorList" [selected]="product_info.result?.p_inspector == u.u_id" value="{{u.u_id}}">{{u.u_name}}</option>
                           </select> <i></i> </label>
                     </section>
                     <section class="col col-6">
@@ -81,7 +82,7 @@
                       <label class="label "> 存放仓库</label>
                       <label class="select">
                         <select  name="storehouse" formControlName="storehouse">
-                          <option *ngFor="let sh of productList.result?.storeHouseList" value="{{sh.storehouse_id}}">{{sh.storehouse_name}}</option>
+                          <option *ngFor="let sh of productList.result?.storeHouseList" [selected]="product_info.result?.p_storehouse == sh.storehouse_id" value="{{sh.storehouse_id}}">{{sh.storehouse_name}}</option>
                         </select> <i></i> </label>
                     </section>
                     <section class="col col-6">
@@ -97,10 +98,10 @@
 
                       <div class="inline-group">
                         <label class="radio">
-                          <input type="radio" checked value="1" name="is_acceptable" formControlName="is_acceptable">
+                          <input type="radio" [checked]="product_info.result?.p_is_acceptable == 1" [value]="1" name="is_acceptable" formControlName="is_acceptable">
                           <i></i>是</label>
                         <label class="radio">
-                          <input type="radio" name="is_acceptable" value="2" formControlName="is_acceptable">
+                          <input type="radio" [checked]="product_info.result?.p_is_acceptable == 2" [value]="2" name="is_acceptable" formControlName="is_acceptable">
                           <i></i>否</label>
                       </div>
                     </section>
@@ -112,7 +113,7 @@
                         <label class="label "> 型号</label>
                         <label class="select">
                           <select name="specification" formControlName="specification" >
-                            <option *ngFor="let ps of productList.result?.specificationList" value="{{ps.category_id}}">{{ps.category_desc}}</option>
+                            <option *ngFor="let ps of productList.result?.specificationList" [selected]="product_info.result?.p_specification == ps.category_id" value="{{ps.category_id}}">{{ps.category_desc}}</option>
                           </select> <i></i>
                         </label>
                       </div>

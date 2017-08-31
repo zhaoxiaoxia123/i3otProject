@@ -1,12 +1,8 @@
 <aside id="left-panel">
-
   <!-- User info -->
   <sa-login-info></sa-login-info>
 
-
   <nav>
-
-
     <ul saSmartMenu>
       <li>
         <a title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span
@@ -29,7 +25,7 @@
             <a routerLink="/tables/client">{{'客户列表' | i18n}}</a>
           </li>
           <li routerLinkActive="active">
-            <a routerLink="/forms/customer">{{'添加客户' | i18n}}</a>
+            <a routerLink="/forms/customer/0">{{'添加客户' | i18n}}</a>
           </li>
         </ul>
       </li>
@@ -41,14 +37,13 @@
             <a routerLink="/tables/staff">{{'员工列表' | i18n}}</a>
           </li>
           <li routerLinkActive="active">
-            <a routerLink="/forms/employees">{{'添加员工' | i18n}}</a>
+            <a routerLink="/forms/employees/0">{{'添加员工' | i18n}}</a>
           </li>
           <li routerLinkActive="active">
             <a routerLink="/management/department">{{'部门设置' | i18n}}</a>
           </li>
         </ul>
       </li>
-
 
       <li>
         <a href="#"><i class="fa fa-lg fa-fw fa-cubes"></i> <span
@@ -58,7 +53,7 @@
             <a routerLink="/tables/product">{{'产品列表' | i18n}}</a>
           </li>
           <li routerLinkActive="active">
-            <a routerLink="/forms/product1">{{'添加产品' | i18n}}</a>
+            <a routerLink="/forms/product1/0">{{'添加产品' | i18n}}</a>
           </li>
           <li routerLinkActive="active">
             <a routerLink="/management/product3type">{{'产品类型设置' | i18n}}</a>
@@ -66,7 +61,6 @@
           <li routerLinkActive="active">
             <a routerLink="/management/product4parameters">{{'产品规格/参数设置' | i18n}}</a>
           </li>
-
         </ul>
       </li>
 
@@ -78,9 +72,8 @@
             <a routerLink="/tables/client1">{{'客户列表' | i18n}}</a>
           </li>
           <li routerLinkActive="active">
-            <a routerLink="/forms/customer1">{{'添加客户' | i18n}}</a>
+            <a routerLink="/forms/customer1/0">{{'添加客户' | i18n}}</a>
           </li>
-
 
         </ul>
       </li>
@@ -95,7 +88,6 @@
           <li routerLinkActive="active">
             <a routerLink="/forms/indent1/0">{{'添加订单' | i18n}}</a>
           </li>
-
         </ul>
       </li>
 
@@ -119,12 +111,9 @@
           <li routerLinkActive="active">
             <a routerLink="/management/enterprise">{{'矿易帮设置' | i18n}}</a>
           </li>
-
         </ul>
       </li>
     </ul>
   </nav>
-
   <sa-minify-menu></sa-minify-menu>
-
 </aside>
