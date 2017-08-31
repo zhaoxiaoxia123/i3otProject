@@ -37,7 +37,7 @@ export class ListProductComponent implements OnInit {
       // console.log(typeof (this.productList));
       console.log(this.productList);
       if (this.productList) {
-        if (this.productList['result']['current_page'] == this.productList['result']['total']) {
+        if (this.productList['result']['current_page'] == this.productList['result']['last_page']) {
           this.next = true;
         } else {
           this.next = false;

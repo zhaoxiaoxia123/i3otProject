@@ -4,7 +4,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {mobileAsyncValidator, mobileValidator,passwordValidator} from '../../shared/common/validator';//passwordValidator
 
 import {Http} from '@angular/http';
-import {Router} from '@angular/router';
+import {Router,ActivatedRoute} from '@angular/router';
 
 @FadeInTop()
 @Component({
@@ -15,12 +15,17 @@ export class AddCustomerComponent implements OnInit {
 
   formModel : FormGroup;
   userList : Array<any> = [];
+
+  c_id : number = 0;
+  customer_info : Array<any> = [];
   constructor(
       fb:FormBuilder,
       private http:Http,
-      private router : Router
+      private router : Router,
+      private routInfo : ActivatedRoute
   ) {
     this.formModel = fb.group({
+      c_id:[''],
       number:['',[Validators.required,Validators.minLength(1)]],
       name:['',[Validators.required,Validators.minLength(1)]],
       abbreviation:[''],
@@ -42,8 +47,44 @@ export class AddCustomerComponent implements OnInit {
     });
   }
 
+
   ngOnInit() {
+    this.c_id = this.routInfo.snapshot.params['c_id'];
+    console.log( 'this.c_id:----');
+    console.log( this.c_id);
+    if(this.c_id != 0){
+      this.getCustomerInfo(this.c_id);
+    }
     this.getCustomerDefault();
+  }
+
+  getCustomerInfo(c_id:number){
+    this.http.get('/api/v1/getCustomerInfo?c_id='+c_id+'&c_role=1')
+        .map((res)=>res.json())
+        .subscribe((data)=>{
+          this.customer_info = data;
+        });
+    setTimeout(() => {
+      console.log(this.customer_info);
+      this.formModel.patchValue({
+        c_id:this.customer_info['result']['c_id'],
+        number:this.customer_info['result']['c_number'],
+        name:this.customer_info['result']['c_name'],
+        phone:this.customer_info['result']['c_phone'],
+        email:this.customer_info['result']['c_email'],
+        abbreviation:this.customer_info['result']['c_abbreviation'],
+        industry_category:this.customer_info['result']['c_industry_category'],
+        department:this.customer_info['result']['c_department'],
+        address:this.customer_info['result']['c_address'],
+        contacts:this.customer_info['result']['c_contacts'],
+        products:this.customer_info['result']['c_products'],
+        source:this.customer_info['result']['c_source'],
+        service_person:this.customer_info['result']['c_service_person'],
+        config:this.customer_info['result']['c_config'],
+        notes:this.customer_info['result']['c_notes'],
+        role:this.customer_info['result']['c_role'],
+      });
+    }, 500);
   }
 
   /**
@@ -65,6 +106,7 @@ export class AddCustomerComponent implements OnInit {
   onSubmit(){
     // console.log(this.formModel.value['name']);
     this.http.post('/api/v1/addCustomer',{
+      'c_id':this.formModel.value['c_id'],
       'number':this.formModel.value['number'],
       'name':this.formModel.value['name'],
       'phone':this.formModel.value['phone'],

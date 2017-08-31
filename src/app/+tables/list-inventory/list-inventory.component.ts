@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Http} from '@angular/http';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-list-inventory',
@@ -17,6 +18,7 @@ export class ListInventoryComponent implements OnInit {
   constructor(
       fb:FormBuilder,
       private http:Http,
+      private router:Router
   ) {
     this.formModel = fb.group({
       keyword:[''],
@@ -45,7 +47,7 @@ export class ListInventoryComponent implements OnInit {
     setTimeout(() => {
       console.log(this.storehouseList);
       if (this.storehouseList) {
-        if (this.storehouseList['result']['current_page'] == this.storehouseList['result']['total']) {
+        if (this.storehouseList['result']['current_page'] == this.storehouseList['result']['last_page']) {
           this.next = true;
         } else {
           this.next = false;
@@ -105,6 +107,15 @@ export class ListInventoryComponent implements OnInit {
       }, 300);
     }
   }
+
+  /**
+   * 编辑仓库信息
+   * @param storehouse_id
+   */
+  // editStorehouse(storehouse_id:number){
+  //   // this.router.navigateByUrl('/forms/inventory1');
+  //   this.router.navigate(['/forms/inventory1',storehouse_id]);
+  // }
 
   /**
    * 提交搜索

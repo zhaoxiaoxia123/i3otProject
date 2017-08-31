@@ -1,12 +1,10 @@
 <div id="content">
   <div class="row">
     <sa-big-breadcrumbs [items]="['人事管理', '部门管理']" icon="pencil-square-o" class="col-xs-12 col-sm-9 col-md-9 col-lg-9"></sa-big-breadcrumbs>
-
   </div>
   <sa-widget [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
     <header>
       <ul class="nav nav-tabs pull-left in">
-
         <li [class.active]="state.tabs.demo4=='AA'" class="active">
           <a (click)="state.tabs.demo4 = 'AA'">所属部门</a>
         </li>
@@ -16,56 +14,42 @@
       <div class="widget-body">
         <tabset>
           <tab [active]="state.tabs.demo4 == 'AA'">
-
             <tabset class="padding-10">
-
               <tab [active]="state.tabs.demo4 == 'AA'">
-
                 <div class="row">
-
                   <article class="col-sm-12 col-md-12 col-lg-6">
-
                     <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
                                [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
-
                       <div>
                         <div class="widget-body no-padding">
                           <alert type="info" class="no-margin" >
                             <i class="fa-fw fa fa-plus"></i>
                             添加部门
                           </alert>
-
-                          <form #newTodoForm="ngForm" class="smart-form ">
+                          <form  [formGroup]="formModel" (ngSubmit)="onSubmitCategory()" novalidate class="smart-form ">
                             <fieldset>
                               <section>
                                 <label class="input">
-                                  <input type="text" required   name="title"
-                                         placeholder="请输入部门">
+                                  <input type="text" required
+                                         placeholder="请输入部门" minlength="1" maxlength="20" formControlName="category_desc" name="category_desc">
+                                  <input type="hidden" value="3" formControlName="category_type" name="category_type">
+                                  <input type="hidden" value="" formControlName="category_id" name="category_id">
                                 </label>
                               </section>
                             </fieldset>
-
                             <footer>
-                              <button  type="button" class="btn btn-primary">
+                              <button  type="submit" class="btn btn-primary">
                                 保存
                               </button>
-
                             </footer>
                           </form>
-
                         </div>
                       </div>
-
                     </sa-widget>
-
-
                   </article>
-
                   <article class="col-sm-12 col-md-12 col-lg-6">
-
                     <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
                                [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
-
                       <div>
                         <div class="widget-body no-padding">
                           <alert type="info" class="no-margin" >
@@ -83,196 +67,38 @@
                               </tr>
                               </thead>
                               <tbody>
-                              <tr>
-                                <td>调度中心</td>
+                              <tr *ngFor="let cl of categoryList.result?.data">
+                                <td>{{ cl.category_desc }}</td>
                                 <td>2</td>
-                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>综采队</td>
-                                <td>4</td>
-                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>综掘队</td>
-                                <td>8</td>
-                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>技术部</td>
-                                <td>8</td>
-                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>地测部</td>
-                                <td>2</td>
-                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>机电部</td>
-                                <td>3</td>
-                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>水电队</td>
-                                <td>5</td>
-                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>办公室</td>
-                                <td>6</td>
-                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>劳资部</td>
-                                <td>7</td>
-                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>财务部</td>
-                                <td>2</td>
-                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>安检部</td>
-                                <td>5</td>
-                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>通风部</td>
-                                <td>8</td>
-                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>供应部</td>
-                                <td>9</td>
-                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>保卫部</td>
-                                <td>9</td>
-                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>纪检室</td>
-                                <td>9</td>
-                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>政工部</td>
-                                <td>9</td>
-                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>工会</td>
-                                <td>9</td>
-                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>销售部</td>
-                                <td>9</td>
-                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                <td><a class="btn btn-warning btn-xs" (click)="editCategory(cl.category_id, cl.category_desc)" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                  <a class="btn btn-danger btn-xs" (click)="deleteCategory(cl.category_id,categoryList.result?.current_page)"><span class="glyphicon glyphicon-remove"></span>删除</a>
                                 </td>
                               </tr>
                               </tbody>
-
                             </table>
-
                             <div class="dataTables_paginate">
                               <ul class="pagination">
                                 <li>
-                                  <a (click)="(null)"><i class="fa fa-arrow-left"></i></a>
+                                  <a (click)="pagination(categoryList.result?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>
                                 </li>
                                 <li>
-                                  <a (click)="(null)">1</a>
-                                </li>
-                                <li class="active">
-                                  <a (click)="(null)">2</a>
-                                </li>
-                                <li>
-                                  <a (click)="(null)">3</a>
-                                </li>
-                                <li>
-                                  <a (click)="(null)">4</a>
-                                </li>
-                                <li>
-                                  <a (click)="(null)">5</a>
-                                </li>
-                                <li>
-                                  <a (click)="(null)"><i class="fa fa-arrow-right"></i></a>
+                                  <a (click)="pagination(categoryList.result?.next_page_url)"><i class="fa fa-arrow-right"></i></a>
                                 </li>
                               </ul>
                             </div>
-
-
                           </div>
-
                         </div>
                       </div>
-
                     </sa-widget>
                     <!-- end widget -->
-
-
                   </article>
-
                 </div>
-
               </tab>
             </tabset>
-
           </tab>
-
-
         </tabset>
-
-
       </div>
-
     </div>
-
-
   </sa-widget>
-
-
-
-
-
-
-
 </div>
+

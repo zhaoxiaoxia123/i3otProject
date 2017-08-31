@@ -6,7 +6,6 @@
   <div class="box-header with-border" >
     <a class="btn btn-success btn-sm"  >
       <span class="glyphicon glyphicon-plus"></span>添加员工</a>
-
   </div>
   <sa-widget [editbutton]="false" color="blueDark">
     <header>
@@ -28,8 +27,8 @@
             <th>ID  </th>
             <th>姓名</th>
             <th>角色  </th>
-            <th>性别 </th>
-            <th>年龄 </th>
+            <!--<th>性别 </th>-->
+            <!--<th>年龄 </th>-->
             <th>公司</th>
             <th>所属部门 </th>
             <th>联系电话</th>
@@ -59,19 +58,19 @@
                 <span *ngSwitchDefault>未知</span>
               </span>
             </td>
-            <td>
-              <span [ngSwitch]="ul.u_gender">
-                <span *ngSwitchCase="1">男</span>
-                <span *ngSwitchCase="2">女</span>
-                <span *ngSwitchDefault>未知</span>
-              </span>
-            </td>
-            <td>{{ ul.u_age }}</td>
+            <!--<td>-->
+              <!--<span [ngSwitch]="ul.u_gender">-->
+                <!--<span *ngSwitchCase="1">男</span>-->
+                <!--<span *ngSwitchCase="2">女</span>-->
+                <!--<span *ngSwitchDefault>未知</span>-->
+              <!--</span>-->
+            <!--</td>-->
+            <!--<td>{{ ul.u_age }}</td>-->
             <td>{{ ul.c_name }}</td>
-            <td>{{ ul.u_department }}</td>
+            <td>{{ ul.category_desc}}</td>
             <td>{{ ul.u_phone }}</td>
             <td>
-              <a class="btn btn-warning btn-xs" (click)="update(stock)">
+              <a class="btn btn-warning btn-xs" [routerLink]="['/forms/employees',ul.u_id]">
                 <span class="glyphicon glyphicon-pencil"></span>修改
               </a>
               <a class="btn btn-danger btn-xs" (click)="deleteUser( ul.u_id ,userList.result?.current_page)">
@@ -82,16 +81,17 @@
           </tbody>
         </sa-datatable>
         <!-- 分页部分-->
-        <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
-          <ul class="pagination"><!-- [ngClass]="{'disabled':prev == true}"   [ngClass]="{'disabled':next == true}" -->
-            <li class="paginate_button previous" id="DataTables_Table_0_previous">
-              <a (click)="pagination(userList.result?.prev_page_url)" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0">上一页</a>
+        <div class="dataTables_paginate">
+          <ul class="pagination">
+            <li>
+              <a (click)="pagination(userList.result?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>
             </li>
-            <li class="paginate_button next" id="DataTables_Table_0_next">
-              <a (click)="pagination(userList.result?.next_page_url)" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0">下一页</a>
+            <li>
+              <a (click)="pagination(userList.result?.next_page_url)"><i class="fa fa-arrow-right"></i></a>
             </li>
           </ul>
         </div>
+
       </div>
     </div>
   </sa-widget>

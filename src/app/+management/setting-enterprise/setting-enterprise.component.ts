@@ -78,7 +78,7 @@ export class SettingEnterpriseComponent implements OnInit {
                 console.log('industryCategoryList:----');
                 console.log(this.industryCategoryList);
                 if (this.industryCategoryList) {
-                    if (this.industryCategoryList['result']['current_page'] == this.industryCategoryList['result']['total']) {
+                    if (this.industryCategoryList['result']['current_page'] == this.industryCategoryList['result']['last_page']) {
                         this.nextI = true;
                     } else {
                         this.nextI = false;
@@ -94,7 +94,7 @@ export class SettingEnterpriseComponent implements OnInit {
                 console.log('sourceList:----');
                 console.log(this.sourceList);
                 if (this.sourceList) {
-                    if (this.sourceList['result']['current_page'] == this.sourceList['result']['total']) {
+                    if (this.sourceList['result']['current_page'] == this.sourceList['result']['last_page']) {
                         this.nextI = true;
                     } else {
                         this.nextI = false;
@@ -209,7 +209,7 @@ export class SettingEnterpriseComponent implements OnInit {
                 if(category_type == 1){
                     console.log(this.industryCategoryList);
                     if (this.industryCategoryList) {
-                        if (this.industryCategoryList['result']['current_page'] == this.industryCategoryList['result']['total']) {
+                        if (this.industryCategoryList['result']['current_page'] == this.industryCategoryList['result']['last_page']) {
                             this.nextI = true;
                         } else {
                             this.nextI = false;
@@ -223,7 +223,7 @@ export class SettingEnterpriseComponent implements OnInit {
                 }
                 if(category_type == 2)
                 {
-                    if (this.sourceList['result']['current_page'] == this.sourceList['result']['total']) {
+                    if (this.sourceList['result']['current_page'] == this.sourceList['result']['last_page']) {
                         this.nextI = true;
                     } else {
                         this.nextI = false;
