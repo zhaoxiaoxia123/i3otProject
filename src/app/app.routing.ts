@@ -5,6 +5,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {MainLayoutComponent} from "./shared/layout/app-layouts/main-layout.component";
 import {AuthLayoutComponent} from "./shared/layout/app-layouts/auth-layout.component";
 import {ModuleWithProviders} from "@angular/core";
+import {HomeComponent} from './home/home.component';
 
 export const routes: Routes = [
   {

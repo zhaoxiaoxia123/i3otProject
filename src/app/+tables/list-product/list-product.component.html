@@ -1,13 +1,13 @@
 <div id="content">
   <div class="row">
-    <sa-big-breadcrumbs [items]="['产品管理', '产品']" icon="table"
+    <sa-big-breadcrumbs [items]="['产品管理', '产品列表']" icon="table"
                         class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
 
   </div>
 
   <div class="box-header with-border" >
     <a class="btn btn-success btn-sm"  (click)="lgModal.show()">
-      <span class="glyphicon glyphicon-plus"></span>创建</a>
+      <span class="glyphicon glyphicon-plus"></span>添加产品</a>
 
   </div>
 
@@ -22,7 +22,8 @@
       <div class="widget-body no-padding">
 
 
-        <sa-datatable tableClass="table table-striped table-bordered table-hover">
+
+        <sa-datatable tableClass="table table-striped table-bordered table-hover smart-form">
 
           <thead>
           <tr>

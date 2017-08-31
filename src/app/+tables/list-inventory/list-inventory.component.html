@@ -1,12 +1,12 @@
 <div id="content">
   <div class="row">
-    <sa-big-breadcrumbs [items]="['库存管理', '库存']" icon="table"
+    <sa-big-breadcrumbs [items]="['仓储管理', '添加仓储']" icon="table"
                         class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
   </div>
 
   <div class="box-header with-border" >
     <a class="btn btn-success btn-sm"  (click)="lgModal.show()">
-      <span class="glyphicon glyphicon-plus"></span>创建</a>
+      <span class="glyphicon glyphicon-plus"></span>添加仓储</a>
   </div>
 
   <sa-widget [editbutton]="false" color="blueDark">
@@ -42,6 +42,7 @@
                     </ul>
                   </li>
                 </ul>
+
                 <form class="navbar-form navbar-left" role="search" [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate>
                   <div class="form-group">
                     <input type="text" name="keyword" maxlength="15" formControlName="keyword" class="form-control" placeholder="请输入搜索内容">
@@ -53,29 +54,35 @@
                 <ul class="nav navbar-nav navbar-right">
                   <li dropdown class="dropdown">
                     <a (click)="(null)" dropdownToggle>自定义显示内容 <span class="caret"></span></a>
-                    <ul *dropdownMenu class="dropdown-menu" role="menu">
-                      <li>
-                        <a (click)="(null)">订单号/合同号</a>
+                    <ul *dropdownMenu  role="menu" class="dt-button-collection dropdown-menu" >
+                      <li class="dt-button  active"  >
+                        <a (click)="(null)">ID</a>
                       </li>
-                      <li>
+                      <li class="dt-button  active " >
+                        <a (click)="(null)" >订单号/合同号</a>
+                      </li>
+                      <li class="dt-button active " tabindex="0" >
                         <a (click)="(null)">类型</a>
                       </li>
-                      <li>
+                      <li class="dt-button active " tabindex="0" >
                         <a (click)="(null)">规格/参数</a>
                       </li>
                       <li class="divider"></li>
-                      <li>
+                      <li class="dt-button  ">
                         <a (click)="(null)">购买公司</a>
                       </li>
                     </ul>
                   </li>
                 </ul>
-              </div><!-- /.navbar-collapse -->
-            </div>
+
+              </div>
+
+
+              </div>
           </article>
         </div>
 
-        <sa-datatable tableClass="table table-striped table-bordered table-hover">
+        <sa-datatable tableClass="table table-striped table-bordered table-hover smart-form">
           <thead>
           <tr>
             <td>

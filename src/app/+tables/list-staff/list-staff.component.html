@@ -3,6 +3,10 @@
     <sa-big-breadcrumbs [items]="['人事管理', '员工列表']" icon="table"
                         class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
   </div>
+  <div class="box-header with-border" >
+    <a class="btn btn-success btn-sm"  >
+      <span class="glyphicon glyphicon-plus"></span>添加员工</a>
+  </div>
   <sa-widget [editbutton]="false" color="blueDark">
     <header>
       <span class="widget-icon"> <i class="fa fa-table"></i> </span>
@@ -11,7 +15,7 @@
     <div>
       <div class="widget-body no-padding">
 
-        <sa-datatable tableClass="table table-striped table-bordered table-hover">
+        <sa-datatable tableClass="table table-striped table-bordered table-hover smart-form">
           <thead>
           <tr>
             <td>
