@@ -35,12 +35,12 @@ export const routes: Routes = [
         data: {pageTitle: 'Product1'}
     },
     {
-        path: 'indent1',
+        path: 'indent1/:o_id',
         loadChildren: 'app/+forms/add-indent1/add-indent1.module#AddIndent1Module',
         data: {pageTitle: 'Indent1'}
     },
     {
-        path: 'inventory1',
+        path: 'inventory1/:storehouse_id',
         loadChildren: 'app/+forms/add-inventory1/add-inventory1.module#AddInventory1Module',
         data: {pageTitle: 'Inventory1'}
     }

@@ -20,6 +20,7 @@
 
                 <fieldset>
                   <legend>主要信息</legend>
+                  <input type="hidden" name="storehouse_id" formControlName="storehouse_id" >
                   <div class="row">
                     <section class="col col-6">
                       <label class="label">仓储名称</label>
@@ -38,9 +39,9 @@
                       <label class="label "> 仓库状态</label>
                       <label class="select">
                         <select name="storehouse_status" formControlName="storehouse_status">
-                          <option value="1">出仓</option>
-                          <option value="2">维修</option>
-                          <option value="3">满仓</option>
+                          <option value="1" [selected]="storehouse_info.result?.storehouse_status == 1">出仓</option>
+                          <option value="2" [selected]="storehouse_info.result?.storehouse_status == 2">维修</option>
+                          <option value="3" [selected]="storehouse_info.result?.storehouse_status == 3">满仓</option>
                         </select> <i></i>
                       </label>
                     </section>
@@ -60,7 +61,8 @@
                   <section>
                     <label class="label">备注说明</label>
                     <label class="textarea textarea-resizable">
-                      <textarea class="custom-scroll" rows="3" formControlName="storehouse_notes" name="storehouse_notes"></textarea>
+                      <textarea class="custom-scroll" rows="3" formControlName="storehouse_notes" name="storehouse_notes">
+                      </textarea>
                     </label>
                   </section>
                 </fieldset>

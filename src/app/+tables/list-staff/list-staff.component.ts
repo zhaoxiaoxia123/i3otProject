@@ -36,7 +36,7 @@ export class ListStaffComponent implements OnInit {
       // console.log(typeof (this.userList));
       console.log(this.userList);
       if (this.userList) {
-        if (this.userList['result']['current_page'] == this.userList['result']['total']) {
+        if (this.userList['result']['current_page'] == this.userList['result']['last_page']) {
           this.next = true;
         } else {
           this.next = false;

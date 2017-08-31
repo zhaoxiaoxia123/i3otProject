@@ -36,7 +36,7 @@ export class ListClientComponent implements OnInit {
     setTimeout(() => {
       console.log(this.customerList);
       if (this.customerList) {
-        if (this.customerList['result']['current_page'] == this.customerList['result']['total']) {
+        if (this.customerList['result']['current_page'] == this.customerList['result']['last_page']) {
           this.next = true;
         } else {
           this.next = false;
