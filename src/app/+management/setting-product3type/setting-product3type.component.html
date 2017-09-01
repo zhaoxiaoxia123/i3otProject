@@ -106,16 +106,98 @@
                           </alert>
                           <div class="widget-body">
                             <div class="row text-center" style="padding:0px 40px;">
-                              <button  type="button" class="btn btn-primary"
+                              <!--<button  type="button" class="btn btn-primary"
                               >
                                 保存
-                              </button>
+                              </button>-->
 
-                              <sa-nestable-list [items]="demo2"
+                              <!--<sa-nestable-list [items]="demo2"
                                                 (change)="onChange2($event)"
                                                 [options]="{group: 1}">
 
-                              </sa-nestable-list>
+                              </sa-nestable-list>-->
+
+                              <div class="dd" id="nestable2">
+                                <ol class="dd-list">
+                                  <li class="dd-item" data-id="13">
+                                    <div class="dd-handle">
+                                      铅锌矿
+                                      <a class="btn pull-right btn-warning btn-xs"><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                      <a class="btn pull-right btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                    </div>
+                                  </li>
+                                  <li class="dd-item" data-id="14">
+
+                                    <div class="dd-handle">
+                                      磷矿
+                                      <a class="btn pull-right btn-warning btn-xs"><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                      <a class="btn pull-right btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+
+                                    </div>
+                                  </li>
+                                  <li class="dd-item" data-id="15">
+                                    <button data-action="collapse" type="button" style="display: none;">展开</button>
+                                    <button data-action="expand" type="button" style="display: block;">收起</button>
+
+                                    <div class="dd-handle">
+                                      煤矿
+                                      <a class="btn pull-right btn-warning btn-xs"><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                      <a class="btn pull-right btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+
+                                    </div>
+                                    <ol class="dd-list">
+                                      <li class="dd-item" data-id="16">
+
+                                      <div class="dd-handle">
+                                        无烟煤(WY)
+                                        <a class="btn pull-right btn-warning btn-xs"><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                        <a class="btn pull-right btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                      </div>
+                                    </li>
+                                      <li class="dd-item" data-id="14">
+                                        <div class="dd-handle">
+                                          金矿
+                                          <a class="btn pull-right btn-warning btn-xs"><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                          <a class="btn pull-right btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                        </div>
+                                      </li>
+
+
+
+                                    </ol>
+                                  </li>
+                                  <li class="dd-item" data-id="15">
+                                    <button data-action="collapse" type="button" style="display: block;">展开</button>
+                                    <button data-action="expand" type="button" style="display: none;">收起</button>
+
+                                    <div class="dd-handle">
+                                      煤矿
+                                      <a class="btn pull-right btn-warning btn-xs"><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                      <a class="btn pull-right btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                    </div>
+                                    <ol class="dd-list">
+                                      <li class="dd-item" data-id="16">
+
+                                        <div class="dd-handle">
+                                          无烟煤(WY)
+                                          <a class="btn pull-right btn-warning btn-xs"><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                          <a class="btn pull-right btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                        </div>
+                                      </li>
+                                      <li class="dd-item" data-id="14">
+                                        <div class="dd-handle">
+                                          金矿
+                                          <a class="btn pull-right btn-warning btn-xs"><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                          <a class="btn pull-right btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                        </div>
+                                      </li>
+                                    </ol>
+                                  </li>
+                                </ol>
+                              </div>
+
+
+
 
                             </div>
                           </div>

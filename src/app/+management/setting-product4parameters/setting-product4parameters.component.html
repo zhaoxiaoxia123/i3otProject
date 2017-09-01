@@ -39,18 +39,18 @@
                             <fieldset>
 
                               <section >
-                                <label class="label">型号</label>
+                                <label class="label">类型</label>
                                 <div class="col col-8">
                                   <label class="select">
                                     <select name=" sources" >
-                                      <option value="0" disabled>选择型号</option>
+                                      <option value="0" disabled>选择类型</option>
                                       <option value="1">CD4</option>
                                       <option value="2">JCB4</option>
                                       <option value="3">CTH1000</option>
                                     </select> <i></i> </label></div>
                                 <div class="col col-4">
                                   <button type="button" class="btn btn-primary btn-sm btn-block">
-                                    添加型号
+                                    添加类型
                                   </button>
                                 </div>
                               </section>
@@ -104,13 +104,23 @@
                             <i class="fa-fw fa fa-spoon"></i>
                             规格/参数
                           </alert>
-                          <p>
-                            类型:
-                            <span ><a>CD4</a></span>
-                            <span><a>CDDD4</a></span>
-                            <span><a>CW4</a></span>
-                            <span><a>FG2</a></span>
-                          </p>
+                          <form class="smart-form ">
+                            <fieldset>
+                              <div class="row">
+                                <label class="label col col-2">选择类型</label>
+                                <section class="col col-10">
+                                  <label class="select">
+                                    <select >
+                                      <option disabled="" selected="" value="0" ng-reflect-value="0">选择类型</option>
+                                      <option value="1">CD4</option>
+                                      <option value="2">JCB4</option>
+                                      <option value="3">CTH1000</option>
+                                    </select> <i></i> </label>
+                                </section>
+                              </div>
+                            </fieldset>
+                          </form>
+
                           <div class="table-responsive">
 
                             <table class="table table-hover table-bordered">

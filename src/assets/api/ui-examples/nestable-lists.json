@@ -174,7 +174,17 @@
     },
     {
       "id": 37,
-      "content": " 金矿<a class=\"btn pull-right btn-warning btn-xs\" ><span class=\"glyphicon glyphicon-pencil\"></span>修改</a><a class=\"btn pull-right btn-danger btn-xs\"><span class=\"glyphicon glyphicon-remove\"></span>删除</a> "
+      "content": " 金矿<a class=\"btn pull-right btn-warning btn-xs\" ><span class=\"glyphicon glyphicon-pencil\"></span>修改</a><a class=\"btn pull-right btn-danger btn-xs\"><span class=\"glyphicon glyphicon-remove\"></span>删除</a> ",
+      "children": [
+        {
+          "id": 21,
+          "content": " 无烟煤(WY)<a class=\"btn pull-right btn-warning btn-xs\" ><span class=\"glyphicon glyphicon-pencil\"></span>修改</a><a class=\"btn pull-right btn-danger btn-xs\"><span class=\"glyphicon glyphicon-remove\"></span>删除</a> "
+        },
+        {
+          "id": 22,
+          "content": "贫煤(PM)<a class=\"btn pull-right btn-warning btn-xs\" ><span class=\"glyphicon glyphicon-pencil\"></span>修改</a><a class=\"btn pull-right btn-danger btn-xs\"><span class=\"glyphicon glyphicon-remove\"></span>删除</a> "
+        }
+      ]
     },
     {
       "id": 41,
@@ -189,7 +199,7 @@
     {
       "id": 101,
       "content": " Drag "
-    },
+       },
     {
       "id": 102,
       "content": " Drag "
