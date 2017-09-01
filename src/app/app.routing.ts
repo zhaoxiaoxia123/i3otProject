@@ -42,6 +42,11 @@ export const routes: Routes = [
         data: {pageTitle: 'Graphs'}
       },
       {
+        path: 'app-views',
+        loadChildren: 'app/+app-views/app-views.module#AppViewsModule',
+        data: {pageTitle: 'App Views'}
+      },
+      {
         path: 'miscellaneous',
         loadChildren: 'app/+miscellaneous/miscellaneous.module#MiscellaneousModule',
         data: {pageTitle: 'Miscellaneous'}

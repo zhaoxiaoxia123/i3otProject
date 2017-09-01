@@ -8,6 +8,16 @@ export const routes:Routes = [
         data: {pageTitle: 'Setting Enterprise'}
     },
     {
+        path: 'enterprise1',
+        loadChildren: 'app/+management/setting-enterprise1/setting-enterprise1.module#SettingEnterprise1Module',
+        data: {pageTitle: 'Setting Enterprise1'}
+    },
+    {
+        path: 'enterprise2',
+        loadChildren: 'app/+management/setting-enterprise2/setting-enterprise2.module#SettingEnterprise2Module',
+        data: {pageTitle: 'Setting Enterprise2'}
+    },
+    {
         path: 'department',
         loadChildren: 'app/+management/setting-department/setting-department.module#SettingDepartmentModule',
         data: {pageTitle: 'Setting Department'}

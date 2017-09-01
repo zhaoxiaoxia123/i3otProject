@@ -1,33 +1,29 @@
 <div id="content">
   <div class="row">
-    <sa-big-breadcrumbs [items]="['矿易帮设置', '客户设置']" icon="pencil-square-o" class="col-xs-12 col-sm-9 col-md-9 col-lg-9"></sa-big-breadcrumbs>
+    <sa-big-breadcrumbs [items]="['矿易帮设置', '员工设置']" icon="pencil-square-o" class="col-xs-12 col-sm-9 col-md-9 col-lg-9"></sa-big-breadcrumbs>
 
   </div>
-
   <sa-widget [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
     <header>
       <ul class="nav nav-tabs pull-left in">
 
-        <li [class.active]="state.tabs.demo3=='hr1'">
-          <a (click)="state.tabs.demo3 = 'hr1'"> <i class="fa fa-lg fa-suitcase"></i> <span
-                  class="hidden-mobile hidden-tablet"> 所属行业 </span>
-          </a>
+        <li [class.active]="state.tabs.demo4=='AA'" class="active">
+          <a (click)="state.tabs.demo4 = 'AA'">合同类型</a>
         </li>
-
-        <li [class.active]="state.tabs.demo3=='hr2'">
-          <a (click)="state.tabs.demo3 = 'hr2'"> <i class="fa fa-lg fa-child"></i> <span
-                  class="hidden-mobile hidden-tablet"> 客户来源 </span>
-          </a>
+        <li [class.active]="state.tabs.demo4=='BB'">
+          <a (click)="state.tabs.demo4 = 'BB'">学历来源 </a>
         </li>
       </ul>
     </header>
     <div>
       <div class="widget-body">
-
         <tabset>
-          <tab [active]="state.tabs.demo3 == 'hr1'">
+          <tab [active]="state.tabs.demo4 == 'AA'">
+
             <div class="row">
+
               <article class="col-sm-12 col-md-12 col-lg-6">
+
                 <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
                            [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
 
@@ -35,81 +31,113 @@
                     <div class="widget-body no-padding">
                       <alert type="info" class="no-margin" >
                         <i class="fa-fw fa fa-plus"></i>
-                        添加行业
+                        添加合同类型
                       </alert>
 
-                      <form [formGroup]="formModel" (ngSubmit)="onSubmitIndustryCategory()" novalidate class="smart-form ">
+                      <form #newTodoForm="ngForm" class="smart-form ">
                         <fieldset>
                           <section>
                             <label class="input">
-                              <input type="text" required class="input-lg"
-                                     placeholder="请输入行业" minlength="1" maxlength="20" formControlName="category_desc" name="category_desc">
-                              <input type="hidden" value="1" formControlName="category_type" name="category_type">
-                              <input type="hidden" value="" formControlName="category_id" name="category_id">
+                              <input type="text" required   name="title"
+                                     placeholder="请输入合同类型">
                             </label>
                           </section>
                         </fieldset>
                         <footer>
-                          <button type="submit" class="btn btn-primary">
+                          <button  type="button" class="btn btn-primary">
                             保存
                           </button>
+
                         </footer>
                       </form>
+
                     </div>
                   </div>
+
                 </sa-widget>
+
+
               </article>
 
+
               <article class="col-sm-12 col-md-12 col-lg-6">
+
+
                 <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
                            [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+
 
                   <div>
                     <div class="widget-body no-padding">
                       <alert type="info" class="no-margin" >
                         <i class="fa-fw fa fa-spoon"></i>
-                        行业
+                        合同类型
                       </alert>
                       <div class="table-responsive">
 
                         <table class="table table-hover table-bordered">
                           <thead>
                           <tr>
-                            <th>行业</th>
+                            <th>合同类型</th>
                             <th>操作</th>
                           </tr>
                           </thead>
                           <tbody>
-                          <tr *ngFor="let cl of industryCategoryList.result?.data">
-                            <td>{{ cl.category_desc }}</td>
-                            <td><a class="btn btn-warning btn-xs" (click)="editIndustryCategory(1,cl.category_id, cl.category_desc)" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                              <a class="btn btn-danger btn-xs" (click)="deleteIndustryCategory(1,cl.category_id,industryCategoryList.result?.current_page)"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                          <tr>
+                            <td>固定期限</td>
+                            <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                              <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
                             </td>
                           </tr>
+                          <tr>
+                            <td>无固定期限</td>
+                            <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                              <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>一定工作任务为期限</td>
+                            <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                              <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                            </td>
+                          </tr>
+
                           </tbody>
+
+
                         </table>
 
                         <div class="dataTables_paginate">
                           <ul class="pagination">
                             <li>
-                              <a (click)="pagination(1,industryCategoryList.result?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>
+                              <a (click)="(null)"><i class="fa fa-arrow-left"></i></a>
                             </li>
                             <li>
-                              <a (click)="pagination(1,industryCategoryList.result?.next_page_url)"><i class="fa fa-arrow-right"></i></a>
+                              <a (click)="(null)">1</a>
+                            </li>
+                            <li>
+                              <a (click)="(null)"><i class="fa fa-arrow-right"></i></a>
                             </li>
                           </ul>
                         </div>
+
+
                       </div>
 
                     </div>
                   </div>
+
                 </sa-widget>
+                <!-- end widget -->
+
+
               </article>
+
             </div>
           </tab>
-          <tab [active]="state.tabs.demo3 == 'hr2'">
-
+          <tab [active]="state.tabs.demo4 == 'BB'">
             <div class="row">
+
               <article class="col-sm-12 col-md-12 col-lg-6">
 
                 <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
@@ -119,24 +147,23 @@
                     <div class="widget-body no-padding">
                       <alert type="info" class="no-margin" >
                         <i class="fa-fw fa fa-plus"></i>
-                        添加客户来源
+                        添加学历来源
                       </alert>
 
-                      <form class="smart-form" [formGroup]="formModelSource" (ngSubmit)="onSubmitSource()" novalidate>
+                      <form #newTodoForm="ngForm" class="smart-form ">
                         <fieldset>
                           <section>
                             <label class="input">
-                              <input type="text" required class="input-lg"
-                                     placeholder="请输入客户来源" minlength="1" maxlength="20" formControlName="category_desc" name="category_desc">
-                              <input type="hidden" value="2" formControlName="category_type" name="category_type">
-                              <input type="hidden" value="" formControlName="category_id" name="category_id">
+                              <input type="text" required   name="title"
+                                     placeholder="请输入学历来源">
                             </label>
                           </section>
                         </fieldset>
                         <footer>
-                          <button type="submit" class="btn btn-primary">
+                          <button  type="button" class="btn btn-primary">
                             保存
                           </button>
+
                         </footer>
                       </form>
 
@@ -150,7 +177,6 @@
 
               <article class="col-sm-12 col-md-12 col-lg-6">
 
-
                 <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
                            [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
 
@@ -158,36 +184,56 @@
                     <div class="widget-body no-padding">
                       <alert type="info" class="no-margin" >
                         <i class="fa-fw fa fa-spoon"></i>
-                        客户来源
+                        学历来源
                       </alert>
                       <div class="table-responsive">
 
                         <table class="table table-hover table-bordered">
                           <thead>
                           <tr>
-                            <th>客户来源</th>
+                            <th>学历来源 </th>
+                            <th>人数 </th>
                             <th>操作</th>
                           </tr>
                           </thead>
                           <tbody>
-
-                          <tr *ngFor="let cl of sourceList.result?.data">
-                            <td>{{ cl.category_desc }}</td>
-                            <td><a class="btn btn-warning btn-xs" (click)="editIndustryCategory(2,cl.category_id, cl.category_desc)" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                              <a class="btn btn-danger btn-xs" (click)="deleteIndustryCategory(2,cl.category_id,sourceList.result?.current_page)"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                          <tr>
+                            <td>全日制</td>
+                            <td>2</td>
+                            <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                              <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>成人考试</td>
+                            <td>3</td>
+                            <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                              <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>自学考试</td>
+                            <td>4</td>
+                            <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                              <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
                             </td>
                           </tr>
 
                           </tbody>
+
+
                         </table>
 
                         <div class="dataTables_paginate">
                           <ul class="pagination">
                             <li>
-                              <a (click)="pagination(2,sourceList.result?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>
+                              <a (click)="(null)"><i class="fa fa-arrow-left"></i></a>
                             </li>
                             <li>
-                              <a (click)="pagination(2,sourceList.result?.next_page_url)"><i class="fa fa-arrow-right"></i></a>
+                              <a (click)="(null)">1</a>
+                            </li>
+                            <li>
+                              <a (click)="(null)"><i class="fa fa-arrow-right"></i></a>
                             </li>
                           </ul>
                         </div>
@@ -199,7 +245,6 @@
                   </div>
 
                 </sa-widget>
-
 
               </article>
 
@@ -207,11 +252,9 @@
           </tab>
 
         </tabset>
-
       </div>
-      <!-- end widget content -->
-
     </div>
-    <!-- end widget div -->
   </sa-widget>
+
+
 </div>
