@@ -113,7 +113,6 @@ export class SettingDepartmentComponent implements OnInit {
                 category_type:3,
                 category_id:cid
             });
-
     }
 
     /**

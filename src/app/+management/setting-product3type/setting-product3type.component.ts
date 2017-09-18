@@ -30,6 +30,12 @@ export class SettingProduct3typeComponent implements OnInit {
 
     formModel : FormGroup;
     categoryList : Array<any> = [];
+    category_id1 : number = 0;
+    category_desc1: string;
+    category_id2 : number = 0;
+    category_desc2: string;
+    category_depth2:number;
+    child_style : string = 'none';
   constructor(private jsonApiService:JsonApiService,
               fb:FormBuilder,
               private http:Http,
@@ -37,7 +43,8 @@ export class SettingProduct3typeComponent implements OnInit {
 
       this.formModel = fb.group({
           category_desc:[''],
-          category_type:['3'],
+          category_type:['6'],
+          category_depth:[''],
           category_id:['']
       });
 
@@ -69,30 +76,54 @@ export class SettingProduct3typeComponent implements OnInit {
     //     }, 300);
     // }
     //
-    // /**
-    //  * 提交所属部门
-    //  */
-    // onSubmitCategory() {
-    //     this.http.post('/api/v1/addCategory',{
-    //         'category_desc':this.formModel.value['category_desc'],
-    //         'category_type':this.formModel.value['category_type'],
-    //         'category_id':this.formModel.value['category_id'],
-    //     }).subscribe(
-    //         (data)=>{
-    //             alert(JSON.parse(data['_body'])['msg']);
-    //             console.log( JSON.parse(data['_body'])['result']);
-    //             this.formModel.patchValue({category_desc:'',category_type:'3',category_id:''});
-    //             this.categoryList = JSON.parse(data['_body']);
-    //         },
-    //         response => {
-    //             console.log('PATCH call in error', response);
-    //         },
-    //         // () => {
-    //         //     console.log('The PATCH observable is now completed.');
-    //         // }
-    //     );
-    // }
 
+    /**
+     * 发布产品类型
+     */
+    submitCategory(number:number){
+      if(number == 1){
+          console.log(this.category_desc1);
+          this.http.post('/api/v1/addCategory',{
+              'category_desc':this.category_desc1,
+              'category_type':6,
+              'category_depth':0,
+              'category_id':this.category_id1,
+          }).subscribe(
+              (data)=>{
+                  alert(JSON.parse(data['_body'])['msg']);
+                  console.log( JSON.parse(data['_body']));
+                  // this.formModel.patchValue({category_desc:'',category_type:'6',category_id:'0'});
+                  this.categoryList = JSON.parse(data['_body']);
+                  this.category_depth2 = JSON.parse(data['_body'])['category_id'];//二级信息的父类id
+                    this.child_style = 'block';
+              },
+              response => {
+                  console.log('PATCH call in error', response);
+              }
+          );
+      }else if(number == 2){
+          console.log(this.category_desc2);
+          this.http.post('/api/v1/addCategory',{
+              'category_desc':this.category_desc2,
+              'category_type':6,
+              'category_depth':this.category_depth2,
+              'category_id':this.category_id2,
+          }).subscribe(
+              (data)=>{
+                  alert(JSON.parse(data['_body'])['msg']);
+                  console.log( JSON.parse(data['_body']));
+                  // this.formModel.patchValue({category_desc:'',category_type:'6',category_id:'0'});
+                  this.categoryList = JSON.parse(data['_body']);
+                  this.category_desc2 = '';
+                  this.category_depth2 = JSON.parse(data['_body'])['category_id'];//二级信息的父类id
+                  this.category_id2 = 0;
+              },
+              response => {
+                  console.log('PATCH call in error', response);
+              }
+          );
+      }
+    }
 
 
   ngOnInit() {

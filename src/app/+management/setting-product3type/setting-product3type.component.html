@@ -35,7 +35,60 @@
                             添加类型
                           </alert>
 
-                          <form #newTodoForm="ngForm" class="smart-form ">
+                          <!--<form [formGroup]="formModel" (ngSubmit)="onSubmitCategory()" novalidate class="smart-form ">-->
+
+                            <!--<fieldset>-->
+
+                              <!--<section >-->
+
+                                <!--<div class="row">-->
+                                  <!--<div class="col col-8">-->
+                                    <!--<label class="label ">一级</label>-->
+                                    <!--<label class="input"  >-->
+                                      <!--<input type="text" required-->
+                                             <!--placeholder="请输入类型" minlength="1" maxlength="20" formControlName="category_desc" name="category_desc">-->
+                                      <!--<input type="hidden" value="6" formControlName="category_type" name="category_type">-->
+                                      <!--<input type="hidden" value="0" formControlName="category_depth" name="category_depth">-->
+                                      <!--<input type="hidden" value="" formControlName="category_id" name="category_id">-->
+                                    <!--</label>-->
+                                  <!--</div>-->
+                                  <!--<div class="col col-4" >-->
+                                    <!--<button class="btn btn-warning btn-xs text-center" style="padding:6px;margin:24px 0;" >-->
+                                      <!--<i class="fa fa-plus"></i> <span class="hidden-mobile">保存并添加一级类型</span>-->
+                                    <!--</button>-->
+                                  <!--</div>-->
+                                <!--</div>-->
+
+                              <!--</section>-->
+
+                              <!--<section >-->
+
+                                <!--<div class="row"  style="padding-left:60px;">-->
+
+                                  <!--<div class="col col-6">-->
+                                    <!--<label class="label ">二级</label>-->
+                                    <!--<label class="input"  >-->
+                                      <!--<input  type="text"   name="title"-->
+                                              <!--placeholder="请输入类型">-->
+                                    <!--</label>-->
+                                  <!--</div>-->
+                                  <!--<div class="col col-4" >-->
+                                    <!--<button class="btn btn-warning btn-xs text-center"style="padding:6px;margin:24px 0;" >-->
+                                      <!--<i class="fa fa-plus"></i> <span class="hidden-mobile">保存并添加二级类型</span>-->
+                                    <!--</button>-->
+                                  <!--</div>-->
+                                <!--</div>-->
+
+                              <!--</section>-->
+
+
+
+                            <!--</fieldset>-->
+
+
+                          <!--</form>-->
+
+                          <form class="smart-form ">
 
                             <fieldset>
 
@@ -45,32 +98,32 @@
                                   <div class="col col-8">
                                     <label class="label ">一级</label>
                                     <label class="input"  >
-                                      <input  type="text"   name="title"
-                                              placeholder="请输入类型">
+                                      <input type="text" required
+                                             placeholder="请输入类型" minlength="1" maxlength="20" [(ngModel)]="category_desc1" name="category_desc1">
+                                      <input type="hidden" [(ngModel)]="category_id1" name="category_id1">
                                     </label>
                                   </div>
                                   <div class="col col-4" >
-                                    <button class="btn btn-warning btn-xs text-center"style="padding:6px;margin:24px 0;" >
-                                      <i class="fa fa-plus"></i> <span class="hidden-mobile">保存并添加一级类型</span>
+                                    <button (click)="submitCategory(1)" class="btn btn-warning btn-xs text-center" style="padding:6px;margin:24px 0;" >
+                                      <i class="fa fa-plus"></i> <span class="hidden-mobile">保存并添加二级类型</span>
                                     </button>
                                   </div>
                                 </div>
-
                               </section>
 
-                              <section >
-
+                              <section id="child" [ngStyle]="{'display':child_style }">
                                 <div class="row"  style="padding-left:60px;">
-
                                   <div class="col col-6">
                                     <label class="label ">二级</label>
                                     <label class="input"  >
-                                      <input  type="text"   name="title"
-                                              placeholder="请输入类型">
+                                      <input type="text" required
+                                             placeholder="请输入类型" minlength="1" maxlength="20" [(ngModel)]="category_desc2" name="category_desc2">
+                                      <input type="hidden" [(ngModel)]="category_id2" name="category_id2">
+                                      <input type="hidden" [(ngModel)]="category_depth2" name="category_depth2">
                                     </label>
                                   </div>
                                   <div class="col col-4" >
-                                    <button class="btn btn-warning btn-xs text-center"style="padding:6px;margin:24px 0;" >
+                                    <button class="btn btn-warning btn-xs text-center" (click)="submitCategory(2)" style="padding:6px;margin:24px 0;" >
                                       <i class="fa fa-plus"></i> <span class="hidden-mobile">保存并添加二级类型</span>
                                     </button>
                                   </div>
