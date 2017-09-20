@@ -130,12 +130,9 @@ img.away {
 }
 
 /*导航*/
-#content {
-    padding: 10px 14px;
-    position: relative;
-}
+
 .page-title {
-    margin: 12px 0 28px;
+    margin: 12px 0;
 }
 .page-title span {
     font-size: 16px;
