@@ -1,7 +1,6 @@
 <div id="content">
   <div class="row">
     <sa-big-breadcrumbs [items]="['产品管理', '产品规格/参数设置']" icon="pencil-square-o" class="col-xs-12 col-sm-9 col-md-9 col-lg-9"></sa-big-breadcrumbs>
-
   </div>
   <sa-widget [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
     <header>
@@ -34,50 +33,50 @@
                             <i class="fa-fw fa fa-plus"></i>
                             添加规格/参数
                           </alert>
+                          <!--[formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate-->
+                          <form class="smart-form ">
+                            <input  type="hidden" name="edit_key"  [(ngModel)]="edit_key">
 
-                          <form #newTodoForm="ngForm" class="smart-form ">
                             <fieldset>
 
                               <section >
                                 <label class="label">类型</label>
                                 <div class="col col-8">
                                   <label class="select">
-                                    <select name=" sources" >
-                                      <option value="0" disabled>选择类型</option>
-                                      <option value="1">CD4</option>
-                                      <option value="2">JCB4</option>
-                                      <option value="3">CTH1000</option>
-                                    </select> <i></i> </label></div>
+                                    <!--formControlName="category_id"-->
+                                    <select name="category_id" [(ngModel)]="category_id">
+                                      <option *ngFor="let cl of parentCategoryList" value="{{cl.category_id}}" [selected]="cl.category_id == select_id">
+                                        <b *ngIf="cl.category_depth == 0">{{cl.category_desc}}</b>
+                                        <b *ngIf="cl.category_depth != 0">--{{cl.category_desc}}</b>
+                                      </option>
+                                    </select>
+                                  </label>
+                                </div>
                                 <div class="col col-4">
-                                  <button type="button" class="btn btn-primary btn-sm btn-block">
+                                  <button type="button" class="btn btn-primary btn-sm btn-block" [routerLink]="['/management/product3type']">
                                     添加类型
                                   </button>
                                 </div>
                               </section>
 
-
                             </fieldset>
                             <fieldset>
                               <section >
-
                                 <label class="label ">参数名称</label>
                                 <label class="input">
-                                  <input  type="text"   name="title"
-                                          placeholder="请输入参数名称">
+                                  <input  type="text" name="category_tab_name"  [(ngModel)]="category_tab_name" placeholder="请输入参数名称">
                                 </label>
-
                               </section>
-
                               <section>
                                 <label class="label">参数内容</label>
                                 <label class="textarea textarea-resizable">
-                                  <textarea class="custom-scroll" rows="5"></textarea>
+                                  <textarea class="custom-scroll" rows="5" name="category_tab_value"  [(ngModel)]="category_tab_value"></textarea>
                                 </label>
                               </section>
 
                             </fieldset>
                             <footer>
-                              <button  type="button" class="btn btn-primary">
+                              <button (click)="onSubmit()"  type="button" class="btn btn-primary">
                                 保存
                               </button>
 
@@ -110,133 +109,63 @@
                                 <label class="label col col-2">选择类型</label>
                                 <section class="col col-10">
                                   <label class="select">
-                                    <select >
-                                      <option disabled="" selected="" value="0" ng-reflect-value="0">选择类型</option>
-                                      <option value="1">CD4</option>
-                                      <option value="2">JCB4</option>
-                                      <option value="3">CTH1000</option>
+                                    <select name="select_category_id" [(ngModel)]="select_category_id" (change)="getSpecification()" >
+                                      <option *ngFor="let cl of categoryList.result" value="{{cl.category_id}}" [selected]="select_id == cl.category_id">
+                                        <b *ngIf="cl.category_depth == 0">{{cl.category_desc}}</b>
+                                        <b *ngIf="cl.category_depth != 0">--{{cl.category_desc}}</b>
+                                      </option>
                                     </select> <i></i> </label>
                                 </section>
                               </div>
                             </fieldset>
                           </form>
-
                           <div class="table-responsive">
-
                             <table class="table table-hover table-bordered">
                               <thead>
                               <tr>
                                 <th>规格/参数</th>
-                                <th>CD4</th>
+                                <th>参数内容</th>
                                 <th>操作</th>
                               </tr>
                               </thead>
                               <tbody>
-                              <tr>
-                                <td>品牌</td>
-                                <td>卓安</td>
-                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>颜色分类</td>
-                                <td>V型透气红色、V型透气白色、标准V型橙色</td>
-                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>颜色分类</td>
-                                <td>V型透气红色、V型透气白色、标准V型橙色</td>
-                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>检测气体</td>
-                                <td>空气中的氯气(CL 2)</td>
-                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>量程</td>
-                                <td>0-20ppm  量程范围可根据实际要求而定</td>
-                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>工作方式</td>
-                                <td>连续工作200小时</td>
-                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>检测方式</td>
-                                <td>扩散式</td>
-                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>工作温度</td>
-                                <td>-10～40℃（特殊要求根据需要而定）</td>
-                                <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                              <tr *ngFor="let cl of (specification.result | keys)">
+                                <td>{{cl.value.specification_name}}</td>
+                                <td>{{cl.value.specification_value}}</td>
+                                <td>
+                                  <div *ngIf="cid == super_admin_id || select_cid == cid">
+                                    <a class="btn btn-warning btn-xs" (click)="editSpecification(cl.key,cl.value.specification_name,cl.value.specification_value)"><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                    <a class="btn btn-danger btn-xs" (click)="deleteSpecification(cl.key)"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                  </div>
+                                  <div *ngIf="cid != super_admin_id && select_cid != cid"><a class="btn btn-danger btn-xs">无权操作</a></div>
                                 </td>
                               </tr>
                               </tbody>
-
                             </table>
-
-                            <div class="dataTables_paginate">
-                              <ul class="pagination">
-                                <li>
-                                  <a (click)="(null)"><i class="fa fa-arrow-left"></i></a>
-                                </li>
-                                <li>
-                                  <a (click)="(null)">1</a>
-                                </li>
-                                <li>
-                                  <a (click)="(null)"><i class="fa fa-arrow-right"></i></a>
-                                </li>
-                              </ul>
-                            </div>
-
+                            <!--<div class="dataTables_paginate">-->
+                              <!--<ul class="pagination">-->
+                                <!--<li>-->
+                                  <!--<a (click)="(null)"><i class="fa fa-arrow-left"></i></a>-->
+                                <!--</li>-->
+                                <!--<li>-->
+                                  <!--<a (click)="(null)">1</a>-->
+                                <!--</li>-->
+                                <!--<li>-->
+                                  <!--<a (click)="(null)"><i class="fa fa-arrow-right"></i></a>-->
+                                <!--</li>-->
+                              <!--</ul>-->
+                            <!--</div>-->
                           </div>
-
                         </div>
                       </div>
-
                     </sa-widget>
-
-
                   </article>
-
                 </div>
               </tab>
             </tabset>
-
           </tab>
-
-
         </tabset>
-
-
       </div>
-
     </div>
-
-
   </sa-widget>
-
-
-
-
-
-
-
 </div>

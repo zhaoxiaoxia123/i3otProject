@@ -26,6 +26,9 @@ export class RegistrationFormComponent implements OnInit {
 
   u_id : number = 0;
   user_info : Array<any> = [];
+
+  super_admin_id : any = 0;//超级管理员id
+  is_show : boolean = false;
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -41,10 +44,11 @@ export class RegistrationFormComponent implements OnInit {
       role:[''],
       gender:[''],
       age:[''],
-      passwords : fb.group({
-        password:['',[Validators.minLength(6)]],
-        pconfirm:['']
-      },{validator:passwordValidator}),
+      password:['',[Validators.minLength(6)]],
+      // passwords : fb.group({
+      //   password:['',[Validators.minLength(6)]],
+      //   pconfirm:['']
+      // },{validator:passwordValidator}),
       phone:['',mobileValidator,mobileAsyncValidator],
       department:[''],
       notes:[''],
@@ -67,6 +71,7 @@ export class RegistrationFormComponent implements OnInit {
       address2:[''],
       address3:[''],
       address4:[''],
+      c_id:['']
     });
     // for(var p in this.area1){
     //   console.log(p);
@@ -86,9 +91,8 @@ export class RegistrationFormComponent implements OnInit {
     this.getUserDefault();
   }
 
-
   getUserInfo(u_id:number){
-    this.http.get('/api/v1/getUserInfo?u_id='+u_id)
+    this.http.get('http://182.61.53.58:8080/api/v1/getUserInfo?u_id='+u_id)
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.user_info = data;
@@ -97,8 +101,8 @@ export class RegistrationFormComponent implements OnInit {
       console.log(this.user_info);
       this.formModel.patchValue({
         'u_id':this.user_info['result']['u_id'],
-        'employee_id':this.user_info['result']['u_employee_id'],
-        'name':this.user_info['result']['u_name'],
+        'employee_id':this.user_info['result']['u_name'],
+        'name':this.user_info['result']['u_username'],
         'phone':this.user_info['result']['u_phone'],
         // 'password':this.user_info['result']['passwords']['password'],
         'role':this.user_info['result']['u_role'],
@@ -119,7 +123,7 @@ export class RegistrationFormComponent implements OnInit {
         'study_major':this.user_info['result']['u_study_major'],
         'study_diploma':this.user_info['result']['u_study_diploma'],
         'study_category':this.user_info['result']['u_study_category'],
-        'email':this.user_info['result']['u_email'],
+        'email':this.user_info['result']['email'],
         'emergency_contact':this.user_info['result']['u_emergency_contact'],
         'emergency_phone':this.user_info['result']['u_emergency_phone'],
         'address1':this.user_info['result']['address1'],
@@ -137,6 +141,14 @@ export class RegistrationFormComponent implements OnInit {
       if(this.user_info['result']['address2'] != 0){
         this.getArea();
       }
+      this.super_admin_id = this.user_info['super_admin_id'];
+      if(this.cookieStoreService.getCookie('cid') == this.super_admin_id){
+        this.formModel.patchValue({
+          'c_id': this.user_info['result']['c_id']
+        });
+        this.is_show = true;
+      }
+
     }, 500);
   }
 
@@ -145,7 +157,7 @@ export class RegistrationFormComponent implements OnInit {
    * 获取添加员工的默认参数
    */
   getUserDefault() {
-    this.http.get('/api/v1/getUserDefault')
+    this.http.get('http://182.61.53.58:8080/api/v1/getUserDefault?sid='+this.cookieStoreService.getCookie('sid'))
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.userList = data;
@@ -154,19 +166,39 @@ export class RegistrationFormComponent implements OnInit {
     setTimeout(() => {
       console.log('this.userList:----');
       console.log(this.userList);
-    }, 300);
+      if(this.userList['status'] == 202) {
+        alert(this.userList['msg']);
+        this.cookieStoreService.removeAll();
+        this.router.navigate(['/auth/login']);
+      }
+      this.super_admin_id = this.userList['super_admin_id'];
+      console.log('super_admin_id:-----');
+      console.log(this.cookieStoreService.getCookie('cid'));
+      console.log(this.userList['super_admin_id']);
+      console.log(this.super_admin_id);
+      if(this.cookieStoreService.getCookie('cid') == this.super_admin_id){
+        this.is_show = true;
+      }
+    }, 500);
   }
 
   onSubmit(){
-    console.log(this.formModel.value['passwords']['password']);
-    console.log(this.formModel.value['name']);
-
-    this.http.post('/api/v1/addUser',{
+    if(this.formModel.value['employee_id'] == ''){
+      alert('请填写员工编号！');
+      return false;
+    }
+    if(this.formModel.value['name'] == ''){
+      alert('请填写员工姓名！');
+      return false;
+    }
+    // console.log(this.formModel.value['passwords']['password']);
+    // console.log(this.formModel.value['name']);
+    this.http.post('http://182.61.53.58:8080/api/v1/addUser',{
       'u_id':this.formModel.value['u_id'],
       'employee_id':this.formModel.value['employee_id'],
       'name':this.formModel.value['name'],
       'phone':this.formModel.value['phone'],
-      'password':this.formModel.value['passwords']['password'],
+      'password':this.formModel.value['password'],
       'role':this.formModel.value['role'],
       'gender':this.formModel.value['gender'],
       'age':this.formModel.value['age'],
@@ -187,19 +219,21 @@ export class RegistrationFormComponent implements OnInit {
       'emergency_contact':this.formModel.value['emergency_contact'],
       'emergency_phone':this.formModel.value['emergency_phone'],
       'address':this.formModel.value['address1']+','+this.formModel.value['address2'] +','+ this.formModel.value['address3']+','+this.formModel.value['address4'],
+      'sid':this.cookieStoreService.getCookie('sid'),
+      'c_id':this.formModel.value['c_id']
     }).subscribe(
         (data)=>{
-          alert(JSON.parse(data['_body'])['msg']);
-          if(data['status'] == 200) {
+          let info = JSON.parse(data['_body']);
+          alert(info['msg']);
+          if(info['status'] == 200) {
             this.router.navigateByUrl('/tables/staff');
+          }else if(info['status'] == 202){
+            this.cookieStoreService.removeAll();
+            this.router.navigate(['/auth/login']);
           }
-
         },
         response => {
           console.log('PATCH call in error', response);
-        },
-        () => {
-          console.log('The PATCH observable is now completed.');
         }
     );
   }
@@ -209,23 +243,17 @@ export class RegistrationFormComponent implements OnInit {
     this.city = getCity(pro);
     this.area = [];
   }
-
   getArea(){
     let pro = this.formModel.value['address1'];
     let city = this.formModel.value['address2'];
     this.area = getArea(pro,city);
     // console.log(this.area);
   }
-
   getBrithplaceCity(){
     let brithplacePro = this.formModel.value['birthplace1'];
     this.birthplace_city = getCity(brithplacePro);
   }
-
-
 }
-
-
 
 
 // import { Pipe, PipeTransform } from '@angular/core';

@@ -4,7 +4,7 @@
                         class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
   </div>
   <div class="box-header with-border" >
-    <a class="btn btn-success btn-sm"  >
+    <a class="btn btn-success btn-sm" routerLink="/forms/employees/0" >
       <span class="glyphicon glyphicon-plus"></span>添加员工</a>
   </div>
   <sa-widget [editbutton]="false" color="blueDark">
@@ -20,16 +20,13 @@
           <tr>
             <td>
               <label class="checkbox">
-                <input type="checkbox" name="checkbox-inline">
+                <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)">
                 <i></i>
               </label>
             </td>
-            <th>ID  </th>
+            <th>员工编号 </th>
             <th>姓名</th>
             <th>角色  </th>
-            <!--<th>性别 </th>-->
-            <!--<th>年龄 </th>-->
-            <th>公司</th>
             <th>所属部门 </th>
             <th>联系电话</th>
             <th>操作</th>
@@ -38,18 +35,17 @@
           <tbody>
           <tr style="display: none;">
             <td></td><td></td><td></td><td></td>
-            <td></td><td></td><td></td><td></td>
-            <td></td><td></td>
+            <td></td><td></td><td></td>
           </tr>
           <tr *ngFor="let ul of userList.result?.data">
             <td>
               <label class="checkbox">
-                <input type="checkbox" name="checkbox-inline">
+                <input type="checkbox" value="{{ul.id}}" [checked]="selects[ul.id]" (change)="handle($event)" />
                 <i></i>
               </label>
             </td>
-            <td>{{ ul.u_id }}</td>
-            <td>{{ ul.u_name }}</td>
+            <td>{{ ul.name }}</td>
+            <td>{{ ul.u_username }}</td>
             <td>
               <span [ngSwitch]="ul.u_role">
                 <span *ngSwitchCase="1">超级管理员</span>
@@ -58,22 +54,13 @@
                 <span *ngSwitchDefault>未知</span>
               </span>
             </td>
-            <!--<td>-->
-              <!--<span [ngSwitch]="ul.u_gender">-->
-                <!--<span *ngSwitchCase="1">男</span>-->
-                <!--<span *ngSwitchCase="2">女</span>-->
-                <!--<span *ngSwitchDefault>未知</span>-->
-              <!--</span>-->
-            <!--</td>-->
-            <!--<td>{{ ul.u_age }}</td>-->
-            <td>{{ ul.c_name }}</td>
             <td>{{ ul.category_desc}}</td>
             <td>{{ ul.u_phone }}</td>
             <td>
-              <a class="btn btn-warning btn-xs" [routerLink]="['/forms/employees',ul.u_id]">
+              <a class="btn btn-warning btn-xs" [routerLink]="['/forms/employees',ul.id]">
                 <span class="glyphicon glyphicon-pencil"></span>修改
               </a>
-              <a class="btn btn-danger btn-xs" (click)="deleteUser( ul.u_id ,userList.result?.current_page)">
+              <a class="btn btn-danger btn-xs" (click)="deleteUser( ul.id ,userList.result?.current_page)">
                 <span class="glyphicon glyphicon-remove"></span>删除
               </a>
             </td>

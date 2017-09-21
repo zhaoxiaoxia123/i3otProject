@@ -17,6 +17,7 @@ import { AppState, InternalStateType } from './app.service';
 // Core providers
 import {CoreModule} from "./core/core.module";
 import {SmartadminLayoutModule} from "./shared/layout/layout.module";
+import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -56,7 +57,8 @@ type StoreType = {
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     // ENV_PROVIDERS,
-    APP_PROVIDERS
+    APP_PROVIDERS,
+    {provide:LocationStrategy,useClass:HashLocationStrategy}
   ]
 })
 export class AppModule {

@@ -6,6 +6,8 @@ import { AddInventory1Component } from './add-inventory1.component';
 import { ReactiveFormsModule} from '@angular/forms';
 import {SmartadminModule} from '../../shared/smartadmin.module';
 import {SmartadminEditorsModule} from '../../shared/forms/editors/smartadmin-editors.module';
+import {CookieService} from 'angular2-cookie/core';
+import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 
 @NgModule({
   imports: [
@@ -15,6 +17,7 @@ import {SmartadminEditorsModule} from '../../shared/forms/editors/smartadmin-edi
     SmartadminEditorsModule,
     AddInventory1RoutingModule,
   ],
-  declarations: [AddInventory1Component]
+  declarations: [AddInventory1Component],
+  providers:[ CookieService,CookieStoreService ]
 })
 export class AddInventory1Module { }

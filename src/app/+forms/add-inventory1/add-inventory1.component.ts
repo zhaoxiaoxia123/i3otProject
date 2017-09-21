@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Http} from '@angular/http';
 import {ActivatedRoute,Router} from '@angular/router';
+import {CookieStoreService} from 'app/shared/cookies/cookie-store.service';
 
 // @FadeInTop()
 @Component({
@@ -18,12 +19,13 @@ export class AddInventory1Component implements OnInit {
       fb:FormBuilder,
       private http:Http,
       private router : Router,
-      private routInfo : ActivatedRoute
+      private routInfo : ActivatedRoute,
+      private cookieStore:CookieStoreService
   ) {
     this.formModel = fb.group({
       storehouse_id:[''],
       storehouse_name:['',[Validators.required,Validators.minLength(1)]],
-      storehouse_total_quantity:[''],
+      // storehouse_total_quantity:[''],
       storehouse_status:[''],
       storehouse_keeper:[''],
       storehouse_phone:[''],
@@ -41,7 +43,7 @@ export class AddInventory1Component implements OnInit {
   }
 
   getStorehouseInfo(storehouse_id:number){
-    this.http.get('/api/v1/getStorehouseInfo?storehouse_id='+storehouse_id)
+    this.http.get('http://182.61.53.58:8080/api/v1/getStorehouseInfo?storehouse_id='+storehouse_id)
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.storehouse_info = data;
@@ -52,7 +54,7 @@ export class AddInventory1Component implements OnInit {
       this.formModel.patchValue({
         storehouse_id:this.storehouse_info['result']['storehouse_id'],
         storehouse_name:this.storehouse_info['result']['storehouse_name'],
-        storehouse_total_quantity:this.storehouse_info['result']['storehouse_total_quantity'],
+        // storehouse_total_quantity:this.storehouse_info['result']['storehouse_total_quantity'],
         storehouse_status:this.storehouse_info['result']['storehouse_status'],
         storehouse_keeper:this.storehouse_info['result']['storehouse_keeper'],
         storehouse_phone:this.storehouse_info['result']['storehouse_phone'],
@@ -62,19 +64,28 @@ export class AddInventory1Component implements OnInit {
   }
 
   onSubmit(){
-    this.http.post('/api/v1/addStorehouse',{
+    if(this.formModel.value['storehouse_name'] == ''){
+      alert('请填写仓库名称！');
+      return false;
+    }
+    this.http.post('http://182.61.53.58:8080/api/v1/addStorehouse',{
       'storehouse_id':this.formModel.value['storehouse_id'],
       'storehouse_name':this.formModel.value['storehouse_name'],
-      'storehouse_total_quantity':this.formModel.value['storehouse_total_quantity'],
+      // 'storehouse_total_quantity':this.formModel.value['storehouse_total_quantity'],
       'storehouse_status':this.formModel.value['storehouse_status'],
       'storehouse_keeper':this.formModel.value['storehouse_keeper'],
       'storehouse_phone':this.formModel.value['storehouse_phone'],
-      'storehouse_notes':this.formModel.value['storehouse_notes']
+      'storehouse_notes':this.formModel.value['storehouse_notes'],
+      'sid':this.cookieStore.getCookie('sid')
     }).subscribe(
         (data)=>{
-          alert(JSON.parse(data['_body'])['msg']);
-          if(data['status'] == 200) {
+          let info = JSON.parse(data['_body']);
+          alert(info['msg']);
+          if(info['status'] == 200) {
             this.router.navigateByUrl('/tables/inventory');
+          }else if(info['status'] == 202){
+            this.cookieStore.removeAll();
+            this.router.navigate(['/auth/login']);
           }
         },
         response => {

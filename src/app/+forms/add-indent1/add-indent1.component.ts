@@ -3,6 +3,7 @@ import {FadeInTop} from '../../shared/animations/fade-in-top.decorator';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Http} from '@angular/http';
 import {ActivatedRoute, Router,Params} from '@angular/router';
+import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 
 @FadeInTop()
 @Component({
@@ -21,7 +22,8 @@ export class AddIndent1Component implements OnInit {
       fb:FormBuilder,
       private http:Http,
       private router : Router,
-      private routInfo : ActivatedRoute
+      private routInfo : ActivatedRoute,
+      private cookieStore:CookieStoreService
   ) {
     this.formModel = fb.group({
       o_id:[''],
@@ -42,7 +44,7 @@ export class AddIndent1Component implements OnInit {
       o_delivery_method:[''],
       o_waybill_number:[''],
       o_receiver_address:[''],
-      c_id:[''],
+      o_buy_company_id:[''],
       u_id:[''],
       o_is_complete:[''],
       o_notes:[''],
@@ -63,7 +65,7 @@ export class AddIndent1Component implements OnInit {
   }
 
   getOrderInfo(o_id:number){
-    this.http.get('/api/v1/getOrderInfo?o_id='+o_id)
+    this.http.get('http://182.61.53.58:8080/api/v1/getOrderInfo?o_id='+o_id)
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.order_info = data;
@@ -89,7 +91,7 @@ export class AddIndent1Component implements OnInit {
         o_delivery_method:this.order_info['result']['o_delivery_method'],
         o_waybill_number:this.order_info['result']['o_waybill_number'],
         o_receiver_address:this.order_info['result']['o_receiver_address'],
-        c_id:this.order_info['result']['c_id'],
+        o_buy_company_id:this.order_info['result']['o_buy_company_id'],
         u_id:this.order_info['result']['u_id'],
         o_is_complete:this.order_info['result']['o_is_complete'],
         o_notes:this.order_info['result']['o_notes'],
@@ -104,22 +106,24 @@ export class AddIndent1Component implements OnInit {
    * 获取添加订单的默认参数
    */
   getOrderDefault() {
-    this.http.get('/api/v1/getOrderDefault')
+    this.http.get('http://182.61.53.58:8080/api/v1/getOrderDefault?sid='+this.cookieStore.getCookie('sid'))
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.orderList = data;
         });
-    // setTimeout(() => {
-    //   console.log('this.orderList:----');
-    //   console.log(this.orderList);
-    // }, 300);
+    setTimeout(() => {
+      if(this.orderList['status'] == 202){
+        this.cookieStore.removeAll();
+        this.router.navigate(['/auth/login']);
+      }
+    }, 300);
   }
 
   /**
    * 获取产品类型的二级目录
    */
   getOrderChild(value) {
-    this.http.get('/api/v1/getProductChild?category_depth='+value)
+    this.http.get('http://182.61.53.58:8080/api/v1/getProductChild?category_depth='+value)
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.childCategory = data;
@@ -131,7 +135,11 @@ export class AddIndent1Component implements OnInit {
   }
 
   onSubmit(){
-    this.http.post('/api/v1/addOrder',{
+    if(this.formModel.value['o_order'] == ''){
+      alert('请填写订单号！');
+      return false;
+    }
+    this.http.post('http://182.61.53.58:8080/api/v1/addOrder',{
       'o_id':this.formModel.value['o_id'],
       'o_order':this.formModel.value['o_order'],
       'p_id':this.formModel.value['p_id'],
@@ -150,15 +158,20 @@ export class AddIndent1Component implements OnInit {
       'o_delivery_method':this.formModel.value['o_delivery_method'],
       'o_waybill_number':this.formModel.value['o_waybill_number'],
       'o_receiver_address':this.formModel.value['o_receiver_address'],
-      'c_id':this.formModel.value['c_id'],
+      'o_buy_company_id':this.formModel.value['o_buy_company_id'],
       'u_id':this.formModel.value['u_id'],
       'o_is_complete':this.formModel.value['o_is_complete'],
       'o_notes':this.formModel.value['o_notes'],
+      'sid':this.cookieStore.getCookie('sid'),
     }).subscribe(
         (data)=>{
-          // alert(data['status']);
-          if(data['status'] == 200) {
+          let info = JSON.parse(data['_body']);
+          alert(info['msg']);
+          if(info['status'] == 200) {
             this.router.navigateByUrl('/tables/indent');
+          }else if(info['status'] == 202){
+            this.cookieStore.removeAll();
+            this.router.navigate(['/auth/login']);
           }
         },
         response => {

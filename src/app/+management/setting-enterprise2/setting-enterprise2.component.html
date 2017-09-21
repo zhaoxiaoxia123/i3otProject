@@ -31,18 +31,20 @@
                         <i class="fa-fw fa fa-plus"></i>
                         添加结算方式
                       </alert>
-
-                      <form #newTodoForm="ngForm" class="smart-form ">
+                      <form [formGroup]="formModel" (ngSubmit)="onSubmitOrderCategory()" novalidate class="smart-form ">
                         <fieldset>
                           <section>
                             <label class="input">
-                              <input type="text" required   name="title"
-                                     placeholder="请输入结算方式">
+                              <input type="text" required
+                                     placeholder="请输入结算方式" minlength="1" maxlength="20" formControlName="category_desc" name="category_desc">
+                              <input type="hidden" value="8" formControlName="category_type" name="category_type">
+                              <input type="hidden" value="" formControlName="category_id" name="category_id">
+
                             </label>
                           </section>
                         </fieldset>
                         <footer>
-                          <button  type="button" class="btn btn-primary">
+                          <button  type="submit" class="btn btn-primary">
                             保存
                           </button>
 
@@ -79,22 +81,10 @@
                           </tr>
                           </thead>
                           <tbody>
-                          <tr>
-                            <td>现金</td>
-                            <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                              <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>转账</td>
-                            <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                              <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>分期</td>
-                            <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                              <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                          <tr *ngFor="let cl of orderCategoryList.result?.data">
+                            <td>{{ cl.category_desc }}</td>
+                            <td><a class="btn btn-warning btn-xs" (click)="editOrderCategory(8,cl.category_id, cl.category_desc)" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                              <a class="btn btn-danger btn-xs" (click)="deleteOrderCategory(8,cl.category_id,orderCategoryList.result?.current_page)"><span class="glyphicon glyphicon-remove"></span>删除</a>
                             </td>
                           </tr>
 
@@ -106,18 +96,13 @@
                         <div class="dataTables_paginate">
                           <ul class="pagination">
                             <li>
-                              <a (click)="(null)"><i class="fa fa-arrow-left"></i></a>
+                              <a (click)="pagination(8,orderCategoryList.result?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>
                             </li>
                             <li>
-                              <a (click)="(null)">1</a>
-                            </li>
-                            <li>
-                              <a (click)="(null)"><i class="fa fa-arrow-right"></i></a>
+                              <a (click)="pagination(8,orderCategoryList.result?.next_page_url)"><i class="fa fa-arrow-right"></i></a>
                             </li>
                           </ul>
                         </div>
-
-
                       </div>
 
                     </div>
@@ -145,17 +130,20 @@
                         添加运输方式
                       </alert>
 
-                      <form #newTodoForm="ngForm" class="smart-form ">
+                      <form [formGroup]="formModelSource" (ngSubmit)="onSubmitSource()" novalidate class="smart-form ">
                         <fieldset>
                           <section>
                             <label class="input">
-                              <input type="text" required   name="title"
-                                     placeholder="请输入运输方式">
+                              <input type="text" required
+                                     placeholder="请输入运输方式" minlength="1" maxlength="20" formControlName="category_desc" name="category_desc">
+                              <input type="hidden" value="9" formControlName="category_type" name="category_type">
+                              <input type="hidden" value="" formControlName="category_id" name="category_id">
+
                             </label>
                           </section>
                         </fieldset>
                         <footer>
-                          <button  type="button" class="btn btn-primary">
+                          <button type="submit" class="btn btn-primary">
                             保存
                           </button>
 
@@ -191,52 +179,23 @@
                           </tr>
                           </thead>
                           <tbody>
-                          <tr>
-                            <td>公路运输</td>
-                            <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                              <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                          <tr *ngFor="let cl of sourceList.result?.data">
+                            <td>{{ cl.category_desc }}</td>
+                            <td><a class="btn btn-warning btn-xs" (click)="editOrderCategory(9,cl.category_id, cl.category_desc)" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                              <a class="btn btn-danger btn-xs" (click)="deleteOrderCategory(9,cl.category_id,sourceList.result?.current_page)"><span class="glyphicon glyphicon-remove"></span>删除</a>
                             </td>
                           </tr>
-                          <tr>
-                            <td>铁路运输</td>
-                            <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                              <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>水路运输</td>
-                            <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                              <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>航空运输</td>
-                            <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                              <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>快递运输</td>
-                            <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                              <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                            </td>
-                          </tr>
-
                           </tbody>
-
 
                         </table>
 
                         <div class="dataTables_paginate">
                           <ul class="pagination">
                             <li>
-                              <a (click)="(null)"><i class="fa fa-arrow-left"></i></a>
+                              <a (click)="pagination(9,sourceList.result?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>
                             </li>
                             <li>
-                              <a (click)="(null)">1</a>
-                            </li>
-                            <li>
-                              <a (click)="(null)"><i class="fa fa-arrow-right"></i></a>
+                              <a (click)="pagination(9,sourceList.result?.next_page_url)"><i class="fa fa-arrow-right"></i></a>
                             </li>
                           </ul>
                         </div>

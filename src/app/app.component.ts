@@ -8,7 +8,6 @@ export class AppComponent {
   public title = 'app works!';
   public constructor(private viewContainerRef: ViewContainerRef) {
 
-    console.log(1212);
   }
 
 }

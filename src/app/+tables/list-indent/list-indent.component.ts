@@ -2,6 +2,8 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {ModalDirective} from 'ngx-bootstrap';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Http} from '@angular/http';
+import {Router} from '@angular/router';
+import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 
 @Component({
   selector: 'app-list-indent',
@@ -14,9 +16,14 @@ export class ListIndentComponent implements OnInit {
   prev : boolean = false;
   next : boolean = false;
   formModel : FormGroup;
+  //用作全选和反选
+  selects : Array<any> = [];
+  check : boolean = false;
   constructor(
       fb:FormBuilder,
-      private http:Http
+      private router : Router,
+      private http:Http,
+      private cookiestore:CookieStoreService
   ) {
 
     this.formModel = fb.group({
@@ -33,7 +40,7 @@ export class ListIndentComponent implements OnInit {
    * @param number
    */
   getOrderList(number:string) {
-    let url = '/api/v1/getOrderList?role=1&page='+number;
+    let url = 'http://182.61.53.58:8080/api/v1/getOrderList?role=1&page='+number+'&sid='+this.cookiestore.getCookie('sid');
     if(this.formModel.value['keyword'].trim() != ''){
       url += '&keyword='+this.formModel.value['keyword'].trim();
     }
@@ -45,6 +52,10 @@ export class ListIndentComponent implements OnInit {
 
     setTimeout(() => {
       console.log(this.orderList);
+      if(this.orderList['status'] == 202){
+        this.cookiestore.removeAll();
+        this.router.navigate(['/auth/login']);
+      }
       if (this.orderList) {
         if (this.orderList['result']['current_page'] == this.orderList['result']['last_page']) {
           this.next = true;
@@ -56,8 +67,41 @@ export class ListIndentComponent implements OnInit {
         } else {
           this.prev = false;
         }
+        for (let entry of this.orderList['result']['data']) {
+          this.selects[entry['o_id']] = false;
+        }
+        this.check = false;
+        console.log(this.selects);
       }
     }, 300);
+  }
+
+  //全选，反全选
+  changeCheckAll(e){
+    let t = e.target;
+    let c = t.checked;
+    this.selects.forEach((val, idx, array) => {
+      this.selects[idx] = c;
+    });
+    this.check = c;
+  }
+  //点击列表checkbox事件
+  handle(e){
+    let t = e.target;
+    let v = t.value;
+    let c = t.checked;
+    this.selects[v] = c;
+    let isAll = 0;
+    for (let s of this.selects) {
+      if(s == false) {
+        isAll += 1;
+      }
+    }
+    if(isAll >= 1){
+      this.check = false;
+    }else{
+      this.check = true;
+    }
   }
 
   /**
@@ -77,7 +121,7 @@ export class ListIndentComponent implements OnInit {
    */
   deleteOrder(oid:any,current_page:any){
     if(confirm('您确定要删除该条信息吗？')) {
-      let url = '/api/v1/deleteOrderById?o_id=' + oid + '&page=' + current_page;
+      let url = 'http://182.61.53.58:8080/api/v1/deleteOrderById?o_id=' + oid + '&page=' + current_page;
       if(this.formModel.value['keyword'].trim() != ''){
         url += '&keyword='+this.formModel.value['keyword'].trim();
       }
@@ -88,6 +132,11 @@ export class ListIndentComponent implements OnInit {
           });
       setTimeout(() => {
         // console.log(this.userList);
+
+        if(this.orderList['status'] == 202){
+          this.cookiestore.removeAll();
+          this.router.navigate(['/auth/login']);
+        }
         if (this.orderList) {
           if (this.orderList['result']['current_page'] == this.orderList['result']['last_page']) {
             this.next = true;

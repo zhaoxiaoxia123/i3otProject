@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {mobileAsyncValidator, mobileValidator} from '../../shared/common/validator';//passwordValidator
 import {Http} from '@angular/http';
 import {Router,ActivatedRoute} from '@angular/router';
+import {CookieStoreService} from 'app/shared/cookies/cookie-store.service';
 
 @FadeInTop()
 @Component({
@@ -21,7 +22,8 @@ export class AddCustomer1Component implements OnInit {
       fb:FormBuilder,
       private http:Http,
       private router : Router,
-      private routInfo : ActivatedRoute
+      private routInfo : ActivatedRoute,
+      private cookieStore:CookieStoreService
   ) {
     this.formModel = fb.group({
       c_id:[''],
@@ -39,6 +41,7 @@ export class AddCustomer1Component implements OnInit {
       service_person:[''],
       config:[''],
       notes:[''],
+      parent_id:[''],
     });
   }
 
@@ -48,12 +51,14 @@ export class AddCustomer1Component implements OnInit {
     console.log( this.c_id);
     if(this.c_id != 0){
       this.getCustomerInfo(this.c_id);
+    }else{
+      this.formModel.patchValue({parent_id:this.cookieStore.getCookie('cid')});
     }
     this.getCustomerDefault();
   }
 
   getCustomerInfo(c_id:number){
-    this.http.get('/api/v1/getCustomerInfo?c_id='+c_id+'&c_role=2')
+    this.http.get('http://182.61.53.58:8080/api/v1/getCustomerInfo?c_id='+c_id+'&c_role=2')
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.customer_info = data;
@@ -77,6 +82,7 @@ export class AddCustomer1Component implements OnInit {
         config:this.customer_info['result']['c_config'],
         notes:this.customer_info['result']['c_notes'],
         role:this.customer_info['result']['c_role'],
+        parent_id:this.customer_info['result']['c_parent_id'],
       });
     }, 500);
   }
@@ -86,7 +92,7 @@ export class AddCustomer1Component implements OnInit {
    * 获取添加客户的默认参数
    */
   getCustomerDefault() {
-    this.http.get('/api/v1/getCustomerDefault')
+    this.http.get('http://182.61.53.58:8080/api/v1/getCustomerDefault?sid='+this.cookieStore.getCookie('sid'))
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.customerList = data;
@@ -95,12 +101,25 @@ export class AddCustomer1Component implements OnInit {
     setTimeout(() => {
       console.log('this.customerList:----');
       console.log(this.customerList);
+      if(this.customerList['status'] == 202){
+        alert(this.customerList['msg']);
+        this.cookieStore.removeAll();
+        this.router.navigate(['/auth/login']);
+      }
     }, 300);
   }
 
   onSubmit(){
+    if(this.formModel.value['number'] == ''){
+      alert('请填写客户编号！');
+      return false;
+    }
+    if(this.formModel.value['name'] == ''){
+      alert('请填写客户名称！');
+      return false;
+    }
     // console.log(this.formModel.value['name']);
-    this.http.post('/api/v1/addCustomer',{
+    this.http.post('http://182.61.53.58:8080/api/v1/addCustomer',{
       'c_id':this.formModel.value['c_id'],
       'number':this.formModel.value['number'],
       'name':this.formModel.value['name'],
@@ -117,12 +136,18 @@ export class AddCustomer1Component implements OnInit {
       'service_person':this.formModel.value['service_person'],
       'config':this.formModel.value['config'],
       'notes':this.formModel.value['notes'],
-      'role':2
+      'role':2,
+      'parent_id':this.formModel.value['parent_id'],
+      'sid':this.cookieStore.getCookie('sid')
     }).subscribe(
         (data)=>{
-          alert(JSON.parse(data['_body'])['msg']);
-          if(data['status'] == 200) {
+          let info = JSON.parse(data['_body']);
+          alert(info['msg']);
+          if(info['status'] == 200) {
             this.router.navigateByUrl('/tables/client1');
+          }else if(info['status'] == 202){
+            this.cookieStore.removeAll();
+            this.router.navigate(['/auth/login']);
           }
         },
         response => {

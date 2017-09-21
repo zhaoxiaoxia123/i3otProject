@@ -6,6 +6,8 @@ import { AddProduct1Component } from './add-product1.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {SmartadminModule} from '../../shared/smartadmin.module';
 import {SmartadminEditorsModule} from '../../shared/forms/editors/smartadmin-editors.module';
+import {CookieService} from 'angular2-cookie/core';
+import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 
 @NgModule({
   imports: [
@@ -15,6 +17,7 @@ import {SmartadminEditorsModule} from '../../shared/forms/editors/smartadmin-edi
       SmartadminEditorsModule,
     AddProduct1RoutingModule
   ],
-  declarations: [AddProduct1Component]
+  declarations: [AddProduct1Component],
+  providers:[ CookieService,CookieStoreService ]
 })
 export class AddProduct1Module { }
