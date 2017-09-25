@@ -936,7 +936,30 @@ legend {
     -webkit-box-shadow: none!important;
     -moz-box-shadow: none!important
 }
+.smart-form .tooltip-top-right {
+    bottom: 100%;
+    margin-bottom: 15px
+}
 
+.smart-form .tooltip-top-right:after {
+    top: 100%;
+    right: 11px;
+    border-top: 4px solid rgba(0,0,0,.9);
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent
+}
+.smart-form .checkbox+.checkbox,.smart-form .radio+.radio {
+    margin-top: 0
+}
+
+.smart-form .label.col {
+    margin: 0;
+    padding-top: 7px
+}
+
+.smart-form .note a {
+    font-size: 13px
+}
 
 
 /* end 表单--------------------------------------------------------------------*/
