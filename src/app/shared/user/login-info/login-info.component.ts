@@ -24,6 +24,9 @@ export class LoginInfoComponent implements OnInit {
     // this.userService.getLoginInfo().subscribe(user => {
       //   this.user = user
       // })
+
+    console.log('username:----');
+    console.log(this.cookieStoreService.getCookie('username'));
     if(this.cookieStoreService.getCookie('username')) {
       this.user = {
         "username": this.cookieStoreService.getCookie('username'),
@@ -31,7 +34,7 @@ export class LoginInfoComponent implements OnInit {
         "activity": 12
       };
     }else{
-     /* this.router.navigate(['/auth/login']);*/
+      this.router.navigate(['/auth/login']);
     }
   }
 

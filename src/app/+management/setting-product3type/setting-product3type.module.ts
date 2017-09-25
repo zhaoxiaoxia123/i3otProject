@@ -7,6 +7,8 @@ import {SmartadminEditorsModule} from '../../shared/forms/editors/smartadmin-edi
 import {SmartadminModule} from '../../shared/smartadmin.module';
 import {NestableListModule} from '../../shared/ui/nestable-list/nestable-list.module';
 import {ReactiveFormsModule} from '@angular/forms';
+import {CookieService} from 'angular2-cookie/core';
+import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 
 @NgModule({
   imports: [
@@ -17,6 +19,7 @@ import {ReactiveFormsModule} from '@angular/forms';
       NestableListModule,
       ReactiveFormsModule
   ],
-  declarations: [SettingProduct3typeComponent]
+  declarations: [SettingProduct3typeComponent],
+  providers:[ CookieService,CookieStoreService ]
 })
 export class SettingProduct3typeModule { }

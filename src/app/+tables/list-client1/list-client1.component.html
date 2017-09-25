@@ -6,7 +6,7 @@
   </div>
 
   <div class="box-header with-border" >
-    <a class="btn btn-success btn-sm"  >
+    <a class="btn btn-success btn-sm" routerLink="/forms/customer1/0">
       <span class="glyphicon glyphicon-plus"></span>添加客户</a>
 
   </div>
@@ -23,7 +23,7 @@
           <tr>
             <td>
               <label class="checkbox">
-                <input type="checkbox" name="checkbox-inline">
+                <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)">
                 <i></i>
               </label>
             </td>
@@ -51,7 +51,7 @@
           <tr *ngFor="let cl of customerList.result?.data">
             <td>
               <label class="checkbox">
-                <input type="checkbox" name="checkbox-inline">
+                <input type="checkbox" value="{{ cl.c_id }}" [checked]="selects[cl.c_id]" (change)="handle($event)">
                 <i></i>
               </label>
             </td>

@@ -5,6 +5,7 @@ import {mobileAsyncValidator, mobileValidator,passwordValidator} from '../../sha
 
 import {Http} from '@angular/http';
 import {Router,ActivatedRoute} from '@angular/router';
+import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 
 @FadeInTop()
 @Component({
@@ -22,7 +23,8 @@ export class AddCustomerComponent implements OnInit {
       fb:FormBuilder,
       private http:Http,
       private router : Router,
-      private routInfo : ActivatedRoute
+      private routInfo : ActivatedRoute,
+      private cookieStore:CookieStoreService
   ) {
     this.formModel = fb.group({
       c_id:[''],
@@ -31,10 +33,10 @@ export class AddCustomerComponent implements OnInit {
       abbreviation:[''],
       industry_category:[''],
       email:[''],
-      passwords : fb.group({
-        password:['',[Validators.minLength(6)]],
-        pconfirm:['']
-      },{validator:passwordValidator}),
+      // passwords : fb.group({
+      //   password:['',[Validators.minLength(6)]],
+      //   pconfirm:['']
+      // },{validator:passwordValidator}),
       phone:['',mobileValidator,mobileAsyncValidator],
       department:[''],
       address:[''],
@@ -59,7 +61,7 @@ export class AddCustomerComponent implements OnInit {
   }
 
   getCustomerInfo(c_id:number){
-    this.http.get('/api/v1/getCustomerInfo?c_id='+c_id+'&c_role=1')
+    this.http.get('http://182.61.53.58:8080/api/v1/getCustomerInfo?c_id='+c_id+'&c_role=1')
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.customer_info = data;
@@ -83,6 +85,7 @@ export class AddCustomerComponent implements OnInit {
         config:this.customer_info['result']['c_config'],
         notes:this.customer_info['result']['c_notes'],
         role:this.customer_info['result']['c_role'],
+        parent_id:this.customer_info['result']['c_parent_id']
       });
     }, 500);
   }
@@ -91,7 +94,7 @@ export class AddCustomerComponent implements OnInit {
    * 获取添加客户的默认参数
    */
   getCustomerDefault() {
-      this.http.get('/api/v1/getCustomerDefault')
+      this.http.get('http://182.61.53.58:8080/api/v1/getCustomerDefault?sid='+this.cookieStore.getCookie('sid'))
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.userList = data;
@@ -100,17 +103,31 @@ export class AddCustomerComponent implements OnInit {
     setTimeout(() => {
       console.log('this.userList:----');
       console.log(this.userList);
+
+      if(this.userList['status'] == 202){
+        alert(this.userList['msg']);
+        this.cookieStore.removeAll();
+        this.router.navigate(['/auth/login']);
+      }
     }, 300);
   }
 
   onSubmit(){
+    if(this.formModel.value['number'] == ''){
+      alert('请填写客户编号！');
+      return false;
+    }
+    if(this.formModel.value['name'] == ''){
+      alert('请填写客户名称！');
+      return false;
+    }
     // console.log(this.formModel.value['name']);
-    this.http.post('/api/v1/addCustomer',{
+    this.http.post('http://182.61.53.58:8080/api/v1/addCustomer',{
       'c_id':this.formModel.value['c_id'],
       'number':this.formModel.value['number'],
       'name':this.formModel.value['name'],
       'phone':this.formModel.value['phone'],
-      'password':this.formModel.value['passwords']['password'],
+      // 'password':this.formModel.value['passwords']['password'],
       'email':this.formModel.value['email'],
       'abbreviation':this.formModel.value['abbreviation'],
       'industry_category':this.formModel.value['industry_category'],
@@ -122,12 +139,18 @@ export class AddCustomerComponent implements OnInit {
       'service_person':this.formModel.value['service_person'],
       'config':this.formModel.value['config'],
       'notes':this.formModel.value['notes'],
-      'role':1
+      'role':1,
+      'parent_id':0,
+      'sid':this.cookieStore.getCookie('sid')
     }).subscribe(
         (data)=>{
-          alert(JSON.parse(data['_body'])['msg']);
-          if(data['status'] == 200) {
+          let info = JSON.parse(data['_body']);
+          alert(info['msg']);
+          if(info['status'] == 200) {
             this.router.navigateByUrl('/tables/client');
+          }else if(info['status'] == 202){
+            this.cookieStore.removeAll();
+            this.router.navigate(['/auth/login']);
           }
         },
         response => {

@@ -3,6 +3,7 @@ import {FadeInTop} from '../../shared/animations/fade-in-top.decorator';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Http} from '@angular/http';
 import {ActivatedRoute, Router,Params} from '@angular/router';
+import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 
 @FadeInTop()
 @Component({
@@ -14,13 +15,16 @@ export class AddProduct1Component implements OnInit {
   formModel : FormGroup;
   productList : Array<any> = [];
   childCategory : Array<any> = [];
+  childTab : Array<any> = [];
   p_id : number = 0;
   product_info : Array<any> = [];
+  // category_id:number = 0;
   constructor(
       fb:FormBuilder,
       private http:Http,
       private router : Router,
-      private routInfo : ActivatedRoute
+      private routInfo : ActivatedRoute,
+      private cookieStore:CookieStoreService
   ) {
     this.formModel = fb.group({
       p_id:[''],
@@ -30,7 +34,8 @@ export class AddProduct1Component implements OnInit {
       name:[''],
       quantity:[''],
       unit:[''],
-      // specification:[''],
+      category_id:[''],//修改模版时用
+      specification:[''],
       inspector:[''],
       production_date:[''],
       storehouse:[''],
@@ -53,7 +58,7 @@ export class AddProduct1Component implements OnInit {
   }
 
   getproductInfo(p_id:number){
-    this.http.get('/api/v1/getProdcutInfo?p_id='+p_id)
+    this.http.get('http://182.61.53.58:8080/api/v1/getProdcutInfo?p_id='+p_id)
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.product_info = data;
@@ -69,7 +74,7 @@ export class AddProduct1Component implements OnInit {
         name:this.product_info['result']['p_name'],
         quantity:this.product_info['result']['p_quantity'],
         unit:this.product_info['result']['p_unit'],
-        // specification:this.product_info['result']['p_specification'],
+        specification:this.product_info['result']['p_specification'],
         inspector:this.product_info['result']['p_inspector'],
         production_date:this.product_info['result']['p_production_date'],
         storehouse:this.product_info['result']['p_storehouse'],
@@ -81,6 +86,15 @@ export class AddProduct1Component implements OnInit {
       });
       if(this.product_info['result']['category_id1'] != 0){
         this.getProductChild(this.product_info['result']['category_id1']);
+        this.formModel.patchValue({
+          category_id:this.product_info['result']['category_id1'],
+        });
+      }
+
+      if(this.product_info['result']['category_id2'] != 0){
+        this.formModel.patchValue({
+          category_id:this.product_info['result']['category_id2'],
+        });
       }
     }, 500);
   }
@@ -90,7 +104,7 @@ export class AddProduct1Component implements OnInit {
    * 获取添加客户的默认参数
    */
   getProductDefault() {
-    this.http.get('/api/v1/getProductDefault')
+    this.http.get('http://182.61.53.58:8080/api/v1/getProductDefault?sid='+this.cookieStore.getCookie('sid'))
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.productList = data;
@@ -106,21 +120,77 @@ export class AddProduct1Component implements OnInit {
    * 获取产品类型的二级目录
    */
   getProductChild(value) {
-    this.http.get('/api/v1/getProductChild?category_depth='+value)
+    this.http.get('http://182.61.53.58:8080/api/v1/getProductChild?category_depth='+value)
         .map((res)=>res.json())
         .subscribe((data)=>{
-          this.childCategory = data;
+          this.childCategory = data.result;
+          this.childTab = data.category_tab;
         });
 
     setTimeout(() => {
       console.log('this.childCategory:----');
       console.log(this.childCategory);
-    }, 300);
+      this.formModel.patchValue({'specification':this.childTab,'category_id':value});
+      // this.category_id = value;
+    }, 500);
   }
 
+  /**
+   * 获取二级类型的规格/参数信息
+   * @param value
+   */
+  changeChild(value){
+    this.http.get('http://182.61.53.58:8080/api/v1/getProductChildTab?category_depth='+value)
+        .map((res)=>res.json())
+        .subscribe((data)=>{
+          this.childTab = data;
+        });
+
+    setTimeout(() => {
+      console.log('this.childTab:----');
+      console.log(this.childTab);
+      this.formModel.patchValue({'specification':this.childTab['category_tab'],'category_id':value});
+      // this.category_id = value;
+    }, 500);
+  }
+
+  /**
+   * 更新参数到模版
+   */
+  updateCategory(){
+    if(this.formModel.value['category_id'] != 0){
+      let msg = '你确定要使用此条';
+      if(this.formModel.value['specification'] == ''){
+        msg += '空白';
+      }
+      msg += '参数信息作为模版？';
+      if(confirm(msg)){
+        this.http.post('http://182.61.53.58:8080/api/v1/changeCategoryByProduct',{
+          'category_id':this.formModel.value['category_id'],
+          'specification':this.formModel.value['specification'],
+        }).subscribe(
+          (data)=>{
+            let info = JSON.parse(data['_body']);
+            alert(info['msg']);
+            if(info['status'] == 202){
+              this.cookieStore.removeAll();
+              this.router.navigate(['/auth/login']);
+            }
+          },
+          response => {
+            console.log('PATCH call in error', response);
+          },
+        );
+      }
+    }
+  }
 
   onSubmit(){
-    this.http.post('/api/v1/addProduct',{
+    if(this.formModel.value['product_id'] == ''){
+      alert('请填写产品编号！');
+      return false;
+    }
+    this.http.post('http://182.61.53.58:8080/api/v1/addProduct',{
       'p_id':this.formModel.value['p_id'],
       'category_id1':this.formModel.value['category_id1'],
       'category_id2':this.formModel.value['category_id2'],
@@ -128,7 +198,7 @@ export class AddProduct1Component implements OnInit {
       'name':this.formModel.value['name'],
       'quantity':this.formModel.value['quantity'],
       'unit':this.formModel.value['unit'],
-      // 'specification':this.formModel.value['specification'],
+      'specification':this.formModel.value['specification'],
       'inspector':this.formModel.value['inspector'],
       'production_date':this.formModel.value['production_date'],
       'storehouse':this.formModel.value['storehouse'],
@@ -136,12 +206,17 @@ export class AddProduct1Component implements OnInit {
       'is_acceptable':this.formModel.value['is_acceptable'],
       'notes':this.formModel.value['notes'],
       'plate_number':this.formModel.value['plate_number'],
-      'courier':this.formModel.value['courier']
+      'courier':this.formModel.value['courier'],
+      'sid':this.cookieStore.getCookie('sid')
     }).subscribe(
         (data)=>{
-          alert(JSON.parse(data['_body'])['msg']);
-          if(data['status'] == 200) {
+          let info = JSON.parse(data['_body']);
+          alert(info['msg']);
+          if(info['status'] == 200) {
             this.router.navigateByUrl('/tables/product');
+          }else if(info['status'] == 202){
+            this.cookieStore.removeAll();
+            this.router.navigate(['/auth/login']);
           }
         },
         response => {
@@ -152,6 +227,4 @@ export class AddProduct1Component implements OnInit {
         }
     );
   }
-
-
 }

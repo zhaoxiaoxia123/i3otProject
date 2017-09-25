@@ -3,6 +3,7 @@ import {FadeInTop} from '../../shared/animations/fade-in-top.decorator';
 import {ModalDirective} from 'ngx-bootstrap';
 import {Http} from '@angular/http';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
+import {Router} from '@angular/router';
 
 @FadeInTop()
 @Component({
@@ -14,8 +15,13 @@ export class ListProductComponent implements OnInit {
   page : any;
   prev : boolean = false;
   next : boolean = false;
-  constructor(private http:Http,private cookiestore:CookieStoreService) {
-    this.cookiestore.setCookie('cid',1);
+
+  //用作全选和反选
+  selects : Array<any> = [];
+  check : boolean = false;
+  constructor(private http:Http,
+              private router : Router,
+              private cookiestore:CookieStoreService) {
     this.getProductList('1');
   }
 
@@ -27,13 +33,17 @@ export class ListProductComponent implements OnInit {
    * @param number
    */
   getProductList(number:string) {
-    this.http.get('/api/v1/getProductList?cid='+this.cookiestore.getCookie('cid')+'&page='+number)
+    this.http.get('http://182.61.53.58:8080/api/v1/getProductList?sid='+this.cookiestore.getCookie('sid')+'&page='+number)
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.productList = data;
         });
 
     setTimeout(() => {
+      if(this.productList['status'] == 202){
+        this.cookiestore.removeAll();
+        this.router.navigate(['/auth/login']);
+      }
       // console.log(typeof (this.productList));
       console.log(this.productList);
       if (this.productList) {
@@ -47,8 +57,41 @@ export class ListProductComponent implements OnInit {
         } else {
           this.prev = false;
         }
+
+        for (let entry of this.productList['result']['data']) {
+          this.selects[entry['p_id']] = false;
+        }
+        this.check = false;
       }
     }, 300);
+  }
+
+  //全选，反全选
+  changeCheckAll(e){
+    let t = e.target;
+    let c = t.checked;
+    this.selects.forEach((val, idx, array) => {
+      this.selects[idx] = c;
+    });
+    this.check = c;
+  }
+  //点击列表checkbox事件
+  handle(e){
+    let t = e.target;
+    let v = t.value;
+    let c = t.checked;
+    this.selects[v] = c;
+    let isAll = 0;
+    for (let s of this.selects) {
+      if(s == false) {
+        isAll += 1;
+      }
+    }
+    if(isAll >= 1){
+      this.check = false;
+    }else{
+      this.check = true;
+    }
   }
 
   /**
@@ -72,13 +115,17 @@ export class ListProductComponent implements OnInit {
     // console.log('current_page-----');
     // console.log(current_page);
     if(confirm('您确定要删除该条信息吗？')) {
-      this.http.delete('/api/v1/deleteProductById?pid=' + uid + '&page=' + current_page)
+      this.http.delete('http://182.61.53.58:8080/api/v1/deleteProductById?pid=' + uid + '&page=' + current_page+'&sid='+this.cookiestore.getCookie('sid'))
           .map((res) => res.json())
           .subscribe((data) => {
             this.productList = data;
           });
       setTimeout(() => {
         // console.log(this.productList);
+        if(this.productList['status'] == 202){
+          this.cookiestore.removeAll();
+          this.router.navigate(['/auth/login']);
+        }
         if (this.productList) {
           if (this.productList['result']['current_page'] == this.productList['result']['last_page']) {
             this.next = true;

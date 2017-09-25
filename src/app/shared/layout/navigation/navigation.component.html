@@ -17,7 +17,7 @@
         </ul>
       </li>
 
-      <li>
+      <li *ngIf="is_admin=='1'">
         <a href="#"><i class="fa fa-lg fa-fw fa-suitcase"></i> <span
                 class="menu-item-parent">{{'客户管理' | i18n}}</span></a>
         <ul>
@@ -36,14 +36,14 @@
           <li routerLinkActive="active">
             <a routerLink="/tables/staff">{{'员工列表' | i18n}}</a>
           </li>
-          <li routerLinkActive="active">
-            <a routerLink="/app-views/profile"><i class="fa fa-group"></i>
-              {{'员工详情页' | i18n}}</a>
-          </li>
+          <!--<li routerLinkActive="active">-->
+            <!--<a routerLink="/app-views/profile"><i class="fa fa-group"></i>-->
+              <!--{{'员工详情页' | i18n}}</a>-->
+          <!--</li>-->
           <li routerLinkActive="active">
             <a routerLink="/forms/employees/0">{{'添加员工' | i18n}}</a>
           </li>
-          <li routerLinkActive="active">
+          <li routerLinkActive="active" *ngIf="is_admin=='1' || is_admin=='2'">
             <a routerLink="/management/department">{{'部门设置' | i18n}}</a>
           </li>
         </ul>
@@ -59,10 +59,10 @@
           <li routerLinkActive="active">
             <a routerLink="/forms/product1/0">{{'添加产品' | i18n}}</a>
           </li>
-          <li routerLinkActive="active">
+          <li routerLinkActive="active" *ngIf="is_admin=='1' || is_admin=='2'">
             <a routerLink="/management/product3type">{{'产品类型设置' | i18n}}</a>
           </li>
-          <li routerLinkActive="active">
+          <li routerLinkActive="active" *ngIf="is_admin=='1' || is_admin=='2'">
             <a routerLink="/management/product4parameters">{{'产品规格/参数设置' | i18n}}</a>
           </li>
         </ul>
@@ -108,7 +108,7 @@
         </ul>
       </li>
 
-      <li>
+      <li *ngIf="is_admin=='1'">
         <a href="#"><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i> <span
                 class="menu-item-parent">{{'矿易帮设置' | i18n}}</span></a>
         <ul>

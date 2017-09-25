@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Http} from '@angular/http';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
+import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 
 @Component({
   selector: 'app-list-inventory',
@@ -15,10 +16,14 @@ export class ListInventoryComponent implements OnInit {
   next : boolean = false;
 
   formModel : FormGroup;
+  //用作全选和反选
+  selects : Array<any> = [];
+  check : boolean = false;
   constructor(
       fb:FormBuilder,
       private http:Http,
-      private router:Router
+      private router:Router,
+      private cookiestore:CookieStoreService
   ) {
     this.formModel = fb.group({
       keyword:[''],
@@ -34,7 +39,7 @@ export class ListInventoryComponent implements OnInit {
    * @param number
    */
   getStorehouseList(number:string) {
-    let url = '/api/v1/getStorehouseList?page='+number;
+    let url = 'http://182.61.53.58:8080/api/v1/getStorehouseList?page='+number+'&sid='+this.cookiestore.getCookie('sid');
     if(this.formModel.value['keyword'].trim() != ''){
       url += '&keyword='+this.formModel.value['keyword'].trim();
     }
@@ -46,6 +51,10 @@ export class ListInventoryComponent implements OnInit {
 
     setTimeout(() => {
       console.log(this.storehouseList);
+      if(this.storehouseList['status'] == 202){
+        this.cookiestore.removeAll();
+        this.router.navigate(['/auth/login']);
+      }
       if (this.storehouseList) {
         if (this.storehouseList['result']['current_page'] == this.storehouseList['result']['last_page']) {
           this.next = true;
@@ -57,8 +66,41 @@ export class ListInventoryComponent implements OnInit {
         } else {
           this.prev = false;
         }
+
+        for (let entry of this.storehouseList['result']['data']) {
+          this.selects[entry['storehouse_id']] = false;
+        }
+        this.check = false;
       }
     }, 300);
+  }
+
+  //全选，反全选
+  changeCheckAll(e){
+    let t = e.target;
+    let c = t.checked;
+    this.selects.forEach((val, idx, array) => {
+      this.selects[idx] = c;
+    });
+    this.check = c;
+  }
+  //点击列表checkbox事件
+  handle(e){
+    let t = e.target;
+    let v = t.value;
+    let c = t.checked;
+    this.selects[v] = c;
+    let isAll = 0;
+    for (let s of this.selects) {
+      if(s == false) {
+        isAll += 1;
+      }
+    }
+    if(isAll >= 1){
+      this.check = false;
+    }else{
+      this.check = true;
+    }
   }
 
   /**
@@ -79,7 +121,7 @@ export class ListInventoryComponent implements OnInit {
    * @param cid
    */
   deleteStorehouse(storehouse_id:any,current_page:any){
-    let url = '/api/v1/deleteStorehouseById?storehouse_id=' + storehouse_id + '&page=' + current_page;
+    let url = 'http://182.61.53.58:8080/api/v1/deleteStorehouseById?storehouse_id=' + storehouse_id + '&page=' + current_page+'&sid='+this.cookiestore.getCookie('sid');
     if(this.formModel.value['keyword'].trim() != ''){
       url += '&keyword='+this.formModel.value['keyword'].trim();
     }
@@ -92,6 +134,7 @@ export class ListInventoryComponent implements OnInit {
           });
       setTimeout(() => {
         // console.log(this.userList);
+
         if (this.storehouseList) {
           if (this.storehouseList['result']['current_page'] == this.storehouseList['result']['last_page']) {
             this.next = true;

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Http} from '@angular/http';
-// import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
+import {Router} from '@angular/router';
+import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 
 @Component({
   selector: 'app-list-client',
@@ -12,9 +13,13 @@ export class ListClientComponent implements OnInit {
   page : any;
   prev : boolean = false;
   next : boolean = false;
+  //用作全选和反选
+  selects : Array<any> = [];
+  check : boolean = false;
   constructor(
       private http:Http,
-      // private cookiestore:CookieStoreService
+      private router : Router,
+      private cookiestore:CookieStoreService
   ) {
     this.getCustomerList('1');
   }
@@ -27,7 +32,7 @@ export class ListClientComponent implements OnInit {
    * @param number
    */
   getCustomerList(number:string) {
-    this.http.get('/api/v1/getCustomerList?role=1&page='+number)
+    this.http.get('http://182.61.53.58:8080/api/v1/getCustomerList?role=1&page='+number+'&sid='+this.cookiestore.getCookie('sid'))
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.customerList = data;
@@ -35,6 +40,10 @@ export class ListClientComponent implements OnInit {
 
     setTimeout(() => {
       console.log(this.customerList);
+      if(this.customerList['status'] == 202){
+        this.cookiestore.removeAll();
+        this.router.navigate(['/auth/login']);
+      }
       if (this.customerList) {
         if (this.customerList['result']['current_page'] == this.customerList['result']['last_page']) {
           this.next = true;
@@ -46,8 +55,40 @@ export class ListClientComponent implements OnInit {
         } else {
           this.prev = false;
         }
+        for (let entry of this.customerList['result']['data']) {
+          this.selects[entry['o_id']] = false;
+        }
+        this.check = false;
       }
     }, 300);
+  }
+
+  //全选，反全选
+  changeCheckAll(e){
+    let t = e.target;
+    let c = t.checked;
+    this.selects.forEach((val, idx, array) => {
+      this.selects[idx] = c;
+    });
+    this.check = c;
+  }
+  //点击列表checkbox事件
+  handle(e){
+    let t = e.target;
+    let v = t.value;
+    let c = t.checked;
+    this.selects[v] = c;
+    let isAll = 0;
+    for (let s of this.selects) {
+      if(s == false) {
+        isAll += 1;
+      }
+    }
+    if(isAll >= 1){
+      this.check = false;
+    }else{
+      this.check = true;
+    }
   }
 
   /**
@@ -69,13 +110,17 @@ export class ListClientComponent implements OnInit {
    */
   deleteCustomer(cid:any,current_page:any){
     if(confirm('您确定要删除该条信息吗？')) {
-      this.http.delete('/api/v1/deleteCustomerById?cid=' + cid + '&role=1&page=' + current_page)
+      this.http.delete('http://182.61.53.58:8080/api/v1/deleteCustomerById?cid=' + cid + '&role=1&page=' + current_page)
           .map((res) => res.json())
           .subscribe((data) => {
             this.customerList = data;
           });
       setTimeout(() => {
         // console.log(this.userList);
+        if(this.customerList['status'] == 202){
+          this.cookiestore.removeAll();
+          this.router.navigate(['/auth/login']);
+        }
         if (this.customerList) {
           if (this.customerList['result']['current_page'] == this.customerList['result']['last_page']) {
             this.next = true;

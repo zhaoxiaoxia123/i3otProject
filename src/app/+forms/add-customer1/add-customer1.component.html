@@ -19,6 +19,7 @@
                 <fieldset>
                   <legend>主要信息</legend>
                   <input type="hidden" name="c_id" formControlName="c_id">
+                  <input type="hidden" name="parent_id" formControlName="parent_id">
                   <div class="row">
                     <section class="col col-6">
                       <label class="label">客户编号</label>
@@ -81,7 +82,7 @@
                   <section>
                     <label class="label">主要产品</label>
                     <label class="textarea textarea-resizable">
-                      <textarea class="custom-scroll" rows="3" name="products" formControlName="products"></textarea>
+                      <textarea class="custom-scroll" rows="3" name="products" formControlName="products" maxlength="255"></textarea>
                     </label>
                   </section>
                 </fieldset>
@@ -105,7 +106,7 @@
                     <label class="label">协助跟进人</label>
                     <label class="select">
                       <select name="service_person" formControlName="service_person">
-                        <option *ngFor="let u of customerList.result?.userList" [selected]="customer_info.result?.c_service_person == u.u_id" value="{{u.u_id}}">{{u.u_name}}</option>
+                        <option *ngFor="let u of customerList.result?.userList" [selected]="customer_info.result?.c_service_person == u.id" value="{{u.id}}">{{u.u_username}}</option>
                       </select> <i></i> </label>
                   </section>
                   <section class="col col-6">

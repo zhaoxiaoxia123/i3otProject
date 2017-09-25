@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {FadeInTop} from '../../shared/animations/fade-in-top.decorator';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Http} from '@angular/http';
+import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
+import {Router} from '@angular/router';
 
 @FadeInTop()
 @Component({
@@ -31,9 +33,13 @@ export class SettingDepartmentComponent implements OnInit {
     prev : boolean = false;
     next : boolean = false;
 
+    cid : any = 0;
+    super_admin_id : any = 0;
   constructor(
       fb:FormBuilder,
       private http:Http,
+      private router:Router,
+      private cookieStore:CookieStoreService
   ) {
       this.formModel = fb.group({
           category_desc:[''],
@@ -41,18 +47,23 @@ export class SettingDepartmentComponent implements OnInit {
           category_id:['']
       });
       this.getCategory(1);
+      this.cid = this.cookieStore.getCookie('cid');
   }
 
     getCategory(number:any){
-        this.http.get('/api/v1/getIndustryCategory?category_type=3&page='+number)
+        this.http.get('http://182.61.53.58:8080/api/v1/getIndustryCategory?category_type=3&page='+number+'&sid='+this.cookieStore.getCookie('sid'))
             .map((res)=>res.json())
             .subscribe((data)=>{
                 this.categoryList = data;
             });
-
         setTimeout(() => {
             console.log('categoryList:----');
             console.log(this.categoryList);
+            if(this.categoryList['status'] == 202){
+                this.cookieStore.removeAll();
+                this.router.navigate(['/auth/login']);
+            }
+            this.super_admin_id = this.categoryList['super_admin_id'];
             if (this.categoryList) {
                 if (this.categoryList['result']['current_page'] == this.categoryList['result']['last_page']) {
                     this.next = true;
@@ -72,10 +83,11 @@ export class SettingDepartmentComponent implements OnInit {
      * 提交所属部门
      */
     onSubmitCategory() {
-        this.http.post('/api/v1/addCategory',{
+        this.http.post('http://182.61.53.58:8080/api/v1/addCategory',{
             'category_desc':this.formModel.value['category_desc'],
             'category_type':this.formModel.value['category_type'],
             'category_id':this.formModel.value['category_id'],
+            'sid':this.cookieStore.getCookie('sid')
         }).subscribe(
             (data)=>{
                 alert(JSON.parse(data['_body'])['msg']);
@@ -121,13 +133,18 @@ export class SettingDepartmentComponent implements OnInit {
      */
     deleteCategory(cid:any,current_page:any){
         if(confirm('您确定要删除该条信息吗？')) {
-            this.http.delete('/api/v1/deleteIndustryCategory?category_id=' + cid + '&category_type=3&page=' + current_page)
+            this.http.delete('http://182.61.53.58:8080/api/v1/deleteIndustryCategory?category_id=' + cid + '&category_type=3&page=' + current_page+'&sid='+this.cookieStore.getCookie('sid'))
                 .map((res)=>res.json())
                 .subscribe((data)=>{
                     this.categoryList = data;
                 });
             setTimeout(() => {
                 console.log(this.categoryList);
+
+                if(this.categoryList['status'] == 202){
+                    this.cookieStore.removeAll();
+                    this.router.navigate(['/auth/login']);
+                }
                 if (this.categoryList) {
                     if (this.categoryList['result']['current_page'] == this.categoryList['result']['last_page']) {
                         this.next = true;

@@ -9,6 +9,8 @@ import {BigBreadcrumbsComponent} from './big-breadcrumbs.component';
 import {MinifyMenuComponent} from './minify-menu.component';
 import {NavigationComponent} from './navigation.component';
 import {SmartMenuDirective} from './smart-menu.directive';
+import {CookieStoreService} from '../../cookies/cookie-store.service';
+import {CookieService} from 'angular2-cookie/core';
 
 @NgModule({
     imports: [
@@ -29,7 +31,8 @@ import {SmartMenuDirective} from './smart-menu.directive';
         MinifyMenuComponent,
         NavigationComponent,
         SmartMenuDirective,
-    ]
+    ],
+    providers: [ CookieStoreService, CookieService ]
 })
 
 export class NavigationModule {}

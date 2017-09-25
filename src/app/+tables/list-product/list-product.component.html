@@ -2,10 +2,9 @@
   <div class="row">
     <sa-big-breadcrumbs [items]="['产品管理', '产品列表']" icon="table"
                         class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
-
   </div>
   <div class="box-header with-border" >
-    <a class="btn btn-success btn-sm"  (click)="lgModal.show()">
+    <a class="btn btn-success btn-sm" routerLink="/forms/product1/0">
       <span class="glyphicon glyphicon-plus"></span>添加产品</a>
   </div>
 
@@ -21,24 +20,17 @@
           <tr>
             <td>
               <label class="checkbox">
-                <input type="checkbox" name="checkbox-inline">
+                <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)">
                 <i></i>
               </label>
             </td>
-            <th>ID  </th>
-            <th>类型</th>
-            <th>产品编号 </th>
-            <th>名称 </th>
-            <th>数量/单位</th>
-            <!--<th>单位 </th>-->
-            <!--<th>规格/参数</th>-->
-            <th>内部质检员</th>
+            <th>产品编号</th>
+            <th>产品名称</th>
+            <th>产品类型</th>
+            <th>数量</th>
+            <th>计量单位 </th>
             <th>生产日期</th>
-            <!--<th>存放仓库</th>-->
-            <!--<th>入库时间</th>-->
-            <th>是否合格</th>
-            <!--<th>备注说明</th>-->
-            <!--<th>更新时间</th>-->
+            <th>存放仓库</th>
             <th>操作</th>
           </tr>
           </thead>
@@ -46,37 +38,22 @@
           <tr style="display: none;">
             <td></td><td></td><td></td><td></td>
             <td></td><td></td><td></td><td></td>
-            <td></td><td></td>
-            <!--<td></td><td></td>-->
-            <!--<td></td><td></td><td></td><td></td>-->
+            <td></td>
           </tr>
           <tr *ngFor="let pl of productList.result?.data">
             <td>
               <label class="checkbox">
-                <input type="checkbox" name="checkbox-inline">
+                <input type="checkbox" value="{{ pl.p_id }}" [checked]="selects[pl.p_id]" (change)="handle($event)">
                 <i></i>
               </label>
             </td>
-            <td>{{ pl.p_id }}</td>
-            <td>{{ pl.category }}</td>
             <td>{{ pl.p_product_id }}</td>
             <td>{{ pl.p_name }}</td>
-            <td>{{ pl.p_quantity }}/{{ pl.p_unit }}</td>
-            <!--<td>{{ pl.p_unit }}</td>-->
-            <!--<td>{{ pl.p_specification }}</td>-->
-            <td>{{ pl.u_name }}</td>
+            <td>{{ pl.category }}</td>
+            <td>{{ pl.p_quantity }}</td>
+            <td>{{ pl.p_unit }}</td>
             <td>{{ pl.p_production_date }}</td>
-            <!--<td>{{ pl.p_storehouse }}</td>-->
-            <!--<td>{{ pl.p_storage_time }}</td>-->
-            <td>
-              <span [ngSwitch]="pl.p_is_acceptable">
-                <span *ngSwitchCase="1">合格</span>
-                <span *ngSwitchCase="2">不合格</span>
-                <span *ngSwitchDefault>未知</span>
-              </span>
-            </td>
-            <!--<td>{{ pl.p_notes }}</td>-->
-            <!--<td>{{ pl.updated_at }}</td>-->
+            <td>{{ pl.storehouse_name }}</td>
             <td>
               <a class="btn btn-warning btn-xs" [routerLink]="['/forms/product1', pl.p_id]">
                 <span class="glyphicon glyphicon-pencil"></span>修改
@@ -86,9 +63,7 @@
               </a>
             </td>
           </tr>
-
           </tbody>
-
         </sa-datatable>
         <!-- 分页部分-->
         <div class="dataTables_paginate">

@@ -6,6 +6,8 @@ import { AddCustomer1Component } from './add-customer1.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {SmartadminModule} from '../../shared/smartadmin.module';
 import {SmartadminEditorsModule} from '../../shared/forms/editors/smartadmin-editors.module';
+import {CookieService} from 'angular2-cookie/core';
+import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 
 @NgModule({
   imports: [
@@ -15,6 +17,7 @@ import {SmartadminEditorsModule} from '../../shared/forms/editors/smartadmin-edi
     SmartadminEditorsModule,
     addCustomer1Routing
   ],
-  declarations: [AddCustomer1Component]
+  declarations: [AddCustomer1Component],
+  providers:[ CookieService,CookieStoreService ]
 })
 export class AddCustomer1Module { }
