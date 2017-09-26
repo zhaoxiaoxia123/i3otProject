@@ -102,7 +102,50 @@ a:hover{cursor: pointer;}
     height: auto;
     padding-left: 3px;
 }
+.login-info a {
+    text-decoration: none!important;
+    color: #c0bbb7;
+    display: inline-block;
+    margin-top: 6px
+}
 
+.login-info a span {
+    text-transform: capitalize;
+    font-size: 14px;
+    display: inline-block;
+    text-decoration: none;
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle
+}
+
+.login-info a span+i {
+    vertical-align: middle
+}
+
+.login-info a:hover {
+    color: #fff
+}
+
+.login-info>span {
+    height: 38px;
+    display: block;
+    padding: 0 10px;
+    border-bottom: 1px solid #1A1817
+}
+
+.login-info img {
+    width: 25px;
+    height: auto;
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: 1px;
+    margin-right: 5px;
+    margin-left: 0;
+    border-left: 3px solid #fff
+}
 
 /*sa-activities*/
 #logo-group span#activity {

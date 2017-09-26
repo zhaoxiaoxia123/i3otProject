@@ -606,6 +606,10 @@ fieldset {
 
 
 /*表单--------------------------------------------------------------------*/
+
+.navbar {
+    margin-bottom: -6px;
+}
 .smart-form {
     margin: 0;
     outline: 0;
@@ -995,7 +999,7 @@ table.dataTable {
     background-image: -moz-linear-gradient(top,#f2f2f2 0,#fafafa 100%);
     background-image: -ms-linear-gradient(top,#f2f2f2 0,#fafafa 100%);
     background-image: -o-linear-gradient(top,#f2f2f2 0,#fafafa 100%);
-    font-size: 12px;
+    font-size: 14px;
 }
 .table-bordered>thead>tr>td, .table-bordered>thead>tr>th {
     border-width: 1px;
@@ -1262,7 +1266,7 @@ table.has-columns-hidden>tbody>tr.row-detail>td>ul>li>span.columnTitle {
 .dt-toolbar {
     display: block;
     position: relative;
-    padding: 6px 7px 1px;
+    padding:10px;
     width: 100%;
     float: left;
     border-bottom: 1px solid #ccc;
@@ -1378,14 +1382,14 @@ table.dataTable thead>tr>th.sorting_disabled {
     float: left!important
 }
 
-.dt-toolbar>:last-child .DTTT,.dt-toolbar>:last-child .dataTables_filter>:only-child,.dt-toolbar>:last-child .dataTables_length,.dt-toolbar>:last-child .pagination {
-    float: right
-}
+
 
 .dt-toolbar-footer>:first-child .DTTT,.dt-toolbar-footer>:first-child .dataTables_filter>:only-child,.dt-toolbar-footer>:first-child .dataTables_length,.dt-toolbar-footer>:first-child .pagination {
     float: left
 }
-
+.dt-toolbar>:last-child .DTTT,.dt-toolbar>:last-child .dataTables_filter>:only-child,.dt-toolbar>:last-child .dataTables_length,.dt-toolbar>:last-child .pagination {
+    float: right!important
+}
 .dt-toolbar-footer>:last-child .DTTT,.dt-toolbar-footer>:last-child .dataTables_filter>:only-child,.dt-toolbar-footer>:last-child .dataTables_length,.dt-toolbar-footer>:last-child .pagination {
     float: right
 }
@@ -1737,4 +1741,9 @@ ul.ColVis_collection li label {
     line-height: 1.5
 }
 
+
+div.dataTables_editor{
+    float:left;
+    margin:0;
+}
 
