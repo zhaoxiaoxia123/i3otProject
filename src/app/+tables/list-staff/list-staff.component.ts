@@ -4,6 +4,7 @@ import {Http} from '@angular/http';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 import {arrayify} from 'tslint/lib/utils';
 import {Router} from '@angular/router';
+import {GlobalService} from 'app/core/global.service';
 
 @FadeInTop()
 @Component({
@@ -21,9 +22,11 @@ export class ListStaffComponent implements OnInit {
   constructor(
       private http:Http,
       private router : Router,
-      private cookiestore:CookieStoreService
+      private cookiestore:CookieStoreService,
+      private globalService:GlobalService
   ) {
     this.getUserList('1');
+    window.scrollTo(0,0);
   }
 
   ngOnInit() {
@@ -34,7 +37,7 @@ export class ListStaffComponent implements OnInit {
    * @param number
    */
   getUserList(number:string) {
-    this.http.get('http://182.61.53.58:8080/api/v1/getUserList?page='+number+'&sid='+this.cookiestore.getCookie('sid'))
+    this.http.get(this.globalService.getDomain()+'/api/v1/getUserList?page='+number+'&sid='+this.cookiestore.getCookie('sid'))
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.userList = data;
@@ -116,7 +119,7 @@ export class ListStaffComponent implements OnInit {
     // console.log('current_page-----');
     // console.log(current_page);
     if(confirm('您确定要删除该条信息吗？')) {
-      this.http.delete('http://182.61.53.58:8080/api/v1/deleteUserById?uid=' + uid + '&page=' + current_page)
+      this.http.delete(this.globalService.getDomain()+'/api/v1/deleteUserById?uid=' + uid + '&page=' + current_page)
           .map((res) => res.json())
           .subscribe((data) => {
             this.userList = data;

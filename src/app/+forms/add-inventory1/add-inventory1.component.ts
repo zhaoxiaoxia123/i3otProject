@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Http} from '@angular/http';
 import {ActivatedRoute,Router} from '@angular/router';
 import {CookieStoreService} from 'app/shared/cookies/cookie-store.service';
+import {GlobalService} from '../../core/global.service';
 
 // @FadeInTop()
 @Component({
@@ -20,7 +21,8 @@ export class AddInventory1Component implements OnInit {
       private http:Http,
       private router : Router,
       private routInfo : ActivatedRoute,
-      private cookieStore:CookieStoreService
+      private cookieStore:CookieStoreService,
+      private globalService:GlobalService
   ) {
     this.formModel = fb.group({
       storehouse_id:[''],
@@ -43,7 +45,7 @@ export class AddInventory1Component implements OnInit {
   }
 
   getStorehouseInfo(storehouse_id:number){
-    this.http.get('http://182.61.53.58:8080/api/v1/getStorehouseInfo?storehouse_id='+storehouse_id)
+    this.http.get(this.globalService.getDomain()+'/api/v1/getStorehouseInfo?storehouse_id='+storehouse_id)
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.storehouse_info = data;
@@ -68,7 +70,7 @@ export class AddInventory1Component implements OnInit {
       alert('请填写仓库名称！');
       return false;
     }
-    this.http.post('http://182.61.53.58:8080/api/v1/addStorehouse',{
+    this.http.post(this.globalService.getDomain()+'/api/v1/addStorehouse',{
       'storehouse_id':this.formModel.value['storehouse_id'],
       'storehouse_name':this.formModel.value['storehouse_name'],
       // 'storehouse_total_quantity':this.formModel.value['storehouse_total_quantity'],

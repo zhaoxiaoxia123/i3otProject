@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Http} from '@angular/http';
 import {Router} from '@angular/router';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
+import {GlobalService} from 'app/core/global.service';
 
 @Component({
   selector: 'app-list-client',
@@ -19,9 +20,11 @@ export class ListClientComponent implements OnInit {
   constructor(
       private http:Http,
       private router : Router,
-      private cookiestore:CookieStoreService
+      private cookiestore:CookieStoreService,
+      private globalService:GlobalService
   ) {
     this.getCustomerList('1');
+    window.scrollTo(0,0);
   }
 
   ngOnInit() {
@@ -32,7 +35,7 @@ export class ListClientComponent implements OnInit {
    * @param number
    */
   getCustomerList(number:string) {
-    this.http.get('http://182.61.53.58:8080/api/v1/getCustomerList?role=1&page='+number+'&sid='+this.cookiestore.getCookie('sid'))
+    this.http.get(this.globalService.getDomain()+'/api/v1/getCustomerList?role=1&page='+number+'&sid='+this.cookiestore.getCookie('sid'))
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.customerList = data;
@@ -110,7 +113,7 @@ export class ListClientComponent implements OnInit {
    */
   deleteCustomer(cid:any,current_page:any){
     if(confirm('您确定要删除该条信息吗？')) {
-      this.http.delete('http://182.61.53.58:8080/api/v1/deleteCustomerById?cid=' + cid + '&role=1&page=' + current_page)
+      this.http.delete(this.globalService.getDomain()+'/api/v1/deleteCustomerById?cid=' + cid + '&role=1&page=' + current_page)
           .map((res) => res.json())
           .subscribe((data) => {
             this.customerList = data;

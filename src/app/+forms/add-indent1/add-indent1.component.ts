@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Http} from '@angular/http';
 import {ActivatedRoute, Router,Params} from '@angular/router';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
+import {GlobalService} from '../../core/global.service';
 
 @FadeInTop()
 @Component({
@@ -23,7 +24,8 @@ export class AddIndent1Component implements OnInit {
       private http:Http,
       private router : Router,
       private routInfo : ActivatedRoute,
-      private cookieStore:CookieStoreService
+      private cookieStore:CookieStoreService,
+      private globalService:GlobalService
   ) {
     this.formModel = fb.group({
       o_id:[''],
@@ -65,7 +67,7 @@ export class AddIndent1Component implements OnInit {
   }
 
   getOrderInfo(o_id:number){
-    this.http.get('http://182.61.53.58:8080/api/v1/getOrderInfo?o_id='+o_id)
+    this.http.get(this.globalService.getDomain()+'/api/v1/getOrderInfo?o_id='+o_id)
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.order_info = data;
@@ -106,7 +108,7 @@ export class AddIndent1Component implements OnInit {
    * 获取添加订单的默认参数
    */
   getOrderDefault() {
-    this.http.get('http://182.61.53.58:8080/api/v1/getOrderDefault?sid='+this.cookieStore.getCookie('sid'))
+    this.http.get(this.globalService.getDomain()+'/api/v1/getOrderDefault?sid='+this.cookieStore.getCookie('sid'))
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.orderList = data;
@@ -123,7 +125,7 @@ export class AddIndent1Component implements OnInit {
    * 获取产品类型的二级目录
    */
   getOrderChild(value) {
-    this.http.get('http://182.61.53.58:8080/api/v1/getProductChild?category_depth='+value)
+    this.http.get(this.globalService.getDomain()+'/api/v1/getProductChild?category_depth='+value)
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.childCategory = data;
@@ -139,7 +141,7 @@ export class AddIndent1Component implements OnInit {
       alert('请填写订单号！');
       return false;
     }
-    this.http.post('http://182.61.53.58:8080/api/v1/addOrder',{
+    this.http.post(this.globalService.getDomain()+'/api/v1/addOrder',{
       'o_id':this.formModel.value['o_id'],
       'o_order':this.formModel.value['o_order'],
       'p_id':this.formModel.value['p_id'],

@@ -6,6 +6,7 @@ import {getProvince,getCity,getArea} from '../../../shared/common/area';
 
 import {Http} from '@angular/http';
 import {Router,ActivatedRoute} from '@angular/router';
+import {GlobalService} from '../../../core/global.service';
 
 @Component({
   selector: 'app-registration-form',
@@ -34,7 +35,8 @@ export class RegistrationFormComponent implements OnInit {
       private http:Http,
       private router : Router,
       private cookieStoreService:CookieStoreService,
-      private routInfo : ActivatedRoute
+      private routInfo : ActivatedRoute,
+      private globalService:GlobalService
       // private uploader:FileUploaderOptions
   ) {
     this.formModel = fb.group({
@@ -92,7 +94,7 @@ export class RegistrationFormComponent implements OnInit {
   }
 
   getUserInfo(u_id:number){
-    this.http.get('http://182.61.53.58:8080/api/v1/getUserInfo?u_id='+u_id)
+    this.http.get(this.globalService.getDomain()+'/api/v1/getUserInfo?u_id='+u_id)
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.user_info = data;
@@ -157,7 +159,7 @@ export class RegistrationFormComponent implements OnInit {
    * 获取添加员工的默认参数
    */
   getUserDefault() {
-    this.http.get('http://182.61.53.58:8080/api/v1/getUserDefault?sid='+this.cookieStoreService.getCookie('sid'))
+    this.http.get(this.globalService.getDomain()+'/api/v1/getUserDefault?sid='+this.cookieStoreService.getCookie('sid'))
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.userList = data;
@@ -193,7 +195,7 @@ export class RegistrationFormComponent implements OnInit {
     }
     // console.log(this.formModel.value['passwords']['password']);
     // console.log(this.formModel.value['name']);
-    this.http.post('http://182.61.53.58:8080/api/v1/addUser',{
+    this.http.post(this.globalService.getDomain()+'/api/v1/addUser',{
       'u_id':this.formModel.value['u_id'],
       'employee_id':this.formModel.value['employee_id'],
       'name':this.formModel.value['name'],

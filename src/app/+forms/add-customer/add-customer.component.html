@@ -29,7 +29,7 @@
                   <div class="row">
 
                     <section class="col col-6">
-                      <label class="label">客户编号</label>
+                      <label class="label">客户ID</label>
                       <label class="input">
                         <input type="text" name="number" placeholder="请输入客户编号" maxlength="20" formControlName="number"/>
                       </label>
@@ -76,7 +76,7 @@
                       <div class="col col-8">
                         <label class="select">
                           <select name="industry_category" formControlName="industry_category">
-                            <option *ngFor="let c of userList.result?.industryCategoryList" [selected]="customer_info.result?.c_industry_category == c.category_id" value="{{c.category_id}}">{{c.category_desc}}</option>
+                            <option *ngFor="let c of userList.result?.industryCategoryList" [selected]="customer_info.result?.c_industry_category == c.category_id || this.c_id == 0" value="{{c.category_id}}">{{c.category_desc}}</option>
                           </select> <i></i> </label></div>
                       <div class="col col-4">
                         <button type="button" class="btn btn-primary btn-sm btn-block">
@@ -100,12 +100,12 @@
                       <label class="label">联系人</label>
                       <section class="col col-4">
                         <label class="input">
-                          <input  name='contacts' placeholder="请输入姓名"  type="text" formControlName="contacts">
+                          <input  name='contacts' placeholder="请输入姓名"  type="text" formControlName="contacts" maxlength="5">
                         </label>
                       </section>
                       <section class="col col-8">
                         <label class="input"> <i class="icon-append fa fa-phone"></i>
-                          <input name="phone" placeholder="请输入联系电话" formControlName="phone" samaskedinput="(999) 999-9999" type="tel" ng-reflect-sa-masked-input="(999) 999-9999" aria-required="true" class="valid" aria-invalid="false">
+                          <input name="phone" placeholder="请输入联系电话" formControlName="phone" samaskedinput="(999) 999-9999" type="tel" ng-reflect-sa-masked-input="(999) 999-9999" aria-required="true" class="valid" aria-invalid="false" maxlength="13">
                         </label>
                       </section>
                     </div>
@@ -127,7 +127,7 @@
                     <div class="col col-8">
                       <label class="select">
                         <select name="source" formControlName="source">
-                          <option *ngFor="let c of userList.result?.sourceList" [selected]="customer_info.result?.c_source == c.category_id" value="{{c.category_id}}">{{c.category_desc}}</option>
+                          <option *ngFor="let c of userList.result?.sourceList" [selected]="customer_info.result?.c_source == c.category_id || this.c_id == 0" value="{{c.category_id}}">{{c.category_desc}}</option>
                         </select> <i></i> </label></div>
                     <div class="col col-4">
                       <button type="button" class="btn btn-primary btn-sm btn-block">
@@ -140,7 +140,7 @@
                     <label class="label">协助跟进人</label>
                     <label class="select">
                       <select name="service_person" formControlName="service_person">
-                        <option *ngFor="let u of userList.result?.userList" [selected]="customer_info.result?.c_service_person == u.id" value="{{u.id}}">{{u.u_username}}</option>
+                        <option *ngFor="let u of userList.result?.userList" [selected]="customer_info.result?.c_service_person == u.id || this.c_id == 0" value="{{u.id}}">{{u.u_username}}</option>
                       </select> <i></i> </label>
                   </section>
                   <section class="col col-6">

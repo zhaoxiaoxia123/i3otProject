@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {Http} from '@angular/http';
 import {Router} from '@angular/router';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
+import {GlobalService} from '../../core/global.service';
 
 @Component({
   selector: 'app-list-indent',
@@ -23,13 +24,15 @@ export class ListIndentComponent implements OnInit {
       fb:FormBuilder,
       private router : Router,
       private http:Http,
-      private cookiestore:CookieStoreService
+      private cookiestore:CookieStoreService,
+      private globalService:GlobalService
   ) {
 
     this.formModel = fb.group({
       keyword:[''],
     });
     this.getOrderList('1');
+    window.scrollTo(0,0);
   }
 
   ngOnInit() {
@@ -40,7 +43,7 @@ export class ListIndentComponent implements OnInit {
    * @param number
    */
   getOrderList(number:string) {
-    let url = 'http://182.61.53.58:8080/api/v1/getOrderList?role=1&page='+number+'&sid='+this.cookiestore.getCookie('sid');
+    let url = this.globalService.getDomain()+'/api/v1/getOrderList?role=1&page='+number+'&sid='+this.cookiestore.getCookie('sid');
     if(this.formModel.value['keyword'].trim() != ''){
       url += '&keyword='+this.formModel.value['keyword'].trim();
     }
@@ -121,7 +124,7 @@ export class ListIndentComponent implements OnInit {
    */
   deleteOrder(oid:any,current_page:any){
     if(confirm('您确定要删除该条信息吗？')) {
-      let url = 'http://182.61.53.58:8080/api/v1/deleteOrderById?o_id=' + oid + '&page=' + current_page;
+      let url = this.globalService.getDomain()+'/api/v1/deleteOrderById?o_id=' + oid + '&page=' + current_page;
       if(this.formModel.value['keyword'].trim() != ''){
         url += '&keyword='+this.formModel.value['keyword'].trim();
       }

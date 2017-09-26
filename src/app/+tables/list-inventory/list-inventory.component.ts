@@ -3,6 +3,7 @@ import {Http} from '@angular/http';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
+import {GlobalService} from '../../core/global.service';
 
 @Component({
   selector: 'app-list-inventory',
@@ -23,13 +24,15 @@ export class ListInventoryComponent implements OnInit {
       fb:FormBuilder,
       private http:Http,
       private router:Router,
-      private cookiestore:CookieStoreService
+      private cookiestore:CookieStoreService,
+      private globalService:GlobalService
   ) {
     this.formModel = fb.group({
       keyword:[''],
     });
 
     this.getStorehouseList('1');
+    window.scrollTo(0,0);
   }
 
   ngOnInit() {
@@ -39,7 +42,7 @@ export class ListInventoryComponent implements OnInit {
    * @param number
    */
   getStorehouseList(number:string) {
-    let url = 'http://182.61.53.58:8080/api/v1/getStorehouseList?page='+number+'&sid='+this.cookiestore.getCookie('sid');
+    let url = this.globalService.getDomain()+'/api/v1/getStorehouseList?page='+number+'&sid='+this.cookiestore.getCookie('sid');
     if(this.formModel.value['keyword'].trim() != ''){
       url += '&keyword='+this.formModel.value['keyword'].trim();
     }
@@ -121,7 +124,7 @@ export class ListInventoryComponent implements OnInit {
    * @param cid
    */
   deleteStorehouse(storehouse_id:any,current_page:any){
-    let url = 'http://182.61.53.58:8080/api/v1/deleteStorehouseById?storehouse_id=' + storehouse_id + '&page=' + current_page+'&sid='+this.cookiestore.getCookie('sid');
+    let url = this.globalService.getDomain()+'/api/v1/deleteStorehouseById?storehouse_id=' + storehouse_id + '&page=' + current_page+'&sid='+this.cookiestore.getCookie('sid');
     if(this.formModel.value['keyword'].trim() != ''){
       url += '&keyword='+this.formModel.value['keyword'].trim();
     }

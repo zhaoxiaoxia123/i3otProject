@@ -143,14 +143,12 @@
                           <thead>
                           <tr>
                             <th>学历来源 </th>
-                            <th>人数 </th>
                             <th>操作</th>
                           </tr>
                           </thead>
                           <tbody>
                           <tr *ngFor="let cl of sourceList.result?.data">
                             <td>{{ cl.category_desc }}</td>
-                            <td>2</td>
                             <td><a class="btn btn-warning btn-xs" (click)="editUserCategory(5,cl.category_id, cl.category_desc)" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
                               <a class="btn btn-danger btn-xs" (click)="deleteUserCategory(5,cl.category_id,sourceList.result?.current_page)"><span class="glyphicon glyphicon-remove"></span>删除</a>
                             </td>

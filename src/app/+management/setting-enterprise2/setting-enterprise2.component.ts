@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FadeInTop} from '../../shared/animations/fade-in-top.decorator';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Http} from '@angular/http';
+import {GlobalService} from '../../core/global.service';
 
 @FadeInTop()
 @Component({
@@ -40,6 +41,7 @@ export class SettingEnterprise2Component implements OnInit {
     constructor(
         fb:FormBuilder,
         private http:Http,
+        private globalService:GlobalService
     ) {
         this.formModel = fb.group({
             category_desc:[''],
@@ -64,7 +66,7 @@ export class SettingEnterprise2Component implements OnInit {
      * 矿易帮添加。不用考虑权限读取，所有用户客户均可读取
      */
     getOrderCategory(category_type:number,number:any){
-        this.http.get('http://182.61.53.58:8080/api/v1/getIndustryCategory?category_type='+category_type+'&page='+number)
+        this.http.get(this.globalService.getDomain()+'/api/v1/getIndustryCategory?category_type='+category_type+'&page='+number)
             .map((res)=>res.json())
             .subscribe((data)=>{
                 if(category_type == 8) {
@@ -115,7 +117,7 @@ export class SettingEnterprise2Component implements OnInit {
      * 提交所属行业
      */
     onSubmitOrderCategory() {
-        this.http.post('http://182.61.53.58:8080/api/v1/addCategory',{
+        this.http.post(this.globalService.getDomain()+'/api/v1/addCategory',{
             'category_desc':this.formModel.value['category_desc'],
             'category_type':this.formModel.value['category_type'],
             'category_id':this.formModel.value['category_id'],
@@ -141,7 +143,7 @@ export class SettingEnterprise2Component implements OnInit {
      * 提交客户来源
      */
     onSubmitSource() {
-        this.http.post('http://182.61.53.58:8080/api/v1/addCategory',{
+        this.http.post(this.globalService.getDomain()+'/api/v1/addCategory',{
             'category_desc':this.formModelSource.value['category_desc'],
             'category_type':this.formModelSource.value['category_type'],
             'category_id':this.formModelSource.value['category_id'],
@@ -199,7 +201,7 @@ export class SettingEnterprise2Component implements OnInit {
      */
     deleteOrderCategory(category_type:number,cid:any,current_page:any){
         if(confirm('您确定要删除该条信息吗？')) {
-            this.http.delete('http://182.61.53.58:8080/api/v1/deleteIndustryCategory?category_id=' + cid + '&category_type='+category_type+'&page=' + current_page)
+            this.http.delete(this.globalService.getDomain()+'/api/v1/deleteIndustryCategory?category_id=' + cid + '&category_type='+category_type+'&page=' + current_page)
                 .map((res)=>res.json())
                 .subscribe((data)=>{
                     if(category_type == 8)

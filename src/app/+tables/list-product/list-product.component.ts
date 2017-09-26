@@ -4,6 +4,7 @@ import {ModalDirective} from 'ngx-bootstrap';
 import {Http} from '@angular/http';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 import {Router} from '@angular/router';
+import {GlobalService} from '../../core/global.service';
 
 @FadeInTop()
 @Component({
@@ -21,8 +22,13 @@ export class ListProductComponent implements OnInit {
   check : boolean = false;
   constructor(private http:Http,
               private router : Router,
-              private cookiestore:CookieStoreService) {
+              private cookiestore:CookieStoreService,
+              private globalService:GlobalService
+  ) {
     this.getProductList('1');
+
+    console.log('window.scrollTo(0,0)');
+    window.scrollTo(0,0);
   }
 
   ngOnInit() {
@@ -33,7 +39,7 @@ export class ListProductComponent implements OnInit {
    * @param number
    */
   getProductList(number:string) {
-    this.http.get('http://182.61.53.58:8080/api/v1/getProductList?sid='+this.cookiestore.getCookie('sid')+'&page='+number)
+    this.http.get(this.globalService.getDomain()+'/api/v1/getProductList?sid='+this.cookiestore.getCookie('sid')+'&page='+number)
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.productList = data;
@@ -115,7 +121,7 @@ export class ListProductComponent implements OnInit {
     // console.log('current_page-----');
     // console.log(current_page);
     if(confirm('您确定要删除该条信息吗？')) {
-      this.http.delete('http://182.61.53.58:8080/api/v1/deleteProductById?pid=' + uid + '&page=' + current_page+'&sid='+this.cookiestore.getCookie('sid'))
+      this.http.delete(this.globalService.getDomain()+'/api/v1/deleteProductById?pid=' + uid + '&page=' + current_page+'&sid='+this.cookiestore.getCookie('sid'))
           .map((res) => res.json())
           .subscribe((data) => {
             this.productList = data;

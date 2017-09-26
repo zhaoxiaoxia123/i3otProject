@@ -6,8 +6,9 @@ import {Component, ViewContainerRef} from '@angular/core';
 })
 export class AppComponent {
   public title = 'app works!';
-  public constructor(private viewContainerRef: ViewContainerRef) {
-
+  public constructor(private viewContainerRef: ViewContainerRef
+  ) {
+    window.scrollTo(0,0);
   }
 
 }

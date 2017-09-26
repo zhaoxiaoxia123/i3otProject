@@ -1,12 +1,12 @@
 <div id="content">
   <div class="row">
-    <sa-big-breadcrumbs [items]="['仓储管理', '添加仓储']" icon="table"
+    <sa-big-breadcrumbs [items]="['仓库管理', '添加仓库']" icon="table"
                         class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
   </div>
 
   <div class="box-header with-border" >
-    <a class="btn btn-success btn-sm"  (click)="lgModal.show()">
-      <span class="glyphicon glyphicon-plus"></span>添加仓储</a>
+    <a class="btn btn-success btn-sm"  routerLink="/forms/inventory1/0"><!-- (click)="lgModal.show()"-->
+      <span class="glyphicon glyphicon-plus"></span>添加仓库</a>
   </div>
 
   <sa-widget [editbutton]="false" color="blueDark">
@@ -91,9 +91,9 @@
                 <i></i>
               </label>
             </td>
-            <th>仓储名称</th>
-            <!--<th>总库存量 </th>-->
-            <!--<th>固定电话 </th>-->
+            <th>仓库名称</th>
+            <th>保管员 </th>
+            <th>固定电话 </th>
             <th>仓库状态 </th>
             <th>最后更新日期 </th>
             <th>操作</th>
@@ -112,11 +112,11 @@
               </label>
             </td>
             <td>{{ sl.storehouse_name }}</td>
-            <!--<td>{{ sl.storehouse_total_quantity }}</td>-->
-            <!--<td>{{ sl.storehouse_phone }}</td>-->
+            <td>{{ sl.storehouse_keeper }}</td>
+            <td>{{ sl.storehouse_phone }}</td>
             <td>
               <span [ngSwitch]="sl.storehouse_status">
-                <span *ngSwitchCase="1">出仓</span>
+                <span *ngSwitchCase="1">正常</span>
                 <span *ngSwitchCase="2">维修</span>
                 <span *ngSwitchCase="3">满仓</span>
                 <span *ngSwitchDefault>未知</span>
@@ -153,14 +153,14 @@
           <button type="button" class="close" (click)="lgModal.hide()" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h4 class="modal-title">添加仓储</h4>
+          <h4 class="modal-title">添加仓库</h4>
         </div>
         <div class="modal-body">
           <div class="row">
             <div class="col-md-12">
               <div class="form-group">
-                <label >仓储名称</label>
-                <input type="text" class="form-control"  placeholder="请输入仓储名称">
+                <label >仓库名称</label>
+                <input type="text" class="form-control"  placeholder="请输入仓库名称">
               </div>
             </div>
             <div class="col-md-6">

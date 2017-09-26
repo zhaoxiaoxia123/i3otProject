@@ -6,6 +6,7 @@ import {mobileAsyncValidator, mobileValidator,passwordValidator} from '../../sha
 import {Http} from '@angular/http';
 import {Router,ActivatedRoute} from '@angular/router';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
+import {GlobalService} from '../../core/global.service';
 
 @FadeInTop()
 @Component({
@@ -24,7 +25,8 @@ export class AddCustomerComponent implements OnInit {
       private http:Http,
       private router : Router,
       private routInfo : ActivatedRoute,
-      private cookieStore:CookieStoreService
+      private cookieStore:CookieStoreService,
+      private globalService:GlobalService
   ) {
     this.formModel = fb.group({
       c_id:[''],
@@ -61,7 +63,7 @@ export class AddCustomerComponent implements OnInit {
   }
 
   getCustomerInfo(c_id:number){
-    this.http.get('http://182.61.53.58:8080/api/v1/getCustomerInfo?c_id='+c_id+'&c_role=1')
+    this.http.get(this.globalService.getDomain()+'/api/v1/getCustomerInfo?c_id='+c_id+'&c_role=1')
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.customer_info = data;
@@ -94,7 +96,7 @@ export class AddCustomerComponent implements OnInit {
    * 获取添加客户的默认参数
    */
   getCustomerDefault() {
-      this.http.get('http://182.61.53.58:8080/api/v1/getCustomerDefault?sid='+this.cookieStore.getCookie('sid'))
+      this.http.get(this.globalService.getDomain()+'/api/v1/getCustomerDefault?sid='+this.cookieStore.getCookie('sid'))
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.userList = data;
@@ -122,7 +124,7 @@ export class AddCustomerComponent implements OnInit {
       return false;
     }
     // console.log(this.formModel.value['name']);
-    this.http.post('http://182.61.53.58:8080/api/v1/addCustomer',{
+    this.http.post(this.globalService.getDomain()+'/api/v1/addCustomer',{
       'c_id':this.formModel.value['c_id'],
       'number':this.formModel.value['number'],
       'name':this.formModel.value['name'],
