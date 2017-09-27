@@ -77,16 +77,44 @@
                           </tr>
                           </tbody>
                         </table>
-                        <div class="dataTables_paginate">
-                          <ul class="pagination">
-                            <li>
-                              <a (click)="pagination(4,userCategoryList.result?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>
-                            </li>
-                            <li>
-                              <a (click)="pagination(4,userCategoryList.result?.next_page_url)"><i class="fa fa-arrow-right"></i></a>
-                            </li>
-                          </ul>
+
+                        <!-- 底部-（分页部分）-->
+                        <div class="dt-toolbar">
+                          <div class="hidden-xs right">
+                            <ul class="pagination pagination-sm">
+                              <li class="disabled">
+                                <a href="">上一页</a>
+                              </li>
+                              <li class="active">
+                                <a href="">1</a>
+                              </li>
+                              <li>
+                                <a href="">2</a>
+                              </li>
+                              <li>
+                                <a href="">3</a>
+                              </li>
+                              <li>
+                                <a href="">...</a>
+                              </li>
+                              <li>
+                                <a href="">99</a>
+                              </li>
+                              <li>
+                                <a href="">下一页</a>
+                              </li>
+                            </ul>
+                            <!--<ul class="pagination">
+                              <li>
+                                <a (click)="pagination(storehouseList.result?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>
+                              </li>
+                              <li>
+                                <a (click)="pagination(storehouseList.result?.next_page_url)"><i class="fa fa-arrow-right"></i></a>
+                              </li>
+                            </ul>-->
+                          </div>
                         </div>
+
                       </div>
                     </div>
                   </div>
@@ -155,15 +183,41 @@
                           </tr>
                           </tbody>
                         </table>
-                        <div class="dataTables_paginate">
-                          <ul class="pagination">
-                            <li>
-                              <a (click)="pagination(5,sourceList.result?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>
-                            </li>
-                            <li>
-                              <a (click)="pagination(5,sourceList.result?.next_page_url)"><i class="fa fa-arrow-right"></i></a>
-                            </li>
-                          </ul>
+                        <!-- 底部-（分页部分）-->
+                        <div class="dt-toolbar">
+                          <div class="hidden-xs right">
+                            <ul class="pagination pagination-sm">
+                              <li class="disabled">
+                                <a href="">上一页</a>
+                              </li>
+                              <li class="active">
+                                <a href="">1</a>
+                              </li>
+                              <li>
+                                <a href="">2</a>
+                              </li>
+                              <li>
+                                <a href="">3</a>
+                              </li>
+                              <li>
+                                <a href="">...</a>
+                              </li>
+                              <li>
+                                <a href="">99</a>
+                              </li>
+                              <li>
+                                <a href="">下一页</a>
+                              </li>
+                            </ul>
+                            <!--<ul class="pagination">
+                              <li>
+                                <a (click)="pagination(storehouseList.result?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>
+                              </li>
+                              <li>
+                                <a (click)="pagination(storehouseList.result?.next_page_url)"><i class="fa fa-arrow-right"></i></a>
+                              </li>
+                            </ul>-->
+                          </div>
                         </div>
                       </div>
                     </div>

@@ -95,8 +95,8 @@
                                     <div class="dd-handle">
                                       {{cl.category_desc}}
                                       <div *ngIf="cid == super_admin_id || cl.c_id == cid">
-                                        <a class="btn pull-right btn-warning btn-xs" (click)="editCategory(1,cl.category_id)"><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                        <a class="btn pull-right btn-danger btn-xs" (click)="deleteCategory(1,cl.category_id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                        <a class="btn pull-right btn-warning btn-xs btn-20" (click)="editCategory(1,cl.category_id)"><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                        <a class="btn pull-right btn-danger btn-xs btn-20" (click)="deleteCategory(1,cl.category_id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
                                       </div>
                                       <div *ngIf="cid != super_admin_id && cl.c_id != cid"><a class="btn pull-right btn-danger btn-xs">无权操作</a></div>
 
@@ -106,8 +106,8 @@
                                       <div class="dd-handle">
                                         {{clc.category_desc}}
                                         <div *ngIf="cid == super_admin_id || clc.c_id == cid">
-                                          <a class="btn pull-right btn-warning btn-xs" (click)="editCategory(2,clc.category_id)"><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                          <a class="btn pull-right btn-danger btn-xs" (click)="deleteCategory(2,clc.category_id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                          <a class="btn pull-right btn-warning btn-xs btn-20" (click)="editCategory(2,clc.category_id)"><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                          <a class="btn pull-right btn-danger btn-xs btn-20" (click)="deleteCategory(2,clc.category_id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
                                         </div>
                                         <div *ngIf="cid != super_admin_id && clc.c_id != cid"><a class="btn pull-right btn-danger btn-xs">无权操作</a></div>
 

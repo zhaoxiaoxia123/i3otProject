@@ -14,6 +14,10 @@ import {GlobalService} from '../../../core/global.service';
 })
 export class RegistrationFormComponent implements OnInit {
 
+
+
+
+
   formModel : FormGroup;
   //家庭地址
   province : string[] = [];
@@ -255,6 +259,8 @@ export class RegistrationFormComponent implements OnInit {
     let brithplacePro = this.formModel.value['birthplace1'];
     this.birthplace_city = getCity(brithplacePro);
   }
+
+
 }
 
 

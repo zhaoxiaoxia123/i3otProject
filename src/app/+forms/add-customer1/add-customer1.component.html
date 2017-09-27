@@ -6,14 +6,12 @@
   <sa-widgets-grid>
     <div class="row">
       <article class="col-sm-12 ">
-        <!-- Widget ID (each widget will need unique ID)-->
         <sa-widget [editbutton]="false" [deletebutton]="false" >
           <header>
             <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
             <h2>添加客户 </h2>
           </header>
           <div>
-            <!-- widget content -->
             <div class="widget-body no-padding">
               <form id="smart-form-register" class="smart-form" [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate>
                 <fieldset>
@@ -41,14 +39,14 @@
                     </section>
 
                     <section class="col col-6">
-                      <label class="label ">所属行业</label>
-                      <div class="col col-8">
+                      <div class="col-lg-8">
+                        <label class="label "> 所属行业</label>
                         <label class="select">
                           <select name="industry_category" formControlName="industry_category">
                             <option *ngFor="let c of customerList.result?.industryCategoryList" [selected]="customer_info.result?.c_industry_category == c.category_id || this.c_id == 0" value="{{c.category_id}}">{{c.category_desc}}</option>
                           </select> <i></i> </label></div>
                       <div class="col col-4">
-                        <button type="button" class="btn btn-primary btn-sm btn-block">
+                        <button type="button" class="btn btn-primary btn-sm margin-top-26">
                           添加所属行业
                         </button>
                       </div>
@@ -65,9 +63,23 @@
                         <input  name='address' placeholder="请输入详细地址" maxlength="40" type="text" formControlName="address">
                       </label>
                     </section>
-                    <div class="col col-6">
+                    <section class="col col-6">
+                      <label class="label "> 联系人</label>
+                      <div class=" col-lg-4">
+                        <label class="input">
+                          <input  name='contacts' placeholder="请输入姓名"  type="text" formControlName="contacts">
+                        </label>
+                      </div>
+                      <div class=" col-lg-8">
+                        <label class="input"> <i class="icon-append fa fa-phone"></i>
+                          <input name="phone" placeholder="请输入联系电话" formControlName="phone" samaskedinput="(999) 999-9999" type="tel" ng-reflect-sa-masked-input="(999) 999-9999" aria-required="true" class="valid" aria-invalid="false">
+                        </label>
+                      </div>
+
+                    </section>
+                   <!-- <div class="col col-6">
                       <label class="label">联系人</label>
-                      <section class="col col-4">
+                      <section class="col-4">
                         <label class="input">
                           <input  name='contacts' placeholder="请输入姓名"  type="text" formControlName="contacts" maxlength="5">
                         </label>
@@ -77,7 +89,7 @@
                           <input name="phone" placeholder="请输入联系电话" formControlName="phone" samaskedinput="(999) 999-9999" type="tel" ng-reflect-sa-masked-input="(999) 999-9999" aria-required="true" class="valid" aria-invalid="false" maxlength="13">
                         </label>
                       </section>
-                    </div>
+                    </div>-->
                   </div>
                   <section>
                     <label class="label">主要产品</label>
@@ -86,45 +98,55 @@
                     </label>
                   </section>
                 </fieldset>
+
                 <fieldset>
                   <legend>其他信息</legend>
-                  <section class="col col-6">
-                    <label class="label">客户来源</label>
-                    <div class="col col-8">
-                      <label class="select">
-                        <select name="source" formControlName="source">
-                          <option *ngFor="let c of customerList.result?.sourceList" [selected]="customer_info.result?.c_source == c.category_id || this.c_id == 0" value="{{c.category_id}}">{{c.category_desc}}</option>
-                        </select> <i></i> </label></div>
-                    <div class="col col-4">
-                      <button type="button" class="btn btn-primary btn-sm btn-block">
-                        添加客户来源
-                      </button>
-                    </div>
-                  </section>
-
-                  <section class="col col-6">
-                    <label class="label">协助跟进人</label>
-                    <label class="select">
-                      <select name="service_person" formControlName="service_person">
-                        <option *ngFor="let u of customerList.result?.userList" [selected]="customer_info.result?.c_service_person == u.id || this.c_id == 0" value="{{u.id}}">{{u.u_username}}</option>
-                      </select> <i></i> </label>
-                  </section>
-                  <section class="col col-6">
-                    <label class="label">客户配置</label>
-                    <label class="input">
-                      <input type="text" formControlName="config" name="config" placeholder="请输入客户配置 "/>
-                    </label>
-                  </section>
-
+                  <button type="button" class="btn btn-primary btn-sm " >
+                    展开收起
+                  </button>
                 </fieldset>
-                <fieldset>
-                  <legend>备注说明</legend>
-                  <section>
-                    <label class="textarea textarea-resizable">
-                      <textarea formControlName="notes" name="notes" class="custom-scroll" rows="3"></textarea>
-                    </label>
-                  </section>
-                </fieldset>
+                <div id="">
+                  <fieldset>
+                    <section class="col col-6">
+                      <div class="col-lg-8">
+                        <label class="label "> 客户来源</label>
+                        <label class="select">
+                            <select name="source" formControlName="source">
+                                <option *ngFor="let c of customerList.result?.sourceList" [selected]="customer_info.result?.c_source == c.category_id || this.c_id == 0" value="{{c.category_id}}">{{c.category_desc}}</option>
+                            </select> <i></i> </label></div>
+                        <div class="col col-4">
+                            <button type="button" class="btn btn-primary btn-sm btn-block">
+                                添加客户来源
+                            </button>
+                        </div>
+                    </section>
+
+                      <section class="col col-6">
+                          <label class="label">协助跟进人</label>
+                          <label class="select">
+                              <select name="service_person" formControlName="service_person">
+                                  <option *ngFor="let u of customerList.result?.userList" [selected]="customer_info.result?.c_service_person == u.id || this.c_id == 0" value="{{u.id}}">{{u.u_username}}</option>
+                              </select> <i></i> </label>
+                      </section>
+                      <section class="col col-6">
+                          <label class="label">客户配置</label>
+                          <label class="input">
+                              <input type="text" formControlName="config" name="config" placeholder="请输入客户配置 "/>
+                          </label>
+                      </section>
+
+                    <section class="col col-sm-12">
+                      <label class="label">备注说明</label>
+                      <label class="textarea textarea-resizable">
+                        <textarea formControlName="notes" name="notes" class="custom-scroll" rows="3"></textarea>
+                      </label>
+                    </section>
+
+                  </fieldset>
+
+                </div>
+
+
                 <footer>
                   <button type="submit" class="btn btn-primary">
                     提交

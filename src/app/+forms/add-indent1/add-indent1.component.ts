@@ -115,6 +115,7 @@ export class AddIndent1Component implements OnInit {
         });
     setTimeout(() => {
       if(this.orderList['status'] == 202){
+        alert(this.orderList['msg'] );
         this.cookieStore.removeAll();
         this.router.navigate(['/auth/login']);
       }

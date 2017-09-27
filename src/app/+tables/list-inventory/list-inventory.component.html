@@ -20,60 +20,41 @@
         <div class="row">
           <article class="col-sm-12">
             <div class="navbar navbar-default">
-              <!-- Collect the nav links, forms, and other content for toggling -->
+
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <!--<ul class="nav navbar-nav">-->
-                  <!--<li dropdown class="dropdown dropdown-large">-->
-                    <!--<a dropdownToggle>自定义显示内容 <b class="caret"></b></a>-->
-                    <!--<ul *dropdownMenu class="dropdown-menu dropdown-menu-large row">-->
-                      <!--<li>-->
-                        <!--<a (click)="(null)">订单号/合同号</a>-->
-                      <!--</li>-->
-                      <!--<li>-->
-                        <!--<a (click)="(null)">类型</a>-->
-                      <!--</li>-->
-                      <!--<li>-->
-                        <!--<a (click)="(null)">规格/参数</a>-->
-                      <!--</li>-->
-                      <!--<li class="divider"></li>-->
-                      <!--<li>-->
-                        <!--<a (click)="(null)">购买公司</a>-->
-                      <!--</li>-->
-                    <!--</ul>-->
-                  <!--</li>-->
-                <!--</ul>-->
 
                 <form class="navbar-form navbar-left" role="search" [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate>
                   <div class="form-group">
                     <input type="text" name="keyword" maxlength="15" formControlName="keyword" class="form-control" placeholder="请输入搜索内容">
                   </div>
                   <button type="submit" class="btn btn-default">
+                    <i class="glyphicon glyphicon-search"></i>
                     搜索
                   </button>
                 </form>
-                <!--<ul class="nav navbar-nav navbar-right">-->
-                  <!--<li dropdown class="dropdown">-->
-                    <!--<a (click)="(null)" dropdownToggle>自定义显示内容 <span class="caret"></span></a>-->
-                    <!--<ul *dropdownMenu  role="menu" class="dt-button-collection dropdown-menu" >-->
-                      <!--<li class="dt-button  active"  >-->
-                        <!--<a (click)="(null)">ID</a>-->
-                      <!--</li>-->
-                      <!--<li class="dt-button  active " >-->
-                        <!--<a (click)="(null)" >订单号/合同号</a>-->
-                      <!--</li>-->
-                      <!--<li class="dt-button active " tabindex="0" >-->
-                        <!--<a (click)="(null)">类型</a>-->
-                      <!--</li>-->
-                      <!--<li class="dt-button active " tabindex="0" >-->
-                        <!--<a (click)="(null)">规格/参数</a>-->
-                      <!--</li>-->
-                      <!--<li class="divider"></li>-->
-                      <!--<li class="dt-button  ">-->
-                        <!--<a (click)="(null)">购买公司</a>-->
-                      <!--</li>-->
-                    <!--</ul>-->
-                  <!--</li>-->
-                <!--</ul>-->
+                <!--<ul class="nav navbar-nav navbar-right">
+                  <li dropdown class="dropdown">
+                    <a (click)="(null)" dropdownToggle>自定义显示内容 <span class="caret"></span></a>
+                    <ul *dropdownMenu  role="menu" class="dt-button-collection dropdown-menu" >
+                      <li class="dt-button  active"  >
+                        <a (click)="(null)">ID</a>
+                      </li>
+                      <li class="dt-button  active " >
+                        <a (click)="(null)" >订单号/合同号</a>
+                      </li>
+                      <li class="dt-button active " tabindex="0" >
+                        <a (click)="(null)">类型</a>
+                      </li>
+                      <li class="dt-button active " tabindex="0" >
+                        <a (click)="(null)">规格/参数</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li class="dt-button  ">
+                        <a (click)="(null)">购买公司</a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>-->
 
               </div>
 
@@ -112,7 +93,7 @@
               </label>
             </td>
             <td>{{ sl.storehouse_name }}</td>
-            <td>{{ sl.storehouse_keeper }}</td>
+            <td>{{ sl.u_username }}</td>
             <td>{{ sl.storehouse_phone }}</td>
             <td>
               <span [ngSwitch]="sl.storehouse_status">
@@ -130,8 +111,18 @@
           </tbody>
 
         </sa-datatable>
-        <!-- 分页部分-->
-        <div class="dataTables_paginate">
+        <!-- 底部-（分页部分）-->
+        <div class="dt-toolbar">
+          <div class="col-xs-12 col-sm-6">
+            <button  class="btn btn-default" (click)="deleteStorehouseAll(storehouseList.result?.current_page)">
+              <i class="fa fa-trash-o fa-lg"></i>
+              删除所选
+            </button>
+
+          </div>
+          <div class="col-sm-6 col-xs-12 hidden-xs text-right">
+
+          <div class="dataTables_paginate">
           <ul class="pagination">
             <li>
               <a (click)="pagination(storehouseList.result?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>
@@ -141,79 +132,12 @@
             </li>
           </ul>
         </div>
+
+          </div>
+        </div>
       </div>
     </div>
   </sa-widget>
-
-  <div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-       aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" (click)="lgModal.hide()" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <h4 class="modal-title">添加仓库</h4>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                <label >仓库名称</label>
-                <input type="text" class="form-control"  placeholder="请输入仓库名称">
-              </div>
-            </div>
-            <div class="col-md-6">
-            <div class="form-group">
-              <label > 仓库状态</label>
-              <select class="form-control" >
-                <option value="0" disabled>选择仓库状态</option>
-                <option>正常</option>
-                <option>维修</option>
-                <option>暂停</option>
-                <option>废除</option>
-              </select>
-            </div>
-          </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label > 保管员</label>
-                <select class="form-control" >
-                  <option value="0" disabled>选择保管员</option>
-                  <option></option>
-                  <option></option>
-                </select>
-              </div>
-            </div>
-
-            <div class="col-md-6">
-              <div class="form-group">
-                <label >保管室座机</label>
-                <input type="tel" class="form-control"  placeholder="请输入保管室座机">
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                <label >备注说明</label>
-                <textarea class="form-control" placeholder="备注说明" rows="5" required></textarea>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" (click)="lgModal.hide()">
-            取消
-          </button>
-          <button type="button" class="btn btn-primary">
-            确定
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
 
 </div>
 

@@ -146,6 +146,7 @@ div.dataTables_paginate {
     float: right;
     margin: 0;
 }
+.pagination{margin:0;}
 div.dataTables_paginate ul.pagination {
     margin: 2px 0;
     white-space: nowrap;
@@ -165,6 +166,9 @@ div.dataTables_paginate ul.pagination {
 .btn-xs {
     padding: 1px 5px;
     margin: 2px;
+}
+.btn-20{
+    margin-top:-20px;
 }
 .dd-item>a{
     margin: 30px -4px;
@@ -427,7 +431,9 @@ div.dataTables_paginate ul.pagination {
 .margin-top-0 {
     margin-top: 0!important
 }
-
+.margin-top-26{
+    margin-top:26px!important
+}
 .margin-bottom-0 {
     margin-bottom: 0!important
 }

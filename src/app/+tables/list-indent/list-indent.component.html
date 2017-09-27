@@ -4,7 +4,6 @@
                         class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
   </div>
   <div class="box-header with-border" >
-    <!--(click)="lgModal.show()"-->
     <a class="btn btn-success btn-sm" routerLink="/forms/indent1/0">
       <span class="glyphicon glyphicon-plus"></span>添加订单</a>
   </div>
@@ -17,70 +16,53 @@
     <div>
 
       <div class="widget-body no-padding">
-
+        <div class="row">
           <article class="col-sm-12">
 
             <div class="navbar navbar-default">
 
-              <!-- Collect the nav links, forms, and other content for toggling -->
+
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <!--<ul class="nav navbar-nav">-->
-                  <!--<li dropdown class="dropdown dropdown-large">-->
-                    <!--<a dropdownToggle>自定义显示内容 <b class="caret"></b></a>-->
 
-                    <!--<ul *dropdownMenu class="dropdown-menu dropdown-menu-large row">-->
-
-
-                      <!--<li>-->
-                        <!--<a (click)="(null)">订单号/合同号</a>-->
-                      <!--</li>-->
-                      <!--<li>-->
-                        <!--<a (click)="(null)">类型</a>-->
-                      <!--</li>-->
-                      <!--<li>-->
-                        <!--<a (click)="(null)">规格/参数</a>-->
-                      <!--</li>-->
-                      <!--<li class="divider"></li>-->
-                      <!--<li>-->
-                        <!--<a (click)="(null)">购买公司</a>-->
-                      <!--</li>-->
-
-                    <!--</ul>-->
-                  <!--</li>-->
-                <!--</ul>-->
                 <form class="navbar-form navbar-left" role="search" [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate>
                   <div class="form-group">
                     <input type="text" name="keyword" maxlength="15" formControlName="keyword" class="form-control" placeholder="请输入搜索内容">
                   </div>
                   <button type="submit" class="btn btn-default">
+                    <i class="glyphicon glyphicon-search"></i>
                     搜索
                   </button>
                 </form>
-                <!--<ul class="nav navbar-nav navbar-right">-->
-                  <!--<li dropdown class="dropdown">-->
-                    <!--<a (click)="(null)" dropdownToggle>自定义显示内容 <span class="caret"></span></a>-->
-                    <!--<ul *dropdownMenu class="dropdown-menu" role="menu">-->
-                      <!--<li>-->
-                        <!--<a (click)="(null)">订单号/合同号</a>-->
-                      <!--</li>-->
-                      <!--<li>-->
-                        <!--<a (click)="(null)">类型</a>-->
-                      <!--</li>-->
-                      <!--<li>-->
-                        <!--<a (click)="(null)">规格/参数</a>-->
-                      <!--</li>-->
-                      <!--<li class="divider"></li>-->
-                      <!--<li>-->
-                        <!--<a (click)="(null)">购买公司</a>-->
-                      <!--</li>-->
-                    <!--</ul>-->
-                  <!--</li>-->
-                <!--</ul>-->
-              </div><!-- /.navbar-collapse -->
+                <!--<ul class="nav navbar-nav navbar-right">
+                  <li dropdown class="dropdown">
+                    <a (click)="(null)" dropdownToggle>自定义显示内容 <span class="caret"></span></a>
+                    <ul *dropdownMenu  role="menu" class="dt-button-collection dropdown-menu" >
+                      <li class="dt-button  active"  >
+                        <a (click)="(null)">ID</a>
+                      </li>
+                      <li class="dt-button  active " >
+                        <a (click)="(null)" >订单号/合同号</a>
+                      </li>
+                      <li class="dt-button active " tabindex="0" >
+                        <a (click)="(null)">类型</a>
+                      </li>
+                      <li class="dt-button active " tabindex="0" >
+                        <a (click)="(null)">规格/参数</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li class="dt-button  ">
+                        <a (click)="(null)">购买公司</a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>-->
+
+              </div>
 
             </div>
           </article>
         </div>
+
 
         <sa-datatable tableClass="table table-striped table-bordered table-hover smart-form">
           <thead>
@@ -131,259 +113,53 @@
           </tbody>
 
         </sa-datatable>
-        <!-- 分页部分-->
-        <div class="dataTables_paginate">
-          <ul class="pagination">
-            <li>
-              <a (click)="pagination(orderList.result?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>
-            </li>
-            <li>
-              <a (click)="pagination(orderList.result?.next_page_url)"><i class="fa fa-arrow-right"></i></a>
-            </li>
-          </ul>
+        <!-- 底部-（分页部分）-->
+        <div class="dt-toolbar">
+          <div class="col-xs-12 col-sm-6">
+            <button  class="btn btn-default" (click)="deleteOrderAll(orderList.result?.current_page)">
+              <i class="fa fa-trash-o fa-lg"></i>
+              删除所选
+            </button>
+
+          </div>
+          <div class="col-sm-6 col-xs-12 hidden-xs text-right">
+            <!--<ul class="pagination pagination-sm">-->
+              <!--<li class="disabled">-->
+                <!--<a href="">上一页</a>-->
+              <!--</li>-->
+              <!--<li class="active">-->
+                <!--<a href="">1</a>-->
+              <!--</li>-->
+              <!--<li>-->
+                <!--<a href="">2</a>-->
+              <!--</li>-->
+              <!--<li>-->
+                <!--<a href="">3</a>-->
+              <!--</li>-->
+              <!--<li>-->
+                <!--<a href="">...</a>-->
+              <!--</li>-->
+              <!--<li>-->
+                <!--<a href="">99</a>-->
+              <!--</li>-->
+              <!--<li>-->
+                <!--<a href="">下一页</a>-->
+              <!--</li>-->
+            <!--</ul>-->
+            <ul class="pagination">
+              <li>
+                <a (click)="pagination(orderList.result?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>
+              </li>
+              <li>
+                <a (click)="pagination(orderList.result?.next_page_url)"><i class="fa fa-arrow-right"></i></a>
+              </li>
+            </ul>
+          </div>
         </div>
+
+        </div>
+
       </div>
   </sa-widget>
-
-  <div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-       aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" (click)="lgModal.hide()" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <h4 class="modal-title">添加订单</h4>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                <label >订单号/合同号</label>
-                <input type="text" class="form-control"  placeholder="请输入订单号/合同号">
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label > 一级类型</label>
-                <select class="form-control" >
-                  <option value="0" disabled>选择一级类型</option>
-                  <option>煤矿</option>
-                  <option>磷矿</option>
-                  <option>铅锌矿</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label > 二级类型</label>
-                <select class="form-control" >
-                  <option value="0" disabled>选择二级类型</option>
-                  <option>贫煤(PM)</option>
-                  <option>贫瘦煤(PS)</option>
-                  <option>焦煤(JM)</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label > </label>
-                <button type="button" class="btn btn-primary btn-sm btn-block">
-                  添加类型
-                </button>
-                <!-- 直接跳到设置产品类型页面-->
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-8">
-              <div class="form-group">
-                <label > 型号</label>
-                <select class="form-control" >
-                  <option value="0" disabled>选择型号</option>
-                  <option>PM5</option>
-                  <option>PS2</option>
-                  <option>JM6</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label > </label>
-                <button type="button" class="btn btn-primary btn-sm btn-block">
-                  添加型号
-                </button>
-              </div>
-            </div>
-            <div class="col-md-12">
-              <div class="form-group">
-                <label > 参数名称</label>
-                <input type="text" class="form-control" placeholder="请输入参数名称" required>
-              </div>
-              <div class="form-group">
-                <label > 参数内容</label>
-                <textarea class="form-control" placeholder="请输入参数内容" rows="3" required></textarea>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label > 数量</label>
-                <input type="text" class="form-control"  placeholder="请输入数量">
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label > 单位</label>
-                <input type="text" class="form-control"  placeholder="请输入单位">
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label > 单价/单位</label>
-                <input type="text" class="form-control"  placeholder="请输入单价/单位">
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label > 总价/单位</label>
-                <input type="text" class="form-control"  placeholder="请输入总价/单位">
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="col-md-8">
-                <div class="form-group">
-                  <label > 结算方式</label>
-                  <select class="form-control" >
-                    <option value="0" disabled>选择结算方式</option>
-                    <option>现金</option>
-                    <option>转账</option>
-                    <option>分期</option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label > </label>
-                  <button type="button" class="btn btn-primary btn-sm btn-block">
-                    添加结算方式
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label > 出库仓库</label>
-                <select class="form-control" >
-                  <option value="0" disabled>选择出库仓库</option>
-                  <option></option>
-                  <option></option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label > 出库时间</label>
-                <select class="form-control" >
-                  <option value="0" disabled>选择出库时间</option>
-                  <option></option>
-                  <option></option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label >销售质检员</label>
-                <select class="form-control" >
-                  <option value="0" disabled>选择销售质检员</option>
-                  <option></option>
-                  <option></option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label > 运输方式</label>
-                <select class="form-control" >
-                  <option value="0" disabled>选择运输方式</option>
-                  <option>公路运输</option>
-                  <option>铁路运输</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label >运单号</label>
-                <input type="text" class="form-control"  placeholder="请输入运单号">
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label >交货地点</label>
-                <input type="text" class="form-control"  placeholder="请输入交货地点">
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label > 购买公司</label>
-                <select class="form-control" >
-                  <option value="0" disabled>选择购买公司</option>
-                  <option></option>
-                  <option></option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label > 销售人员</label>
-                <select class="form-control" >
-                  <option value="0" disabled>选择销售人员</option>
-                  <option></option>
-                  <option></option>
-                </select>
-              </div>
-            </div>
-
-
-            <div class="col-md-6">
-              <label >订单是否完成</label>
-              <div class="inline-group">
-                <label >
-                  <input type="radio" name="" checked="checked">
-                  <i></i>是</label>
-                <label >
-                  <input type="radio" name="">
-                  <i></i>否</label>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                <label >备注说明</label>
-                <textarea class="form-control" placeholder="备注说明" rows="5" required></textarea>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" (click)="lgModal.hide()">
-            取消
-          </button>
-          <button type="button" class="btn btn-primary">
-            确定
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
 
 </div>

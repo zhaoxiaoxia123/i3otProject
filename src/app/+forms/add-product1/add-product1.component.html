@@ -21,21 +21,20 @@
                   <input type="hidden" name="p_id" formControlName="p_id" >
                   <div class="row">
                     <section class="col col-6">
-                      <div class="col col-4">
+                      <div class="col-lg-4">
                         <label class="label "> 一级类型</label>
                         <label class="select">
                           <select name="category_id1" formControlName="category_id1" (change)="getProductChild($event.target.value)">
                             <option *ngFor="let c of productList.result?.categoryIdList" [selected]="product_info.result?.category_id1 == c.category_id || this.p_id == 0" value="{{c.category_id}}">{{c.category_desc}}</option>
                           </select> <i></i> </label></div>
-                      <div class="col col-4">
+                      <div class="col col-lg-4">
                         <label class="label "> 二级类型</label>
                         <label class="select">
                           <select name="category_id2" formControlName="category_id2" (change)="changeChild($event.target.value)">
                             <option *ngFor="let pc of childCategory" [selected]="product_info.result?.category_id2 == pc.category_id" value="{{pc.category_id}}">{{pc.category_desc}}</option>
                           </select> <i></i> </label></div>
-                      <div class="col col-4">
-                        <label > </label>
-                        <button type="button" class="btn btn-primary btn-sm btn-block">
+                      <div class="col col-lg-2">
+                        <button type="button" class="btn btn-info btn-sm margin-top-26 ">
                           添加类型
                         </button>
                       </div>
@@ -136,7 +135,7 @@
                     <!--</section>-->
                   <!--</div>-->
                   <div class="row">
-                  <section class="col col-8">
+                  <section class="col col-10">
                     <label class="label">参数内容</label>
                     <input type="hidden" name="category_id" formControlName="category_id">
                     <label class="textarea textarea-resizable">
@@ -144,12 +143,12 @@
                     </label>
                   </section>
 
-                  <section class="col col-4">
-                    <label > </label>
-                    <button type="button" (click)="updateCategory()" class="btn btn-primary btn-sm btn-block">
-                      更新到模版
-                    </button>
-                  </section>
+
+                    <div class="col-lg-2">
+                      <button type="button" class="btn btn-info btn-sm margin-top-26 ">
+                        更新到模版
+                      </button>
+                    </div>
                   </div>
                   <section>
                     <label class="label">备注说明</label>
@@ -159,30 +158,40 @@
                   </section>
 
                 </fieldset>
+
                 <fieldset>
                   <legend>其他信息</legend>
-                  <section class="col col-6">
-                    <label class="label "> 运输车辆</label>
-                    <label class="input">
-                      <input type="text" maxlength="20" name="plate_number" formControlName="plate_number">
-                    </label>
-                  </section>
-                  <section class="col col-6">
-                    <label class="label "> 运输人员</label>
-                    <label class="input">
-                      <input type="text" maxlength="20" name="courier" formControlName="courier"></label>
-                  </section>
-                  <!--<section class="col col-6">-->
+                  <button type="button" class="btn btn-primary btn-sm " >
+                    展开收起
+                  </button>
+                </fieldset>
+
+                <div id="">
+                  <fieldset>
+                    <section class="col col-6">
+                      <label class="label "> 运输车辆</label>
+                      <label class="input">
+                        <input type="text" maxlength="20" name="plate_number" formControlName="plate_number">
+                      </label>
+                    </section>
+                    <section class="col col-6">
+                      <label class="label "> 运输人员</label>
+                      <label class="input">
+                        <input type="text" maxlength="20" name="courier" formControlName="courier"></label>
+                    </section>
+                    <!--<section class="col col-6">-->
                     <!--<label class="label "> 所属公司</label>-->
                     <!--<label class="select">-->
-                      <!--<select name="cid" formControlName="cid">-->
-                        <!--<option value="0" disabled>选择所属公司</option>-->
-                        <!--<option value="1"></option>-->
-                        <!--<option value="2"></option>-->
-                        <!--<option value="3"></option>-->
-                      <!--</select> <i></i> </label>-->
-                  <!--</section>-->
-                </fieldset>
+                    <!--<select name="cid" formControlName="cid">-->
+                    <!--<option value="0" disabled>选择所属公司</option>-->
+                    <!--<option value="1"></option>-->
+                    <!--<option value="2"></option>-->
+                    <!--<option value="3"></option>-->
+                    <!--</select> <i></i> </label>-->
+                    <!--</section>-->
+                  </fieldset>
+                </div>
+
                 <footer>
                   <button type="submit" class="btn btn-primary">
                     提交
