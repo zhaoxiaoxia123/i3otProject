@@ -17,12 +17,8 @@
       <div class="widget-body no-padding">
         <div class="row">
           <article class="col-sm-12">
-
             <div class="navbar navbar-default">
-
-
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
                 <form class="navbar-form navbar-left" role="search" [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate>
                   <div class="form-group">
                     <input type="text" name="keyword" maxlength="15" formControlName="keyword" class="form-control" placeholder="请输入搜索内容">
@@ -55,9 +51,7 @@
                     </ul>
                   </li>
                 </ul>-->
-
               </div>
-
             </div>
           </article>
         </div>
@@ -70,7 +64,7 @@
                 <i></i>
               </label>
             </td>
-            <th>产品编号</th>
+            <th>产品ID</th>
             <th>产品名称</th>
             <th>产品类型</th>
             <th>数量</th>
@@ -107,51 +101,33 @@
               <a class="btn btn-danger btn-xs" (click)="deleteProduct( pl.p_id ,productList.result?.current_page)">
                 <span class="glyphicon glyphicon-remove"></span>删除
               </a>
+              <a class="btn btn-success btn-xs" (click)="lgModal.show()"><span class="glyphicon glyphicon-zoom-in"></span>详情</a>
             </td>
           </tr>
           </tbody>
         </sa-datatable>
+        <!-- 分页部分-->
         <!-- 底部-（分页部分）-->
         <div class="dt-toolbar">
           <div class="col-xs-12 col-sm-6">
-            <button  class="btn btn-default">
+            <button  class="btn btn-default" (click)="deleteProductAll(productList.result?.current_page)">
               <i class="fa fa-trash-o fa-lg"></i>
               删除所选
             </button>
 
           </div>
           <div class="col-sm-6 col-xs-12 hidden-xs text-right">
-            <ul class="pagination pagination-sm">
-              <li class="disabled">
-                <a href="">上一页</a>
-              </li>
-              <li class="active">
-                <a href="">1</a>
-              </li>
-              <li>
-                <a href="">2</a>
-              </li>
-              <li>
-                <a href="">3</a>
-              </li>
-              <li>
-                <a href="">...</a>
-              </li>
-              <li>
-                <a href="">99</a>
-              </li>
-              <li>
-                <a href="">下一页</a>
-              </li>
-            </ul>
-            <!--<ul class="pagination">
-              <li>
-                <a (click)="pagination(storehouseList.result?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>
-              </li>
-              <li>
-                <a (click)="pagination(storehouseList.result?.next_page_url)"><i class="fa fa-arrow-right"></i></a>
-              </li>
-            </ul>-->
+
+        <div class="dataTables_paginate">
+          <ul class="pagination">
+            <li>
+              <a (click)="pagination(productList.result?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>
+            </li>
+            <li>
+              <a (click)="pagination(productList.result?.next_page_url)"><i class="fa fa-arrow-right"></i></a>
+            </li>
+          </ul>
+        </div>
           </div>
         </div>
 
@@ -159,6 +135,93 @@
     </div>
   </sa-widget>
 
+  <div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" (click)="lgModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">读取产品名称-ID</h4>
+        </div>
+        <div class="modal-body">
 
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="text-overflow-y" >
+                <P class="alert alert-info">基本信息</P>
+                <table class="table table-striped table-forum">
+                  <tbody>
+                  <tr>
+                    <td class="width-120">一级类型:</td>
+                    <td class="">读取一级类型</td>
+                  </tr>
+                  <tr><td class="width-120">二级类型:</td>
+                    <td class="">读取二级类型</td>
+                  </tr>
+                  <tr>
+                    <td class="width-120">产品ID:</td>
+                    <td class="">读取产品ID</td>
+                  </tr>
+                  <tr><td class="width-120">产品名称：</td>
+                    <td class=""></td>
+                  </tr>
+                  <tr>
+                    <td class="width-120">数量：</td>
+                    <td class=""></td>
+                  </tr>
+                  <tr>
+                    <td class="width-120">计量单位：</td>
+                    <td class=""></td>
+                  </tr>
+                  <tr><td class="width-120">内部质检员：</td>
+                    <td class=""></td>
+                  </tr>
+                  <tr>
+                    <td class="width-120">生产日期:</td>
+                    <td class="">读取生产日期</td>
+                  </tr>
+                  <tr><td class="width-120">存放仓库:</td>
+                    <td class=""></td>
+                  </tr>
+                  <tr><td class="width-120">入库时间:</td>
+                    <td class=""></td>
+                  </tr>
+                  <tr><td class="width-120">是否合格:</td>
+                    <td class=""></td>
+                  </tr>
+                  <tr><td class="width-120">参数内容:</td>
+                    <td class=""></td>
+                  </tr>
+                  <tr><td class="width-120">备注说明:</td>
+                    <td class=""></td>
+                  </tr>
+                  </tbody>
+                </table>
+                <P class="alert alert-info">其他信息</P>
+                <table class="table table-striped table-forum">
+                  <tbody>
+                  <tr>
+                    <td class="width-120">运输车辆:</td>
+                    <td class="">读取运输车辆</td>
+                  </tr>
+                  <tr><td class="width-120">运输人员:</td>
+                    <td class="">读取运输人员</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" (click)="lgModal.hide()">
+            返回
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>

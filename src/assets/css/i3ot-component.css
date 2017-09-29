@@ -563,7 +563,7 @@ fieldset {
 
 
 .widget-body .well {
-    margin-bottom: 0;
+    margin-bottom: 10px;
 }
 .jarviswidget.well {
     margin: 0 0 30px;
@@ -982,6 +982,9 @@ table.dataTable {
     margin-bottom: 6px!important;
     max-width: none!important;
 }
+.table-responsive{
+    min-height:100px;
+}
 .smart-form *,.smart-form :after,.smart-form :before {
     margin: 0;
     padding: 0;
@@ -1270,6 +1273,7 @@ table.has-columns-hidden>tbody>tr.row-detail>td>ul>li>span.columnTitle {
     width: 100%;
     float: left;
     border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
     background: #fafafa
 }
 
@@ -1518,6 +1522,15 @@ ul.ColVis_collection li label {
 .dataTables_scroll .dataTables_scrollHead {
     background: #f4f4f4
 }
+.table-forum tr td {
+    border-top-style: dashed!important;
+    padding-top: 12px!important;
+    padding-bottom: 12px!important
+}
+
+
+
+
 
 
 /*员工详情*/

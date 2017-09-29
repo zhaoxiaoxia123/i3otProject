@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FadeInTop} from '../../shared/animations/fade-in-top.decorator';
 import {Http} from '@angular/http';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
+import {GlobalService} from '../../core/global.service';
 
 @FadeInTop()
 @Component({
@@ -43,7 +44,8 @@ export class SettingProduct4parametersComponent implements OnInit {
   constructor(
       private http:Http,
       private router:Router,
-      private cookieStore:CookieStoreService
+      private cookieStore:CookieStoreService,
+      private globalService:GlobalService
   ) {
       this.getCategory();
       this.getSpecification();
@@ -57,7 +59,7 @@ export class SettingProduct4parametersComponent implements OnInit {
      * 获取型号列表（类型的一级目录及二级目录）
      */
     getCategory(){
-        this.http.get('http://182.61.53.58:8080/api/v1/getCategory?category_type=6&type=1&sid='+this.cookieStore.getCookie('sid'))
+        this.http.get(this.globalService.getDomain()+'/api/v1/getCategory?category_type=6&type=1&sid='+this.cookieStore.getCookie('sid'))
             .map((res)=>res.json())
             .subscribe((data)=>{
                 this.categoryList = data;
@@ -86,7 +88,7 @@ export class SettingProduct4parametersComponent implements OnInit {
      * 提交产品类型下的参数/规格信息
      */
     onSubmit(){
-        this.http.post('http://182.61.53.58:8080/api/v1/addCategoryParam',{
+        this.http.post(this.globalService.getDomain()+'/api/v1/addCategoryParam',{
             'category_tab_name':this.category_tab_name,
             'category_tab_value':this.category_tab_value,
             'category_id':this.category_id,
@@ -111,7 +113,7 @@ export class SettingProduct4parametersComponent implements OnInit {
      * 获取规格/参数列表信息
      */
     getSpecification(){
-        let url = 'http://182.61.53.58:8080/api/v1/getSpecification';
+        let url = this.globalService.getDomain()+'/api/v1/getSpecification';
         if(this.select_category_id){
             url += '?category_id='+this.select_category_id;
         }
@@ -122,13 +124,15 @@ export class SettingProduct4parametersComponent implements OnInit {
                 this.specification = data;
             });
         setTimeout(() => {
-            this.select_id = this.specification['category_id'];
+            this.select_id = this.select_category_id;
+            console.log('select_i：---');
+            console.log(this.select_id);
             // this.title = this.specification['title'];
             this.category_id = this.specification['category_id'];
             this.select_cid = this.specification['select_cid'];
             this.edit_key = '';
-            console.log('this.select_cid:-----');
-            console.log(this.select_cid);
+            // console.log('this.select_cid:-----');
+            // console.log(this.select_cid);
         }, 500);
     }
 
@@ -149,7 +153,7 @@ export class SettingProduct4parametersComponent implements OnInit {
      */
     deleteSpecification(key:any){
         if(confirm('您确定要删除该条信息吗？')) {
-            this.http.delete('http://182.61.53.58:8080/api/v1/deleteSpecification?category_id=' + this.select_category_id+'&key='+key)
+            this.http.delete(this.globalService.getDomain()+'/api/v1/deleteSpecification?category_id=' + this.select_category_id+'&key='+key)
                 .map((res)=>res.json())
                 .subscribe((data)=>{
                     this.specification = data;

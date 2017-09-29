@@ -57,18 +57,16 @@
                             部门
                           </alert>
                           <div class="table-responsive">
-                            <table class="table table-hover table-bordered">
+                            <table class="table table-hover table-bordered dataTable">
                               <thead>
                               <tr>
                                 <th>部门</th>
-                                <th>人数</th>
                                 <th>操作</th>
                               </tr>
                               </thead>
                               <tbody>
                               <tr *ngFor="let cl of categoryList.result?.data">
                                 <td>{{ cl.category_desc }}</td>
-                                <td>2</td>
                                 <td>
                                   <div *ngIf="cid == super_admin_id || cl.c_id == cid">
                                   <a class="btn btn-warning btn-xs" (click)="editCategory(cl.category_id, cl.category_desc)" ><span class="glyphicon glyphicon-pencil"></span>修改</a>

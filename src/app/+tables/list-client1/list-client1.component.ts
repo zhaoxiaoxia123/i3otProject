@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Http} from '@angular/http';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 import {Router} from '@angular/router';
+import {GlobalService} from '../../core/global.service';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-list-client1',
@@ -13,18 +15,39 @@ export class ListClient1Component implements OnInit {
   page : any;
   prev : boolean = false;
   next : boolean = false;
+  formModel : FormGroup;
   //用作全选和反选
   selects : Array<any> = [];
   check : boolean = false;
   constructor(
+      fb:FormBuilder,
       private http:Http,
       private router : Router,
-      private cookiestore:CookieStoreService
+      private cookiestore:CookieStoreService,
+      private globalService:GlobalService
   ) {
+    this.formModel = fb.group({
+      keyword:[''],
+    });
     this.getCustomerList('1');
+    window.scrollTo(0,0);
+
   }
 
   ngOnInit() {
+  }
+
+
+  /**
+   * 提交搜索
+   */
+  onSubmit(){
+    if( this.formModel.value['keyword'].trim() == ''){
+      alert('请输入需要搜索的关键字');
+      return false;
+    } else {
+      this.getCustomerList('1');
+    }
   }
 
   /**
@@ -32,7 +55,12 @@ export class ListClient1Component implements OnInit {
    * @param number
    */
   getCustomerList(number:string) {
-    this.http.get('http://182.61.53.58:8080/api/v1/getCustomerList?role=2&page='+number+'&sid='+this.cookiestore.getCookie('sid'))
+
+    let url = this.globalService.getDomain()+'/api/v1/getCustomerList?role=2&page='+number+'&sid='+this.cookiestore.getCookie('sid');
+    if(this.formModel.value['keyword'].trim() != ''){
+      url += '&keyword='+this.formModel.value['keyword'].trim();
+    }
+    this.http.get(url)
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.customerList = data;
@@ -55,8 +83,9 @@ export class ListClient1Component implements OnInit {
         } else {
           this.prev = false;
         }
+        this.selects = [];
         for (let entry of this.customerList['result']['data']) {
-          this.selects[entry['o_id']] = false;
+          this.selects[entry['c_id']] = false;
         }
         this.check = false;
       }
@@ -107,16 +136,18 @@ export class ListClient1Component implements OnInit {
   /**
    * 删除客户信息
    * @param cid
+   *
    */
   deleteCustomer(cid:any,current_page:any){
     if(confirm('您确定要删除该条信息吗？')) {
-      this.http.delete('http://182.61.53.58:8080/api/v1/deleteCustomerById?cid=' + cid + '&role=2&page=' + current_page)
+      this.http.delete(this.globalService.getDomain()+'/api/v1/deleteCustomerById?c_id=' + cid + '&type=id&role=2&page=' + current_page+'&sid='+this.cookiestore.getCookie('sid'))
           .map((res) => res.json())
           .subscribe((data) => {
             this.customerList = data;
           });
       setTimeout(() => {
         // console.log(this.userList);
+        alert(this.customerList['msg']);
         if(this.customerList['status'] == 202){
           this.cookiestore.removeAll();
           this.router.navigate(['/auth/login']);
@@ -136,4 +167,46 @@ export class ListClient1Component implements OnInit {
       }, 300);
     }
   }
+
+  /**
+   * 全选删除
+   * @param current_page
+   */
+  deleteCustomerAll(current_page:any){
+  if(confirm('删除后将不可恢复，您确定要删除吗？')) {
+    let ids : string = '';
+    this.selects.forEach((val, idx, array) => {
+    if(val == true){
+    ids += idx+',';
+  }
+  });
+    //type :all 全选删除  id：单条删除
+    this.http.delete(this.globalService.getDomain()+'/api/v1/deleteCustomerById?ids=' + ids + '&type=all&role=2&page=' + current_page+'&sid='+this.cookiestore.getCookie('sid'))
+        .map((res) => res.json())
+        .subscribe((data) => {
+          this.customerList = data;
+        });
+    setTimeout(() => {
+      // console.log(this.userList);
+      alert(this.customerList['msg']);
+      if(this.customerList['status'] == 202){
+        this.cookiestore.removeAll();
+        this.router.navigate(['/auth/login']);
+      }
+      if (this.customerList) {
+        if (this.customerList['result']['current_page'] == this.customerList['result']['last_page']) {
+          this.next = true;
+        } else {
+          this.next = false;
+        }
+        if (this.customerList['result']['current_page'] == 1) {
+          this.prev = true;
+        } else {
+          this.prev = false;
+        }
+      }
+    }, 300);
+  }
+}
+
 }

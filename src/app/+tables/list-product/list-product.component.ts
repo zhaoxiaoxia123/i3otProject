@@ -4,6 +4,8 @@ import {ModalDirective} from 'ngx-bootstrap';
 import {Http} from '@angular/http';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 import {Router} from '@angular/router';
+import {GlobalService} from '../../core/global.service';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @FadeInTop()
 @Component({
@@ -16,16 +18,40 @@ export class ListProductComponent implements OnInit {
   prev : boolean = false;
   next : boolean = false;
 
+  formModel : FormGroup;
   //用作全选和反选
   selects : Array<any> = [];
   check : boolean = false;
   constructor(private http:Http,
+              fb:FormBuilder,
               private router : Router,
-              private cookiestore:CookieStoreService) {
+              private cookiestore:CookieStoreService,
+              private globalService:GlobalService
+  ) {
+    this.formModel = fb.group({
+      keyword:[''],
+    });
     this.getProductList('1');
+
+    console.log('window.scrollTo(0,0)');
+    window.scrollTo(0,0);
+
   }
 
   ngOnInit() {
+  }
+
+
+  /**
+   * 提交搜索
+   */
+  onSubmit(){
+    if( this.formModel.value['keyword'].trim() == ''){
+      alert('请输入需要搜索的关键字');
+      return false;
+    } else {
+      this.getProductList('1');
+    }
   }
 
   /**
@@ -33,7 +59,11 @@ export class ListProductComponent implements OnInit {
    * @param number
    */
   getProductList(number:string) {
-    this.http.get('http://182.61.53.58:8080/api/v1/getProductList?sid='+this.cookiestore.getCookie('sid')+'&page='+number)
+    let url = this.globalService.getDomain()+'/api/v1/getProductList?sid='+this.cookiestore.getCookie('sid')+'&page='+number;
+    if(this.formModel.value['keyword'].trim() != ''){
+      url += '&keyword='+this.formModel.value['keyword'].trim();
+    }
+    this.http.get(url)
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.productList = data;
@@ -58,6 +88,7 @@ export class ListProductComponent implements OnInit {
           this.prev = false;
         }
 
+        this.selects = [];
         for (let entry of this.productList['result']['data']) {
           this.selects[entry['p_id']] = false;
         }
@@ -108,20 +139,61 @@ export class ListProductComponent implements OnInit {
   }
 
   /**
-   * 删除产品信息
+   * 删除产品信息  单条删除
    * @param uid
    */
   deleteProduct(uid:any,current_page:any){
     // console.log('current_page-----');
     // console.log(current_page);
     if(confirm('您确定要删除该条信息吗？')) {
-      this.http.delete('http://182.61.53.58:8080/api/v1/deleteProductById?pid=' + uid + '&page=' + current_page+'&sid='+this.cookiestore.getCookie('sid'))
+      this.http.delete(this.globalService.getDomain()+'/api/v1/deleteProductById?pid=' + uid + '&page=' + current_page+'&type=id&sid='+this.cookiestore.getCookie('sid'))
           .map((res) => res.json())
           .subscribe((data) => {
             this.productList = data;
           });
       setTimeout(() => {
         // console.log(this.productList);
+        alert(this.productList['msg']);
+        if(this.productList['status'] == 202){
+          this.cookiestore.removeAll();
+          this.router.navigate(['/auth/login']);
+        }
+        if (this.productList) {
+          if (this.productList['result']['current_page'] == this.productList['result']['last_page']) {
+            this.next = true;
+          } else {
+            this.next = false;
+          }
+          if (this.productList['result']['current_page'] == 1) {
+            this.prev = true;
+          } else {
+            this.prev = false;
+          }
+        }
+      }, 300);
+    }
+  }
+
+  /**
+   * 全选删除
+   * @param current_page
+   */
+  deleteProductAll(current_page:any){
+    if(confirm('删除后将不可恢复，您确定要删除吗？')) {
+      let ids : string = '';
+      this.selects.forEach((val, idx, array) => {
+        if(val == true){
+          ids += idx+',';
+        }
+      });
+      this.http.delete(this.globalService.getDomain()+'/api/v1/deleteProductById?ids=' + ids + '&page=' + current_page+'&type=all&sid='+this.cookiestore.getCookie('sid'))
+          .map((res) => res.json())
+          .subscribe((data) => {
+            this.productList = data;
+          });
+      setTimeout(() => {
+        // console.log(this.productList);
+        alert(this.productList['msg']);
         if(this.productList['status'] == 202){
           this.cookiestore.removeAll();
           this.router.navigate(['/auth/login']);

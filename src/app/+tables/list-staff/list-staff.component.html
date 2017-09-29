@@ -69,9 +69,9 @@
                 <i></i>
               </label>
             </td>
-            <th>员工编号 </th>
+            <th>员工ID </th>
             <th>姓名</th>
-            <th>角色  </th>
+            <th>角色</th>
             <th>所属部门 </th>
             <th>联系电话</th>
             <th>操作</th>
@@ -108,6 +108,7 @@
               <a class="btn btn-danger btn-xs" (click)="deleteUser( ul.id ,userList.result?.current_page)">
                 <span class="glyphicon glyphicon-remove"></span>删除
               </a>
+              <a class="btn btn-success btn-xs"  (click)="lgModal.show()"><span class="glyphicon glyphicon-zoom-in"></span>详情</a>
             </td>
           </tr>
           </tbody>
@@ -115,49 +116,173 @@
         <!-- 底部-（分页部分）-->
         <div class="dt-toolbar">
           <div class="col-xs-12 col-sm-6">
-            <button  class="btn btn-default">
+            <button  class="btn btn-default"  (click)="deleteUserAll(userList.result?.current_page)">
               <i class="fa fa-trash-o fa-lg"></i>
               删除所选
             </button>
 
           </div>
           <div class="col-sm-6 col-xs-12 hidden-xs text-right">
-            <ul class="pagination pagination-sm">
-              <li class="disabled">
-                <a href="">上一页</a>
-              </li>
-              <li class="active">
-                <a href="">1</a>
+            <!--<ul class="pagination pagination-sm">-->
+              <!--<li class="disabled">-->
+                <!--<a href="">上一页</a>-->
+              <!--</li>-->
+              <!--<li class="active">-->
+                <!--<a href="">1</a>-->
+              <!--</li>-->
+              <!--<li>-->
+                <!--<a href="">2</a>-->
+              <!--</li>-->
+              <!--<li>-->
+                <!--<a href="">3</a>-->
+              <!--</li>-->
+              <!--<li>-->
+                <!--<a href="">...</a>-->
+              <!--</li>-->
+              <!--<li>-->
+                <!--<a href="">99</a>-->
+              <!--</li>-->
+              <!--<li>-->
+                <!--<a href="">下一页</a>-->
+              <!--</li>-->
+            <!--</ul>-->
+            <ul class="pagination">
+              <li>
+                <a (click)="pagination(userList.result?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>
               </li>
               <li>
-                <a href="">2</a>
-              </li>
-              <li>
-                <a href="">3</a>
-              </li>
-              <li>
-                <a href="">...</a>
-              </li>
-              <li>
-                <a href="">99</a>
-              </li>
-              <li>
-                <a href="">下一页</a>
+                <a (click)="pagination(userList.result?.next_page_url)"><i class="fa fa-arrow-right"></i></a>
               </li>
             </ul>
-            <!--<ul class="pagination">
-              <li>
-                <a (click)="pagination(storehouseList.result?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>
-              </li>
-              <li>
-                <a (click)="pagination(storehouseList.result?.next_page_url)"><i class="fa fa-arrow-right"></i></a>
-              </li>
-            </ul>-->
           </div>
         </div>
 
       </div>
     </div>
   </sa-widget>
+
+  <div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" (click)="lgModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">读取员工姓名-ID</h4>
+        </div>
+        <div class="modal-body">
+
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="text-overflow-y" >
+                <P class="alert alert-info">基本信息</P>
+                <table class="table table-striped table-forum">
+                  <tbody>
+                  <tr>
+                    <td class="width-120">员工ID:</td>
+                    <td class="">读取ID</td>
+                  </tr>
+                  <tr><td class="width-120">姓名:</td>
+                    <td class="">读取姓名</td>
+                  </tr>
+                  <tr>
+                    <td class="width-120">角色:</td>
+                    <td class="">读取角色</td>
+                  </tr>
+                  <tr><td class="width-120">性别：</td>
+                    <td class=""></td>
+                  </tr>
+                  <tr>
+                    <td class="width-120">年龄：</td>
+                    <td class=""></td>
+                  </tr>
+                  <tr>
+                    <td class="width-120">联系电话：</td>
+                    <td class=""></td>
+                  </tr>
+                  <tr><td class="width-120">所属公司：</td>
+                    <td class=""></td>
+                  </tr>
+                  <tr>
+                    <td class="width-120">所属部门:</td>
+                    <td class="">读取所属部门</td>
+                  </tr>
+                  <tr><td class="width-120">备注说明:</td>
+                    <td class=""></td>
+                  </tr>
+
+                  </tbody>
+                </table>
+                <P class="alert alert-info">其他信息</P>
+                <table class="table table-striped table-forum">
+                  <tbody>
+                  <tr>
+                    <td class="width-120">头像:</td>
+                    <td class="">读取头像预览图</td>
+                  </tr>
+                  <tr><td class="width-120">入职时间:</td>
+                    <td class="">读取入职时间</td>
+                  </tr>
+                  <tr>
+                    <td class="width-120">职务:</td>
+                    <td class="">读取职务</td>
+                  </tr>
+                  <tr><td class="width-120">合同类型：</td>
+                    <td class="">读取合同类型</td>
+                  </tr>
+                  <tr><td class="width-120">籍贯：</td>
+                    <td class="">读取籍贯</td>
+                  </tr>
+                  <tr><td class="width-120">身份证号：</td>
+                    <td class="">读取身份证号</td>
+                  </tr>
+                  <tr><td class="width-120">民族：</td>
+                    <td class="">读取民族</td>
+                  </tr>
+                  <tr><td class="width-120">婚姻状况：</td>
+                    <td class="">读取婚姻状况</td>
+                  </tr>
+                  <tr><td class="width-120">婚姻状况：</td>
+                    <td class="">读取婚姻状况</td>
+                  </tr>
+                  <tr><td class="width-120">毕业院校：</td>
+                    <td class="">读取毕业院校</td>
+                  </tr>
+                  <tr><td class="width-120">专业：</td>
+                    <td class="">读取专业</td>
+                  </tr>
+                  <tr><td class="width-120">文凭：</td>
+                    <td class="">读取文凭</td>
+                  </tr>
+                  <tr><td class="width-120">学历来源：</td>
+                    <td class="">读取学历来源</td>
+                  </tr>
+                  <tr><td class="width-120">个人邮箱：</td>
+                    <td class="">读取个人邮箱</td>
+                  </tr>
+                  <tr><td class="width-120">紧急联系人：</td>
+                    <td class="">读取紧急联系人：电话</td>
+                  </tr>
+                  <tr><td class="width-120">家庭住址：</td>
+                    <td class="">读取家庭住址</td>
+                  </tr>
+                  <tr><td class="width-120">详细地址：</td>
+                    <td class="">读取详细地址</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" (click)="lgModal.hide()">
+            返回
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>

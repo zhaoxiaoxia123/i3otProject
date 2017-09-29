@@ -3,6 +3,7 @@ import {Router} from "@angular/router";
 import {NgForm} from "@angular/forms";
 import {Http,Headers,RequestOptions} from "@angular/http";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
+import {GlobalService} from '../../core/global.service';
 
 
 @Component({
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
   cid : number = 0;
   constructor(private http:Http,
               private cookieStoreService:CookieStoreService,
-              private router: Router
+              private router: Router,
+              private globalService:GlobalService
   ) { }
 
   headers = new Headers({'Content-Type': 'application/x-www'});
@@ -29,7 +31,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(value){
-    this.http.post('http://182.61.53.58:8080/api/v1/login',{
+    this.http.post(this.globalService.getDomain()+'/api/v1/login',{
       'cNumber':value['cNumber'],
       'uNumber':value['uNumber'],
       'password':value['password']

@@ -75,10 +75,10 @@
             </td>
             <th>订单号</th>
             <th>购买公司 </th>
-            <th>总价</th>
-            <th>运单号</th>
+            <th>购买产品</th>
+            <th>数量</th>
             <th>销售人员</th>
-            <th>是否完成</th>
+            <th>订单状态</th>
             <th>操作</th>
           </tr>
           </thead>
@@ -97,8 +97,8 @@
             </td>
             <td>{{ ol.o_order }}</td>
             <td>{{ ol.c_name }}</td>
-            <td>{{ ol.o_total_price }}</td>
-            <td>{{ ol.o_waybill_number }}</td>
+            <td>{{ ol.p_name }}</td>
+            <td>{{ ol.o_quantity }}</td>
             <td>{{ ol.u_username }}</td>
             <td>
               <span [ngSwitch]="ol.o_is_complete">
@@ -108,7 +108,9 @@
               </span>
             </td>
             <td><a class="btn btn-warning btn-xs" [routerLink]="['/forms/indent1',ol.o_id]"><span class="glyphicon glyphicon-pencil"></span>修改</a>
-              <a class="btn btn-danger btn-xs" (click)="deleteOrder(ol.o_id ,orderList.result?.current_page)"><span class="glyphicon glyphicon-remove"></span>删除</a></td>
+              <a class="btn btn-danger btn-xs" (click)="deleteOrder(ol.o_id ,orderList.result?.current_page)"><span class="glyphicon glyphicon-remove"></span>删除</a>
+              <a class="btn btn-success btn-xs" (click)="lgModal.show()"><span class="glyphicon glyphicon-zoom-in"></span>详情</a>
+            </td>
           </tr>
           </tbody>
 
@@ -116,44 +118,44 @@
         <!-- 底部-（分页部分）-->
         <div class="dt-toolbar">
           <div class="col-xs-12 col-sm-6">
-            <button  class="btn btn-default">
+            <button  class="btn btn-default" (click)="deleteOrderAll(orderList.result?.current_page)">
               <i class="fa fa-trash-o fa-lg"></i>
               删除所选
             </button>
 
           </div>
           <div class="col-sm-6 col-xs-12 hidden-xs text-right">
-            <ul class="pagination pagination-sm">
-              <li class="disabled">
-                <a href="">上一页</a>
-              </li>
-              <li class="active">
-                <a href="">1</a>
+            <!--<ul class="pagination pagination-sm">-->
+              <!--<li class="disabled">-->
+                <!--<a href="">上一页</a>-->
+              <!--</li>-->
+              <!--<li class="active">-->
+                <!--<a href="">1</a>-->
+              <!--</li>-->
+              <!--<li>-->
+                <!--<a href="">2</a>-->
+              <!--</li>-->
+              <!--<li>-->
+                <!--<a href="">3</a>-->
+              <!--</li>-->
+              <!--<li>-->
+                <!--<a href="">...</a>-->
+              <!--</li>-->
+              <!--<li>-->
+                <!--<a href="">99</a>-->
+              <!--</li>-->
+              <!--<li>-->
+                <!--<a href="">下一页</a>-->
+              <!--</li>-->
+            <!--</ul>-->
+            <ul class="pagination">
+              <li>
+                <a (click)="pagination(orderList.result?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>
               </li>
               <li>
-                <a href="">2</a>
-              </li>
-              <li>
-                <a href="">3</a>
-              </li>
-              <li>
-                <a href="">...</a>
-              </li>
-              <li>
-                <a href="">99</a>
-              </li>
-              <li>
-                <a href="">下一页</a>
+                <a (click)="pagination(orderList.result?.next_page_url)"><i class="fa fa-arrow-right"></i></a>
               </li>
             </ul>
-            <!--<ul class="pagination">
-              <li>
-                <a (click)="pagination(storehouseList.result?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>
-              </li>
-              <li>
-                <a (click)="pagination(storehouseList.result?.next_page_url)"><i class="fa fa-arrow-right"></i></a>
-              </li>
-            </ul>-->
           </div>
         </div>
 
@@ -161,5 +163,93 @@
 
       </div>
   </sa-widget>
+  <div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" (click)="lgModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">读取订单号/合同号</h4>
+        </div>
+        <div class="modal-body">
 
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="text-overflow-y" >
+                <P class="alert alert-info">基本信息</P>
+                <table class="table table-striped table-forum">
+                  <tbody>
+                  <tr>
+                    <td class="width-120">订单号/合同号:</td>
+                    <td class=""></td>
+                  </tr>
+                  <tr><td class="width-120">一级类型:</td>
+                    <td class=""></td>
+                  </tr>
+                  <tr>
+                    <td class="width-120">二级类型:</td>
+                    <td class="">读取二级类型</td>
+                  </tr>
+                  <tr><td class="width-120">数量：</td>
+                    <td class=""></td>
+                  </tr>
+                  <tr>
+                    <td class="width-120">计量单位：</td>
+                    <td class=""></td>
+                  </tr>
+                  <tr>
+                    <td class="width-120">单价/元：</td>
+                    <td class=""></td>
+                  </tr>
+                  <tr><td class="width-120">总价/元：</td>
+                    <td class=""></td>
+                  </tr>
+                  <tr>
+                    <td class="width-120">出库仓库:</td>
+                    <td class="">读取</td>
+                  </tr>
+                  <tr><td class="width-120">运单号:</td>
+                    <td class=""></td>
+                  </tr>
+                  <tr><td class="width-120">交货地点:</td>
+                    <td class=""></td>
+                  </tr>
+                  <tr><td class="width-120">结算方式:</td>
+                    <td class=""></td>
+                  </tr>
+                  <tr><td class="width-120">购买公司:</td>
+                    <td class=""></td>
+                  </tr>
+                  <tr><td class="width-120">运输方式:</td>
+                    <td class=""></td>
+                  </tr>
+                  <tr><td class="width-120">销售人员:</td>
+                    <td class=""></td>
+                  </tr>
+                  <tr><td class="width-120">产品:</td>
+                    <td class=""></td>
+                  </tr>
+                  <tr><td class="width-120">订单状态:</td>
+                    <td class=""></td>
+                  </tr>
+                  <tr><td class="width-120">备注说明:</td>
+                    <td class=""></td>
+                  </tr>
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" (click)="lgModal.hide()">
+            返回
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

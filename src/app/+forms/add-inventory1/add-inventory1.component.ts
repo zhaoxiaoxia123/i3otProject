@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Http} from '@angular/http';
 import {ActivatedRoute,Router} from '@angular/router';
 import {CookieStoreService} from 'app/shared/cookies/cookie-store.service';
+import {GlobalService} from '../../core/global.service';
 
 // @FadeInTop()
 @Component({
@@ -15,19 +16,21 @@ export class AddInventory1Component implements OnInit {
   formModel : FormGroup;
   storehouse_id : number = 0;
   storehouse_info : Array<any> = [];
+  storehouseList : Array<any> = [];
   constructor(
       fb:FormBuilder,
       private http:Http,
       private router : Router,
       private routInfo : ActivatedRoute,
-      private cookieStore:CookieStoreService
+      private cookieStore:CookieStoreService,
+      private globalService:GlobalService
   ) {
     this.formModel = fb.group({
       storehouse_id:[''],
       storehouse_name:['',[Validators.required,Validators.minLength(1)]],
       // storehouse_total_quantity:[''],
       storehouse_status:[''],
-      storehouse_keeper:[''],
+      u_id:[''],
       storehouse_phone:[''],
       storehouse_notes:[''],
     });
@@ -40,10 +43,30 @@ export class AddInventory1Component implements OnInit {
     if(this.storehouse_id != 0){
       this.getStorehouseInfo(this.storehouse_id);
     }
+    this.getStorehouseDefault();
+  }
+
+  /**
+   * 获取添加订单的默认参数
+   */
+  getStorehouseDefault() {
+    this.http.get(this.globalService.getDomain()+'/api/v1/getStorehouseDefault?sid='+this.cookieStore.getCookie('sid'))
+        .map((res)=>res.json())
+        .subscribe((data)=>{
+          this.storehouseList = data;
+        });
+    setTimeout(() => {
+      console.log(this.storehouseList);
+      if(this.storehouseList['status'] == 202){
+        alert(this.storehouseList['msg'] );
+        this.cookieStore.removeAll();
+        this.router.navigate(['/auth/login']);
+      }
+    }, 300);
   }
 
   getStorehouseInfo(storehouse_id:number){
-    this.http.get('http://182.61.53.58:8080/api/v1/getStorehouseInfo?storehouse_id='+storehouse_id)
+    this.http.get(this.globalService.getDomain()+'/api/v1/getStorehouseInfo?storehouse_id='+storehouse_id)
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.storehouse_info = data;
@@ -56,7 +79,7 @@ export class AddInventory1Component implements OnInit {
         storehouse_name:this.storehouse_info['result']['storehouse_name'],
         // storehouse_total_quantity:this.storehouse_info['result']['storehouse_total_quantity'],
         storehouse_status:this.storehouse_info['result']['storehouse_status'],
-        storehouse_keeper:this.storehouse_info['result']['storehouse_keeper'],
+        u_id:this.storehouse_info['result']['u_id'],
         storehouse_phone:this.storehouse_info['result']['storehouse_phone'],
         storehouse_notes:this.storehouse_info['result']['storehouse_notes'],
       });
@@ -68,12 +91,12 @@ export class AddInventory1Component implements OnInit {
       alert('请填写仓库名称！');
       return false;
     }
-    this.http.post('http://182.61.53.58:8080/api/v1/addStorehouse',{
+    this.http.post(this.globalService.getDomain()+'/api/v1/addStorehouse',{
       'storehouse_id':this.formModel.value['storehouse_id'],
       'storehouse_name':this.formModel.value['storehouse_name'],
       // 'storehouse_total_quantity':this.formModel.value['storehouse_total_quantity'],
       'storehouse_status':this.formModel.value['storehouse_status'],
-      'storehouse_keeper':this.formModel.value['storehouse_keeper'],
+      'u_id':this.formModel.value['u_id'],
       'storehouse_phone':this.formModel.value['storehouse_phone'],
       'storehouse_notes':this.formModel.value['storehouse_notes'],
       'sid':this.cookieStore.getCookie('sid')

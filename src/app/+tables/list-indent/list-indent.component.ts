@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {Http} from '@angular/http';
 import {Router} from '@angular/router';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
+import {GlobalService} from '../../core/global.service';
 
 @Component({
   selector: 'app-list-indent',
@@ -23,13 +24,15 @@ export class ListIndentComponent implements OnInit {
       fb:FormBuilder,
       private router : Router,
       private http:Http,
-      private cookiestore:CookieStoreService
+      private cookiestore:CookieStoreService,
+      private globalService:GlobalService
   ) {
 
     this.formModel = fb.group({
       keyword:[''],
     });
     this.getOrderList('1');
+    window.scrollTo(0,0);
   }
 
   ngOnInit() {
@@ -40,7 +43,7 @@ export class ListIndentComponent implements OnInit {
    * @param number
    */
   getOrderList(number:string) {
-    let url = 'http://182.61.53.58:8080/api/v1/getOrderList?role=1&page='+number+'&sid='+this.cookiestore.getCookie('sid');
+    let url = this.globalService.getDomain()+'/api/v1/getOrderList?role=1&page='+number+'&sid='+this.cookiestore.getCookie('sid');
     if(this.formModel.value['keyword'].trim() != ''){
       url += '&keyword='+this.formModel.value['keyword'].trim();
     }
@@ -67,6 +70,7 @@ export class ListIndentComponent implements OnInit {
         } else {
           this.prev = false;
         }
+        this.selects = [];
         for (let entry of this.orderList['result']['data']) {
           this.selects[entry['o_id']] = false;
         }
@@ -121,7 +125,7 @@ export class ListIndentComponent implements OnInit {
    */
   deleteOrder(oid:any,current_page:any){
     if(confirm('您确定要删除该条信息吗？')) {
-      let url = 'http://182.61.53.58:8080/api/v1/deleteOrderById?o_id=' + oid + '&page=' + current_page;
+      let url = this.globalService.getDomain()+'/api/v1/deleteOrderById?o_id=' + oid + '&type=id&page=' + current_page+'&sid='+this.cookiestore.getCookie('sid');
       if(this.formModel.value['keyword'].trim() != ''){
         url += '&keyword='+this.formModel.value['keyword'].trim();
       }
@@ -153,6 +157,49 @@ export class ListIndentComponent implements OnInit {
     }
   }
 
+  /**
+   * 全选删除
+   * @param current_page
+   */
+  deleteOrderAll(current_page:any){
+    if(confirm('删除后将不可恢复，您确定要删除吗？')) {
+      let ids : string = '';
+      this.selects.forEach((val, idx, array) => {
+        if(val == true){
+          ids += idx+',';
+        }
+      });
+      let url = this.globalService.getDomain()+'/api/v1/deleteOrderById?ids=' + ids + '&type=all&page=' + current_page +'&sid='+this.cookiestore.getCookie('sid');
+      if(this.formModel.value['keyword'].trim() != ''){
+        url += '&keyword='+this.formModel.value['keyword'].trim();
+      }
+      this.http.delete(url)
+          .map((res) => res.json())
+          .subscribe((data) => {
+            this.orderList = data;
+          });
+      setTimeout(() => {
+        // console.log(this.userList);
+
+        if(this.orderList['status'] == 202){
+          this.cookiestore.removeAll();
+          this.router.navigate(['/auth/login']);
+        }
+        if (this.orderList) {
+          if (this.orderList['result']['current_page'] == this.orderList['result']['last_page']) {
+            this.next = true;
+          } else {
+            this.next = false;
+          }
+          if (this.orderList['result']['current_page'] == 1) {
+            this.prev = true;
+          } else {
+            this.prev = false;
+          }
+        }
+      }, 300);
+    }
+  }
 
   /**
    * 提交搜索

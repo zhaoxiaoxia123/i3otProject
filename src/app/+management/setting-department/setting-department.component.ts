@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {Http} from '@angular/http';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 import {Router} from '@angular/router';
+import {GlobalService} from '../../core/global.service';
 
 @FadeInTop()
 @Component({
@@ -39,7 +40,8 @@ export class SettingDepartmentComponent implements OnInit {
       fb:FormBuilder,
       private http:Http,
       private router:Router,
-      private cookieStore:CookieStoreService
+      private cookieStore:CookieStoreService,
+      private globalService:GlobalService
   ) {
       this.formModel = fb.group({
           category_desc:[''],
@@ -51,7 +53,7 @@ export class SettingDepartmentComponent implements OnInit {
   }
 
     getCategory(number:any){
-        this.http.get('http://182.61.53.58:8080/api/v1/getIndustryCategory?category_type=3&page='+number+'&sid='+this.cookieStore.getCookie('sid'))
+        this.http.get(this.globalService.getDomain()+'/api/v1/getIndustryCategory?category_type=3&page='+number+'&sid='+this.cookieStore.getCookie('sid'))
             .map((res)=>res.json())
             .subscribe((data)=>{
                 this.categoryList = data;
@@ -83,7 +85,7 @@ export class SettingDepartmentComponent implements OnInit {
      * 提交所属部门
      */
     onSubmitCategory() {
-        this.http.post('http://182.61.53.58:8080/api/v1/addCategory',{
+        this.http.post(this.globalService.getDomain()+'/api/v1/addCategory',{
             'category_desc':this.formModel.value['category_desc'],
             'category_type':this.formModel.value['category_type'],
             'category_id':this.formModel.value['category_id'],
@@ -133,7 +135,7 @@ export class SettingDepartmentComponent implements OnInit {
      */
     deleteCategory(cid:any,current_page:any){
         if(confirm('您确定要删除该条信息吗？')) {
-            this.http.delete('http://182.61.53.58:8080/api/v1/deleteIndustryCategory?category_id=' + cid + '&category_type=3&page=' + current_page+'&sid='+this.cookieStore.getCookie('sid'))
+            this.http.delete(this.globalService.getDomain()+'/api/v1/deleteIndustryCategory?category_id=' + cid + '&category_type=3&page=' + current_page+'&sid='+this.cookieStore.getCookie('sid'))
                 .map((res)=>res.json())
                 .subscribe((data)=>{
                     this.categoryList = data;

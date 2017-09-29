@@ -2821,9 +2821,9 @@ label input[type=checkbox][disabled].checkbox+span:before,label input[type=check
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
 }
-.jarvismetro-tile.big-cubes {
-    width: 120px;
-    height: 120px;
+#shortcut ul li .jarvismetro-tile:hover {
+    color: #fff;
+    text-decoration: none
 }
 .jarvismetro-tile {
     float: left;

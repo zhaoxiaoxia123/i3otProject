@@ -3,6 +3,7 @@ import {Http} from '@angular/http';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
+import {GlobalService} from '../../core/global.service';
 
 @Component({
   selector: 'app-list-inventory',
@@ -23,13 +24,15 @@ export class ListInventoryComponent implements OnInit {
       fb:FormBuilder,
       private http:Http,
       private router:Router,
-      private cookiestore:CookieStoreService
+      private cookiestore:CookieStoreService,
+      private globalService:GlobalService
   ) {
     this.formModel = fb.group({
       keyword:[''],
     });
 
     this.getStorehouseList('1');
+    window.scrollTo(0,0);
   }
 
   ngOnInit() {
@@ -39,7 +42,7 @@ export class ListInventoryComponent implements OnInit {
    * @param number
    */
   getStorehouseList(number:string) {
-    let url = 'http://182.61.53.58:8080/api/v1/getStorehouseList?page='+number+'&sid='+this.cookiestore.getCookie('sid');
+    let url = this.globalService.getDomain()+'/api/v1/getStorehouseList?page='+number+'&sid='+this.cookiestore.getCookie('sid');
     if(this.formModel.value['keyword'].trim() != ''){
       url += '&keyword='+this.formModel.value['keyword'].trim();
     }
@@ -67,6 +70,7 @@ export class ListInventoryComponent implements OnInit {
           this.prev = false;
         }
 
+        this.selects = [];
         for (let entry of this.storehouseList['result']['data']) {
           this.selects[entry['storehouse_id']] = false;
         }
@@ -121,7 +125,7 @@ export class ListInventoryComponent implements OnInit {
    * @param cid
    */
   deleteStorehouse(storehouse_id:any,current_page:any){
-    let url = 'http://182.61.53.58:8080/api/v1/deleteStorehouseById?storehouse_id=' + storehouse_id + '&page=' + current_page+'&sid='+this.cookiestore.getCookie('sid');
+    let url = this.globalService.getDomain()+'/api/v1/deleteStorehouseById?storehouse_id=' + storehouse_id + '&page=' + current_page+'&type=id&sid='+this.cookiestore.getCookie('sid');
     if(this.formModel.value['keyword'].trim() != ''){
       url += '&keyword='+this.formModel.value['keyword'].trim();
     }
@@ -135,6 +139,46 @@ export class ListInventoryComponent implements OnInit {
       setTimeout(() => {
         // console.log(this.userList);
 
+        if (this.storehouseList) {
+          if (this.storehouseList['result']['current_page'] == this.storehouseList['result']['last_page']) {
+            this.next = true;
+          } else {
+            this.next = false;
+          }
+          if (this.storehouseList['result']['current_page'] == 1) {
+            this.prev = true;
+          } else {
+            this.prev = false;
+          }
+        }
+      }, 300);
+    }
+  }
+
+  deleteStorehouseAll(current_page:any){
+    if(confirm('删除后将不可恢复，您确定要删除吗？')) {
+      let ids : string = '';
+      this.selects.forEach((val, idx, array) => {
+        if(val == true){
+          ids += idx+',';
+        }
+      });
+      let url = this.globalService.getDomain()+'/api/v1/deleteStorehouseById?ids=' + ids + '&page=' + current_page+'&type=all&sid='+this.cookiestore.getCookie('sid');
+      if(this.formModel.value['keyword'].trim() != ''){
+        url += '&keyword='+this.formModel.value['keyword'].trim();
+      }
+      this.http.delete(url)
+          .map((res) => res.json())
+          .subscribe((data) => {
+            this.storehouseList = data;
+          });
+      setTimeout(() => {
+        // console.log(this.productList);
+        alert(this.storehouseList['msg']);
+        if(this.storehouseList['status'] == 202){
+          this.cookiestore.removeAll();
+          this.router.navigate(['/auth/login']);
+        }
         if (this.storehouseList) {
           if (this.storehouseList['result']['current_page'] == this.storehouseList['result']['last_page']) {
             this.next = true;

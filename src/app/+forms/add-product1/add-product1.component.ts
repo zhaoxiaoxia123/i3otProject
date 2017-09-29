@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Http} from '@angular/http';
 import {ActivatedRoute, Router,Params} from '@angular/router';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
+import {GlobalService} from '../../core/global.service';
 
 @FadeInTop()
 @Component({
@@ -24,7 +25,8 @@ export class AddProduct1Component implements OnInit {
       private http:Http,
       private router : Router,
       private routInfo : ActivatedRoute,
-      private cookieStore:CookieStoreService
+      private cookieStore:CookieStoreService,
+      private globalService:GlobalService
   ) {
     this.formModel = fb.group({
       p_id:[''],
@@ -58,7 +60,7 @@ export class AddProduct1Component implements OnInit {
   }
 
   getproductInfo(p_id:number){
-    this.http.get('http://182.61.53.58:8080/api/v1/getProdcutInfo?p_id='+p_id)
+    this.http.get(this.globalService.getDomain()+'/api/v1/getProdcutInfo?p_id='+p_id)
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.product_info = data;
@@ -104,7 +106,7 @@ export class AddProduct1Component implements OnInit {
    * 获取添加客户的默认参数
    */
   getProductDefault() {
-    this.http.get('http://182.61.53.58:8080/api/v1/getProductDefault?sid='+this.cookieStore.getCookie('sid'))
+    this.http.get(this.globalService.getDomain()+'/api/v1/getProductDefault?sid='+this.cookieStore.getCookie('sid'))
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.productList = data;
@@ -120,7 +122,7 @@ export class AddProduct1Component implements OnInit {
    * 获取产品类型的二级目录
    */
   getProductChild(value) {
-    this.http.get('http://182.61.53.58:8080/api/v1/getProductChild?category_depth='+value)
+    this.http.get(this.globalService.getDomain()+'/api/v1/getProductChild?category_depth='+value)
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.childCategory = data.result;
@@ -140,7 +142,7 @@ export class AddProduct1Component implements OnInit {
    * @param value
    */
   changeChild(value){
-    this.http.get('http://182.61.53.58:8080/api/v1/getProductChildTab?category_depth='+value)
+    this.http.get(this.globalService.getDomain()+'/api/v1/getProductChildTab?category_depth='+value)
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.childTab = data;
@@ -165,7 +167,7 @@ export class AddProduct1Component implements OnInit {
       }
       msg += '参数信息作为模版？';
       if(confirm(msg)){
-        this.http.post('http://182.61.53.58:8080/api/v1/changeCategoryByProduct',{
+        this.http.post(this.globalService.getDomain()+'/api/v1/changeCategoryByProduct',{
           'category_id':this.formModel.value['category_id'],
           'specification':this.formModel.value['specification'],
         }).subscribe(
@@ -190,7 +192,7 @@ export class AddProduct1Component implements OnInit {
       alert('请填写产品编号！');
       return false;
     }
-    this.http.post('http://182.61.53.58:8080/api/v1/addProduct',{
+    this.http.post(this.globalService.getDomain()+'/api/v1/addProduct',{
       'p_id':this.formModel.value['p_id'],
       'category_id1':this.formModel.value['category_id1'],
       'category_id2':this.formModel.value['category_id2'],

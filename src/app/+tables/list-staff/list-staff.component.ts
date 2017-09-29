@@ -4,6 +4,8 @@ import {Http} from '@angular/http';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 import {arrayify} from 'tslint/lib/utils';
 import {Router} from '@angular/router';
+import {GlobalService} from 'app/core/global.service';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @FadeInTop()
 @Component({
@@ -16,25 +18,52 @@ export class ListStaffComponent implements OnInit {
   prev : boolean = false;
   next : boolean = false;
 
+  formModel : FormGroup;
   selects : Array<any> = [];
   check : boolean = false;
   constructor(
       private http:Http,
+      fb:FormBuilder,
       private router : Router,
-      private cookiestore:CookieStoreService
+      private cookiestore:CookieStoreService,
+      private globalService:GlobalService
   ) {
+
+    this.formModel = fb.group({
+      keyword:[''],
+    });
+
     this.getUserList('1');
+    window.scrollTo(0,0);
+
   }
 
   ngOnInit() {
+
   }
 
+
+  /**
+   * 提交搜索
+   */
+  onSubmit(){
+    if( this.formModel.value['keyword'].trim() == ''){
+      alert('请输入需要搜索的关键字');
+      return false;
+    } else {
+      this.getUserList('1');
+    }
+  }
   /**
    * 获取用户列表
    * @param number
    */
   getUserList(number:string) {
-    this.http.get('http://182.61.53.58:8080/api/v1/getUserList?page='+number+'&sid='+this.cookiestore.getCookie('sid'))
+    let url = this.globalService.getDomain()+'/api/v1/getUserList?page='+number+'&sid='+this.cookiestore.getCookie('sid');
+    if(this.formModel.value['keyword'].trim() != ''){
+      url += '&keyword='+this.formModel.value['keyword'].trim();
+    }
+    this.http.get(url)
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.userList = data;
@@ -46,7 +75,7 @@ export class ListStaffComponent implements OnInit {
         this.cookiestore.removeAll();
         this.router.navigate(['/auth/login']);
       }
-      console.log(this.userList);
+      // console.log(this.userList);
       this.selects = [];
       if (this.userList) {
         if (this.userList['result']['current_page'] == this.userList['result']['last_page']) {
@@ -104,7 +133,6 @@ export class ListStaffComponent implements OnInit {
         this.page = url.substring((url.lastIndexOf('=') + 1), url.length);
         // console.log(this.page);
         this.getUserList(this.page);
-
     }
   }
 
@@ -116,7 +144,7 @@ export class ListStaffComponent implements OnInit {
     // console.log('current_page-----');
     // console.log(current_page);
     if(confirm('您确定要删除该条信息吗？')) {
-      this.http.delete('http://182.61.53.58:8080/api/v1/deleteUserById?uid=' + uid + '&page=' + current_page)
+      this.http.delete(this.globalService.getDomain()+'/api/v1/deleteUserById?uid=' + uid + '&page=' + current_page+'&type=id&sid='+this.cookiestore.getCookie('sid'))
           .map((res) => res.json())
           .subscribe((data) => {
             this.userList = data;
@@ -142,5 +170,44 @@ export class ListStaffComponent implements OnInit {
       }, 300);
     }
   }
+
+  /**
+   * 全选删除
+   */
+  deleteUserAll(current_page:any){
+    if(confirm('删除后将不可恢复，您确定要删除吗？')) {
+      let ids : string = '';
+      this.selects.forEach((val, idx, array) => {
+        if(val == true){
+          ids += idx+',';
+        }
+      });
+      let url = this.globalService.getDomain() + '/api/v1/deleteUserById?page=' + current_page + '&type=all&ids='+ids+'&sid='+this.cookiestore.getCookie('sid');
+      this.http.delete(url)
+          .map((res) => res.json())
+          .subscribe((data) => {
+            this.userList = data;
+          });
+      setTimeout(() => {
+        // console.log(this.userList);
+        if(this.userList['status'] == 202){
+          this.cookiestore.removeAll();
+          this.router.navigate(['/auth/login']);
+        }
+        if (this.userList) {
+          if (this.userList['result']['current_page'] == this.userList['result']['last_page']) {
+            this.next = true;
+          } else {
+            this.next = false;
+          }
+          if (this.userList['result']['current_page'] == 1) {
+            this.prev = true;
+          } else {
+            this.prev = false;
+          }
+        }
+      }, 300);
+    }
+}
 
 }

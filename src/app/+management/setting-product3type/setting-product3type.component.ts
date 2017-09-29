@@ -6,6 +6,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {Http} from '@angular/http';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 import {Router} from '@angular/router';
+import {GlobalService} from '../../core/global.service';
 @FadeInTop()
 @Component({
   selector: 'app-setting-product3type',
@@ -54,7 +55,8 @@ export class SettingProduct3typeComponent implements OnInit {
               fb:FormBuilder,
               private http:Http,
               private router:Router,
-              private cookieStoreService : CookieStoreService
+              private cookieStoreService : CookieStoreService,
+              private globalService:GlobalService
   ) {
       this.formModel = fb.group({
           category_desc:[''],
@@ -70,7 +72,7 @@ export class SettingProduct3typeComponent implements OnInit {
      * 获取右边的默认列表信息
      */
     getCategory(){
-        this.http.get('http://182.61.53.58:8080/api/v1/getCategory?category_type=6&sid='+this.cookieStoreService.getCookie('sid'))
+        this.http.get(this.globalService.getDomain()+'/api/v1/getCategory?category_type=6&sid='+this.cookieStoreService.getCookie('sid'))
             .map((res)=>res.json())
             .subscribe((data)=>{
                 this.categoryList = data;
@@ -110,7 +112,7 @@ export class SettingProduct3typeComponent implements OnInit {
       if(number == 1){  //发布一级类型
           console.log(this.category_desc1);
           if(this.is_edit == true){ //修改二级类型的父类信息
-              this.http.post('http://182.61.53.58:8080/api/v1/changeCategoryParentId',{
+              this.http.post(this.globalService.getDomain()+'/api/v1/changeCategoryParentId',{
                   'category_type':6,
                   'category_depth':this.category_desc_s,
                   'category_id':this.category_id2,
@@ -143,7 +145,7 @@ export class SettingProduct3typeComponent implements OnInit {
                   alert("请输入要添加的信息！");
                   return false;
               }
-              this.http.post('http://182.61.53.58:8080/api/v1/addCategory',{
+              this.http.post(this.globalService.getDomain()+'/api/v1/addCategory',{
                   'category_desc':this.category_desc1,
                   'category_type':6,
                   'category_depth':0,
@@ -182,7 +184,7 @@ export class SettingProduct3typeComponent implements OnInit {
               alert("请输入要添加的信息！");
               return false;
           }
-          this.http.post('http://182.61.53.58:8080/api/v1/addCategory',{
+          this.http.post(this.globalService.getDomain()+'/api/v1/addCategory',{
               'category_desc':this.category_desc2,
               'category_type':6,
               'category_depth':this.category_depth2,
@@ -224,7 +226,7 @@ export class SettingProduct3typeComponent implements OnInit {
      * @param category_id
      */
     editCategory(number:number,category_id:number){
-        this.http.get('http://182.61.53.58:8080/api/v1/getCategoryById?category_id='+category_id+'&number='+number)
+        this.http.get(this.globalService.getDomain()+'/api/v1/getCategoryById?category_id='+category_id+'&number='+number)
             .map((res)=>res.json())
             .subscribe((data)=>{
             this.edit_category_info = data;
@@ -261,7 +263,7 @@ export class SettingProduct3typeComponent implements OnInit {
     deleteCategory(number:number,category_id:number){
         let msg = (number == 1) ?'您确定要删除该条信息及其所属信息吗？':'您确定要删除该条信息吗？';
         if(confirm(msg)) {
-            let url = 'http://182.61.53.58:8080/api/v1/deleteCategory?category_id=' + category_id + '&number=' + number + '&category_type=6&sid' + this.cookieStoreService.getCookie('sid');
+            let url = this.globalService.getDomain()+'/api/v1/deleteCategory?category_id=' + category_id + '&number=' + number + '&category_type=6&sid=' + this.cookieStoreService.getCookie('sid');
             this.http.delete(url)
                 .map((res) => res.json())
                 .subscribe((data) => {

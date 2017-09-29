@@ -263,7 +263,9 @@ div.dataTables_paginate ul.pagination {
 .txt-color-redLight {
     color: #a65858!important
 }
-
+.txt-color-grey {
+    color: #ccc!important
+}
 .bg-color-blue {
     background-color: #57889c!important
 }
@@ -441,6 +443,9 @@ div.dataTables_paginate ul.pagination {
 .margin-right-13 {
     margin-right: 13px!important
 }
+.margin-top-60{
+    margin-top:-60px;!important
+}
 
 /*文本内容区域*/
 .text-align-center,.text-center {
@@ -541,6 +546,17 @@ h1,h2,h3,h4 {
 }
 
 
+/*宽度*/
+.width-120{
+    width:120px;
+    font-weight: 600;
+}
+
+/*文本溢出隐藏*/
+.text-overflow-y{
+    height:400px;
+    overflow-y: scroll;
+}
 
 /*按钮*/
 
