@@ -111,7 +111,9 @@
             <!--<td>{{ cl.c_address }}</td>-->
             <!--<td>{{ cl.updated_at }}</td>-->
             <td><a class="btn btn-warning btn-xs" [routerLink]="['/forms/customer',cl.c_id]"><span class="glyphicon glyphicon-pencil"></span>修改</a>
-              <a class="btn btn-danger btn-xs" (click)="deleteCustomer(cl.c_id ,customerList.result?.current_page)"><span class="glyphicon glyphicon-remove"></span>删除</a></td>
+              <a class="btn btn-danger btn-xs" (click)="deleteCustomer(cl.c_id ,customerList.result?.current_page)"><span class="glyphicon glyphicon-remove"></span>删除</a>
+              <a class="btn btn-success btn-xs"  (click)="lgModal.show()" ><span class="glyphicon glyphicon-zoom-in"></span>详情</a>
+            </td>
           </tr>
           </tbody>
 
@@ -164,5 +166,90 @@
       </div>
     </div>
   </sa-widget>
+
+  <div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" (click)="lgModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">读取公司全称-ID</h4>
+        </div>
+        <div class="modal-body">
+
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="text-overflow-y" >
+                <P class="alert alert-info">基本信息</P>
+                <table class="table table-striped table-forum">
+                  <tbody>
+                  <tr>
+                    <td class="width-120">客户ID:</td>
+                    <td class="">ID</td>
+                  </tr>
+                  <tr><td class="width-120">全称:</td>
+                    <td class="">读取全称</td>
+                  </tr>
+                  <tr>
+                    <td class="width-120">简称:</td>
+                    <td class="">读取简称</td>
+                  </tr>
+                  <tr><td class="width-120">所属行业：</td>
+                    <td class=""></td>
+                  </tr>
+                  <tr>
+                    <td class="width-120">企业邮箱：</td>
+                    <td class=""></td>
+                  </tr>
+                  <tr>
+                    <td class="width-120">所属部门：</td>
+                    <td class=""></td>
+                  </tr>
+                  <tr><td class="width-120">详细地址：</td>
+                    <td class=""></td>
+                  </tr>
+                  <tr>
+                    <td class="width-120">联系人:</td>
+                    <td class="">读取姓名：读取电话</td>
+                  </tr>
+                  <tr><td class="width-120">主要产品:</td>
+                    <td class="">主要产品主要产品主要产品主要产品主要产品主要产品主要产品主要产品主要产品主要产品主要产品主要产品主要产品主要产品主要产品主要产品主要产品主要产品主要产品主要产品主要产品主要产品主要产品主要产品主要产品主要产品</td>
+                  </tr>
+
+                  </tbody>
+                </table>
+                <P class="alert alert-info">其他信息</P>
+                <table class="table table-striped table-forum">
+                  <tbody>
+                  <tr>
+                    <td class="width-120">客户来源:</td>
+                    <td class="">读取客户来源</td>
+                  </tr>
+                  <tr><td class="width-120">协助跟进人:</td>
+                    <td class="">读取协助跟进人</td>
+                  </tr>
+                  <tr>
+                    <td class="width-120">客户配置:</td>
+                    <td class="">读取客户配置</td>
+                  </tr>
+                  <tr><td class="width-120">备注说明：</td>
+                    <td class="">读取备注说明</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" (click)="lgModal.hide()">
+            返回
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>

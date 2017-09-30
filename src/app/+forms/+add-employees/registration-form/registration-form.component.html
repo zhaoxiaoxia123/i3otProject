@@ -1,22 +1,22 @@
 <form id="smart-form-register" class="smart-form"  [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate>
 
   <fieldset>
-    <legend>主要信息</legend>
+    <legend>基本信息</legend>
     <input type="hidden" name="u_id" formControlName="u_id">
     <div class="row">
-      <section class="col col-6">
+      <section class="col col-lg-6">
         <label class="label">员工ID</label>
         <label class="input"> <i class="icon-append fa fa-user"></i>
           <input type="text" name="employee_id" placeholder="员工编号 " maxlength="20" formControlName="employee_id"/>
           <b class="tooltip tooltip-bottom-right">请输入员工编号</b> </label>
       </section>
-      <section class="col col-6">
+      <section class="col col-lg-6">
         <label class="label">姓名</label>
         <label class="input"> <i class="icon-append fa fa-user"></i>
           <input type="text" name="name" placeholder="姓名 " maxlength="20" formControlName="name"/>
           <b class="tooltip tooltip-bottom-right">请输姓名</b> </label>
       </section>
-      <section class="col col-6">
+      <section class="col col-lg-6">
         <label class="label">密码</label>
         <label class="input"> <i class="icon-append fa fa-lock"></i>
           <input type="text" name="password" placeholder="密码" id="password" maxlength="16" minlength="6" formControlName="password"/>
@@ -26,7 +26,7 @@
           </div>
         </label>
       </section>
-      <section class="col col-6">
+      <section class="col col-lg-6">
         <label class="label">角色</label>
         <label class="select">
           <select name="role"  formControlName="role">
@@ -34,7 +34,7 @@
             <option value="3" [selected]="user_info.result?.u_role == 3">员工</option>
           </select> <i></i> </label>
       </section>
-      <section class="col col-6">
+      <section class="col col-lg-6">
         <label class="label">性别</label>
         <label class="select">
           <select name="gender" formControlName="gender" >
@@ -42,20 +42,20 @@
             <option value="2" [selected]="user_info.result?.u_gender == 2">女</option>
           </select> <i></i> </label>
       </section>
-      <section class="col col-6">
+      <section class="col col-lg-6">
         <label class="label">年龄</label>
         <label class="input">
           <input name="age" formControlName="age" placeholder="请输入年龄" type="number"  maxlength="3">
         </label>
       </section>
-      <section class="col col-6">
+      <section class="col col-lg-6">
         <label class="label">联系电话</label>
         <label class="input"> <i class="icon-append fa fa-phone"></i>
           <input name="phone" formControlName="phone" placeholder="请输入联系电话" aria-required="true" class="valid" aria-invalid="false" maxlength="12">
         </label>
       </section>
 
-      <section class="col col-6" *ngIf="is_show">
+      <section class="col col-lg-6" *ngIf="is_show">
         <label class="label">所属公司</label>
           <label class="select">
             <select name="c_id"  formControlName="c_id">
@@ -64,7 +64,7 @@
           </label>
       </section>
 
-      <section class="col col-6">
+      <section class="col col-lg-6">
         <label class="label">所属部门</label>
         <div class="col-lg-8">
           <label class="select">
@@ -94,18 +94,13 @@
 
   <fieldset>
     <legend>其他信息</legend>
-    <button type="button" class="btn btn-primary btn-sm " >
-      展开收起
-    </button>
   </fieldset>
 
-
-
-  <div id="">
+  <div id="hpn"  >
     <fieldset>
-      <section class="col col-6">
+      <section class="col col-lg-6">
         <div class="form-group ">
-          <label class="col-md-2 control-label">上传照片</label>
+          <label class="col-md-2 control-label">上传头像</label>
           <div class="col-md-10">
             <!--<input type="file" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)" />-->
             <input type="file" class="btn btn-default" disabled="disabled" id="exampleInputFile2">
@@ -115,14 +110,14 @@
           </div>
         </div>
       </section>
-      <section class="col col-6">
+      <section class="col col-lg-6">
         <label class="label">预览图</label>
         <label class="select">
           <img class="" src="assets/img/demo/widget-colorpicker.png">
         </label>
       </section>
 
-      <section class="col col-6">
+      <section class="col col-lg-6">
         <label class="label">入职时间</label>
         <label class="input"> <i class="icon-append fa fa-calendar"></i>
           <input type="text" name="enrol_time" placeholder="入职时间"
@@ -132,14 +127,14 @@
 
 
 
-      <section class="col col-6">
+      <section class="col col-lg-6">
         <label class="label ">职务</label>
         <label class="input">
           <input name="position" formControlName="position" maxlength="10" placeholder="请输入职务" type="text">
         </label>
       </section>
 
-      <section class="col col-6">
+      <section class="col col-lg-6">
         <label class="label">选择合同类型</label>
 
         <div class="col-lg-8">
@@ -154,16 +149,16 @@
           </button>
         </div>
       </section>
-      <section class="col col-6">
+      <section class="col col-lg-6">
         <label class="label">籍贯</label>
-        <div class="col col-6">
+        <div class="col-lg-6">
           <label class="select ">
             <select name="birthplace1" formControlName="birthplace1" (change)="getBrithplaceCity()">
               <option value="0">--请选择省--</option>
               <option *ngFor="let p of birthplace_province" [selected]="user_info.result?.birthplace1 == p" value="{{p}}">{{p}}</option>
             </select> <i></i> </label>
         </div>
-        <div class="col col-6">
+        <div class="col col-lg-6">
           <label class="select ">
             <select  name="birthplace2" formControlName="birthplace2">
               <option value="0">--请选择市--</option>
@@ -171,14 +166,14 @@
             </select> <i></i> </label>
         </div>
       </section>
-      <section class="col col-6">
+      <section class="col col-lg-6">
         <label class="label">身份证号</label>
         <label class="input">
           <input  name='id_card' formControlName="id_card" placeholder="请输入身份证号" size="18" maxlength="18" type="text">
         </label>
       </section>
 
-      <section class="col col-6">
+      <section class="col col-lg-6">
         <label class="label">民族</label>
         <label class="select">
           <select name="nation" formControlName="nation">
@@ -241,7 +236,7 @@
           </select> <i></i> </label>
       </section>
 
-      <section class="col col-6">
+      <section class="col col-lg-6">
         <label class="label">婚姻状况</label>
         <label class="select">
           <select name="marital_status"  formControlName="marital_status">
@@ -249,19 +244,19 @@
             <option value="2" [selected]="user_info.result?.u_marital_status == 2">已婚</option>
           </select> <i></i> </label>
       </section>
-      <section class="col col-6">
+      <section class="col col-lg-6">
         <label class="label">毕业院校</label>
         <label class="input">
           <input  name='graduate_institutions' formControlName="graduate_institutions" placeholder="请输入毕业院校"  type="text" maxlength="25">
         </label>
       </section>
-      <section class="col col-6">
+      <section class="col col-lg-6">
         <label class="label">专业</label>
         <label class="input">
           <input  name='study_major' formControlName="study_major" placeholder="请输入专业名称"  type="text" maxlength="20">
         </label>
       </section>
-      <section class="col col-6">
+      <section class="col col-lg-6">
         <label class="label">文凭</label>
         <label class="select">
           <select name="study_diploma"  formControlName="study_diploma">
@@ -276,7 +271,7 @@
           </select> <i></i> </label>
       </section>
 
-      <section class="col col-6">
+      <section class="col col-lg-6">
         <label class="label">学历来源</label>
         <div class="col-lg-8">
           <label class="select">
@@ -291,21 +286,21 @@
         </div>
 
       </section>
-      <section class="col col-6">
+      <section class="col col-lg-6">
         <label class="label">个人邮箱</label>
         <label class="input"> <i class="icon-append fa fa-envelope-o"></i>
           <input name="email" formControlName="email" placeholder="E-mail" type="email" maxlength="20">
         </label>
       </section>
 
-      <div class="col col-6">
+      <div class="col col-lg-6">
         <label class="label">紧急联系人</label>
-        <section class="col col-6">
+        <section class=" col-lg-4">
           <label class="input">
             <input  name='emergency_contact' formControlName="emergency_contact" placeholder="请输入姓名"  type="text" maxlength="20">
           </label>
         </section>
-        <section class="col col-6">
+        <section class="col-lg-8">
           <label class="input"> <i class="icon-append fa fa-phone"></i>
             <input name="emergency_phone" formControlName="emergency_phone" placeholder="请输入联系电话" samaskedinput="(999) 999-9999" type="tel" ng-reflect-sa-masked-input="(999) 999-9999" maxlength="20" aria-required="true" class="valid" aria-invalid="false">
           </label>
@@ -313,23 +308,23 @@
       </div>
     </fieldset>
     <fieldset>
-      <section class="col col-6">
+      <section class="col col-lg-6">
         <label class="label">家庭住址</label>
-        <div class="col col-4">
+        <div class="col-lg-4">
           <label class="select ">
             <select name="address1"  formControlName="address1" (change)="getCity()">
               <option value="0">--请选择省--</option>
               <option *ngFor="let p of province" [selected]="user_info.result?.address1 == p" value="{{p}}">{{p}}</option>
             </select> <i></i> </label>
         </div>
-        <div class="col col-4">
+        <div class="col col-lg-4">
           <label class="select ">
             <select name="address2"  formControlName="address2" (change)="getArea()">
               <option value="0">--请选择市--</option>
               <option *ngFor="let c of city" [selected]="user_info.result?.address2 == c" value="{{c}}">{{c}}</option>
             </select> <i></i> </label>
         </div>
-        <div class="col col-4">
+        <div class="col col-lg-4">
           <label class="select ">
             <select name="address3"  formControlName="address3">
               <option value="0">--请选择区--</option>
@@ -337,7 +332,7 @@
             </select> <i></i> </label>
         </div>
       </section>
-      <section class="col col-6">
+      <section class="col col-lg-6">
         <label class="label">详细地址</label>
         <label class="input">
           <input  name='address4' formControlName="address4" placeholder="请输入详细地址"  type="text" maxlength="20">
@@ -345,24 +340,15 @@
       </section>
     </fieldset>
   </div>
+  <fieldset>
+    <button type="button" id="strHref" class="btn btn-primary btn-sm margin-top-60" >
+      更多资料+ 收起-
+    </button>
+  </fieldset>
 
-
-
-
-
-
-
-
-  <!--<fieldset>-->
-    <!--<section>-->
-      <!--<label class="checkbox">-->
-        <!--<input type="checkbox" name="terms" id="terms"/>-->
-        <!--<i></i>我同意</label>-->
-    <!--</section>-->
-  <!--</fieldset>-->
   <footer>
     <button type="submit" class="btn btn-primary">
-      提交
+      保存
     </button>
   </footer>
 </form>

@@ -51,9 +51,15 @@ export const routes: Routes = [
         loadChildren: 'app/+miscellaneous/miscellaneous.module#MiscellaneousModule',
         data: {pageTitle: 'Miscellaneous'}
       },
+      {
+          path: 'equipment',
+          loadChildren: 'app/equipment/equipment.module#EquipmentModule',
+          data: {pageTitle: 'Equipment'}
+      },
+
     ]
   },
-  {path: 'auth', component: AuthLayoutComponent, loadChildren: 'app/+auth/auth.module#AuthModule'},
+    {path: 'auth', component: AuthLayoutComponent, loadChildren: 'app/+auth/auth.module#AuthModule'},
   // {path: '**', redirectTo: 'miscellaneous/error404'}
 ];
 
