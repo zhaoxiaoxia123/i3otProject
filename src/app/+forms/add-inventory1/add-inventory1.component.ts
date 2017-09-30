@@ -58,7 +58,7 @@ export class AddInventory1Component implements OnInit {
     setTimeout(() => {
       console.log(this.storehouseList);
       if(this.storehouseList['status'] == 202){
-        alert(this.orderList['msg'] );
+        alert(this.storehouseList['msg'] );
         this.cookieStore.removeAll();
         this.router.navigate(['/auth/login']);
       }

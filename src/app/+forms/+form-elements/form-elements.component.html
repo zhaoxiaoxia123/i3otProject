@@ -1,0 +1,43 @@
+<style>
+    td {
+        border: 1px solid #bbb;
+        padding:10px;
+        width: 48%;
+    }
+
+    .demo-chart {
+        height: 400px;
+        margin-bottom: 50px;
+    }
+
+    .div-block {
+        display: inline-block;
+        width: 10%;
+    }
+</style>
+<div style="display: block;top:0;">
+    <span>公司:
+        <select name="company" [(ngModel)]="company">
+         <option value="all" >--全部--</option>
+         <option value="{{dic}}" *ngFor="let dic of defaultInfo.data?.company" >--{{dic}}--</option>
+        </select>
+    </span>
+    <span>设备:
+        <select name="device" [(ngModel)]="device">
+            <option value="all" >--全部--</option>
+         <option value="{{did}}" *ngFor="let did of defaultInfo.data?.device" >--{{did}}--</option>
+        </select>
+    </span>
+    <button (click)="submit_search_datapoint()">搜索</button>
+</div>
+
+<div id="show_result">
+    <div *ngFor="let entry of (products.data | keys)" class="div-block">
+        <h4>{{ entry.key }}:</h4>
+        <span *ngFor="let val of entry.value.value">
+      {{ val }}<br>
+      </span>
+    </div>
+</div>
+
+<div echarts [options]="chartOption" class="demo-chart"></div>
