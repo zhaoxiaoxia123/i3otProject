@@ -34,6 +34,21 @@ export class RegistrationFormComponent implements OnInit {
 
   super_admin_id : any = 0;//超级管理员id
   is_show : boolean = false;
+
+  role_default : number;
+  gender_default : number;
+  c_id_default : number;
+  department_default : number;
+  contract_type_default : number;
+  birthplace1_default : number;
+  birthplace2_default : number;
+  nation_default : string;
+  marital_status_default : number;
+  study_diploma_default : number;
+  study_category_default : number;
+  address1_default : number;
+  address2_default : number;
+  address3_default : number;
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -106,8 +121,8 @@ export class RegistrationFormComponent implements OnInit {
     setTimeout(() => {
       console.log(this.user_info);
       this.formModel.patchValue({
-        'u_id':this.user_info['result']['u_id'],
-        'employee_id':this.user_info['result']['u_name'],
+        'u_id':this.user_info['result']['id'],
+        'employee_id':this.user_info['result']['name'],
         'name':this.user_info['result']['u_username'],
         'phone':this.user_info['result']['u_phone'],
         // 'password':this.user_info['result']['passwords']['password'],
@@ -177,11 +192,22 @@ export class RegistrationFormComponent implements OnInit {
         this.cookieStoreService.removeAll();
         this.router.navigate(['/auth/login']);
       }
+
+      this.role_default = 2;
+      this.gender_default = 1;
+      this.c_id_default = this.userList['result']['customerList'].length >= 1 ? this.userList['result']['customerList'][0]['c_id'] : 0;
+      this.department_default = this.userList['result']['departmentList'].length >= 1 ? this.userList['result']['departmentList'][0]['category_id'] : 0;
+      this.contract_type_default = this.userList['result']['contractTypeList'].length >= 1 ? this.userList['result']['contractTypeList'][0]['category_id'] : 0;
+      this.birthplace1_default = 0;
+      this.birthplace2_default = 0;
+      this.nation_default = '汉族';
+      this.marital_status_default = 1;
+      this.study_diploma_default = 1;
+      this.study_category_default = this.userList['result']['studyCategoryList'].length >= 1 ? this.userList['result']['studyCategoryList'][0]['category_id'] : 0;
+      this.address1_default = 0;
+      this.address2_default = 0;
+      this.address3_default = 0;
       this.super_admin_id = this.userList['super_admin_id'];
-      console.log('super_admin_id:-----');
-      console.log(this.cookieStoreService.getCookie('cid'));
-      console.log(this.userList['super_admin_id']);
-      console.log(this.super_admin_id);
       if(this.cookieStoreService.getCookie('cid') == this.super_admin_id){
         this.is_show = true;
       }

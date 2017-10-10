@@ -47,7 +47,7 @@
                     <section class="col col-lg-6">
                       <label class="label "> 保管员</label>
                       <label class="select">
-                        <select  name="u_id" formControlName="u_id">
+                        <select name="u_id" formControlName="u_id">
                           <option *ngFor="let u of storehouseList.result?.userList" [selected]="storehouse_info.result?.u_id == u.id || this.storehouse_id == 0" value="{{u.id}}">{{u.u_username}}</option>
                         </select> <i></i> </label>
                     </section>

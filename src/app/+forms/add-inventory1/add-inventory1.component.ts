@@ -87,6 +87,7 @@ export class AddInventory1Component implements OnInit {
   }
 
   onSubmit(){
+    console.log(this.formModel.value['u_id'] );
     if(this.formModel.value['storehouse_name'] == ''){
       alert('请填写仓库名称！');
       return false;

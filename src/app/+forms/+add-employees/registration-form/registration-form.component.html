@@ -29,15 +29,15 @@
       <section class="col col-lg-6">
         <label class="label">角色</label>
         <label class="select">
-          <select name="role"  formControlName="role">
-            <option value="2" [selected]="user_info.result?.u_role == 2">管理员</option>
-            <option value="3" [selected]="user_info.result?.u_role == 3">员工</option>
+          <select name="role" formControlName="role" [(ngModel)]="role_default">
+            <option [value]="2" [selected]="user_info.result?.u_role == 2">管理员</option>
+            <option [value]="3" [selected]="user_info.result?.u_role == 3">员工</option>
           </select> <i></i> </label>
       </section>
       <section class="col col-lg-6">
         <label class="label">性别</label>
         <label class="select">
-          <select name="gender" formControlName="gender" >
+          <select name="gender" formControlName="gender" [(ngModel)]="gender_default">
             <option value="1" [selected]="user_info.result?.u_gender == 1">男</option>
             <option value="2" [selected]="user_info.result?.u_gender == 2">女</option>
           </select> <i></i> </label>
@@ -58,7 +58,7 @@
       <section class="col col-lg-6" *ngIf="is_show">
         <label class="label">所属公司</label>
           <label class="select">
-            <select name="c_id"  formControlName="c_id">
+            <select name="c_id" formControlName="c_id" [(ngModel)]="c_id_default">
               <option *ngFor="let clist of userList.result?.customerList" [selected]="user_info.result?.c_id == clist.c_id" value="{{clist.c_id}}">{{clist.c_name}}</option>
             </select> <i></i>
           </label>
@@ -68,10 +68,9 @@
         <label class="label">所属部门</label>
         <div class="col-lg-8">
           <label class="select">
-            <select name="department"  formControlName="department">
+            <select name="department" formControlName="department" [(ngModel)]="department_default">
               <option *ngFor="let c of userList.result?.departmentList" [selected]="user_info.result?.u_department == c.category_id" value="{{c.category_id}}">{{c.category_desc}}</option>
             </select> <i></i> </label></div>
-
         <div class="col col-lg-2">
           <button type="button" class="btn btn-info btn-sm">
             添加部门
@@ -139,7 +138,7 @@
 
         <div class="col-lg-8">
           <label class="select">
-            <select name="contract_type" formControlName="contract_type">
+            <select name="contract_type" formControlName="contract_type" [(ngModel)]="contract_type_default">
               <option *ngFor="let c of userList.result?.contractTypeList" [selected]="user_info.result?.u_contract_type == c.category_id" value="{{c.category_id}}">{{c.category_desc}}</option>
             </select> <i></i> </label></div>
 
@@ -153,14 +152,14 @@
         <label class="label">籍贯</label>
         <div class="col-lg-6">
           <label class="select ">
-            <select name="birthplace1" formControlName="birthplace1" (change)="getBrithplaceCity()">
+            <select name="birthplace1" formControlName="birthplace1" [(ngModel)]="birthplace1_default" (change)="getBrithplaceCity()">
               <option value="0">--请选择省--</option>
               <option *ngFor="let p of birthplace_province" [selected]="user_info.result?.birthplace1 == p" value="{{p}}">{{p}}</option>
             </select> <i></i> </label>
         </div>
         <div class="col col-lg-6">
           <label class="select ">
-            <select  name="birthplace2" formControlName="birthplace2">
+            <select  name="birthplace2" formControlName="birthplace2" [(ngModel)]="birthplace2_default">
               <option value="0">--请选择市--</option>
               <option *ngFor="let c of birthplace_city" [selected]="user_info.result?.birthplace2 == c" value="{{c}}">{{c}}</option>
             </select> <i></i> </label>
@@ -176,7 +175,7 @@
       <section class="col col-lg-6">
         <label class="label">民族</label>
         <label class="select">
-          <select name="nation" formControlName="nation">
+          <select name="nation" formControlName="nation" [(ngModel)]="nation_default">
             <option value="汉族" [selected]="user_info.result?.u_nation == '汉族'">汉族</option>
             <option value="蒙古族" [selected]="user_info.result?.u_nation == '蒙古族'">蒙古族</option>
             <option value="彝族" [selected]="user_info.result?.u_nation == '彝族'">彝族</option>
@@ -239,7 +238,7 @@
       <section class="col col-lg-6">
         <label class="label">婚姻状况</label>
         <label class="select">
-          <select name="marital_status"  formControlName="marital_status">
+          <select name="marital_status"  formControlName="marital_status" [(ngModel)]="marital_status_default">
             <option value="1" [selected]="user_info.result?.u_marital_status == 1">未婚</option>
             <option value="2" [selected]="user_info.result?.u_marital_status == 2">已婚</option>
           </select> <i></i> </label>
@@ -259,7 +258,7 @@
       <section class="col col-lg-6">
         <label class="label">文凭</label>
         <label class="select">
-          <select name="study_diploma"  formControlName="study_diploma">
+          <select name="study_diploma"  formControlName="study_diploma" [(ngModel)]="study_diploma_default">
             <option value="1" [selected]="user_info.result?.u_study_diploma == 1">高中以下</option>
             <option value="2" [selected]="user_info.result?.u_study_diploma == 2">高中</option>
             <option value="3" [selected]="user_info.result?.u_study_diploma == 3">中专/技校</option>
@@ -275,7 +274,7 @@
         <label class="label">学历来源</label>
         <div class="col-lg-8">
           <label class="select">
-            <select name="study_category"  formControlName="study_category">
+            <select name="study_category"  formControlName="study_category" [(ngModel)]="study_category_default">
               <option *ngFor="let c of userList.result?.studyCategoryList" [selected]="user_info.result?.u_study_category == c.category_id" value="{{c.category_id}}">{{c.category_desc}}</option>
             </select> <i></i> </label></div>
 
@@ -312,21 +311,21 @@
         <label class="label">家庭住址</label>
         <div class="col-lg-4">
           <label class="select ">
-            <select name="address1"  formControlName="address1" (change)="getCity()">
+            <select name="address1"  formControlName="address1" [(ngModel)]="address1_default" (change)="getCity()">
               <option value="0">--请选择省--</option>
               <option *ngFor="let p of province" [selected]="user_info.result?.address1 == p" value="{{p}}">{{p}}</option>
             </select> <i></i> </label>
         </div>
         <div class="col col-lg-4">
           <label class="select ">
-            <select name="address2"  formControlName="address2" (change)="getArea()">
+            <select name="address2"  formControlName="address2" [(ngModel)]="address2_default" (change)="getArea()">
               <option value="0">--请选择市--</option>
               <option *ngFor="let c of city" [selected]="user_info.result?.address2 == c" value="{{c}}">{{c}}</option>
             </select> <i></i> </label>
         </div>
         <div class="col col-lg-4">
           <label class="select ">
-            <select name="address3"  formControlName="address3">
+            <select name="address3"  formControlName="address3" [(ngModel)]="address3_default">
               <option value="0">--请选择区--</option>
               <option *ngFor="let a of area" [selected]="user_info.result?.address3 == a" value="{{a}}">{{a}}</option>
             </select> <i></i> </label>
