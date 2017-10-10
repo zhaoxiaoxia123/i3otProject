@@ -8,6 +8,8 @@ import {Http} from '@angular/http';
 import {Router,ActivatedRoute} from '@angular/router';
 import {GlobalService} from '../../../core/global.service';
 
+
+
 @Component({
   selector: 'app-registration-form',
   templateUrl: './registration-form.component.html',
@@ -174,6 +176,8 @@ export class RegistrationFormComponent implements OnInit {
   }
 
 
+
+
   /**
    * 获取添加员工的默认参数
    */
@@ -285,6 +289,7 @@ export class RegistrationFormComponent implements OnInit {
     let brithplacePro = this.formModel.value['birthplace1'];
     this.birthplace_city = getCity(brithplacePro);
   }
+
 
 
 }

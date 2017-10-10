@@ -4,7 +4,7 @@
     <span id="logo"> <img src="assets/img/logo.png" alt="SmartAdmin"> </span>
   </div>
 
-  <span id="extr-page-header-space"> <span class="hidden-mobile hiddex-xs">Need an account?</span> <a routerLink="/auth/register" class="btn btn-danger">Create account</a> </span>
+  <span id="extr-page-header-space"> <span class="hidden-mobile hiddex-xs">需要一个新帐户吗?</span> <a routerLink="/auth/register" class="btn btn-danger">注册账户</a> </span>
 
 </header>
 <div id="main" role="main" class="animated fadeInDown">
@@ -18,7 +18,7 @@
         <div class="well no-padding">
           <form class="smart-form client-form" (ngSubmit)="onSubmit(myForm.value, myForm.valid)" #myForm="ngForm" novalidate>
             <header>
-              Sign In
+              登录
             </header>
             <fieldset>
               <section>
@@ -36,29 +36,28 @@
               </section>
 
               <section>
-                <label class="label">Password</label>
+                <label class="label">密码</label>
                 <label class="input"> <i class="icon-append fa fa-lock"></i>
                   <input type="password" name="password" ngModel minlength="6" data-smart-validate-input="" data-required="" data-minlength="3" data-message="Please enter your email password">
-                  <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> Enter
-                    your password</b>
+                  <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i>输入你的密码</b>
 
                   <div [hidden]="!myForm.form.hasError('minlength','password')">
                     用户名最小长度是6
                   </div>
                 </label>
                 <div class="note">
-                  <a routerLink="/auth/forgot-password">Forgot password?</a>
+                  <a routerLink="/auth/forgot-password">找回密码</a>
                 </div>
               </section>
               <section>
                 <label class="checkbox">
                   <input type="checkbox" name="remember" checked>
-                  <i></i>Stay signed in</label>
+                  <i></i>记住密码，下次自动登录</label>
               </section>
             </fieldset>
             <footer>
               <button class="btn btn-primary" [disabled]="!myForm.form.valid">
-                Sign in
+                登录
               </button>
             </footer>
           </form>

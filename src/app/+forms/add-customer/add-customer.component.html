@@ -73,16 +73,16 @@
 
                     <section class="col col-lg-6">
                       <label class="label ">所属行业</label>
-                      <div class="col-lg-8">
+                      <div class="">
                         <label class="select">
                           <select name="industry_category" formControlName="industry_category">
                             <option *ngFor="let c of userList.result?.industryCategoryList" [selected]="customer_info.result?.c_industry_category == c.category_id || this.c_id == 0" value="{{c.category_id}}">{{c.category_desc}}</option>
                           </select> <i></i> </label></div>
-                      <div class="col col-lg-2">
+                      <!--<div class="col col-lg-2">
                         <button type="button" class="btn btn-info btn-sm">
                           添加所属行业
                         </button>
-                      </div>
+                      </div>-->
                     </section>
                     <section class="col col-lg-6">
                       <label class="label">企业邮箱</label>
@@ -131,16 +131,16 @@
 
                     <section class="col col-lg-6">
                       <label class="label">客户来源</label>
-                      <div class="col-lg-8">
+                      <div class="">
                         <label class="select">
                         <select name="source" formControlName="source">
                           <option *ngFor="let c of userList.result?.sourceList" [selected]="customer_info.result?.c_source == c.category_id || this.c_id == 0" value="{{c.category_id}}">{{c.category_desc}}</option>
                         </select> <i></i> </label></div>
-                <div class="col col-lg-4">
+                <!--<div class="col col-lg-4">
                   <button type="button" class="btn btn-info btn-sm">
                     添加客户来源
                   </button>
-                </div>
+                </div>-->
                 </section>
 
                 <section class="col col-lg-6">

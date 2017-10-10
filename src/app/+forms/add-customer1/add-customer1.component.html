@@ -39,17 +39,17 @@
                     </section>
 
                     <section class="col col-lg-6">
-                      <div class="col-lg-8">
+                      <div class="">
                         <label class="label "> 所属行业</label>
                         <label class="select">
                           <select name="industry_category" formControlName="industry_category">
                             <option *ngFor="let c of customerList.result?.industryCategoryList" [selected]="customer_info.result?.c_industry_category == c.category_id || this.c_id == 0" value="{{c.category_id}}">{{c.category_desc}}</option>
                           </select> <i></i> </label></div>
-                      <div class="col col-lg-4">
+                      <!--<div class="col col-lg-4">
                         <button type="button" class="btn btn-info btn-sm margin-top-26 ">
                           添加所属行业
                         </button>
-                      </div>
+                      </div>-->
                     </section>
                     <section class="col col-lg-6">
                       <label class="label">企业邮箱</label>
@@ -70,7 +70,7 @@
                           <input  name='contacts' placeholder="请输入姓名"  type="text" formControlName="contacts">
                         </label>
                       </div>
-                      <div class=" col-lg-8">
+                      <div class="col col-lg-8">
                         <label class="input"> <i class="icon-append fa fa-phone"></i>
                           <input name="phone" placeholder="请输入联系电话" formControlName="phone" samaskedinput="(999) 999-9999" type="tel" ng-reflect-sa-masked-input="(999) 999-9999" aria-required="true" class="valid" aria-invalid="false">
                         </label>
@@ -108,17 +108,17 @@
                 <div id="">
                   <fieldset>
                     <section class="col col-lg-6">
-                      <div class="col-lg-8">
+                      <div class="">
                         <label class="label "> 客户来源</label>
                         <label class="select">
                             <select name="source" formControlName="source">
                                 <option *ngFor="let c of customerList.result?.sourceList" [selected]="customer_info.result?.c_source == c.category_id || this.c_id == 0" value="{{c.category_id}}">{{c.category_desc}}</option>
                             </select> <i></i> </label></div>
-                        <div class="col col-lg-4">
+                        <!--<div class="col col-lg-4">
                             <button type="button" class="btn btn-info btn-sm margin-top-26 ">
                                 添加客户来源
                             </button>
-                        </div>
+                        </div>-->
                     </section>
 
                       <section class="col col-lg-6">
