@@ -92,6 +92,8 @@
     "to-markdown": "3.0.4",
     "ts-helpers": "1.1.2",
     "web-animations-js": "2.2.5",
+    "ngx-echarts": "^1.2.3",
+    "echarts": "^3.6.2",
     "zone.js": "0.8.11"
   },
   "devDependencies": {

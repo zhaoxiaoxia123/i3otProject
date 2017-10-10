@@ -19,6 +19,7 @@ import {CoreModule} from "./core/core.module";
 import {SmartadminLayoutModule} from "./shared/layout/layout.module";
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {GlobalService} from './core/global.service';
+import { AngularEchartsModule } from 'ngx-echarts';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -49,9 +50,7 @@ type StoreType = {
 
     CoreModule,
     SmartadminLayoutModule,
-
-
-
+    AngularEchartsModule,
     routing
   ],
   exports: [
