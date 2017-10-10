@@ -20,7 +20,7 @@ import {ReactiveFormsModule} from '@angular/forms';
     // FileUploadModule
   ],
   declarations: [
-      AddEmployeesComponent,
+    AddEmployeesComponent,
     RegistrationFormComponent,
     // KeysPipe
   ],

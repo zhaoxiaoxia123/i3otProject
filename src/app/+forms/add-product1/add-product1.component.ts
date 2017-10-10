@@ -5,7 +5,7 @@ import {Http} from '@angular/http';
 import {ActivatedRoute, Router,Params} from '@angular/router';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 import {GlobalService} from '../../core/global.service';
-
+declare var $: any;
 @FadeInTop()
 @Component({
   selector: 'app-add-product1',
@@ -229,4 +229,25 @@ export class AddProduct1Component implements OnInit {
         }
     );
   }
+
+    messageDialogOptions = {
+        autoOpen : false,
+        modal : true,
+        closeText: '',
+        title : "<div class='widget-header'><h4><i class='icon-ok'></i> jQuery UI Dialog</h4></div>",
+        buttons : [{
+            html : "Cancel",
+            "class" : "btn btn-default",
+            click : function() {
+                $(this).dialog("close");
+            }
+        }, {
+            html : "<i class='fa fa-check'></i>&nbsp; OK",
+            "class" : "btn btn-primary",
+            click : function() {
+                $(this).dialog("close");
+            }
+        }]
+
+    };
 }

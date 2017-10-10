@@ -73,7 +73,7 @@
             </select> <i></i> </label></div>
 
         <div class="col col-lg-2">
-          <button type="button" class="btn btn-info btn-sm">
+          <button type="button" class="btn btn-info btn-sm" >
             添加部门
           </button>
         </div>
@@ -94,9 +94,12 @@
 
   <fieldset>
     <legend>其他信息</legend>
+    <button type="button" class="btn btn-primary btn-sm " >
+      展开+ 收起-
+    </button>
   </fieldset>
 
-  <div id="hpn"  >
+  <div id=""  >
     <fieldset>
       <section class="col col-lg-6">
         <div class="form-group ">
@@ -137,17 +140,17 @@
       <section class="col col-lg-6">
         <label class="label">选择合同类型</label>
 
-        <div class="col-lg-8">
+        <div class="">
           <label class="select">
             <select name="contract_type" formControlName="contract_type">
               <option *ngFor="let c of userList.result?.contractTypeList" [selected]="user_info.result?.u_contract_type == c.category_id" value="{{c.category_id}}">{{c.category_desc}}</option>
             </select> <i></i> </label></div>
 
-        <div class="col col-lg-2">
+       <!-- <div class="col col-lg-2">
           <button type="button" class="btn btn-info btn-sm">
             添加合同类型
           </button>
-        </div>
+        </div>-->
       </section>
       <section class="col col-lg-6">
         <label class="label">籍贯</label>
@@ -273,17 +276,17 @@
 
       <section class="col col-lg-6">
         <label class="label">学历来源</label>
-        <div class="col-lg-8">
+        <div class="">
           <label class="select">
             <select name="study_category"  formControlName="study_category">
               <option *ngFor="let c of userList.result?.studyCategoryList" [selected]="user_info.result?.u_study_category == c.category_id" value="{{c.category_id}}">{{c.category_desc}}</option>
             </select> <i></i> </label></div>
 
-        <div class="col col-lg-2">
+        <!--<div class="col col-lg-2">
           <button type="button" class="btn btn-info btn-sm">
             添加学历来源
           </button>
-        </div>
+        </div>-->
 
       </section>
       <section class="col col-lg-6">
@@ -300,7 +303,7 @@
             <input  name='emergency_contact' formControlName="emergency_contact" placeholder="请输入姓名"  type="text" maxlength="20">
           </label>
         </section>
-        <section class="col-lg-8">
+        <section class="col col-lg-8">
           <label class="input"> <i class="icon-append fa fa-phone"></i>
             <input name="emergency_phone" formControlName="emergency_phone" placeholder="请输入联系电话" samaskedinput="(999) 999-9999" type="tel" ng-reflect-sa-masked-input="(999) 999-9999" maxlength="20" aria-required="true" class="valid" aria-invalid="false">
           </label>
@@ -340,11 +343,8 @@
       </section>
     </fieldset>
   </div>
-  <fieldset>
-    <button type="button" id="strHref" class="btn btn-primary btn-sm margin-top-60" >
-      更多资料+ 收起-
-    </button>
-  </fieldset>
+
+
 
   <footer>
     <button type="submit" class="btn btn-primary">
@@ -352,3 +352,4 @@
     </button>
   </footer>
 </form>
+
