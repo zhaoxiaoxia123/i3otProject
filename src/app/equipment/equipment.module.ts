@@ -7,7 +7,7 @@ import { HelmetListComponent } from './helmet-list/helmet-list.component';
 import { StationListComponent } from './station-list/station-list.component';
 import {SmartadminModule} from '../shared/smartadmin.module';
 import {SmartadminDatatableModule} from '../shared/ui/datatable/smartadmin-datatable.module';
-import {routing} from './equipment-routing.module';
+import {routing} from './equipment.routing';
 import {ReactiveFormsModule} from '@angular/forms';
 import {AddI3otpComponent} from './add-i3otp/add-i3otp.component';
 import {CookieStoreService} from '../shared/cookies/cookie-store.service';
