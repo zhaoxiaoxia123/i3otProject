@@ -3,26 +3,20 @@
     <sa-big-breadcrumbs [items]="['设备管理', '基站设备']" icon="table"
                         class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
   </div>
-
   <sa-widget [editbutton]="false" color="blueDark">
     <header>
       <span class="widget-icon"> <i class="fa fa-table"></i> </span>
       <h2>基站设备 </h2>
     </header>
     <div>
-
       <div class="widget-body no-padding">
         <div class="row">
           <article class="col-sm-12">
-
             <div class="navbar navbar-default">
-
-
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-                <form class="navbar-form navbar-left" role="search" novalidate>
+                <form class="navbar-form navbar-left" role="search" [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate>
                   <div class="form-group">
-                    <input type="text" name="keyword" maxlength="15"  class="form-control" placeholder="请输入搜索内容">
+                    <input type="text" name="keyword" maxlength="15" formControlName="keyword" class="form-control" placeholder="请输入搜索内容">
                   </div>
                   <button type="submit" class="btn btn-default">
                     <i class="glyphicon glyphicon-search"></i>
@@ -30,7 +24,6 @@
                   </button>
                 </form>
               </div>
-
             </div>
           </article>
         </div>
@@ -38,26 +31,25 @@
           <thead>
           <tr>
             <th>设备ID</th>
-            <th>设备ID-名称 </th>
-            <th >检测气体数据</th>
-            <th >温湿度</th>
+            <th>设备ID-名称</th>
+            <th>检测气体数据</th>
+            <th>温湿度</th>
             <th>采集数据时间</th>
             <th>采集数据地址</th>
           </tr>
           </thead>
           <tbody>
-
           <tr style="display: none;">
             <td></td><td></td><td></td><td></td>
             <td></td><td></td>
           </tr>
-          <tr>
-            <td>设备ID</td>
-            <td>设备ID-名称</td>
-            <td>甲烷:;一氧化碳:;二氧化碳:;</td>
-            <td>温度:;湿度:;</td>
-            <td>2016-10-9 10:16:39 </td>
-            <td>读取基站设备地址</td>
+          <tr *ngFor="let rl of recordList.result?.data" (click)="getRecordInfo(rl.r_id);">
+            <td>{{ rl.i_number }}</td>
+            <td>{{ rl.i_name }}</td>
+            <td>{{ rl.qt }}</td>
+            <td>{{ rl.wsd }}</td>
+            <td>{{ rl.created_at }}</td>
+            <td>{{ rl.r_address }}</td>
           </tr>
           </tbody>
         </sa-datatable>
@@ -90,18 +82,98 @@
                 <a href="">下一页</a>
               </li>
             </ul>
-
           </div>
         </div>
-
-
       </div>
-
-
     </div>
-
   </sa-widget>
-  <app-station-details></app-station-details>
-
+  <!--<app-station-details></app-station-details>-->
+<!--详情 start-->
+  <sa-widget *ngIf="recordInfo.length != 0" [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+    <header>
+      <ul class="nav nav-tabs pull-left in">
+        <li [class.active]="state.tabs.demo3=='hr1'">
+          <a>
+            <span class="hidden-mobile"> 详细信息 </span>
+          </a>
+        </li>
+      </ul>
+    </header>
+    <div>
+      <div class="widget-body">
+        <tabset>
+          <tab [active]="state.tabs.demo3 == 'hr1'">
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="well">
+                  <P class="alert alert-info">基本资料</P>
+                  <table class="table table-striped table-forum">
+                    <tbody>
+                    <tr>
+                      <td class="width-120">设备ID:</td>
+                      <td class="">{{ recordInfo.result?.i_number }}</td>
+                    </tr>
+                    <tr><td class="width-120">设备ID-名称:</td>
+                      <td class="">{{ recordInfo.result?.i_name }}</td>
+                    </tr>
+                    <tr>
+                      <td class="width-120">采集数据时间:</td>
+                      <td class="">{{ recordInfo.result?.created_at }}</td>
+                    </tr>
+                    <tr><td class="width-120">采集数据地址:</td>
+                      <td class="">{{ recordInfo.result?.r_address }}</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="well">
+                  <P class="alert alert-info">检测气体数据</P>
+                  <table class="table table-striped table-forum">
+                    <tbody>
+                    <tr>
+                      <td class="width-120">甲烷:</td>
+                      <td class="">{{ recordInfo.result?.detail.ch4 }}</td>
+                    </tr>
+                    <tr><td class="width-120">一氧化碳:</td>
+                      <td class="">{{ recordInfo.result?.detail.co }}</td>
+                    </tr>
+                    <tr>
+                      <td class="width-120">二氧化碳:</td>
+                      <td class="">{{ recordInfo.result?.detail.co2 }}</td>
+                    </tr>
+                    <tr><td class="width-120">氧气:</td>
+                      <td class="">{{ recordInfo.result?.detail.o2 }}</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="well">
+                  <P class="alert alert-info">温湿度</P>
+                  <table class="table table-striped table-forum">
+                    <tbody>
+                    <tr>
+                      <td class="width-120">温度:</td>
+                      <td class="">{{ recordInfo.result?.detail.temp }}</td>
+                    </tr>
+                    <tr><td class="width-120">湿度:</td>
+                      <td class="">{{ recordInfo.result?.detail.humi }}</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </tab>
+        </tabset>
+      </div>
+      <!-- end widget content -->
+    </div>
+    <!-- end widget div -->
+  </sa-widget>
+  <!--详情 end-->
 </div>
 

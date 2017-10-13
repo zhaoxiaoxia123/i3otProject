@@ -3,28 +3,39 @@ import {Http} from '@angular/http';
 // import {Router} from '@angular/router';
 import {GlobalService} from '../../core/global.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {ParamService} from '../../shared/cookies/param.service';
 
 @Component({
   selector: 'app-helmet-list',
   templateUrl: './helmet-list.component.html',
-  styleUrls: ['./helmet-list.component.css'],
-  providers: [ParamService]
+  styleUrls: ['./helmet-list.component.css']
 })
 export class HelmetListComponent implements OnInit {
-
+  public state: any = {
+    tabs: {
+      demo1: 0,
+      demo2: 'tab-r1',
+      demo3: 'hr1',
+      demo4: 'AA',
+      demo5: 'iss1',
+      demo6: 'l1',
+      demo7: 'tab1',
+      demo8: 'hb1',
+      demo9: 'A1',
+      demo10: 'is1'
+    },
+  };
   formModel : FormGroup;
   recordList : Array<any> = [];
   // recordInfo : Array<any> = [];
   page : any;
   prev : boolean = false;
   next : boolean = false;
+  recordInfo : Array<any> = [];
   constructor(
       fb:FormBuilder,
       private http:Http,
       // private router:Router,
-      private globalService:GlobalService,
-      private _service: ParamService
+      private globalService:GlobalService
   ) {
     this.formModel = fb.group({
       keyword:[''],
@@ -32,14 +43,6 @@ export class HelmetListComponent implements OnInit {
     this.getRecordList('1');
     window.scrollTo(0,0);
 
-    this._service.output$.subscribe(function (output: string) {
-      console.log('parent output');
-      console.log(output);
-    })
-  }
-
-  goDetail(r_id:string) {
-    this._service.input$.emit( r_id );
   }
 
   ngOnInit() {
@@ -105,4 +108,20 @@ export class HelmetListComponent implements OnInit {
     }
   }
 
+  /**
+   * 获取设备详情
+   * @param record_id
+   */
+  getRecordInfo(record_id:number){
+    this.http.get(this.globalService.getDomain()+'/api/v1/getRecordInfo?r_id='+record_id)
+        .map((res)=>res.json())
+        .subscribe((data)=>{
+          this.recordInfo = data;
+        });
+
+    setTimeout(() => {
+      console.log('this.recordInfo:-----');
+      console.log(this.recordInfo);
+    },300);
+  }
 }
