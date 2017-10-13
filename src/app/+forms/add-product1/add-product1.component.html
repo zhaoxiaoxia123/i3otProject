@@ -24,13 +24,13 @@
                       <div class="col-lg-4">
                         <label class="label "> 一级类型</label>
                         <label class="select">
-                          <select name="category_id1" formControlName="category_id1" (change)="getProductChild($event.target.value)">
+                          <select name="category_id1" formControlName="category_id1" (change)="getProductChild($event.target.value,1)" [(ngModel)]="category_id1_default">
                             <option *ngFor="let c of productList.result?.categoryIdList" [selected]="product_info.result?.category_id1 == c.category_id || this.p_id == 0" value="{{c.category_id}}">{{c.category_desc}}</option>
                           </select> <i></i> </label></div>
                       <div class="col col-lg-4">
                         <label class="label "> 二级类型</label>
                         <label class="select">
-                          <select name="category_id2" formControlName="category_id2" (change)="changeChild($event.target.value)">
+                          <select name="category_id2" formControlName="category_id2" (change)="changeChild($event.target.value)" [(ngModel)]="category_id2_default">
                             <option *ngFor="let pc of childCategory" [selected]="product_info.result?.category_id2 == pc.category_id" value="{{pc.category_id}}">{{pc.category_desc}}</option>
                           </select> <i></i> </label></div>
                       <div class="col col-lg-2">
@@ -66,7 +66,7 @@
                     <section class="col col-lg-6">
                         <label class="label "> 内部质检员</label>
                         <label class="select">
-                          <select  name="inspector" formControlName="inspector" >
+                          <select  name="inspector" formControlName="inspector" [(ngModel)]="inspector_default">
                             <option *ngFor="let u of productList.result?.inspectorList" [selected]="product_info.result?.p_inspector == u.id || this.p_id == 0" value="{{u.id}}">{{u.u_username}}</option>
                           </select> <i></i> </label>
                     </section>
@@ -79,7 +79,7 @@
                     <section class="col col-lg-6">
                       <label class="label "> 存放仓库</label>
                       <label class="select">
-                        <select  name="storehouse" formControlName="storehouse">
+                        <select  name="storehouse" formControlName="storehouse" [(ngModel)]="storehouse_default">
                           <option *ngFor="let sh of productList.result?.storeHouseList" [selected]="product_info.result?.p_storehouse == sh.storehouse_id || this.p_id == 0" value="{{sh.storehouse_id}}">{{sh.storehouse_name}}</option>
                         </select> <i></i> </label>
                     </section>
@@ -90,7 +90,6 @@
                                saUiDatepicker/>
                       </label>
                     </section>
-
                     <section class="col col-lg-6">
                       <label class="label">是否合格</label>
                       <div class="inline-group">
@@ -103,7 +102,6 @@
                       </div>
                     </section>
                   </div>
-
                   <!--<div class="row">-->
                     <!--<section class="col col-lg-6">-->
                       <!--<div class="col col-8">-->
@@ -135,17 +133,15 @@
                     <!--</section>-->
                   <!--</div>-->
                   <div class="row">
+                    <input type="hidden" name="category_id" formControlName="category_id">
                   <section class="col col-10">
                     <label class="label">参数内容</label>
-                    <input type="hidden" name="category_id" formControlName="category_id">
                     <label class="textarea textarea-resizable">
-                      <textarea class="custom-scroll" rows="5" name="specification" formControlName="specification"></textarea>
+                      <textarea class="custom-scroll" rows="5" name="specifications" formControlName="specifications"></textarea>
                     </label>
                   </section>
-
-
                     <div class="col-lg-2">
-                      <button type="button" class="btn btn-info btn-sm margin-top-26 ">
+                      <button type="button" (click)="updateCategory()" class="btn btn-info btn-sm margin-top-26 ">
                         更新到模版
                       </button>
                     </div>
@@ -156,17 +152,16 @@
                       <textarea class="custom-scroll" rows="3" name="notes" formControlName="notes"></textarea>
                     </label>
                   </section>
-
                 </fieldset>
 
                 <fieldset>
                   <legend>其他信息</legend>
-                  <button type="button" class="btn btn-primary btn-sm " >
-                    展开收起
+                  <button type="button" class="btn btn-primary btn-sm " (click)="changeDivStatus()" >
+                    {{(is_showDiv == true) ?'收起':'展开'}}
                   </button>
                 </fieldset>
 
-                <div id="">
+                <div [ngStyle]="{'display':is_showDiv?'block':'none'}">
                   <fieldset>
                     <section class="col col-lg-6">
                       <label class="label "> 运输车辆</label>

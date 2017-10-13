@@ -22,6 +22,7 @@ export class ListProductComponent implements OnInit {
   //用作全选和反选
   selects : Array<any> = [];
   check : boolean = false;
+  product_info : Array<any> = [];
   constructor(private http:Http,
               fb:FormBuilder,
               private router : Router,
@@ -214,9 +215,28 @@ export class ListProductComponent implements OnInit {
     }
   }
 
-  
-  
-    @ViewChild('lgModal') public lgModal:ModalDirective;
+
+  /**
+   * 查看产品详情
+   * @param id
+   */
+  getProductInfo(id){
+    this.http.get(this.globalService.getDomain()+'/api/v1/getProdcutInfo?p_id='+id+'&type=detail')
+        .map((res)=>res.json())
+        .subscribe((data)=>{
+          this.product_info = data;
+        });
+
+    setTimeout(() => {
+      console.log('this.product_info:-----');
+      console.log(this.product_info);
+    },300);
+  }
+
+
+
+
+  @ViewChild('lgModal') public lgModal:ModalDirective;
 
     public showChildModal():void {
         this.lgModal.show();

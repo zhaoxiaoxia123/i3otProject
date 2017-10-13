@@ -17,12 +17,15 @@ export const routes:Routes = [
         component: EquipmentBeaconComponent
     },
     {
-        path: 'helmet-details',
-        component: HelmetDetailsComponent
-    },
-    {
         path: 'helmet-list',
-        component: HelmetListComponent
+        component: HelmetListComponent,
+        //子路由
+        children:[
+        {
+            path: 'helmet-details/:r_id',
+            component: HelmetDetailsComponent
+        }
+    ]
     },
     {
         path: 'station-details',

@@ -20,6 +20,13 @@ export class AddProduct1Component implements OnInit {
   p_id : number = 0;
   product_info : Array<any> = [];
   // category_id:number = 0;
+  is_showDiv : boolean = false;//展开收起
+
+  //以下是默认选中
+  category_id1_default : number;
+  category_id2_default : number;
+  inspector_default : number;
+  storehouse_default : number;
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -37,7 +44,7 @@ export class AddProduct1Component implements OnInit {
       quantity:[''],
       unit:[''],
       category_id:[''],//修改模版时用
-      specification:[''],
+      specifications:[''],
       inspector:[''],
       production_date:[''],
       storehouse:[''],
@@ -67,7 +74,6 @@ export class AddProduct1Component implements OnInit {
         });
 
     setTimeout(() => {
-      console.log(this.product_info);
       this.formModel.patchValue({
         p_id:this.product_info['result']['p_id'],
         category_id1:this.product_info['result']['category_id1'],
@@ -76,7 +82,7 @@ export class AddProduct1Component implements OnInit {
         name:this.product_info['result']['p_name'],
         quantity:this.product_info['result']['p_quantity'],
         unit:this.product_info['result']['p_unit'],
-        specification:this.product_info['result']['p_specification'],
+        specifications:this.product_info['result']['p_specification'],
         inspector:this.product_info['result']['p_inspector'],
         production_date:this.product_info['result']['p_production_date'],
         storehouse:this.product_info['result']['p_storehouse'],
@@ -86,8 +92,9 @@ export class AddProduct1Component implements OnInit {
         plate_number:this.product_info['result']['p_plate_number'],
         courier:this.product_info['result']['p_courier']
       });
+
       if(this.product_info['result']['category_id1'] != 0){
-        this.getProductChild(this.product_info['result']['category_id1']);
+        this.getProductChild(this.product_info['result']['category_id1'],2);
         this.formModel.patchValue({
           category_id:this.product_info['result']['category_id1'],
         });
@@ -101,7 +108,6 @@ export class AddProduct1Component implements OnInit {
     }, 500);
   }
 
-
   /**
    * 获取添加客户的默认参数
    */
@@ -111,17 +117,26 @@ export class AddProduct1Component implements OnInit {
         .subscribe((data)=>{
           this.productList = data;
         });
-
     setTimeout(() => {
-      console.log('this.productList:----');
-      console.log(this.productList);
+      // console.log('this.productList:---');
+      // console.log(this.productList);
+      if(this.productList['status'] == 202){
+        this.cookieStore.removeAll();
+        this.router.navigate(['/auth/login']);
+      }
+      this.category_id1_default = this.productList['result']['categoryIdList'].length >= 1 ? this.productList['result']['categoryIdList'][0]['category_id'] : 0;
+      if(this.category_id1_default != 0){
+        this.getProductChild(this.category_id1_default,2);
+      }
+      this.inspector_default = this.productList['result']['inspectorList'].length >= 1 ? this.productList['result']['inspectorList'][0]['id'] : 0;
+      this.storehouse_default = this.productList['result']['storeHouseList'].length >= 1 ? this.productList['result']['storeHouseList'][0]['storehouse_id'] : 0;
     }, 300);
   }
 
   /**
    * 获取产品类型的二级目录
    */
-  getProductChild(value) {
+  getProductChild(value,type) {
     this.http.get(this.globalService.getDomain()+'/api/v1/getProductChild?category_depth='+value)
         .map((res)=>res.json())
         .subscribe((data)=>{
@@ -132,7 +147,13 @@ export class AddProduct1Component implements OnInit {
     setTimeout(() => {
       console.log('this.childCategory:----');
       console.log(this.childCategory);
-      this.formModel.patchValue({'specification':this.childTab,'category_id':value});
+      if(type == 1){
+        this.formModel.patchValue({'specifications':this.childTab,'category_id':value});
+      }else{
+        //默认选中值
+        this.category_id2_default = this.childCategory.length >= 1 ? this.childCategory[0]['category_id'] : 0;
+        this.formModel.patchValue({'category_id':value});
+      }
       // this.category_id = value;
     }, 500);
   }
@@ -151,7 +172,7 @@ export class AddProduct1Component implements OnInit {
     setTimeout(() => {
       console.log('this.childTab:----');
       console.log(this.childTab);
-      this.formModel.patchValue({'specification':this.childTab['category_tab'],'category_id':value});
+      this.formModel.patchValue({'specifications':this.childTab['category_tab'],'category_id':value});
       // this.category_id = value;
     }, 500);
   }
@@ -162,14 +183,14 @@ export class AddProduct1Component implements OnInit {
   updateCategory(){
     if(this.formModel.value['category_id'] != 0){
       let msg = '你确定要使用此条';
-      if(this.formModel.value['specification'] == ''){
+      if(this.formModel.value['specifications'] == ''){
         msg += '空白';
       }
       msg += '参数信息作为模版？';
       if(confirm(msg)){
         this.http.post(this.globalService.getDomain()+'/api/v1/changeCategoryByProduct',{
           'category_id':this.formModel.value['category_id'],
-          'specification':this.formModel.value['specification'],
+          'specification':this.formModel.value['specifications'],
         }).subscribe(
           (data)=>{
             let info = JSON.parse(data['_body']);
@@ -200,7 +221,7 @@ export class AddProduct1Component implements OnInit {
       'name':this.formModel.value['name'],
       'quantity':this.formModel.value['quantity'],
       'unit':this.formModel.value['unit'],
-      'specification':this.formModel.value['specification'],
+      'specification':this.formModel.value['specifications'],
       'inspector':this.formModel.value['inspector'],
       'production_date':this.formModel.value['production_date'],
       'storehouse':this.formModel.value['storehouse'],
@@ -248,6 +269,13 @@ export class AddProduct1Component implements OnInit {
                 $(this).dialog("close");
             }
         }]
-
     };
+
+  /**
+   * 展开收起
+   */
+  changeDivStatus(){
+    this.is_showDiv = (this.is_showDiv == false) ? true : false;
+  }
+
 }

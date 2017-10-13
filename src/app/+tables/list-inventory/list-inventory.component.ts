@@ -20,6 +20,8 @@ export class ListInventoryComponent implements OnInit {
   //用作全选和反选
   selects : Array<any> = [];
   check : boolean = false;
+
+  storehouse_info : Array<any> = [];
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -214,6 +216,22 @@ export class ListInventoryComponent implements OnInit {
     } else {
       this.getStorehouseList('1');
     }
+  }
+
+  /**
+   * 获取仓库详情
+   * @param storehouse_id
+   */
+  getStorehouseInfo(storehouse_id:number){
+    this.http.get(this.globalService.getDomain()+'/api/v1/getStorehouseInfo?storehouse_id='+storehouse_id+'&type=detail')
+        .map((res)=>res.json())
+        .subscribe((data)=>{
+          this.storehouse_info = data;
+        });
+    setTimeout(() => {
+      console.log('this.storehouse_info:-----');
+      console.log(this.storehouse_info);
+    },300);
   }
 
 }

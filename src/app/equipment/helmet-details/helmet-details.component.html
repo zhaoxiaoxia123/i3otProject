@@ -1,18 +1,15 @@
 <sa-widget [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
     <header>
       <ul class="nav nav-tabs pull-left in">
-
         <li [class.active]="state.tabs.demo3=='hr1'">
           <a (click)="state.tabs.demo3 = 'hr1'">  <span
                   class="hidden-mobile hidden-tablet"> 详细信息 </span>
           </a>
         </li>
-
       </ul>
     </header>
     <div>
       <div class="widget-body">
-
         <tabset>
           <tab [active]="state.tabs.demo3 == 'hr1'">
             <div class="row">
@@ -23,14 +20,14 @@
                             <tbody>
                             <tr>
                                 <td class="width-120">设备ID:</td>
-                                <td class="">ID</td>
+                                <td class="">{{ recordInfo.result?.p_id }}</td>
                             </tr>
                             <tr><td class="width-120">设备ID-名称:</td>
                                 <td class="">设备ID-名称</td>
                             </tr>
                             <tr>
                                 <td class="width-120">员工ID:</td>
-                                <td class="">信标信息-员工ID</td>
+                                <td class="">{{ recordInfo.result?.u_id }}</td>
                             </tr>
                             <tr><td class="width-120">姓名:</td>
                                 <td class="">信标信息-员工ID-姓名</td>
@@ -53,7 +50,6 @@
                             <tr><td class="width-120">采集数据地址:</td>
                                 <td class="">读取基站设备地址</td>
                             </tr>
-
                             </tbody>
                         </table>
                     </div>
@@ -65,17 +61,17 @@
                             <tbody>
                             <tr>
                                 <td class="width-120">甲烷:</td>
-                                <td class="">设备读取甲烷数据</td>
+                                <td class="">{{ recordInfo.result?.detail.ch4 }}</td>
                             </tr>
                             <tr><td class="width-120">一氧化碳:</td>
-                                <td class="">设备读取一氧化碳数据</td>
+                                <td class="">{{ recordInfo.result?.detail.co }}</td>
                             </tr>
                             <tr>
                                 <td class="width-120">二氧化碳:</td>
-                                <td class="">设备读取二氧化碳数据</td>
+                                <td class="">{{ recordInfo.result?.detail.co2 }}</td>
                             </tr>
                             <tr><td class="width-120">氧气:</td>
-                                <td class="">设备读取氧气数据</td>
+                                <td class="">{{ recordInfo.result?.detail.o2 }}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -88,10 +84,10 @@
                             <tbody>
                             <tr>
                                 <td class="width-120">温度:</td>
-                                <td class="">设备读取温度信息</td>
+                                <td class="">{{ recordInfo.result?.detail.temp }}</td>
                             </tr>
                             <tr><td class="width-120">湿度:</td>
-                                <td class="">设备读取湿度信息</td>
+                                <td class="">{{ recordInfo.result?.detail.humi }}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -102,13 +98,13 @@
                             <tbody>
                             <tr>
                                 <td class="width-120">脑电:</td>
-                                <td class="">设备读取脑电信息</td>
+                                <td class="">{{ recordInfo.result?.detail.eeg }}</td>
                             </tr>
                             <tr><td class="width-120">心率:</td>
-                                <td class="">设备读取心率信息</td>
+                                <td class="">{{ recordInfo.result?.detail.ecg }}</td>
                             </tr>
                             <tr><td class="width-120">血氧:</td>
-                                <td class="">设备读取血氧信息</td>
+                                <td class="">{{ recordInfo.result?.detail.spo2h }}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -116,13 +112,9 @@
                 </div>
             </div>
           </tab>
-
-
         </tabset>
-
       </div>
       <!-- end widget content -->
-
     </div>
     <!-- end widget div -->
   </sa-widget>

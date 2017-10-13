@@ -3,6 +3,8 @@ import {FadeInTop} from '../../shared/animations/fade-in-top.decorator';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Http} from '@angular/http';
 import {GlobalService} from '../../core/global.service';
+import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
+import {Router} from '@angular/router';
 
 @FadeInTop()
 @Component({
@@ -40,6 +42,8 @@ export class SettingEnterprise1Component implements OnInit {
     constructor(
         fb:FormBuilder,
         private http:Http,
+        private router:Router,
+        private cookieStore:CookieStoreService,
         private globalService : GlobalService
     ) {
         this.formModel = fb.group({
@@ -61,7 +65,7 @@ export class SettingEnterprise1Component implements OnInit {
     ngOnInit() {}
    // 4：员工合同类型 5：员工学历来源   矿易帮添加。不用考虑权限读取，所有用户客户均可读取
     getUserCategory(category_type:number,number:any){
-        this.http.get(this.globalService.getDomain()+'/api/v1/getIndustryCategory?category_type='+category_type+'&page='+number)
+        this.http.get(this.globalService.getDomain()+'/api/v1/getIndustryCategory?category_type='+category_type+'&page='+number+'&sid='+this.cookieStore.getCookie('sid'))
             .map((res)=>res.json())
             .subscribe((data)=>{
                 if(category_type == 4) {
@@ -74,8 +78,10 @@ export class SettingEnterprise1Component implements OnInit {
 
         setTimeout(() => {
             if(category_type == 4) {
-                console.log('userCategoryList:----');
-                console.log(this.userCategoryList);
+                if(this.userCategoryList['status'] == 202){
+                    this.cookieStore.removeAll();
+                    this.router.navigate(['/auth/login']);
+                }
                 if (this.userCategoryList) {
                     if (this.userCategoryList['result']['current_page'] == this.userCategoryList['result']['last_page']) {
                         this.nextI = true;
@@ -90,8 +96,10 @@ export class SettingEnterprise1Component implements OnInit {
                 }
             }
             if(category_type == 5) {
-                console.log('sourceList:----');
-                console.log(this.sourceList);
+                if(this.sourceList['status'] == 202){
+                    this.cookieStore.removeAll();
+                    this.router.navigate(['/auth/login']);
+                }
                 if (this.sourceList) {
                     if (this.sourceList['result']['current_page'] == this.sourceList['result']['last_page']) {
                         this.nextI = true;
@@ -116,6 +124,7 @@ export class SettingEnterprise1Component implements OnInit {
             'category_desc':this.formModel.value['category_desc'],
             'category_type':this.formModel.value['category_type'],
             'category_id':this.formModel.value['category_id'],
+            'sid':this.cookieStore.getCookie('sid')
         }).subscribe(
             (data)=>{
                 alert(JSON.parse(data['_body'])['msg']);
@@ -123,6 +132,10 @@ export class SettingEnterprise1Component implements OnInit {
                 this.formModel.setValue({category_desc:'',category_type:'4',category_id:''});
                 // this.formModel.reset();
                 this.userCategoryList = JSON.parse(data['_body']);
+                if(this.userCategoryList['status'] == 202){
+                    this.cookieStore.removeAll();
+                    this.router.navigate(['/auth/login']);
+                }
             },
             response => {
                 console.log('PATCH call in error', response);
@@ -142,6 +155,7 @@ export class SettingEnterprise1Component implements OnInit {
             'category_desc':this.formModelSource.value['category_desc'],
             'category_type':this.formModelSource.value['category_type'],
             'category_id':this.formModelSource.value['category_id'],
+            'sid':this.cookieStore.getCookie('sid')
         }).subscribe(
             (data)=>{
                 alert(JSON.parse(data['_body'])['msg']);
@@ -149,6 +163,10 @@ export class SettingEnterprise1Component implements OnInit {
                 this.formModelSource.setValue({category_desc:'',category_type:'5',category_id:''});
                 // this.formModel.reset();
                 this.sourceList = JSON.parse(data['_body']);
+                if(this.sourceList['status'] == 202){
+                    this.cookieStore.removeAll();
+                    this.router.navigate(['/auth/login']);
+                }
             },
             response => {
                 console.log('PATCH call in error', response);
@@ -196,7 +214,7 @@ export class SettingEnterprise1Component implements OnInit {
      */
     deleteUserCategory(category_type:number,cid:any,current_page:any){
         if(confirm('您确定要删除该条信息吗？')) {
-            this.http.delete(this.globalService.getDomain()+'/api/v1/deleteIndustryCategory?category_id=' + cid + '&category_type='+category_type+'&page=' + current_page)
+            this.http.delete(this.globalService.getDomain()+'/api/v1/deleteIndustryCategory?category_id=' + cid + '&category_type='+category_type+'&page=' + current_page+'&sid='+this.cookieStore.getCookie('sid'))
                 .map((res)=>res.json())
                 .subscribe((data)=>{
                     if(category_type == 4)
@@ -206,7 +224,11 @@ export class SettingEnterprise1Component implements OnInit {
                 });
             setTimeout(() => {
                 if(category_type == 4){
-                    console.log(this.userCategoryList);
+                    if(this.userCategoryList['status'] == 202){
+                        alert(this.userCategoryList['msg']);
+                        this.cookieStore.removeAll();
+                        this.router.navigate(['/auth/login']);
+                    }
                     if (this.userCategoryList) {
                         if (this.userCategoryList['result']['current_page'] == this.userCategoryList['result']['last_page']) {
                             this.nextI = true;
@@ -222,6 +244,11 @@ export class SettingEnterprise1Component implements OnInit {
                 }
                 if(category_type == 5)
                 {
+                    if(this.sourceList['status'] == 202){
+                        alert(this.sourceList['msg']);
+                        this.cookieStore.removeAll();
+                        this.router.navigate(['/auth/login']);
+                    }
                     if (this.sourceList['result']['current_page'] == this.sourceList['result']['last_page']) {
                         this.nextI = true;
                     } else {

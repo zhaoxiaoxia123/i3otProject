@@ -94,15 +94,17 @@ export class SettingDepartmentComponent implements OnInit {
             (data)=>{
                 alert(JSON.parse(data['_body'])['msg']);
                 console.log( JSON.parse(data['_body'])['result']);
+
                 this.formModel.patchValue({category_desc:'',category_type:'3',category_id:''});
                 this.categoryList = JSON.parse(data['_body']);
+                if(this.categoryList['status'] == 202){
+                    this.cookieStore.removeAll();
+                    this.router.navigate(['/auth/login']);
+                }
             },
             response => {
                 console.log('PATCH call in error', response);
-            },
-            // () => {
-            //     console.log('The PATCH observable is now completed.');
-            // }
+            }
         );
     }
 

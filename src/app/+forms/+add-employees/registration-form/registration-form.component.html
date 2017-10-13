@@ -78,9 +78,7 @@
         </div>
       </section>
     </div>
-
   </fieldset>
-
 
     <fieldset>
       <legend>备注说明</legend>
@@ -93,12 +91,12 @@
 
   <fieldset>
     <legend>其他信息</legend>
-    <button type="button" class="btn btn-primary btn-sm " >
-      展开+ 收起-
+    <button type="button" class="btn btn-primary btn-sm " (click)="changeDivStatus()" >
+      {{(is_showDiv == true) ?'收起':'展开'}}
     </button>
   </fieldset>
 
-  <div id=""  >
+  <div [ngStyle]="{'display':is_showDiv?'block':'none'}" >
     <fieldset>
       <section class="col col-lg-6">
         <div class="form-group ">
@@ -122,12 +120,10 @@
       <section class="col col-lg-6">
         <label class="label">入职时间</label>
         <label class="input"> <i class="icon-append fa fa-calendar"></i>
-          <input type="text" name="enrol_time" placeholder="入职时间"
+          <input type="date" name="enrol_time" placeholder="入职时间"
                  saUiDatepicker date-format="dd/mm/yy"  formControlName="enrol_time"/>
         </label>
       </section>
-
-
 
       <section class="col col-lg-6">
         <label class="label ">职务</label>

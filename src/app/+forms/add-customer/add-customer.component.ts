@@ -20,6 +20,12 @@ export class AddCustomerComponent implements OnInit {
 
   c_id : number = 0;
   customer_info : Array<any> = [];
+  is_showDiv : boolean = false;
+
+  //默认选中值
+  industry_category_default : number;
+  source_default : number;
+  service_person_default : number;
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -54,12 +60,17 @@ export class AddCustomerComponent implements OnInit {
 
   ngOnInit() {
     this.c_id = this.routInfo.snapshot.params['c_id'];
-    console.log( 'this.c_id:----');
-    console.log( this.c_id);
     if(this.c_id != 0){
       this.getCustomerInfo(this.c_id);
     }
     this.getCustomerDefault();
+  }
+
+  /**
+   * 展开收起状态改变
+   */
+  changeDivStatus(){
+    this.is_showDiv = (this.is_showDiv == false) ? true : false;
   }
 
   getCustomerInfo(c_id:number){
@@ -111,6 +122,11 @@ export class AddCustomerComponent implements OnInit {
         this.cookieStore.removeAll();
         this.router.navigate(['/auth/login']);
       }
+
+      //默认选中值
+      this.industry_category_default = this.userList['result']['industryCategoryList'].length >= 1 ? this.userList['result']['industryCategoryList'][0]['category_id'] : 0;
+      this.source_default = this.userList['result']['sourceList'].length >= 1 ? this.userList['result']['sourceList'][0]['category_id'] : 0;
+      this.service_person_default = this.userList['result']['userList'].length >= 1 ? this.userList['result']['userList'][0]['id'] : 0;
     }, 300);
   }
 

@@ -19,6 +19,7 @@ export class ListClient1Component implements OnInit {
   //用作全选和反选
   selects : Array<any> = [];
   check : boolean = false;
+  customer_info : Array<any> = [];
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -208,5 +209,17 @@ export class ListClient1Component implements OnInit {
     }, 300);
   }
 }
+
+  /**
+   * 获取客户详情
+   * @param c_id
+   */
+  getCustomerInfo(c_id:number){
+    this.http.get(this.globalService.getDomain()+'/api/v1/getCustomerInfo?c_id='+c_id+'&c_role=2&type=detail')
+        .map((res)=>res.json())
+        .subscribe((data)=>{
+          this.customer_info = data;
+        });
+  }
 
 }

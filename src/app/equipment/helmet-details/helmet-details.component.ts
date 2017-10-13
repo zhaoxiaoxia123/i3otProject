@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute, Params} from '@angular/router';
+import {Http} from '@angular/http';
+import {GlobalService} from '../../core/global.service';
+import {ParamService} from '../../shared/cookies/param.service';
 
 @Component({
   selector: 'app-helmet-details',
@@ -21,9 +25,45 @@ export class HelmetDetailsComponent implements OnInit {
         },
     };
 
-  constructor() { }
+    info : Array<any> = [];
+    recordInfo : Array<any> = [];
+    constructor(
+      // private routInfo : ActivatedRoute,
+        private http:Http,
+        private globalService:GlobalService,
+        private _service: ParamService
+    ) {
+        // this.routInfo.params.subscribe((param : Params)=>this.id=param['r_id']); //这种获取方式是参数订阅，解决在本页传参不生效问题
+        // console.log('this.id:-----');
+        // console.log(this.id);
+        // this.getRecordInfo(this.id);
 
-  ngOnInit() {
-  }
+        this._service.input$.subscribe(function (input: string) {
+            console.log('child input');
+            console.log(input);
+            this.info = input;
+            console.log(this.info);
+            // this.getRecordInfo(input);
+        });
+    }
 
+    ngOnInit() {
+    }
+
+    /**
+     * 获取设备详情
+     * @param record_id
+     */
+    getRecordInfo(record_id:number){
+        alert(record_id);
+        this.http.get(this.globalService.getDomain()+'/api/v1/getRecordInfo?r_id='+record_id)
+            .map((res)=>res.json())
+            .subscribe((data)=>{
+                this.recordInfo = data;
+            });
+        setTimeout(() => {
+            console.log('this.recordInfo:-----');
+            console.log(this.recordInfo);
+        },300);
+    }
 }

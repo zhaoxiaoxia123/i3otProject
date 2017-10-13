@@ -37,7 +37,7 @@
                     <section class="col col-lg-6">
                       <label class="label "> 仓库状态</label>
                       <label class="select">
-                        <select name="storehouse_status" formControlName="storehouse_status">
+                        <select name="storehouse_status" formControlName="storehouse_status" [(ngModel)]="storehouse_status_default">
                           <option value="1" [selected]="storehouse_info.result?.storehouse_status == 1">正常</option>
                           <option value="2" [selected]="storehouse_info.result?.storehouse_status == 2">维修</option>
                           <option value="3" [selected]="storehouse_info.result?.storehouse_status == 3">满仓</option>
@@ -47,7 +47,7 @@
                     <section class="col col-lg-6">
                       <label class="label "> 保管员</label>
                       <label class="select">
-                        <select name="u_id" formControlName="u_id">
+                        <select name="u_id" formControlName="u_id" [(ngModel)]="u_id_default">
                           <option *ngFor="let u of storehouseList.result?.userList" [selected]="storehouse_info.result?.u_id == u.id || this.storehouse_id == 0" value="{{u.id}}">{{u.u_username}}</option>
                         </select> <i></i> </label>
                     </section>

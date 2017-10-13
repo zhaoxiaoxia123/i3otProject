@@ -31,7 +31,7 @@
                       <div class=" col-lg-4">
                         <label class="label "> 一级类型</label>
                         <label class="select">
-                          <select name="o_category1" formControlName="o_category1" (change)="getOrderChild($event.target.value)">
+                          <select name="o_category1" formControlName="o_category1" (change)="getOrderChild($event.target.value,1)" [(ngModel)]="category_id1_default">
                             <option *ngFor="let c of orderList.result?.categoryList6" [selected]="order_info.result?.o_category1 == c.category_id || this.o_id == 0" value="{{c.category_id}}">{{c.category_desc}}</option>
                           </select> <i></i>
                         </label>
@@ -39,7 +39,7 @@
                       <div class="col col-lg-4">
                         <label class="label "> 二级类型</label>
                         <label class="select">
-                          <select name="o_category2" formControlName="o_category2">
+                          <select name="o_category2" formControlName="o_category2" [(ngModel)]="category_id2_default">
                             <option *ngFor="let pc of childCategory.result" [selected]="order_info.result?.o_category2 == pc.category_id" value="{{pc.category_id}}">{{pc.category_desc}}</option>
                           </select> <i></i>
                         </label>
@@ -112,7 +112,7 @@
                     <section class="col col-lg-6">
                       <label class="label "> 出库仓库</label>
                       <label class="select">
-                        <select  name="o_out_storehouse" formControlName="o_out_storehouse" >
+                        <select  name="o_out_storehouse" formControlName="o_out_storehouse" [(ngModel)]="o_out_storehouse_default">
                           <option *ngFor="let s of orderList.result?.storehouseList" [selected]="order_info.result?.o_out_storehouse == s.storehouse_id || this.o_id == 0" value="{{s.storehouse_id}}">{{s.storehouse_name}}</option>
                         </select> <i></i>
                       </label>
@@ -127,7 +127,7 @@
                     <section class="col col-lg-6">
                       <label class="label "> 销售质检员</label>
                       <label class="select">
-                        <select  name="o_inspector" formControlName="o_inspector">
+                        <select  name="o_inspector" formControlName="o_inspector" [(ngModel)]="o_inspector_default">
                           <option *ngFor="let u of orderList.result?.userList" [selected]="order_info.result?.o_inspector == u.id || this.o_id == 0" value="{{u.id}}">{{u.u_username}}</option>
                         </select> <i></i> </label>
                     </section>
@@ -147,7 +147,7 @@
                       <div class="">
                         <label class="label "> 结算方式</label>
                         <label class="select">
-                          <select  name="o_payment_method" formControlName="o_payment_method">
+                          <select  name="o_payment_method" formControlName="o_payment_method" [(ngModel)]="o_payment_method_default">
                             <option *ngFor="let c8 of orderList.result?.categoryList8" [selected]="order_info.result?.o_payment_method == c8.category_id || this.o_id == 0" value="{{c8.category_id}}">{{c8.category_desc}}</option>
                           </select> <i></i>
                         </label>
@@ -158,7 +158,7 @@
                     <section class="col col-lg-6">
                       <label class="label "> 购买公司</label>
                       <label class="select">
-                        <select name="o_buy_company_id" formControlName="o_buy_company_id" >
+                        <select name="o_buy_company_id" formControlName="o_buy_company_id" [(ngModel)]="o_buy_company_id_default">
                           <option *ngFor="let c of orderList.result?.customerList" [selected]="order_info.result?.o_buy_company_id == c.c_id || this.o_id == 0" value="{{c.c_id}}">{{c.c_name}}</option>
                         </select> <i></i> </label>
                     </section>
@@ -166,7 +166,7 @@
                       <div class=" ">
                         <label class="label "> 运输方式</label>
                         <label class="select">
-                          <select  name="o_delivery_method" formControlName="o_delivery_method">
+                          <select  name="o_delivery_method" formControlName="o_delivery_method" [(ngModel)]="o_delivery_method_default">
                             <option *ngFor="let c9 of orderList.result?.categoryList9" [selected]="order_info.result?.o_delivery_method == c9.category_id || this.o_id == 0" value="{{c9.category_id}}">{{c9.category_desc}}</option>
                           </select> <i></i>
                         </label>
@@ -175,14 +175,14 @@
                     <section class="col col-lg-6">
                       <label class="label "> 销售人员</label>
                       <label class="select">
-                        <select  name="u_id" formControlName="u_id" >
+                        <select  name="u_id" formControlName="u_id" [(ngModel)]="u_id_default">
                           <option *ngFor="let u of orderList.result?.userList" [selected]="order_info.result?.u_id == u.id || this.o_id == 0" value="{{u.id}}">{{u.u_username}}</option>
                         </select> <i></i> </label>
                     </section>
                     <section class="col col-lg-6">
                       <label class="label ">产品</label>
                       <label class="select">
-                        <select  name="p_id" formControlName="p_id" >
+                        <select  name="p_id" formControlName="p_id" [(ngModel)]="p_id_default">
                           <option *ngFor="let p of orderList.result?.productList" [selected]="order_info.result?.p_id == p.p_id || this.o_id == 0" value="{{p.p_id}}">{{p.p_name}}</option>
                         </select> <i></i>
                       </label>

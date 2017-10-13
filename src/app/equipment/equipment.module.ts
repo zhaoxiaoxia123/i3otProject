@@ -10,13 +10,15 @@ import { StationListComponent } from './station-list/station-list.component';
 import {SmartadminModule} from '../shared/smartadmin.module';
 import {SmartadminDatatableModule} from '../shared/ui/datatable/smartadmin-datatable.module';
 import {routing} from './equipment-routing.module';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
     routing,
     SmartadminModule,
-    SmartadminDatatableModule
+    SmartadminDatatableModule,
+    ReactiveFormsModule
   ],
   declarations: [EquipmentBeaconComponent, EquipmentPositioningComponent, HelmetDetailsComponent, HelmetListComponent, StationDetailsComponent, StationListComponent]
 })

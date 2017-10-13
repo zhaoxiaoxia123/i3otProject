@@ -21,6 +21,7 @@ export class ListStaffComponent implements OnInit {
   formModel : FormGroup;
   selects : Array<any> = [];
   check : boolean = false;
+  user_info : Array<any> = [];
   constructor(
       private http:Http,
       fb:FormBuilder,
@@ -209,5 +210,18 @@ export class ListStaffComponent implements OnInit {
       }, 300);
     }
 }
+
+
+  /**
+   * 查看用户详情
+   * @param id
+   */
+  getUserInfo(id:number){
+    this.http.get(this.globalService.getDomain()+'/api/v1/getUserInfo?u_id='+id+'&type=detail')
+        .map((res)=>res.json())
+        .subscribe((data)=>{
+          this.user_info = data;
+        });
+  }
 
 }

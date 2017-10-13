@@ -7,6 +7,8 @@ import {SmartadminEditorsModule} from '../../shared/forms/editors/smartadmin-edi
 import {SmartadminModule} from '../../shared/smartadmin.module';
 import {NestableListModule} from '../../shared/ui/nestable-list/nestable-list.module';
 import {ReactiveFormsModule} from '@angular/forms';
+import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
+import {CookieService} from 'angular2-cookie/core';
 
 @NgModule({
   imports: [
@@ -17,6 +19,7 @@ import {ReactiveFormsModule} from '@angular/forms';
       NestableListModule,
       ReactiveFormsModule
   ],
-  declarations: [SettingEnterprise2Component]
+  declarations: [SettingEnterprise2Component],
+  providers:[ CookieService,CookieStoreService ]
 })
 export class SettingEnterprise2Module { }

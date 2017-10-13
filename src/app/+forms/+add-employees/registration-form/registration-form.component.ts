@@ -37,6 +37,7 @@ export class RegistrationFormComponent implements OnInit {
   super_admin_id : any = 0;//超级管理员id
   is_show : boolean = false;
 
+  is_showDiv : boolean = false;//展开收起
   role_default : number;
   gender_default : number;
   c_id_default : number;
@@ -175,8 +176,12 @@ export class RegistrationFormComponent implements OnInit {
     }, 500);
   }
 
-
-
+  /**
+   * 展开收起
+   */
+  changeDivStatus(){
+    this.is_showDiv = (this.is_showDiv == false) ? true : false;
+  }
 
   /**
    * 获取添加员工的默认参数

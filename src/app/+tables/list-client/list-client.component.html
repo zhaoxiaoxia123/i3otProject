@@ -112,7 +112,7 @@
             <!--<td>{{ cl.updated_at }}</td>-->
             <td><a class="btn btn-warning btn-xs" [routerLink]="['/forms/customer',cl.c_id]"><span class="glyphicon glyphicon-pencil"></span>修改</a>
               <a class="btn btn-danger btn-xs" (click)="deleteCustomer(cl.c_id ,customerList.result?.current_page)"><span class="glyphicon glyphicon-remove"></span>删除</a>
-              <a class="btn btn-success btn-xs"  (click)="lgModal.show()" ><span class="glyphicon glyphicon-zoom-in"></span>详情</a>
+              <a class="btn btn-success btn-xs"  (click)="getCustomerInfo(cl.c_id);lgModal.show();" ><span class="glyphicon glyphicon-zoom-in"></span>详情</a>
             </td>
           </tr>
           </tbody>
@@ -125,7 +125,6 @@
               <i class="fa fa-trash-o fa-lg"></i>
               删除所选
             </button>
-
           </div>
           <div class="col-sm-6 col-xs-12 hidden-xs text-right">
             <!--<ul class="pagination pagination-sm">-->
@@ -161,8 +160,6 @@
             </ul>
           </div>
         </div>
-
-
       </div>
     </div>
   </sa-widget>
@@ -178,7 +175,6 @@
           <h4 class="modal-title">读取公司全称-ID</h4>
         </div>
         <div class="modal-body">
-
           <div class="row">
             <div class="col-sm-12">
               <div class="text-overflow-y" >
@@ -187,37 +183,32 @@
                   <tbody>
                   <tr>
                     <td class="width-120">客户ID:</td>
-                    <td class="">ID</td>
+                    <td class="">{{customer_info.result?.c_number}}</td>
                   </tr>
                   <tr><td class="width-120">全称:</td>
-                    <td class="">读取全称</td>
+                    <td class="">{{customer_info.result?.c_name}}</td>
                   </tr>
                   <tr>
                     <td class="width-120">简称:</td>
-                    <td class="">读取简称</td>
+                    <td class="">{{customer_info.result?.c_abbreviation}}</td>
                   </tr>
                   <tr><td class="width-120">所属行业：</td>
-                    <td class=""></td>
+                    <td class="">{{customer_info.result?.indent}}</td>
                   </tr>
                   <tr>
                     <td class="width-120">企业邮箱：</td>
-                    <td class=""></td>
-                  </tr>
-                  <tr>
-                    <td class="width-120">所属部门：</td>
-                    <td class=""></td>
+                    <td class="">{{customer_info.result?.c_email}}</td>
                   </tr>
                   <tr><td class="width-120">详细地址：</td>
-                    <td class=""></td>
+                    <td class="">{{customer_info.result?.c_address}}</td>
                   </tr>
                   <tr>
                     <td class="width-120">联系人:</td>
-                    <td class="">读取姓名：读取电话</td>
+                    <td class="">{{customer_info.result?.c_contacts}}:{{customer_info.result?.c_phone}}</td>
                   </tr>
                   <tr><td class="width-120">主要产品:</td>
-                    <td class="">主要产品主要产品主要产品主要产品主要产品主要产品主要产品主要产品主要产品主要产品主要产品主要产品主要产品主要产品主要产品主要产品主要产品主要产品主要产品主要产品主要产品主要产品主要产品主要产品主要产品主要产品</td>
+                    <td class="">{{customer_info.result?.c_products}}</td>
                   </tr>
-
                   </tbody>
                 </table>
                 <P class="alert alert-info">其他信息</P>
@@ -225,17 +216,17 @@
                   <tbody>
                   <tr>
                     <td class="width-120">客户来源:</td>
-                    <td class="">读取客户来源</td>
+                    <td class="">{{customer_info.result?.source}}</td>
                   </tr>
                   <tr><td class="width-120">协助跟进人:</td>
-                    <td class="">读取协助跟进人</td>
+                    <td class="">{{customer_info.result?.u_username}}</td>
                   </tr>
                   <tr>
                     <td class="width-120">客户配置:</td>
-                    <td class="">读取客户配置</td>
+                    <td class="">{{customer_info.result?.c_config}}</td>
                   </tr>
                   <tr><td class="width-120">备注说明：</td>
-                    <td class="">读取备注说明</td>
+                    <td class="">{{customer_info.result?.c_notes}}</td>
                   </tr>
                   </tbody>
                 </table>

@@ -101,7 +101,9 @@
               <a class="btn btn-danger btn-xs" (click)="deleteProduct( pl.p_id ,productList.result?.current_page)">
                 <span class="glyphicon glyphicon-remove"></span>删除
               </a>
-              <a class="btn btn-success btn-xs" (click)="lgModal.show()"><span class="glyphicon glyphicon-zoom-in"></span>详情</a>
+              <a class="btn btn-success btn-xs" (click)="getProductInfo( pl.p_id );lgModal.show();">
+                <span class="glyphicon glyphicon-zoom-in"></span>详情
+              </a>
             </td>
           </tr>
           </tbody>
@@ -114,10 +116,8 @@
               <i class="fa fa-trash-o fa-lg"></i>
               删除所选
             </button>
-
           </div>
           <div class="col-sm-6 col-xs-12 hidden-xs text-right">
-
         <div class="dataTables_paginate">
           <ul class="pagination">
             <li>
@@ -130,7 +130,6 @@
         </div>
           </div>
         </div>
-
       </div>
     </div>
   </sa-widget>
@@ -146,7 +145,6 @@
           <h4 class="modal-title">读取产品名称-ID</h4>
         </div>
         <div class="modal-body">
-
           <div class="row">
             <div class="col-sm-12">
               <div class="text-overflow-y" >
@@ -155,47 +153,51 @@
                   <tbody>
                   <tr>
                     <td class="width-120">一级类型:</td>
-                    <td class="">读取一级类型</td>
+                    <td class="">{{product_info.result?.category1}}</td>
                   </tr>
                   <tr><td class="width-120">二级类型:</td>
-                    <td class="">读取二级类型</td>
+                    <td class="">{{product_info.result?.category2}}</td>
                   </tr>
                   <tr>
                     <td class="width-120">产品ID:</td>
-                    <td class="">读取产品ID</td>
+                    <td class="">{{product_info.result?.p_product_id}}</td>
                   </tr>
                   <tr><td class="width-120">产品名称：</td>
-                    <td class=""></td>
+                    <td class="">{{product_info.result?.p_name}}</td>
                   </tr>
                   <tr>
                     <td class="width-120">数量：</td>
-                    <td class=""></td>
+                    <td class="">{{product_info.result?.p_quantity}}</td>
                   </tr>
                   <tr>
                     <td class="width-120">计量单位：</td>
-                    <td class=""></td>
+                    <td class="">{{product_info.result?.p_unit}}</td>
                   </tr>
                   <tr><td class="width-120">内部质检员：</td>
-                    <td class=""></td>
+                    <td class="">{{product_info.result?.u_username}}</td>
                   </tr>
                   <tr>
                     <td class="width-120">生产日期:</td>
-                    <td class="">读取生产日期</td>
+                    <td class="">{{product_info.result?.p_production_date}}</td>
                   </tr>
                   <tr><td class="width-120">存放仓库:</td>
-                    <td class=""></td>
+                    <td class="">{{product_info.result?.storehouse_name}}</td>
                   </tr>
                   <tr><td class="width-120">入库时间:</td>
-                    <td class=""></td>
+                    <td class="">{{product_info.result?.p_storage_time}}</td>
                   </tr>
                   <tr><td class="width-120">是否合格:</td>
-                    <td class=""></td>
+                    <td class="" [ngSwitch]="product_info.result?.p_is_acceptable">
+                      <span *ngSwitchCase="1">合格</span>
+                      <span *ngSwitchCase="2">不合格</span>
+                      <span *ngSwitchDefault>未知</span>
+                    </td>
                   </tr>
                   <tr><td class="width-120">参数内容:</td>
-                    <td class=""></td>
+                    <td class="">{{product_info.result?.p_specification}}</td>
                   </tr>
                   <tr><td class="width-120">备注说明:</td>
-                    <td class=""></td>
+                    <td class="">{{product_info.result?.p_notes}}</td>
                   </tr>
                   </tbody>
                 </table>
@@ -204,10 +206,10 @@
                   <tbody>
                   <tr>
                     <td class="width-120">运输车辆:</td>
-                    <td class="">读取运输车辆</td>
+                    <td class="">{{product_info.result?.p_plate_number}}</td>
                   </tr>
                   <tr><td class="width-120">运输人员:</td>
-                    <td class="">读取运输人员</td>
+                    <td class="">{{product_info.result?.p_courier}}</td>
                   </tr>
                   </tbody>
                 </table>
@@ -223,5 +225,4 @@
       </div>
     </div>
   </div>
-
 </div>

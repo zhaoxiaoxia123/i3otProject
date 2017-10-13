@@ -109,7 +109,7 @@
             </td>
             <td><a class="btn btn-warning btn-xs" [routerLink]="['/forms/indent1',ol.o_id]"><span class="glyphicon glyphicon-pencil"></span>修改</a>
               <a class="btn btn-danger btn-xs" (click)="deleteOrder(ol.o_id ,orderList.result?.current_page)"><span class="glyphicon glyphicon-remove"></span>删除</a>
-              <a class="btn btn-success btn-xs" (click)="lgModal.show()"><span class="glyphicon glyphicon-zoom-in"></span>详情</a>
+              <a class="btn btn-success btn-xs" (click)="getOrderInfo(ol.o_id);lgModal.show();"><span class="glyphicon glyphicon-zoom-in"></span>详情</a>
             </td>
           </tr>
           </tbody>
@@ -158,9 +158,7 @@
             </ul>
           </div>
         </div>
-
         </div>
-
       </div>
   </sa-widget>
   <div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
@@ -183,61 +181,64 @@
                   <tbody>
                   <tr>
                     <td class="width-120">订单号/合同号:</td>
-                    <td class=""></td>
+                    <td class="">{{order_info.result?.o_order}}</td>
                   </tr>
                   <tr><td class="width-120">一级类型:</td>
-                    <td class=""></td>
+                    <td class="">{{order_info.result?.category_id1}}</td>
                   </tr>
                   <tr>
                     <td class="width-120">二级类型:</td>
-                    <td class="">读取二级类型</td>
+                    <td class="">{{order_info.result?.category_id2}}</td>
                   </tr>
                   <tr><td class="width-120">数量：</td>
-                    <td class=""></td>
+                    <td class="">{{order_info.result?.o_quantity}}</td>
                   </tr>
                   <tr>
                     <td class="width-120">计量单位：</td>
-                    <td class=""></td>
+                    <td class="">{{order_info.result?.o_unit}}</td>
                   </tr>
                   <tr>
                     <td class="width-120">单价/元：</td>
-                    <td class=""></td>
+                    <td class="">{{order_info.result?.o_unit_price}}</td>
                   </tr>
                   <tr><td class="width-120">总价/元：</td>
-                    <td class=""></td>
+                    <td class="">{{order_info.result?.o_total_price}}</td>
                   </tr>
                   <tr>
                     <td class="width-120">出库仓库:</td>
-                    <td class="">读取</td>
+                    <td class="">{{order_info.result?.storehouse_name}}</td>
                   </tr>
                   <tr><td class="width-120">运单号:</td>
-                    <td class=""></td>
+                    <td class="">{{order_info.result?.o_waybill_number}}</td>
                   </tr>
                   <tr><td class="width-120">交货地点:</td>
-                    <td class=""></td>
+                    <td class="">{{order_info.result?.o_receiver_address}}</td>
                   </tr>
                   <tr><td class="width-120">结算方式:</td>
-                    <td class=""></td>
+                    <td class="">{{order_info.result?.payment_method}}</td>
                   </tr>
                   <tr><td class="width-120">购买公司:</td>
-                    <td class=""></td>
+                    <td class="">{{order_info.result?.c_name}}</td>
                   </tr>
                   <tr><td class="width-120">运输方式:</td>
-                    <td class=""></td>
+                    <td class="">{{order_info.result?.delivery_method}}</td>
                   </tr>
                   <tr><td class="width-120">销售人员:</td>
-                    <td class=""></td>
+                    <td class="">{{order_info.result?.u_username}}</td>
                   </tr>
                   <tr><td class="width-120">产品:</td>
-                    <td class=""></td>
+                    <td class="">{{order_info.result?.p_name}}</td>
                   </tr>
                   <tr><td class="width-120">订单状态:</td>
-                    <td class=""></td>
+                    <td class="" [ngSwitch]="order_info.result?.o_is_complete">
+                      <span *ngSwitchCase="1">完成</span>
+                      <span *ngSwitchCase="2">未完成</span>
+                      <span *ngSwitchDefault>未知</span>
+                    </td>
                   </tr>
                   <tr><td class="width-120">备注说明:</td>
-                    <td class=""></td>
+                    <td class="">{{order_info.result?.o_notes}}</td>
                   </tr>
-
                   </tbody>
                 </table>
               </div>

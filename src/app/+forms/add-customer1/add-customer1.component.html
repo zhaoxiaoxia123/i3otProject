@@ -42,7 +42,7 @@
                       <div class="">
                         <label class="label "> 所属行业</label>
                         <label class="select">
-                          <select name="industry_category" formControlName="industry_category">
+                          <select name="industry_category" formControlName="industry_category" [(ngModel)]="industry_category_default">
                             <option *ngFor="let c of customerList.result?.industryCategoryList" [selected]="customer_info.result?.c_industry_category == c.category_id || this.c_id == 0" value="{{c.category_id}}">{{c.category_desc}}</option>
                           </select> <i></i> </label></div>
                       <!--<div class="col col-lg-4">
@@ -101,17 +101,17 @@
 
                 <fieldset>
                   <legend>其他信息</legend>
-                  <button type="button" class="btn btn-primary btn-sm " >
-                    展开收起
+                  <button type="button" class="btn btn-primary btn-sm " (click)="changeDivStatus()" >
+                    {{(is_showDiv == true) ?'收起':'展开'}}
                   </button>
                 </fieldset>
-                <div id="">
+                <div [ngStyle]="{'display':is_showDiv?'block':'none'}">
                   <fieldset>
                     <section class="col col-lg-6">
                       <div class="">
                         <label class="label "> 客户来源</label>
                         <label class="select">
-                            <select name="source" formControlName="source">
+                            <select name="source" formControlName="source" [(ngModel)]="source_default">
                                 <option *ngFor="let c of customerList.result?.sourceList" [selected]="customer_info.result?.c_source == c.category_id || this.c_id == 0" value="{{c.category_id}}">{{c.category_desc}}</option>
                             </select> <i></i> </label></div>
                         <!--<div class="col col-lg-4">
@@ -124,7 +124,7 @@
                       <section class="col col-lg-6">
                           <label class="label">协助跟进人</label>
                           <label class="select">
-                              <select name="service_person" formControlName="service_person">
+                              <select name="service_person" formControlName="service_person" [(ngModel)]="service_person_default">
                                   <option *ngFor="let u of customerList.result?.userList" [selected]="customer_info.result?.c_service_person == u.id || this.c_id == 0" value="{{u.id}}">{{u.u_username}}</option>
                               </select> <i></i> </label>
                       </section>

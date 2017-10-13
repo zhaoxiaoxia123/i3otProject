@@ -107,7 +107,7 @@
             <!--(click)="editStorehouse(sl.storehouse_id)"   [routerLink]="['/forms/inventory1',sl.storehouse_id]" -->
             <td><a class="btn btn-warning btn-xs" [routerLink]="['/forms/inventory1',sl.storehouse_id]"><span class="glyphicon glyphicon-pencil"></span>修改</a>
               <a class="btn btn-danger btn-xs" (click)="deleteStorehouse(sl.storehouse_id ,storehouseList.result?.current_page)"><span class="glyphicon glyphicon-remove"></span>删除</a>
-              <a class="btn btn-success btn-xs" (click)="lgModal.show()"><span class="glyphicon glyphicon-zoom-in"></span>详情</a>
+              <a class="btn btn-success btn-xs" (click)="getStorehouseInfo(sl.storehouse_id);lgModal.show();"><span class="glyphicon glyphicon-zoom-in"></span>详情</a>
             </td>
           </tr>
           </tbody>
@@ -160,21 +160,26 @@
                   <tbody>
                   <tr>
                     <td class="width-120">仓库名称:</td>
-                    <td class=""></td>
+                    <td class="">{{storehouse_info.result?.storehouse_name}}</td>
                   </tr>
                   <tr><td class="width-120">仓库状态:</td>
-                    <td class=""></td>
+                    <td class="" [ngSwitch]="storehouse_info.result?.storehouse_status">
+                      <span *ngSwitchCase="1">正常</span>
+                      <span *ngSwitchCase="2">维修</span>
+                      <span *ngSwitchCase="3">满仓</span>
+                      <span *ngSwitchDefault>未知</span>
+                    </td>
                   </tr>
                   <tr>
                     <td class="width-120">保管员:</td>
-                    <td class="">读取</td>
+                    <td class="">{{storehouse_info.result?.u_username}}</td>
                   </tr>
                   <tr><td class="width-120">固定电话：</td>
-                    <td class=""></td>
+                    <td class="">{{storehouse_info.result?.storehouse_phone}}</td>
                   </tr>
                   <tr>
                     <td class="width-120">备注说明：</td>
-                    <td class=""></td>
+                    <td class="">{{storehouse_info.result?.storehouse_notes}}</td>
                   </tr>
                   </tbody>
                 </table>

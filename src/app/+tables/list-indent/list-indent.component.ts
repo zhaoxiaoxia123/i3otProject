@@ -20,6 +20,8 @@ export class ListIndentComponent implements OnInit {
   //用作全选和反选
   selects : Array<any> = [];
   check : boolean = false;
+
+  order_info : Array<any> = [];
   constructor(
       fb:FormBuilder,
       private router : Router,
@@ -212,8 +214,26 @@ export class ListIndentComponent implements OnInit {
       this.getOrderList('1');
     }
   }
-  
-    @ViewChild('lgModal') public lgModal: ModalDirective;
+
+  /**
+   * 获取订单详情
+   * @param o_id
+   */
+  getOrderInfo(o_id:number){
+    this.http.get(this.globalService.getDomain()+'/api/v1/getOrderInfo?o_id='+o_id+'&type=detail')
+        .map((res)=>res.json())
+        .subscribe((data)=>{
+          this.order_info = data;
+        });
+
+    setTimeout(() => {
+      console.log('this.order_info:-----');
+      console.log(this.order_info);
+    },300);
+
+  }
+
+  @ViewChild('lgModal') public lgModal: ModalDirective;
     public showChildModal(): void {
         this.lgModal.show();
     }

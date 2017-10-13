@@ -19,6 +19,17 @@ export class AddIndent1Component implements OnInit {
 
   o_id : number = 0;
   order_info : Array<any> = [];
+  //默认选中的值
+  p_id_default : number;
+  u_id_default : number;
+  o_delivery_method_default : number;
+  o_buy_company_id_default : number;
+  o_payment_method_default : number;
+  o_inspector_default : number;
+  o_out_storehouse_default : number;
+  category_id2_default : number;
+  category_id1_default : number;
+
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -99,7 +110,7 @@ export class AddIndent1Component implements OnInit {
         o_notes:this.order_info['result']['o_notes'],
       });
       if(this.order_info['result']['o_category1'] != 0){
-        this.getOrderChild(this.order_info['result']['o_category1']);
+        this.getOrderChild(this.order_info['result']['o_category1'],2);
       }
     }, 500);
   }
@@ -119,22 +130,38 @@ export class AddIndent1Component implements OnInit {
         this.cookieStore.removeAll();
         this.router.navigate(['/auth/login']);
       }
+      this.category_id1_default = this.orderList['result']['categoryList6'].length >= 1 ? this.orderList['result']['categoryList6'][0]['category_id'] : 0;
+      if(this.category_id1_default != 0){
+        this.getOrderChild(this.category_id1_default,2);
+      }
+      this.p_id_default = this.orderList['result']['productList'].length >= 1 ? this.orderList['result']['productList'][0]['p_id'] : 0;
+      this.u_id_default = this.orderList['result']['userList'].length >= 1 ? this.orderList['result']['userList'][0]['id'] : 0;
+      this.o_inspector_default = this.orderList['result']['userList'].length >= 1 ? this.orderList['result']['userList'][0]['id'] : 0;
+      this.o_payment_method_default = this.orderList['result']['categoryList8'].length >= 1 ? this.orderList['result']['categoryList8'][0]['category_id'] : 0;
+      this.o_delivery_method_default = this.orderList['result']['categoryList9'].length >= 1 ? this.orderList['result']['categoryList9'][0]['category_id'] : 0;
+      this.o_buy_company_id_default = this.orderList['result']['customerList'].length >= 1 ? this.orderList['result']['customerList'][0]['c_id'] : 0;
+      this.o_out_storehouse_default = this.orderList['result']['storehouseList'].length >= 1 ? this.orderList['result']['storehouseList'][0]['storehouse_id'] : 0;
+
     }, 300);
   }
 
   /**
    * 获取产品类型的二级目录
    */
-  getOrderChild(value) {
+  getOrderChild(value,type) {
     this.http.get(this.globalService.getDomain()+'/api/v1/getProductChild?category_depth='+value)
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.childCategory = data;
         });
-    // setTimeout(() => {
-    //   console.log('this.childCategory:----');
-    //   console.log(this.childCategory);
-    // }, 300);
+    setTimeout(() => {
+      console.log('this.childCategory:----');
+      console.log(this.childCategory);
+      if(type == 2){
+        //默认选中值
+        this.category_id2_default = this.childCategory['result'].length >= 1 ? this.childCategory['result'][0]['category_id'] : 0;
+      }
+    }, 500);
   }
 
   onSubmit(){
