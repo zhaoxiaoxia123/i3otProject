@@ -713,6 +713,20 @@ legend {
     text-align: left;
     white-space: normal;
 }
+.smart-form .labe2 {
+    display: block;
+    margin-bottom: 6px;
+    line-height: 19px;
+    font-weight: 400;
+    font-size: 13px;
+    color: #333;
+    text-align: left;
+    white-space: normal;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    box-sizing: border-box;
+}
 .smart-form .button, .smart-form .checkbox, .smart-form .input, .smart-form .radio, .smart-form .select, .smart-form .textarea, .smart-form .toggle {
     position: relative;
     display: block;

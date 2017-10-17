@@ -22,19 +22,19 @@
                   <legend>基本信息</legend>
                   <input type="hidden" name="storehouse_id" formControlName="storehouse_id" >
                   <div class="row">
-                    <section class="col col-lg-6">
+                    <section class="col col-6">
                       <label class="label">仓库名称</label>
                       <label class="input">
                         <input type="text" name="storehouse_name" maxlength="15" formControlName="storehouse_name" placeholder="请输入仓库名称"/>
                       </label>
                     </section>
-                    <!--<section class="col col-lg-6">-->
+                    <!--<section class="col col-6">-->
                       <!--<label class="label">总库存量</label>-->
                       <!--<label class="input">-->
                         <!--<input type="text" name="storehouse_total_quantity" maxlength="10" formControlName="storehouse_total_quantity" placeholder="请输入仓库总库存量"/>-->
                       <!--</label>-->
                     <!--</section>-->
-                    <section class="col col-lg-6">
+                    <section class="col col-6">
                       <label class="label "> 仓库状态</label>
                       <label class="select">
                         <select name="storehouse_status" formControlName="storehouse_status" [(ngModel)]="storehouse_status_default">
@@ -44,14 +44,14 @@
                         </select> <i></i>
                       </label>
                     </section>
-                    <section class="col col-lg-6">
+                    <section class="col col-6">
                       <label class="label "> 保管员</label>
                       <label class="select">
                         <select name="u_id" formControlName="u_id" [(ngModel)]="u_id_default">
                           <option *ngFor="let u of storehouseList.result?.userList" [selected]="storehouse_info.result?.u_id == u.id || this.storehouse_id == 0" value="{{u.id}}">{{u.u_username}}</option>
                         </select> <i></i> </label>
                     </section>
-                    <section class="col col-lg-6">
+                    <section class="col col-6">
                       <label class="label "> 固定电话</label>
                       <label class="input"> <i class="icon-append fa fa-phone"></i>
                         <input formControlName="storehouse_phone" maxlength="13" name="storehouse_phone" placeholder="请输入保管室座机" samaskedinput="(999) 999-9999" type="tel" ng-reflect-sa-masked-input="(999) 999-9999" aria-required="true" class="valid" aria-invalid="false">
