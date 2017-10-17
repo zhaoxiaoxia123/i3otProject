@@ -7,11 +7,12 @@ import {HelmetListComponent} from './helmet-list/helmet-list.component';
 import {StationDetailsComponent} from './station-details/station-details.component';
 import {StationListComponent} from './station-list/station-list.component';
 import {AddI3otpComponent} from './add-i3otp/add-i3otp.component';
+import {AddPhonicsComponent} from './add-phonics/add-phonics.component';
 
 export const routes:Routes = [
     {
         path: 'equipment-positioning',
-        component: EquipmentPositioningComponent
+        component: EquipmentPositioningComponent,
     },
     {
         path: 'equipment-beacon',
@@ -24,6 +25,10 @@ export const routes:Routes = [
     {
         path: 'station-list',
         component: StationListComponent
+    },
+    {
+        path: 'phonics',
+        component: AddPhonicsComponent
     },
     {
         path: 'i3otp/:i_id',

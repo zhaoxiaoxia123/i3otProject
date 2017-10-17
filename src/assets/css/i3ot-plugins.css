@@ -607,18 +607,6 @@ h1,h2,h3,h4 {
 
 
 
-/*标签*/
-label {
-    font-weight: 400;
-}
-label {
-    display: inline-block;
-    max-width: 100%;
-    margin-bottom: 5px;
-    font-weight: 700;
-}
-
-
 /*可嵌套的列表*/
 
 .dd {

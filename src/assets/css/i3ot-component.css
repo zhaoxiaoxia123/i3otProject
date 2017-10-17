@@ -616,6 +616,9 @@ fieldset {
     color: #666;
     position: relative;
 }
+label {
+    font-weight: 400;
+}
 .smart-form fieldset {
     display: block;
     padding: 25px 14px 5px;

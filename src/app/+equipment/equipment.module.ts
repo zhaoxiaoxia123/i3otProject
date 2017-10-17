@@ -12,6 +12,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {AddI3otpComponent} from './add-i3otp/add-i3otp.component';
 import {CookieStoreService} from '../shared/cookies/cookie-store.service';
 import {CookieService} from 'angular2-cookie/core';
+import { AddPhonicsComponent } from './add-phonics/add-phonics.component';
 
 @NgModule({
   imports: [
@@ -22,12 +23,13 @@ import {CookieService} from 'angular2-cookie/core';
     ReactiveFormsModule
   ],
   declarations: [
-      EquipmentBeaconComponent,
+    EquipmentBeaconComponent,
     EquipmentPositioningComponent,
     HelmetListComponent,
     StationListComponent,
     AddI3otpComponent,
+    AddPhonicsComponent,
   ],
-  providers:[ CookieService,CookieStoreService ]
+  providers:[CookieService,CookieStoreService ]
 })
 export class EquipmentModule { }
