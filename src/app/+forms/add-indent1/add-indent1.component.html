@@ -144,7 +144,7 @@
                         </label>
                       </section>
                       <section class="col col-4">
-                        <button type="button"  class="btn btn-info btn-sm margin-top-26 ">
+                        <button type="button"  class="btn btn-info btn-sm margin-top-26 "  (click)="lgModal.show()">
                           添加类型
                         </button>
                       </section>
@@ -258,7 +258,75 @@
   <!-- end widget grid -->
 
 
+  <div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" (click)="lgModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">添加类型</h4>
+        </div>
+        <div class="modal-body">
 
+          <div class="row">
+            <div class="col-md-12">
+
+              <section class="col col-md-8">
+                <label > 一级</label>
+
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="请输入类型" required>
+                </div>
+              </section>
+              <section class="col col-4">
+                <button class="btn btn-warning btn-xs text-center"  style="padding:6px;margin:24px 0;" >
+                  <i class="fa fa-plus"></i> <span class="hidden-mobile">保存并添加二级类型</span>
+                </button>
+              </section>
+            </div>
+            <div class="col-md-12" style="padding-left:60px;">
+
+              <section class="col col-md-8">
+                <label > 二级</label>
+
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="请输入类型" required>
+                </div>
+              </section>
+              <section class="col col-4">
+                <button class="btn btn-warning btn-xs text-center"  style="padding:6px;margin:24px 0;" >
+                  <i class="fa fa-plus"></i> <span class="hidden-mobile">保存并添加二级类型</span>
+                </button>
+              </section>
+              <!--<div class=" well-sm  well-primary">
+                <form class="form   " role="form">
+                  <div class="form-group">
+                    <input type="text" class="form-control" value="" placeholder="Date" required>
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-success btn-sm">
+                      <span class="glyphicon glyphicon-floppy-disk"></span> Save
+                    </button>
+                  </div>
+                </form>
+              </div>-->
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" (click)="lgModal.hide()">
+            返回
+          </button>
+          <button type="button" class="btn btn-primary" (click)="lgModal.hide()">
+            保存
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 
