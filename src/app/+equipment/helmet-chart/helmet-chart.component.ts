@@ -45,14 +45,11 @@ export class HelmetChartComponent implements OnInit {
                 trigger: 'axis'
             },
             legend: {
-                data:['最高气温','最低气温']
+                data:['甲烷','一氧化碳','二氧化碳']
             },
             toolbox: {
                 show: true,
                 feature: {
-                    dataZoom: {
-                        yAxisIndex: 'none'
-                    },
                     dataView: {readOnly: false},
                     magicType: {type: ['line', 'bar']},
                     restore: {},
@@ -72,7 +69,7 @@ export class HelmetChartComponent implements OnInit {
             },
             series: [
                 {
-                    name:'最高气温',
+                    name:'甲烷',
                     type:'line',
                     data:[11, 11, 15, 13, 12, 13, 10],
                     markPoint: {
@@ -88,7 +85,7 @@ export class HelmetChartComponent implements OnInit {
                     }
                 },
                 {
-                    name:'最低气温',
+                    name:'一氧化碳',
                     type:'line',
                     data:[1, -2, 2, 5, 3, 2, 0],
                     markPoint: {
@@ -116,7 +113,23 @@ export class HelmetChartComponent implements OnInit {
                             }]
                         ]
                     }
-                }
+                },
+                {
+                    name:'二氧化碳',
+                    type:'line',
+                    data:[21, 31, 25, 23, 32, 23, 20],
+                    markPoint: {
+                        data: [
+                            {type: 'max', name: '最大值'},
+                            {type: 'min', name: '最小值'}
+                        ]
+                    },
+                    markLine: {
+                        data: [
+                            {type: 'average', name: '平均值'}
+                        ]
+                    }
+                },
             ]
         };
 
