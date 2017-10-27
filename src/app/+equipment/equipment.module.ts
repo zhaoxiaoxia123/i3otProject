@@ -13,14 +13,22 @@ import {AddI3otpComponent} from './add-i3otp/add-i3otp.component';
 import {CookieStoreService} from '../shared/cookies/cookie-store.service';
 import {CookieService} from 'angular2-cookie/core';
 import { AddPhonicsComponent } from './add-phonics/add-phonics.component';
+import { HelmetChartComponent } from './helmet-chart/helmet-chart.component';
+import {StatsModule} from '../shared/stats/stats.module';
+import {AngularEchartsModule} from 'ngx-echarts';
+import { StationChartComponent } from './station-chart/station-chart.component';
+import { ChartSettingComponent } from './chart-setting/chart-setting.component';
+import { DataMapComponent } from './data-map/data-map.component';
 
 @NgModule({
   imports: [
     CommonModule,
     routing,
     SmartadminModule,
+    StatsModule,
     SmartadminDatatableModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+      AngularEchartsModule,
   ],
   declarations: [
     EquipmentBeaconComponent,
@@ -29,6 +37,10 @@ import { AddPhonicsComponent } from './add-phonics/add-phonics.component';
     StationListComponent,
     AddI3otpComponent,
     AddPhonicsComponent,
+    HelmetChartComponent,
+    StationChartComponent,
+    ChartSettingComponent,
+    DataMapComponent,
   ],
   providers:[CookieService,CookieStoreService ]
 })

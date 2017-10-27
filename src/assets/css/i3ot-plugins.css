@@ -128,6 +128,106 @@ img.away {
     width: 100%;
     height: 30px;
 }
+#divMiniIcons {
+    position: fixed;
+    width: 415px;
+    right: 10px;
+    bottom: 180px;
+    z-index: 9999;
+    float: right
+}
+
+.botClose {
+    position: absolute;
+    right: 10px;
+    height: 16px;
+    width: 15px;
+    cursor: pointer;
+    font-size: 18px;
+    opacity: .5;
+    display: block;
+    top: 15px
+}
+
+.botClose:hover {
+    opacity: 1
+}
+
+#divMiniIcons .cajita {
+    text-align: center;
+    vertical-align: middle;
+    padding: 4px 6px;
+    color: #FFF;
+    float: right;
+    cursor: pointer;
+    display: block;
+    background-color: red;
+    font-size: 17px;
+    margin-left: 4px;
+    margin-top: 5px
+}
+
+#divMiniIcons .cajita:active {
+    top: 1px;
+    left: 1px;
+    position: relative
+}
+
+.cajita img {
+    width: 23px;
+    height: 23px;
+    padding-left: 3px;
+    padding-top: 3px
+}
+.bigBox {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    background-color: #004d60;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    width: 390px;
+    height: 150px;
+    color: #fff;
+    z-index: 99999;
+    box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    border-left: 5px solid rgba(0,0,0,.15);
+    overflow: hidden
+}
+
+.bigBox span {
+    font-size: 17px;
+    font-weight: 300;
+    letter-spacing: -1px;
+    padding: 5px 0!important;
+    display: block
+}
+
+.bigBox p {
+    font-size: 13px;
+    margin-top: 10px
+}
+
+
+.bigBox .bigboxicon {
+    font-size: 30px;
+    text-align: left;
+    position: absolute;
+    top: 120px;
+    left: 6px;
+    z-index: 0
+}
+
+.bigBox .bigboxnumber {
+    width: 100%;
+    text-align: right;
+    font-size: 25px
+}
+
 
 /*导航*/
 
@@ -183,6 +283,9 @@ div.dataTables_paginate ul.pagination {
 
 
 /*背景文本颜色*/
+.txt-color-white{
+    color: #fff!important;
+}
 
 .txt-color-blue {
     color: #57889c!important

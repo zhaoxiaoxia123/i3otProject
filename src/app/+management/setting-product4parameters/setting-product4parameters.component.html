@@ -103,8 +103,40 @@
                             <i class="fa-fw fa fa-spoon"></i>
                             规格/参数
                           </alert>
+
+
+                          <!--这个替换下面的下拉列表框-->
+                          <div class="widget-body">
+                            <form class="">
+                              <fieldset>
+                                <div class="col-sm-12">
+                                  <!--<label>添加或删除对比设备</label>-->
+                                  <select select2 multiple style="width:100%" class="select2">
+                                    <optgroup label="选择设备ID">
+                                      <option value="" selected="selected">草酸</option>
+                                      <option value="" selected="selected">石灰石A</option>
+                                      <option value="">草酸</option>
+                                      <option value="">石灰石A</option>
+                                      <option value="">草酸</option>
+                                      <option value="">石灰石A</option>
+                                      <option value="">草酸</option>
+                                      <option value="">石灰石A</option>
+                                    </optgroup>
+                                  </select>
+
+                                  <div class="note">
+                                    <strong>备注:</strong> 点击名称或名称后面空白区域将弹出下拉框，可以选择添加和取消显示的内容。
+                                  </div>
+                                </div>
+                              </fieldset>
+
+                            </form>
+                          </div>
+
+                          <!--form包含的内容替换成上面的-->
                           <form class="smart-form ">
                             <fieldset>
+
                               <div class="row">
                                 <label class="label col col-2">选择类型</label>
                                 <section class="col col-10">
@@ -142,8 +174,8 @@
                               </tr>
                               </tbody>
                             </table>
-                            <!-- 底部-（分页部分）-->
-                           <!-- <div class="dt-toolbar">
+                             <!--底部-（分页部分）-->
+                            <div class="dt-toolbar">
                               <div class="hidden-xs right">
                                 <ul class="pagination pagination-sm">
                                   <li class="disabled">
@@ -168,16 +200,16 @@
                                     <a href="">下一页</a>
                                   </li>
                                 </ul>
-                                &lt;!&ndash;<ul class="pagination">
+                                <!--<ul class="pagination">
                                   <li>
                                     <a (click)="pagination(storehouseList.result?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>
                                   </li>
                                   <li>
                                     <a (click)="pagination(storehouseList.result?.next_page_url)"><i class="fa fa-arrow-right"></i></a>
                                   </li>
-                                </ul>&ndash;&gt;
+                                </ul>-->
                               </div>
-                            </div>-->
+                            </div>
                           </div>
                         </div>
                       </div>
