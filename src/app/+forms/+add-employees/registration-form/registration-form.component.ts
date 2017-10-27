@@ -7,9 +7,10 @@ import {getProvince,getCity,getArea} from '../../../shared/common/area';
 import {Http} from '@angular/http';
 import {Router,ActivatedRoute} from '@angular/router';
 import {GlobalService} from '../../../core/global.service';
+import {FadeInTop} from '../../../shared/animations/fade-in-top.decorator';
 
 
-
+@FadeInTop()
 @Component({
   selector: 'app-registration-form',
   templateUrl: './registration-form.component.html',

@@ -51,7 +51,8 @@ type StoreType = {
     CoreModule,
     SmartadminLayoutModule,
     AngularEchartsModule,
-    routing
+    routing,
+
   ],
   exports: [
   ],
@@ -63,6 +64,7 @@ type StoreType = {
   ]
 })
 export class AppModule {
+    private static ChartsModule: any;
   constructor(public appRef: ApplicationRef, public appState: AppState) {}
 
 

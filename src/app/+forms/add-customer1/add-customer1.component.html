@@ -1,7 +1,7 @@
 <!-- MAIN CONTENT -->
 <div id="content">
   <div class="row">
-    <sa-big-breadcrumbs [items]="['SRM设置', '添加客户']" icon="pencil-square-o" class="col-xs-12 col-sm-9 col-md-9 col-lg-9"></sa-big-breadcrumbs>
+    <sa-big-breadcrumbs [items]="['CRM设置', '添加客户']" icon="pencil-square-o" class="col-xs-12 col-sm-9 col-md-9 col-lg-9"></sa-big-breadcrumbs>
   </div>
   <sa-widgets-grid>
     <div class="row">
@@ -19,26 +19,26 @@
                   <input type="hidden" name="c_id" formControlName="c_id">
                   <input type="hidden" name="parent_id" formControlName="parent_id">
                   <div class="row">
-                    <section class="col col-lg-6">
+                    <section class="col col-6">
                       <label class="label">客户ID</label>
                       <label class="input">
                         <input type="text" name="number" placeholder="请输入客户编号" maxlength="20" formControlName="number"/>
                       </label>
                     </section>
-                    <section class="col col-lg-6">
+                    <section class="col col-6">
                       <label class="label">全称</label>
                       <label class="input">
                         <input type="text" name="name" placeholder="请输入全称 " maxlength="30" formControlName="name"/>
                       </label>
                     </section>
-                    <section class="col col-lg-6">
+                    <section class="col col-6">
                       <label class="label">简称</label>
                       <label class="input">
                         <input type="text" name="abbreviation" placeholder="请输入简称 " maxlength="10" formControlName="abbreviation"/>
                       </label>
                     </section>
 
-                    <section class="col col-lg-6">
+                    <section class="col col-6">
                       <div class="">
                         <label class="label "> 所属行业</label>
                         <label class="select">
@@ -51,45 +51,33 @@
                         </button>
                       </div>-->
                     </section>
-                    <section class="col col-lg-6">
+                    <section class="col col-6">
                       <label class="label">企业邮箱</label>
                       <label class="input"> <i class="icon-append fa fa-envelope-o"></i>
                         <input name="email" placeholder="E-mail" type="email" formControlName="email">
                       </label>
                     </section>
-                    <section class="col col-lg-6">
+                    <section class="col col-6">
                       <label class="label">详细地址</label>
                       <label class="input">
                         <input  name='address' placeholder="请输入详细地址" maxlength="40" type="text" formControlName="address">
                       </label>
                     </section>
-                    <section class="col col-lg-6">
-                      <label class="label "> 联系人</label>
-                      <div class=" col-lg-4">
+                    <div class=" col-6">
+                      <label class="labe2">联系人</label>
+                      <section class="col col-4">
                         <label class="input">
                           <input  name='contacts' placeholder="请输入姓名"  type="text" formControlName="contacts">
-                        </label>
-                      </div>
-                      <div class="col col-lg-8">
-                        <label class="input"> <i class="icon-append fa fa-phone"></i>
-                          <input name="phone" placeholder="请输入联系电话" formControlName="phone" samaskedinput="(999) 999-9999" type="tel" ng-reflect-sa-masked-input="(999) 999-9999" aria-required="true" class="valid" aria-invalid="false">
-                        </label>
-                      </div>
-
-                    </section>
-                   <!-- <div class="col col-lg-6">
-                      <label class="label">联系人</label>
-                      <section class="col-4">
-                        <label class="input">
-                          <input  name='contacts' placeholder="请输入姓名"  type="text" formControlName="contacts" maxlength="5">
                         </label>
                       </section>
                       <section class="col col-8">
                         <label class="input"> <i class="icon-append fa fa-phone"></i>
-                          <input name="phone" placeholder="请输入联系电话" formControlName="phone" samaskedinput="(999) 999-9999" type="tel" ng-reflect-sa-masked-input="(999) 999-9999" aria-required="true" class="valid" aria-invalid="false" maxlength="13">
+                          <input name="phone" placeholder="请输入联系电话" formControlName="phone" samaskedinput="(999) 999-9999" type="tel" ng-reflect-sa-masked-input="(999) 999-9999" aria-required="true" class="valid" aria-invalid="false">
                         </label>
                       </section>
-                    </div>-->
+
+
+                    </div>
                   </div>
                   <section>
                     <label class="label">主要产品</label>
@@ -107,7 +95,7 @@
                 </fieldset>
                 <div [ngStyle]="{'display':is_showDiv?'block':'none'}">
                   <fieldset>
-                    <section class="col col-lg-6">
+                    <section class="col col-6">
                       <div class="">
                         <label class="label "> 客户来源</label>
                         <label class="select">
@@ -121,14 +109,14 @@
                         </div>-->
                     </section>
 
-                      <section class="col col-lg-6">
+                      <section class="col col-6">
                           <label class="label">协助跟进人</label>
                           <label class="select">
                               <select name="service_person" formControlName="service_person" [(ngModel)]="service_person_default">
                                   <option *ngFor="let u of customerList.result?.userList" [selected]="customer_info.result?.c_service_person == u.id || this.c_id == 0" value="{{u.id}}">{{u.u_username}}</option>
                               </select> <i></i> </label>
                       </section>
-                      <section class="col col-lg-6">
+                      <section class="col col-6">
                           <label class="label">客户配置</label>
                           <label class="input">
                               <input type="text" formControlName="config" name="config" placeholder="请输入客户配置 "/>

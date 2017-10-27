@@ -22,19 +22,19 @@
                   <input type="hidden" name="c_id" formControlName="c_id">
                   <div class="row">
 
-                    <section class="col col-lg-6">
+                    <section class="col col-6">
                       <label class="label">客户ID</label>
                       <label class="input">
                         <input type="text" name="number" placeholder="请输入客户编号" maxlength="20" formControlName="number"/>
                       </label>
                     </section>
-                    <section class="col col-lg-6">
+                    <section class="col col-6">
                       <label class="label">全称</label>
                       <label class="input">
                         <input type="text" name="name" placeholder="请输入全称 " maxlength="30" formControlName="name"/>
                       </label>
                     </section>
-                    <section class="col col-lg-6">
+                    <section class="col col-6">
                       <label class="label">简称</label>
                       <label class="input">
                         <input type="text" name="abbreviation" placeholder="请输入简称 " maxlength="10" formControlName="abbreviation"/>
@@ -42,7 +42,7 @@
                     </section>
 
                     <!--<div formGroupName="passwords">-->
-                      <!--<section class="col col-lg-6">-->
+                      <!--<section class="col col-6">-->
                         <!--<label class="label">密码</label>-->
                         <!--<label class="input"> <i class="icon-append fa fa-lock"></i>-->
                           <!--<input type="password" name="password" placeholder="密码" id="password" maxlength="16" minlength="6" formControlName="password"/>-->
@@ -53,7 +53,7 @@
                         <!--</label>-->
                       <!--</section>-->
 
-                      <!--<section class="col col-lg-6">-->
+                      <!--<section class="col col-6">-->
                         <!--<label class="label">确定密码</label>-->
                         <!--<label class="input"> <i class="icon-append fa fa-lock"></i>-->
                           <!--<input type="password" name="pconfirm" placeholder="确认密码" maxlength="16" minlength="6" formControlName="pconfirm"/>-->
@@ -65,7 +65,7 @@
                       <!--</section>-->
                     <!--</div>-->
 
-                    <section class="col col-lg-6">
+                    <section class="col col-6">
                       <label class="label ">所属行业</label>
                       <div class="">
                         <label class="select">
@@ -78,32 +78,58 @@
                         </button>
                       </div>-->
                     </section>
-                    <section class="col col-lg-6">
+                    <section class="col col-6">
                       <label class="label">企业邮箱</label>
                       <label class="input"> <i class="icon-append fa fa-envelope-o"></i>
                         <input name="email" placeholder="E-mail" type="email" formControlName="email">
                       </label>
                     </section>
-                    <section class="col col-lg-6">
+                    <section class="col col-6">
                       <label class="label">详细地址</label>
                       <label class="input">
                         <input  name='address' placeholder="请输入详细地址"  type="text" formControlName="address">
                       </label>
                     </section>
-                    <div class="col col-lg-6">
-                      <label class="label">联系人</label>
-                      <section class="col-lg-4">
-                        <label class="input">
+                    <div class=" col-6">
+                      <label class="labe2">联系人</label>
+                      <section class="col col-4">
+
+                        <label class="input ">
                           <input  name='contacts' placeholder="请输入姓名"  type="text" formControlName="contacts" maxlength="5">
                         </label>
                       </section>
-                      <section class="col col-lg-8">
-                        <label class="input"> <i class="icon-append fa fa-phone"></i>
+                      <section class="col col-8">
+                        <label class="input "> <i class="icon-append fa fa-phone"></i>
                           <input name="phone" placeholder="请输入联系电话" formControlName="phone" samaskedinput="(999) 999-9999" type="tel" ng-reflect-sa-masked-input="(999) 999-9999" aria-required="true" class="valid" aria-invalid="false" maxlength="13">
                         </label>
                       </section>
+
+
                     </div>
                   </div>
+               <!--    <div class="col-6">
+                     <label class="label">详细地址</label>
+                     <section class="col col-5">
+                       <label class="select">
+                         <select name="country">
+                           <option >Country</option>
+                           <option >value</option>
+                         </select> <i></i> </label>
+                     </section>
+
+                     <section class="col col-4">
+                       <label class="input">
+                         <input type="text" name="city" placeholder="City">
+                       </label>
+                     </section>
+
+                     <section class="col col-3">
+                       <label class="input">
+                         <input type="text" name="code" placeholder="Post code">
+                       </label>
+                     </section>
+                   </div>-->
+
                   <section>
                     <label class="label">主要产品</label>
                     <label class="textarea textarea-resizable">
@@ -123,7 +149,7 @@
                 <div [ngStyle]="{'display':is_showDiv?'block':'none'}">
                   <fieldset >
 
-                    <section class="col col-lg-6">
+                    <section class="col col-6">
                       <label class="label">客户来源</label>
                       <div class="">
                         <label class="select">
@@ -137,14 +163,14 @@
                 </div>-->
                 </section>
 
-                <section class="col col-lg-6">
+                <section class="col col-6">
                   <label class="label">协助跟进人</label>
                   <label class="select">
                     <select name="service_person" formControlName="service_person" [(ngModel)]="service_person_default">
                       <option *ngFor="let u of userList.result?.userList" [selected]="customer_info.result?.c_service_person == u.id || this.c_id == 0" value="{{u.id}}">{{u.u_username}}</option>
                     </select> <i></i> </label>
                 </section>
-                <section class="col col-lg-6">
+                <section class="col col-6">
                   <label class="label">客户配置</label>
                   <label class="input">
                     <input type="text" formControlName="config" name="config" placeholder="请输入客户配置 "/>

@@ -4,15 +4,15 @@ import {routing} from "./app-views.routing";
 import {SmartadminModule} from "../shared/smartadmin.module";
 
 @NgModule({
-  declarations: [
+    declarations: [
 
-  ],
-  imports: [
-    SmartadminModule,
-    routing,
+    ],
+    imports: [
+        SmartadminModule,
+        routing,
 
-  ],
-  entryComponents: []
+    ],
+    entryComponents: []
 })
 export class AppViewsModule {
 }

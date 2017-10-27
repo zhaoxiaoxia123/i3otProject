@@ -54,7 +54,7 @@ export const routes: Routes = [
       },
       {
           path: 'equipment',
-          loadChildren: 'app/equipment/equipment.module#EquipmentModule',
+          loadChildren: 'app/+equipment/equipment.module#EquipmentModule',
           data: {pageTitle: 'Equipment'}
       },
     ]
