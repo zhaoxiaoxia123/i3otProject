@@ -15,21 +15,21 @@
         width: 10%;
     }
 </style>
-<div style="display: block;top:0;">
-    <span>公司:
-        <select name="company" [(ngModel)]="company">
-         <option value="all" >--全部--</option>
-         <option value="{{dic}}" *ngFor="let dic of defaultInfo.data?.company" >--{{dic}}--</option>
-        </select>
-    </span>
-    <span>设备:
-        <select name="device" [(ngModel)]="device">
-            <option value="all" >--全部--</option>
-         <option value="{{did}}" *ngFor="let did of defaultInfo.data?.device" >--{{did}}--</option>
-        </select>
-    </span>
-    <button (click)="submit_search_datapoint()">搜索</button>
-</div>
+<!--<div style="display: block;top:0;">-->
+    <!--<span>公司:-->
+        <!--<select name="company" [(ngModel)]="company">-->
+         <!--<option value="all" >&#45;&#45;全部&#45;&#45;</option>-->
+         <!--<option value="{{dic}}" *ngFor="let dic of defaultInfo.data?.company" >&#45;&#45;{{dic}}&#45;&#45;</option>-->
+        <!--</select>-->
+    <!--</span>-->
+    <!--<span>设备:-->
+        <!--<select name="device" [(ngModel)]="device">-->
+            <!--<option value="all" >&#45;&#45;全部&#45;&#45;</option>-->
+         <!--<option value="{{did}}" *ngFor="let did of defaultInfo.data?.device" >&#45;&#45;{{did}}&#45;&#45;</option>-->
+        <!--</select>-->
+    <!--</span>-->
+    <!--<button (click)="submit_search_datapoint()">搜索</button>-->
+<!--</div>-->
 
 <div id="show_result">
     <div *ngFor="let entry of (products.data | keys)" class="div-block">
@@ -41,3 +41,4 @@
 </div>
 
 <div echarts [options]="chartOption" class="demo-chart"></div>
+<div echarts [options]="chartOption1" class="demo-chart"></div>

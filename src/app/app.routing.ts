@@ -6,6 +6,7 @@ import {MainLayoutComponent} from "./shared/layout/app-layouts/main-layout.compo
 import {AuthLayoutComponent} from "./shared/layout/app-layouts/auth-layout.component";
 import {ModuleWithProviders} from "@angular/core";
 import {HomeComponent} from './home/home.component';
+import {EmptyLayoutComponent} from "./shared/layout/app-layouts/empty-layout.component";
 
 export const routes: Routes = [
   {
@@ -14,7 +15,7 @@ export const routes: Routes = [
     data: {pageTitle: 'Home'},
     children: [
       {
-        path: '', redirectTo: 'dashboard/social', pathMatch: 'full'
+        path: '', redirectTo: 'index', pathMatch: 'full'
       },
       {
         path: 'dashboard',
@@ -56,10 +57,10 @@ export const routes: Routes = [
           loadChildren: 'app/equipment/equipment.module#EquipmentModule',
           data: {pageTitle: 'Equipment'}
       },
-
     ]
   },
     {path: 'auth', component: AuthLayoutComponent, loadChildren: 'app/+auth/auth.module#AuthModule'},
+  {path: 'index', component: EmptyLayoutComponent, loadChildren: 'app/index/auth.module#AuthModule'},
   // {path: '**', redirectTo: 'miscellaneous/error404'}
 ];
 

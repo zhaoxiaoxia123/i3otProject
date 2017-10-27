@@ -4,7 +4,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {mobileAsyncValidator, mobileValidator} from '../../shared/common/validator';//passwordValidator
 import {Http} from '@angular/http';
 import {Router,ActivatedRoute} from '@angular/router';
-import {CookieStoreService} from 'app/shared/cookies/cookie-store.service';
+import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 import {GlobalService} from '../../core/global.service';
 
 @FadeInTop()

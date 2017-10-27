@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Http} from '@angular/http';
 import {ActivatedRoute,Router} from '@angular/router';
-import {CookieStoreService} from 'app/shared/cookies/cookie-store.service';
+import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 import {GlobalService} from '../../core/global.service';
 
 // @FadeInTop()

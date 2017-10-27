@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Http} from '@angular/http';
 import {Router} from '@angular/router';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
-import {GlobalService} from 'app/core/global.service';
+import {GlobalService} from '../../core/global.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({

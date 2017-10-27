@@ -3,7 +3,7 @@ import {FadeInTop} from '../../shared/animations/fade-in-top.decorator';
 import {JsonApiService} from '../../core/api/json-api.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Http} from '@angular/http';
-import {GlobalService} from 'app/core/global.service';
+import {GlobalService} from '../../core/global.service';
 import {Router} from '@angular/router';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 

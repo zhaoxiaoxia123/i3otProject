@@ -15,7 +15,10 @@ export class FormElementsComponent implements OnInit {
   products : Array<any> = [];
   ////方法1的 end
   chartOption;
+  chartOption1;
+
   seriesInfo : Array<any> = [];
+  seriesInfo1 : Array<any> = [];
 
   defaultData : Observable<any>;
   defaultInfo : Array<any> = [];
@@ -27,7 +30,7 @@ export class FormElementsComponent implements OnInit {
       private http:Http
   ) {
     this.search_datapoint();
-    this.default_data();
+    // this.default_data();
   }
 
   default_data(){
@@ -41,48 +44,61 @@ export class FormElementsComponent implements OnInit {
     }, 300);
   }
 
-  submit_search_datapoint(){
-    clearInterval(this.isClear);
-
-    this.search_datapoint();//请求http数据
-    this.getSeriesInfo();//更新数据到页面呈现
-
-    this.isClear = setInterval(() => {
-      this.search_datapoint();//请求http数据
-      this.getSeriesInfo();//更新数据到页面呈现
-    }, 30*1000);
-  }
+  // submit_search_datapoint(){
+  //   clearInterval(this.isClear);
+  //
+  //   this.search_datapoint();//请求http数据
+  //   this.getSeriesInfo();//更新数据到页面呈现
+  //
+  //   this.isClear = setInterval(() => {
+  //     this.search_datapoint();//请求http数据
+  //     this.getSeriesInfo();//更新数据到页面呈现
+  //   }, 30*1000);
+  // }
   search_datapoint(){
-    this.dataSource = this.http.get('http://182.61.53.58:8081/tsdb/api/getDatapoint.php?device='+this.device+'&company='+this.company)
+    this.dataSource = this.http.get('http://localhost:10088/tsdb/api/getDatapoint.php?device='+this.device+'&company='+this.company)
         .map((res)=>res.json());
     this.dataSource.subscribe((data)=>this.products=data);
+
+    setTimeout(() => {
+      this.getSeriesInfo();
+    }, 300);
   }
 
   ngOnInit() {
 
-    setTimeout(() => {
-      this.getSeriesInfo();
-    }, 1000);
-
     this.isClear = setInterval(() => {
       this.search_datapoint();//请求http数据
       this.getSeriesInfo();//更新数据到页面呈现
-    }, 30*1000);
+    }, 4*1000);
   }
 
   getSeriesInfo(){
     this.seriesInfo = [];
+    this.seriesInfo1 = [];
     console.log(this.products);
 
-    for (let entry of this.products['name']) {
+    // for (let entry of this.products['name']) {
+      // this.seriesInfo.push({
+      //   name: entry,
+      //   type: 'line', stack: '总量',
+      //   // areaStyle: {normal: {}},
+      //   data: this.products['data'][entry]['value']
+      // });
+      // console.log(entry);
+      //  }
       this.seriesInfo.push({
-        name: entry,
+        name: this.products['name'][0],
         type: 'line', stack: '总量',
         // areaStyle: {normal: {}},
-        data: this.products['data'][entry]['value']
+        data: this.products['data']['co']['value']
       });
-      // console.log(entry);
-    }
+      this.seriesInfo1.push({
+        name: this.products['name'][1],
+        type: 'line', stack: '总量',
+        // areaStyle: {normal: {}},
+        data: this.products['data']['o2']['value']
+      });
 
     this.chartOption = {
       title: {
@@ -114,9 +130,43 @@ export class FormElementsComponent implements OnInit {
         type: 'value'
       }],
       series: this.seriesInfo
-    }
-  }
+    };
 
+
+
+    this.chartOption1 = {
+      title: {
+        text: '设备检测数据'
+      },
+      tooltip: {
+        trigger: 'axis'
+      },
+      legend: {
+        data: this.products['name']//['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
+      },
+      toolbox: {
+        feature: {
+          saveAsImage: {}
+        }
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      xAxis: [{
+        type: 'category',
+        boundaryGap: false,
+        data:  this.products['time']//['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+      }],
+      yAxis: [{
+        type: 'value'
+      }],
+      series: this.seriesInfo1
+    }
+
+  }
 }
 
 import { Pipe, PipeTransform } from '@angular/core';

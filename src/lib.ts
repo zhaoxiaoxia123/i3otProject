@@ -1,6 +1,7 @@
 // jQuery
 declare var jQuery: any;
 
+
 // RxJS
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
@@ -22,4 +23,3 @@ window['moment'] = require('moment');
 import 'imports-loader?jQuery=jquery!jquery-color/jquery.color.js'
 
 require('smartadmin-plugins/notification/SmartNotification.min.js');
-

@@ -18,6 +18,23 @@ export class LoginInfoComponent implements OnInit {
               private layoutService: LayoutService,
     private cookieStoreService:CookieStoreService,
     private router:Router) {
+
+      console.log('username:----');
+      console.log(location);
+      console.log(this.cookieStoreService.getCookie('username'));
+      if(this.cookieStoreService.getCookie('username')) {
+          this.user = {
+              "username": this.cookieStoreService.getCookie('username'),
+              "picture": "assets/img/avatars/sunny.png",
+              "activity": 12
+          };
+          // }else if(location.origin == 'http://www.i3ot.com'){
+      }else if(location.origin == 'http://localhost:4200' || location.origin == 'http://www.i3ot.com' || location.origin == 'http://i3ot.com'){
+          this.router.navigate(['/index']);
+      }else{
+          this.router.navigate(['/auth/login']);
+      }
+
   }
 
   ngOnInit() {
@@ -25,17 +42,6 @@ export class LoginInfoComponent implements OnInit {
       //   this.user = user
       // })
 
-    console.log('username:----');
-    console.log(this.cookieStoreService.getCookie('username'));
-    if(this.cookieStoreService.getCookie('username')) {
-      this.user = {
-        "username": this.cookieStoreService.getCookie('username'),
-        "picture": "assets/img/avatars/sunny.png",
-        "activity": 12
-      };
-    }else{
-      this.router.navigate(['/auth/login']);
-    }
   }
 
   toggleShortcut() {
