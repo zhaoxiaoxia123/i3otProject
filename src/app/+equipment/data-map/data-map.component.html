@@ -2,24 +2,30 @@
   <div class="row">
     <sa-big-breadcrumbs [items]="['设备管理', '数据对比']" icon="file-text-o" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
   </div>
-
-
   <sa-widgets-grid>
+    <div class="row" *ngIf="products['data']">
 
-
-    <div class="row">
-      <article class="col-sm-3">
-        <sa-widget  [editbutton]="false" [deletebutton]="false" color="darken">
+      <article class="col-sm-3" *ngFor="let entry of (products['data'][0]['info'] | keys)" >
+        <sa-widget  [editbutton]="false" [deletebutton]="false" color="darken" *ngIf="entry.value.value[0]">
           <header>
-            <h2>甲烷</h2>
+            <h2 *ngIf="entry.key == 'ch4'">甲烷</h2>
+            <h2 *ngIf="entry.key == 'co'">一氧化碳</h2>
+            <h2 *ngIf="entry.key == 'co2'">二氧化碳</h2>
+            <h2 *ngIf="entry.key == 'o2'">氧气</h2>
+            <h2 *ngIf="entry.key == 'temp'">温度</h2>
+            <h2 *ngIf="entry.key == 'humi'">湿度</h2>
+            <h2 *ngIf="entry.key == 'eeg'">脑电</h2>
+            <h2 *ngIf="entry.key == 'ecg'">心率</h2>
+            <h2 *ngIf="entry.key == 'spo2h'">血氧</h2>
           </header>
-
           <div>
             <div class="widget-body no-padding">
               <div class="the-price pricing-big">
                 <div class="panel-heading">
                   <h1 class="panel-title font-headline">
-                    CH4<small class="subscript">&nbsp;1%</small></h1>
+                    {{entry.key}}
+                    <small class="subscript" ><span>{{entry.value.value[0]}}</span></small>
+                  </h1>
                 </div>
               </div>
               <table class="table table-hover " style="margin: -5px 0;">
@@ -30,412 +36,70 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="danger">
-                  <td>
-                    2017-10-12 00:00:00
-                  </td>
-                  <td>0.5%</td>
+                <tr *ngFor="let val of entry.value.value;let idx=index" class="danger">
+                  <td>{{ products['data'][0]['time'][idx] }}</td>
+                  <td>{{ val }}</td>
                 </tr>
-
-                <tr class="success" >
-                  <td>
-                    2017-10-12 00:00:00
-                  </td>
-                  <td>1.8%</td>
-                </tr>
-                <tr class="warning" >
-                  <td>
-                    2017-10-12 00:00:00
-                  </td>
-                  <td>0.4%</td>
-                </tr>
-                <tr class="warning" >
-                  <td>
-                    2017-10-12 00:00:00
-                  <td>0.4%</td>
-                </tr>
-
                 </tbody>
               </table>
               <div class="panel-footer no-padding">
-                <a  (click)="lgModal.show()" class="btn bg-color-teal txt-color-white btn-block" role="button">查看更多数据</a>
+                <a (click)="showPic(entry.key);lgModal.show()" class="btn bg-color-teal txt-color-white btn-block" role="button">
+                  查看更多数据
+                </a>
               </div>
-
             </div>
-
-
           </div>
         </sa-widget>
-
-
-
-
       </article>
-      <article class="col-sm-3">
-        <sa-widget  [editbutton]="false" [deletebutton]="false" color="darken">
-          <header>
-            <h2>一氧化碳</h2>
-
-          </header>
-
-          <div>
-            <div class="widget-body no-padding">
-              <div class="the-price pricing-big">
-                <div class="panel-heading">
-                  <h1 class="panel-title font-headline">
-                    ppm<small class="subscript">&nbsp;5%</small></h1>
-                </div>
-              </div>
-              <table class="table table-hover " style="margin: -5px 0;">
-                <thead>
-                <tr>
-                  <th >时间</th>
-                  <th >数据</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr class="danger">
-                  <td>
-                    2017-10-12 00:00:00
-                  </td>
-                  <td>0.5%</td>
-                </tr>
-
-                <tr class="success" >
-                  <td>
-                    2017-10-12 00:00:00
-                  </td>
-                  <td>1.8%</td>
-                </tr>
-                <tr class="warning" >
-                  <td>
-                    2017-10-12 00:00:00
-                  </td>
-                  <td>0.4%</td>
-                </tr>
-                <tr class="warning" >
-                  <td>
-                    2017-10-12 00:00:00
-                  </td>
-                  <td>0.4%</td>
-                </tr>
-
-                </tbody>
-              </table>
-              <div class="panel-footer no-padding">
-                <a (click)="lgModal.show()" class="btn bg-color-teal txt-color-white btn-block" role="button">查看更多数据</a>
-              </div>
-
-            </div>
-
-
-          </div>
-        </sa-widget>
-
-
-
-
-      </article>
-      <article class="col-sm-3">
-        <sa-widget  [editbutton]="false" [deletebutton]="false" color="darken">
-          <header>
-            <h2>二氧化碳</h2>
-
-          </header>
-
-          <div>
-            <div class="widget-body no-padding">
-              <div class="the-price pricing-big">
-                <div class="panel-heading">
-                  <h1 class="panel-title font-headline">
-                    CO2<small class="subscript">&nbsp;1%</small></h1>
-                </div>
-              </div>
-              <table class="table table-hover " style="margin: -5px 0;">
-                <thead>
-                <tr>
-                  <th >时间</th>
-                  <th >数据</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr class="danger">
-                  <td>
-                    2017-10-12 00:00:00
-                  </td>
-                  <td>0.5%</td>
-                </tr>
-
-                <tr class="success" >
-                  <td>
-                    2017-10-12 00:00:00
-                  </td>
-                  <td>1.8%</td>
-                </tr>
-                <tr class="warning" >
-                  <td>
-                    2017-10-12 00:00:00
-                  </td>
-                  <td>0.4%</td>
-                </tr>
-                <tr class="warning" >
-                  <td>
-                    2017-10-12 00:00:00
-                  </td>
-                  <td>0.4%</td>
-                </tr>
-
-                </tbody>
-              </table>
-              <div class="panel-footer no-padding">
-                <a (click)="lgModal.show()" class="btn bg-color-teal txt-color-white btn-block" role="button">查看更多数据</a>
-              </div>
-
-            </div>
-
-          </div>
-        </sa-widget>
-
-
-
-
-      </article>
-
-      <article class="col-sm-3">
-        <sa-widget  [editbutton]="false" [deletebutton]="false" color="darken">
-          <header>
-            <h2>氧气</h2>
-
-          </header>
-
-          <div>
-            <div class="widget-body no-padding">
-              <div class="the-price pricing-big">
-                <div class="panel-heading">
-                  <h1 class="panel-title font-headline">
-                    O2<small class="subscript">&nbsp;1%</small></h1>
-                </div>
-              </div>
-              <table class="table table-hover " style="margin: -5px 0;">
-                <thead>
-                <tr>
-                  <th >时间</th>
-                  <th >数据</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr class="danger">
-                  <td>
-                    2017-10-12 08:00:00
-                  </td>
-                  <td>0.5%</td>
-                </tr>
-
-                <tr class="success" >
-                  <td>
-                    2017-10-12 09:30:00
-                  </td>
-                  <td>1.8%</td>
-                </tr>
-                <tr class="warning" >
-                  <td>
-                    2017-10-12 60:00:00
-                  </td>
-                  <td>0.4%</td>
-                </tr>
-                <tr class="warning" >
-                  <td>
-                    2017-10-12 00:00:00
-                  </td>
-                  <td>0.4%</td>
-                </tr>
-
-                </tbody>
-              </table>
-              <div class="panel-footer no-padding">
-                <a (click)="lgModal.show()" class="btn bg-color-teal txt-color-white btn-block" role="button">查看更多数据</a>
-              </div>
-
-            </div>
-
-
-          </div>
-        </sa-widget>
-
-
-
-
-      </article>
-      <article class="col-sm-3">
-        <sa-widget  [editbutton]="false" [deletebutton]="false" color="darken">
-          <header>
-            <h2>温度</h2>
-
-          </header>
-
-          <div>
-            <div class="widget-body no-padding">
-              <div class="the-price pricing-big">
-                <div class="panel-heading">
-                  <h1 class="panel-title font-headline">
-                    ℃<small class="subscript">&nbsp;32℃</small></h1>
-                </div>
-              </div>
-              <table class="table table-hover " style="margin: -5px 0;">
-                <thead>
-                <tr>
-                  <th >时间</th>
-                  <th >数据</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr class="danger">
-                  <td>
-                    2017-10-12 00:00:00
-                  </td>
-                  <td>0.5℃</td>
-                </tr>
-
-                <tr class="success" >
-                  <td>
-                    2017-10-12 00:00:00
-                  </td>
-                  <td>1.8℃</td>
-                </tr>
-                <tr class="warning" >
-                  <td>
-                    2017-10-12 00:00:00
-                  </td>
-                  <td>0.4℃</td>
-                </tr>
-                <tr class="warning" >
-                  <td>
-                    2017-10-12 00:00:00
-                  </td>
-                  <td>0.4℃</td>
-                </tr>
-
-                </tbody>
-              </table>
-              <div class="panel-footer no-padding">
-                <a (click)="lgModal.show()" class="btn bg-color-teal txt-color-white btn-block" role="button">查看更多数据</a>
-              </div>
-
-            </div>
-
-
-          </div>
-        </sa-widget>
-
-
-
-
-      </article>
-      <article class="col-sm-3">
-        <sa-widget  [editbutton]="false" [deletebutton]="false" color="darken">
-          <header>
-            <h2>湿度</h2>
-
-          </header>
-
-          <div>
-            <div class="widget-body no-padding">
-              <div class="the-price pricing-big">
-                <div class="panel-heading">
-                  <h1 class="panel-title font-headline">
-                    RH<small class="subscript">&nbsp;1%RH</small></h1>
-                </div>
-              </div>
-              <table class="table table-hover " style="margin: -5px 0;">
-                <thead>
-                <tr>
-                  <th >时间</th>
-                  <th >数据</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr class="danger">
-                  <td>
-                    2017-10-12 00:00:00
-                  </td>
-                  <td>0.5%RH</td>
-                </tr>
-
-                <tr class="success" >
-                  <td>
-                    2017-10-12 00:00:00
-                  </td>
-                  <td>1.8%RH</td>
-                </tr>
-                <tr class="warning" >
-                  <td>
-                    2017-10-12 00:00:00
-                  </td>
-                  <td>0.4%RH</td>
-                </tr>
-                <tr class="warning" >
-                  <td>
-                    2017-10-12 00:00:00
-                  </td>
-                  <td>0.4%RH</td>
-                </tr>
-
-                </tbody>
-              </table>
-              <div class="panel-footer no-padding">
-                <a (click)="lgModal.show()" class="btn bg-color-teal txt-color-white btn-block" role="button">查看更多数据</a>
-              </div>
-
-            </div>
-
-
-          </div>
-        </sa-widget>
-
-
-
-
-      </article>
-
-
-
-
-
 
     </div>
-
   </sa-widgets-grid>
-
   <div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
        aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" (click)="lgModal.hide()" aria-label="Close">
+          <button type="button" class="close" (click)="ngOnClose();lgModal.hide()" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
           <h4 class="modal-title">数据对比图</h4>
         </div>
         <div class="modal-body">
           <div class="row">
-            <div class="col-md-12">
-              <div echarts [options]="chartOption" class="demo-chart" ></div>
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label><a (click)="showDayData('new',0)" style="border: 1px solid;margin: 10px;">{{showMetric}}</a></label>
+                <label><a (click)="showDayData('day',2)" style="border: 1px solid;margin: 10px;">日平均</a></label>
+                </div>
             </div>
           </div>
+        </div>
 
+        <div class="modal-body" *ngIf="chartOption_day" [style.display]="is_show_1">
+          <div class="row">
+            <div class="col-md-12">
+              <div echarts [options]="chartOption_day" class="demo-chart" ></div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-body" [style.display]="is_show_2">
+          <div class="row">
+            <div class="col-md-12">
+              <div echarts [options]="chartOption_" class="demo-chart" ></div>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" (click)="lgModal.hide()">
+          <button type="button" class="btn btn-default" (click)="ngOnClose();lgModal.hide()">
             返回
           </button>
         </div>
       </div>
     </div>
   </div>
-
-
-
-
 </div>
+
+
+
 
 

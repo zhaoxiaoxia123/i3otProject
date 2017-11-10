@@ -29,7 +29,7 @@ export class LoginInfoComponent implements OnInit {
               "activity": 12
           };
           // }else if(location.origin == 'http://www.i3ot.com'){
-      }else if(location.origin == 'http://localhost:4200' || location.origin == 'http://www.i3ot.com' || location.origin == 'http://i3ot.com'){
+      }else if(location.href == 'http://localhost:4200' || location.href == 'http://www.i3ot.com' || location.href == 'http://i3ot.com'){
           this.router.navigate(['/index']);
       }else{
           this.router.navigate(['/auth/login']);

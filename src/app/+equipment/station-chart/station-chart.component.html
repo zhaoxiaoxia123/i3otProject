@@ -1,35 +1,27 @@
 <div id="content">
   <div class="row">
-    <sa-big-breadcrumbs [items]="['设备管理', '基站设备图表']" icon="file-text-o" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+    <sa-big-breadcrumbs [items]="['设备管理', '基站图表']" icon="file-text-o" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
   </div>
-
-
   <sa-widgets-grid>
-
-
     <div class="row">
       <article class="col-sm-12">
-
-
         <sa-widget  [editbutton]="false" [deletebutton]="false" color="darken">
           <header><span class="widget-icon"> <i class="fa fa-comments"></i> </span>
-            <h2>安全帽图表</h2>
+            <h2>基站图表</h2>
             <div class="jarviswidget-ctrls" role="menu">
               <a routerLink="/equipment/chart-setting" href="javascript:void(0);" class="button-icon jarviswidget-edit-btn" rel="tooltip" title="Edit" data-placement="bottom">
                 <i class="fa fa-cog"></i></a>
             </div>
-
           </header>
-
           <div>
             <div class="widget-body no-padding">
               <div class="row">
                 <article class="col-sm-12">
                   <div class="navbar navbar-default">
                     <div class="collapse navbar-collapse" >
-                      <form class="navbar-form navbar-left" role="search" >
+                      <form class="navbar-form navbar-left" role="search" [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate >
                         <div class="form-group">
-                          <input type="text" name="keyword" maxlength="15"  class="form-control" placeholder="请输入搜索内容">
+                          <input type="text" name="keyword" maxlength="15" formControlName="keyword" class="form-control" placeholder="请输入搜索内容">
                         </div>
                         <button type="submit" class="btn btn-default">
                           <i class="glyphicon glyphicon-search"></i>
@@ -63,183 +55,127 @@
                   <th >操作</th>
                 </tr>
                 </thead>
+
+              </sa-datatable>
+              <div *ngIf="i3otpList.result?.i3otpList?.data">
+              <sa-datatable *ngFor="let il of i3otpList.result?.i3otpList?.data;let ind = index;" tableClass="table table-striped table-bordered table-hover" [detailsFormat]="detailsFormat">
+
                 <tbody >
-                <tr role="row" class="odd shown">
-                  <td class=" details-control" >
+                <tr role="row" *ngIf="status.indexOf(ind+',') === -1" class="odd">
+                  <td class="details-control" (click)="changeStatus(ind,'+')">
                   </td>
                   <td >
-                    成都锦江国际酒店25楼
+                    {{il.i3otp_address}}
                     <br>
                     <small class="text-muted">
-                      <i>ID: 50</i>
+                      <i>ID: {{il.i3otp_pid}}</i>
                     </small>
                   </td>
                   <td>
-                    名称
+                    {{il.i3otp_name}}
                   </td>
                   <td>
-                    <a class="btn btn-success btn-xs" >全部</a>
-                    <a class="btn btn-success btn-xs" >甲烷：0.8%</a>
-                    <a class="btn btn-success btn-xs" >一氧化碳:	0.4%</a>
-                    <a class="btn btn-success btn-xs" >二氧化碳:3%</a>
-                    <a class="btn btn-danger  btn-xs" >氧气:0.8%</a>
-                    <a class="btn btn-success btn-xs" >温度:0.8%</a>
-                    <a class="btn btn-success btn-xs" >湿度:0.8%</a>
+                    <a class="btn btn-success btn-xs" *ngFor="let i1 of il.i3otp_attribute1">{{i1}}</a>
+                    <a class="btn btn-success btn-xs" *ngFor="let i2 of il.i3otp_attribute2">{{i2}}</a>
+                    <a class="btn btn-success btn-xs" *ngFor="let i3 of il.i3otp_attribute3">{{i3}}</a>
                   </td>
-                  <td>
-                    <i class="fa fa-circle txt-color-darken font-xs"></i> 未激活
-                    <i class="fa fa-circle text-danger font-xs"></i> 使用中
+                  <td style="width:70%;">
+                    <i *ngIf="il.i3otp_status == 0" class="fa fa-circle txt-color-darken font-xs">未激活</i>
+                    <i *ngIf="il.i3otp_status == 1" class="fa fa-circle text-danger font-xs">使用中</i>
+                    <i *ngIf="il.i3otp_status == 2" class="fa fa-circle txt-color-darken font-xs">返厂维修</i>
+                    <i *ngIf="il.i3otp_status == 3" class="fa fa-circle txt-color-darken font-xs">报废</i>
                   </td>
-                  <td>2017-10-12 00:00:00</td>
+                  <td>{{il.i3otp_sensor_intervan}}</td>
                   <td>
-                    <a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                    <a class="btn btn-danger btn-xs" ><span class="glyphicon glyphicon-remove"></span>删除</a>
-                    <a (click)="notificationExample2()" class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-adjust"></span>对比</a>
-                    <a (click)="lgModal.show()" class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-adjust"></span>对比</a>
+                    <!--<a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>-->
+                    <!--<a class="btn btn-danger btn-xs" ><span class="glyphicon glyphicon-remove"></span>删除</a>-->
+                    <a (click)="notificationExample2( il.i3otp_pid,il.i3otp_str )" class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-adjust"></span>对比</a>
+                    <a (click)="showJoinPic();lgModal.show()" class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-adjust"></span>对比</a>
                   </td>
                 </tr>
-                <tr>
-                  <td colspan="9">
+                <tr role="row" *ngIf="status.indexOf(ind+',') != -1" class="odd shown">
+                  <td class="details-control" (click)="changeStatus(ind,'-')">
+                  </td>
+                  <td >
+                    {{il.i3otp_address}}
+                    <br>
+                    <small class="text-muted">
+                      <i>ID: {{il.i3otp_pid}}</i>
+                    </small>
+                  </td>
+                  <td>
+                    {{il.i3otp_name}}
+                  </td>
+                  <td>
+                    <a class="btn btn-success btn-xs" *ngFor="let i1 of il.i3otp_attribute1">{{i1}}</a>
+                    <a class="btn btn-success btn-xs" *ngFor="let i2 of il.i3otp_attribute2">{{i2}}</a>
+                    <a class="btn btn-success btn-xs" *ngFor="let i3 of il.i3otp_attribute3">{{i3}}</a>
+                   </td>
+                  <td style="width:70%;">
+                    <i *ngIf="il.i3otp_status == 0" class="fa fa-circle txt-color-darken font-xs">未激活</i>
+                    <i *ngIf="il.i3otp_status == 1" class="fa fa-circle text-danger font-xs">使用中</i>
+                    <i *ngIf="il.i3otp_status == 2" class="fa fa-circle txt-color-darken font-xs">返厂维修</i>
+                    <i *ngIf="il.i3otp_status == 3" class="fa fa-circle txt-color-darken font-xs">报废</i>
+                  </td>
+                  <td>{{il.i3otp_sensor_intervan}}</td>
+                  <td>
+                    <!--<a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>-->
+                    <!--<a class="btn btn-danger btn-xs" ><span class="glyphicon glyphicon-remove"></span>删除</a>-->
+                    <a (click)="notificationExample2( il.i3otp_pid,il.i3otp_str )" class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-adjust"></span>对比</a>
+                    <a (click)="showJoinPic();lgModal.show()" class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-adjust"></span>对比</a>
+                  </td>
+                </tr>
+                <tr *ngIf="status.indexOf(ind+',') != -1">
+                  <td colspan="10">
                     <table cell-padding="5" cell-spacing="0" border="0" class="table table-hover table-condensed">
                       <tbody>
                       <tr >
-                        <td style="width:50%;border-right:1px solid #ccc; ">
-                          <div echarts [options]="chartOption" (click)="getSeriesInfo" class="demo-chart" ></div>
+                        <td style="width:70%;border-right:1px solid #ccc; ">
+                          <div echarts [options]="chartOption1[ind]" class="demo-chart" *ngIf="chartOption1[ind] != []" ></div>
                         </td>
-                        <td  style="width:50%;">
+                        <td >
                           <div class="row">
                             <div class="col-md-6">
                               <table class="table table-hover table-bordered">
                                 <thead>
                                 <tr>
-                                  <th style="width:50%;text-align: center;" colspan="2">最新数据</th>
+                                  <th style="text-align: center;" colspan="2">最新数据</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr class="danger">
+                                <tr *ngFor="let ll of newList[ind];" [ngStyle]="{'background-color': ll.color}">
                                   <td>
-                                    <strong>甲烷</strong>
+                                    <strong>{{ll.name}}</strong>
                                   </td>
-                                  <td>0.5%</td>
+                                  <td>{{ll.value}}%</td>
                                 </tr>
-                                <tr  class="danger">
-                                  <td>
-                                    <strong>一氧化碳</strong>
-                                  </td>
-                                  <td>0.2%</td>
-                                </tr>
-                                <tr class="success" >
-                                  <td>
-                                    <strong>二氧化碳</strong>
-                                  </td>
-                                  <td>1.8%</td>
-                                </tr>
-                                <tr class="warning" >
-                                  <td>
-                                    <strong>氧气</strong>
-                                  </td>
-                                  <td>0.4%</td>
-                                </tr>
-                                <tr  class="warning">
-                                  <td>
-                                    <strong>温度</strong>
-                                  </td>
-                                  <td>5%</td>
-                                </tr>
-                                <tr  class="success">
-                                  <td>
-                                    <strong>湿度</strong>
-                                  </td>
-                                  <td>0.5%</td>
-                                </tr>
-                                <tr class="warning" >
-                                  <td>
-                                    <strong>氧气</strong>
-                                  </td>
-                                  <td>0.4%</td>
-                                </tr>
-                                <tr  class="warning">
-                                  <td>
-                                    <strong>温度</strong>
-                                  </td>
-                                  <td>5%</td>
-                                </tr>
-                                <tr  class="success">
-                                  <td>
-                                    <strong>湿度</strong>
-                                  </td>
-                                  <td>0.5%</td>
-                                </tr>
-
                                 </tbody>
                               </table>
                             </div>
-                            <div class="col-md-6">
-                              <table class="table table-hover table-bordered">
-                                <thead>
-                                <tr>
-                                  <th style="width:50%;text-align: center;" colspan="2">异常数据</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr class="danger">
-                                  <td>
-                                    <strong>甲烷</strong>
-                                  </td>
-                                  <td>0.5%</td>
-                                </tr>
-                                <tr  class="danger">
-                                  <td>
-                                    <strong>一氧化碳</strong>
-                                  </td>
-                                  <td>0.2%</td>
-                                </tr>
-                                <tr class="danger" >
-                                  <td>
-                                    <strong>二氧化碳</strong>
-                                  </td>
-                                  <td>1.8%</td>
-                                </tr>
-                                <tr class="danger" >
-                                  <td>
-                                    <strong>氧气</strong>
-                                  </td>
-                                  <td>0.4%</td>
-                                </tr>
-                                <tr  class="danger">
-                                  <td>
-                                    <strong>温度</strong>
-                                  </td>
-                                  <td>5%</td>
-                                </tr>
-                                <tr  class="danger">
-                                  <td>
-                                    <strong>湿度</strong>
-                                  </td>
-                                  <td>0.5%</td>
-                                </tr>
-                                <tr class="warning" >
-                                  <td>
-                                    <strong>氧气</strong>
-                                  </td>
-                                  <td>0.4%</td>
-                                </tr>
-                                <tr  class="warning">
-                                  <td>
-                                    <strong>温度</strong>
-                                  </td>
-                                  <td>5%</td>
-                                </tr>
-                                <tr  class="success">
-                                  <td>
-                                    <strong>湿度</strong>
-                                  </td>
-                                  <td>0.5%</td>
-                                </tr>
+                            <!--<div class="col-md-6">-->
+                              <!--<table class="table table-hover table-bordered">-->
+                                <!--<thead>-->
+                                <!--<tr>-->
+                                  <!--<th style="width:50%;text-align: center;" colspan="2">异常数据</th>-->
+                                <!--</tr>-->
+                                <!--</thead>-->
+                                <!--<tbody>-->
+                                <!--<tr class="danger">-->
+                                  <!--<td>-->
+                                    <!--<strong>甲烷</strong>-->
+                                  <!--</td>-->
+                                  <!--<td>0.5%</td>-->
+                                <!--</tr>-->
+                                <!--<tr  class="danger">-->
+                                  <!--<td>-->
+                                    <!--<strong>一氧化碳</strong>-->
+                                  <!--</td>-->
+                                  <!--<td>0.2%</td>-->
+                                <!--</tr>-->
 
-                                </tbody>
-                              </table>
-                            </div>
+                                <!--</tbody>-->
+                              <!--</table>-->
+                            <!--</div>-->
                           </div>
                         </td>
                       </tr>
@@ -247,294 +183,12 @@
                     </table>
                   </td>
                 </tr>
-                <tr role="row" class="odd shown">
-                  <td class=" details-control" >
-                  </td>
-                  <td >
-                    成都锦江国际酒店25楼
-                    <br>
-                    <small class="text-muted">
-                      <i>ID: 50</i>
-                    </small>
-                  </td>
-                  <td>
-                    名称
-                  </td>
-                  <td>
-                    <a class="btn btn-success btn-xs" >全部</a>
-                    <a class="btn btn-success btn-xs" >甲烷：0.8%</a>
-                    <a class="btn btn-success btn-xs" >一氧化碳:	0.4%</a>
-                    <a class="btn btn-success btn-xs" >二氧化碳:3%</a>
-                    <a class="btn btn-success btn-xs" >氧气:0.8%</a>
-                    <a class="btn btn-success btn-xs" >温度:0.8%</a>
-                    <a class="btn btn-success btn-xs" >湿度:0.8%</a>
 
-                  </td>
-                  <td>
-                    <i class="fa fa-circle txt-color-darken font-xs"></i> 未激活
-                    <i class="fa fa-circle text-danger font-xs"></i> 使用中
-                  </td>
-                  <td>2017-10-12 00:00:00</td>
-                  <td>
-                    <a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                    <a class="btn btn-danger btn-xs" ><span class="glyphicon glyphicon-remove"></span>删除</a>
-                    <a (click)="notificationExample2()" class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-adjust"></span>对比</a>
-                  </td>
-                </tr>
-                <tr>
-                  <td colspan="9">
-                    <table cell-padding="5" cell-spacing="0" border="0" class="table table-hover table-condensed">
-                      <tbody>
-                      <tr >
-                        <td style="width:50%;border-right:1px solid #ccc; ">
-                          <div echarts [options]="chartOption" (click)="getSeriesInfo" class="demo-chart" ></div>
-                        </td>
-                        <td  style="width:50%;">
-                          <div class="row">
-                            <div class="col-md-6">
-                              <table class="table table-hover table-bordered">
-                                <thead>
-                                <tr>
-                                  <th style="width:50%;text-align: center;" colspan="2">甲烷最新数据</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr class="danger">
-                                  <td>
-                                    <strong>甲烷</strong>
-                                  </td>
-                                  <td>0.5%</td>
-                                </tr>
-                                <tr  class="danger">
-                                  <td>
-                                    <strong>甲烷</strong>
-                                  </td>
-                                  <td>0.2%</td>
-                                </tr>
-                                <tr class="success" >
-                                  <td>
-                                    <strong>甲烷</strong>
-                                  </td>
-                                  <td>1.8%</td>
-                                </tr>
-                                <tr class="warning" >
-                                  <td>
-                                    <strong>甲烷</strong>
-                                  </td>
-                                  <td>0.4%</td>
-                                </tr>
-                                <tr  class="warning">
-                                  <td>
-                                    <strong>甲烷</strong>
-                                  </td>
-                                  <td>5%</td>
-                                </tr>
-                                <tr  class="success">
-                                  <td>
-                                    <strong>甲烷</strong>
-                                  </td>
-                                  <td>0.5%</td>
-                                </tr>
-                                <tr  class="success">
-                                  <td>
-                                    <strong>甲烷</strong>
-                                  </td>
-                                  <td>0.2%</td>
-                                </tr>
-                                <tr  class="warning">
-                                  <td>
-                                    <strong>甲烷</strong>
-                                  </td>
-                                  <td>0.8%</td>
-                                </tr>
-                                <tr  class="warning">
-                                  <td>
-                                    <strong>甲烷</strong>
-                                  </td>
-                                  <td>0.9%</td>
-                                </tr>
-
-                                </tbody>
-                              </table>
-                            </div>
-                            <div class="col-md-6">
-                              <table class="table table-hover table-bordered">
-                                <thead>
-                                <tr>
-                                  <th style="width:50%;text-align: center;" colspan="2">甲烷异常数据</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr class="danger">
-                                  <td>
-                                    <strong>甲烷</strong>
-                                  </td>
-                                  <td>0.5%</td>
-                                </tr>
-                                <tr  class="danger">
-                                  <td>
-                                    <strong>甲烷</strong>
-                                  </td>
-                                  <td>0.2%</td>
-                                </tr>
-                                <tr class="danger" >
-                                  <td>
-                                    <strong>甲烷</strong>
-                                  </td>
-                                  <td>1.8%</td>
-                                </tr>
-                                <tr class="danger" >
-                                  <td>
-                                    <strong>甲烷</strong>
-                                  </td>
-                                  <td>0.4%</td>
-                                </tr>
-                                <tr  class="danger">
-                                  <td>
-                                    <strong>甲烷</strong>
-                                  </td>
-                                  <td>5%</td>
-                                </tr>
-                                <tr  class="danger">
-                                  <td>
-                                    <strong>甲烷</strong>
-                                  </td>
-                                  <td>0.5%</td>
-                                </tr>
-                                <tr  class="danger">
-                                  <td>
-                                    <strong>甲烷</strong>
-                                  </td>
-                                  <td>0.2%</td>
-                                </tr>
-                                <tr  class="danger">
-                                  <td>
-                                    <strong>甲烷</strong>
-                                  </td>
-                                  <td>0.8%</td>
-                                </tr>
-                                <tr  class="danger">
-                                  <td>
-                                    <strong>甲烷</strong>
-                                  </td>
-                                  <td>0.9%</td>
-                                </tr>
-
-                                </tbody>
-                              </table>
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                      </tbody>
-                    </table>
-                  </td>
-                </tr>
-                <tr role="row" class="odd">
-                  <td class=" details-control" >
-                  </td>
-                  <td >
-                    成都锦江国际酒店25楼
-                    <br>
-                    <small class="text-muted">
-                      <i>ID: 50</i>
-                    </small>
-                  </td>
-                  <td>
-                    名称
-                  </td>
-                  <td>
-                    <a class="btn btn-success btn-xs" >全部</a>
-                    <a class="btn btn-success btn-xs" >甲烷：0.8%</a>
-                    <a class="btn btn-success btn-xs" >一氧化碳:	0.4%</a>
-                    <a class="btn btn-success btn-xs" >二氧化碳:3%</a>
-                    <a class="btn btn-success btn-xs" >氧气:0.8%</a>
-                    <a class="btn btn-success btn-xs" >温度:0.8%</a>
-                    <a class="btn btn-success btn-xs" >湿度:0.8%</a>
-
-                  </td>
-                  <td>
-                    <i class="fa fa-circle txt-color-darken font-xs"></i> 未激活
-                    <i class="fa fa-circle text-danger font-xs"></i> 使用中
-                  </td>
-                  <td>2017-10-12 00:00:00</td>
-                  <td>
-                    <a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                    <a class="btn btn-danger btn-xs" ><span class="glyphicon glyphicon-remove"></span>删除</a>
-                    <a (click)="notificationExample2()" class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-adjust"></span>对比</a>
-                  </td>
-                </tr>
-                <tr role="row" class="even">
-                  <td class=" details-control" >
-                  </td>
-                  <td >
-                    成都锦江国际酒店25楼
-                    <br>
-                    <small class="text-muted">
-                      <i>ID: 50</i>
-                    </small>
-                  </td>
-                  <td>
-                    名称
-                  </td>
-                  <td>
-                    <a class="btn btn-success btn-xs" >全部</a>
-                    <a class="btn btn-success btn-xs" >甲烷：0.8%</a>
-                    <a class="btn btn-success btn-xs" >一氧化碳:	0.4%</a>
-                    <a class="btn btn-success btn-xs" >二氧化碳:3%</a>
-                    <a class="btn btn-success btn-xs" >氧气:0.8%</a>
-                    <a class="btn btn-success btn-xs" >温度:0.8%</a>
-                    <a class="btn btn-success btn-xs" >湿度:0.8%</a>
-
-                  </td>
-                  <td>
-                    <i class="fa fa-circle txt-color-darken font-xs"></i> 未激活
-                    <i class="fa fa-circle text-danger font-xs"></i> 使用中
-                  </td>
-                  <td>2017-10-12 00:00:00</td>
-                  <td>
-                    <a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                    <a class="btn btn-danger btn-xs" ><span class="glyphicon glyphicon-remove"></span>删除</a>
-                    <a (click)="notificationExample2()" class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-adjust"></span>对比</a>
-                  </td>
-                </tr>
-                <tr role="row" class="odd">
-                  <td class=" details-control" >
-                  </td>
-                  <td >
-                    成都锦江国际酒店25楼
-                    <br>
-                    <small class="text-muted">
-                      <i>ID: 50</i>
-                    </small>
-                  </td>
-                  <td>
-                    名称
-                  </td>
-                  <td>
-                    <a class="btn btn-success btn-xs" >全部</a>
-                    <a class="btn btn-success btn-xs" >甲烷：0.8%</a>
-                    <a class="btn btn-success btn-xs" >一氧化碳:	0.4%</a>
-                    <a class="btn btn-success btn-xs" >二氧化碳:3%</a>
-                    <a class="btn btn-success btn-xs" >氧气:0.8%</a>
-                    <a class="btn btn-success btn-xs" >温度:0.8%</a>
-                    <a class="btn btn-success btn-xs" >湿度:0.8%</a>
-
-                  </td>
-                  <td>
-                    <i class="fa fa-circle txt-color-darken font-xs"></i> 未激活
-                    <i class="fa fa-circle text-danger font-xs"></i> 使用中
-                  </td>
-                  <td>2017-10-12 00:00:00</td>
-                  <td>
-                    <a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                    <a class="btn btn-danger btn-xs" ><span class="glyphicon glyphicon-remove"></span>删除</a>
-                    <a (click)="notificationExample2()" class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-adjust"></span>对比</a>
-                  </td>
-                </tr>
                 </tbody>
 
               </sa-datatable>
+              </div>
+
               <!-- 底部-（分页部分）-->
 
               <div class="dt-toolbar-footer">
@@ -543,29 +197,37 @@
                   </div>
                 </div>
                 <div class="col-sm-6 col-xs-12 hidden-xs text-right">
-                  <ul class="pagination pagination-sm">
-                    <li class="disabled">
-                      <a href="">上一页</a>
-                    </li>
-                    <li class="success">
-                      <a href="">1</a>
+                  <ul class="pagination">
+                    <li>
+                      <a (click)="pagination(i3otpList.result?.i3otpList?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>
                     </li>
                     <li>
-                      <a href="">2</a>
-                    </li>
-                    <li>
-                      <a href="">3</a>
-                    </li>
-                    <li>
-                      <a href="">...</a>
-                    </li>
-                    <li>
-                      <a href="">99</a>
-                    </li>
-                    <li>
-                      <a href="">下一页</a>
+                      <a (click)="pagination(i3otpList.result?.i3otpList?.next_page_url)"><i class="fa fa-arrow-right"></i></a>
                     </li>
                   </ul>
+                  <!--<ul class="pagination pagination-sm">-->
+                    <!--<li class="disabled">-->
+                      <!--<a href="">上一页</a>-->
+                    <!--</li>-->
+                    <!--<li class="success">-->
+                      <!--<a href="">1</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                      <!--<a href="">2</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                      <!--<a href="">3</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                      <!--<a href="">...</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                      <!--<a href="">99</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                      <!--<a href="">下一页</a>-->
+                    <!--</li>-->
+                  <!--</ul>-->
                 </div>
               </div>
             </div>
@@ -582,138 +244,31 @@
 
   </sa-widgets-grid>
 
+
+
+
   <div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
        aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" (click)="lgModal.hide()" aria-label="Close">
+          <button type="button" class="close" (click)="ngOnClose();lgModal.hide()" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h4 class="modal-title">设备数据对比</h4>
+          <h4 class="modal-title">数据对比图 {{loading}}</h4>
         </div>
         <div class="modal-body">
           <div class="row">
-            <div class="col-sm-12">
-              <div class="form-group">
-                <!--<label>添加或删除对比设备</label>-->
-                <select select2 multiple style="width:100%" class="select2">
-                  <optgroup label="选择设备ID">
-                    <option value="" selected="selected">12</option>
-                    <option value="">122</option>
-                    <option value="">54</option>
-                    <option value="">887</option>
-                    <option value="">778</option>
-                    <option value="">788</option>
-                    <option value="">778</option>
-                    <option value="">7788</option>
-                    <option value="" selected="selected">777</option>
-                    <option value="">77 </option>
-                    <option value="">11222 </option>
-                    <option value="">12455</option>
-                    <option value="">45454</option>
-                    <option value="">45</option>
-                    <option value="">545</option>
-                    <option value="">545</option>
-                    <option value="">545</option>
-                    <option value="">45454</option>
-                    <option value="">5454</option>
-                    <option value="">78</option>
-                  </optgroup>
-                </select>
-
-                <div class="note">
-                  <strong>备注:</strong> 点击设备名称或名称后面空白区域将弹出下拉框，可以选择添加和取消对比设备。
-                </div>
+            <div class="col-md-12">
+              <div *ngFor="let char of chartOption2;let inde = index;">
+                <h4 class="alert alert-info"> {{metric_title[inde]}}对比图</h4>
+                <div echarts [options]="chartOption2[inde]" class="demo-chart"></div>
               </div>
             </div>
-
           </div>
-
-          <div class="row">
-            <div class="col-md-12">
-              <sa-widget [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false">
-                <header>
-
-                  <ul id="widget-tab-1" class="nav pull-left" [ngClass]="{'nav-tabs' : demoShowTabs, 'nav-pills': !demoShowTabs }">
-                    <li class="success">
-                      <a data-toggle="tab" href="#hr1">  <span class="hidden-mobile hidden-tablet"> 甲烷</span> </a>
-                    </li>
-                    <li>
-                      <a data-toggle="tab" href="#hr2"> <span class="hidden-mobile hidden-tablet"> 一氧化碳</span></a>
-                    </li>
-                    <li>
-                      <a data-toggle="tab" href="#hr3"> <span class="hidden-mobile hidden-tablet"> 二氧化碳</span></a>
-                    </li>
-                    <li>
-                      <a data-toggle="tab" href="#hr4"> <span class="hidden-mobile hidden-tablet"> 氧气</span></a>
-                    </li>
-                    <li>
-                      <a data-toggle="tab" href="#hr5"> <span class="hidden-mobile hidden-tablet"> 温度	</span></a>
-                    </li>
-                    <li>
-                      <a data-toggle="tab" href="#hr6"> <span class="hidden-mobile hidden-tablet"> 湿度</span></a>
-                    </li>
-                  </ul>
-                </header>
-                <!-- widget div-->
-                <div>
-                  <!-- widget content -->
-                  <div class="widget-body no-padding">
-                    <!-- widget body text-->
-                    <div class="tab-content padding-10">
-                      <div class="tab-pane fade in success" id="hr1">
-                        <h4 class="alert alert-info"> 甲烷对比图</h4>
-                        <div echarts [options]="chartOption" class="demo-chart" ></div>
-                      </div>
-                      <div class="tab-pane fade" id="hr2">
-                        <h4 class="alert alert-info"> 一氧化碳对比图</h4>
-                        <div echarts [options]="chartOption" (click)="getSeriesInfo" class="demo-chart" ></div>
-                      </div>
-                      <div class="tab-pane fade" id="hr3">
-                        <h4 class="alert alert-info"> 二氧化碳对比图</h4>
-                        <div echarts [options]="chartOption" (click)="getSeriesInfo" class="demo-chart" ></div>
-                      </div>
-                      <div class="tab-pane fade" id="hr4">
-                        <h4 class="alert alert-info"> 氧气对比图</h4>
-                        <div echarts [options]="chartOption" (click)="getSeriesInfo" class="demo-chart" ></div>
-                      </div>
-                      <div class="tab-pane fade" id="hr5">
-                        <h4 class="alert alert-info"> 温度对比图</h4>
-                        <div echarts [options]="chartOption" (click)="getSeriesInfo" class="demo-chart" ></div>
-                      </div>
-                      <div class="tab-pane fade" id="hr6">
-                        <h4 class="alert alert-info"> 湿度对比图</h4>
-                        <div echarts [options]="chartOption" (click)="getSeriesInfo" class="demo-chart" ></div>
-                      </div>
-                    </div>
-                    <!-- end widget body text-->
-                    <!-- widget footer -->
-                    <div class="widget-footer text-right">
-											<span class="onoffswitch-title">
-												<i class="fa fa-check"></i> 显示为选项卡
-											</span>
-                      <span class="onoffswitch">
-												<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="show-tabs" [(ngModel)]="demoShowTabs">
-												<label class="onoffswitch-label" for="show-tabs">
-                                                    <span class="onoffswitch-inner" data-swchon-text="yes" data-swchoff-text="no"></span>
-                                                    <span class="onoffswitch-switch"></span>
-                                                </label>
-											</span>
-                    </div>
-                    <!-- end widget footer -->
-                  </div>
-                  <!-- end widget content -->
-                </div>
-                <!-- end widget div -->
-              </sa-widget>
-
-            </div>
-          </div>
-
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" (click)="lgModal.hide()">
+          <button type="button" class="btn btn-default" (click)="ngOnClose();lgModal.hide()">
             返回
           </button>
         </div>
@@ -722,7 +277,4 @@
   </div>
 
 
-
-
 </div>
-

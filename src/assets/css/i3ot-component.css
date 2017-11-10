@@ -2528,7 +2528,7 @@ ul.ColVis_collection li label {
 }
 
 .dataTable tbody .shown+tr>td>table tbody tr {
-    background-color: rgba(205,209,98,.05)!important
+    /*background-color: rgba(205,209,98,.05)!important*/
 }
 
 .dataTable tbody .shown .table>tbody>tr>td {

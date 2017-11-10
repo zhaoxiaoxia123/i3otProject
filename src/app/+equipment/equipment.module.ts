@@ -18,7 +18,9 @@ import {StatsModule} from '../shared/stats/stats.module';
 import {AngularEchartsModule} from 'ngx-echarts';
 import { StationChartComponent } from './station-chart/station-chart.component';
 import { ChartSettingComponent } from './chart-setting/chart-setting.component';
-import { DataMapComponent } from './data-map/data-map.component';
+import {DataMapComponent, KeysPipe} from './data-map/data-map.component';
+import {UnsavedGuard} from "../shared/cookies/unsaved.guard";
+import {ChartGuard} from "../shared/cookies/chart.guard";
 
 @NgModule({
   imports: [
@@ -28,7 +30,7 @@ import { DataMapComponent } from './data-map/data-map.component';
     StatsModule,
     SmartadminDatatableModule,
     ReactiveFormsModule,
-      AngularEchartsModule,
+    AngularEchartsModule,
   ],
   declarations: [
     EquipmentBeaconComponent,
@@ -41,7 +43,11 @@ import { DataMapComponent } from './data-map/data-map.component';
     StationChartComponent,
     ChartSettingComponent,
     DataMapComponent,
+    KeysPipe
   ],
-  providers:[CookieService,CookieStoreService ]
+    exports : [
+  KeysPipe
+],
+  providers:[CookieService,CookieStoreService,UnsavedGuard,ChartGuard ]
 })
 export class EquipmentModule { }

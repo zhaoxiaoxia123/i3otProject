@@ -70,7 +70,7 @@ export class FormElementsComponent implements OnInit {
     this.isClear = setInterval(() => {
       this.search_datapoint();//请求http数据
       this.getSeriesInfo();//更新数据到页面呈现
-    }, 4*1000);
+    }, 2*60*1000);
   }
 
   getSeriesInfo(){

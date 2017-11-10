@@ -54,6 +54,7 @@ export class AddCustomerComponent implements OnInit {
       service_person:[''],
       config:[''],
       notes:[''],
+      iot_secret:['']
     });
   }
 
@@ -98,6 +99,7 @@ export class AddCustomerComponent implements OnInit {
         config:this.customer_info['result']['c_config'],
         notes:this.customer_info['result']['c_notes'],
         role:this.customer_info['result']['c_role'],
+        iot_secret:this.customer_info['result']['iot_secret'],
         parent_id:this.customer_info['result']['c_parent_id']
       });
     }, 500);
@@ -157,6 +159,7 @@ export class AddCustomerComponent implements OnInit {
       'service_person':this.formModel.value['service_person'],
       'config':this.formModel.value['config'],
       'notes':this.formModel.value['notes'],
+      'iot_secret':this.formModel.value['iot_secret'],
       'role':1,
       'parent_id':0,
       'sid':this.cookieStore.getCookie('sid')
@@ -173,9 +176,6 @@ export class AddCustomerComponent implements OnInit {
         },
         response => {
           console.log('PATCH call in error', response);
-        },
-        () => {
-          console.log('The PATCH observable is now completed.');
         }
     );
   }

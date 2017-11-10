@@ -12,6 +12,8 @@ import {HelmetChartComponent} from './helmet-chart/helmet-chart.component';
 import {StationChartComponent} from './station-chart/station-chart.component';
 import {ChartSettingComponent} from './chart-setting/chart-setting.component';
 import {DataMapComponent} from './data-map/data-map.component';
+import {UnsavedGuard} from "../shared/cookies/unsaved.guard";
+import {ChartGuard} from "../shared/cookies/chart.guard";
 
 export const routes:Routes = [
     {
@@ -32,7 +34,8 @@ export const routes:Routes = [
     },
     {
         path: 'station-chart',
-        component: StationChartComponent
+        component: StationChartComponent,
+        canDeactivate:[ChartGuard]  //路由守卫
     },
     {
         path: 'station-list',
@@ -44,7 +47,8 @@ export const routes:Routes = [
     },
     {
         path: 'data-map',
-        component: DataMapComponent
+        component: DataMapComponent,
+        canDeactivate:[UnsavedGuard]  //路由守卫
     },
     {
         path: 'phonics',
