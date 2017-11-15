@@ -73,16 +73,6 @@ export class DataMapComponent implements OnInit {
             (data)=>this.products=data
         );
 
-        setTimeout(() => {
-            console.log('this.products:-----');
-            console.log(this.products);
-<<<<<<< HEAD
-            this.products = this.products;
-            console.log('this.products1111:-----');
-            console.log(this.products);
-=======
->>>>>>> e6ed8008c7e43ea2c07bed6a62c2b9de8b21bc5b
-        }, 4*1000);
     }
 
     /**
@@ -191,14 +181,7 @@ export class DataMapComponent implements OnInit {
     }
 
     search_datapoint_day(m_type:string,m_category:number){
-<<<<<<< HEAD
-        // this.dataSource_day = this.http.get(this.globalService.getDomain()+'/api/v1/getMeanList?m_type='+m_type+'&m_category='+m_category+'&c_id='+this.company+'&m_sensor='+this.showMetric)
-        this.dataSource_day = this.http.get('http://localhost/api/v1/getMeanList?m_type='+m_type+'&m_category='+m_category+'&c_id='+this.company+'&m_sensor='+this.showMetric)
-=======
-        // this.dataSource_day = this.http.get('http://localhost/api/v1/getMeanList?m_type='+m_type+'&m_category='+m_category+'&c_id='+this.company+'&m_sensor='+this.showMetric)
-
         this.dataSource_day = this.http.get(this.globalService.getDomain()+'/api/v1/getMeanList?m_type='+m_type+'&m_category='+m_category+'&c_id='+this.company+'&m_sensor='+this.showMetric)
->>>>>>> e6ed8008c7e43ea2c07bed6a62c2b9de8b21bc5b
             .map((res)=>res.json());
         this.dataSource_day.subscribe((data)=>this.products_day=data);
 
