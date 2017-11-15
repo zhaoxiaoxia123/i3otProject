@@ -5,6 +5,8 @@ import {Http} from '@angular/http';
 import {Router,ActivatedRoute} from '@angular/router';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 import {GlobalService} from '../../core/global.service';
+import {stringify} from "querystring";
+import ownKeys = Reflect.ownKeys;
 
 @FadeInTop()
 @Component({
@@ -19,7 +21,10 @@ export class AddI3otpComponent implements OnInit {
   i3otp_info : Array<any> = [];
 
   //默认选中值
-  c_id_default : number;
+  u_id_default : number;
+  o_id_default : number;
+  i3otp_category_default : number;
+  selects: Array<any> = [];
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -29,14 +34,33 @@ export class AddI3otpComponent implements OnInit {
       private globalService:GlobalService
   ) {
     this.formModel = fb.group({
-      i_id:[''],
-      i_number:[''],
-      i_name:[''],
-      i_date:[''],
-      i_address:[''],
-      c_id:[''],
-      i_is_activate:[''],
+      i3otp_id:[''],
+      i3otp_pid:[''],
+      i3otp_category:[''],
+      i3otp_name:[''],
+      i3otp_address:[''],
+      i3otp_status:[''],
+      i3otp_attribute: [''],
+      i3otp_sensor_intervan:[''],
+      i3otp_productiondate:[''],
+      u_id:[''],
+      i3otp_qc_date:[''],
+      i3otp_activation:[''],
+      o_id:[''],
     });
+  }
+
+  /**
+   * 点击列表checkbox事件
+   */
+  handle(e) {
+    let t = e.target;
+    let v = t.value;
+    let c = t.checked;
+    this.selects[v] = c;
+    console.log('this.selects');
+    console.log(this.selects);
+    console.log(stringify(this.selects));
   }
 
 
@@ -48,6 +72,9 @@ export class AddI3otpComponent implements OnInit {
     this.getI3otpDefault();
   }
 
+  getKeys(item){
+    return Object.keys(item);
+  }
   getI3otpInfo(i_id:number){
     this.http.get(this.globalService.getDomain()+'/api/v1/getI3otpInfo?i_id='+i_id)
         .map((res)=>res.json())
@@ -55,16 +82,32 @@ export class AddI3otpComponent implements OnInit {
           this.i3otp_info = data;
         });
     setTimeout(() => {
+      console.log('this.i3otp_info:---');
       console.log(this.i3otp_info);
       this.formModel.patchValue({
-        i_id:this.i3otp_info['result']['i_id'],
-        i_number:this.i3otp_info['result']['i_number'],
-        i_name:this.i3otp_info['result']['i_name'],
-        i_date:this.i3otp_info['result']['i_date'],
-        i_address:this.i3otp_info['result']['i_address'],
-        c_id:this.i3otp_info['result']['c_id'],
-        i_is_activate:this.i3otp_info['result']['i_is_activate']
+        i3otp_id:this.i3otp_info['result']['i3otp_id'],
+        i3otp_pid:this.i3otp_info['result']['i3otp_pid'],
+        i3otp_category:this.i3otp_info['result']['i3otp_category'],
+        i3otp_name:this.i3otp_info['result']['i3otp_name'],
+        i3otp_address:this.i3otp_info['result']['i3otp_address'],
+        u_id:this.i3otp_info['result']['u_id'],
+        // i3otp_attribute:this.i3otp_info['result']['i3otp_attribute'],
+        i3otp_sensor_intervan:this.i3otp_info['result']['i3otp_sensor_intervan'],
+        i3otp_productiondate:this.i3otp_info['result']['i3otp_productiondate'],
+        i3otp_qc_date:this.i3otp_info['result']['i3otp_qc_date'],
+        o_id:this.i3otp_info['result']['o_id'],
+        i3otp_activation:this.i3otp_info['result']['i3otp_activation'],
+        i3otp_status:this.i3otp_info['result']['i3otp_status']
       });
+
+      this.u_id_default = this.i3otp_info['result']['u_id'];
+      this.o_id_default = this.i3otp_info['result']['o_id'];
+      this.i3otp_category_default = this.i3otp_info['result']['i3otp_category'];
+      for (let i3otpa of this.i3otp_info['result']['i3otp_attribute']) {
+        for (let key of this.getKeys(i3otpa)) {
+          this.selects[key] = i3otpa[key];
+        }
+      }
     }, 500);
   }
 
@@ -78,17 +121,20 @@ export class AddI3otpComponent implements OnInit {
           this.i3otpList = data;
       });
     setTimeout(() => {
+      console.log('this.i3otpList');
+      console.log(this.i3otpList);
       if(this.i3otpList['status'] == 202){
         alert(this.i3otpList['msg']);
         this.cookieStore.removeAll();
         this.router.navigate(['/auth/login']);
       }
-      //默认选中值
-      this.c_id_default = this.i3otpList['result']['customerList'].length >= 1 ? this.i3otpList['result']['customerList'][0]['c_id'] : 0;
-
-      console.log('this.c_id_default');
-   console.log(this.c_id_default);
-    }, 300);
+      if(this.i_id == 0) {
+        //默认选中值
+        this.u_id_default = this.i3otpList['result']['userList'].length >= 1 ? this.i3otpList['result']['userList'][0]['id'] : 0;
+        this.o_id_default = this.i3otpList['result']['orderList'].length >= 1 ? this.i3otpList['result']['orderList'][0]['o_id'] : 0;
+        this.i3otp_category_default = 1;
+      }
+    }, 500);
   }
 
   onSubmit(){
@@ -101,20 +147,30 @@ export class AddI3otpComponent implements OnInit {
       return false;
     }
     this.http.post(this.globalService.getDomain()+'/api/v1/addI3otp',{
-      'i_id':this.formModel.value['i_id'],
-      'i_number':this.formModel.value['i_number'],
-      'i_name':this.formModel.value['i_name'],
-      'i_date':this.formModel.value['i_date'],
-      'i_address':this.formModel.value['i_address'],
-      'c_id':this.formModel.value['c_id'],
-      'i_is_activate':this.formModel.value['i_is_activate'],
+      'i3otp_id':this.formModel.value['i3otp_id'],
+      'i3otp_pid':this.formModel.value['i3otp_pid'],
+      'i3otp_category':this.formModel.value['i3otp_category'],
+      'i3otp_name':this.formModel.value['i3otp_name'],
+      'i3otp_address':this.formModel.value['i3otp_address'],
+      'u_id':this.formModel.value['u_id'],
+      'i3otp_status':this.formModel.value['i3otp_status'],
+      'i3otp_attribute': stringify(this.selects),
+      'i3otp_sensor_intervan':this.formModel.value['i3otp_sensor_intervan'],
+      'i3otp_productiondate':this.formModel.value['i3otp_productiondate'],
+      'i3otp_qc_date':this.formModel.value['i3otp_qc_date'],
+      'o_id':this.formModel.value['o_id'],
+      'i3otp_activation':this.formModel.value['i3otp_activation'],
       'sid':this.cookieStore.getCookie('sid')
     }).subscribe(
         (data)=>{
           let info = JSON.parse(data['_body']);
           alert(info['msg']);
           if(info['status'] == 200) {
-            // this.router.navigateByUrl('/tables/client');
+            if(info['result'] == 1) {
+              this.router.navigateByUrl('/equipment/helmet-list');
+            } else if(info['result'] == 2) {
+              this.router.navigateByUrl('/equipment/station-list');
+            }
           }else if(info['status'] == 202){
             this.cookieStore.removeAll();
             this.router.navigate(['/auth/login']);
@@ -122,9 +178,6 @@ export class AddI3otpComponent implements OnInit {
         },
         response => {
           console.log('PATCH call in error', response);
-        },
-        () => {
-          console.log('The PATCH observable is now completed.');
         }
     );
   }

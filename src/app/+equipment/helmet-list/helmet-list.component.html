@@ -52,18 +52,19 @@
             <td></td><td></td><td></td><td></td>
             <td></td><td></td>
           </tr>
-          <tr *ngFor="let rl of recordList.result?.data" (click)="getRecordInfo(rl.r_id);">
-            <td><span class="txt-color-blueLight">●&nbsp;</span><span class="txt-color-green">●&nbsp;</span>{{ rl.i_number }}</td>
-            <td>{{ rl.i_name }}</td>
-            <td>{{ rl.u_username }}</td>
-            <td>{{ rl.category_desc }}</td>
-            <td>{{ rl.qt }}</td>
-            <td>{{ rl.wsd }}</td>
-            <td>{{ rl.jk }}</td>
-            <td>{{ rl.created_at }}</td>
-            <td>{{ rl.r_address }}</td>
-            <td><a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-              <a class="btn btn-danger btn-xs" ><span class="glyphicon glyphicon-remove"></span>删除</a>
+          <tr *ngFor="let il of i3otpList.result?.i3otpList?.data">
+            <td (click)="getI3otpInfo(il.i3otp_id);"><span class="txt-color-blueLight">●&nbsp;</span><span class="txt-color-green">●&nbsp;</span>{{ il.i3otp_pid }}</td>
+            <td (click)="getI3otpInfo(il.i3otp_id);">{{ il.i3otp_name }}</td>
+            <td (click)="getI3otpInfo(il.i3otp_id);">{{ il.u_username }}</td>
+            <td (click)="getI3otpInfo(il.i3otp_id);">{{ il.u_department }}</td>
+            <td (click)="getI3otpInfo(il.i3otp_id);">{{ il.i3otp_attribute1 }}</td>
+            <td (click)="getI3otpInfo(il.i3otp_id);">{{ il.i3otp_attribute2 }}</td>
+            <td (click)="getI3otpInfo(il.i3otp_id);">{{ il.i3otp_attribute3 }}</td>
+            <td (click)="getI3otpInfo(il.i3otp_id);">{{ il.i3otp_sensor_intervan }}</td>
+            <td (click)="getI3otpInfo(il.i3otp_id);">{{ il.i3otp_address }}</td>
+            <td>
+              <a class="btn btn-warning btn-xs" [routerLink]="['/equipment/i3otp',il.i3otp_id]"><span class="glyphicon glyphicon-pencil"></span>修改</a>
+              <a class="btn btn-danger btn-xs" (click)="deleteI3otp(il.i3otp_id ,i3otpList.result?.i3otpList?.current_page)"><span class="glyphicon glyphicon-remove"></span>删除</a>
             </td>
           </tr>
           </tbody>
@@ -74,29 +75,38 @@
             点击每行,在表下面可以看到详细数据
           </div>
           <div class="col-sm-6 col-xs-12 hidden-xs text-right">
-            <ul class="pagination pagination-sm">
-            <li class="disabled">
-            <a href="">上一页</a>
-            </li>
-            <li class="active">
-            <a href="">1</a>
-            </li>
-            <li>
-            <a href="">2</a>
-            </li>
-            <li>
-            <a href="">3</a>
-            </li>
-            <li>
-            <a href="">...</a>
-            </li>
-            <li>
-            <a href="">99</a>
-            </li>
-            <li>
-            <a href="">下一页</a>
-            </li>
+
+            <ul class="pagination">
+              <li>
+                <a (click)="pagination(i3otpList.result?.i3otpList?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>
+              </li>
+              <li>
+                <a (click)="pagination(i3otpList.result?.i3otpList?.next_page_url)"><i class="fa fa-arrow-right"></i></a>
+              </li>
             </ul>
+            <!--<ul class="pagination pagination-sm">-->
+            <!--<li class="disabled">-->
+            <!--<a href="">上一页</a>-->
+            <!--</li>-->
+            <!--<li class="active">-->
+            <!--<a href="">1</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a href="">2</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a href="">3</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a href="">...</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a href="">99</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a href="">下一页</a>-->
+            <!--</li>-->
+            <!--</ul>-->
           </div>
         </div>
       </div>
@@ -104,7 +114,7 @@
   </sa-widget>
   <!--<app-helmet-details></app-helmet-details>-->
   <!--详情信息 start-->
-  <sa-widget *ngIf="recordInfo.length != 0" [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+  <sa-widget *ngIf="i3otpInfo.length != 0" [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
     <header>
       <ul class="nav nav-tabs pull-left in">
         <li [class.active]="state.tabs.demo3=='hr1'">
@@ -126,35 +136,35 @@
                     <tbody>
                     <tr>
                       <td class="width-120">设备ID:</td>
-                      <td class="">{{ recordInfo.result?.i_number }}</td>
+                      <td class="">{{ i3otpInfo.result?.i3otp_pid }}</td>
                     </tr>
                     <tr><td class="width-120">设备ID-名称:</td>
-                      <td class="">{{ recordInfo.result?.i_name }}</td>
+                      <td class="">{{ i3otpInfo.result?.i3otp_name }}</td>
                     </tr>
                     <tr>
-                      <td class="width-120">员工ID:</td>
-                      <td class="">{{ recordInfo.result?.u_id }}</td>
+                      <td class="width-120">员工编号:</td>
+                      <td class="">{{ i3otpInfo.result?.name }}</td>
                     </tr>
                     <tr><td class="width-120">姓名:</td>
-                      <td class="">{{ recordInfo.result?.u_username }}</td>
+                      <td class="">{{ i3otpInfo.result?.u_username }}</td>
                     </tr>
                     <tr>
                       <td class="width-120">性别:</td>
-                      <td class="">{{ recordInfo.result?.u_gender }}</td>
+                      <td class="">{{ (i3otpInfo.result?.u_gender == 1)?'男':'女' }}</td>
                     </tr>
                     <tr>
                       <td class="width-120">所属部门:</td>
-                      <td class="">{{ recordInfo.result?.category_desc }}</td>
+                      <td class="">{{ i3otpInfo.result?.category_desc }}</td>
                     </tr>
                     <tr><td class="width-120">职务:</td>
-                      <td class="">{{ recordInfo.result?.u_position }}</td>
+                      <td class="">{{ i3otpInfo.result?.u_position }}</td>
                     </tr>
                     <tr>
                       <td class="width-120">采集数据时间:</td>
-                      <td class="">{{ recordInfo.result?.created_at }}</td>
+                      <td class="">{{ i3otpInfo.result?.i3otp_sensor_intervan }}</td>
                     </tr>
                     <tr><td class="width-120">采集数据地址:</td>
-                      <td class="">{{ recordInfo.result?.r_address }}</td>
+                      <td class="">{{ i3otpInfo.result?.i3otp_address }}</td>
                     </tr>
                     </tbody>
                   </table>
@@ -167,17 +177,17 @@
                     <tbody>
                     <tr>
                       <td class="width-120">甲烷:</td>
-                      <td class="">{{ recordInfo.result?.detail.ch4 }}</td>
+                      <td class="">{{ i3otpInfo.result?.detail.ch4 }}</td>
                     </tr>
                     <tr><td class="width-120">一氧化碳:</td>
-                      <td class="">{{ recordInfo.result?.detail.co }}</td>
+                      <td class="">{{ i3otpInfo.result?.detail.co }}</td>
                     </tr>
                     <tr>
                       <td class="width-120">二氧化碳:</td>
-                      <td class="">{{ recordInfo.result?.detail.co2 }}</td>
+                      <td class="">{{ i3otpInfo.result?.detail.co2 }}</td>
                     </tr>
                     <tr><td class="width-120">氧气:</td>
-                      <td class="">{{ recordInfo.result?.detail.o2 }}</td>
+                      <td class="">{{ i3otpInfo.result?.detail.o2 }}</td>
                     </tr>
                     </tbody>
                   </table>
@@ -190,10 +200,10 @@
                     <tbody>
                     <tr>
                       <td class="width-120">温度:</td>
-                      <td class="">{{ recordInfo.result?.detail.temp }}</td>
+                      <td class="">{{ i3otpInfo.result?.detail.temp }}</td>
                     </tr>
                     <tr><td class="width-120">湿度:</td>
-                      <td class="">{{ recordInfo.result?.detail.humi }}</td>
+                      <td class="">{{ i3otpInfo.result?.detail.humi }}</td>
                     </tr>
                     </tbody>
                   </table>
@@ -204,13 +214,13 @@
                     <tbody>
                     <tr>
                       <td class="width-120">脑电:</td>
-                      <td class="">{{ recordInfo.result?.detail.eeg }}</td>
+                      <td class="">{{ i3otpInfo.result?.detail.eeg }}</td>
                     </tr>
                     <tr><td class="width-120">心率:</td>
-                      <td class="">{{ recordInfo.result?.detail.ecg }}</td>
+                      <td class="">{{ i3otpInfo.result?.detail.ecg }}</td>
                     </tr>
                     <tr><td class="width-120">血氧:</td>
-                      <td class="">{{ recordInfo.result?.detail.spo2h }}</td>
+                      <td class="">{{ i3otpInfo.result?.detail.spo2h }}</td>
                     </tr>
                     </tbody>
                   </table>

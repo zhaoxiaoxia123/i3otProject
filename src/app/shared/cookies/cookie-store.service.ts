@@ -18,4 +18,29 @@ export class CookieStoreService {
     this._cookieService.removeAll();
   }
 
+  getTestZN(key: string){
+    let str= {
+      'co':'一氧化碳',
+      'co2':'二氧化碳',
+      'o2':'氧气',
+      'ch4':'甲烷',
+      'temp':'温度',
+      'humi':'湿度',
+      'eeg':'脑电',
+      'ecg':'心率',
+      'spo2h':'血氧',
+    };
+    return str[key];
+  }
+
+
+  in_array(stringToSearch:string, arrayToSearch:Array<any>) {
+    for (let s = 0; s < arrayToSearch.length; s++) {
+      let thisEntry = arrayToSearch[s].toString();
+      if (thisEntry == stringToSearch) {
+        return true;
+      }
+    }
+    return false;
+  }
 }

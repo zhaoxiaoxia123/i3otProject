@@ -12,7 +12,7 @@ export class AppComponent {
   ) {
     window.scrollTo(0,0);
     console.log('---');
-    if(location.origin == 'http://localhost:4200' || location.origin == 'http://www.i3ot.com' || location.origin == 'http://i3ot.com'){
+    if(location.href == 'http://localhost:4200' || location.href == 'http://www.i3ot.com' || location.href == 'http://i3ot.com'){
       this.router.navigate(['/index']);
     }
   }

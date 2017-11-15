@@ -18,109 +18,116 @@
               <form id="smart-form-register" class="smart-form" [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate>
                 <fieldset>
                   <legend>基本信息</legend>
-                  <input type="hidden" name="i_id" formControlName="i_id">
-
-                  <!--<div class="col col-sm-6">
-                    <div class="form-group">
-                      <label class="label">Select2 Plugin (select)</label>
-                      <select select2 style="width:100%" class="select2">
-                        <optgroup label="Alaskan/Hawaiian Time Zone">
-                          <option value="AK">Alaska</option>
-                          <option value="HI">Hawaii</option>
-                        </optgroup>
-                        <optgroup label="Pacific Time Zone">
-                          <option value="CA">California</option>
-                          <option value="NV">Nevada</option>
-                          <option value="OR">Oregon</option>
-                          <option value="WA">Washington</option>
-                        </optgroup>
-                      </select>
-                    </div>
-                  </div>-->
-
+                  <input type="hidden" name="i3otp_id" formControlName="i3otp_id">
                   <section class="col col-6">
                     <label class="label">设备类型</label>
                     <label class="select">
-                      <select name="role" >
+                      <select name="i3otp_category" formControlName="i3otp_category" [(ngModel)]="i3otp_category_default">
                         <!--选择类型才出现功能选项，基站设备比安全帽少健康复选框-->
-                        <option value="1">安全帽</option>
-                        <option value="2">基站设备</option>
+                        <option value="1" [selected]="i3otp_info.result?.i3otp_category == 1 || this.i_id == 0">安全帽</option>
+                        <option value="2" [selected]="i3otp_info.result?.i3otp_category == 2 ">基站设备</option>
                       </select> <i></i> </label>
                   </section>
-
                   <section class="col col-6">
                     <label class="label">设备ID</label>
                     <label class="input">
-                      <input type="text" name="i_number" placeholder="请输入客户编号" maxlength="20" formControlName="i_number"/>
+                      <input type="text" name="i3otp_pid" placeholder="请输入设备编号" maxlength="20" formControlName="i3otp_pid"/>
                     </label>
                   </section>
-
                   <section class="col col-6">
                     <label class="label">设备名称</label>
                     <label class="input">
-                      <input type="text" name="i_name" placeholder="请输入全称 " maxlength="10" formControlName="i_name"/>
+                      <input type="text" name="i3otp_name" placeholder="请输入设备名称" maxlength="10" formControlName="i3otp_name"/>
                     </label>
                   </section>
-
-
-
-                  <!--<section class="col col-6">
+                  <section class="col col-6">
+                    <label class="label">采样时间</label>
+                    <label class="input">
+                      <input type="date" name="i3otp_sensor_intervan" formControlName="i3otp_sensor_intervan"/>
+                    </label>
+                  </section>
+                  <section class="col col-6">
                     <label class="label">生产日期</label>
                     <label class="input">
-                      <input type="date" name="i_date" formControlName="i_date"/>
+                      <input type="date" name="i3otp_productiondate" formControlName="i3otp_productiondate"/>
                     </label>
-                  </section>-->
+                  </section>
+                  <section class="col col-6">
+                    <label class="label">内部质检日期</label>
+                    <label class="input">
+                      <input type="date" name="i3otp_qc_date" formControlName="i3otp_qc_date"/>
+                    </label>
+                  </section>
                   <section class="col col-6">
                     <label class="label">设备地址</label>
                     <label class="input">
-                      <input type="text" name="i_address" placeholder="请输入设备地址 " maxlength="40" formControlName="i_address"/>
+                      <input type="text" name="i3otp_address" placeholder="请输入设备地址 " maxlength="40" formControlName="i3otp_address"/>
                     </label>
+                  </section>
+                  <section class="col col-6">
+                    <label class="label">激活码</label>
+                    <label class="input">
+                      <input type="text" name="i3otp_activation" placeholder="请输入激活码 " maxlength="40" formControlName="i3otp_activation"/>
+                    </label>
+                  </section>
+                  <section class="col col-6">
+                    <label class="label">内部质检员</label>
+                    <label class="select">
+                      <select name="u_id" formControlName="u_id" [(ngModel)]="u_id_default">
+                        <option *ngFor="let u of i3otpList.result?.userList" [selected]="i3otp_info.result?.u_id == u.id || this.i_id == 0" value="{{u.id}}">{{u.u_username}}</option>
+                      </select> <i></i> </label>
+                  </section>
+                  <section class="col col-6">
+                    <label class="label">订单</label>
+                    <label class="select">
+                      <select name="o_id" formControlName="o_id" [(ngModel)]="o_id_default">
+                        <option *ngFor="let o of i3otpList.result?.orderList" [selected]="i3otp_info.result?.o_id == o.o_id || this.i_id == 0" value="{{o.o_id}}">{{o.o_order}}</option>
+                      </select> <i></i> </label>
                   </section>
                   <section class="col col-6">
                     <label class="label">是否激活</label>
                     <div class="inline-group">
                       <label class="radio">
-                        <input type="radio" [checked]="i3otp_info.result?.i_is_activate == 1" [value]="1" name="i_is_activate" formControlName="i_is_activate">
+                        <input type="radio" [checked]="i3otp_info.result?.i3otp_status == 1" [value]="1" name="i3otp_status" formControlName="i3otp_status">
                         <i></i>激活</label>
                       <label class="radio">
-                        <input type="radio" [checked]="i3otp_info.result?.i_is_activate == 2" [value]="2" name="i_is_activate" formControlName="i_is_activate">
+                        <input type="radio" [checked]="i3otp_info.result?.i3otp_status == 0" [value]="0" name="i3otp_status" formControlName="i3otp_status">
                         <i></i>未激活</label>
+                      <label class="radio">
+                        <input type="radio" [checked]="i3otp_info.result?.i3otp_status == 2" [value]="2" name="i3otp_status" formControlName="i3otp_status">
+                        <i></i>返厂维修</label>
+                      <label class="radio">
+                        <input type="radio" [checked]="i3otp_info.result?.i3otp_status == 3" [value]="3" name="i3otp_status" formControlName="i3otp_status">
+                        <i></i>报废</label>
                     </div>
                   </section>
-                <!--<section class="col col-6">
-                  <label class="label">所属公司</label>
-                  <label class="select">
-                    <select name="c_id" formControlName="c_id" [(ngModel)]="c_id_default">
-                      <option *ngFor="let c of i3otpList.result?.customerList" [selected]="i3otp_info.result?.c_id == c.c_id || this.i_id == 0" value="{{c.c_id}}">{{c.c_name}}</option>
-                    </select> <i></i> </label>
-                </section>-->
                   </fieldset>
                 <fieldset>
                   <legend>功能选项</legend>
                   <section class="col col-4"  >
                     <label class="label">检测气体数据</label>
                     <div class="inline-group" >
-                      <label class="checkbox"><input type="checkbox"><i></i>甲烷</label>
-                      <label class="checkbox"><input type="checkbox"><i></i>一氧化碳</label>
-                      <label class="checkbox"><input type="checkbox"><i></i>二氧化碳</label>
-                      <label class="checkbox"><input type="checkbox"><i></i>氧气</label>
+                      <label class="checkbox"><input type="checkbox" value="ch4" [checked]="selects['ch4']" (change)="handle($event)" name="i3otp_attribute" formControlName="i3otp_attribute"><i></i>甲烷</label>
+                      <label class="checkbox"><input type="checkbox" value="co" [checked]="selects['co']" (change)="handle($event)" name="i3otp_attribute" formControlName="i3otp_attribute"><i></i>一氧化碳</label>
+                      <label class="checkbox"><input type="checkbox" value="co2" [checked]="selects['co2']" (change)="handle($event)" name="i3otp_attribute" formControlName="i3otp_attribute"><i></i>二氧化碳</label>
+                      <label class="checkbox"><input type="checkbox" value="o2" [checked]="selects['o2']" (change)="handle($event)" name="i3otp_attribute" formControlName="i3otp_attribute"><i></i>氧气</label>
                     </div>
                   </section>
 
                   <section class="col col-4" >
                     <label class="label">温湿度</label>
                     <div class="inline-group">
-                      <label class="checkbox"><input type="checkbox"><i></i>温度</label>
-                      <label class="checkbox"><input type="checkbox"><i></i>湿度</label>
+                      <label class="checkbox"><input type="checkbox" value="temp" [checked]="selects['temp']" (change)="handle($event)" name="i3otp_attribute" formControlName="i3otp_attribute"><i></i>温度</label>
+                      <label class="checkbox"><input type="checkbox" value="humi" [checked]="selects['humi']" (change)="handle($event)" name="i3otp_attribute" formControlName="i3otp_attribute"><i></i>湿度</label>
                     </div>
                   </section>
 
                   <section class="col col-4" >
                     <label class="label">健康</label>
                     <div class="inline-group">
-                      <label class="checkbox"><input type="checkbox"><i></i>脑电</label>
-                      <label class="checkbox"><input type="checkbox"><i></i>心率</label>
-                      <label class="checkbox"><input type="checkbox"><i></i>血氧</label>
+                      <label class="checkbox"><input type="checkbox" value="eeg" [checked]="selects['eeg']" (change)="handle($event)" name="i3otp_attribute" formControlName="i3otp_attribute"><i></i>脑电</label>
+                      <label class="checkbox"><input type="checkbox" value="ecg" [checked]="selects['ecg']" (change)="handle($event)" name="i3otp_attribute" formControlName="i3otp_attribute"><i></i>心率</label>
+                      <label class="checkbox"><input type="checkbox" value="spo2h" [checked]="selects['spo2h']" (change)="handle($event)" name="i3otp_attribute" formControlName="i3otp_attribute"><i></i>血氧</label>
                     </div>
                   </section>
 

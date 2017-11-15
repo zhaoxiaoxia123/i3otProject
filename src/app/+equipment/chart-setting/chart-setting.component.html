@@ -2,50 +2,27 @@
   <div class="row">
     <sa-big-breadcrumbs [items]="['设备管理', '图表设置']" icon="pencil-square-o" class="col-xs-12 col-sm-9 col-md-9 col-lg-9"></sa-big-breadcrumbs>
   </div>
-
   <sa-widgets-grid>
     <div class="row">
       <article class="col-sm-12">
-
         <sa-widget
                 [togglebutton]="true"
                 [editbutton]="false"
                 [fullscreenbutton]="true"
                 [colorbutton]="true"
                 [deletebutton]="false" saSparklineContainer saEasyPieChartContainer>
-
           <header>
-                    <!--<span class="widget-icon">
-                        <i class="glyphicon glyphicon-stats txt-color-darken"></i> </span>
-
-            <h2>图表显示效果设置</h2>-->
-
             <ul class="nav nav-tabs pull-left in" id="myTab">
               <li class="active">
                 <a data-toggle="tab" href="#s1"><i class="glyphicon glyphicon-stats" ></i> <span
                         class="hidden-mobile hidden-tablet">图表取值范围和颜色效果</span></a>
               </li>
-
-              <!--<li>
-                <a data-toggle="tab" href="#s2"><i class="fa fa-facebook" ></i> <span
-                        class="hidden-mobile hidden-tablet"></span></a>
-              </li>
-
-              <li>
-                <a data-toggle="tab" href="#s3"><i class="fa fa-dollar" ></i> <span
-                        class="hidden-mobile hidden-tablet"></span></a>
-              </li>-->
             </ul>
-
           </header>
-
           <div class="no-padding">
-
             <div class="widget-body">
-
               <div id="myTabContent" class="tab-content" >
                 <div class="tab-pane fade active in padding-10 no-padding-bottom" id="s1">
-
                   <div class="row">
                     <article class="col-sm-12 col-md-12 col-lg-6">
                       <sa-widget >
@@ -57,48 +34,57 @@
                               添加图表取值范围和颜色效果
                             </alert>
                             <div class="widget-body">
-                              <form class="" >
+                              <form class="" [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate>
                                 <fieldset>
                                   <div class="col-sm-12">
                                     <div class="form-group">
                                       <label >选择名称</label>
-                                      <select select2 style="width:100%" class="select2">
-                                        <optgroup label="名称列表">
-                                          <option value="">甲烷</option>
-                                          <option value="">一氧化碳</option>
-                                          <option value="">二氧化碳</option>
-                                          <option value="">氧气</option>
-                                          <option value="">温度</option>
-                                          <option value="">湿度</option>
-                                          <option value="">脑电</option>
-                                          <option value="">心率</option>
-                                          <option value="">血氧</option>
-                                        </optgroup>
+                                      <input type="hidden" name="s_id" formControlName="s_id">
+                                      <select class="form-control" style="width:100%" name="s_name" formControlName="s_name" [(ngModel)]="s_name_default">
+                                          <option value="ch4">甲烷</option>
+                                          <option value="co">一氧化碳</option>
+                                          <option value="co2">二氧化碳</option>
+                                          <option value="o2">氧气</option>
+                                          <option value="temp">温度</option>
+                                          <option value="humi">湿度</option>
+                                          <option value="eeg">脑电</option>
+                                          <option value="ecg">心率</option>
+                                          <option value="spo2h">血氧</option>
                                       </select>
-
-                                      <!--<div class="note">
-                                        <strong></strong>
-                                      </div>-->
                                     </div>
                                   </div>
                                 </fieldset>
                                 <fieldset>
                                   <legend><span style="margin-left: 13px;">第一阶段</span></legend>
                                   <div class="form-group">
-
                                     <div class="col-sm-12">
                                       <div class="form-group">
-                                        <label>范围取值</label>
-                                        <input required class="form-control "
-                                               value="请输入取值范围"   minlength="1" maxlength="20" type="text">
-                                      </div>
+                                        <div class="col-sm-4">
+                                          <div class="form-group">
+                                            <label>范围取值</label>
+                                            <input required class="form-control" style="margin-left:-13px;" placeholder="请输入范围最小值" name="s_interval1_1" formControlName="s_interval1_1" minlength="1" maxlength="10" type="text">
+                                          </div>
+                                        </div>
+                                        <div class="col-sm-1">
+                                          <div class="form-group">
+                                            <label>  </label>
+                                            <b>至</b>
+                                          </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                          <div class="form-group">
+                                            <label></label>
+                                            <input required class="form-control" placeholder="请输入范围最大值" name="s_interval1_2" formControlName="s_interval1_2" minlength="1" maxlength="10" type="text">
+                                          </div>
+                                        </div>
+                                        </div>
                                     </div>
                                     <div class="col-sm-12">
                                       <div class="form-group">
                                         <div class="col-sm-4">
                                           <div class="form-group">
                                             <label>颜色</label>
-                                            <input class="form-control" style="margin-left:-13px;" type="text" value="#8fff00" />
+                                            <input class="form-control" style="margin-left:-13px;" type="text"  maxlength="10" placeholder="#8fff00" name="s_color1" formControlName="s_color1" />
                                           </div>
                                         </div>
                                         <div class="col-sm-8">
@@ -106,31 +92,44 @@
                                             <label class="control-label " >鼠标移上去的颜色</label>
                                             <div class="col-sm-12">
                                               <div class="input-group">
-                                                <input class="form-control" style="margin-left:-13px;" type="text" value="#8fff00" />
+                                                <input class="form-control" style="margin-left:-13px;" type="text" placeholder="#8fff00" maxlength="10" name="s_up_color1" formControlName="s_up_color1"/>
                                                 <div class="input-group-btn">
-                                                  <button class="btn btn-default" type="button">
+                                                  <button class="btn btn-default" type="button" (click)="toDefault('#8fff00',1)">
                                                     恢复默认（正常）
                                                   </button>
                                                 </div>
                                               </div>
                                             </div>
                                           </div>
-
                                         </div>
-
                                       </div>
                                     </div>
-
                                   </div>
                                 </fieldset>
                                 <fieldset>
                                   <legend><span style="margin-left: 13px;">第二阶段</span></legend>
                                   <div class="form-group">
                                     <div class="col-sm-12">
+
                                       <div class="form-group">
-                                        <label>范围取值</label>
-                                        <input required class="form-control "
-                                               value="请输入取值范围"   minlength="1" maxlength="20" type="text">
+                                        <div class="col-sm-4">
+                                          <div class="form-group">
+                                            <label>范围取值</label>
+                                            <input required class="form-control" style="margin-left:-13px;" placeholder="请输入范围最小值" name="s_interval2_1" formControlName="s_interval2_1" minlength="1" maxlength="10" type="text">
+                                          </div>
+                                        </div>
+                                        <div class="col-sm-1">
+                                          <div class="form-group">
+                                            <label>  </label>
+                                            <b>至</b>
+                                          </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                          <div class="form-group">
+                                            <label></label>
+                                            <input required class="form-control" placeholder="请输入范围最大值" name="s_interval2_2" formControlName="s_interval2_2" minlength="1" maxlength="10" type="text">
+                                          </div>
+                                        </div>
                                       </div>
                                     </div>
                                     <div class="col-sm-12">
@@ -138,7 +137,7 @@
                                         <div class="col-sm-4">
                                           <div class="form-group">
                                             <label>颜色</label>
-                                            <input class="form-control" style="margin-left:-13px;" type="text" value="#8fff00" />
+                                            <input class="form-control" style="margin-left:-13px;" type="text" placeholder="#8fff00" maxlength="10" name="s_color2" formControlName="s_color2"/>
                                           </div>
                                         </div>
                                         <div class="col-sm-8">
@@ -146,18 +145,16 @@
                                             <label class="control-label " >鼠标移上去的颜色</label>
                                             <div class="col-sm-12">
                                               <div class="input-group">
-                                                <input class="form-control" style="margin-left:-13px;" type="text" value="#8fff00" />
+                                                <input class="form-control" style="margin-left:-13px;" type="text" placeholder="#8fff00" maxlength="10" name="s_up_color2" formControlName="s_up_color2"/>
                                                 <div class="input-group-btn">
-                                                  <button class="btn btn-default" type="button">
+                                                  <button class="btn btn-default" type="button" (click)="toDefault('#8fff00',2)">
                                                     恢复默认（临界）
                                                   </button>
                                                 </div>
                                               </div>
                                             </div>
                                           </div>
-
                                         </div>
-
                                       </div>
                                     </div>
                                   </div>
@@ -166,18 +163,35 @@
                                   <legend><span style="margin-left: 13px;">第三阶段</span></legend>
                                   <div class="form-group">
                                     <div class="col-sm-12">
+
                                       <div class="form-group">
-                                        <label>范围取值</label>
-                                        <input required class="form-control "
-                                               value="请输入取值范围"   minlength="1" maxlength="20" type="text">
+                                        <div class="col-sm-4">
+                                          <div class="form-group">
+                                            <label>范围取值</label>
+                                            <input required class="form-control" style="margin-left:-13px;" placeholder="请输入范围最小值" name="s_interval3_1" formControlName="s_interval3_1" minlength="1" maxlength="10" type="text">
+                                          </div>
+                                        </div>
+                                        <div class="col-sm-1">
+                                          <div class="form-group">
+                                            <label>  </label>
+                                            <b>至</b>
+                                          </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                          <div class="form-group">
+                                            <label></label>
+                                            <input required class="form-control" placeholder="请输入范围最大值" name="s_interval3_2" formControlName="s_interval3_2" minlength="1" maxlength="10" type="text">
+                                          </div>
+                                        </div>
                                       </div>
+
                                     </div>
                                     <div class="col-sm-12">
                                       <div class="form-group">
                                         <div class="col-sm-4">
                                           <div class="form-group">
                                             <label>颜色</label>
-                                            <input class="form-control" style="margin-left:-13px;" type="text" value="#8fff00" />
+                                            <input class="form-control" style="margin-left:-13px;" type="text" placeholder="#8fff00" maxlength="10" name="s_color3" formControlName="s_color3"/>
                                           </div>
                                         </div>
                                         <div class="col-sm-8">
@@ -185,18 +199,16 @@
                                             <label class="control-label " >鼠标移上去的颜色</label>
                                             <div class="col-sm-12">
                                               <div class="input-group">
-                                                <input class="form-control" style="margin-left:-13px;" type="text" value="#8fff00" />
+                                                <input class="form-control" style="margin-left:-13px;" type="text" placeholder="#8fff00" maxlength="10" name="s_up_color3" formControlName="s_up_color3"/>
                                                 <div class="input-group-btn">
-                                                  <button class="btn btn-default" type="button">
+                                                  <button class="btn btn-default" type="button" (click)="toDefault('#8fff00',3)">
                                                     恢复默认（异常）
                                                   </button>
                                                 </div>
                                               </div>
                                             </div>
                                           </div>
-
                                         </div>
-
                                       </div>
                                     </div>
                                   </div>
@@ -216,7 +228,6 @@
                                 </div>
                               </form>
                             </div>
-
                           </div>
                           <!-- end widget content -->
                         </div>
@@ -242,190 +253,39 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                               <tr >
-                                  <td >甲烷</td>
-                                  <td class="success">第一阶段
+                               <tr *ngFor="let sl of settingsList.result?.data">
+                                 <td>
+                                     <span *ngIf="sl.s_name == 'ch4'">甲烷</span>
+                                     <span *ngIf="sl.s_name == 'co'">一氧化碳</span>
+                                     <span *ngIf="sl.s_name == 'co2'">二氧化碳</span>
+                                     <span *ngIf="sl.s_name == 'o2'">氧气</span>
+                                     <span *ngIf="sl.s_name == 'temp'">温度</span>
+                                     <span *ngIf="sl.s_name == 'humi'">湿度</span>
+                                     <span *ngIf="sl.s_name == 'eeg'">脑电</span>
+                                     <span *ngIf="sl.s_name == 'ecg'">心率</span>
+                                     <span *ngIf="sl.s_name == 'spo2h'">血氧</span>
+                                  </td>
+                                  <td *ngFor="let slc of sl.detail_list"  [style.background-color]="slc.s_color">
+                                    第<span [ngSwitch]="slc.number">
+                                    <span *ngSwitchCase="1">一</span>
+                                    <span *ngSwitchCase="2">二</span>
+                                    <span *ngSwitchCase="3">三</span>
+                                    <span *ngSwitchCase="4">四</span>
+                                    <span *ngSwitchCase="5">五</span>
+                                  </span>阶段
                                     <br>
                                     <small class="text-muted">
-                                      <i> 0-1%</i>
+                                      <i>{{slc.s_interval_1}}-{{slc.s_interval_2}}</i>
                                     </small></td>
-                                  <td class="warning">第二阶段<br>
-                                    <small class="text-muted">
-                                      <i>1%-2%</i>
-                                    </small></td>
-                                  <td class="danger">第三阶段<br>
-                                    <small class="text-muted">
-                                      <i> 3%</i>
-                                    </small></td>
-                                  <td><a class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                    <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                  <td><a class="btn btn-warning btn-xs" (click)="getSettingsInfo(sl.s_id)"><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                    <a class="btn btn-danger btn-xs" (click)="deleteSettings(sl.s_id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
                                   </td>
                                 </tr>
-                               <tr >
-                                 <td >一氧化碳	</td>
-                                 <td class="success">第一阶段
-                                   <br>
-                                   <small class="text-muted">
-                                     <i> 0-1%</i>
-                                   </small></td>
-                                 <td class="warning">第二阶段<br>
-                                   <small class="text-muted">
-                                     <i>1%-2%</i>
-                                   </small></td>
-                                 <td class="danger">第三阶段<br>
-                                   <small class="text-muted">
-                                     <i> 3%</i>
-                                   </small></td>
-                                 <td><a class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                   <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                 </td>
-                               </tr>
-                               <tr >
-                                 <td >二氧化碳</td>
-                                 <td class="success">第一阶段
-                                   <br>
-                                   <small class="text-muted">
-                                     <i> 0-1%</i>
-                                   </small></td>
-                                 <td class="warning">第二阶段<br>
-                                   <small class="text-muted">
-                                     <i>1%-2%</i>
-                                   </small></td>
-                                 <td class="danger">第三阶段<br>
-                                   <small class="text-muted">
-                                     <i> 3%</i>
-                                   </small></td>
-                                 <td><a class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                   <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                 </td>
-                               </tr>
-                               <tr >
-                                 <td >氧气</td>
-                                 <td class="success">第一阶段
-                                   <br>
-                                   <small class="text-muted">
-                                     <i> 0-1%</i>
-                                   </small></td>
-                                 <td class="warning">第二阶段<br>
-                                   <small class="text-muted">
-                                     <i>1%-2%</i>
-                                   </small></td>
-                                 <td class="danger">第三阶段<br>
-                                   <small class="text-muted">
-                                     <i> 3%</i>
-                                   </small></td>
-                                 <td><a class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                   <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                 </td>
-                               </tr>
-                               <tr >
-                                 <td >温度</td>
-                                 <td class="success">第一阶段
-                                   <br>
-                                   <small class="text-muted">
-                                     <i> 0-1%</i>
-                                   </small></td>
-                                 <td class="warning">第二阶段<br>
-                                   <small class="text-muted">
-                                     <i>1%-2%</i>
-                                   </small></td>
-                                 <td class="danger">第三阶段<br>
-                                   <small class="text-muted">
-                                     <i> 3%</i>
-                                   </small></td>
-                                 <td><a class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                   <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                 </td>
-                               </tr>
-                               <tr >
-                                 <td >湿度</td>
-                                 <td class="success">第一阶段
-                                   <br>
-                                   <small class="text-muted">
-                                     <i> 0-1%</i>
-                                   </small></td>
-                                 <td class="warning">第二阶段<br>
-                                   <small class="text-muted">
-                                     <i>1%-2%</i>
-                                   </small></td>
-                                 <td class="danger">第三阶段<br>
-                                   <small class="text-muted">
-                                     <i> 3%</i>
-                                   </small></td>
-                                 <td><a class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                   <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                 </td>
-                               </tr>
-                               <tr >
-                                 <td >脑电</td>
-                                 <td class="success">第一阶段
-                                   <br>
-                                   <small class="text-muted">
-                                     <i> 0-1%</i>
-                                   </small></td>
-                                 <td class="warning">第二阶段<br>
-                                   <small class="text-muted">
-                                     <i>1%-2%</i>
-                                   </small></td>
-                                 <td class="danger">第三阶段<br>
-                                   <small class="text-muted">
-                                     <i> 3%</i>
-                                   </small></td>
-                                 <td><a class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                   <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                 </td>
-                               </tr>
-                               <tr >
-                                 <td >心率</td>
-                                 <td class="success">第一阶段
-                                   <br>
-                                   <small class="text-muted">
-                                     <i> 0-1%</i>
-                                   </small></td>
-                                 <td class="warning">第二阶段<br>
-                                   <small class="text-muted">
-                                     <i>1%-2%</i>
-                                   </small></td>
-                                 <td class="danger">第三阶段<br>
-                                   <small class="text-muted">
-                                     <i> 3%</i>
-                                   </small></td>
-                                 <td><a class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                   <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                 </td>
-                               </tr>
-                               <tr >
-                                 <td >血氧</td>
-                                 <td class="success">第一阶段
-                                   <br>
-                                   <small class="text-muted">
-                                     <i> 0-1%</i>
-                                   </small></td>
-                                 <td class="warning">第二阶段<br>
-                                   <small class="text-muted">
-                                     <i>1%-2%</i>
-                                   </small></td>
-                                 <td class="danger">第三阶段<br>
-                                   <small class="text-muted">
-                                     <i> 3%</i>
-                                   </small></td>
-                                 <td><a class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                   <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                 </td>
-                               </tr>
-
-
                                 </tbody>
                               </table>
-
-
                               <div class="dt-toolbar">
-
                               </div>
-
                             </div>
-
-
                           </div>
                           <!-- end widget content -->
                         </div>
@@ -433,28 +293,13 @@
                       </sa-widget>
                     </article>
                   </div>
-
-
-
-
                 </div>
-
-
-
               </div>
-
             </div>
-
           </div>
-
         </sa-widget>
-
       </article>
     </div>
   </sa-widgets-grid>
-
-
-
-
 </div>
 
