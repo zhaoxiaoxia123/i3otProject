@@ -34,6 +34,7 @@ export class CookieStoreService {
   }
 
 
+
   in_array(stringToSearch:string, arrayToSearch:Array<any>) {
     for (let s = 0; s < arrayToSearch.length; s++) {
       let thisEntry = arrayToSearch[s].toString();
