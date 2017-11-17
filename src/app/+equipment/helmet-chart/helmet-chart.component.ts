@@ -149,9 +149,9 @@ export class HelmetChartComponent implements OnInit {
 
         this.notificationService.bigBox({
             title: "设备数据对比",
-            content: "点击查看详情按钮查看对比情况<p class='text-align-right'><a  class='btn btn-warning btn-sm'>查看详情</a> </p>",
+            content: "添加对比基站",
             color: "#3276B1",
-            //timeout: 8000,
+            timeout: 8000,
             icon: "glyphicon glyphicon-adjust swing animated",
             number: "2"
         });

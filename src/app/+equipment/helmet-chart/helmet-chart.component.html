@@ -1,6 +1,6 @@
 <div id="content">
   <div class="row">
-    <sa-big-breadcrumbs [items]="['设备管理', '安全帽图表']" icon="file-text-o" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+    <sa-big-breadcrumbs [items]="['设备管理', '人员查看']" icon="file-text-o" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
   </div>
 
 
@@ -13,7 +13,7 @@
 
         <sa-widget  [editbutton]="false" [deletebutton]="false" color="darken">
           <header><span class="widget-icon"> <i class="fa fa-comments"></i> </span>
-            <h2>安全帽图表</h2>
+            <h2>人员查看</h2>
             <div class="jarviswidget-ctrls" role="menu">
               <a routerLink="/equipment/chart-setting" href="javascript:void(0);" class="button-icon jarviswidget-edit-btn" rel="tooltip" title="Edit" data-placement="bottom">
                 <i class="fa fa-cog"></i></a>
@@ -45,13 +45,11 @@
                 <tr role="row">
                   <th class="details-control sorting_disabled"></th>
                   <th>
-                    设备
+                    姓名
                   </th>
                   <th>
-                    设备名称
+                    设备
                 </th>
-                  <th>
-                    姓名</th>
                   <th>
                     检测数据
                   </th>
@@ -66,14 +64,20 @@
                 </tr>
                 </thead>
 
-              </sa-datatable>
-              <sa-datatable tableClass="table table-striped table-bordered table-hover" [detailsFormat]="detailsFormat">
 
               <tbody >
                 <tr role="row" class="odd shown">
                   <td class=" details-control" >
                   </td>
                   <td >
+                    谢轩逸
+                    <br>
+                    <small class="text-muted">
+                      <i>ID: 50</i>
+                    </small>
+
+                  </td>
+                  <td>
                     成都锦江国际酒店25楼
                     <br>
                     <small class="text-muted">
@@ -81,22 +85,17 @@
                     </small>
                   </td>
                   <td>
-                    名称
-                  </td>
-                  <td>
-                   姓名
-                  </td>
-                  <td>
-                    <a class="btn btn-success btn-xs" >全部</a>
+
+                    <a class="btn btn-success btn-xs" >脑电:0.8%</a>
+                    <a class="btn btn-success btn-xs" >心率:0.8%</a>
+                    <a class="btn btn-success btn-xs" >血氧:0.8%</a>
+                    <span>|</span>
                     <a class="btn btn-success btn-xs" >甲烷：0.8%</a>
                     <a class="btn btn-success btn-xs" >一氧化碳:	0.4%</a>
                     <a class="btn btn-success btn-xs" >二氧化碳:3%</a>
                     <a class="btn btn-danger  btn-xs" >氧气:0.8%</a>
                     <a class="btn btn-success btn-xs" >温度:0.8%</a>
                     <a class="btn btn-success btn-xs" >湿度:0.8%</a>
-                    <a class="btn btn-success btn-xs" >脑电:0.8%</a>
-                    <a class="btn btn-success btn-xs" >心率:0.8%</a>
-                    <a class="btn btn-success btn-xs" >血氧:0.8%</a>
                   </td>
                   <td>
                     <i class="fa fa-circle txt-color-darken font-xs"></i> 未激活
@@ -104,10 +103,8 @@
                   </td>
                   <td>2017-10-12 00:00:00</td>
                   <td>
-                    <a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                    <a class="btn btn-danger btn-xs" ><span class="glyphicon glyphicon-remove"></span>删除</a>
-                    <a (click)="notificationExample2()" class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-adjust"></span>对比</a>
-                    <a (click)="lgModal.show()" class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-adjust"></span>对比</a>
+                    <a (click)="notificationExample2()" class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-plus"></span>添加对比</a>
+                    <a (click)="lgModal.show()" class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-adjust"></span>查看对比图</a>
                   </td>
                 </tr>
                 <tr>
@@ -120,133 +117,91 @@
                         </td>
                         <td  style="width:50%;">
                           <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
+                              <p class="alert alert-info">
+                                 <strong>最新数据</strong>
+                              </p>
                               <table class="table table-hover table-bordered">
                                 <thead>
                                 <tr>
-                                  <th style="width:50%;text-align: center;" colspan="2">最新数据</th>
+                                  <th >名称</th>
+                                  <th>数据</th>
+                                  <th>时间</th>
+                                  <th>位置</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <tr  class="success">
+                                  <td>
+                                    <strong>脑电</strong>
+                                  </td>
+                                  <td>0.2%</td>
+                                  <td>2017-10-12 00:00:00</td>
+                                  <td>成都锦江国际酒店25楼</td>
+                                </tr>
+                                <tr  class="warning">
+                                  <td>
+                                    <strong>心率</strong>
+                                  </td>
+                                  <td>0.8%</td>
+                                  <td>2017-10-12 06:00:00</td>
+                                  <td>成都锦江国际酒店25楼</td>
+                                </tr>
+                                <tr  class="warning">
+                                  <td>
+                                    <strong>血氧</strong>
+                                  </td>
+                                  <td>0.9%</td>
+                                  <td>2017-10-12 00:20:00</td>
+                                  <td>成都锦江国际酒店25楼</td>
+                                </tr>
                                 <tr class="danger">
                                   <td>
                                     <strong>甲烷</strong>
-                                    </td>
+                                  </td>
                                   <td>0.5%</td>
+                                  <td>2017-10-12 01:40:00</td>
+                                  <td>成都锦江国际酒店25楼</td>
                                 </tr>
                                 <tr  class="danger">
                                   <td>
                                     <strong>一氧化碳</strong>
                                   </td>
                                   <td>0.2%</td>
+                                  <td>2017-10-12 01:10:00</td>
+                                  <td>成都锦江国际酒店25楼</td>
                                 </tr>
                                 <tr class="success" >
                                   <td>
                                     <strong>二氧化碳</strong>
                                   </td>
                                   <td>1.8%</td>
+                                  <td>2017-10-12 02:30:00</td>
+                                  <td>成都锦江国际酒店25楼</td>
                                 </tr>
                                 <tr class="warning" >
                                   <td>
                                     <strong>氧气</strong>
                                   </td>
                                   <td>0.4%</td>
+                                  <td>2017-10-12 06:00:00</td>
+                                  <td>成都锦江国际酒店25楼</td>
                                 </tr>
                                 <tr  class="warning">
                                   <td>
                                     <strong>温度</strong>
                                   </td>
                                   <td>5%</td>
+                                  <td>2017-10-12 08:00:00</td>
+                                  <td>成都锦江国际酒店25楼</td>
                                 </tr>
                                 <tr  class="success">
                                   <td>
                                     <strong>湿度</strong>
                                   </td>
                                   <td>0.5%</td>
-                                </tr>
-                                <tr  class="success">
-                                  <td>
-                                    <strong>脑电</strong>
-                                  </td>
-                                  <td>0.2%</td>
-                                </tr>
-                                <tr  class="warning">
-                                  <td>
-                                    <strong>心率</strong>
-                                  </td>
-                                  <td>0.8%</td>
-                                </tr>
-                                <tr  class="warning">
-                                  <td>
-                                    <strong>血氧</strong>
-                                  </td>
-                                  <td>0.9%</td>
-                                </tr>
-
-                                </tbody>
-                              </table>
-                            </div>
-                            <div class="col-md-6">
-                              <table class="table table-hover table-bordered">
-                                <thead>
-                                <tr>
-                                  <th style="width:50%;text-align: center;" colspan="2">异常数据</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr class="danger">
-                                  <td>
-                                    <strong>甲烷</strong>
-                                  </td>
-                                  <td>0.5%</td>
-                                </tr>
-                                <tr  class="danger">
-                                  <td>
-                                    <strong>一氧化碳</strong>
-                                  </td>
-                                  <td>0.2%</td>
-                                </tr>
-                                <tr class="danger" >
-                                  <td>
-                                    <strong>二氧化碳</strong>
-                                  </td>
-                                  <td>1.8%</td>
-                                </tr>
-                                <tr class="danger" >
-                                  <td>
-                                    <strong>氧气</strong>
-                                  </td>
-                                  <td>0.4%</td>
-                                </tr>
-                                <tr  class="danger">
-                                  <td>
-                                    <strong>温度</strong>
-                                  </td>
-                                  <td>5%</td>
-                                </tr>
-                                <tr  class="danger">
-                                  <td>
-                                    <strong>湿度</strong>
-                                  </td>
-                                  <td>0.5%</td>
-                                </tr>
-                                <tr  class="danger">
-                                  <td>
-                                    <strong>脑电</strong>
-                                  </td>
-                                  <td>0.2%</td>
-                                </tr>
-                                <tr  class="danger">
-                                  <td>
-                                    <strong>心率</strong>
-                                  </td>
-                                  <td>0.8%</td>
-                                </tr>
-                                <tr  class="danger">
-                                  <td>
-                                    <strong>血氧</strong>
-                                  </td>
-                                  <td>0.9%</td>
+                                  <td>2017-10-12 09:00:00</td>
+                                  <td>成都锦江国际酒店25楼</td>
                                 </tr>
 
                                 </tbody>
@@ -255,14 +210,39 @@
                           </div>
                         </td>
                       </tr>
+
+                      <tr>
+                        <td colspan="2">
+
+                          <h4 class="text-align-center" >
+                            异常数据<a><strong data-toggle="modal" data-target="#myModal" style="color: #a90329;">&nbsp;&nbsp;12&nbsp;&nbsp;</strong></a>条
+                          </h4>
+                        </td>
+                        </tr>
                       </tbody>
+
+
                     </table>
+
+
+
+
+
                   </td>
+
                 </tr>
                 <tr role="row" class="odd shown">
                   <td class=" details-control" >
                   </td>
                   <td >
+                    谢轩逸
+                    <br>
+                    <small class="text-muted">
+                      <i>ID: 50</i>
+                    </small>
+
+                  </td>
+                  <td>
                     成都锦江国际酒店25楼
                     <br>
                     <small class="text-muted">
@@ -270,22 +250,10 @@
                     </small>
                   </td>
                   <td>
-                    名称
-                  </td>
-                  <td>
-                    姓名
-                  </td>
-                  <td>
-                    <a class="btn btn-success btn-xs" >全部</a>
-                    <a class="btn btn-success btn-xs" >甲烷：0.8%</a>
-                    <a class="btn btn-success btn-xs" >一氧化碳:	0.4%</a>
-                    <a class="btn btn-success btn-xs" >二氧化碳:3%</a>
-                    <a class="btn btn-success btn-xs" >氧气:0.8%</a>
-                    <a class="btn btn-success btn-xs" >温度:0.8%</a>
-                    <a class="btn btn-success btn-xs" >湿度:0.8%</a>
                     <a class="btn btn-success btn-xs" >脑电:0.8%</a>
                     <a class="btn btn-success btn-xs" >心率:0.8%</a>
                     <a class="btn btn-success btn-xs" >血氧:0.8%</a>
+
 
                   </td>
                   <td>
@@ -294,9 +262,8 @@
                   </td>
                   <td>2017-10-12 00:00:00</td>
                   <td>
-                    <a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                    <a class="btn btn-danger btn-xs" ><span class="glyphicon glyphicon-remove"></span>删除</a>
-                    <a (click)="notificationExample2()" class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-adjust"></span>对比</a>
+                    <a (click)="notificationExample2()" class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-plus"></span>添加对比</a>
+                    <a (click)="lgModal.show()" class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-adjust"></span>查看对比图</a>
                   </td>
                 </tr>
                 <tr>
@@ -309,133 +276,91 @@
                         </td>
                         <td  style="width:50%;">
                           <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
+                              <p class="alert alert-info">
+                                <strong>最新数据</strong>
+                              </p>
                               <table class="table table-hover table-bordered">
                                 <thead>
                                 <tr>
-                                  <th style="width:50%;text-align: center;" colspan="2">甲烷最新数据</th>
+                                  <th >名称</th>
+                                  <th>数据</th>
+                                  <th>时间</th>
+                                  <th>位置</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <tr  class="success">
+                                  <td>
+                                    <strong>脑电</strong>
+                                  </td>
+                                  <td>0.2%</td>
+                                  <td>2017-10-12 00:00:00</td>
+                                  <td>成都锦江国际酒店25楼</td>
+                                </tr>
+                                <tr  class="warning">
+                                  <td>
+                                    <strong>心率</strong>
+                                  </td>
+                                  <td>0.8%</td>
+                                  <td>2017-10-12 06:00:00</td>
+                                  <td>成都锦江国际酒店25楼</td>
+                                </tr>
+                                <tr  class="warning">
+                                  <td>
+                                    <strong>血氧</strong>
+                                  </td>
+                                  <td>0.9%</td>
+                                  <td>2017-10-12 00:20:00</td>
+                                  <td>成都锦江国际酒店25楼</td>
+                                </tr>
                                 <tr class="danger">
                                   <td>
                                     <strong>甲烷</strong>
                                   </td>
                                   <td>0.5%</td>
+                                  <td>2017-10-12 01:40:00</td>
+                                  <td>成都锦江国际酒店25楼</td>
                                 </tr>
                                 <tr  class="danger">
                                   <td>
-                                    <strong>甲烷</strong>
+                                    <strong>一氧化碳</strong>
                                   </td>
                                   <td>0.2%</td>
+                                  <td>2017-10-12 01:10:00</td>
+                                  <td>成都锦江国际酒店25楼</td>
                                 </tr>
                                 <tr class="success" >
                                   <td>
-                                    <strong>甲烷</strong>
+                                    <strong>二氧化碳</strong>
                                   </td>
                                   <td>1.8%</td>
+                                  <td>2017-10-12 02:30:00</td>
+                                  <td>成都锦江国际酒店25楼</td>
                                 </tr>
                                 <tr class="warning" >
                                   <td>
-                                    <strong>甲烷</strong>
+                                    <strong>氧气</strong>
                                   </td>
                                   <td>0.4%</td>
+                                  <td>2017-10-12 06:00:00</td>
+                                  <td>成都锦江国际酒店25楼</td>
                                 </tr>
                                 <tr  class="warning">
                                   <td>
-                                    <strong>甲烷</strong>
+                                    <strong>温度</strong>
                                   </td>
                                   <td>5%</td>
+                                  <td>2017-10-12 08:00:00</td>
+                                  <td>成都锦江国际酒店25楼</td>
                                 </tr>
                                 <tr  class="success">
                                   <td>
-                                    <strong>甲烷</strong>
+                                    <strong>湿度</strong>
                                   </td>
                                   <td>0.5%</td>
-                                </tr>
-                                <tr  class="success">
-                                  <td>
-                                    <strong>甲烷</strong>
-                                  </td>
-                                  <td>0.2%</td>
-                                </tr>
-                                <tr  class="warning">
-                                  <td>
-                                    <strong>甲烷</strong>
-                                  </td>
-                                  <td>0.8%</td>
-                                </tr>
-                                <tr  class="warning">
-                                  <td>
-                                    <strong>甲烷</strong>
-                                  </td>
-                                  <td>0.9%</td>
-                                </tr>
-
-                                </tbody>
-                              </table>
-                            </div>
-                            <div class="col-md-6">
-                              <table class="table table-hover table-bordered">
-                                <thead>
-                                <tr>
-                                  <th style="width:50%;text-align: center;" colspan="2">甲烷异常数据</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr class="danger">
-                                  <td>
-                                    <strong>甲烷</strong>
-                                  </td>
-                                  <td>0.5%</td>
-                                </tr>
-                                <tr  class="danger">
-                                  <td>
-                                    <strong>甲烷</strong>
-                                  </td>
-                                  <td>0.2%</td>
-                                </tr>
-                                <tr class="danger" >
-                                  <td>
-                                    <strong>甲烷</strong>
-                                  </td>
-                                  <td>1.8%</td>
-                                </tr>
-                                <tr class="danger" >
-                                  <td>
-                                    <strong>甲烷</strong>
-                                  </td>
-                                  <td>0.4%</td>
-                                </tr>
-                                <tr  class="danger">
-                                  <td>
-                                    <strong>甲烷</strong>
-                                  </td>
-                                  <td>5%</td>
-                                </tr>
-                                <tr  class="danger">
-                                  <td>
-                                    <strong>甲烷</strong>
-                                  </td>
-                                  <td>0.5%</td>
-                                </tr>
-                                <tr  class="danger">
-                                  <td>
-                                    <strong>甲烷</strong>
-                                  </td>
-                                  <td>0.2%</td>
-                                </tr>
-                                <tr  class="danger">
-                                  <td>
-                                    <strong>甲烷</strong>
-                                  </td>
-                                  <td>0.8%</td>
-                                </tr>
-                                <tr  class="danger">
-                                  <td>
-                                    <strong>甲烷</strong>
-                                  </td>
-                                  <td>0.9%</td>
+                                  <td>2017-10-12 09:00:00</td>
+                                  <td>成都锦江国际酒店25楼</td>
                                 </tr>
 
                                 </tbody>
@@ -444,14 +369,39 @@
                           </div>
                         </td>
                       </tr>
+
+                      <tr>
+                        <td colspan="2">
+
+                          <h4 class="text-align-center" >
+                            异常数据<a><strong data-toggle="modal" data-target="#myModal" style="color: #a90329;">&nbsp;&nbsp;8&nbsp;&nbsp;</strong></a>条
+                          </h4>
+                        </td>
+                      </tr>
                       </tbody>
+
+
                     </table>
+
+
+
+
+
                   </td>
+
                 </tr>
                 <tr role="row" class="odd">
                   <td class=" details-control" >
                   </td>
                   <td >
+                    谢轩逸
+                    <br>
+                    <small class="text-muted">
+                      <i>ID: 50</i>
+                    </small>
+
+                  </td>
+                  <td>
                     成都锦江国际酒店25楼
                     <br>
                     <small class="text-muted">
@@ -459,22 +409,16 @@
                     </small>
                   </td>
                   <td>
-                    名称
-                  </td>
-                  <td>
-                    姓名
-                  </td>
-                  <td>
-                    <a class="btn btn-success btn-xs" >全部</a>
-                    <a class="btn btn-success btn-xs" >甲烷：0.8%</a>
-                    <a class="btn btn-success btn-xs" >一氧化碳:	0.4%</a>
-                    <a class="btn btn-success btn-xs" >二氧化碳:3%</a>
-                    <a class="btn btn-success btn-xs" >氧气:0.8%</a>
-                    <a class="btn btn-success btn-xs" >温度:0.8%</a>
-                    <a class="btn btn-success btn-xs" >湿度:0.8%</a>
                     <a class="btn btn-success btn-xs" >脑电:0.8%</a>
                     <a class="btn btn-success btn-xs" >心率:0.8%</a>
                     <a class="btn btn-success btn-xs" >血氧:0.8%</a>
+                    <span>|</span>
+                    <a class="btn btn-success btn-xs" >甲烷：0.8%</a>
+                    <a class="btn btn-success btn-xs" >一氧化碳:	0.4%</a>
+                    <a class="btn btn-success btn-xs" >二氧化碳:3%</a>
+                    <a class="btn btn-danger  btn-xs" >氧气:0.8%</a>
+                    <a class="btn btn-success btn-xs" >温度:0.8%</a>
+                    <a class="btn btn-success btn-xs" >湿度:0.8%</a>
 
                   </td>
                   <td>
@@ -483,15 +427,22 @@
                   </td>
                   <td>2017-10-12 00:00:00</td>
                   <td>
-                    <a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                    <a class="btn btn-danger btn-xs" ><span class="glyphicon glyphicon-remove"></span>删除</a>
-                    <a (click)="notificationExample2()" class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-adjust"></span>对比</a>
+                    <a (click)="notificationExample2()" class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-plus"></span>添加对比</a>
+                    <a (click)="lgModal.show()" class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-adjust"></span>查看对比图</a>
                   </td>
                 </tr>
                 <tr role="row" class="even">
                   <td class=" details-control" >
                   </td>
                   <td >
+                    谢轩逸
+                    <br>
+                    <small class="text-muted">
+                      <i>ID: 50</i>
+                    </small>
+
+                  </td>
+                  <td>
                     成都锦江国际酒店25楼
                     <br>
                     <small class="text-muted">
@@ -499,22 +450,16 @@
                     </small>
                   </td>
                   <td>
-                    名称
-                  </td>
-                  <td>
-                    姓名
-                  </td>
-                  <td>
-                    <a class="btn btn-success btn-xs" >全部</a>
-                    <a class="btn btn-success btn-xs" >甲烷：0.8%</a>
-                    <a class="btn btn-success btn-xs" >一氧化碳:	0.4%</a>
-                    <a class="btn btn-success btn-xs" >二氧化碳:3%</a>
-                    <a class="btn btn-success btn-xs" >氧气:0.8%</a>
-                    <a class="btn btn-success btn-xs" >温度:0.8%</a>
-                    <a class="btn btn-success btn-xs" >湿度:0.8%</a>
                     <a class="btn btn-success btn-xs" >脑电:0.8%</a>
                     <a class="btn btn-success btn-xs" >心率:0.8%</a>
                     <a class="btn btn-success btn-xs" >血氧:0.8%</a>
+                    <span>|</span>
+                    <a class="btn btn-success btn-xs" >甲烷：0.8%</a>
+                    <a class="btn btn-success btn-xs" >一氧化碳:	0.4%</a>
+                    <a class="btn btn-success btn-xs" >二氧化碳:3%</a>
+                    <a class="btn btn-danger  btn-xs" >氧气:0.8%</a>
+                    <a class="btn btn-success btn-xs" >温度:0.8%</a>
+                    <a class="btn btn-success btn-xs" >湿度:0.8%</a>
 
                   </td>
                   <td>
@@ -523,15 +468,22 @@
                   </td>
                   <td>2017-10-12 00:00:00</td>
                   <td>
-                    <a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                    <a class="btn btn-danger btn-xs" ><span class="glyphicon glyphicon-remove"></span>删除</a>
-                    <a (click)="notificationExample2()" class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-adjust"></span>对比</a>
+                    <a (click)="notificationExample2()" class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-plus"></span>添加对比</a>
+                    <a (click)="lgModal.show()" class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-adjust"></span>查看对比图</a>
                   </td>
                 </tr>
                 <tr role="row" class="odd">
                   <td class=" details-control" >
                   </td>
                   <td >
+                    谢轩逸
+                    <br>
+                    <small class="text-muted">
+                      <i>ID: 50</i>
+                    </small>
+
+                  </td>
+                  <td>
                     成都锦江国际酒店25楼
                     <br>
                     <small class="text-muted">
@@ -539,22 +491,16 @@
                     </small>
                   </td>
                   <td>
-                    名称
-                  </td>
-                  <td>
-                    姓名
-                  </td>
-                  <td>
-                    <a class="btn btn-success btn-xs" >全部</a>
-                    <a class="btn btn-success btn-xs" >甲烷：0.8%</a>
-                    <a class="btn btn-success btn-xs" >一氧化碳:	0.4%</a>
-                    <a class="btn btn-success btn-xs" >二氧化碳:3%</a>
-                    <a class="btn btn-success btn-xs" >氧气:0.8%</a>
-                    <a class="btn btn-success btn-xs" >温度:0.8%</a>
-                    <a class="btn btn-success btn-xs" >湿度:0.8%</a>
                     <a class="btn btn-success btn-xs" >脑电:0.8%</a>
                     <a class="btn btn-success btn-xs" >心率:0.8%</a>
                     <a class="btn btn-success btn-xs" >血氧:0.8%</a>
+                    <span>|</span>
+                    <a class="btn btn-success btn-xs" >甲烷：0.8%</a>
+                    <a class="btn btn-success btn-xs" >一氧化碳:	0.4%</a>
+                    <a class="btn btn-success btn-xs" >二氧化碳:3%</a>
+                    <a class="btn btn-danger  btn-xs" >氧气:0.8%</a>
+                    <a class="btn btn-success btn-xs" >温度:0.8%</a>
+                    <a class="btn btn-success btn-xs" >湿度:0.8%</a>
 
                   </td>
                   <td>
@@ -563,9 +509,8 @@
                   </td>
                   <td>2017-10-12 00:00:00</td>
                   <td>
-                    <a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                    <a class="btn btn-danger btn-xs" ><span class="glyphicon glyphicon-remove"></span>删除</a>
-                    <a (click)="notificationExample2()" class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-adjust"></span>对比</a>
+                    <a (click)="notificationExample2()" class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-plus"></span>添加对比</a>
+                    <a (click)="lgModal.show()" class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-adjust"></span>查看对比图</a>
                   </td>
                 </tr>
                 </tbody>
@@ -785,6 +730,119 @@
         </div>
       </div>
     </div>
+  </div>
+
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <!-- 关闭按钮 -->
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            ×
+          </button>
+          <!-- 标题 -->
+          <h3 class="modal-title" data-ng-bind='results.title'></h3>
+          <h4 class="modal-title" id="myModalLabel">
+            异常数据<small class="text-muted">
+            <i >ID: 50</i>
+          </small>
+          </h4>
+        </div>
+        <div class="modal-body">
+
+          <table class="table table-hover table-bordered">
+            <thead>
+            <tr>
+              <th >名称</th>
+              <th>数据</th>
+              <th>时间</th>
+              <th>位置</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr  class="danger">
+              <td>
+                <strong>脑电</strong>
+              </td>
+              <td>0.2%</td>
+              <td>2017-10-12 00:00:00</td>
+              <td>成都锦江国际酒店25楼</td>
+            </tr>
+            <tr  class="danger">
+              <td>
+                <strong>心率</strong>
+              </td>
+              <td>0.8%</td>
+              <td>2017-10-12 06:00:00</td>
+              <td>成都锦江国际酒店25楼</td>
+            </tr>
+            <tr  class="danger">
+              <td>
+                <strong>血氧</strong>
+              </td>
+              <td>0.9%</td>
+              <td>2017-10-12 00:20:00</td>
+              <td>成都锦江国际酒店25楼</td>
+            </tr>
+            <tr class="danger">
+              <td>
+                <strong>甲烷</strong>
+              </td>
+              <td>0.5%</td>
+              <td>2017-10-12 01:40:00</td>
+              <td>成都锦江国际酒店25楼</td>
+            </tr>
+            <tr  class="danger">
+              <td>
+                <strong>一氧化碳</strong>
+              </td>
+              <td>0.2%</td>
+              <td>2017-10-12 01:10:00</td>
+              <td>成都锦江国际酒店25楼</td>
+            </tr>
+            <tr class="danger" >
+              <td>
+                <strong>二氧化碳</strong>
+              </td>
+              <td>1.8%</td>
+              <td>2017-10-12 02:30:00</td>
+              <td>成都锦江国际酒店25楼</td>
+            </tr>
+            <tr class="danger" >
+              <td>
+                <strong>氧气</strong>
+              </td>
+              <td>0.4%</td>
+              <td>2017-10-12 06:00:00</td>
+              <td>成都锦江国际酒店25楼</td>
+            </tr>
+            <tr  class="danger">
+              <td>
+                <strong>温度</strong>
+              </td>
+              <td>5%</td>
+              <td>2017-10-12 08:00:00</td>
+              <td>成都锦江国际酒店25楼</td>
+            </tr>
+            <tr  class="danger">
+              <td>
+                <strong>湿度</strong>
+              </td>
+              <td>0.5%</td>
+              <td>2017-10-12 09:00:00</td>
+              <td>成都锦江国际酒店25楼</td>
+            </tr>
+
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
   </div>
 
 

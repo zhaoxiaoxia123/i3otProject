@@ -94,7 +94,7 @@ a:hover{cursor: pointer;}
 #logo {
     display: inline-block;
     width: 175px;
-    margin-top: 13px;
+    margin-top: 10px;
     margin-left: 9px;
 }
 #logo img {
@@ -7097,7 +7097,7 @@ label input[type=checkbox][disabled].checkbox+span:before,label input[type=check
 
 
 #extr-page #header #logo {
-    margin-top: 22px;
+    margin-top: 12px;
     margin-left: 0
 }
 
@@ -7135,10 +7135,10 @@ label input[type=checkbox][disabled].checkbox+span:before,label input[type=check
 }
 
 #extr-page .hero {
-    background-image: url(../img/gradient/login.png);
+    background-image: url(../img/superbox-full.png);
     background-repeat: no-repeat;
-    background-position: 0 137px;
-    height: 360px;
+    /*background-position: 0 60px;*/
+    height: 400px;
     width: 100%;
     float: left
 }
@@ -7161,7 +7161,7 @@ label input[type=checkbox][disabled].checkbox+span:before,label input[type=check
 }
 
 #extr-page .login-header-big {
-    font-weight: 400
+    font-weight: 600
 }
 
 #extr-page .login-desc-box-l {

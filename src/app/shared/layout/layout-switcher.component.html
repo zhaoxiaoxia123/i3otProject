@@ -4,6 +4,10 @@
   <form>
     <legend class="no-padding margin-bottom-10">布局选项</legend>
     <section>
+
+      <label><input type="checkbox"
+                    (click)="onMenuOnTop()" [(ngModel)]="store.menuOnTop" name="menuOnTop"
+                    class="checkbox style-0"><span>菜单 <b>上</b></span></label>
       <label><input type="checkbox" (click)="onFixedHeader()" [(ngModel)]="store.fixedHeader" name="fixedHeader"
                     class="checkbox style-0"><span>固定头部</span></label>
       <label><input type="checkbox"
@@ -18,12 +22,8 @@
       <label><input type="checkbox"
                     (click)="onInsideContainer()" [(ngModel)]="store.insideContainer" name="insideContainer"
                     class="checkbox style-0"><span>固定 <b>.在浏览器中间</b></span></label>
-      <label><input type="checkbox"
-                    (click)="onRtl()" [(ngModel)]="store.rtl" name="rtl"
-                    class="checkbox style-0"><span>RTL</span></label>
-      <label><input type="checkbox"
-                    (click)="onMenuOnTop()" [(ngModel)]="store.menuOnTop" name="menuOnTop"
-                    class="checkbox style-0"><span>菜单 <b>上</b></span></label>
+
+
       <!--<label><input type="checkbox"
                     (click)="onColorblindFriendly()" [(ngModel)]="store.colorblindFriendly" name="colorblindFriendly"
                     class="checkbox style-0"><span>For Colorblind <div

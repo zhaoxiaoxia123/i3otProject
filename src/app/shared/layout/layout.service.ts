@@ -188,9 +188,9 @@ export class LayoutService {
 
   factoryReset() {
     this.notificationService.smartMessageBox({
-      title: "<i class='fa fa-refresh' style='color:green'></i> Clear Local Storage",
-      content: "Would you like to RESET all your saved widgets and clear LocalStorage?",
-      buttons: '[No][Yes]'
+      title: "<i class='fa fa-refresh' style='color:green'></i> 清除的本地存储",
+      content: "你确定要清除本地存储，恢复出厂设置吗？",
+      buttons: '[取消][确定]'
     }, (ButtonPressed) => {
       if (ButtonPressed == "Yes" && localStorage) {
         localStorage.clear();

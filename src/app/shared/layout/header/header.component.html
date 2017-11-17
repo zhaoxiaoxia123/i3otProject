@@ -2,16 +2,16 @@
   <div id="logo-group">
 
     <!-- 放置你的标志在这里 -->
-    <span id="logo"> <img src="assets/img/logo.png" alt="SmartAdmin"> </span>
+    <span id="logo"> <img src="assets/img/logo.png" alt="I3OT"> </span>
     <!-- END 标志的占位符 -->
 
     <!-- 注意：单击时活动徽章颜色会更改，并将该数字重置为0
 建议：您可能需要设置一个标志，当发生这种情况，剔掉所有选中的消息/通知 -->
-    <sa-activities></sa-activities>
+
   </div>
 
 
-  <sa-recent-projects></sa-recent-projects>
+
 
 
   <!-- 右拉：导航区 -->
@@ -27,7 +27,7 @@
           <img src="assets/img/avatars/sunny.png" alt="John Doe" class="online"/>
         </a>
         <ul class="dropdown-menu pull-right">
-          <li>
+          <!--<li>
             <a (click)="(null)" class="padding-10 padding-top-0 padding-bottom-0"><i
               class="fa fa-cog"></i> 设置</a>
           </li>
@@ -47,10 +47,10 @@
             <a (click)="(null)" class="padding-10 padding-top-0 padding-bottom-0"
                data-action="launchFullscreen"><i class="fa fa-arrows-alt"></i> Full <u>S</u>creen</a>
           </li>
-          <li class="divider"></li>
+          <li class="divider"></li>-->
           <li>
             <a routerLink="/auth/login" class="padding-10 padding-top-5 padding-bottom-5" data-action="userLogout"><i
-              class="fa fa-sign-out fa-lg"></i> <strong><u>L</u>ogout</strong></a>
+              class="fa fa-sign-out fa-lg"></i> <strong>退出</strong></a>
           </li>
         </ul>
       </li>
@@ -66,16 +66,7 @@
     </div>
     <!-- end search mobile button -->
 
-    <!-- input: search field -->
-    <form #searchForm="ngForm" (ngSubmit)="onSubmit()" class="header-search pull-right">
-      <input id="search-fld" type="text" name="param" required
-             placeholder="Find reports and more">
-      <button type="submit">
-        <i class="fa fa-search"></i>
-      </button>
-      <a id="cancel-search-js" (click)="toggleSearchMobile()" title="Cancel Search"><i class="fa fa-times"></i></a>
-    </form>
-    <!-- end input: search field -->
+
 
     <!-- fullscreen button -->
     <sa-full-screen></sa-full-screen>
@@ -87,7 +78,7 @@
 
 
     <!-- multiple lang dropdown : find all flags in the flags page -->
-    <sa-language-selector></sa-language-selector>
+    <!--<sa-language-selector></sa-language-selector>-->
     <!-- end multiple lang -->
 
 

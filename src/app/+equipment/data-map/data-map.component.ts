@@ -5,12 +5,11 @@ import {Http} from "@angular/http";
 import "rxjs/Rx";
 import {GlobalService} from "../../core/global.service";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";  // 用于map方法是用
-
 @FadeInTop()
 @Component({
-  selector: 'app-data-map',
-  templateUrl: './data-map.component.html',
-  styleUrls: ['./data-map.component.css']
+    selector: 'app-data-map',
+    templateUrl: './data-map.component.html',
+    styleUrls: ['./data-map.component.css']
 })
 export class DataMapComponent implements OnInit {
     dataSource: Observable<any>;
@@ -31,7 +30,6 @@ export class DataMapComponent implements OnInit {
     chartOption_;
     seriesInfo_ : Array<any> = [];
     //日平均报表
-
     dataSource_day : Observable<any>;
     products_day : Array<any> = [];
     chartOption_day;
@@ -46,22 +44,22 @@ export class DataMapComponent implements OnInit {
     //颜色设置列表信息
     colorShow  : Array<any> = [];
     count : number = 0;
-  constructor(
+    constructor(
         private http : Http,
         private router:Router,
         private globalService : GlobalService,
         private cookiestore : CookieStoreService
-  ) {
-      this.getDefault();
-  }
+    ) {
+        this.getDefault();
+    }
 
-  ngOnInit() {
-      this.getColorShow();
-     this.interval = setInterval(() => {
-          this.search_datapoint();//请求http数据
-      }, 3*60*1000);
+    ngOnInit() {
+        this.getColorShow();
+        this.interval = setInterval(() => {
+            this.search_datapoint();//请求http数据
+        }, 3*60*1000);
 
-  }
+    }
 
     /**
      * 阶段颜色显示
@@ -120,28 +118,28 @@ export class DataMapComponent implements OnInit {
 
 
     getDefault(){
-      this.http.get(this.globalService.getDomain()+'/api/v1/getCustomerInfo?c_role=1&sid='+this.cookiestore.getCookie('sid'))
-          .map((res)=>res.json())
-          .subscribe((data)=>{
-              this.customerDefault = data;
-          });
-      setTimeout(() => {
-          console.log('this.customerDefault:-----');
-          console.log(this.customerDefault);
+        this.http.get(this.globalService.getDomain()+'/api/v1/getCustomerInfo?c_role=1&sid='+this.cookiestore.getCookie('sid'))
+            .map((res)=>res.json())
+            .subscribe((data)=>{
+                this.customerDefault = data;
+            });
+        setTimeout(() => {
+            console.log('this.customerDefault:-----');
+            console.log(this.customerDefault);
 
-          if(this.customerDefault['status'] == 202){
-              this.cookiestore.removeAll();
-              this.router.navigate(['/auth/login']);
-          }
-          this.company = this.customerDefault['result']['c_number'];
+            if(this.customerDefault['status'] == 202){
+                this.cookiestore.removeAll();
+                this.router.navigate(['/auth/login']);
+            }
+            this.company = this.customerDefault['result']['c_number'];
 
-          if(this.customerDefault.length == 0){
-              alert('页面初始化错误，请刷新页面重试！');
-              return ;
-          }
-          this.search_datapoint();
-      },500);
-  }
+            if(this.customerDefault.length == 0){
+                alert('页面初始化错误，请刷新页面重试！');
+                return ;
+            }
+            this.search_datapoint();
+        },500);
+    }
     search_datapoint(){
         if(this.count >= 5){
             return false;

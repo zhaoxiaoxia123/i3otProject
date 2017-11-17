@@ -21,6 +21,7 @@ import { ChartSettingComponent } from './chart-setting/chart-setting.component';
 import {DataMapComponent, KeysPipe} from './data-map/data-map.component';
 import {UnsavedGuard} from "../shared/cookies/unsaved.guard";
 import {ChartGuard} from "../shared/cookies/chart.guard";
+import { FullTablesComponent } from './full-tables/full-tables.component';
 
 @NgModule({
   imports: [
@@ -43,7 +44,8 @@ import {ChartGuard} from "../shared/cookies/chart.guard";
     StationChartComponent,
     ChartSettingComponent,
     DataMapComponent,
-    KeysPipe
+    KeysPipe,
+    FullTablesComponent
   ],
     exports : [
   KeysPipe

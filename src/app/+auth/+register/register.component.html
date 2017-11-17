@@ -1,11 +1,13 @@
 <header id="header" class="animated fadeInDown">
 
   <div id="logo-group">
-    <span id="logo"> <img src="assets/img/logo.png" alt="SmartAdmin"> </span>
+    <span id="logo"> <img src="assets/img/logo.png" alt="I3OT"> </span>
   </div>
 
+
   <span id="extr-page-header-space">
-        <span class="hidden-mobile hiddex-xs">Already registered?</span> <a routerLink="/auth/login" class="btn btn-danger">Sign In</a> </span>
+        <span class="hidden-mobile hiddex-xs">你已经注册?</span> <a routerLink="/auth/login" class="btn btn-danger">登录</a>
+  </span>
 
 </header>
 <div id="main" role="main" class="animated fadeInDown">
@@ -14,140 +16,141 @@
   <div id="content" class="container">
 
     <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 hidden-xs hidden-sm">
-        <h1 class="txt-color-red login-header-big">SmartAdmin</h1>
+      <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 hidden-xs hidden-sm text-align-center">
         <div class="hero">
 
-          <div class="pull-left login-desc-box-l">
-            <h4 class="paragraph-header">It's Okay to be Smart. Experience the simplicity of SmartAdmin, everywhere you go!</h4>
-            <div class="login-app-icons">
-              <a routerLink="/dashboard/social" class="btn btn-danger btn-sm">Frontend Template</a>
-              <a routerLink="/smartadmin/app-layouts" class="btn btn-danger btn-sm">Find out more</a>
-            </div>
-          </div>
-
-          <img src="assets/img/demo/iphoneview.png" alt="" class="pull-right display-image" style="width:210px">
-
         </div>
-
         <div class="row">
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-            <h5 class="about-heading">About SmartAdmin - Are you up to date?</h5>
+          <div class="col-xs-12 col-sm-12">
+            <h5 class=" txt-color-red login-header-big">演示账号</h5>
+
             <p>
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa.
+              企业登录：（客户ID:demo 用户ID：ux9528 密码：123456）
             </p>
           </div>
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-            <h5 class="about-heading">Not just your average template!</h5>
-            <p>
-              Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi voluptatem accusantium!
-            </p>
-          </div>
+
         </div>
 
       </div>
       <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
         <div class="well no-padding">
 
-          <form id="smart-form-register" class="smart-form client-form">
-            <header>
-              Registration is FREE*
-            </header>
+          <ul id="myTab" class="nav nav-tabs text-align-center" >
+            <li class="active"  style="width: 50%;">
+              <a href="#home" data-toggle="tab">
+                个人注册
+              </a>
+            </li>
+            <li style="width: 50%;"><a href="#ios" data-toggle="tab" >企业注册</a></li>
+          </ul>
+          <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade in active" id="home">
+              <form class="smart-form client-form" >
+                <fieldset>
 
-            <fieldset>
-              <section>
-                <label class="input"> <i class="icon-append fa fa-user"></i>
-                  <input type="text" name="username" placeholder="Username">
-                  <b class="tooltip tooltip-bottom-right">Needed to enter the website</b> </label>
-              </section>
+                  <section>
+                    <label class="label">手机号码</label>
+                    <label class="input"> <i class="icon-append fa fa-user"></i>
+                      <input class="form-control" disabled="disabled" placeholder="可用于登录或找回密码" type="text" minlength="1"   name="uNumber">
+                    </label>
+                  </section>
 
-              <section>
-                <label class="input"> <i class="icon-append fa fa-envelope"></i>
-                  <input type="email" name="email" placeholder="Email address">
-                  <b class="tooltip tooltip-bottom-right">Needed to verify your account</b> </label>
-              </section>
+                  <section>
+                    <label class="label">密码</label>
+                    <label class="input"> <i class="icon-append fa fa-lock"></i>
+                      <input class="form-control" disabled="disabled" placeholder="请设置登录密码" type="password" name="password"  minlength="6"  data-minlength="3" >
+                      <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i>用户名最小长度是6</b>
+                    </label>
+                  </section>
 
-              <section>
-                <label class="input"> <i class="icon-append fa fa-lock"></i>
-                  <input type="password" name="password" placeholder="Password" id="password">
-                  <b class="tooltip tooltip-bottom-right">Don't forget your password</b> </label>
-              </section>
+                  <div class=" col-sm-12" style="margin-left: -13px;margin-right: 13px;">
+                    <label class="labe2">验证码</label>
+                    <section class="col col-sm-8">
 
-              <section>
-                <label class="input"> <i class="icon-append fa fa-lock"></i>
-                  <input type="password" name="passwordConfirm" placeholder="Confirm password">
-                  <b class="tooltip tooltip-bottom-right">Don't forget your password</b> </label>
-              </section>
-            </fieldset>
+                      <label class="input">
+                        <input class="form-control" disabled="disabled" placeholder="请输入验证码" type="text" minlength="1" name="uNumber">
+                      </label>
+                    </section>
+                    <section class="col col-sm-4">
+                      <button  disabled="disabled" type="button" class="btn txt-color-blueLight btn-sm form-control" >
+                        获取短信验证码
+                      </button>
+                    </section>
+                  </div>
+                  <p class="txt-color-red">暂不开放</p>
+                </fieldset>
 
-            <fieldset>
-              <div class="row">
-                <section class="col col-6">
-                  <label class="input">
-                    <input type="text" name="firstname" placeholder="First name">
-                  </label>
-                </section>
-                <section class="col col-6">
-                  <label class="input">
-                    <input type="text" name="lastname" placeholder="Last name">
-                  </label>
-                </section>
-              </div>
 
-              <div class="row">
-                <section class="col col-6">
-                  <label class="select">
-                    <select name="gender">
-                      <option value="0" selected disabled>Gender</option>
-                      <option value="1">Male</option>
-                      <option value="2">Female</option>
-                      <option value="3">Prefer not to answer</option>
-                    </select> <i></i> </label>
-                </section>
-                <section class="col col-6">
-                  <label class="input"> <i class="icon-append fa fa-calendar"></i>
-                    <input type="text" name="request" placeholder="Request activation on" class="datepicker" data-dateformat="dd/mm/yy">
-                  </label>
-                </section>
-              </div>
 
-              <section>
-                <label class="checkbox">
-                  <input type="checkbox" name="subscription" id="subscription">
-                  <i></i>I want to receive news and special offers</label>
-                <label class="checkbox">
-                  <input type="checkbox" name="terms" id="terms">
-                  <i></i>I agree with the <a href="#" data-toggle="modal" data-target="#myModal"> Terms and Conditions </a></label>
-              </section>
-            </fieldset>
-            <footer>
-              <button (click)="register($event)" class="btn btn-primary">
-                Register
-              </button>
-            </footer>
 
-            <div class="message">
-              <i class="fa fa-check"></i>
-              <p>
-                Thank you for your registration!
-              </p>
+                <footer>
+                  <button class="btn btn-primary "  disabled="disabled" >
+                    注册
+                  </button>
+                </footer>
+              </form>
+
             </div>
-          </form>
+            <div class="tab-pane fade" id="ios">
+              <form class="smart-form client-form" >
+                <fieldset>
 
+                  <section>
+                    <label class="label">手机号码</label>
+                    <label class="input"> <i class="icon-append fa fa-user"></i>
+                      <input class="form-control" disabled="disabled" placeholder="可用于登录或找回密码" type="text" minlength="1"   name="uNumber">
+                    </label>
+                  </section>
+
+                  <section>
+                    <label class="label">密码</label>
+                    <label class="input"> <i class="icon-append fa fa-lock"></i>
+                      <input class="form-control" disabled="disabled" placeholder="请设置登录密码" type="password" name="password"  minlength="6"  data-minlength="3" >
+                      <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i>用户名最小长度是6</b>
+                    </label>
+                  </section>
+
+                  <div class=" col-sm-12" style="margin-left: -13px;margin-right: 13px;">
+                    <label class="labe2">验证码</label>
+                    <section class="col col-sm-8">
+
+                      <label class="input">
+                        <input class="form-control" disabled="disabled" placeholder="请输入验证码" type="text" minlength="1" name="uNumber">
+                      </label>
+                    </section>
+                    <section class="col col-sm-4">
+                      <button  disabled="disabled" type="button" class="btn txt-color-blueLight btn-sm form-control" >
+                        获取短信验证码
+                      </button>
+                    </section>
+                  </div>
+                  <p class="txt-color-red">暂不开放，如需注册，请联系QQ：2839761055</p>
+                </fieldset>
+
+
+
+
+                <footer>
+                  <button class="btn btn-primary "  disabled="disabled" >
+                    注册
+                  </button>
+                </footer>
+              </form>
+            </div>
+          </div>
         </div>
-        <p class="note text-center">*FREE Registration ends on October 2015.</p>
-        <h5 class="text-center">- Or sign in using -</h5>
-        <ul class="list-inline text-center">
+
+
+        <h5 class="text-center"> -使用第三方账号 -</h5>
+        <ul class="list-inline text-center icon-set">
           <li>
-            <a (click)="(null)" class="btn btn-primary btn-circle"><i class="fa fa-facebook"></i></a>
+            <a (click)="(null)" ><i class="icon-set_wechat"></i></a>
           </li>
           <li>
-            <a (click)="(null)" class="btn btn-info btn-circle"><i class="fa fa-twitter"></i></a>
-          </li>
-          <li>
-            <a (click)="(null)" class="btn btn-warning btn-circle"><i class="fa fa-linkedin"></i></a>
+            <a (click)="(null)" ><i class="icon-set_nailing"></i></a>
           </li>
         </ul>
+
       </div>
     </div>
   </div>

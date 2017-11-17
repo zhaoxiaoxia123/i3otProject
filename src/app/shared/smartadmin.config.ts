@@ -17,7 +17,7 @@ export const config: any = {
       style: {
         backgroundColor: '#4E463F'
       },
-      label: "Smart Default"
+      label: "默认的"
     },
 
     {
@@ -27,7 +27,7 @@ export const config: any = {
       style: {
         background: '#3A4558'
       },
-      label: "Dark Elegance"
+      label: "黑色优雅的"
     },
 
     {
@@ -37,7 +37,7 @@ export const config: any = {
       style: {
         background: '#fff'
       },
-      label: "Ultra Light"
+      label: "白色清爽的"
     },
 
     {
@@ -47,7 +47,7 @@ export const config: any = {
       style: {
         background: '#f78c40'
       },
-      label: "Google Skin"
+      label: "谷歌皮肤"
     },
 
     {
@@ -59,7 +59,7 @@ export const config: any = {
         border: '1px solid #59779E',
         color: '#17273D !important'
       },
-      label: "PixelSmash"
+      label: "像素化的"
     },
 
     {
@@ -71,7 +71,7 @@ export const config: any = {
         border: '1px solid rgba(121, 161, 221, 0.8)',
         color: '#17273D !important'
       },
-      label: "Glass"
+      label: "玻璃的"
     },
 
 

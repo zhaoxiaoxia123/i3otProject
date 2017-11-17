@@ -14,6 +14,7 @@ import {ChartSettingComponent} from './chart-setting/chart-setting.component';
 import {DataMapComponent} from './data-map/data-map.component';
 import {UnsavedGuard} from "../shared/cookies/unsaved.guard";
 import {ChartGuard} from "../shared/cookies/chart.guard";
+import {FullTablesComponent} from "./full-tables/full-tables.component";
 
 export const routes:Routes = [
     {
@@ -57,6 +58,10 @@ export const routes:Routes = [
     {
         path: 'i3otp/:i_id',
         component: AddI3otpComponent
+    },
+    {
+        path: 'full-tables',
+        component: FullTablesComponent
     },
 ];
 

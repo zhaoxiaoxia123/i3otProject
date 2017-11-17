@@ -8,10 +8,16 @@ import {GlobalService} from '../../core/global.service';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html'
+  templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
+ /* //默认显示项
+  selItem: Number = 0;
+  onItemClick(type){
+   this.selItem = type;
+   console.log(this.selItem);
+  }*/
   loginInfo : Array<any> = [];
   username : string = '';
   uid : number = 0;

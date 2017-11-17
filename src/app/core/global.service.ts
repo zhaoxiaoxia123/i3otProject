@@ -4,7 +4,6 @@ import { Injectable } from '@angular/core';
 export class GlobalService {
   domain ='http://182.61.53.58:8080';
   tsdbDomain ='http://182.61.53.58:10088';
-  // tsdbDomain ='http://localhost:10088';
   constructor() {
   }
 

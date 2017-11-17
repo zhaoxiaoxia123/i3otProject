@@ -2528,7 +2528,7 @@ ul.ColVis_collection li label {
 }
 
 .dataTable tbody .shown+tr>td>table tbody tr {
-    /*background-color: rgba(205,209,98,.05)!important*/
+    background-color: rgba(205,209,98,.05)!important
 }
 
 .dataTable tbody .shown .table>tbody>tr>td {
@@ -3011,4 +3011,17 @@ div.dataTables_editor{
     border-bottom: none;
     border-left: none;
     border-right: none
+}
+
+
+.icon-set_wechat{
+    background: rgba(0, 0, 0, 0) url(../img/login.png) no-repeat scroll 2px -4px;
+    padding-left: 45px;
+}
+.icon-set li a{
+    font-size: 28px;
+}
+.icon-set_nailing{
+    background: rgba(0, 0, 0, 0) url(../img/login.png) no-repeat scroll -43px -4px;
+    padding-left: 45px;
 }

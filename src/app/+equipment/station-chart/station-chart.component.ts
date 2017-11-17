@@ -12,9 +12,9 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 
 @FadeInTop()
 @Component({
-  selector: 'app-station-chart',
-  templateUrl: './station-chart.component.html',
-  styleUrls: ['./station-chart.component.css']
+    selector: 'app-station-chart',
+    templateUrl: './station-chart.component.html',
+    styleUrls: ['./station-chart.component.css']
 })
 
 export class StationChartComponent implements OnInit {
@@ -74,27 +74,27 @@ export class StationChartComponent implements OnInit {
     private isClear;
     loading : string = '数据正在努力加载中...';
     status : string = '';
-  constructor(
-      fb:FormBuilder,
-      private http: Http,
-      private router:Router,
-      private cookieStore:CookieStoreService,
-      private globalService:GlobalService,
-      private notificationService: NotificationService
-  ) {
-      this.formModel = fb.group({
-          keyword:[''],
-      });
-      this.getI3otpList('1');
-  }
+    constructor(
+        fb:FormBuilder,
+        private http: Http,
+        private router:Router,
+        private cookieStore:CookieStoreService,
+        private globalService:GlobalService,
+        private notificationService: NotificationService
+    ) {
+        this.formModel = fb.group({
+            keyword:[''],
+        });
+        this.getI3otpList('1');
+    }
 
-  ngOnInit() {
-      this.getColorShow();
+    ngOnInit() {
+        this.getColorShow();
 
-      this.interval = setInterval(() => {
-          this.search_datapoint();
-      }, 3*60*1000);
-  }
+        this.interval = setInterval(() => {
+            this.search_datapoint();
+        }, 3*60*1000);
+    }
 
     /**
      * 获取设备(基站)列表
@@ -128,7 +128,6 @@ export class StationChartComponent implements OnInit {
             // this.i3otpList = this.i3otpList['result'];
             // console.log('this.i3otpList111:--');
             // console.log(this.i3otpList);
-
             this.search_datapoint();
         }, 500);
     }
@@ -146,22 +145,22 @@ export class StationChartComponent implements OnInit {
     /**
      * 阶段颜色显示
      */
-  getColorShow(){
-      let url = this.globalService.getDomain()+'/api/v1/getSettingsInfo?sid='+this.cookieStore.getCookie('sid');
-      this.http.get(url)
-          .map((res)=>res.json())
-          .subscribe((data)=>{
-              this.colorShow = data;
-          });
-      setTimeout(() => {
-          console.log('this.colorShow:--');
-          console.log(this.colorShow);
-          if(this.colorShow['status'] == 202){
-              this.cookieStore.removeAll();
-              this.router.navigate(['/auth/login']);
-          }
-      }, 500);
-  }
+    getColorShow(){
+        let url = this.globalService.getDomain()+'/api/v1/getSettingsInfo?sid='+this.cookieStore.getCookie('sid');
+        this.http.get(url)
+            .map((res)=>res.json())
+            .subscribe((data)=>{
+                this.colorShow = data;
+            });
+        setTimeout(() => {
+            console.log('this.colorShow:--');
+            console.log(this.colorShow);
+            if(this.colorShow['status'] == 202){
+                this.cookieStore.removeAll();
+                this.router.navigate(['/auth/login']);
+            }
+        }, 500);
+    }
 
     search_datapoint(){
         this.size = 20;
@@ -355,12 +354,12 @@ export class StationChartComponent implements OnInit {
     search_join_datapoint(){
         this.size = 50;
         let join_metric = '';
-            for(let a = 0;a < this.join_str.length;a++){
-                if(a > 0){
-                    join_metric += '_';
-                }
-                join_metric += this.join_str[a];
+        for(let a = 0;a < this.join_str.length;a++){
+            if(a > 0){
+                join_metric += '_';
             }
+            join_metric += this.join_str[a];
+        }
         let url = this.globalService.getTsdbDomain()+'/tsdb/api/getDatapoint.php?size='+this.size+'&cid='+this.cid+'&metric='+join_metric+'&pid='+this.join_pid+'&type=join';
         this.dataSource2 = this.http.get(url)
             .map((res)=>res.json());
