@@ -3,7 +3,10 @@
     <sa-big-breadcrumbs [items]="['设备管理', '数据对比']" icon="file-text-o" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
   </div>
   <sa-widgets-grid>
-    <div class="row" *ngIf="products['data']">
+    <div class="row" *ngIf="! (products['data'] && products['data'][0])">
+      <h3>正在努力加载中...</h3>
+    </div>
+    <div class="row" *ngIf="products['data'] && products['data'][0]">
 
       <article class="col-sm-3" *ngFor="let entry of (products['data'][0]['info'] | keys)" >
         <sa-widget  [editbutton]="false" [deletebutton]="false" color="darken" *ngIf="entry.value.value[0]">
@@ -36,7 +39,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let val of entry.value.value;let idx=index" class="danger">
+                <tr *ngFor="let val of entry.value.value;let idx=index"  [ngStyle]="{'background-color': products['data'][0]['info'][entry.key]['color'][idx]}">
                   <td>{{ products['data'][0]['time'][idx] }}</td>
                   <td>{{ val }}</td>
                 </tr>
@@ -51,6 +54,54 @@
           </div>
         </sa-widget>
       </article>
+
+      <article class="col-sm-3" *ngFor="let entry of (products1['data'][0]['info'] | keys)" >
+        <sa-widget  [editbutton]="false" [deletebutton]="false" color="darken" *ngIf="entry.value.value[0]">
+          <header>
+            <h2 *ngIf="entry.key == 'ch4'">甲烷</h2>
+            <h2 *ngIf="entry.key == 'co'">一氧化碳</h2>
+            <h2 *ngIf="entry.key == 'co2'">二氧化碳</h2>
+            <h2 *ngIf="entry.key == 'o2'">氧气</h2>
+            <h2 *ngIf="entry.key == 'temp'">温度</h2>
+            <h2 *ngIf="entry.key == 'humi'">湿度</h2>
+            <h2 *ngIf="entry.key == 'eeg'">脑电</h2>
+            <h2 *ngIf="entry.key == 'ecg'">心率</h2>
+            <h2 *ngIf="entry.key == 'spo2h'">血氧</h2>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <div class="the-price pricing-big">
+                <div class="panel-heading">
+                  <h1 class="panel-title font-headline">
+                    {{entry.key}}
+                    <small class="subscript" ><span>{{entry.value.value[0]}}</span></small>
+                  </h1>
+                </div>
+              </div>
+              <table class="table table-hover " style="margin: -5px 0;">
+                <thead>
+                <tr>
+                  <th >时间</th>
+                  <th >数据</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let val of entry.value.value;let idx=index" [ngStyle]="{'background-color': products1['data'][0]['info'][entry.key]['color'][idx]}">
+                  <td>{{ products1['data'][0]['time'][idx] }}</td>
+                  <td>{{ val }}</td>
+                </tr>
+                </tbody>
+              </table>
+              <div class="panel-footer no-padding">
+                <a (click)="showPic(entry.key);lgModal.show()" class="btn bg-color-teal txt-color-white btn-block" role="button">
+                  查看更多数据
+                </a>
+              </div>
+            </div>
+          </div>
+        </sa-widget>
+      </article>
+
 
     </div>
   </sa-widgets-grid>

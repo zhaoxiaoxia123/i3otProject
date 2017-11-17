@@ -22,6 +22,7 @@ export class ListStaffComponent implements OnInit {
   selects : Array<any> = [];
   check : boolean = false;
   user_info : Array<any> = [];
+  uRole : string = '';
   constructor(
       private http:Http,
       fb:FormBuilder,
@@ -36,7 +37,7 @@ export class ListStaffComponent implements OnInit {
 
     this.getUserList('1');
     window.scrollTo(0,0);
-
+    this.uRole = this.cookiestore.getCookie('urole');
   }
 
   ngOnInit() {

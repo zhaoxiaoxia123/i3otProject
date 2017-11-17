@@ -66,9 +66,10 @@ export class AddInventory1Component implements OnInit {
         this.cookieStore.removeAll();
         this.router.navigate(['/auth/login']);
       }
-
-      this.storehouse_status_default = 1;
-      this.u_id_default = this.storehouseList['result']['userList'].length >= 1 ? this.storehouseList['result']['userList'][0]['id'] : 0;
+      if(this.storehouse_id == 0) {
+        this.storehouse_status_default = 1;
+        this.u_id_default = this.storehouseList['result']['userList'].length >= 1 ? this.storehouseList['result']['userList'][0]['id'] : 0;
+      }
     }, 300);
   }
 

@@ -102,10 +102,10 @@
             <td>{{ ul.category_desc}}</td>
             <td>{{ ul.u_phone }}</td>
             <td>
-              <a class="btn btn-warning btn-xs" [routerLink]="['/forms/employees',ul.id]">
+              <a *ngIf="uRole != 3" class="btn btn-warning btn-xs" [routerLink]="['/forms/employees',ul.id]">
                 <span class="glyphicon glyphicon-pencil"></span>修改
               </a>
-              <a class="btn btn-danger btn-xs" (click)="deleteUser( ul.id ,userList.result?.current_page)">
+              <a *ngIf="uRole != 3" class="btn btn-danger btn-xs" (click)="deleteUser( ul.id ,userList.result?.current_page)">
                 <span class="glyphicon glyphicon-remove"></span>删除
               </a>
               <a class="btn btn-success btn-xs" (click)="getUserInfo(ul.id);lgModal.show();"><span class="glyphicon glyphicon-zoom-in"></span>详情</a>

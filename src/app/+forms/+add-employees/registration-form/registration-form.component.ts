@@ -9,18 +9,12 @@ import {Router,ActivatedRoute} from '@angular/router';
 import {GlobalService} from '../../../core/global.service';
 import {FadeInTop} from '../../../shared/animations/fade-in-top.decorator';
 
-
 @FadeInTop()
 @Component({
   selector: 'app-registration-form',
   templateUrl: './registration-form.component.html',
 })
 export class RegistrationFormComponent implements OnInit {
-
-
-
-
-
   formModel : FormGroup;
   //家庭地址
   province : string[] = [];
@@ -202,22 +196,23 @@ export class RegistrationFormComponent implements OnInit {
         this.cookieStoreService.removeAll();
         this.router.navigate(['/auth/login']);
       }
-
-      this.role_default = 2;
-      this.gender_default = 1;
-      this.c_id_default = this.userList['result']['customerList'].length >= 1 ? this.userList['result']['customerList'][0]['c_id'] : 0;
-      this.department_default = this.userList['result']['departmentList'].length >= 1 ? this.userList['result']['departmentList'][0]['category_id'] : 0;
-      this.contract_type_default = this.userList['result']['contractTypeList'].length >= 1 ? this.userList['result']['contractTypeList'][0]['category_id'] : 0;
-      this.birthplace1_default = 0;
-      this.birthplace2_default = 0;
-      this.nation_default = '汉族';
-      this.marital_status_default = 1;
-      this.study_diploma_default = 1;
-      this.study_category_default = this.userList['result']['studyCategoryList'].length >= 1 ? this.userList['result']['studyCategoryList'][0]['category_id'] : 0;
-      this.address1_default = 0;
-      this.address2_default = 0;
-      this.address3_default = 0;
-      this.super_admin_id = this.userList['super_admin_id'];
+      if(this.u_id == 0){
+        this.role_default = 2;
+        this.gender_default = 1;
+        this.c_id_default = this.userList['result']['customerList'].length >= 1 ? this.userList['result']['customerList'][0]['c_id'] : 0;
+        this.department_default = this.userList['result']['departmentList'].length >= 1 ? this.userList['result']['departmentList'][0]['category_id'] : 0;
+        this.contract_type_default = this.userList['result']['contractTypeList'].length >= 1 ? this.userList['result']['contractTypeList'][0]['category_id'] : 0;
+        this.birthplace1_default = 0;
+        this.birthplace2_default = 0;
+        this.nation_default = '汉族';
+        this.marital_status_default = 1;
+        this.study_diploma_default = 1;
+        this.study_category_default = this.userList['result']['studyCategoryList'].length >= 1 ? this.userList['result']['studyCategoryList'][0]['category_id'] : 0;
+        this.address1_default = 0;
+        this.address2_default = 0;
+        this.address3_default = 0;
+        this.super_admin_id = this.userList['super_admin_id'];
+      }
       if(this.cookieStoreService.getCookie('cid') == this.super_admin_id){
         this.is_show = true;
       }

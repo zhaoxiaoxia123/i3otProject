@@ -120,11 +120,13 @@ export class AddCustomer1Component implements OnInit {
         this.cookieStore.removeAll();
         this.router.navigate(['/auth/login']);
       }
-      //默认选中值
-      this.industry_category_default = this.customerList['result']['industryCategoryList'].length >= 1 ? this.customerList['result']['industryCategoryList'][0]['category_id'] : 0;
-      this.source_default = this.customerList['result']['sourceList'].length >= 1 ? this.customerList['result']['sourceList'][0]['category_id'] : 0;
-      this.service_person_default = this.customerList['result']['userList'].length >= 1 ? this.customerList['result']['userList'][0]['id'] : 0;
 
+      if(this.c_id == 0) {
+        //默认选中值
+        this.industry_category_default = this.customerList['result']['industryCategoryList'].length >= 1 ? this.customerList['result']['industryCategoryList'][0]['category_id'] : 0;
+        this.source_default = this.customerList['result']['sourceList'].length >= 1 ? this.customerList['result']['sourceList'][0]['category_id'] : 0;
+        this.service_person_default = this.customerList['result']['userList'].length >= 1 ? this.customerList['result']['userList'][0]['id'] : 0;
+      }
     }, 300);
   }
 

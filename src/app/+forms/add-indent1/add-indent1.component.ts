@@ -134,14 +134,15 @@ export class AddIndent1Component implements OnInit {
       if(this.category_id1_default != 0){
         this.getOrderChild(this.category_id1_default,2);
       }
-      this.p_id_default = this.orderList['result']['productList'].length >= 1 ? this.orderList['result']['productList'][0]['p_id'] : 0;
-      this.u_id_default = this.orderList['result']['userList'].length >= 1 ? this.orderList['result']['userList'][0]['id'] : 0;
-      this.o_inspector_default = this.orderList['result']['userList'].length >= 1 ? this.orderList['result']['userList'][0]['id'] : 0;
-      this.o_payment_method_default = this.orderList['result']['categoryList8'].length >= 1 ? this.orderList['result']['categoryList8'][0]['category_id'] : 0;
-      this.o_delivery_method_default = this.orderList['result']['categoryList9'].length >= 1 ? this.orderList['result']['categoryList9'][0]['category_id'] : 0;
-      this.o_buy_company_id_default = this.orderList['result']['customerList'].length >= 1 ? this.orderList['result']['customerList'][0]['c_id'] : 0;
-      this.o_out_storehouse_default = this.orderList['result']['storehouseList'].length >= 1 ? this.orderList['result']['storehouseList'][0]['storehouse_id'] : 0;
-
+      if(this.o_id == 0) {
+        this.p_id_default = this.orderList['result']['productList'].length >= 1 ? this.orderList['result']['productList'][0]['p_id'] : 0;
+        this.u_id_default = this.orderList['result']['userList'].length >= 1 ? this.orderList['result']['userList'][0]['id'] : 0;
+        this.o_inspector_default = this.orderList['result']['userList'].length >= 1 ? this.orderList['result']['userList'][0]['id'] : 0;
+        this.o_payment_method_default = this.orderList['result']['categoryList8'].length >= 1 ? this.orderList['result']['categoryList8'][0]['category_id'] : 0;
+        this.o_delivery_method_default = this.orderList['result']['categoryList9'].length >= 1 ? this.orderList['result']['categoryList9'][0]['category_id'] : 0;
+        this.o_buy_company_id_default = this.orderList['result']['customerList'].length >= 1 ? this.orderList['result']['customerList'][0]['c_id'] : 0;
+        this.o_out_storehouse_default = this.orderList['result']['storehouseList'].length >= 1 ? this.orderList['result']['storehouseList'][0]['storehouse_id'] : 0;
+      }
     }, 300);
   }
 

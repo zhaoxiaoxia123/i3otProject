@@ -124,12 +124,14 @@ export class AddProduct1Component implements OnInit {
         this.cookieStore.removeAll();
         this.router.navigate(['/auth/login']);
       }
-      this.category_id1_default = this.productList['result']['categoryIdList'].length >= 1 ? this.productList['result']['categoryIdList'][0]['category_id'] : 0;
-      if(this.category_id1_default != 0){
-        this.getProductChild(this.category_id1_default,2);
+      if(this.p_id == 0) {
+        this.category_id1_default = this.productList['result']['categoryIdList'].length >= 1 ? this.productList['result']['categoryIdList'][0]['category_id'] : 0;
+        if (this.category_id1_default != 0) {
+          this.getProductChild(this.category_id1_default, 2);
+        }
+        this.inspector_default = this.productList['result']['inspectorList'].length >= 1 ? this.productList['result']['inspectorList'][0]['id'] : 0;
+        this.storehouse_default = this.productList['result']['storeHouseList'].length >= 1 ? this.productList['result']['storeHouseList'][0]['storehouse_id'] : 0;
       }
-      this.inspector_default = this.productList['result']['inspectorList'].length >= 1 ? this.productList['result']['inspectorList'][0]['id'] : 0;
-      this.storehouse_default = this.productList['result']['storeHouseList'].length >= 1 ? this.productList['result']['storeHouseList'][0]['storehouse_id'] : 0;
     }, 300);
   }
 

@@ -125,10 +125,13 @@ export class AddCustomerComponent implements OnInit {
         this.router.navigate(['/auth/login']);
       }
 
-      //默认选中值
-      this.industry_category_default = this.userList['result']['industryCategoryList'].length >= 1 ? this.userList['result']['industryCategoryList'][0]['category_id'] : 0;
-      this.source_default = this.userList['result']['sourceList'].length >= 1 ? this.userList['result']['sourceList'][0]['category_id'] : 0;
-      this.service_person_default = this.userList['result']['userList'].length >= 1 ? this.userList['result']['userList'][0]['id'] : 0;
+      if(this.c_id == 0) {
+        //默认选中值
+        this.industry_category_default = this.userList['result']['industryCategoryList'].length >= 1 ? this.userList['result']['industryCategoryList'][0]['category_id'] : 0;
+        this.source_default = this.userList['result']['sourceList'].length >= 1 ? this.userList['result']['sourceList'][0]['category_id'] : 0;
+        this.service_person_default = this.userList['result']['userList'].length >= 1 ? this.userList['result']['userList'][0]['id'] : 0;
+
+      }
     }, 300);
   }
 

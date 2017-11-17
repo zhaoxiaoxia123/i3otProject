@@ -154,8 +154,8 @@ export class StationChartComponent implements OnInit {
               this.colorShow = data;
           });
       setTimeout(() => {
-          // console.log('this.colorShow:--');
-          // console.log(this.colorShow);
+          console.log('this.colorShow:--');
+          console.log(this.colorShow);
           if(this.colorShow['status'] == 202){
               this.cookieStore.removeAll();
               this.router.navigate(['/auth/login']);
@@ -195,16 +195,15 @@ export class StationChartComponent implements OnInit {
             'color':'',
             'up_color':'#ebcccc'
         };
-        if(this.colorShow['result'].length > 0) {
+        if(this.colorShow['result'][entry]) {
             //将颜色便利进（最新数据）显示数组
-            for (var i = 0; i < this.colorShow['result'].length; i++) {
-                if (this.colorShow['result'][i]['s_name'] == entry) {
-                    for (var s = 0; s < this.colorShow['result'][i]['detail'].length; s++) {
-                        if (parseInt(pro[entry]['value'][this.size - 1]) >= parseInt(this.colorShow['result'][i]['detail'][s]['s_interval_1']) && parseInt(pro[entry]['value'][this.size - 1]) <= parseInt(this.colorShow['result'][i]['detail'][s]['s_interval_2'])) {
-                            color_.color = this.colorShow['result'][i]['detail'][s]['s_color'];
-                            color_.up_color = this.colorShow['result'][i]['detail'][s]['s_up_color'] == '' ? color_.up_color : this.colorShow['result'][i]['detail'][s]['s_up_color'];
-                        }
-                    }
+            for (var s = 0; s < this.colorShow['result'][entry].length; s++) {
+                let min = parseInt(this.colorShow['result'][entry][s]['s_interval_1']);
+                let max = parseInt(this.colorShow['result'][entry][s]['s_interval_2']);
+                let val = parseInt(pro[entry]['value'][this.size - 1]);
+                if (val >= min && val <= max) {
+                    color_.color = this.colorShow['result'][entry][s]['s_color'];
+                    color_.up_color = this.colorShow['result'][entry][s]['s_up_color'] == '' ? color_.up_color : this.colorShow['result'][entry][s]['s_up_color'];
                 }
             }
         }
