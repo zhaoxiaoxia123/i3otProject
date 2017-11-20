@@ -59,7 +59,6 @@
               </sa-datatable>
               <div *ngIf="i3otpList.result?.i3otpList?.data">
               <sa-datatable *ngFor="let il of i3otpList.result?.i3otpList?.data;let ind = index;" tableClass="table table-striped table-bordered table-hover" [detailsFormat]="detailsFormat">
-
                 <tbody >
                 <tr role="row" *ngIf="status.indexOf(ind+',') === -1" class="odd">
                   <td class="details-control" (click)="changeStatus(ind,'+')">
@@ -133,7 +132,6 @@
                         <td style="width:70%;border-right:1px solid #ccc; ">
                           <div echarts [options]="chartOption1[ind]" class="demo-chart" *ngIf="chartOption1[ind]" ></div>
 
-                          <div echarts [options]="chartOption1[ind]" class="demo-chart" *ngIf="chartOption1[ind] != []" ></div>
 
                         </td>
                         <td >
