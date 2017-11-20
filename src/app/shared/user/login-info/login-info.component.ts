@@ -25,7 +25,7 @@ export class LoginInfoComponent implements OnInit {
       if(this.cookieStoreService.getCookie('username')) {
           this.user = {
               "username": this.cookieStoreService.getCookie('username'),
-              "picture": "assets/img/avatars/sunny.png",
+              "picture": "assets/img/avatars/male.png",
               "activity": 12
           };
           // }else if(location.origin == 'http://www.i3ot.com'){

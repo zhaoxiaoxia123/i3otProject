@@ -47,7 +47,6 @@ export class AddIndent1Component implements OnInit {
       o_specification:[''],//规格/参数
       // o_specification_content:[''],//参数内容
       o_quantity:[''],
-      o_unit:[''],
       o_unit_price:[''],
       o_total_price:[''],
       o_payment_method:[''],
@@ -94,7 +93,7 @@ export class AddIndent1Component implements OnInit {
         o_category2:this.order_info['result']['o_category2'],
         o_specification:this.order_info['result']['o_specification'],
         o_quantity:this.order_info['result']['o_quantity'],
-        o_unit:this.order_info['result']['o_unit'],
+        // o_unit:this.order_info['result']['o_unit'],
         o_unit_price:this.order_info['result']['o_unit_price'],
         o_total_price:this.order_info['result']['o_total_price'],
         o_payment_method:this.order_info['result']['o_payment_method'],
@@ -179,7 +178,7 @@ export class AddIndent1Component implements OnInit {
       'o_specification':this.formModel.value['o_specification'],
       // 'o_specification_content':this.formModel.value['o_specification_content'],
       'o_quantity':this.formModel.value['o_quantity'],
-      'o_unit':this.formModel.value['o_unit'],
+      // 'o_unit':this.formModel.value['o_unit'],
       'o_unit_price':this.formModel.value['o_unit_price'],
       'o_total_price':this.formModel.value['o_total_price'],
       'o_payment_method':this.formModel.value['o_payment_method'],
