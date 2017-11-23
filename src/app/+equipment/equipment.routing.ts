@@ -15,6 +15,7 @@ import {DataMapComponent} from './data-map/data-map.component';
 import {UnsavedGuard} from "../shared/cookies/unsaved.guard";
 import {ChartGuard} from "../shared/cookies/chart.guard";
 import {FullTablesComponent} from "./full-tables/full-tables.component";
+import {TodoDetailsComponent} from "./todo-details/todo-details.component";
 
 export const routes:Routes = [
     {
@@ -62,6 +63,10 @@ export const routes:Routes = [
     {
         path: 'full-tables',
         component: FullTablesComponent
+    },
+    {
+        path: 'todo-details',
+        component: TodoDetailsComponent
     },
 ];
 

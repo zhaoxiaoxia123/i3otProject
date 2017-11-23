@@ -1198,6 +1198,12 @@ legend {
     border-right: 4px solid transparent;
     border-left: 4px solid transparent;
 }
+.smart-form *,.smart-form :after,.smart-form :before {
+    margin: 0;
+    padding: 0;
+    box-sizing: content-box;
+    -moz-box-sizing: content-box
+}
 .smart-form .btn {
     box-sizing: border-box;
     moz-box-sizing: border-box;
@@ -1332,6 +1338,7 @@ legend {
  */
 .select2-container {
     margin: 0;
+    border: 1px solid #bdbdbd;
     position: relative;
     display: inline-block;
     zoom:1;*display: inline;
@@ -2020,12 +2027,7 @@ table.dataTable {
 .table-responsive{
     min-height:100px;
 }
-.smart-form *,.smart-form :after,.smart-form :before {
-    margin: 0;
-    padding: 0;
-    box-sizing: content-box;
-    -moz-box-sizing: content-box
-}
+
 
 .btn-sm {
     padding: 6px 10px 5px;
@@ -3024,4 +3026,114 @@ div.dataTables_editor{
 .icon-set_nailing{
     background: rgba(0, 0, 0, 0) url(../img/login.png) no-repeat scroll -43px -4px;
     padding-left: 45px;
+}
+
+/*代办事项*/
+
+.todo-group-title {
+    margin: 0;
+    line-height: 40px;
+    padding: 0 0 0 10px;
+    background: #fafafa;
+    border-bottom: 1px solid #e7e7e7;
+    border-top: 1px solid #d3d3d3;
+    color: #999
+}
+.todo {
+    margin: 0;
+    padding: 0;
+    min-height: 5px;
+    list-style: none
+}
+
+.well-todo-btn.btn-group{
+    margin-bottom:10px;
+    float: right;
+}
+.todo-img{
+    width:20px;
+    margin:4px;
+}
+.top-btn a{
+    padding: 4px 10px;
+    margin: 6px;
+}
+.todo>li {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid #e7e7e7;
+    margin: 0 5px;
+    background: url(../img/dots.png) 1px 10px no-repeat
+}
+.todo>li:hover{
+    background-color: #f9f9f9;
+}
+
+.todo>li:last-child,.todo>li:only-child {
+    border-bottom: none
+}
+
+.todo>li>:first-child {
+    display: block;
+    border-right: 1px solid #FFE1EB;
+    height: 100%;
+    padding: 6px 11px 6px 18px;
+    width: 20px;
+    vertical-align: top;
+    position: absolute
+}
+
+.todo>li>:first-child:hover {
+    cursor: move
+}
+
+.todo>li.complete>:first-child:hover {
+    cursor: default
+}
+
+.todo>li.complete {
+    background: 0 0
+}
+
+.todo>li>p {
+    height: 100%;
+    margin-left: 52px;
+    border-left: 1px solid #FFE1EB;
+    display: inline-block;
+    padding: 8px 0 6px 7px;
+    margin-bottom: 0;
+    min-height: 37px;
+    line-height: normal;
+    font-size: 14px;
+    font-weight: 500;
+    cursor:pointer;
+    color: #333
+}
+
+.todo>li>p>span {
+    display: block;
+    line-height: 12px;
+    font-size: 10px;
+    font-weight: 400
+}
+
+.todo>li>p>:first-child {
+    margin-top: -5px;
+    color: #999;
+    margin-bottom: 4px
+}
+
+.todo>li>p>.date {
+    color: #bfbfbf
+}
+
+.todo>li.complete>* {
+    text-decoration: line-through;
+    font-style: italic
+}
+
+.todo>li.ui-sortable-helper {
+    border-top: 1px solid #eee;
+    background: rgba(113,132,63,.1)
 }

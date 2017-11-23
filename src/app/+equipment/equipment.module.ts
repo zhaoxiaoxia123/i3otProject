@@ -22,6 +22,7 @@ import {DataMapComponent, KeysPipe} from './data-map/data-map.component';
 import {UnsavedGuard} from "../shared/cookies/unsaved.guard";
 import {ChartGuard} from "../shared/cookies/chart.guard";
 import { FullTablesComponent } from './full-tables/full-tables.component';
+import { TodoDetailsComponent } from './todo-details/todo-details.component';
 
 @NgModule({
   imports: [
@@ -45,7 +46,8 @@ import { FullTablesComponent } from './full-tables/full-tables.component';
     ChartSettingComponent,
     DataMapComponent,
     KeysPipe,
-    FullTablesComponent
+    FullTablesComponent,
+    TodoDetailsComponent
   ],
     exports : [
   KeysPipe
