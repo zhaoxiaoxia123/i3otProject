@@ -363,10 +363,16 @@ export class StationChartComponent implements OnInit {
     }
 
     showJoinPic(){
-        this.search_join_datapoint();//请求http数据
-        this.isClear = setInterval(() => {
+        if(this.join_str.length == 0){
+            alert('请添加对比数据后，再点击此‘查看对比图’按钮。');
+            return ;
+        }else{
             this.search_join_datapoint();//请求http数据
-        }, 3*60*1000);
+            this.isClear = setInterval(() => {
+                this.search_join_datapoint();//请求http数据
+            }, 3*60*1000);
+            this.lgModal.show();
+        }
     }
 
     search_join_datapoint(){
