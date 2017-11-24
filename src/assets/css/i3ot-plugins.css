@@ -449,6 +449,23 @@ div.dataTables_paginate ul.pagination {
     background-color: #a65858!important
 }
 
+/*百分比*/
+.percent-6{
+    width:6%!important
+}
+.percent-12{
+    width:12%!important
+}
+.percent-16{
+    width:16%!important
+}
+.percent-30{
+    width:30%!important
+}
+.percent-50{
+    width:50%!important
+}
+
 /*内边距 padding*/
 
 .no-content-padding {
@@ -466,6 +483,7 @@ div.dataTables_paginate ul.pagination {
 .no-padding .dataTables_wrapper table,.no-padding>table {
     border: none!important;
     margin-bottom: 0!important;
+    margin-top: 0!important;
     border-bottom-width: 0!important
 }
 
