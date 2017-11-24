@@ -423,9 +423,9 @@
                     </small>
                   </td>
                   <td>
-                    <a class="btn btn-success btn-xs" *ngFor="let i1 of ll.i3otp_attribute1">{{i1}}</a>
-                    <a class="btn btn-success btn-xs" *ngFor="let i2 of ll.i3otp_attribute2">{{i2}}</a>
-                    <a class="btn btn-success btn-xs" *ngFor="let i3 of ll.i3otp_attribute3">{{i3}}</a>
+                    <a (click)="showLine(ind,i1)" class="btn btn-success btn-xs" *ngFor="let i1 of ll.i3otp_attribute1">{{i1}}</a>
+                    <a (click)="showLine(ind,i2)" class="btn btn-success btn-xs" *ngFor="let i2 of ll.i3otp_attribute2">{{i2}}</a>
+                    <a (click)="showLine(ind,i3)" class="btn btn-success btn-xs" *ngFor="let i3 of ll.i3otp_attribute3">{{i3}}</a>
                   </td>
                   <td>
                     <i *ngIf="ll.i3otp_status == 0" class="fa fa-circle txt-color-darken font-xs">未激活</i>
@@ -460,9 +460,9 @@
                     </small>
                   </td>
                   <td>
-                    <a class="btn btn-success btn-xs" *ngFor="let i1 of ll.i3otp_attribute1">{{i1}}</a>
-                    <a class="btn btn-success btn-xs" *ngFor="let i2 of ll.i3otp_attribute2">{{i2}}</a>
-                    <a class="btn btn-success btn-xs" *ngFor="let i3 of ll.i3otp_attribute3">{{i3}}</a>
+                    <a (click)="showLine(ind,i1)" class="btn btn-success btn-xs" *ngFor="let i1 of ll.i3otp_attribute1">{{i1}}</a>
+                    <a (click)="showLine(ind,i2)" class="btn btn-success btn-xs" *ngFor="let i2 of ll.i3otp_attribute2">{{i2}}</a>
+                    <a (click)="showLine(ind,i3)" class="btn btn-success btn-xs" *ngFor="let i3 of ll.i3otp_attribute3">{{i3}}</a>
                   </td>
                   <td>
                     <i *ngIf="ll.i3otp_status == 0" class="fa fa-circle txt-color-darken font-xs">未激活</i>

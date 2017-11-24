@@ -65,6 +65,7 @@ export class HelmetChartComponent implements OnInit {
     newList : Array<any> = [];
 
     abnormalData : Array<any> = [];
+    selectedStr : Object = {};
     constructor(
         fb:FormBuilder,
         private http: Http,
@@ -153,10 +154,10 @@ export class HelmetChartComponent implements OnInit {
         }
     }
 
-
     search_datapoint(){
         this.size = 20;
-        let url = this.globalService.getTsdbDomain()+'/tsdb/api/getDatapoint.php?size='+this.size+'&cid='+this.cid+'&metric='+this.metric+'&pid='+this.pid;
+        let str = JSON.stringify(this.selectedStr);
+        let url = this.globalService.getTsdbDomain()+'/tsdb/api/getDatapoint.php?size='+this.size+'&cid='+this.cid+'&metric='+this.metric+'&pid='+this.pid+'&selectedStr='+str;
         this.dataSource1 = this.http.get(url)
             .map((res)=>res.json());
         this.dataSource1.subscribe((data)=>this.products1=data);
@@ -235,7 +236,7 @@ export class HelmetChartComponent implements OnInit {
                 if (this.lastList1 == []) {
                     result[i] = [];
                 } else {
-                    result[i] = this.common(this.seriesInfo1, dataInfo['name'], dataInfo['time']);
+                    result[i] = this.common(this.seriesInfo1, dataInfo['name'], dataInfo['selected'], dataInfo['time']);
                 }
                 this.newList[i] = this.lastList1;
                 i++;
@@ -265,7 +266,7 @@ export class HelmetChartComponent implements OnInit {
                             data: this.products2['data'][i]['info'][entry]['value']
                         });
                     }
-                    result[i] = this.common(this.seriesInfo2, dataInfo['name'], dataInfo['time']);
+                    result[i] = this.common(this.seriesInfo2, dataInfo['name'], dataInfo['selected'], dataInfo['time']);
                 }
                 i++;
             }
@@ -274,11 +275,32 @@ export class HelmetChartComponent implements OnInit {
         }
     }
 
+
+    /**
+     * 按条件展示线条
+     * @param index 列表索引
+     * @param attr 当前点击传感器
+     */
+    showLine(index : number,attr:string) {
+        let attrs = this.cookieStore.getEN(attr);
+        let isShow = false;
+        for (let key in this.selectedStr) {
+            if (key == (attrs+'_'+index)) {
+                delete this.selectedStr[key];//删除使用 delete 关键字
+                isShow = true;
+            }
+        }
+        if(isShow == false) {
+            this.selectedStr[attrs+'_'+index] = attrs;
+        }
+        this.products1['data'][index]['selected'][attrs] = isShow;
+        this.chartOption1 = this.getValue(1);
+    }
+
     /**
      * 返回画图
      */
-
-    common(seriesInfo:Array<any>,name:Array<any>,time:Array<any>){
+    common(seriesInfo:Array<any>,name:Array<any>,selected,time:Array<any>){
         let chartOption = {
             title: {
                 text: '设备检测数据'
@@ -287,7 +309,8 @@ export class HelmetChartComponent implements OnInit {
                 trigger: 'axis'
             },
             legend: {
-                data: name
+                data: name,
+                selected:selected
             },
             toolbox: {
                 show: true,
@@ -324,10 +347,16 @@ export class HelmetChartComponent implements OnInit {
     }
 
     showJoinPic(){
-        this.search_join_datapoint();//请求http数据
-        this.isClear = setInterval(() => {
+        if(this.join_str.length == 0){
+            alert('请添加对比数据后，再点击此‘查看对比图’按钮。');
+            return false;
+        }else {
             this.search_join_datapoint();//请求http数据
-        }, 3*60*1000);
+            this.isClear = setInterval(() => {
+                this.search_join_datapoint();//请求http数据
+            }, 3 * 60 * 1000);
+            return true;
+        }
     }
 
     search_join_datapoint(){
