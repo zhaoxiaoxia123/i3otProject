@@ -4,6 +4,342 @@
   </div>
 
 
+
+  <sa-widgets-grid>
+
+
+    <div class="row">
+      <article class="col-sm-12">
+
+
+        <sa-widget  [editbutton]="false" [deletebutton]="false" color="darken">
+          <header><span class="widget-icon"> <i class="fa fa-comments"></i> </span>
+            <h2>人员查看</h2>
+            <div class="jarviswidget-ctrls" role="menu">
+              <a routerLink="/equipment/chart-setting" href="javascript:void(0);" class="button-icon jarviswidget-edit-btn" rel="tooltip" title="Edit" data-placement="bottom">
+                <i class="fa fa-cog"></i></a>
+            </div>
+
+          </header>
+
+          <div>
+            <div class="widget-body no-padding">
+              <div class="row">
+                <article class="col-sm-12">
+                  <div class="navbar navbar-default">
+                    <div class="collapse navbar-collapse" >
+                      <form class="navbar-form navbar-left" role="search" [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate >
+                        <div class="form-group">
+                          <input type="text" name="keyword" maxlength="15" formControlName="keyword" class="form-control" placeholder="请输入搜索内容">
+                        </div>
+                        <button type="submit" class="btn btn-default">
+                          <i class="glyphicon glyphicon-search"></i>
+                          搜索
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </article>
+              </div>
+              <div class="dataTables_wrapper">
+                <table class="dataTable responsive table table-striped table-bordered table-hover" >
+                  <thead>
+                  <tr role="row">
+                    <th class="details-control sorting_disabled"></th>
+                    <th>
+                      姓名
+                    </th>
+                    <th>
+                      设备
+                    </th>
+                    <th>
+                      检测数据
+                    </th>
+                    <th>
+                      状态
+                    </th>
+                    <th>
+                      <i class="fa fa-fw fa-calendar text-muted hidden-md hidden-sm hidden-xs"></i>
+                      采集数据时间
+                    </th>
+                    <th >操作</th>
+                  </tr>
+                  </thead>
+                </table>
+                <table class="dataTable responsive table table-striped table-bordered table-hover">
+                  <tbody >
+                  <tr role="row" class="odd shown">
+
+                    <td class=" details-control" >
+                    </td>
+                    <td >
+                      dorker
+                      <br>
+                      <small class="text-muted">
+                        <i>ID: u1002</i>
+                      </small>
+                    </td>
+                    <td>
+                      成都锦江国际酒店25楼
+                      <br>
+                      <small class="text-muted">
+                        <i>ID: 50</i>
+                      </small>
+                    </td>
+                    <td>
+                      <a class="btn btn-success btn-xs" >全部</a>
+                      <a class="btn btn-success btn-xs" >甲烷：0.8%</a>
+                      <a class="btn btn-success btn-xs" >一氧化碳:	0.4%</a>
+                      <a class="btn btn-success btn-xs" >二氧化碳:3%</a>
+                    </td>
+                    <td>
+                      <i  class="fa fa-circle txt-color-darken font-xs">未激活</i>
+                      <i  class="fa fa-circle text-danger font-xs">使用中</i>
+                      <i  class="fa fa-circle txt-color-darken font-xs">返厂维修</i>
+                      <i  class="fa fa-circle txt-color-darken font-xs">报废</i>
+                    </td>
+                    <td></td>
+                    <td >
+                      <a (click)="notificationExample2(ll.i3otp_pid,ll.i3otp_str)" class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-plus"></span>添加对比</a>
+                      <a (click)="showJoinPic();lgModal.show()" class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-adjust"></span>查看对比图</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="9">
+                      <table cell-padding="5" cell-spacing="0" border="0" class="table table-hover table-condensed">
+                        <tbody>
+                        <tr >
+                          <td style="width:50%;border-right:1px solid #ccc; ">
+                            <div echarts [options]="chartOption" (click)="getSeriesInfo" class="demo-chart" ></div>
+                          </td>
+                          <td  style="width:50%;">
+                            <div class="row">
+                              <div class="col-md-12">
+                                <p class="alert alert-info">
+                                  <strong>最新数据</strong>
+                                </p>
+                                <table class="table table-hover table-bordered">
+                                  <thead>
+                                  <tr>
+                                    <th >名称</th>
+                                    <th>数据</th>
+                                    <th>时间</th>
+                                    <th>位置</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody>
+                                  <tr   >
+                                    <td>
+                                      <strong>甲烷</strong>
+                                    </td>
+                                    <td>0.8%</td>
+                                    <td>2017-10-12 00:00:00</td>
+                                    <td>成都锦江国际酒店25楼</td>
+                                  </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="2">
+                            <h4 class="text-align-center" >
+                              今天的异常数据<a ><strong data-toggle="modal" data-target="#myModal" style="color: #a90329;">&nbsp;&nbsp;8&nbsp;&nbsp;</strong></a>条
+                            </h4>
+                          </td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr role="row" class="even">
+
+                    <td class=" details-control" >
+                    </td>
+                    <td >
+                      dorker
+                      <br>
+                      <small class="text-muted">
+                        <i>ID: u1002</i>
+                      </small>
+                    </td>
+                    <td>
+                      成都锦江国际酒店25楼
+                      <br>
+                      <small class="text-muted">
+                        <i>ID: 50</i>
+                      </small>
+                    </td>
+                    <td>
+                      <a class="btn btn-success btn-xs" >一氧化碳:	0.4%</a>
+                      <a class="btn btn-success btn-xs" >二氧化碳:3%</a>
+                    </td>
+                    <td>
+                      <i  class="fa fa-circle txt-color-darken font-xs">未激活</i>
+                    </td>
+                    <td>2017-10-12 00:00:00</td>
+                    <td >
+                      <a  class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-plus"></span>添加对比</a>
+                      <a  class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-adjust"></span>查看对比图</a>
+                    </td>
+                  </tr>
+                  <tr role="row" class="odd">
+
+                    <td class=" details-control" >
+                    </td>
+                    <td >
+                      dorker
+                      <br>
+                      <small class="text-muted">
+                        <i>ID: u1002</i>
+                      </small>
+                    </td>
+                    <td>
+                      成都锦江国际酒店25楼
+                      <br>
+                      <small class="text-muted">
+                        <i>ID: 50</i>
+                      </small>
+                    </td>
+                    <td>
+                      <a class="btn btn-success btn-xs" >全部</a>
+                      <a class="btn btn-success btn-xs" >甲烷：0.8%</a>
+                      <a class="btn btn-success btn-xs" >一氧化碳:	0.4%</a>
+                      <a class="btn btn-success btn-xs" >二氧化碳:3%</a>
+                    </td>
+                    <td>
+                      <i  class="fa fa-circle txt-color-darken font-xs">未激活</i>
+
+                    </td>
+                    <td>2017-10-12 00:00:00</td>
+                    <td >
+                      <a  class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-plus"></span>添加对比</a>
+                      <a  class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-adjust"></span>查看对比图</a>
+                    </td>
+                  </tr>
+                  <tr role="row" class="even">
+
+                    <td class=" details-control" >
+                    </td>
+                    <td >
+                      dorker
+                      <br>
+                      <small class="text-muted">
+                        <i>ID: u1002</i>
+                      </small>
+                    </td>
+                    <td>
+                      成都锦江国际酒店25楼
+                      <br>
+                      <small class="text-muted">
+                        <i>ID: 50</i>
+                      </small>
+                    </td>
+                    <td>
+
+                      <a class="btn btn-success btn-xs" >二氧化碳:3%</a>
+                    </td>
+                    <td>
+
+                    </td>
+                    <td>2017-10-12 00:00:00</td>
+                    <td >
+                      <a class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-plus"></span>添加对比</a>
+                      <a  class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-adjust"></span>查看对比图</a>
+                    </td>
+                  </tr>
+                  <tr role="row" class="odd">
+
+                    <td class=" details-control" >
+                    </td>
+                    <td >
+                      dorker
+                      <br>
+                      <small class="text-muted">
+                        <i>ID: u1002</i>
+                      </small>
+                    </td>
+                    <td>
+                      成都锦江国际酒店25楼
+                      <br>
+                      <small class="text-muted">
+                        <i>ID: 50</i>
+                      </small>
+                    </td>
+                    <td>
+                      <a class="btn btn-success btn-xs" >全部</a>
+                      <a class="btn btn-success btn-xs" >甲烷：0.8%</a>
+                      <a class="btn btn-success btn-xs" >一氧化碳:	0.4%</a>
+                      <a class="btn btn-success btn-xs" >二氧化碳:3%</a>
+                    </td>
+                    <td>
+
+                      <i  class="fa fa-circle txt-color-darken font-xs">返厂维修</i>
+
+                    </td>
+                    <td>2017-10-12 00:00:00</td>
+                    <td >
+
+
+                    </td>
+                  </tr>
+
+                  </tbody>
+                </table>
+              </div>
+
+
+
+
+
+              <!-- 底部-（分页部分）-->
+
+              <div class="dt-toolbar-footer">
+                <div class="col-sm-6 col-xs-12 hidden-xs">
+                  <div class="dataTables_info"  role="status" aria-live="polite">
+                  </div>
+                </div>
+                <div class="col-sm-6 col-xs-12 hidden-xs text-right">
+                  <ul class="pagination">
+                    <li>
+                      <a (click)="pagination(i3otpList.result?.i3otpList?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>
+                    </li>
+                    <li>
+                      <a (click)="pagination(i3otpList.result?.i3otpList?.next_page_url)"><i class="fa fa-arrow-right"></i></a>
+                    </li>
+                  </ul>
+                  <!--<ul class="pagination pagination-sm">-->
+                  <!--<li class="disabled">-->
+                  <!--<a href="">上一页</a>-->
+                  <!--</li>-->
+                  <!--<li class="success">-->
+                  <!--<a href="">1</a>-->
+                  <!--</li>-->
+                  <!--<li>-->
+                  <!--<a href="">2</a>-->
+                  <!--</li>-->
+                  <!--<li>-->
+                  <!--<a href="">3</a>-->
+                  <!--</li>-->
+                  <!--<li>-->
+                  <!--<a href="">...</a>-->
+                  <!--</li>-->
+                  <!--<li>-->
+                  <!--<a href="">99</a>-->
+                  <!--</li>-->
+                  <!--<li>-->
+                  <!--<a href="">下一页</a>-->
+                  <!--</li>-->
+                  <!--</ul>-->
+                </div>
+              </div>
+            </div>
+          </div>
+        </sa-widget>
+      </article>
+    </div>
+  </sa-widgets-grid>
   <sa-widgets-grid>
 
 
@@ -194,6 +530,9 @@
                 </tr>
                 </tbody>
               </sa-datatable>
+
+
+
               <!-- 底部-（分页部分）-->
 
               <div class="dt-toolbar-footer">
