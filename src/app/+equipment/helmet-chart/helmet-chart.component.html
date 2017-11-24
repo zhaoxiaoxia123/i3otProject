@@ -42,24 +42,24 @@
                 <table class="dataTable responsive table table-striped table-bordered table-hover" >
                   <thead>
                   <tr role="row">
-                    <th class="details-control sorting_disabled"></th>
-                    <th>
+                    <th class="details-control sorting_disabled percent-6"></th>
+                    <th class="percent-12">
                       姓名
                     </th>
-                    <th>
+                    <th class="percent-12">
                       设备
                     </th>
-                    <th>
+                    <th class="percent-30">
                       检测数据
                     </th>
-                    <th>
+                    <th class="percent-12">
                       状态
                     </th>
-                    <th>
+                    <th class="percent-12">
                       <i class="fa fa-fw fa-calendar text-muted hidden-md hidden-sm hidden-xs"></i>
                       采集数据时间
                     </th>
-                    <th >操作</th>
+                    <th class="percent-16" >操作</th>
                   </tr>
                   </thead>
                 </table>
@@ -67,35 +67,35 @@
                   <tbody >
                   <tr role="row" class="odd shown">
 
-                    <td class=" details-control" >
+                    <td class=" details-control percent-6" >
                     </td>
-                    <td >
+                    <td class="percent-12" >
                       dorker
                       <br>
                       <small class="text-muted">
                         <i>ID: u1002</i>
                       </small>
                     </td>
-                    <td>
+                    <td class="percent-12">
                       成都锦江国际酒店25楼
                       <br>
                       <small class="text-muted">
                         <i>ID: 50</i>
                       </small>
                     </td>
-                    <td>
+                    <td class="percent-12">
                       <a class="btn btn-success btn-xs" >全部</a>
                       <a class="btn btn-success btn-xs" >甲烷：0.8%</a>
                       <a class="btn btn-success btn-xs" >一氧化碳:	0.4%</a>
                       <a class="btn btn-success btn-xs" >二氧化碳:3%</a>
                     </td>
-                    <td>
+                    <td class="percent-12">
                       <i  class="fa fa-circle txt-color-darken font-xs">未激活</i>
                       <i  class="fa fa-circle text-danger font-xs">使用中</i>
                       <i  class="fa fa-circle txt-color-darken font-xs">返厂维修</i>
                       <i  class="fa fa-circle txt-color-darken font-xs">报废</i>
                     </td>
-                    <td></td>
+                    <td class="percent-12"></td>
                     <td >
                       <a (click)="notificationExample2(ll.i3otp_pid,ll.i3otp_str)" class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-plus"></span>添加对比</a>
                       <a (click)="showJoinPic();lgModal.show()" class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-adjust"></span>查看对比图</a>
@@ -106,10 +106,10 @@
                       <table cell-padding="5" cell-spacing="0" border="0" class="table table-hover table-condensed">
                         <tbody>
                         <tr >
-                          <td style="width:50%;border-right:1px solid #ccc; ">
+                          <td class="percent-50" style="border-right:1px solid #ccc; ">
                             <div echarts [options]="chartOption" (click)="getSeriesInfo" class="demo-chart" ></div>
                           </td>
-                          <td  style="width:50%;">
+                          <td  class="percent-50" >
                             <div class="row">
                               <div class="col-md-12">
                                 <p class="alert alert-info">
@@ -150,9 +150,13 @@
                       </table>
                     </td>
                   </tr>
+                  </tbody>
+                </table>
+                <table class="dataTable responsive table table-striped table-bordered table-hover">
+                  <tbody >
                   <tr role="row" class="even">
 
-                    <td class=" details-control" >
+                    <td class=" details-control percent-6" >
                     </td>
                     <td >
                       dorker
@@ -181,9 +185,13 @@
                       <a  class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-adjust"></span>查看对比图</a>
                     </td>
                   </tr>
+                  </tbody>
+                </table>
+                <table class="dataTable responsive table table-striped table-bordered table-hover">
+                  <tbody >
                   <tr role="row" class="odd">
 
-                    <td class=" details-control" >
+                    <td class="percent-6 details-control" >
                     </td>
                     <td >
                       dorker
@@ -215,73 +223,6 @@
                       <a  class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-adjust"></span>查看对比图</a>
                     </td>
                   </tr>
-                  <tr role="row" class="even">
-
-                    <td class=" details-control" >
-                    </td>
-                    <td >
-                      dorker
-                      <br>
-                      <small class="text-muted">
-                        <i>ID: u1002</i>
-                      </small>
-                    </td>
-                    <td>
-                      成都锦江国际酒店25楼
-                      <br>
-                      <small class="text-muted">
-                        <i>ID: 50</i>
-                      </small>
-                    </td>
-                    <td>
-
-                      <a class="btn btn-success btn-xs" >二氧化碳:3%</a>
-                    </td>
-                    <td>
-
-                    </td>
-                    <td>2017-10-12 00:00:00</td>
-                    <td >
-                      <a class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-plus"></span>添加对比</a>
-                      <a  class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-adjust"></span>查看对比图</a>
-                    </td>
-                  </tr>
-                  <tr role="row" class="odd">
-
-                    <td class=" details-control" >
-                    </td>
-                    <td >
-                      dorker
-                      <br>
-                      <small class="text-muted">
-                        <i>ID: u1002</i>
-                      </small>
-                    </td>
-                    <td>
-                      成都锦江国际酒店25楼
-                      <br>
-                      <small class="text-muted">
-                        <i>ID: 50</i>
-                      </small>
-                    </td>
-                    <td>
-                      <a class="btn btn-success btn-xs" >全部</a>
-                      <a class="btn btn-success btn-xs" >甲烷：0.8%</a>
-                      <a class="btn btn-success btn-xs" >一氧化碳:	0.4%</a>
-                      <a class="btn btn-success btn-xs" >二氧化碳:3%</a>
-                    </td>
-                    <td>
-
-                      <i  class="fa fa-circle txt-color-darken font-xs">返厂维修</i>
-
-                    </td>
-                    <td>2017-10-12 00:00:00</td>
-                    <td >
-
-
-                    </td>
-                  </tr>
-
                   </tbody>
                 </table>
               </div>

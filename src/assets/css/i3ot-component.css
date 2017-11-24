@@ -2028,7 +2028,12 @@ table.dataTable {
     min-height:100px;
 }
 
-
+.table-striped>tbody>.odd:nth-of-type(odd) {
+    background-color: #fff;
+}
+.table-hover>tbody>tr:hover{
+    background-color: #ecf3f8!important;
+}
 .btn-sm {
     padding: 6px 10px 5px;
 }
