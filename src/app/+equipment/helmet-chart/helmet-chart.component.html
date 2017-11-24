@@ -27,9 +27,9 @@
                 <article class="col-sm-12">
                   <div class="navbar navbar-default">
                     <div class="collapse navbar-collapse" >
-                      <form class="navbar-form navbar-left" role="search" >
+                      <form class="navbar-form navbar-left" role="search" [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate >
                         <div class="form-group">
-                          <input type="text" name="keyword" maxlength="15"  class="form-control" placeholder="请输入搜索内容">
+                          <input type="text" name="keyword" maxlength="15" formControlName="keyword" class="form-control" placeholder="请输入搜索内容">
                         </div>
                         <button type="submit" class="btn btn-default">
                           <i class="glyphicon glyphicon-search"></i>
@@ -41,193 +41,159 @@
                 </article>
               </div>
 
-                <sa-datatable  tableClass="table table-striped table-bordered table-hover" [detailsFormat]="detailsFormat">
-                  <thead>
-                  <tr role="row">
-                    <th class="details-control sorting_disabled"></th>
-                    <th>
-                      姓名
-                    </th>
-                    <th>
-                      设备
-                    </th>
-                    <th>
-                      检测数据
-                    </th>
-                    <th>
-                      状态
-                    </th>
-                    <th>
-                      <i class="fa fa-fw fa-calendar text-muted hidden-md hidden-sm hidden-xs"></i>
-                      采集数据时间
-                    </th>
-                    <th >操作</th>
-                  </tr>
-                  </thead>
-                </sa-datatable>
+              <sa-datatable  tableClass="table table-striped table-bordered table-hover" [detailsFormat]="detailsFormat">
+                <thead>
+                <tr role="row">
+                  <th class="details-control sorting_disabled"></th>
+                  <th>
+                    姓名
+                  </th>
+                  <th>
+                    设备
+                  </th>
+                  <th>
+                    检测数据
+                  </th>
+                  <th>
+                    状态
+                  </th>
+                  <th>
+                    <i class="fa fa-fw fa-calendar text-muted hidden-md hidden-sm hidden-xs"></i>
+                    采集数据时间
+                  </th>
+                  <th >操作</th>
+                </tr>
+                </thead>
+              </sa-datatable>
 
-                <sa-datatable tableClass="table table-striped table-bordered table-hover" [detailsFormat]="detailsFormat">
+              <sa-datatable *ngFor="let ll of i3otpList.result?.i3otpList?.data;let ind = index;" tableClass="table table-striped table-bordered table-hover" [detailsFormat]="detailsFormat">
 
-                  <tbody >
-                  <tr role="row" class="odd shown">
-                    <td class=" details-control" >
-                    </td>
-                    <td >
-                      谢轩逸
-                      <br>
-                      <small class="text-muted">
-                        <i>ID: 50</i>
-                      </small>
+                <tbody >
+                <tr role="row" *ngIf="status.indexOf(ind+',') === -1" class="odd">
+                  <td class=" details-control" (click)="changeStatus(ind,'+')">
+                  </td>
+                  <td >
+                    {{ll.u_username}}
+                    <br>
+                    <small class="text-muted">
+                      <i>ID: {{ll.u_id}}</i>
+                    </small>
+                  </td>
+                  <td>
+                    {{ll.i3otp_name}}
+                    <br>
+                    <small class="text-muted">
+                      <i>ID: {{ll.i3otp_pid}}</i>
+                    </small>
+                  </td>
+                  <td>
+                    <a class="btn btn-success btn-xs" *ngFor="let i1 of ll.i3otp_attribute1">{{i1}}</a>
+                    <a class="btn btn-success btn-xs" *ngFor="let i2 of ll.i3otp_attribute2">{{i2}}</a>
+                    <a class="btn btn-success btn-xs" *ngFor="let i3 of ll.i3otp_attribute3">{{i3}}</a>
+                  </td>
+                  <td>
+                    <i *ngIf="ll.i3otp_status == 0" class="fa fa-circle txt-color-darken font-xs">未激活</i>
+                    <i *ngIf="ll.i3otp_status == 1" class="fa fa-circle text-danger font-xs">使用中</i>
+                    <i *ngIf="ll.i3otp_status == 2" class="fa fa-circle txt-color-darken font-xs">返厂维修</i>
+                    <i *ngIf="ll.i3otp_status == 3" class="fa fa-circle txt-color-darken font-xs">报废</i>
+                  </td>
+                  <td>{{ll.i3otp_sensor_intervan}}</td>
+                  <td *ngIf="ll.i3otp_attribute1.length!=0 || ll.i3otp_attribute2.length!=0 || ll.i3otp_attribute3.length!=0">
+                    <a (click)="notificationExample2(ll.i3otp_pid,ll.i3otp_str)" class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-plus"></span>添加对比</a>
+                    <a (click)="showJoinPic();lgModal.show()" class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-adjust"></span>查看对比图</a>
+                  </td>
+                  <td *ngIf="ll.i3otp_attribute1.length==0 && ll.i3otp_attribute2.length==0 && ll.i3otp_attribute3.length==0">
+                  </td>
+                </tr>
 
-                    </td>
-                    <td>
-                      成都锦江国际酒店25楼
-                      <br>
-                      <small class="text-muted">
-                        <i>ID: 50</i>
-                      </small>
-                    </td>
-                    <td>
+                <tr role="row" *ngIf="status.indexOf(ind+',') != -1" class="odd shown">
+                  <td class=" details-control" (click)="changeStatus(ind,'-')">
+                  </td>
+                  <td>
+                    {{ll.u_username}}
+                    <br>
+                    <small class="text-muted">
+                      <i>ID: {{ll.u_id}}</i>
+                    </small>
+                  </td>
+                  <td>
+                    {{ll.i3otp_name}}
+                    <br>
+                    <small class="text-muted">
+                      <i>ID: {{ll.i3otp_pid}}</i>
+                    </small>
+                  </td>
+                  <td>
+                    <a class="btn btn-success btn-xs" *ngFor="let i1 of ll.i3otp_attribute1">{{i1}}</a>
+                    <a class="btn btn-success btn-xs" *ngFor="let i2 of ll.i3otp_attribute2">{{i2}}</a>
+                    <a class="btn btn-success btn-xs" *ngFor="let i3 of ll.i3otp_attribute3">{{i3}}</a>
+                  </td>
+                  <td>
+                    <i *ngIf="ll.i3otp_status == 0" class="fa fa-circle txt-color-darken font-xs">未激活</i>
+                    <i *ngIf="ll.i3otp_status == 1" class="fa fa-circle text-danger font-xs">使用中</i>
+                    <i *ngIf="ll.i3otp_status == 2" class="fa fa-circle txt-color-darken font-xs">返厂维修</i>
+                    <i *ngIf="ll.i3otp_status == 3" class="fa fa-circle txt-color-darken font-xs">报废</i>
+                  </td>
+                  <td>{{ll.i3otp_sensor_intervan}}</td>
+                  <td *ngIf="ll.i3otp_attribute1.length!=0 || ll.i3otp_attribute2.length!=0 || ll.i3otp_attribute3.length!=0">
+                    <a (click)="notificationExample2(ll.i3otp_pid,ll.i3otp_str)" class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-plus"></span>添加对比</a>
+                    <a (click)="showJoinPic();lgModal.show()" class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-adjust"></span>查看对比图</a>
+                  </td>
+                  <td *ngIf="ll.i3otp_attribute1.length==0 && ll.i3otp_attribute2.length==0 && ll.i3otp_attribute3.length==0">
+                  </td>
+                </tr>
 
-                      <a class="btn btn-success btn-xs" >脑电:0.8%</a>
-                      <a class="btn btn-success btn-xs" >心率:0.8%</a>
-                      <a class="btn btn-success btn-xs" >血氧:0.8%</a>
-                      <span>|</span>
-                      <a class="btn btn-success btn-xs" >甲烷：0.8%</a>
-                      <a class="btn btn-success btn-xs" >一氧化碳:	0.4%</a>
-                      <a class="btn btn-success btn-xs" >二氧化碳:3%</a>
-                      <a class="btn btn-danger  btn-xs" >氧气:0.8%</a>
-                      <a class="btn btn-success btn-xs" >温度:0.8%</a>
-                      <a class="btn btn-success btn-xs" >湿度:0.8%</a>
-                    </td>
-                    <td>
-                      <i class="fa fa-circle txt-color-darken font-xs"></i> 未激活
-                      <i class="fa fa-circle text-danger font-xs"></i> 使用中
-                    </td>
-                    <td>2017-10-12 00:00:00</td>
-                    <td>
-                      <a (click)="notificationExample2()" class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-plus"></span>添加对比</a>
-                      <a (click)="lgModal.show()" class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-adjust"></span>查看对比图</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td colspan="9">
-                      <table cell-padding="5" cell-spacing="0" border="0" class="table table-hover table-condensed">
-                        <tbody>
-                        <tr >
-                          <td style="width:50%;border-right:1px solid #ccc; ">
-                            <div echarts [options]="chartOption" (click)="getSeriesInfo" class="demo-chart" ></div>
-                          </td>
-                          <td  style="width:50%;">
-                            <div class="row">
-                              <div class="col-md-12">
-                                <p class="alert alert-info">
-                                  <strong>最新数据</strong>
-                                </p>
-                                <table class="table table-hover table-bordered">
-                                  <thead>
-                                  <tr>
-                                    <th >名称</th>
-                                    <th>数据</th>
-                                    <th>时间</th>
-                                    <th>位置</th>
-                                  </tr>
-                                  </thead>
-                                  <tbody>
-                                  <tr  class="success">
-                                    <td>
-                                      <strong>脑电</strong>
-                                    </td>
-                                    <td>0.2%</td>
-                                    <td>2017-10-12 00:00:00</td>
-                                    <td>成都锦江国际酒店25楼</td>
-                                  </tr>
-                                  <tr  class="warning">
-                                    <td>
-                                      <strong>心率</strong>
-                                    </td>
-                                    <td>0.8%</td>
-                                    <td>2017-10-12 06:00:00</td>
-                                    <td>成都锦江国际酒店25楼</td>
-                                  </tr>
-                                  <tr  class="warning">
-                                    <td>
-                                      <strong>血氧</strong>
-                                    </td>
-                                    <td>0.9%</td>
-                                    <td>2017-10-12 00:20:00</td>
-                                    <td>成都锦江国际酒店25楼</td>
-                                  </tr>
-                                  <tr class="danger">
-                                    <td>
-                                      <strong>甲烷</strong>
-                                    </td>
-                                    <td>0.5%</td>
-                                    <td>2017-10-12 01:40:00</td>
-                                    <td>成都锦江国际酒店25楼</td>
-                                  </tr>
-                                  <tr  class="danger">
-                                    <td>
-                                      <strong>一氧化碳</strong>
-                                    </td>
-                                    <td>0.2%</td>
-                                    <td>2017-10-12 01:10:00</td>
-                                    <td>成都锦江国际酒店25楼</td>
-                                  </tr>
-                                  <tr class="success" >
-                                    <td>
-                                      <strong>二氧化碳</strong>
-                                    </td>
-                                    <td>1.8%</td>
-                                    <td>2017-10-12 02:30:00</td>
-                                    <td>成都锦江国际酒店25楼</td>
-                                  </tr>
-                                  <tr class="warning" >
-                                    <td>
-                                      <strong>氧气</strong>
-                                    </td>
-                                    <td>0.4%</td>
-                                    <td>2017-10-12 06:00:00</td>
-                                    <td>成都锦江国际酒店25楼</td>
-                                  </tr>
-                                  <tr  class="warning">
-                                    <td>
-                                      <strong>温度</strong>
-                                    </td>
-                                    <td>5%</td>
-                                    <td>2017-10-12 08:00:00</td>
-                                    <td>成都锦江国际酒店25楼</td>
-                                  </tr>
-                                  <tr  class="success">
-                                    <td>
-                                      <strong>湿度</strong>
-                                    </td>
-                                    <td>0.5%</td>
-                                    <td>2017-10-12 09:00:00</td>
-                                    <td>成都锦江国际酒店25楼</td>
-                                  </tr>
-
-                                  </tbody>
-                                </table>
-                              </div>
+                <tr *ngIf="status.indexOf(ind+',') != -1">
+                  <td colspan="9">
+                    <table cell-padding="5" cell-spacing="0" border="0" class="table table-hover table-condensed">
+                      <tbody>
+                      <tr >
+                        <td style="width:50%;border-right:1px solid #ccc; ">
+                          <div echarts [options]="chartOption1[ind]" class="demo-chart" *ngIf="chartOption1[ind]" ></div>
+                        </td>
+                        <td  style="width:50%;">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <p class="alert alert-info">
+                                <strong>最新数据</strong>
+                              </p>
+                              <table class="table table-hover table-bordered">
+                                <thead>
+                                <tr>
+                                  <th >名称</th>
+                                  <th>数据</th>
+                                  <th>时间</th>
+                                  <th>位置</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr  *ngFor="let ll1 of newList[ind];" [ngStyle]="{'background-color': ll1.color}">
+                                  <td>
+                                    <strong>{{ll1.name}}</strong>
+                                  </td>
+                                  <td>{{ll1.value}}%</td>
+                                  <td>{{ll1.time}}</td>
+                                  <td>{{ll.i3otp_address}}</td>
+                                </tr>
+                                </tbody>
+                              </table>
                             </div>
-                          </td>
-                        </tr>
-
-                        <tr>
-                          <td colspan="2">
-
-                            <h4 class="text-align-center" >
-                              异常数据<a><strong data-toggle="modal" data-target="#myModal" style="color: #a90329;">&nbsp;&nbsp;12&nbsp;&nbsp;</strong></a>条
-                            </h4>
-                          </td>
-                        </tr>
-                        </tbody>
-                      </table>
-                    </td>
-                  </tr>
-                  </tbody>
-                </sa-datatable>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="2">
+                          <h4 class="text-align-center" >
+                            今天的异常数据<a (click)="showAbnormal(ll.u_id,ll.i3otp_pid)"><strong data-toggle="modal" data-target="#myModal" style="color: #a90329;">&nbsp;&nbsp;{{ll.abnormal_count}}&nbsp;&nbsp;</strong></a>条
+                          </h4>
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+                </tbody>
+              </sa-datatable>
               <!-- 底部-（分页部分）-->
 
               <div class="dt-toolbar-footer">
@@ -236,43 +202,44 @@
                   </div>
                 </div>
                 <div class="col-sm-6 col-xs-12 hidden-xs text-right">
-                  <ul class="pagination pagination-sm">
-                    <li class="disabled">
-                      <a href="">上一页</a>
-                    </li>
-                    <li class="success">
-                      <a href="">1</a>
+                  <ul class="pagination">
+                    <li>
+                      <a (click)="pagination(i3otpList.result?.i3otpList?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>
                     </li>
                     <li>
-                      <a href="">2</a>
-                    </li>
-                    <li>
-                      <a href="">3</a>
-                    </li>
-                    <li>
-                      <a href="">...</a>
-                    </li>
-                    <li>
-                      <a href="">99</a>
-                    </li>
-                    <li>
-                      <a href="">下一页</a>
+                      <a (click)="pagination(i3otpList.result?.i3otpList?.next_page_url)"><i class="fa fa-arrow-right"></i></a>
                     </li>
                   </ul>
+                  <!--<ul class="pagination pagination-sm">-->
+                  <!--<li class="disabled">-->
+                  <!--<a href="">上一页</a>-->
+                  <!--</li>-->
+                  <!--<li class="success">-->
+                  <!--<a href="">1</a>-->
+                  <!--</li>-->
+                  <!--<li>-->
+                  <!--<a href="">2</a>-->
+                  <!--</li>-->
+                  <!--<li>-->
+                  <!--<a href="">3</a>-->
+                  <!--</li>-->
+                  <!--<li>-->
+                  <!--<a href="">...</a>-->
+                  <!--</li>-->
+                  <!--<li>-->
+                  <!--<a href="">99</a>-->
+                  <!--</li>-->
+                  <!--<li>-->
+                  <!--<a href="">下一页</a>-->
+                  <!--</li>-->
+                  <!--</ul>-->
                 </div>
               </div>
             </div>
           </div>
         </sa-widget>
-
-
-
-
       </article>
-
-
     </div>
-
   </sa-widgets-grid>
 
   <div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
@@ -280,7 +247,7 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" (click)="lgModal.hide()" aria-label="Close">
+          <button type="button" class="close" (click)="ngOnClose();lgModal.hide()" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
           <h4 class="modal-title">设备数据对比</h4>
@@ -294,68 +261,25 @@
                   <optgroup label="选择设备ID">
                     <option value="">12</option>
                     <option value="">122</option>
-                    <option value="">54</option>
-                    <option value="">887</option>
-                    <option value="">778</option>
-                    <option value="">788</option>
-                    <option value="">778</option>
-                    <option value="">7788</option>
                     <option value="" selected="selected">777</option>
                     <option value="">77 </option>
-                    <option value="">11222 </option>
-                    <option value="">12455</option>
-                    <option value="">45454</option>
-                    <option value="">45</option>
-                    <option value="">545</option>
-                    <option value="">545</option>
-                    <option value="">545</option>
-                    <option value="">45454</option>
-                    <option value="">5454</option>
-                    <option value="">78</option>
                   </optgroup>
                 </select>
-
                 <div class="note">
                   <strong>备注:</strong> 点击设备名称或名称后面空白区域将弹出下拉框，可以选择添加和取消对比设备。
                 </div>
               </div>
             </div>
-
           </div>
-
           <div class="row">
             <div class="col-md-12">
               <sa-widget [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false">
                 <header>
-
                   <ul id="widget-tab-1" class="nav pull-left" [ngClass]="{'nav-tabs' : demoShowTabs, 'nav-pills': !demoShowTabs }">
-                    <li class="success">
-                      <a data-toggle="tab" href="#hr1">  <span class="hidden-mobile hidden-tablet"> 甲烷</span> </a>
+                    <li class="success" *ngFor="let char of metric_title;let indet = index;">
+                      <a data-toggle="tab" href="#hr{{indet+1}}">  <span class="hidden-mobile hidden-tablet"> {{char}}</span> </a>
                     </li>
-                    <li>
-                      <a data-toggle="tab" href="#hr2"> <span class="hidden-mobile hidden-tablet"> 一氧化碳</span></a>
-                    </li>
-                    <li>
-                      <a data-toggle="tab" href="#hr3"> <span class="hidden-mobile hidden-tablet"> 二氧化碳</span></a>
-                    </li>
-                    <li>
-                      <a data-toggle="tab" href="#hr4"> <span class="hidden-mobile hidden-tablet"> 氧气</span></a>
-                    </li>
-                    <li>
-                      <a data-toggle="tab" href="#hr5"> <span class="hidden-mobile hidden-tablet"> 温度	</span></a>
-                    </li>
-                    <li>
-                      <a data-toggle="tab" href="#hr6"> <span class="hidden-mobile hidden-tablet"> 湿度</span></a>
-                    </li>
-                    <li>
-                      <a data-toggle="tab" href="#hr7"> <span class="hidden-mobile hidden-tablet"> 脑电</span></a>
-                    </li>
-                    <li>
-                      <a data-toggle="tab" href="#hr8"> <span class="hidden-mobile hidden-tablet"> 心率</span></a>
-                    </li>
-                    <li>
-                      <a data-toggle="tab" href="#hr9"> <span class="hidden-mobile hidden-tablet"> 血氧</span></a>
-                    </li>
+
                   </ul>
                 </header>
                 <!-- widget div-->
@@ -364,41 +288,9 @@
                   <div class="widget-body no-padding">
                     <!-- widget body text-->
                     <div class="tab-content padding-10">
-                      <div class="tab-pane fade in success" id="hr1">
-                        <h4 class="alert alert-info"> 甲烷对比图</h4>
-                        <div echarts [options]="chartOption" class="demo-chart" ></div>
-                      </div>
-                      <div class="tab-pane fade" id="hr2">
-                        <h4 class="alert alert-info"> 一氧化碳对比图</h4>
-                        <div echarts [options]="chartOption" (click)="getSeriesInfo" class="demo-chart" ></div>
-                      </div>
-                      <div class="tab-pane fade" id="hr3">
-                        <h4 class="alert alert-info"> 二氧化碳对比图</h4>
-                        <div echarts [options]="chartOption" (click)="getSeriesInfo" class="demo-chart" ></div>
-                      </div>
-                      <div class="tab-pane fade" id="hr4">
-                        <h4 class="alert alert-info"> 氧气对比图</h4>
-                        <div echarts [options]="chartOption" (click)="getSeriesInfo" class="demo-chart" ></div>
-                      </div>
-                      <div class="tab-pane fade" id="hr5">
-                        <h4 class="alert alert-info"> 温度对比图</h4>
-                        <div echarts [options]="chartOption" (click)="getSeriesInfo" class="demo-chart" ></div>
-                      </div>
-                      <div class="tab-pane fade" id="hr6">
-                        <h4 class="alert alert-info"> 湿度对比图</h4>
-                        <div echarts [options]="chartOption" (click)="getSeriesInfo" class="demo-chart" ></div>
-                      </div>
-                      <div class="tab-pane fade" id="hr7">
-                        <h4 class="alert alert-info"> 脑电对比图</h4>
-                        <div echarts [options]="chartOption" (click)="getSeriesInfo" class="demo-chart" ></div>
-                      </div>
-                      <div class="tab-pane fade" id="hr8">
-                        <h4 class="alert alert-info"> 心率对比图</h4>
-                        <div echarts [options]="chartOption" (click)="getSeriesInfo" class="demo-chart" ></div>
-                      </div>
-                      <div class="tab-pane fade" id="hr9">
-                        <h4 class="alert alert-info"> 血氧对比图</h4>
-                        <div echarts [options]="chartOption" (click)="getSeriesInfo" class="demo-chart" ></div>
+                      <div *ngFor="let char of chartOption2;let inde = index;" id="hr{{inde+1}}"><!-- [ngClass]="{'tab-pane fade in success':inde == 0,'tab-pane fade':inde != 0}"-->
+                        <h4 class="alert alert-info"> {{metric_title[inde]}}对比图</h4>
+                        <div echarts [options]="chartOption2[inde]" class="demo-chart"></div>
                       </div>
                     </div>
                     <!-- end widget body text-->
@@ -434,7 +326,7 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" (click)="lgModal.hide()">
+          <button type="button" class="btn btn-default" (click)="ngOnClose();lgModal.hide()">
             返回
           </button>
         </div>
@@ -455,7 +347,7 @@
           <h3 class="modal-title" data-ng-bind='results.title'></h3>
           <h4 class="modal-title" id="myModalLabel">
             异常数据<small class="text-muted">
-            <i >ID: 50</i>
+            <i *ngIf="abnormalData?.result">ID: {{abnormalData?.result[0].u_id}}</i>
           </small>
           </h4>
         </div>
@@ -471,77 +363,13 @@
             </tr>
             </thead>
             <tbody>
-            <tr  class="danger">
+            <tr class="danger" *ngFor="let a of abnormalData?.result">
               <td>
-                <strong>脑电</strong>
+                <strong>{{a.name}}</strong>
               </td>
-              <td>0.2%</td>
-              <td>2017-10-12 00:00:00</td>
-              <td>成都锦江国际酒店25楼</td>
-            </tr>
-            <tr  class="danger">
-              <td>
-                <strong>心率</strong>
-              </td>
-              <td>0.8%</td>
-              <td>2017-10-12 06:00:00</td>
-              <td>成都锦江国际酒店25楼</td>
-            </tr>
-            <tr  class="danger">
-              <td>
-                <strong>血氧</strong>
-              </td>
-              <td>0.9%</td>
-              <td>2017-10-12 00:20:00</td>
-              <td>成都锦江国际酒店25楼</td>
-            </tr>
-            <tr class="danger">
-              <td>
-                <strong>甲烷</strong>
-              </td>
-              <td>0.5%</td>
-              <td>2017-10-12 01:40:00</td>
-              <td>成都锦江国际酒店25楼</td>
-            </tr>
-            <tr  class="danger">
-              <td>
-                <strong>一氧化碳</strong>
-              </td>
-              <td>0.2%</td>
-              <td>2017-10-12 01:10:00</td>
-              <td>成都锦江国际酒店25楼</td>
-            </tr>
-            <tr class="danger" >
-              <td>
-                <strong>二氧化碳</strong>
-              </td>
-              <td>1.8%</td>
-              <td>2017-10-12 02:30:00</td>
-              <td>成都锦江国际酒店25楼</td>
-            </tr>
-            <tr class="danger" >
-              <td>
-                <strong>氧气</strong>
-              </td>
-              <td>0.4%</td>
-              <td>2017-10-12 06:00:00</td>
-              <td>成都锦江国际酒店25楼</td>
-            </tr>
-            <tr  class="danger">
-              <td>
-                <strong>温度</strong>
-              </td>
-              <td>5%</td>
-              <td>2017-10-12 08:00:00</td>
-              <td>成都锦江国际酒店25楼</td>
-            </tr>
-            <tr  class="danger">
-              <td>
-                <strong>湿度</strong>
-              </td>
-              <td>0.5%</td>
-              <td>2017-10-12 09:00:00</td>
-              <td>成都锦江国际酒店25楼</td>
+              <td>{{a.a_value}}%</td>
+              <td>{{a.a_time}}</td>
+              <td>{{a.i3otp_address}}</td>
             </tr>
 
             </tbody>
@@ -558,3 +386,6 @@
 
 
 </div>
+
+
+

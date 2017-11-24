@@ -74,9 +74,9 @@
                     {{il.i3otp_name}}
                   </td>
                   <td>
-                    <a class="btn btn-success btn-xs" *ngFor="let i1 of il.i3otp_attribute1">{{i1}}</a>
-                    <a class="btn btn-success btn-xs" *ngFor="let i2 of il.i3otp_attribute2">{{i2}}</a>
-                    <a class="btn btn-success btn-xs" *ngFor="let i3 of il.i3otp_attribute3">{{i3}}</a>
+                    <a (click)="showLine(ind,i1)" class="btn btn-success btn-xs" *ngFor="let i1 of il.i3otp_attribute1">{{i1}}</a>
+                    <a (click)="showLine(ind,i2)" class="btn btn-success btn-xs" *ngFor="let i2 of il.i3otp_attribute2">{{i2}}</a>
+                    <a (click)="showLine(ind,i3)" class="btn btn-success btn-xs" *ngFor="let i3 of il.i3otp_attribute3">{{i3}}</a>
                   </td>
                   <td style="width:70%;">
                     <i *ngIf="il.i3otp_status == 0" class="fa fa-circle txt-color-darken font-xs">未激活</i>
@@ -85,11 +85,11 @@
                     <i *ngIf="il.i3otp_status == 3" class="fa fa-circle txt-color-darken font-xs">报废</i>
                   </td>
                   <td>{{il.i3otp_sensor_intervan}}</td>
-                  <td>
-                    <!--<a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>-->
-                    <!--<a class="btn btn-danger btn-xs" ><span class="glyphicon glyphicon-remove"></span>删除</a>-->
-                    <a (click)="notificationExample2( il.i3otp_pid,il.i3otp_str )" class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-adjust"></span>对比</a>
-                    <a (click)="showJoinPic();lgModal.show()" class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-adjust"></span>对比</a>
+                  <td *ngIf="il.i3otp_attribute1.length!=0 || il.i3otp_attribute2.length!=0 || il.i3otp_attribute3.length!=0">
+                    <a (click)="notificationExample2( il.i3otp_pid,il.i3otp_str)" class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-plus"></span>添加对比</a>
+                    <a (click)="showJoinPic();lgModal.show()" class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-adjust"></span>查看对比图</a>
+                  </td>
+                  <td *ngIf="il.i3otp_attribute1.length==0 && il.i3otp_attribute2.length==0 && il.i3otp_attribute3.length==0">
                   </td>
                 </tr>
                 <tr role="row" *ngIf="status.indexOf(ind+',') != -1" class="odd shown">
@@ -106,9 +106,9 @@
                     {{il.i3otp_name}}
                   </td>
                   <td>
-                    <a class="btn btn-success btn-xs" *ngFor="let i1 of il.i3otp_attribute1">{{i1}}</a>
-                    <a class="btn btn-success btn-xs" *ngFor="let i2 of il.i3otp_attribute2">{{i2}}</a>
-                    <a class="btn btn-success btn-xs" *ngFor="let i3 of il.i3otp_attribute3">{{i3}}</a>
+                    <a (click)="showLine(ind,i1)" class="btn btn-success btn-xs" *ngFor="let i1 of il.i3otp_attribute1">{{i1}}</a>
+                    <a (click)="showLine(ind,i2)" class="btn btn-success btn-xs" *ngFor="let i2 of il.i3otp_attribute2">{{i2}}</a>
+                    <a (click)="showLine(ind,i3)" class="btn btn-success btn-xs" *ngFor="let i3 of il.i3otp_attribute3">{{i3}}</a>
                    </td>
                   <td style="width:70%;">
                     <i *ngIf="il.i3otp_status == 0" class="fa fa-circle txt-color-darken font-xs">未激活</i>
@@ -117,12 +117,13 @@
                     <i *ngIf="il.i3otp_status == 3" class="fa fa-circle txt-color-darken font-xs">报废</i>
                   </td>
                   <td>{{il.i3otp_sensor_intervan}}</td>
-                  <td>
-                    <!--<a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-pencil"></span>修改</a>-->
-                    <!--<a class="btn btn-danger btn-xs" ><span class="glyphicon glyphicon-remove"></span>删除</a>-->
-                    <a (click)="notificationExample2( il.i3otp_pid,il.i3otp_str )" class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-adjust"></span>对比</a>
-                    <a (click)="showJoinPic();lgModal.show()" class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-adjust"></span>对比</a>
+                  <td *ngIf="il.i3otp_attribute1.length!=0 || il.i3otp_attribute2.length!=0 || il.i3otp_attribute3.length!=0">
+                    <a (click)="notificationExample2( il.i3otp_pid,il.i3otp_str)" class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-plus"></span>添加对比</a>
+                    <a (click)="showJoinPic();lgModal.show()" class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-adjust"></span>查看对比图</a>
                   </td>
+                  <td *ngIf="il.i3otp_attribute1.length==0 && il.i3otp_attribute2.length==0 && il.i3otp_attribute3.length==0">
+                  </td>
+
                 </tr>
                 <tr *ngIf="status.indexOf(ind+',') != -1">
                   <td colspan="10">
@@ -130,7 +131,7 @@
                       <tbody>
                       <tr >
                         <td style="width:70%;border-right:1px solid #ccc; ">
-                          <div echarts [options]="chartOption1[ind]" class="demo-chart" *ngIf="chartOption1[ind]" ></div>
+                          <div echarts [options]="chartOption1[ind]" class="demo-chart" *ngIf="chartOption1[ind]"></div>
                         </td>
                         <td >
                           <div class="row">
@@ -151,30 +152,6 @@
                                 </tbody>
                               </table>
                             </div>
-                            <!--<div class="col-md-6">-->
-                              <!--<table class="table table-hover table-bordered">-->
-                                <!--<thead>-->
-                                <!--<tr>-->
-                                  <!--<th style="width:50%;text-align: center;" colspan="2">异常数据</th>-->
-                                <!--</tr>-->
-                                <!--</thead>-->
-                                <!--<tbody>-->
-                                <!--<tr class="danger">-->
-                                  <!--<td>-->
-                                    <!--<strong>甲烷</strong>-->
-                                  <!--</td>-->
-                                  <!--<td>0.5%</td>-->
-                                <!--</tr>-->
-                                <!--<tr  class="danger">-->
-                                  <!--<td>-->
-                                    <!--<strong>一氧化碳</strong>-->
-                                  <!--</td>-->
-                                  <!--<td>0.2%</td>-->
-                                <!--</tr>-->
-
-                                <!--</tbody>-->
-                              <!--</table>-->
-                            <!--</div>-->
                           </div>
                         </td>
                       </tr>

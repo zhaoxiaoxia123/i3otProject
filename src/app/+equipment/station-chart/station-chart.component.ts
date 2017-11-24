@@ -9,6 +9,7 @@ import {GlobalService} from "../../core/global.service";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {Router} from "@angular/router";
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {isNullOrUndefined} from "util";
 
 @FadeInTop()
 @Component({
@@ -23,33 +24,20 @@ export class StationChartComponent implements OnInit {
     products1: Array<any> = [];
     dataSource2: Observable<any>;
     products2: Array<any> = [];
-    dataSource3: Observable<any>;
-    products3: Array<any> = [];
-    dataSource4: Observable<any>;
-    products4: Array<any> = [];
-    dataSource5: Observable<any>;
-    products5: Array<any> = [];
     ////方法1的 end
     chartOption1;
     chartOption2;
-    chartOption3;
-    chartOption4;
-    chartOption5;
     /**
      * 检测数据的值
      * @type {Array}
      */
     seriesInfo1 : Array<any> = [];
     seriesInfo2 : Array<any> = [];
-    seriesInfo3 : Array<any> = [];
-    seriesInfo4 : Array<any> = [];
-    seriesInfo5 : Array<any> = [];
     /**
      * 检测数据的最新值列表
      * @type {Array}
      */
     lastList1 : Array<any> = [];
-    lastList2 : Array<any> = [];
     newList : Array<any> = [];
 
     cid : string = '';
@@ -74,6 +62,9 @@ export class StationChartComponent implements OnInit {
     private isClear;
     loading : string = '数据正在努力加载中...';
     status : string = '';
+
+    nameData : Array<any> = [];
+    selectedStr : Object = {};
     constructor(
         fb:FormBuilder,
         private http: Http,
@@ -95,7 +86,6 @@ export class StationChartComponent implements OnInit {
             this.search_datapoint();
         }, 3*60*1000);
     }
-
     /**
      * 获取设备(基站)列表
      * @param number
@@ -164,7 +154,7 @@ export class StationChartComponent implements OnInit {
 
     search_datapoint(){
         this.size = 20;
-        let url = this.globalService.getTsdbDomain()+'/tsdb/api/getDatapoint.php?size='+this.size+'&cid='+this.cid+'&metric='+this.metric+'&pid='+this.pid;
+        let url = this.globalService.getTsdbDomain()+'/tsdb/api/getDatapoint.php?size='+this.size+'&cid='+this.cid+'&metric='+this.metric+'&pid='+this.pid+'&selectedStr='+this.selectedStr;
         this.dataSource1 = this.http.get(url)
             .map((res)=>res.json());
         this.dataSource1.subscribe((data)=>this.products1=data);
@@ -216,8 +206,6 @@ export class StationChartComponent implements OnInit {
      */
     getValue(num:number) {
         if(num == 1) {
-            console.log('getValue  products1:');
-            console.log(this.products1);
             if (this.products1.length == 0 && this.metric.replace('_', '') != '' && this.pid.replace(',', '') != '') {
                 this.search_datapoint();
                 return false;
@@ -247,15 +235,17 @@ export class StationChartComponent implements OnInit {
                 }
                 // console.log('this.lastList1');
                 // console.log(this.lastList1);
+
+                this.nameData[i] = dataInfo['name'];
                 if (this.lastList1 == []) {
                     result[i] = [];
                 } else {
-                    result[i] = this.common(this.seriesInfo1, dataInfo['name'], dataInfo['time']);
+                    // result[i] = this.common(this.seriesInfo1, dataInfo['name'], dataInfo['time']);
+                    result[i] = this.commonI(this.seriesInfo1, i, dataInfo['selected'], dataInfo['time']);
                 }
                 this.newList[i] = this.lastList1;
                 i++;
             }
-            console.log(result);
             return result;
         }else if(num == 2){
             if (this.products2.length == 0 && this.join_str != [] && this.join_pid != []) {
@@ -280,7 +270,7 @@ export class StationChartComponent implements OnInit {
                             data: this.products2['data'][i]['info'][entry]['value']
                         });
                     }
-                    result[i] = this.common(this.seriesInfo2, dataInfo['name'], dataInfo['time']);
+                    result[i] = this.common(this.seriesInfo2, dataInfo['name'],dataInfo['selected'], dataInfo['time']);
                 }
                 i++;
             }
@@ -289,11 +279,53 @@ export class StationChartComponent implements OnInit {
         }
     }
 
+    showLine(index : number,attr:string){
+        let attrs = this.cookieStore.getEN(attr);
+        let isShow = false;
+        console.log('this.selectedStr  length  :-----');
+        console.log(this.selectedStr);
+        for (let key in this.selectedStr) {
+            console.log(key);
+            console.log(attrs);
+            if (this.selectedStr[key] == attrs) {
+                delete this.selectedStr[key];//删除使用 delete 关键字
+                isShow = true;
+            }
+        }
+        console.log(this.selectedStr[attrs+index]);
+        if(isShow == false){
+            this.selectedStr[attrs+index] = attrs;
+        }
+        this.products1['data'][index]['selected'][attrs] = isShow;
+        console.log('this.selectedStr  products1  :-----');
+        console.log(this.selectedStr);
+        console.log(this.products1);
+
+        this.chartOption1 = this.getValue(1);
+
+        // if(this.chartOption1[index].legend.selected[attrs] == true){
+        //     this.chartOption1[index].legend.selected[attrs] = false;
+        // }else{
+        //     this.chartOption1[index].legend.selected[attrs] = true;
+        // }
+        // console.log(this.chartOption1[index]);
+    }
+
+
+    // removeByValue(arr:Array<any>, val:string) {
+    //     for(let i=0; i<arr.length; i++) {
+    //         if(arr[i] == val) {
+    //             arr.splice(i, 1);
+    //             return i;
+    //             // break;
+    //         }
+    //     }
+    // }
+
     /**
      * 返回画图
      */
-
-    common(seriesInfo:Array<any>,name:Array<any>,time:Array<any>){
+    commonI(seriesInfo:Array<any>,i:number,selected,time:Array<any>){
         let chartOption = {
             title: {
                 text: '设备检测数据'
@@ -302,7 +334,50 @@ export class StationChartComponent implements OnInit {
                 trigger: 'axis'
             },
             legend: {
-                data: name
+                data: this.nameData[i],
+                selected: selected
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    dataView: {readOnly: false},
+                    magicType: {type: ['line', 'bar']},
+                    restore: {},
+                    saveAsImage: {}
+                }
+            },
+            // grid: {
+            //     left: '3%',
+            //     right: '4%',
+            //     bottom: '3%',
+            //     containLabel: true
+            // },
+            xAxis: [{
+                type: 'category',
+                boundaryGap: false,
+                data:  time
+            }],
+            yAxis: [{
+                type: 'value'
+            }],
+            series: seriesInfo
+        };
+
+        return chartOption;
+    }
+
+
+    common(seriesInfo:Array<any>,name:Array<any>,selected,time:Array<any>){
+        let chartOption = {
+            title: {
+                text: '设备检测数据'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: name,
+                selected:selected
             },
             toolbox: {
                 show: true,

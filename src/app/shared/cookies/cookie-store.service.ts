@@ -34,6 +34,21 @@ export class CookieStoreService {
   }
 
 
+  getEN(key: string){
+    let str= {
+      '一氧化碳':'co',
+      '二氧化碳':'co2',
+      '氧气':'o2',
+      '甲烷':'ch4',
+      '温度':'temp',
+      '湿度':'humi',
+      '脑电':'eeg',
+      '心率':'ecg',
+      '血氧':'spo2h',
+    };
+    return str[key];
+  }
+
 
   in_array(stringToSearch:string, arrayToSearch:Array<any>) {
     for (let s = 0; s < arrayToSearch.length; s++) {
