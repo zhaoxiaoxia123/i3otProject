@@ -1,7 +1,8 @@
 <!-- MAIN CONTENT -->
 <div id="content">
   <div class="row">
-    <sa-big-breadcrumbs [items]="['CRM设置', '添加客户']" icon="pencil-square-o" class="col-xs-12 col-sm-9 col-md-9 col-lg-9"></sa-big-breadcrumbs>
+    <sa-big-breadcrumbs *ngIf="c_id == 0" [items]="['CRM设置', '添加客户']" icon="pencil-square-o" class="col-xs-12 col-sm-9 col-md-9 col-lg-9"></sa-big-breadcrumbs>
+    <sa-big-breadcrumbs *ngIf="c_id != 0" [items]="['CRM设置', '修改客户']" icon="pencil-square-o" class="col-xs-12 col-sm-9 col-md-9 col-lg-9"></sa-big-breadcrumbs>
   </div>
   <sa-widgets-grid>
     <div class="row">
@@ -9,7 +10,8 @@
         <sa-widget [editbutton]="false" [deletebutton]="false" >
           <header>
             <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
-            <h2>添加客户 </h2>
+            <h2 *ngIf="c_id == 0">添加客户</h2>
+            <h2 *ngIf="c_id != 0">修改客户</h2>
           </header>
           <div>
             <div class="widget-body no-padding">

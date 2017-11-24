@@ -102,8 +102,6 @@ export class RegistrationFormComponent implements OnInit {
 
   ngOnInit() {
     this.u_id = this.routInfo.snapshot.params['u_id'];
-    console.log( 'this.u_id:----');
-    console.log( this.u_id);
     if(this.u_id != 0){
       this.getUserInfo(this.u_id);
     }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FadeInTop} from '../../shared/animations/fade-in-top.decorator';
+import {ActivatedRoute} from "@angular/router";
 
 
 @FadeInTop()
@@ -9,7 +10,12 @@ import {FadeInTop} from '../../shared/animations/fade-in-top.decorator';
 })
 export class AddEmployeesComponent implements OnInit {
 
-  constructor() { }
+  u_id : number = 0;
+  constructor(
+      private routInfo : ActivatedRoute
+  ) {
+    this.u_id = this.routInfo.snapshot.params['u_id'];
+  }
 
   ngOnInit() {
   }

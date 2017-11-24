@@ -63,7 +63,6 @@ export class StationChartComponent implements OnInit {
     loading : string = '数据正在努力加载中...';
     status : string = '';
 
-    nameData : Array<any> = [];
     selectedStr : Object = {};
     constructor(
         fb:FormBuilder,
@@ -154,7 +153,8 @@ export class StationChartComponent implements OnInit {
 
     search_datapoint(){
         this.size = 20;
-        let url = this.globalService.getTsdbDomain()+'/tsdb/api/getDatapoint.php?size='+this.size+'&cid='+this.cid+'&metric='+this.metric+'&pid='+this.pid+'&selectedStr='+this.selectedStr;
+        let str = JSON.stringify(this.selectedStr);
+        let url = this.globalService.getTsdbDomain()+'/tsdb/api/getDatapoint.php?size='+this.size+'&cid='+this.cid+'&metric='+this.metric+'&pid='+this.pid+'&selectedStr='+str;
         this.dataSource1 = this.http.get(url)
             .map((res)=>res.json());
         this.dataSource1.subscribe((data)=>this.products1=data);
@@ -236,12 +236,10 @@ export class StationChartComponent implements OnInit {
                 // console.log('this.lastList1');
                 // console.log(this.lastList1);
 
-                this.nameData[i] = dataInfo['name'];
                 if (this.lastList1 == []) {
                     result[i] = [];
                 } else {
-                    // result[i] = this.common(this.seriesInfo1, dataInfo['name'], dataInfo['time']);
-                    result[i] = this.commonI(this.seriesInfo1, i, dataInfo['selected'], dataInfo['time']);
+                    result[i] = this.common(this.seriesInfo1,  dataInfo['name'], dataInfo['selected'], dataInfo['time']);
                 }
                 this.newList[i] = this.lastList1;
                 i++;
@@ -262,7 +260,6 @@ export class StationChartComponent implements OnInit {
             for (let dataInfo of this.products2['data']) {
                 if(i < this.products2['data'].length) {
                     this.seriesInfo2 = [];
-                    // this.lastList2 = [];
                     for (let entry of dataInfo['name']) {
                         this.seriesInfo2.push({
                             name: entry,
@@ -274,41 +271,29 @@ export class StationChartComponent implements OnInit {
                 }
                 i++;
             }
-            // console.log(result);
             return result;
         }
     }
 
-    showLine(index : number,attr:string){
+    /**
+     * 按条件展示线条
+     * @param index 列表索引
+     * @param attr 当前点击传感器
+     */
+    showLine(index : number,attr:string) {
         let attrs = this.cookieStore.getEN(attr);
         let isShow = false;
-        console.log('this.selectedStr  length  :-----');
-        console.log(this.selectedStr);
         for (let key in this.selectedStr) {
-            console.log(key);
-            console.log(attrs);
-            if (this.selectedStr[key] == attrs) {
+            if (key == (attrs+'_'+index)) {
                 delete this.selectedStr[key];//删除使用 delete 关键字
                 isShow = true;
             }
         }
-        console.log(this.selectedStr[attrs+index]);
-        if(isShow == false){
-            this.selectedStr[attrs+index] = attrs;
+        if(isShow == false) {
+            this.selectedStr[attrs+'_'+index] = attrs;
         }
         this.products1['data'][index]['selected'][attrs] = isShow;
-        console.log('this.selectedStr  products1  :-----');
-        console.log(this.selectedStr);
-        console.log(this.products1);
-
         this.chartOption1 = this.getValue(1);
-
-        // if(this.chartOption1[index].legend.selected[attrs] == true){
-        //     this.chartOption1[index].legend.selected[attrs] = false;
-        // }else{
-        //     this.chartOption1[index].legend.selected[attrs] = true;
-        // }
-        // console.log(this.chartOption1[index]);
     }
 
 
@@ -325,48 +310,6 @@ export class StationChartComponent implements OnInit {
     /**
      * 返回画图
      */
-    commonI(seriesInfo:Array<any>,i:number,selected,time:Array<any>){
-        let chartOption = {
-            title: {
-                text: '设备检测数据'
-            },
-            tooltip: {
-                trigger: 'axis'
-            },
-            legend: {
-                data: this.nameData[i],
-                selected: selected
-            },
-            toolbox: {
-                show: true,
-                feature: {
-                    dataView: {readOnly: false},
-                    magicType: {type: ['line', 'bar']},
-                    restore: {},
-                    saveAsImage: {}
-                }
-            },
-            // grid: {
-            //     left: '3%',
-            //     right: '4%',
-            //     bottom: '3%',
-            //     containLabel: true
-            // },
-            xAxis: [{
-                type: 'category',
-                boundaryGap: false,
-                data:  time
-            }],
-            yAxis: [{
-                type: 'value'
-            }],
-            series: seriesInfo
-        };
-
-        return chartOption;
-    }
-
-
     common(seriesInfo:Array<any>,name:Array<any>,selected,time:Array<any>){
         let chartOption = {
             title: {
