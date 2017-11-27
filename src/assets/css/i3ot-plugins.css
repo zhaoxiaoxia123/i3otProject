@@ -465,6 +465,9 @@ div.dataTables_paginate ul.pagination {
 .percent-50{
     width:50%!important
 }
+.percent-100{
+    width:100%!important
+}
 
 /*内边距 padding*/
 
@@ -485,6 +488,9 @@ div.dataTables_paginate ul.pagination {
     margin-bottom: 0!important;
     margin-top: 0!important;
     border-bottom-width: 0!important
+}
+.no-padding .dataTables_wrapper .table-newdata{
+    border: 1px solid #ddd!important;
 }
 
 .no-padding-bottom {
