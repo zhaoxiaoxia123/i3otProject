@@ -92,7 +92,7 @@
                     <td class="percent-16" *ngIf="il.i3otp_attribute1.length==0 && il.i3otp_attribute2.length==0 && il.i3otp_attribute3.length==0">
                     </td>
                   </tr>
-                  <tr role="row" *ngIf="status.indexOf(ind+',') != -1" [ngClass]="{ 'odd shown' : (ind%2 == 0), 'even shown': (ind%2 != 0) }"><!-- shown-->
+                  <tr role="row" *ngIf="status.indexOf(ind+',') != -1" [ngClass]="{ 'odd' : (ind%2 == 0), 'even': (ind%2 != 0) ,'shown':true} "><!-- shown-->
                     <td class=" details-control percent-6" (click)="changeStatus(ind,'-')">
                     </td>
                     <td class="percent-12">
@@ -144,6 +144,7 @@
                                   <tr>
                                     <th >名称</th>
                                     <th>数据</th>
+                                    <th>时间</th>
                                   </tr>
                                   </thead>
                                   <tbody>
@@ -152,6 +153,7 @@
                                       <strong>{{ll.name}}</strong>
                                     </td>
                                     <td>{{ll.value}}%</td>
+                                    <td>{{ll.time}}</td>
                                   </tr>
                                   </tbody>
                                 </table>
