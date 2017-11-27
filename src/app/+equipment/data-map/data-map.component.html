@@ -125,9 +125,15 @@
             <div class="col-sm-12">
               <div class="form-group">
 
-                <label><a (click)="showDayData('new',0)" style="border: 1px solid;margin: 10px;">{{showMetric}}</a></label>
-                <label><a (click)="showDayData('day',2)" style="border: 1px solid;margin: 10px;">日平均</a></label>
+                <button class="btn btn-primary"  (click)="showDayData('new',0)">{{showMetric}}实时数据</button>
+                <button class="btn btn-primary"  (click)="showDayData('day',2)">日平均</button>
                 </div>
+              <!--<div class="btn-group">
+                <button class="btn btn-primary" [(ngModel)]="checkModel.left"
+                        btnCheckbox>Left</button>
+                <button class="btn btn-primary" [(ngModel)]="checkModel.middle" btnCheckbox>Middle</button>
+                <button class="btn btn-primary" [(ngModel)]="checkModel.right" btnCheckbox>Right</button>
+              </div>-->
             </div>
           </div>
         </div>
