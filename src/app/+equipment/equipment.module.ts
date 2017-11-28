@@ -25,6 +25,8 @@ import { FullTablesComponent } from './full-tables/full-tables.component';
 import { TodoDetailsComponent } from './todo-details/todo-details.component';
 import {XEditableWidgetComponent} from "./x-editable-widget/x-editable-widget.component";
 import {DuallistboxWidgetComponent} from "./duallistbox-widget/duallistbox-widget.component";
+import { EquipmentListComponent } from './equipment-list/equipment-list.component';
+import { AddEquipmentComponent } from './add-equipment/add-equipment.component';
 
 @NgModule({
   imports: [
@@ -49,7 +51,9 @@ import {DuallistboxWidgetComponent} from "./duallistbox-widget/duallistbox-widge
     DataMapComponent,
     KeysPipe,
     FullTablesComponent,
-    TodoDetailsComponent
+    TodoDetailsComponent,
+    EquipmentListComponent,
+    AddEquipmentComponent
   ],
     exports : [
   KeysPipe

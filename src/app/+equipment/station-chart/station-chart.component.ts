@@ -417,10 +417,11 @@ export class StationChartComponent implements OnInit {
         // console.log(this.join_str);
         this.notificationService.bigBox({
             title: "设备数据对比",
+            icon: "glyphicon glyphicon-adjust swing animated",
             content: "点击查看详情按钮查看对比情况<p class='text-align-right'><a  class='btn btn-warning btn-sm' onclick='showJoinPic();this.lgModal.show()'>查看详情</a> </p>",
             color: "#3276B1",
-            timeout: 8000,
-            icon: "glyphicon glyphicon-adjust swing animated",
+            /*timeout: 8000,*/
+
             number: this.join_pid.length
         });
     }

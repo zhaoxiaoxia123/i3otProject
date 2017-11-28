@@ -112,128 +112,89 @@
       </div>
     </div>
   </sa-widget>
-  <!--<app-helmet-details></app-helmet-details>-->
-  <!--详情信息 start-->
-  <sa-widget *ngIf="i3otpInfo.length != 0" [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
-    <header>
-      <ul class="nav nav-tabs pull-left in">
-        <li [class.active]="state.tabs.demo3=='hr1'">
-          <a >
-            <span class="hidden-mobile"> 详细信息 </span>
-          </a>
-        </li>
-      </ul>
-    </header>
-    <div>
-      <div class="widget-body" id="show">
-        <tabset>
-          <tab [active]="state.tabs.demo3 == 'hr1'">
-            <div class="row">
-              <div class="col-sm-4">
-                <div class="well">
-                  <P class="alert alert-info">基本资料</P>
-                  <table class="table table-striped table-forum">
-                    <tbody>
-                    <tr>
-                      <td class="width-120">设备ID:</td>
-                      <td class="">{{ i3otpInfo.result?.i3otp_pid }}</td>
-                    </tr>
-                    <tr><td class="width-120">设备ID-名称:</td>
-                      <td class="">{{ i3otpInfo.result?.i3otp_name }}</td>
-                    </tr>
-                    <tr>
-                      <td class="width-120">员工编号:</td>
-                      <td class="">{{ i3otpInfo.result?.name }}</td>
-                    </tr>
-                    <tr><td class="width-120">姓名:</td>
-                      <td class="">{{ i3otpInfo.result?.u_username }}</td>
-                    </tr>
-                    <tr>
-                      <td class="width-120">性别:</td>
-                      <td class="">{{ (i3otpInfo.result?.u_gender == 1)?'男':'女' }}</td>
-                    </tr>
-                    <tr>
-                      <td class="width-120">所属部门:</td>
-                      <td class="">{{ i3otpInfo.result?.category_desc }}</td>
-                    </tr>
-                    <tr><td class="width-120">职务:</td>
-                      <td class="">{{ i3otpInfo.result?.u_position }}</td>
-                    </tr>
-                    <tr>
-                      <td class="width-120">采集数据时间:</td>
-                      <td class="">{{ i3otpInfo.result?.i3otp_sensor_intervan }}</td>
-                    </tr>
-                    <tr><td class="width-120">采集数据地址:</td>
-                      <td class="">{{ i3otpInfo.result?.i3otp_address }}</td>
-                    </tr>
-                    </tbody>
-                  </table>
-                </div>
+
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-sm-12">
+        <sa-widget  [editbutton]="false" [deletebutton]="false" color="darken">
+          <header><span class="widget-icon"> <i class="fa fa-comments"></i> </span>
+            <h2>基站图表</h2>
+            <div class="jarviswidget-ctrls" role="menu">
+              <a routerLink="/equipment/chart-setting" href="javascript:void(0);" class="button-icon jarviswidget-edit-btn" rel="tooltip" title="Edit" data-placement="bottom">
+                <i class="fa fa-cog"></i></a>
+            </div>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <div class="row">
+                <article class="col-sm-12">
+                  <div class="navbar navbar-default">
+                    <div class="collapse navbar-collapse" >
+                      <form class="navbar-form navbar-left" role="search" [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate >
+                        <div class="form-group">
+                          <input type="text" name="keyword" maxlength="15" formControlName="keyword" class="form-control" placeholder="请输入搜索内容">
+                        </div>
+                        <button type="submit" class="btn btn-default">
+                          <i class="glyphicon glyphicon-search"></i>
+                          搜索
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </article>
               </div>
-              <div class="col-sm-4">
-                <div class="well">
-                  <P class="alert alert-info">检测气体数据</P>
-                  <table class="table table-striped table-forum">
-                    <tbody>
-                    <tr>
-                      <td class="width-120">甲烷:</td>
-                      <td class="">{{ i3otpInfo.result?.detail.ch4 }}</td>
-                    </tr>
-                    <tr><td class="width-120">一氧化碳:</td>
-                      <td class="">{{ i3otpInfo.result?.detail.co }}</td>
-                    </tr>
-                    <tr>
-                      <td class="width-120">二氧化碳:</td>
-                      <td class="">{{ i3otpInfo.result?.detail.co2 }}</td>
-                    </tr>
-                    <tr><td class="width-120">氧气:</td>
-                      <td class="">{{ i3otpInfo.result?.detail.o2 }}</td>
-                    </tr>
-                    </tbody>
-                  </table>
-                </div>
+              <div class="dataTables_wrapper">
+
               </div>
-              <div class="col-sm-4">
-                <div class="well">
-                  <P class="alert alert-info">温湿度</P>
-                  <table class="table table-striped table-forum">
-                    <tbody>
-                    <tr>
-                      <td class="width-120">温度:</td>
-                      <td class="">{{ i3otpInfo.result?.detail.temp }}</td>
-                    </tr>
-                    <tr><td class="width-120">湿度:</td>
-                      <td class="">{{ i3otpInfo.result?.detail.humi }}</td>
-                    </tr>
-                    </tbody>
-                  </table>
+
+              <!-- 底部-（分页部分）-->
+
+              <div class="dt-toolbar-footer">
+                <div class="col-sm-6 col-xs-12 hidden-xs">
+                  <div class="dataTables_info"  role="status" aria-live="polite">
+                  </div>
                 </div>
-                <div class="well">
-                  <P class="alert alert-info">健康</P>
-                  <table class="table table-striped table-forum">
-                    <tbody>
-                    <tr>
-                      <td class="width-120">脑电:</td>
-                      <td class="">{{ i3otpInfo.result?.detail.eeg }}</td>
-                    </tr>
-                    <tr><td class="width-120">心率:</td>
-                      <td class="">{{ i3otpInfo.result?.detail.ecg }}</td>
-                    </tr>
-                    <tr><td class="width-120">血氧:</td>
-                      <td class="">{{ i3otpInfo.result?.detail.spo2h }}</td>
-                    </tr>
-                    </tbody>
-                  </table>
+                <div class="col-sm-6 col-xs-12 hidden-xs text-right">
+                  <ul class="pagination">
+                    <li>
+                      <a (click)="pagination(i3otpList.result?.i3otpList?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>
+                    </li>
+                    <li>
+                      <a (click)="pagination(i3otpList.result?.i3otpList?.next_page_url)"><i class="fa fa-arrow-right"></i></a>
+                    </li>
+                  </ul>
+                  <!--<ul class="pagination pagination-sm">-->
+                  <!--<li class="disabled">-->
+                  <!--<a href="">上一页</a>-->
+                  <!--</li>-->
+                  <!--<li class="success">-->
+                  <!--<a href="">1</a>-->
+                  <!--</li>-->
+                  <!--<li>-->
+                  <!--<a href="">2</a>-->
+                  <!--</li>-->
+                  <!--<li>-->
+                  <!--<a href="">3</a>-->
+                  <!--</li>-->
+                  <!--<li>-->
+                  <!--<a href="">...</a>-->
+                  <!--</li>-->
+                  <!--<li>-->
+                  <!--<a href="">99</a>-->
+                  <!--</li>-->
+                  <!--<li>-->
+                  <!--<a href="">下一页</a>-->
+                  <!--</li>-->
+                  <!--</ul>-->
                 </div>
               </div>
             </div>
-          </tab>
-        </tabset>
-      </div>
-      <!-- end widget content -->
+          </div>
+        </sa-widget>
+
+      </article>
     </div>
-    <!-- end widget div -->
-  </sa-widget>
+  </sa-widgets-grid>
   <!--详情信息 end-->
 </div>
 

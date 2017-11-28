@@ -130,24 +130,14 @@
         <a href="#"><i class="fa fa-lg fa-fw  fa-list"></i> <span
                 class="menu-item-parent">{{'设备管理' | i18n}}</span></a>
         <ul>
-
+          <li routerLinkActive="active">
+            <a routerLink="/equipment/equipment-list">{{'设备列表' | i18n}}</a>
+          </li>
           <li routerLinkActive="active">
             <a routerLink="/equipment/data-map">{{'数据对比' | i18n}}</a>
           </li>
           <li routerLinkActive="active">
-            <a routerLink="/equipment/i3otp/0">{{'添加设备' | i18n}}</a>
-          </li>
-          <li routerLinkActive="active">
-            <a routerLink="/equipment/phonics">{{'添加语音文字' | i18n}}</a>
-          </li>
-          <li routerLinkActive="active">
-            <a routerLink="/equipment/helmet-list">{{'安全帽' | i18n}}</a>
-          </li>
-          <li routerLinkActive="active">
             <a routerLink="/equipment/helmet-chart">{{'人员查看' | i18n}}</a>
-          </li>
-          <li routerLinkActive="active">
-            <a routerLink="/equipment/station-list">{{'基站设备' | i18n}}</a>
           </li>
           <li routerLinkActive="active">
             <a routerLink="/equipment/station-chart">{{'基站设备图表' | i18n}}</a>
@@ -157,6 +147,12 @@
           </li>
           <li routerLinkActive="active">
             <a routerLink="/equipment/equipment-positioning">{{'定位' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/equipment/add-equipment">{{'添加设备' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/equipment/phonics">{{'添加语音文字' | i18n}}</a>
           </li>
           <li routerLinkActive="active">
             <a routerLink="/equipment/chart-setting">{{'图表设置' | i18n}}</a>
@@ -173,10 +169,22 @@
           <li routerLinkActive="active">
             <a routerLink="/equipment/full-tables">{{'全员查看' | i18n}}</a>
           </li>
+          <li routerLinkActive="active">
+            <a routerLink="/equipment/helmet-list">{{'安全帽' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/equipment/station-list">{{'基站设备' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/equipment/i3otp/0">{{'添加设备' | i18n}}</a>
+          </li>
 
         </ul>
       </li>
     </ul>
+
   </nav>
+
   <sa-minify-menu></sa-minify-menu>
+
 </aside>

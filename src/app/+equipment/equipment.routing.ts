@@ -16,6 +16,8 @@ import {UnsavedGuard} from "../shared/cookies/unsaved.guard";
 import {ChartGuard} from "../shared/cookies/chart.guard";
 import {FullTablesComponent} from "./full-tables/full-tables.component";
 import {TodoDetailsComponent} from "./todo-details/todo-details.component";
+import {EquipmentListComponent} from "./equipment-list/equipment-list.component";
+import {AddEquipmentComponent} from "./add-equipment/add-equipment.component";
 
 export const routes:Routes = [
     {
@@ -67,6 +69,14 @@ export const routes:Routes = [
     {
         path: 'todo-details',
         component: TodoDetailsComponent
+    },
+    {
+        path: 'equipment-list',
+        component: EquipmentListComponent
+    },
+    {
+        path: 'add-equipment',
+        component: AddEquipmentComponent
     },
 ];
 
