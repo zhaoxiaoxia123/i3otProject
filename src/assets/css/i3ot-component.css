@@ -3142,3 +3142,10 @@ div.dataTables_editor{
     border-top: 1px solid #eee;
     background: rgba(113,132,63,.1)
 }
+
+
+/*加载*/
+.modal-dialog-loading{
+    top:50%;
+    text-align:center;
+}

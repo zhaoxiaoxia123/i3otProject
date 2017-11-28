@@ -130,9 +130,7 @@
         <a href="#"><i class="fa fa-lg fa-fw  fa-list"></i> <span
                 class="menu-item-parent">{{'设备管理' | i18n}}</span></a>
         <ul>
-          <li routerLinkActive="active">
-            <a routerLink="/equipment/full-tables">{{'全员查看' | i18n}}</a>
-          </li>
+
           <li routerLinkActive="active">
             <a routerLink="/equipment/data-map">{{'数据对比' | i18n}}</a>
           </li>
@@ -166,6 +164,16 @@
           <li routerLinkActive="active">
             <a routerLink="/equipment/todo-details">{{'待办事项详情' | i18n}}</a>
           </li>
+        </ul>
+      </li>
+      <li *ngIf="is_admin=='1'">
+        <a href="#"><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i> <span
+                class="menu-item-parent">{{'收藏夹' | i18n}}</span></a>
+        <ul>
+          <li routerLinkActive="active">
+            <a routerLink="/equipment/full-tables">{{'全员查看' | i18n}}</a>
+          </li>
+
         </ul>
       </li>
     </ul>

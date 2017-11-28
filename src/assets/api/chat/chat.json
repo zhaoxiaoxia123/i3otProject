@@ -50,7 +50,7 @@
         {
             "user": {
                 "username": "John Doe",
-                "picture": "assets/img/avatars/sunny.png",
+                "picture": "assets/img/avatars/male.png",
                 "status": "Online"
             },
             "date": "2014-10-01T21:09:08.388Z",
