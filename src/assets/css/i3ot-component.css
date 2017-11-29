@@ -3152,3 +3152,6 @@ div.dataTables_editor{
     top:50%;
     text-align:center;
 }
+.modal-dialog-loading h4{
+    font-weight:600;
+}
