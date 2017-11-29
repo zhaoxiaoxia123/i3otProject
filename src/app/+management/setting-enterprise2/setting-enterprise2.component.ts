@@ -179,12 +179,21 @@ export class SettingEnterprise2Component implements OnInit {
     /**
      * 所属行业分页
      * @param url
-     */
     pagination(category_type:number,url : string) {
         if(url) {
             this.pageI = url.substring((url.lastIndexOf('=') + 1), url.length);
             this.getOrderCategory(category_type,this.pageI);
         }
+    } */
+
+    /**
+     * 页码分页
+     * @param category_type
+     * @param page
+     */
+    pagination(category_type:number,page : string) {
+        this.pageI = page;
+        this.getOrderCategory(category_type,this.pageI);
     }
 
     /**
