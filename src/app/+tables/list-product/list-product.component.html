@@ -8,131 +8,139 @@
       <span class="glyphicon glyphicon-plus"></span>添加产品</a>
   </div>
 
-  <sa-widget [editbutton]="false" color="blueDark">
-    <header>
-      <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-      <h2>产品列表 </h2>
-    </header>
-    <div>
-      <div class="widget-body no-padding">
-        <div class="row">
-          <article class="col-sm-12">
-            <div class="navbar navbar-default">
-              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <form class="navbar-form navbar-left" role="search" [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate>
-                  <div class="form-group">
-                    <input type="text" name="keyword" maxlength="15" formControlName="keyword" class="form-control" placeholder="请输入搜索内容">
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-sm-12 ">
+        <sa-widget [editbutton]="false" [deletebutton]="false" color="darken">
+          <header>
+            <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+            <h2>产品列表 </h2>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <div class="row">
+                <article class="col-sm-12">
+                  <div class="navbar navbar-default">
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                      <form class="navbar-form navbar-left" role="search" [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate>
+                        <div class="form-group">
+                          <input type="text" name="keyword" maxlength="15" formControlName="keyword" class="form-control" placeholder="请输入搜索内容">
+                        </div>
+                        <button type="submit" class="btn btn-default">
+                          <i class="glyphicon glyphicon-search"></i>
+                          搜索
+                        </button>
+                      </form>
+                      <!--<ul class="nav navbar-nav navbar-right">
+                        <li dropdown class="dropdown">
+                          <a (click)="(null)" dropdownToggle>自定义显示内容 <span class="caret"></span></a>
+                          <ul *dropdownMenu  role="menu" class="dt-button-collection dropdown-menu" >
+                            <li class="dt-button  active"  >
+                              <a (click)="(null)">ID</a>
+                            </li>
+                            <li class="dt-button  active " >
+                              <a (click)="(null)" >订单号/合同号</a>
+                            </li>
+                            <li class="dt-button active " tabindex="0" >
+                              <a (click)="(null)">类型</a>
+                            </li>
+                            <li class="dt-button active " tabindex="0" >
+                              <a (click)="(null)">规格/参数</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li class="dt-button  ">
+                              <a (click)="(null)">购买公司</a>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>-->
+                    </div>
                   </div>
-                  <button type="submit" class="btn btn-default">
-                    <i class="glyphicon glyphicon-search"></i>
-                    搜索
+                </article>
+              </div>
+              <sa-datatable tableClass="table table-striped table-bordered table-hover smart-form">
+                <thead>
+                <tr>
+                  <td>
+                    <label class="checkbox">
+                      <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)">
+                      <i></i>
+                    </label>
+                  </td>
+                  <th>产品ID</th>
+                  <th>产品名称</th>
+                  <th>产品类型</th>
+                  <th>数量</th>
+                  <th>计量单位 </th>
+                  <th>生产日期</th>
+                  <th>存放仓库</th>
+                  <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr style="display: none;">
+                  <td></td><td></td><td></td><td></td>
+                  <td></td><td></td><td></td><td></td>
+                  <td></td>
+                </tr>
+                <tr *ngFor="let pl of productList.result?.data">
+                  <td>
+                    <label class="checkbox">
+                      <input type="checkbox" value="{{ pl.p_id }}" [checked]="selects[pl.p_id]" (change)="handle($event)">
+                      <i></i>
+                    </label>
+                  </td>
+                  <td>{{ pl.p_product_id }}</td>
+                  <td>{{ pl.p_name }}</td>
+                  <td>{{ pl.category }}</td>
+                  <td>{{ pl.p_quantity }}</td>
+                  <td>{{ pl.p_unit }}</td>
+                  <td>{{ pl.p_production_date }}</td>
+                  <td>{{ pl.storehouse_name }}</td>
+                  <td>
+                    <a class="btn btn-warning btn-xs" [routerLink]="['/forms/product1', pl.p_id]">
+                      <span class="glyphicon glyphicon-pencil"></span>修改
+                    </a>
+                    <a class="btn btn-danger btn-xs" (click)="deleteProduct( pl.p_id ,productList.result?.current_page)">
+                      <span class="glyphicon glyphicon-remove"></span>删除
+                    </a>
+                    <a class="btn btn-success btn-xs" (click)="getProductInfo( pl.p_id );lgModal.show();">
+                      <span class="glyphicon glyphicon-zoom-in"></span>详情
+                    </a>
+                  </td>
+                </tr>
+                </tbody>
+              </sa-datatable>
+              <!-- 分页部分-->
+              <!-- 底部-（分页部分）-->
+              <div class="dt-toolbar">
+                <div class="col-xs-12 col-sm-6">
+                  <button  class="btn btn-default" (click)="deleteProductAll(productList.result?.current_page)">
+                    <i class="fa fa-trash-o fa-lg"></i>
+                    删除所选
                   </button>
-                </form>
-                <!--<ul class="nav navbar-nav navbar-right">
-                  <li dropdown class="dropdown">
-                    <a (click)="(null)" dropdownToggle>自定义显示内容 <span class="caret"></span></a>
-                    <ul *dropdownMenu  role="menu" class="dt-button-collection dropdown-menu" >
-                      <li class="dt-button  active"  >
-                        <a (click)="(null)">ID</a>
+                </div>
+                <div class="col-sm-6 col-xs-12 hidden-xs text-right">
+                  <div class="dataTables_paginate">
+                    <ul class="pagination">
+                      <li>
+                        <a (click)="pagination(productList.result?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>
                       </li>
-                      <li class="dt-button  active " >
-                        <a (click)="(null)" >订单号/合同号</a>
-                      </li>
-                      <li class="dt-button active " tabindex="0" >
-                        <a (click)="(null)">类型</a>
-                      </li>
-                      <li class="dt-button active " tabindex="0" >
-                        <a (click)="(null)">规格/参数</a>
-                      </li>
-                      <li class="divider"></li>
-                      <li class="dt-button  ">
-                        <a (click)="(null)">购买公司</a>
+                      <li>
+                        <a (click)="pagination(productList.result?.next_page_url)"><i class="fa fa-arrow-right"></i></a>
                       </li>
                     </ul>
-                  </li>
-                </ul>-->
+                  </div>
+                </div>
               </div>
             </div>
-          </article>
-        </div>
-        <sa-datatable tableClass="table table-striped table-bordered table-hover smart-form">
-          <thead>
-          <tr>
-            <td>
-              <label class="checkbox">
-                <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)">
-                <i></i>
-              </label>
-            </td>
-            <th>产品ID</th>
-            <th>产品名称</th>
-            <th>产品类型</th>
-            <th>数量</th>
-            <th>计量单位 </th>
-            <th>生产日期</th>
-            <th>存放仓库</th>
-            <th>操作</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr style="display: none;">
-            <td></td><td></td><td></td><td></td>
-            <td></td><td></td><td></td><td></td>
-            <td></td>
-          </tr>
-          <tr *ngFor="let pl of productList.result?.data">
-            <td>
-              <label class="checkbox">
-                <input type="checkbox" value="{{ pl.p_id }}" [checked]="selects[pl.p_id]" (change)="handle($event)">
-                <i></i>
-              </label>
-            </td>
-            <td>{{ pl.p_product_id }}</td>
-            <td>{{ pl.p_name }}</td>
-            <td>{{ pl.category }}</td>
-            <td>{{ pl.p_quantity }}</td>
-            <td>{{ pl.p_unit }}</td>
-            <td>{{ pl.p_production_date }}</td>
-            <td>{{ pl.storehouse_name }}</td>
-            <td>
-              <a class="btn btn-warning btn-xs" [routerLink]="['/forms/product1', pl.p_id]">
-                <span class="glyphicon glyphicon-pencil"></span>修改
-              </a>
-              <a class="btn btn-danger btn-xs" (click)="deleteProduct( pl.p_id ,productList.result?.current_page)">
-                <span class="glyphicon glyphicon-remove"></span>删除
-              </a>
-              <a class="btn btn-success btn-xs" (click)="getProductInfo( pl.p_id );lgModal.show();">
-                <span class="glyphicon glyphicon-zoom-in"></span>详情
-              </a>
-            </td>
-          </tr>
-          </tbody>
-        </sa-datatable>
-        <!-- 分页部分-->
-        <!-- 底部-（分页部分）-->
-        <div class="dt-toolbar">
-          <div class="col-xs-12 col-sm-6">
-            <button  class="btn btn-default" (click)="deleteProductAll(productList.result?.current_page)">
-              <i class="fa fa-trash-o fa-lg"></i>
-              删除所选
-            </button>
           </div>
-          <div class="col-sm-6 col-xs-12 hidden-xs text-right">
-        <div class="dataTables_paginate">
-          <ul class="pagination">
-            <li>
-              <a (click)="pagination(productList.result?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>
-            </li>
-            <li>
-              <a (click)="pagination(productList.result?.next_page_url)"><i class="fa fa-arrow-right"></i></a>
-            </li>
-          </ul>
-        </div>
-          </div>
-        </div>
-      </div>
+        </sa-widget>
+      </article>
     </div>
-  </sa-widget>
+  </sa-widgets-grid>
+
+
 
   <div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
        aria-hidden="true">
