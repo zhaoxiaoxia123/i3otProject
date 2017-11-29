@@ -2386,12 +2386,6 @@ table.dataTable tfoot>tr>th input,table.dataTable thead>tr>th input {
 table.dataTable thead>tr>th.hasinput {
     padding: 6px!important
 }
-.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
-    padding: 8px;
-    line-height: 1.42857143;
-    vertical-align: top;
-    border-top: 0 solid #ddd;
-}
 
 div.dataTables_info {
     padding-top: 9px;
@@ -2570,8 +2564,11 @@ ul.ColVis_collection li label {
 .dataTables_scroll .dataTables_scrollHead {
     background: #f4f4f4
 }
+.table-forum{
+    border: 1px solid #ddd;
+}
 .table-forum tr td {
-    border-top-style: dashed!important;
+    /*border-top-style: dashed!important;*/
     padding-top: 12px!important;
     padding-bottom: 12px!important
 }
