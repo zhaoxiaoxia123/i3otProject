@@ -166,7 +166,7 @@
                   <section class="col col-10">
                     <label class="label">参数内容</label>
                     <label class="textarea textarea-resizable">
-                      <textarea class="custom-scroll" rows="5" name="specifications" formControlName="specifications"></textarea>
+                      <textarea class="custom-scroll" rows="5" name="specifications" formControlName="specifications" placeholder="格式如：xx1:yy1;xx2:yy2;"></textarea>
                     </label>
                   </section>
                     <div class="col-lg-2">
@@ -235,59 +235,52 @@
   </sa-widgets-grid>
   <!-- end widget grid -->
 
-
   <div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
        aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" (click)="lgModal.hide()" aria-label="Close">
+          <button type="button" class="close" (click)="getProductDefault(2)" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
           <h4 class="modal-title">添加类型</h4>
         </div>
         <div class="modal-body">
-
           <div class="row">
             <div class="col-md-12">
-
               <section class="col col-md-8">
                 <label > 一级</label>
-
                 <div class="form-group">
-                  <input type="text" class="form-control" placeholder="请输入类型" required>
+                  <input type="text" class="form-control" placeholder="请输入类型" minlength="1" maxlength="20" [(ngModel)]="category_desc1" name="category_desc1" required>
                 </div>
               </section>
               <section class="col col-4">
-                <button class="btn btn-warning btn-xs text-center"  style="padding:6px;margin:24px 0;" >
+                <button class="btn btn-warning btn-xs text-center" (click)="submitCategory(1)" style="padding:6px;margin:24px 0;" >
                   <i class="fa fa-plus"></i> <span class="hidden-mobile">保存并添加二级类型</span>
                 </button>
               </section>
             </div>
             <div class="col-md-12" style="padding-left:60px;">
-
               <section class="col col-md-8">
                 <label > 二级</label>
-
                 <div class="form-group">
-                  <input type="text" class="form-control" placeholder="请输入类型" required>
+                  <input type="text" class="form-control" placeholder="请输入类型" minlength="1" maxlength="20" [(ngModel)]="category_desc2" name="category_desc2" required>
                 </div>
               </section>
               <section class="col col-4">
-                <button class="btn btn-warning btn-xs text-center"  style="padding:6px;margin:24px 0;" >
+                <button class="btn btn-warning btn-xs text-center" (click)="submitCategory(2)" style="padding:6px;margin:24px 0;" >
                   <i class="fa fa-plus"></i> <span class="hidden-mobile">保存并添加二级类型</span>
                 </button>
               </section>
             </div>
           </div>
-
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" (click)="lgModal.hide()">
-            返回
-          </button>
-          <button type="button" class="btn btn-primary" (click)="lgModal.hide()">
-            保存
+          <!--<button type="button" class="btn btn-default" (click)="getProductDefault(2)">-->
+            <!--返回-->
+          <!--</button>-->
+          <button type="button" class="btn btn-primary" (click)="getProductDefault(2)">
+            关闭
           </button>
         </div>
       </div>

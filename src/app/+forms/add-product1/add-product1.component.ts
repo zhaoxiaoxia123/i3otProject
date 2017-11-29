@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FadeInTop} from '../../shared/animations/fade-in-top.decorator';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Http} from '@angular/http';
 import {ActivatedRoute, Router,Params} from '@angular/router';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 import {GlobalService} from '../../core/global.service';
+import {ModalDirective} from "ngx-bootstrap";
 declare var $: any;
 @FadeInTop()
 @Component({
@@ -27,6 +28,11 @@ export class AddProduct1Component implements OnInit {
   category_id2_default : number;
   inspector_default : number;
   storehouse_default : number;
+
+  //类型变量
+  category_id1 : number = 0;
+  category_desc1: string;
+  category_desc2: string;
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -63,7 +69,7 @@ export class AddProduct1Component implements OnInit {
     if(this.p_id != 0){
       this.getproductInfo(this.p_id);
     }
-    this.getProductDefault();
+    this.getProductDefault(1);
   }
 
   getproductInfo(p_id:number){
@@ -111,7 +117,7 @@ export class AddProduct1Component implements OnInit {
   /**
    * 获取添加客户的默认参数
    */
-  getProductDefault() {
+  getProductDefault(num:number) {
     this.http.get(this.globalService.getDomain()+'/api/v1/getProductDefault?sid='+this.cookieStore.getCookie('sid'))
         .map((res)=>res.json())
         .subscribe((data)=>{
@@ -131,6 +137,9 @@ export class AddProduct1Component implements OnInit {
         }
         this.inspector_default = this.productList['result']['inspectorList'].length >= 1 ? this.productList['result']['inspectorList'][0]['id'] : 0;
         this.storehouse_default = this.productList['result']['storeHouseList'].length >= 1 ? this.productList['result']['storeHouseList'][0]['storehouse_id'] : 0;
+      }
+      if(num == 2){
+        this.lgModal.hide();
       }
     }, 300);
   }
@@ -280,4 +289,70 @@ export class AddProduct1Component implements OnInit {
     this.is_showDiv = (this.is_showDiv == false) ? true : false;
   }
 
+  /**
+   * 添加产品类型
+   */
+  submitCategory(number:number){
+    if(number == 1){  //发布一级类型
+      console.log(this.category_desc1);
+       //发布一级类型文字信息
+        if(this.category_desc1 == '' || !this.category_desc1){
+          alert("请输入要添加的信息！");
+          return false;
+        }
+        this.http.post(this.globalService.getDomain()+'/api/v1/addCategory',{
+          'category_desc':this.category_desc1,
+          'category_type':6,
+          'category_depth':0,
+          // 'category_id':this.category_id1,
+          'sid':this.cookieStore.getCookie('sid')
+        }).subscribe(
+            (data)=>{
+              let info =JSON.parse(data['_body']);
+              alert(info['msg']);
+              if(info['status'] == 202){
+                this.cookieStore.removeAll();
+                this.router.navigate(['/auth/login']);
+              }
+              if(info['status'] == 203){
+                return false;
+              }
+              this.category_id1 = info['result'][0]['category_id'];
+            }
+        );
+    }else if(number == 2){//添加二级类型信息
+      console.log(this.category_desc2);
+      if(this.category_id1 == 0){
+        alert("没有一级类型，无法添加二级类型！");
+        return false;
+      }
+      if(this.category_desc2 == '' || !this.category_desc2){
+        alert("请输入要添加的信息！");
+        return false;
+      }
+      this.http.post(this.globalService.getDomain()+'/api/v1/addCategory',{
+        'category_desc':this.category_desc2,
+        'category_type':6,
+        'category_depth':this.category_id1,
+        // 'category_id':this.category_id2,
+        'sid':this.cookieStore.getCookie('sid')
+      }).subscribe(
+          (data)=>{
+            let info =JSON.parse(data['_body']);
+            alert(info['msg']);
+            if(info['status'] == 202){
+              this.cookieStore.removeAll();
+              this.router.navigate(['/auth/login']);
+            }
+            if(info['status'] == 203){
+              return false;
+            }
+            this.category_desc2 = '';//置空
+          }
+      );
+    }
+  }
+
+
+  @ViewChild('lgModal') public lgModal:ModalDirective;
 }
