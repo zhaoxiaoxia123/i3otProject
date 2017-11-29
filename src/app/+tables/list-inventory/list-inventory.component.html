@@ -88,7 +88,7 @@
                   <td></td><td></td><td></td><td></td>
                   <td></td><td></td><td></td>
                 </tr>
-                <tr  *ngFor="let sl of storehouseList.result?.data">
+                <tr *ngFor="let sl of storehouseList.result?.data">
                   <td>
                     <label class="checkbox">
                       <input type="checkbox" value="{{ sl.storehouse_id }}" [checked]="selects[sl.storehouse_id]" (change)="handle($event)">
@@ -128,14 +128,20 @@
                 <div class="col-sm-6 col-xs-12 hidden-xs text-right">
 
                   <div class="dataTables_paginate">
-                    <ul class="pagination">
-                      <li>
-                        <a (click)="pagination(storehouseList.result?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>
-                      </li>
-                      <li>
-                        <a (click)="pagination(storehouseList.result?.next_page_url)"><i class="fa fa-arrow-right"></i></a>
+                    <ul class="pagination pagination-sm">
+                      <li *ngFor="let p of storehouseList?.page" class="{{p.class}}">
+                        <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+                        <a *ngIf="p.method==''">{{p.text}}</a>
                       </li>
                     </ul>
+                    <!--<ul class="pagination">-->
+                      <!--<li>-->
+                        <!--<a (click)="pagination(storehouseList.result?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>-->
+                      <!--</li>-->
+                      <!--<li>-->
+                        <!--<a (click)="pagination(storehouseList.result?.next_page_url)"><i class="fa fa-arrow-right"></i></a>-->
+                      <!--</li>-->
+                    <!--</ul>-->
                   </div>
 
                 </div>
@@ -157,7 +163,7 @@
           <button type="button" class="close" (click)="lgModal.hide()" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h4 class="modal-title">读取仓库名称</h4>
+          <h4 class="modal-title">{{storehouse_info.result?.storehouse_name}}</h4>
         </div>
         <div class="modal-body">
 

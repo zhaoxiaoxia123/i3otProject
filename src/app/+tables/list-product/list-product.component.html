@@ -122,14 +122,20 @@
                 </div>
                 <div class="col-sm-6 col-xs-12 hidden-xs text-right">
                   <div class="dataTables_paginate">
-                    <ul class="pagination">
-                      <li>
-                        <a (click)="pagination(productList.result?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>
-                      </li>
-                      <li>
-                        <a (click)="pagination(productList.result?.next_page_url)"><i class="fa fa-arrow-right"></i></a>
+                    <ul class="pagination pagination-sm">
+                      <li *ngFor="let p of productList?.page" class="{{p.class}}">
+                        <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+                        <a *ngIf="p.method==''">{{p.text}}</a>
                       </li>
                     </ul>
+                    <!--<ul class="pagination">-->
+                      <!--<li>-->
+                        <!--<a (click)="pagination(productList.result?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>-->
+                      <!--</li>-->
+                      <!--<li>-->
+                        <!--<a (click)="pagination(productList.result?.next_page_url)"><i class="fa fa-arrow-right"></i></a>-->
+                      <!--</li>-->
+                    <!--</ul>-->
                   </div>
                 </div>
               </div>
@@ -150,7 +156,7 @@
           <button type="button" class="close" (click)="lgModal.hide()" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h4 class="modal-title">读取产品名称-ID</h4>
+          <h4 class="modal-title">{{product_info.result?.p_name}}-{{product_info.result?.p_product_id}}</h4>
         </div>
         <div class="modal-body">
           <div class="row">
