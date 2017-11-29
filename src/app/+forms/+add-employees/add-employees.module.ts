@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-// import { FileUploadModule } from 'ng2-file-upload';  //上传文件
+import { FileUploadModule } from 'ng2-file-upload';  //上传文件
 
 import { AddEmployeesComponent } from './add-employees.component';
 import { EmployeeFormComponent } from './employee-form/employee-form.component';
@@ -17,7 +17,7 @@ import {ReactiveFormsModule} from '@angular/forms';
     SmartadminModule,
     ReactiveFormsModule,
     addEmployeesRouting,
-    // FileUploadModule
+    FileUploadModule
   ],
   declarations: [
     AddEmployeesComponent,
