@@ -41,11 +41,10 @@
                      <input type="text"  placeholder="请输入产品类别" maxlength="20"/>
                    </label>
                  </section>
-
-                 <section class="col col-6">
-                   <label class="label">通信方式</label>
-                   <label class="select">
-                     <select>
+                 <div class="col col-6">
+                   <label>通信方式</label>
+                   <select select2 multiple style="width:100%" class="select2">
+                     <optgroup label="添加通信方式，可多选">
                        <option >wifi</option>
                        <option >LoRa</option>
                        <option >ZigBee</option>
@@ -53,8 +52,9 @@
                        <option >485通讯线</option>
                        <option >矿用双绞线</option>
                        <option >其他</option>
-                     </select> <i></i> </label>
-                 </section>
+                     </optgroup>
+                   </select>
+                 </div>
                  <section class="col col-6">
                    <label class="label">Mac</label>
                    <label class="input">
