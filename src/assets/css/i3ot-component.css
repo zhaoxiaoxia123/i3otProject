@@ -2564,8 +2564,11 @@ ul.ColVis_collection li label {
 .dataTables_scroll .dataTables_scrollHead {
     background: #f4f4f4
 }
+.table-forum{
+    border: 1px solid #ddd;
+}
 .table-forum tr td {
-    border-top-style: dashed!important;
+    /*border-top-style: dashed!important;*/
     padding-top: 12px!important;
     padding-bottom: 12px!important
 }
@@ -3141,4 +3144,11 @@ div.dataTables_editor{
 .todo>li.ui-sortable-helper {
     border-top: 1px solid #eee;
     background: rgba(113,132,63,.1)
+}
+
+
+/*加载*/
+.modal-dialog-loading{
+    top:50%;
+    text-align:center;
 }

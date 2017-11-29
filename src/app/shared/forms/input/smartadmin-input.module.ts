@@ -19,47 +19,47 @@ import {Select2Module} from "./select2/select2.module";
 import {OnOffSwitchModule} from "./on-off-switch/on-off-switch.module";
 
 @NgModule({
-  imports: [
-    CommonModule
-  ],
-  declarations: [
+    imports: [
+        CommonModule
+    ],
+    declarations: [
 
-    ColorpickerDirective,
-    FileInputComponent,
-    KnobDirective,
-    MaskedInput,
-    UiDatepickerDirective,
-    UiSpinner,
-    XEditableComponent,
-    DuallistboxComponent,
-    NouisliderDirective,
-    IonSliderDirective,
-    SmartSliderDirective,
-    SmartTagsDirective,
-    SmartTimepickerDirective,
-    SmartClockpickerDirective,
+        ColorpickerDirective,
+        FileInputComponent,
+        KnobDirective,
+        MaskedInput,
+        UiDatepickerDirective,
+        UiSpinner,
+        XEditableComponent,
+        DuallistboxComponent,
+        NouisliderDirective,
+        IonSliderDirective,
+        SmartSliderDirective,
+        SmartTagsDirective,
+        SmartTimepickerDirective,
+        SmartClockpickerDirective,
 
-  ],
-  exports: [
+    ],
+    exports: [
 
-    ColorpickerDirective,
-    FileInputComponent,
-    KnobDirective,
-    MaskedInput,
-    UiDatepickerDirective,
-    UiSpinner,
-    XEditableComponent,
-    DuallistboxComponent,
-    NouisliderDirective,
-    IonSliderDirective,
-    SmartSliderDirective,
-    SmartTagsDirective,
-    SmartTimepickerDirective,
-    SmartClockpickerDirective,
+        ColorpickerDirective,
+        FileInputComponent,
+        KnobDirective,
+        MaskedInput,
+        UiDatepickerDirective,
+        UiSpinner,
+        XEditableComponent,
+        DuallistboxComponent,
+        NouisliderDirective,
+        IonSliderDirective,
+        SmartSliderDirective,
+        SmartTagsDirective,
+        SmartTimepickerDirective,
+        SmartClockpickerDirective,
 
 
-    Select2Module,
-    OnOffSwitchModule,
-  ]
+        Select2Module,
+        OnOffSwitchModule,
+    ]
 })
 export class SmartadminInputModule { }

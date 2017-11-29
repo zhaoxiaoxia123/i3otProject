@@ -124,9 +124,8 @@
           <div class="row">
             <div class="col-sm-12">
               <div class="form-group">
-
-                <label><a (click)="showDayData('new',0)" style="border: 1px solid;margin: 10px;">{{showMetric}}</a></label>
-                <label><a (click)="showDayData('day',2)" style="border: 1px solid;margin: 10px;">日平均</a></label>
+                <button class="btn btn-primary"  (click)="showDayData('new',0)">{{showMetric}}实时数据</button>
+                <button class="btn btn-primary"  (click)="showDayData('day',2)">日平均</button>
                 </div>
             </div>
           </div>
@@ -154,6 +153,17 @@
       </div>
     </div>
   </div>
+
+  <!--加载-->
+  <div class="modal-backdrop fade in">
+    <div class="modal-dialog modal-dialog-loading">
+      <div class="row">
+        <img  src="assets/img/loading3.gif" >
+      </div>
+    </div>
+
+  </div>
+
 </div>
 
 

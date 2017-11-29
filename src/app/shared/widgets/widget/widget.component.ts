@@ -6,9 +6,7 @@ declare var $: any;
 @Component({
 
   selector: 'sa-widget',
-  template: `<div id="{{widgetId}}" class="jarviswidget"
-    
-  ><ng-content></ng-content></div>`
+  template: `<div id="{{widgetId}}" class="jarviswidget"><ng-content></ng-content></div>`
 })
 export class WidgetComponent implements OnInit, AfterViewInit {
 
@@ -16,15 +14,15 @@ export class WidgetComponent implements OnInit, AfterViewInit {
   public widgetId: string;
 
   @Input() public name: string;
-  @Input() public colorbutton: boolean = true;
-  @Input() public editbutton: boolean = true;
-  @Input() public togglebutton: boolean = true;
-  @Input() public deletebutton: boolean = true;
-  @Input() public fullscreenbutton: boolean = true;
-  @Input() public custombutton: boolean = false;
+  @Input() public colorbutton: boolean = true;  /*颜色按钮*/
+  @Input() public editbutton: boolean = true;  /*编辑按钮*/
+  @Input() public togglebutton: boolean = true; /*开关按钮*/
+  @Input() public deletebutton: boolean = true; /*删除按钮*/
+  @Input() public fullscreenbutton: boolean = true; /*全屏按钮*/
+  @Input() public custombutton: boolean = false; /*自定义按钮*/
   @Input() public collapsed: boolean = false;
-  @Input() public sortable: boolean = true;
-  @Input() public hidden: boolean = false;
+  @Input() public sortable: boolean = true; /*可分类的*/
+  @Input() public hidden: boolean = false;  /*隐藏的*/
   @Input() public color: string;
   @Input() public load: boolean = false;
   @Input() public refresh: boolean = false;
