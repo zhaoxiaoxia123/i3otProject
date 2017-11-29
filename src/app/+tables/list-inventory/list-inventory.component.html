@@ -123,10 +123,8 @@
                     <i class="fa fa-trash-o fa-lg"></i>
                     删除所选
                   </button>
-
                 </div>
                 <div class="col-sm-6 col-xs-12 hidden-xs text-right">
-
                   <div class="dataTables_paginate">
                     <ul class="pagination pagination-sm">
                       <li *ngFor="let p of storehouseList?.page" class="{{p.class}}">
@@ -143,7 +141,6 @@
                       <!--</li>-->
                     <!--</ul>-->
                   </div>
-
                 </div>
               </div>
             </div>
@@ -152,8 +149,6 @@
       </article>
     </div>
   </sa-widgets-grid>
-
-
 
   <div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
        aria-hidden="true">
@@ -166,7 +161,6 @@
           <h4 class="modal-title">{{storehouse_info.result?.storehouse_name}}</h4>
         </div>
         <div class="modal-body">
-
           <div class="row">
             <div class="col-sm-12">
               <div class="text-overflow-y" >

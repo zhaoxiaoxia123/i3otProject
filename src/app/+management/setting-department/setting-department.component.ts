@@ -111,14 +111,21 @@ export class SettingDepartmentComponent implements OnInit {
     /**
      * 所属行业分页
      * @param url
-     */
+
     pagination(url : string) {
         if(url) {
             this.page = url.substring((url.lastIndexOf('=') + 1), url.length);
             this.getCategory(this.page);
         }
+    }*/
+    /**
+     * 所属行业分页
+     * @param page
+     */
+    pagination(page : string) {
+        this.page = page;
+        this.getCategory(this.page);
     }
-
     /**
      * 编辑信息显示
      * @param cid
