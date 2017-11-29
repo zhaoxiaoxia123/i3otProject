@@ -124,7 +124,7 @@ export class ListClient1Component implements OnInit {
   /**
    * 分页
    * @param url
-   */
+
   pagination(url : string) {
     // console.log('url:'+url);
     if(url) {
@@ -132,6 +132,15 @@ export class ListClient1Component implements OnInit {
       // console.log(this.page);
       this.getCustomerList(this.page);
     }
+  }*/
+
+  /**
+   * 页码分页
+   * @param page
+   */
+  pagination(page : any) {
+    this.page = page;
+    this.getCustomerList(this.page);
   }
 
   /**
