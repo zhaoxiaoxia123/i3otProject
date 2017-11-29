@@ -342,8 +342,8 @@ export class DataMapComponent implements OnInit {
         }else{
             this.is_show_1 = "block";
             this.is_show_2 = "none";
-            console.log(this.products_day.length);
-            if(this.products_day.length == 0){
+            console.log(this.products_day);
+            if( this.products_day.length == 0 || this.products_day == [] ) {
                 this.seriesInfo_ = [];
                 this.products_ = [];
                 this.isClear &&  clearInterval(this.isClear);
@@ -423,6 +423,11 @@ export class DataMapComponent implements OnInit {
     ngOnClose() {
         this.seriesInfo_ = [];
         this.products_ = [];
+        this.chartOption_day = [];
+        this.products_day = [];
+        this.showMetric = '';
+        this.is_show_1 = "none";
+        this.is_show_2 = "block";
         this.isClear &&  clearInterval(this.isClear);
     }
 

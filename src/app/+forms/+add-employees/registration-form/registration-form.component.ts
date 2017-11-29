@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {CookieStoreService} from '../../../shared/cookies/cookie-store.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {mobileAsyncValidator, mobileValidator, passwordValidator} from '../../../shared/common/validator';
@@ -8,6 +8,8 @@ import {Http} from '@angular/http';
 import {Router,ActivatedRoute} from '@angular/router';
 import {GlobalService} from '../../../core/global.service';
 import {FadeInTop} from '../../../shared/animations/fade-in-top.decorator';
+import {ModalDirective} from "ngx-bootstrap";
+import {FileItem, FileUploader, ParsedResponseHeaders} from "ng2-file-upload";
 
 @FadeInTop()
 @Component({
@@ -47,6 +49,10 @@ export class RegistrationFormComponent implements OnInit {
   address1_default : number;
   address2_default : number;
   address3_default : number;
+
+  department_1 : string;
+  url : string = this.globalService.getDomain();
+  path:string = '';
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -92,6 +98,7 @@ export class RegistrationFormComponent implements OnInit {
       address4:[''],
       c_id:['']
     });
+
     // for(var p in this.area1){
     //   console.log(p);
     //   console.log(this.area1[p]);
@@ -100,12 +107,36 @@ export class RegistrationFormComponent implements OnInit {
     this.birthplace_province = getProvince();  //籍贯
   }
 
+  // 初始化上次图片变量
+  public uploader:FileUploader = new FileUploader({
+    url: this.globalService.getDomain() + "/api/v1/uploadFile",
+    method: "POST",
+    removeAfterUpload:true,
+    itemAlias: "uploadedfile",
+
+  });
+
+
   ngOnInit() {
     this.u_id = this.routInfo.snapshot.params['u_id'];
     if(this.u_id != 0){
       this.getUserInfo(this.u_id);
     }
-    this.getUserDefault();
+    this.getUserDefault(1);
+
+    //上传成功回调
+    this.uploader.onSuccessItem = (item, response, status, headers) => {
+      if (status == 200) {
+        // 上传文件后获取服务器返回的数据
+        let tempRes = JSON.parse(response);
+        this.path= tempRes['result'];
+        // console.info('tempRes；------');
+        console.info(this.path);
+      }
+      // console.info(response+" for "+item.file.name + " status " + status);
+    };
+
+
   }
 
   getUserInfo(u_id:number){
@@ -146,9 +177,10 @@ export class RegistrationFormComponent implements OnInit {
         'address1':this.user_info['result']['address1'],
         'address2':this.user_info['result']['address2'],
         'address3':this.user_info['result']['address3'],
-        'address4':this.user_info['result']['address4'],
+        'address4':this.user_info['result']['address4']
         // 'address':this.user_info['result']['address1']+' '+this.user_info['result']['address2'] +' '+ this.user_info['result']['address3']+' '+this.user_info['result']['address4'],
       });
+      this.path = this.user_info['result']['u_avatar'];
       if(this.user_info['result']['birthplace1'] != 0){
         this.getBrithplaceCity();
       }
@@ -179,7 +211,8 @@ export class RegistrationFormComponent implements OnInit {
   /**
    * 获取添加员工的默认参数
    */
-  getUserDefault() {
+  getUserDefault(num:number) {
+
     this.http.get(this.globalService.getDomain()+'/api/v1/getUserDefault?sid='+this.cookieStoreService.getCookie('sid'))
         .map((res)=>res.json())
         .subscribe((data)=>{
@@ -213,6 +246,9 @@ export class RegistrationFormComponent implements OnInit {
       }
       if(this.cookieStoreService.getCookie('cid') == this.super_admin_id){
         this.is_show = true;
+      }
+      if(num == 2){
+        this.lgModal.hide();
       }
     }, 500);
   }
@@ -255,13 +291,44 @@ export class RegistrationFormComponent implements OnInit {
       'emergency_phone':this.formModel.value['emergency_phone'],
       'address':this.formModel.value['address1']+','+this.formModel.value['address2'] +','+ this.formModel.value['address3']+','+this.formModel.value['address4'],
       'sid':this.cookieStoreService.getCookie('sid'),
-      'c_id':this.formModel.value['c_id']
+      'c_id':this.formModel.value['c_id'],
+      'avatar':this.path
     }).subscribe(
         (data)=>{
           let info = JSON.parse(data['_body']);
           alert(info['msg']);
           if(info['status'] == 200) {
             this.router.navigateByUrl('/tables/staff');
+          }else if(info['status'] == 202){
+            this.cookieStoreService.removeAll();
+            this.router.navigate(['/auth/login']);
+          }
+        },
+        response => {
+          console.log('PATCH call in error', response);
+        }
+    );
+  }
+
+  /**
+   * 添加部门
+   * @returns {boolean}
+   */
+  onSubmit_1(){
+    if(this.department_1 == ''){
+      alert('请输入部门名称！');
+      return false;
+    }
+    this.http.post(this.globalService.getDomain()+'/api/v1/addCategory',{
+      'category_type':3,
+      'category_desc':this.department_1,
+      'sid':this.cookieStoreService.getCookie('sid')
+    }).subscribe(
+        (data)=>{
+          let info = JSON.parse(data['_body']);
+          alert(info['msg']);
+          if(info['status'] == 200) {
+            this.department_1 = '';
           }else if(info['status'] == 202){
             this.cookieStoreService.removeAll();
             this.router.navigate(['/auth/login']);
@@ -290,6 +357,7 @@ export class RegistrationFormComponent implements OnInit {
   }
 
 
+  @ViewChild('lgModal') public lgModal:ModalDirective;
 
 }
 

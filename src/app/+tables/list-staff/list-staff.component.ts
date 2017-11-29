@@ -6,7 +6,7 @@ import {arrayify} from 'tslint/lib/utils';
 import {Router} from '@angular/router';
 import {GlobalService} from '../../core/global.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
-
+// import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 @FadeInTop()
 @Component({
   selector: 'app-list-staff',
@@ -23,12 +23,14 @@ export class ListStaffComponent implements OnInit {
   check : boolean = false;
   user_info : Array<any> = [];
   uRole : string = '';
+  // pageHtml:SafeHtml;
   constructor(
       private http:Http,
       fb:FormBuilder,
       private router : Router,
       private cookiestore:CookieStoreService,
-      private globalService:GlobalService
+      private globalService:GlobalService,
+      // private sanitizer: DomSanitizer
   ) {
 
     this.formModel = fb.group({
@@ -77,6 +79,8 @@ export class ListStaffComponent implements OnInit {
         this.cookiestore.removeAll();
         this.router.navigate(['/auth/login']);
       }
+      //服务器返回html正确解析输出
+      // this.pageHtml = this.sanitizer.bypassSecurityTrustHtml(this.userList['page']);
       // console.log(this.userList);
       this.selects = [];
       if (this.userList) {
@@ -128,7 +132,6 @@ export class ListStaffComponent implements OnInit {
   /**
    * 分页
    * @param url
-   */
   pagination(url : string) {
     // console.log('url:'+url);
     if(url) {
@@ -136,8 +139,16 @@ export class ListStaffComponent implements OnInit {
         // console.log(this.page);
         this.getUserList(this.page);
     }
-  }
+  }*/
 
+  /**
+   * 页码分页
+   * @param page
+   */
+  pagination(page : any) {
+      this.page = page;
+      this.getUserList(this.page);
+  }
   /**
    * 删除用户信息
    * @param uid
