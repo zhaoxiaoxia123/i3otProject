@@ -8,144 +8,160 @@
       <span class="glyphicon glyphicon-plus"></span>添加客户</a>
 
   </div>
-  <sa-widget [editbutton]="false" color="blueDark">
-    <header>
-      <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-      <h2>客户列表 </h2>
-    </header>
-    <div>
-      <div class="widget-body no-padding">
-        <div class="row">
-          <article class="col-sm-12">
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-sm-12 ">
+        <sa-widget [editbutton]="false" [deletebutton]="false" color="blueDark">
+          <header>
+            <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+            <h2>客户列表 </h2>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <div class="row">
+                <article class="col-sm-12">
 
-            <div class="navbar navbar-default">
+                  <div class="navbar navbar-default">
 
 
-              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-                <form class="navbar-form navbar-left" role="search" [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate>
-                  <div class="form-group">
-                    <input type="text" name="keyword" maxlength="15" formControlName="keyword" class="form-control" placeholder="请输入搜索内容">
+                      <form class="navbar-form navbar-left" role="search" [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate>
+                        <div class="form-group">
+                          <select class="form-control">
+                            <option value =""></option>
+                            <option value =""></option>
+                            <option value=""></option>
+                            <option value=""></option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <input type="text" name="keyword" maxlength="15" formControlName="keyword" class="form-control" placeholder="请输入搜索内容">
+                        </div>
+
+                        <button type="submit" class="btn btn-default">
+                          <i class="glyphicon glyphicon-search"></i>
+                          搜索
+                        </button>
+                      </form>
+                      <!--<ul class="nav navbar-nav navbar-right">
+                        <li dropdown class="dropdown">
+                          <a (click)="(null)" dropdownToggle>自定义显示内容 <span class="caret"></span></a>
+                          <ul *dropdownMenu  role="menu" class="dt-button-collection dropdown-menu" >
+                            <li class="dt-button  active"  >
+                              <a (click)="(null)">ID</a>
+                            </li>
+                            <li class="dt-button  active " >
+                              <a (click)="(null)" >订单号/合同号</a>
+                            </li>
+                            <li class="dt-button active " tabindex="0" >
+                              <a (click)="(null)">类型</a>
+                            </li>
+                            <li class="dt-button active " tabindex="0" >
+                              <a (click)="(null)">规格/参数</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li class="dt-button  ">
+                              <a (click)="(null)">购买公司</a>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>-->
+
+                    </div>
+
                   </div>
-                  <button type="submit" class="btn btn-default">
-                    <i class="glyphicon glyphicon-search"></i>
-                    搜索
-                  </button>
-                </form>
-                <!--<ul class="nav navbar-nav navbar-right">
-                  <li dropdown class="dropdown">
-                    <a (click)="(null)" dropdownToggle>自定义显示内容 <span class="caret"></span></a>
-                    <ul *dropdownMenu  role="menu" class="dt-button-collection dropdown-menu" >
-                      <li class="dt-button  active"  >
-                        <a (click)="(null)">ID</a>
-                      </li>
-                      <li class="dt-button  active " >
-                        <a (click)="(null)" >订单号/合同号</a>
-                      </li>
-                      <li class="dt-button active " tabindex="0" >
-                        <a (click)="(null)">类型</a>
-                      </li>
-                      <li class="dt-button active " tabindex="0" >
-                        <a (click)="(null)">规格/参数</a>
-                      </li>
-                      <li class="divider"></li>
-                      <li class="dt-button  ">
-                        <a (click)="(null)">购买公司</a>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>-->
-
+                </article>
               </div>
 
+              <sa-datatable tableClass="table table-striped table-bordered table-hover smart-form">
+                <thead>
+                <tr>
+                  <td>
+                    <label class="checkbox">
+                      <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)">
+                      <i></i>
+                    </label>
+                  </td>
+                  <th>ID  </th>
+                  <th>全称</th>
+                  <!--<th>简称 </th>-->
+                  <th>所属行业 </th>
+                  <th>联系人 </th>
+                  <th>联系电话</th>
+                  <th>企业邮箱</th>
+                  <th>主要产品</th>
+                  <!--<th>详细地址</th>-->
+                  <!--<th>更新时间</th>-->
+                  <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr style="display: none;">
+                  <td></td><td></td><td></td><td></td>
+                  <td></td><td></td><td></td><td></td>
+                  <td></td>
+                  <!--<td></td>-->
+                  <!--<td></td><td></td>-->
+                </tr>
+                <tr *ngFor="let cl of customerList.result?.data">
+                  <td>
+                    <label class="checkbox">
+                      <input type="checkbox" value="{{ cl.c_id }}" [checked]="selects[cl.c_id]" (change)="handle($event)">
+                      <i></i>
+                    </label>
+                  </td>
+                  <td>{{ cl.c_id }}</td>
+                  <td>{{ cl.c_name }}</td>
+                  <!--<td>{{ cl.c_abbreviation }}</td>-->
+                  <td>{{ cl.category_desc }}</td>
+                  <td>{{ cl.c_contacts }}</td>
+                  <td>{{ cl.c_phone }}</td>
+                  <td>{{ cl.c_email }}</td>
+                  <td>{{ cl.c_products }}</td>
+                  <!--<td>{{ cl.c_address }}</td>-->
+                  <!--<td>{{ cl.updated_at }}</td>-->
+                  <td><a class="btn btn-warning btn-xs" [routerLink]="['/forms/customer',cl.c_id]"><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                    <a class="btn btn-danger btn-xs" (click)="deleteCustomer(cl.c_id ,customerList.result?.current_page)"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                    <a class="btn btn-success btn-xs"  (click)="getCustomerInfo(cl.c_id);lgModal.show();" ><span class="glyphicon glyphicon-zoom-in"></span>详情</a>
+                  </td>
+                </tr>
+                </tbody>
+
+              </sa-datatable>
+              <!-- 底部-（分页部分）-->
+              <div class="dt-toolbar">
+                <div class="col-xs-12 col-sm-6">
+                  <button  class="btn btn-default" (click)="deleteCustomerAll(customerList.result?.current_page)">
+                    <i class="fa fa-trash-o fa-lg"></i>
+                    删除所选
+                  </button>
+                </div>
+                <div class="col-sm-6 col-xs-12 hidden-xs text-right">
+                  <ul class="pagination pagination-sm">
+                    <li *ngFor="let p of customerList?.page" class="{{p.class}}">
+                      <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+                      <a *ngIf="p.method==''">{{p.text}}</a>
+                    </li>
+                  </ul>
+                  <!--<ul class="pagination">-->
+                  <!--<li>-->
+                  <!--<a (click)="pagination(customerList.result?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>-->
+                  <!--</li>-->
+                  <!--<li>-->
+                  <!--<a (click)="pagination(customerList.result?.next_page_url)"><i class="fa fa-arrow-right"></i></a>-->
+                  <!--</li>-->
+                  <!--</ul>-->
+                </div>
+              </div>
             </div>
-          </article>
-        </div>
-
-        <sa-datatable tableClass="table table-striped table-bordered table-hover smart-form">
-          <thead>
-          <tr>
-            <td>
-              <label class="checkbox">
-                <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)">
-                <i></i>
-              </label>
-            </td>
-            <th>ID  </th>
-            <th>全称</th>
-            <!--<th>简称 </th>-->
-            <th>所属行业 </th>
-            <th>联系人 </th>
-            <th>联系电话</th>
-            <th>企业邮箱</th>
-            <th>主要产品</th>
-            <!--<th>详细地址</th>-->
-            <!--<th>更新时间</th>-->
-            <th>操作</th>
-          </tr>
-          </thead>
-          <tbody>
-
-          <tr style="display: none;">
-            <td></td><td></td><td></td><td></td>
-            <td></td><td></td><td></td><td></td>
-            <td></td>
-            <!--<td></td>-->
-            <!--<td></td><td></td>-->
-          </tr>
-          <tr *ngFor="let cl of customerList.result?.data">
-            <td>
-              <label class="checkbox">
-                <input type="checkbox" value="{{ cl.c_id }}" [checked]="selects[cl.c_id]" (change)="handle($event)">
-                <i></i>
-              </label>
-            </td>
-            <td>{{ cl.c_id }}</td>
-            <td>{{ cl.c_name }}</td>
-            <!--<td>{{ cl.c_abbreviation }}</td>-->
-            <td>{{ cl.category_desc }}</td>
-            <td>{{ cl.c_contacts }}</td>
-            <td>{{ cl.c_phone }}</td>
-            <td>{{ cl.c_email }}</td>
-            <td>{{ cl.c_products }}</td>
-            <!--<td>{{ cl.c_address }}</td>-->
-            <!--<td>{{ cl.updated_at }}</td>-->
-            <td><a class="btn btn-warning btn-xs" [routerLink]="['/forms/customer',cl.c_id]"><span class="glyphicon glyphicon-pencil"></span>修改</a>
-              <a class="btn btn-danger btn-xs" (click)="deleteCustomer(cl.c_id ,customerList.result?.current_page)"><span class="glyphicon glyphicon-remove"></span>删除</a>
-              <a class="btn btn-success btn-xs"  (click)="getCustomerInfo(cl.c_id);lgModal.show();" ><span class="glyphicon glyphicon-zoom-in"></span>详情</a>
-            </td>
-          </tr>
-          </tbody>
-
-        </sa-datatable>
-        <!-- 底部-（分页部分）-->
-        <div class="dt-toolbar">
-          <div class="col-xs-12 col-sm-6">
-            <button  class="btn btn-default" (click)="deleteCustomerAll(customerList.result?.current_page)">
-              <i class="fa fa-trash-o fa-lg"></i>
-              删除所选
-            </button>
           </div>
-          <div class="col-sm-6 col-xs-12 hidden-xs text-right">
-            <ul class="pagination pagination-sm">
-              <li *ngFor="let p of customerList?.page" class="{{p.class}}">
-                <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
-                <a *ngIf="p.method==''">{{p.text}}</a>
-              </li>
-            </ul>
-            <!--<ul class="pagination">-->
-              <!--<li>-->
-                <!--<a (click)="pagination(customerList.result?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>-->
-              <!--</li>-->
-              <!--<li>-->
-                <!--<a (click)="pagination(customerList.result?.next_page_url)"><i class="fa fa-arrow-right"></i></a>-->
-              <!--</li>-->
-            <!--</ul>-->
-          </div>
-        </div>
-      </div>
+        </sa-widget>
+      </article>
     </div>
-  </sa-widget>
+  </sa-widgets-grid>
+
 
   <div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
        aria-hidden="true">
