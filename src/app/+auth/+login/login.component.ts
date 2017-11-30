@@ -49,8 +49,10 @@ export class LoginComponent implements OnInit {
           if(info['status'] == 200){
             this.cookieStoreService.setCookie('urole', info['result']['u_role']);
             this.cookieStoreService.setCookie('username', info['result']['u_username']);
+            this.cookieStoreService.setCookie('u_avatar', info['result']['u_avatar']==null?'':info['result']['u_avatar']);
             this.cookieStoreService.setCookie('uid', info['result']['id']);
             this.cookieStoreService.setCookie('cid', info['result']['c_id']);
+            this.cookieStoreService.setCookie('c_name', info['result']['c_name']);
             this.cookieStoreService.setCookie('sid', info['sid']);
             this.username = info['result']['u_username'];
             this.uid = info['result']['id'];

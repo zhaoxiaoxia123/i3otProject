@@ -3,6 +3,7 @@ import {UserService} from "../user.service";
 import {LayoutService} from "../../layout/layout.service";
 import {Router} from '@angular/router';
 import {CookieStoreService} from '../../cookies/cookie-store.service';
+import {GlobalService} from "../../../core/global.service";
 
 @Component({
 
@@ -17,20 +18,17 @@ export class LoginInfoComponent implements OnInit {
     private userService: UserService,
               private layoutService: LayoutService,
     private cookieStoreService:CookieStoreService,
+    private global:GlobalService,
     private router:Router) {
-
-      console.log('username:----');
-      console.log(location);
-      console.log(this.cookieStoreService.getCookie('username'));
+      console.log('u_avatar:----');
+      console.log(this.cookieStoreService.getCookie('u_avatar'));
       if(this.cookieStoreService.getCookie('username')) {
           this.user = {
               "username": this.cookieStoreService.getCookie('username'),
-              "picture": "assets/img/avatars/male.png",
+              "picture": this.cookieStoreService.getCookie('u_avatar') != '' ? this.global.getDomain() + this.cookieStoreService.getCookie('u_avatar'):"assets/img/avatars/male.png",
               "activity": 12
           };
           // }else if(location.origin == 'http://www.i3ot.com'){
-      }else if(location.href == 'http://localhost:4200' || location.href == 'http://www.i3ot.com' || location.href == 'http://i3ot.com'){
-          this.router.navigate(['/index']);
       }else{
           this.router.navigate(['/auth/login']);
       }

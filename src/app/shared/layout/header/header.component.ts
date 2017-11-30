@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
+import {CookieStoreService} from "../../cookies/cookie-store.service";
 
 declare var $: any;
 
@@ -9,12 +10,12 @@ declare var $: any;
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private router: Router) {
-  }
+  customer_name : string = '';
+  constructor(private router: Router,private cookieStoreService:CookieStoreService) {}
 
   ngOnInit() {
+    this.customer_name = this.cookieStoreService.getCookie('c_name');
   }
-
 
   searchMobileActive = false;
 

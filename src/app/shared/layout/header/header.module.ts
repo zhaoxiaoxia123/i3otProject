@@ -20,6 +20,8 @@ import {I18nModule} from "../../i18n/i18n.module";
 import {UserModule} from "../../user/user.module";
 import {VoiceControlModule} from "../../voice-control/voice-control.module";
 import {BsDropdownModule} from "ngx-bootstrap";
+import {CookieStoreService} from "../../cookies/cookie-store.service";
+import {CookieService} from "angular2-cookie/core";
 
 
 @NgModule({
@@ -47,6 +49,7 @@ import {BsDropdownModule} from "ngx-bootstrap";
   ],
   exports: [
     HeaderComponent
-  ]
+  ],
+  providers: [ CookieStoreService,CookieService ]
 })
 export class HeaderModule{}
