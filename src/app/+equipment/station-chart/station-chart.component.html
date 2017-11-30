@@ -20,14 +20,15 @@
                   <div class="navbar navbar-default">
                     <div class="collapse navbar-collapse" >
                       <form class="navbar-form navbar-left" role="search" [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate >
-                        <div class="form-group">
+                        <!--筛选-->
+                       <!-- <div class="form-group">
                           <select class="form-control">
                             <option value =""></option>
                             <option value =""></option>
                             <option value=""></option>
                             <option value=""></option>
                           </select>
-                        </div>
+                        </div>-->
                         <div class="form-group">
                           <input type="text" name="keyword" maxlength="15" formControlName="keyword" class="form-control" placeholder="请输入搜索内容">
                         </div>
@@ -135,9 +136,17 @@
                   </tr>
                   <tr *ngIf="status.indexOf(ind+',') != -1">
                     <td colspan="7">
-                      <table    class="table table-hover table-condensed">
+
+                      <table   class="table table-hover table-condensed">
                         <tbody>
-                        <tr >
+
+                        <!--加载完成隐藏-->
+                        <tr>
+                          <td  colspan="2" class="text-align-center" ><img  src="assets/img/select2-spinner.gif" >
+                            <h4 class="txt-color-darken" >加载中</h4></td>
+                        </tr>
+
+                        <tr>
                           <td class="percent-50" style="border-right:1px solid #ccc; ">
                             <div echarts [options]="chartOption1[ind]" class="demo-chart" *ngIf="chartOption1[ind]" ></div>
                           </td>
@@ -238,18 +247,7 @@
        aria-hidden="true">
     <div class="modal-dialog modal-lg">
 
-      <!--加载中-->
 
-      <div class="modal-backdrop fade in">
-        <div class="modal-dialog modal-dialog-loading">
-          <div class="row">
-            <img  src="assets/img/loading3.gif" >
-            <h4 class="txt-color-white" >加载中</h4>
-
-          </div>
-        </div>
-
-      </div>
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" (click)="ngOnClose();lgModal.hide()" aria-label="Close">
@@ -258,6 +256,15 @@
           <h4 class="modal-title">数据对比图 {{loading}}</h4>
         </div>
         <div class="modal-body">
+          <!--加载中-->
+          <div class="row text-align-center">
+            <img  src="assets/img/select2-spinner.gif" >
+            <h4 class="txt-color-darken" >加载中</h4>
+          </div>
+
+
+
+
           <div class="row">
             <div class="col-md-12">
               <div *ngFor="let char of chartOption2;let inde = index;">

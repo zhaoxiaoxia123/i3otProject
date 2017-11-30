@@ -115,30 +115,33 @@
 
   <div [ngStyle]="{'display':is_showDiv?'block':'none'}" >
     <fieldset>
-      <section class="col col-6">
-        <div class="form-group ">
-          <label class="col-md-2 control-label">上传头像</label>
-          <div class="col-md-10">
-            <input type="file" ng2FileSelect [uploader]="uploader" />
-            <!--<input type="file" class="btn btn-default" disabled="disabled" id="exampleInputFile2">-->
-            <p class="help-block">
-              说明文字
-            </p>
+
+        <section class="col col-6">
+          <div class="form-group ">
+            <label class="col-md-2 control-label">上传头像</label>
+            <div class="col-md-10">
+              <input type="file" ng2FileSelect [uploader]="uploader" />
+              <!--<input type="file" class="btn btn-default" disabled="disabled" id="exampleInputFile2">-->
+              <p class="help-block">
+                说明文字
+              </p>
+            </div>
           </div>
-        </div>
-      </section>
-      <section class="col col-4">
-      <button *ngFor="let item of uploader.queue" type="button" class="btn btn-success btn-xs"
-              (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
-        <span class="glyphicon glyphicon-upload"></span> Upload
-      </button>
-      </section>
-      <section class="col col-6">
-        <label class="label">预览图</label>
-        <label class="select">
-          <img class="" src="{{url}}{{path}}">
-        </label>
-      </section>
+        </section>
+        <section class="col col-4">
+          <button *ngFor="let item of uploader.queue" type="button" class="btn btn-success btn-xs"
+                  (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+            <span class="glyphicon glyphicon-upload"></span> Upload
+          </button>
+        </section>
+        <section class="col col-6">
+          <label class="label">预览图</label>
+          <label class="select">
+            <img class="" src="{{url}}{{path}}">
+          </label>
+        </section>
+
+
 
       <section class="col col-6">
         <label class="label">入职时间</label>
@@ -171,27 +174,7 @@
           <input  name='id_card' formControlName="id_card" placeholder="请输入身份证号" size="18" maxlength="18" type="text">
         </label>
       </section>
-      <div class=" col-6">
 
-        <section class="col col-4">
-          <label class="label">籍贯</label>
-
-          <label class="select " >
-            <select name="birthplace1" formControlName="birthplace1" [(ngModel)]="birthplace1_default" (change)="getBrithplaceCity()">
-              <option value="0">--请选择省--</option>
-              <option *ngFor="let p of birthplace_province" [selected]="user_info.result?.birthplace1 == p" value="{{p}}">{{p}}</option>
-            </select> <i></i> </label>
-        </section>
-        <section class="col col-8">
-          <label class="select margin-top-24 ">
-            <select  name="birthplace2" formControlName="birthplace2" [(ngModel)]="birthplace2_default">
-              <option value="0">--请选择市--</option>
-              <option *ngFor="let c of birthplace_city" [selected]="user_info.result?.birthplace2 == c" value="{{c}}">{{c}}</option>
-            </select> <i></i> </label>
-        </section>
-
-
-      </div>
 
       <!--<section class="col col-6">
         <label class="label">籍贯</label>
@@ -274,6 +257,28 @@
           </select> <i></i> </label>
       </section>
 
+      <div class=" col-6">
+
+        <section class="col col-4">
+          <label class="label">籍贯</label>
+
+          <label class="select " >
+            <select name="birthplace1" formControlName="birthplace1" [(ngModel)]="birthplace1_default" (change)="getBrithplaceCity()">
+              <option value="0">--请选择省--</option>
+              <option *ngFor="let p of birthplace_province" [selected]="user_info.result?.birthplace1 == p" value="{{p}}">{{p}}</option>
+            </select> <i></i> </label>
+        </section>
+        <section class="col col-8">
+          <label class="select margin-top-24 ">
+            <select  name="birthplace2" formControlName="birthplace2" [(ngModel)]="birthplace2_default">
+              <option value="0">--请选择市--</option>
+              <option *ngFor="let c of birthplace_city" [selected]="user_info.result?.birthplace2 == c" value="{{c}}">{{c}}</option>
+            </select> <i></i> </label>
+        </section>
+
+
+      </div>
+
       <section class="col col-6">
         <label class="label">婚姻状况</label>
         <label class="select">
@@ -324,12 +329,7 @@
         </div>-->
 
       </section>
-      <section class="col col-6">
-        <label class="label">个人邮箱</label>
-        <label class="input"> <i class="icon-append fa fa-envelope-o"></i>
-          <input name="email" formControlName="email" placeholder="E-mail" type="email" maxlength="20">
-        </label>
-      </section>
+
 
       <div class=" col-6">
         <label class="labe2">联系人</label>
@@ -347,6 +347,12 @@
 
 
       </div>
+      <section class="col col-6 margin-top-20">
+        <label class="label">个人邮箱</label>
+        <label class="input"> <i class="icon-append fa fa-envelope-o"></i>
+          <input name="email" formControlName="email" placeholder="E-mail" type="email" maxlength="20">
+        </label>
+      </section>
 
     </fieldset>
     <fieldset>

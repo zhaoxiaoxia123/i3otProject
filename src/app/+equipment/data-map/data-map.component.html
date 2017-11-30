@@ -131,6 +131,11 @@
           </div>
         </div>
 
+        <div class="row text-align-center">
+          <img  src="assets/img/select2-spinner.gif" >
+          <h4 class="txt-color-darken" >加载中</h4>
+        </div>
+
         <div class="modal-body" *ngIf="chartOption_day" [style.display]="is_show_1">
           <div class="row">
             <div class="col-md-12">
@@ -155,7 +160,7 @@
   </div>
 
   <!--加载-->
-  <div class="modal-backdrop fade in">
+  <div class="modal-backdrop modal-dialog-head fade in">
     <div class="modal-dialog modal-dialog-loading">
       <div class="row">
         <img  src="assets/img/loading3.gif" >
