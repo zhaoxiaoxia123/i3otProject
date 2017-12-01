@@ -56,6 +56,11 @@ export class EquipmentListComponent implements OnInit {
     setTimeout(() => {
       console.log('this.i3otpList:--');
       console.log(this.i3otpList);
+
+      if(this.i3otpList['status'] == 202){
+        this.cookiestore.removeAll();
+        this.router.navigate(['/auth/login']);
+      }
       if (this.i3otpList) {
         if (this.i3otpList['result']['i3otpList']['current_page'] == this.i3otpList['result']['i3otpList']['last_page']) {
           this.next = true;

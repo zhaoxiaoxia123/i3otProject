@@ -27,6 +27,7 @@ import {XEditableWidgetComponent} from "./x-editable-widget/x-editable-widget.co
 import {DuallistboxWidgetComponent} from "./duallistbox-widget/duallistbox-widget.component";
 import { EquipmentListComponent } from './equipment-list/equipment-list.component';
 import { AddEquipmentComponent } from './add-equipment/add-equipment.component';
+import {HelmetChartGuard} from "../shared/cookies/helmetChart.guard";
 
 @NgModule({
   imports: [
@@ -58,6 +59,6 @@ import { AddEquipmentComponent } from './add-equipment/add-equipment.component';
     exports : [
       KeysPipe
     ],
-  providers:[CookieService,CookieStoreService,UnsavedGuard,ChartGuard]
+  providers:[CookieService,CookieStoreService,UnsavedGuard,ChartGuard,HelmetChartGuard]
 })
 export class EquipmentModule { }

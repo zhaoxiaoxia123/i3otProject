@@ -121,17 +121,9 @@
           </div>
         </div>
 
-        <div class="row text-align-center">
+        <div class="row text-align-center" *ngIf="!chartOption_">
           <img  src="assets/img/select2-spinner.gif" >
           <h4 class="txt-color-darken" >加载中</h4>
-        </div>
-
-        <div class="modal-body" *ngIf="chartOption_day" [style.display]="is_show_1">
-          <div class="row">
-            <div class="col-md-12">
-              <div echarts [options]="chartOption_day" class="demo-chart" ></div>
-            </div>
-          </div>
         </div>
         <div class="modal-body" [style.display]="is_show_2">
           <div class="row">
@@ -140,6 +132,20 @@
             </div>
           </div>
         </div>
+
+        <div class="row text-align-center" *ngIf="!chartOption_day" [style.display]="is_show_1">
+          <img  src="assets/img/select2-spinner.gif" >
+          <h4 class="txt-color-darken" >加载中</h4>
+        </div>
+        <div class="modal-body" *ngIf="chartOption_day" [style.display]="is_show_1">
+
+          <div class="row">
+            <div class="col-md-12">
+              <div echarts [options]="chartOption_day" class="demo-chart" ></div>
+            </div>
+          </div>
+        </div>
+
         <div class="modal-footer">
           <button type="button" class="btn btn-default" (click)="ngOnClose();lgModal.hide()">
             返回
