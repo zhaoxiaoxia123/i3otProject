@@ -75,7 +75,7 @@ export const routes:Routes = [
         component: EquipmentListComponent
     },
     {
-        path: 'add-equipment',
+        path: 'add-equipment/:i_id',
         component: AddEquipmentComponent
     },
 ];

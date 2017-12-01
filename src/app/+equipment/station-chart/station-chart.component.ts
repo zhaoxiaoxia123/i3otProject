@@ -64,6 +64,7 @@ export class StationChartComponent implements OnInit {
     status : string = '';
 
     selectedStr : Object = {};
+    isShowJoin : boolean = false;
     constructor(
         fb:FormBuilder,
         private http: Http,
@@ -90,7 +91,7 @@ export class StationChartComponent implements OnInit {
      * @param number
      */
     getI3otpList(number:string) {
-        let url = this.globalService.getDomain()+'/api/v1/getI3otpList?page='+number+'&i3otp_category=2&sid='+this.cookieStore.getCookie('sid');
+        let url = this.globalService.getDomain()+'/api/v1/getI3otpList?page='+number+'&i3otp_category=2&type=pic&sid='+this.cookieStore.getCookie('sid');
         if(this.formModel.value['keyword'].trim() != ''){
             url += '&keyword='+this.formModel.value['keyword'].trim();
         }
@@ -364,7 +365,7 @@ export class StationChartComponent implements OnInit {
     }
 
     showJoinPic(){
-        if(this.join_str.length == 0){
+        if(this.join_str.length <= 1){
             alert('请添加对比数据后，再点击此‘查看对比图’按钮。');
             return ;
         }else{
@@ -413,17 +414,18 @@ export class StationChartComponent implements OnInit {
             this.join_pid.push(pid);
             this.join_str.push(str);
         }
+        this.isShowJoin = true;
         // console.log(this.join_pid);
         // console.log(this.join_str);
-        this.notificationService.bigBox({
-            title: "设备数据对比",
-            icon: "glyphicon glyphicon-adjust swing animated",
-            content: "点击查看详情按钮查看对比情况<p class='text-align-right'><a  class='btn btn-warning btn-sm' onclick='showJoinPic();this.lgModal.show()'>查看详情</a> </p>",
-            color: "#3276B1",
-            /*timeout: 8000,*/
-
-            number: this.join_pid.length
-        });
+        // this.notificationService.bigBox({
+        //     title: "设备数据对比",
+        //     icon: "glyphicon glyphicon-adjust swing animated",
+        //     content: "点击查看详情按钮查看对比情况<p class='text-align-right'><a  class='btn btn-warning btn-sm' onclick='showJoinPic();this.lgModal.show()'>查看详情</a> </p>",
+        //     color: "#3276B1",
+        //     /*timeout: 8000,*/
+        //
+        //     number: this.join_pid.length
+        // });
     }
     ngOnClose(){
         this.seriesInfo2 = [];
@@ -437,5 +439,20 @@ export class StationChartComponent implements OnInit {
         }else{
             this.status += index +',';
         }
+    }
+
+    /**
+     *删除对比数据
+     */
+    outPid(pid:string) {
+        let index = this.join_pid.indexOf(pid);
+        this.join_pid.splice(index,1);
+        console.log(this.join_pid);
+    }
+    /**
+     *关闭对比数据弹框
+     */
+    closePid(){
+        this.isShowJoin = false;
     }
 }

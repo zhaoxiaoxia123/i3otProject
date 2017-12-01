@@ -77,6 +77,10 @@ export class ChartSettingComponent implements OnInit {
         setTimeout(() => {
             console.log('this.settingsList:--');
             console.log(this.settingsList);
+            if(this.settingsList['status'] == 202){
+                this.cookieStore.removeAll();
+                this.router.navigate(['/auth/login']);
+            }
         }, 300);
     }
     /**

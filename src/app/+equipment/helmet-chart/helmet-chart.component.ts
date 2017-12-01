@@ -66,6 +66,8 @@ export class HelmetChartComponent implements OnInit {
 
     abnormalData : Array<any> = [];
     selectedStr : Object = {};
+
+    isShowJoin : boolean= false;
     constructor(
         fb:FormBuilder,
         private http: Http,
@@ -114,7 +116,7 @@ export class HelmetChartComponent implements OnInit {
      * @param number
      */
     getI3otpList(number:string) {
-        let url = this.globalService.getDomain()+'/api/v1/getI3otpList?page='+number+'&i3otp_category=1&sid='+this.cookieStore.getCookie('sid');
+        let url = this.globalService.getDomain()+'/api/v1/getI3otpList?page='+number+'&i3otp_category=1&type=pic&sid='+this.cookieStore.getCookie('sid');
         if(this.formModel.value['keyword'].trim() != ''){
             url += '&keyword='+this.formModel.value['keyword'].trim();
         }
@@ -207,7 +209,7 @@ export class HelmetChartComponent implements OnInit {
                 this.search_datapoint();
                 return false;
             } else if (this.metric.replace('_', '') == '' || this.pid.replace(',', '') == '') {
-                alert('数据格式有误！');
+                alert('没有可用以画图的传感器！');
                 return false;
             }
             let result: Array<any> = [];
@@ -410,15 +412,15 @@ export class HelmetChartComponent implements OnInit {
             this.join_pid.push(pid);
             this.join_str.push(str);
         }
-        this.notificationService.bigBox({
-            title: "设备数据对比",
-            content: "添加对比基站",
-            color: "#3276B1",
-            timeout: 8000,
-            icon: "glyphicon glyphicon-adjust swing animated",
-            number: this.join_pid.length
-        });
-
+        this.isShowJoin = true;
+        // this.notificationService.bigBox({
+        //     title: "设备数据对比",
+        //     content: "添加对比基站",
+        //     color: "#3276B1",
+        //     timeout: 8000,
+        //     icon: "glyphicon glyphicon-adjust swing animated",
+        //     number: this.join_pid.length
+        // });
     }
 
     /**
@@ -435,4 +437,18 @@ export class HelmetChartComponent implements OnInit {
             });
     }
 
+    /**
+    *删除对比数据
+     */
+    outPid(pid:string) {
+        let index = this.join_pid.indexOf(pid);
+        this.join_pid.splice(index,1);
+        console.log(this.join_pid);
+    }
+    /**
+     *关闭对比数据弹框
+     */
+    closePid(){
+        this.isShowJoin = false;
+    }
 }

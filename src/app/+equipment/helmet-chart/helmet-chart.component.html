@@ -225,6 +225,17 @@
   <div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
        aria-hidden="true">
     <div class="modal-dialog modal-lg">
+
+      <!--加载中-->
+      <div class="modal-backdrop fade in" *ngIf="loading != ''">
+        <div class="modal-dialog modal-dialog-loading">
+          <div class="row">
+            <img  src="assets/img/loading3.gif" >
+            <h4 class="txt-color-white" >{{loading}}</h4>
+          </div>
+        </div>
+      </div>
+
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" (click)="ngOnClose();lgModal.hide()" aria-label="Close">
@@ -233,24 +244,24 @@
           <h4 class="modal-title">设备数据对比</h4>
         </div>
         <div class="modal-body">
-          <div class="row">
-            <div class="col-sm-12">
-              <div class="form-group">
-                <!--<label>添加或删除对比设备</label>-->
-                <select select2 multiple style="width:100%" class="select2">
-                  <optgroup label="选择设备ID">
-                    <option value="">12</option>
-                    <option value="">122</option>
-                    <option value="" selected="selected">777</option>
-                    <option value="">77 </option>
-                  </optgroup>
-                </select>
-                <div class="note">
-                  <strong>备注:</strong> 点击设备名称或名称后面空白区域将弹出下拉框，可以选择添加和取消对比设备。
-                </div>
-              </div>
-            </div>
-          </div>
+          <!--<div class="row">-->
+            <!--<div class="col-sm-12">-->
+              <!--<div class="form-group">-->
+                <!--&lt;!&ndash;<label>添加或删除对比设备</label>&ndash;&gt;-->
+                <!--<select select2 multiple style="width:100%" class="select2">-->
+                  <!--<optgroup label="选择设备ID">-->
+                    <!--<option value="">12</option>-->
+                    <!--<option value="">122</option>-->
+                    <!--<option value="" selected="selected">777</option>-->
+                    <!--<option value="">77 </option>-->
+                  <!--</optgroup>-->
+                <!--</select>-->
+                <!--<div class="note">-->
+                  <!--<strong>备注:</strong> 点击设备名称或名称后面空白区域将弹出下拉框，可以选择添加和取消对比设备。-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
           <div class="row">
             <div class="col-md-12">
               <sa-widget [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false">
@@ -259,7 +270,6 @@
                     <li class="success" *ngFor="let char of metric_title;let indet = index;">
                       <a data-toggle="tab" href="#hr{{indet+1}}">  <span class="hidden-mobile hidden-tablet"> {{char}}</span> </a>
                     </li>
-
                   </ul>
                 </header>
                 <!-- widget div-->
@@ -365,15 +375,16 @@
 
   <!--数据对比-->
 
-  <div  class="bigBox animated fadeIn fast" style="border:6px solid #3276b1;">
-    <h4>人员数据对比 <i class="botClose fa fa-times" ></i></h4>
-    <ul >
-      <li > <i class="fa fa-times" ></i>ID: p10001</li>
-      <li > <i class="fa fa-times" ></i>ID: p10001</li>
-      <li > <i class="fa fa-times" ></i>ID: p10001</li>
+  <div  class="bigBox animated fadeIn fast" style="border:6px solid #3276b1;" *ngIf="isShowJoin">
+    <h4 (click)="closePid()">人员数据对比 <i class="botClose fa fa-times" ></i></h4>
+    <ul *ngIf="join_pid.length > 0">
+      <li *ngFor="let p of join_pid"> <i class="fa fa-times" (click)="outPid(p)"></i>ID: {{p}}</li>
+    </ul>
+    <ul *ngIf="join_pid.length == 0">
+      <li> 还没有可对比的数据！</li>
     </ul>
     <p class="text-align-center">
-      <a class="btn btn-info" >详情</a>
+      <a class="btn btn-info" (click)="showJoinPic();lgModal.show()">详情</a>
     </p>
   </div>
 
