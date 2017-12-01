@@ -112,6 +112,15 @@ export class HelmetChartComponent implements OnInit {
     }
 
     /**
+     * 离开页面的时候移除定时器
+     * @returns {boolean}
+     */
+    ngOnDestroy() {
+        this.interval &&  clearInterval(this.interval);
+        this.isClear &&  clearInterval(this.isClear);
+    }
+
+    /**
      * 获取人员定位信息列表
      * @param number
      */

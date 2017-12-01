@@ -51,6 +51,7 @@ export class DataMapComponent implements OnInit {
         private cookiestore : CookieStoreService
     ) {
         this.getDefault();
+        window.scrollTo(0,0);
     }
 
     ngOnInit() {

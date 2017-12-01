@@ -18,6 +18,7 @@ import {FullTablesComponent} from "./full-tables/full-tables.component";
 import {TodoDetailsComponent} from "./todo-details/todo-details.component";
 import {EquipmentListComponent} from "./equipment-list/equipment-list.component";
 import {AddEquipmentComponent} from "./add-equipment/add-equipment.component";
+import {HelmetChartGuard} from "../shared/cookies/helmetChart.guard";
 
 export const routes:Routes = [
     {
@@ -34,7 +35,8 @@ export const routes:Routes = [
     },
     {
         path: 'helmet-chart',
-        component: HelmetChartComponent
+        component: HelmetChartComponent,
+        canDeactivate:[HelmetChartGuard]  //路由守卫
     },
     {
         path: 'station-chart',
