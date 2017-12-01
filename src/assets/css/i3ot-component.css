@@ -3148,8 +3148,13 @@ div.dataTables_editor{
 
 
 /*加载*/
+
+.modal-dialog-head{
+    z-index: 0;
+}
+
 .modal-dialog-loading{
-    top:50%;
+    top:36%;
     text-align:center;
 }
 .modal-dialog-loading h4{
