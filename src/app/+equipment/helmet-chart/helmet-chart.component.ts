@@ -116,7 +116,7 @@ export class HelmetChartComponent implements OnInit {
      * @param number
      */
     getI3otpList(number:string) {
-        let url = this.globalService.getDomain()+'/api/v1/getI3otpList?page='+number+'&i3otp_category=1&type=pic&sid='+this.cookieStore.getCookie('sid');
+        let url = this.globalService.getDomain()+'/api/v1/getI3otpList?page='+number+'&i3otp_category='+this.globalService.getStation(1)+'&type=pic&sid='+this.cookieStore.getCookie('sid');
         if(this.formModel.value['keyword'].trim() != ''){
             url += '&keyword='+this.formModel.value['keyword'].trim();
         }
@@ -178,7 +178,7 @@ export class HelmetChartComponent implements OnInit {
     getColor(pro:Array<any>,entry:string){
         let color_ = {
             'color':'',
-            'up_color':'#ebcccc'
+            // 'up_color':'#ebcccc'
         };
         if(this.colorShow['result'][entry]) {
             //将颜色便利进（最新数据）显示数组
@@ -188,7 +188,7 @@ export class HelmetChartComponent implements OnInit {
                 let val = parseInt(pro[entry]['value'][this.size - 1]);
                 if (val >= min && val <= max) {
                     color_.color = this.colorShow['result'][entry][s]['s_color'];
-                    color_.up_color = this.colorShow['result'][entry][s]['s_up_color'] == '' ? color_.up_color : this.colorShow['result'][entry][s]['s_up_color'];
+                    // color_.up_color = this.colorShow['result'][entry][s]['s_up_color'] == '' ? color_.up_color : this.colorShow['result'][entry][s]['s_up_color'];
                 }
             }
         }
@@ -229,7 +229,7 @@ export class HelmetChartComponent implements OnInit {
                         name: entry,
                         time: dataInfo['time'][this.size - 1],
                         color: color_.color,
-                        up_color: color_.up_color,
+                        // up_color: color_.up_color,
                         value: this.products1['data'][i]['info'][entry]['value'][this.size - 1]
                     });
                 }

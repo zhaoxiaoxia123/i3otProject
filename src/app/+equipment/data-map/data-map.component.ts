@@ -89,7 +89,7 @@ export class DataMapComponent implements OnInit {
         let array_retu : Array<any> = [];
         let color_ = {
             'color':'',
-            'up_color':'#ebcccc'
+            // 'up_color':'#ebcccc'
         };
         if(this.colorShow['result'].length > 0) {
             //将颜色便利进（最新数据）显示数组
@@ -102,10 +102,10 @@ export class DataMapComponent implements OnInit {
                             let val = parseInt(pro[entry]['value'][v]);
                             if (val >= min && val <= max) {
                                 color_.color = this.colorShow['result'][i]['detail'][s]['s_color'];
-                                color_.up_color = this.colorShow['result'][i]['detail'][s]['s_up_color'] == '' ? color_.up_color : this.colorShow['result'][i]['detail'][s]['s_up_color'];
+                                // color_.up_color = this.colorShow['result'][i]['detail'][s]['s_up_color'] == '' ? color_.up_color : this.colorShow['result'][i]['detail'][s]['s_up_color'];
                             }else{
                                 color_.color = '';
-                                color_.up_color = '#ebcccc';
+                                // color_.up_color = '#ebcccc';
                             }
                             array_retu.push(color_);
                         }
@@ -148,7 +148,7 @@ export class DataMapComponent implements OnInit {
 
         let color_={
             'color':'',
-            'up_color':'#ebcccc'
+            // 'up_color':'#ebcccc'
         };
         that.size = 5;
         that.dataSource = that.http.get(that.globalService.getTsdbDomain()+'/tsdb/api/getDatapoint.php?size='+that.size+'&cid='+that.company+'&index=1')
@@ -170,7 +170,7 @@ export class DataMapComponent implements OnInit {
                 for (let entry of dataInfo['name']) {
                     let vNum :number = 0;
                     let colorA : Array<any> = [];
-                    let upColorA : Array<any> = [];
+                    // let upColorA : Array<any> = [];
                     for(let value of dataInfo['info'][entry]['value']) {
                         if(this.colorShow['result'] && this.colorShow['result'][entry]) {
                             for (var s = 0; s < this.colorShow['result'][entry].length; s++) {
@@ -179,15 +179,15 @@ export class DataMapComponent implements OnInit {
                                 let val = parseInt(value);
                                 if (val >= min && val <= max) {
                                     colorA.push(this.colorShow['result'][entry][s]['s_color']);
-                                    upColorA.push(this.colorShow['result'][entry][s]['s_up_color'] == '' ? color_.up_color : this.colorShow['result'][entry][s]['s_up_color']);
+                                    // upColorA.push(this.colorShow['result'][entry][s]['s_up_color'] == '' ? color_.up_color : this.colorShow['result'][entry][s]['s_up_color']);
                                 }
                             }
                         } else {
                             colorA.push(color_.color);
-                            upColorA.push(color_.up_color) ;
+                            // upColorA.push(color_.up_color) ;
                         }
                         this.products['data'][0]['info'][entry]['color'] = colorA;
-                        this.products['data'][0]['info'][entry]['up_color'] = upColorA ;
+                        // this.products['data'][0]['info'][entry]['up_color'] = upColorA ;
                         vNum++;
                     }
                     c++;
@@ -218,7 +218,7 @@ export class DataMapComponent implements OnInit {
                     for (let entry of dataInfo['name']) {
                         let vNum :number = 0;
                         let colorA : Array<any> = [];
-                        let upColorA : Array<any> = [];
+                        // let upColorA : Array<any> = [];
                         for(let value of dataInfo['info'][entry]['value']) {
                             if(this.colorShow['result'] && this.colorShow['result'][entry]) {
                                 for (var s = 0; s < this.colorShow['result'][entry].length; s++) {
@@ -227,15 +227,15 @@ export class DataMapComponent implements OnInit {
                                     let val = parseInt(value);
                                     if (val >= min && val <= max) {
                                         colorA.push(this.colorShow['result'][entry][s]['s_color']);
-                                        upColorA.push(this.colorShow['result'][entry][s]['s_up_color'] == '' ? color_.up_color : this.colorShow['result'][entry][s]['s_up_color']);
+                                        // upColorA.push(this.colorShow['result'][entry][s]['s_up_color'] == '' ? color_.up_color : this.colorShow['result'][entry][s]['s_up_color']);
                                     }
                                 }
                             } else {
                                 colorA.push(color_.color);
-                                upColorA.push(color_.up_color) ;
+                                // upColorA.push(color_.up_color) ;
                             }
                             this.products1['data'][0]['info'][entry]['color'] = colorA;
-                            this.products1['data'][0]['info'][entry]['up_color'] = upColorA ;
+                            // this.products1['data'][0]['info'][entry]['up_color'] = upColorA ;
                             vNum++;
                         }
                         c++;

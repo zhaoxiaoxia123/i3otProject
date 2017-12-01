@@ -68,6 +68,12 @@ export class EquipmentListComponent implements OnInit {
           this.prev = false;
         }
       }
+
+      this.selects = [];
+      for (let entry of this.i3otpList['result']['i3otpList']['data']) {
+        this.selects[entry['i3otp_id']] = false;
+      }
+      this.check = false;
     }, 400);
   }
 
@@ -159,6 +165,15 @@ export class EquipmentListComponent implements OnInit {
     }
   }
 
+  //全选，反全选
+  changeCheckAll(e){
+    let t = e.target;
+    let c = t.checked;
+    this.selects.forEach((val, idx, array) => {
+      this.selects[idx] = c;
+    });
+    this.check = c;
+  }
   /**
    * 全选删除
    * @param current_page
