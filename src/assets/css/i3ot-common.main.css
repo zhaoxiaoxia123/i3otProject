@@ -144,7 +144,9 @@ a:hover{cursor: pointer;}
     margin-top: 1px;
     margin-right: 5px;
     margin-left: 0;
-    border-left: 3px solid #fff
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
 }
 
 /*sa-activities*/

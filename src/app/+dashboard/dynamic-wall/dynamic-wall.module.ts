@@ -5,6 +5,7 @@ import { DynamicWallRoutingModule } from './dynamic-wall-routing.module';
 import {DynamicWallComponent} from "./dynamic-wall.component";
 import {SmartadminModule} from "../../shared/smartadmin.module";
 import { TodoWidgetComponent } from './todo-widget/todo-widget.component';
+import { PanelElementComponent } from './panel-element/panel-element.component';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { TodoWidgetComponent } from './todo-widget/todo-widget.component';
   ],
   declarations: [
       DynamicWallComponent,
-      TodoWidgetComponent
+      TodoWidgetComponent,
+      PanelElementComponent
   ]
 })
 export class DynamicWallModule { }
