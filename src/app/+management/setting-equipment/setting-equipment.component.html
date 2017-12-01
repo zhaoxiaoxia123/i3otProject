@@ -1,0 +1,183 @@
+<div id="content">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="['矿易帮设置', '设备设置']" icon="pencil-square-o" class="col-xs-12 col-sm-9 col-md-9 col-lg-9"></sa-big-breadcrumbs>
+  </div>
+  <sa-widget [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+    <header>
+      <ul class="nav nav-tabs pull-left in">
+
+        <li [class.active]="state.tabs.demo3=='hr1'">
+          <a (click)="state.tabs.demo3 = 'hr1'"> <i class="fa fa-lg fa-suitcase"></i> <span
+                  class="hidden-mobile hidden-tablet"> 设备类型 </span>
+          </a>
+        </li>
+        <li [class.active]="state.tabs.demo3=='hr2'">
+          <a (click)="state.tabs.demo3 = 'hr2'"> <i class="fa fa-lg fa-child"></i> <span
+                  class="hidden-mobile hidden-tablet"> 传感器类型 </span>
+          </a>
+        </li>
+      </ul>
+    </header>
+    <div>
+      <div class="widget-body">
+        <tabset>
+          <tab [active]="state.tabs.demo3 == 'hr1'">
+            <div class="row">
+              <article class="col-sm-12 col-md-12 col-lg-6">
+                <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                           [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+                  <div>
+                    <div class="widget-body no-padding">
+                      <alert type="info" class="no-margin" >
+                        <i class="fa-fw fa fa-plus"></i>
+                        添加设备类型
+                      </alert>
+                      <form  class="smart-form ">
+                        <fieldset>
+                          <section>
+                            <label class="input">
+                              <input type="text"
+                                     placeholder="请输入设备类型" minlength="1" maxlength="20" >
+                            </label>
+                          </section>
+                        </fieldset>
+                        <footer>
+                          <button type="submit" class="btn btn-primary">
+                            保存
+                          </button>
+                        </footer>
+                      </form>
+                    </div>
+                  </div>
+                </sa-widget>
+              </article>
+              <article class="col-sm-12 col-md-12 col-lg-6">
+                <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                           [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+                  <div>
+                    <div class="widget-body no-padding">
+                      <alert type="info" class="no-margin" >
+                        <i class="fa-fw fa fa-spoon"></i>
+                        设备类型
+                      </alert>
+                      <div class="table-responsive">
+                        <table class="table table-hover table-bordered dataTable">
+                          <thead>
+                          <tr>
+                            <th>设备类型</th>
+                            <th>操作</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr >
+                            <td>设备类型</td>
+                            <td><a class="btn btn-warning btn-xs"  ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                              <a class="btn btn-danger btn-xs" ><span class="glyphicon glyphicon-remove"></span>删除</a>
+                            </td>
+                          </tr>
+                          </tbody>
+                        </table>
+                        <!-- 底部-（分页部分）-->
+                        <div class="dt-toolbar">
+                          <div class="hidden-xs right">
+                          <!--  <ul class="pagination pagination-sm">
+                              <li *ngFor="let p of industryCategoryList?.page" class="{{p.class}}">
+                                <a (click)="pagination(1,p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+                                <a *ngIf="p.method==''">{{p.text}}</a>
+                              </li>
+                            </ul>-->
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </sa-widget>
+              </article>
+            </div>
+          </tab>
+          <tab [active]="state.tabs.demo3 == 'hr2'">
+
+            <div class="row">
+              <article class="col-sm-12 col-md-12 col-lg-6">
+
+                <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                           [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+                  <div>
+                    <div class="widget-body no-padding">
+                      <alert type="info" class="no-margin" >
+                        <i class="fa-fw fa fa-plus"></i>
+                        添加传感器类型
+                      </alert>
+                      <form class="smart-form" >
+                        <fieldset>
+                          <section>
+                            <label class="input">
+                              <input type="text" required
+                                     placeholder="请输入传感器类型" minlength="1" maxlength="20" >
+                            </label>
+                          </section>
+                        </fieldset>
+                        <footer>
+                          <button type="submit" class="btn btn-primary">
+                            保存
+                          </button>
+                        </footer>
+                      </form>
+                    </div>
+                  </div>
+                </sa-widget>
+              </article>
+              <article class="col-sm-12 col-md-12 col-lg-6">
+
+                <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                           [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+
+                  <div>
+                    <div class="widget-body no-padding">
+                      <alert type="info" class="no-margin" >
+                        <i class="fa-fw fa fa-spoon"></i>
+                        传感器类型
+                      </alert>
+                      <div class="table-responsive">
+                        <table class="table table-hover table-bordered dataTable">
+                          <thead>
+                          <tr>
+                            <th>传感器类型</th>
+                            <th>操作</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr >
+                            <td>传感器类型</td>
+                            <td><a class="btn btn-warning btn-xs"  ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                              <a class="btn btn-danger btn-xs" ><span class="glyphicon glyphicon-remove"></span>删除</a>
+                            </td>
+                          </tr>
+                          </tbody>
+                        </table>
+                        <!-- 底部-（分页部分）-->
+                        <div class="dt-toolbar">
+                          <div class="hidden-xs right">
+                            <!--<ul class="pagination pagination-sm">
+                              <li *ngFor="let p of sourceList?.page" class="{{p.class}}">
+                                <a (click)="pagination(2,p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+                                <a *ngIf="p.method==''">{{p.text}}</a>
+                              </li>
+                            </ul>-->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </sa-widget>
+              </article>
+            </div>
+          </tab>
+        </tabset>
+      </div>
+      <!-- end widget content -->
+    </div>
+    <!-- end widget div -->
+  </sa-widget>
+</div>

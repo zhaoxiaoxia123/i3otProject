@@ -28,6 +28,11 @@ export const routes:Routes = [
         data: {pageTitle: 'Setting Product3type'}
     },
     {
+        path: 'setting-equipment',
+        loadChildren: 'app/+management/setting-equipment/setting-equipment.module#SettingEquipmentModule',
+        data: {pageTitle: 'Setting Equipment'}
+    },
+    {
         path: 'product4parameters',
         loadChildren: 'app/+management/setting-product4parameters/setting-product4parameters.module#SettingProduct4parametersModule',
         data: {pageTitle: 'Setting Product4parameters'}
