@@ -91,7 +91,7 @@ export class StationChartComponent implements OnInit {
      * @param number
      */
     getI3otpList(number:string) {
-        let url = this.globalService.getDomain()+'/api/v1/getI3otpList?page='+number+'&i3otp_category=2&type=pic&sid='+this.cookieStore.getCookie('sid');
+        let url = this.globalService.getDomain()+'/api/v1/getI3otpList?page='+number+'&i3otp_category='+this.globalService.getStation(2)+'&type=pic&sid='+this.cookieStore.getCookie('sid');
         if(this.formModel.value['keyword'].trim() != ''){
             url += '&keyword='+this.formModel.value['keyword'].trim();
         }

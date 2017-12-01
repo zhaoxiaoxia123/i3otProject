@@ -41,7 +41,7 @@
                 <tr>
                   <td>
                     <label class="checkbox">
-                      <input name="checkbox-inline" type="checkbox">
+                      <input name="checkbox-inline" type="checkbox" [checked]="check" (change)="changeCheckAll($event)">
                       <i></i>
                     </label>
                   </td>
@@ -63,7 +63,7 @@
                 <tr *ngFor="let il of i3otpList.result?.i3otpList?.data">
                   <td>
                     <label class="checkbox">
-                      <input type="checkbox" value="{{ il.c_id }}" [checked]="selects[il.c_id]" (change)="handle($event)">
+                      <input type="checkbox" value="{{ il.i3otp_id }}" [checked]="selects[il.i3otp_id]" (change)="handle($event)">
                       <i></i>
                     </label>
                   </td>
@@ -136,84 +136,86 @@
                   <tbody>
                   <tr>
                     <td class="width-120">产品ID：</td>
-                    <td class="">p10001</td>
+                    <td class="">{{i3otpInfo.result?.i3otp_pid}}</td>
                   </tr>
                   <tr>
                     <td class="width-120">产品外部编号：</td>
-                    <td class="">402 103 201 001</td>
+                    <td class="">{{i3otpInfo.result?.i3otp_c_pid}}</td>
                   </tr>
                   <tr>
                     <td class="width-120">产品名称：</td>
-                    <td class="">智能本安型基站</td>
+                    <td class="">{{i3otpInfo.result?.i3otp_name}}</td>
                   </tr>
                   <tr>
                     <td class="width-120">产品类别：</td>
-                    <td class="">基站</td>
+                    <td class="">{{i3otpInfo.result?.category_desc}}</td>
                   </tr>
                   <tr>
                     <td class="width-120">通信方式：</td>
-                    <td class="">485通讯线；矿用双绞线；</td>
+                    <td class="">{{i3otpInfo.result?.i3otp_communication}}</td>
                   </tr>
                   <tr>
                     <td class="width-120">Mac：</td>
-                    <td class="">ED:FE:2D:34</td>
+                    <td class="">{{i3otpInfo.result?.i3otp_mac_addr}}</td>
                   </tr>
                   <tr>
                     <td class="width-120">产地：</td>
-                    <td class="">中国</td>
+                    <td class="">{{i3otpInfo.result?.i3otp_p_origin}}</td>
                   </tr>
                   <tr>
                     <td class="width-120">硬件版本：</td>
-                    <td class="">v1.0.0</td>
+                    <td class="">{{i3otpInfo.result?.i3otp_hardware}}</td>
                   </tr>
                   <tr>
                     <td class="width-120">固件版本：</td>
-                    <td class="">1.0.0.001</td>
+                    <td class="">{{i3otpInfo.result?.i3otp_firmware}}</td>
                   </tr>
                   <tr>
                     <td class="width-120">固件更新日期：</td>
-                    <td class="">2017.09.20</td>
-                  </tr>
-
-                  <tr>
-                    <td class="width-120">电池容量：</td>
-                    <td class="">6000mA</td>
+                    <td class="">{{i3otpInfo.result?.i3otp_f_update}}</td>
                   </tr>
                   <tr>
                     <td class="width-120">产品功能：</td>
-                    <td class="">多功能复合基站，具有人员定位，紧急报警，气体监测，安全帽通信，数据传输，数据显示等功能</td>
+                    <td class="">{{i3otpInfo.result?.i3otp_spec}}</td>
                   </tr>
                   <tr>
                     <td class="width-120">生产日期：</td>
-                    <td class="">2017.09.10</td>
+                    <td class="">{{i3otpInfo.result?.i3otp_sensor_intervan}}</td>
                   </tr>
                   <tr>
                     <td class="width-120">内部质检员：</td>
-                    <td class="">秋意浓</td>
+                    <td class="">{{i3otpInfo.result?.u_username}}</td>
                   </tr>
                   <tr>
                     <td class="width-120">内部质检日期：</td>
-                    <td class="">2017.09.15</td>
+                    <td class="">{{i3otpInfo.result?.i3otp_qc_date}}</td>
                   </tr>
                   <tr>
                     <td class="width-120">购买公司：</td>
-                    <td class="">中兴煤矿股份有限公司</td>
+                    <td class="">{{i3otpInfo.result?.c_id}}</td>
                   </tr>
                   <tr>
                     <td class="width-120">订单号：</td>
-                    <td class="">20171010042</td>
+                    <td class="">{{i3otpInfo.result?.o_id}}</td>
                   </tr>
                   <tr>
                     <td class="width-120">绑定地址：</td>
-                    <td class="">个旧组第一段50m</td>
+                    <td class="">{{i3otpInfo.result?.i3otp_address}}</td>
                   </tr>
                   <tr>
                     <td class="width-120">设备状态：</td>
-                    <td class="">已激活</td>
+
+                    <td [ngSwitch]="i3otpInfo.result?.i3otp_status">
+                      <span *ngSwitchCase="0">未激活</span>
+                      <span *ngSwitchCase="1">使用中</span>
+                      <span *ngSwitchCase="2">返厂维修</span>
+                      <span *ngSwitchCase="3">报废</span>
+                      <span *ngSwitchDefault>未激活</span>
+                    </td>
                   </tr>
                   <tr>
                     <td class="width-120">激活码：</td>
-                    <td class="">S128SADASDH21</td>
+                    <td class="">{{i3otpInfo.result?.i3otp_activation}}</td>
                   </tr>
 
                   </tbody>
