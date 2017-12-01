@@ -3,15 +3,9 @@
     <sa-big-breadcrumbs [items]="['设备管理', '数据对比']" icon="file-text-o" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
   </div>
   <sa-widgets-grid>
-
-    <div class="row" *ngIf="! (products['data'] && products['data'][0])">
-      <h3>正在努力加载中...</h3>
-    </div>
-    <div class="row" *ngIf="products['data'] && products['data'][0]">
-
-
+    <div class="row" *ngIf="products['data'] && products['data'][0] && products1['data'] && products1['data'][0] ">
       <article class="col-sm-3" *ngFor="let entry of (products['data'][0]['info'] | keys)" >
-        <sa-widget  [editbutton]="false" [deletebutton]="false" color="darken" *ngIf="entry.value.value[0]">
+        <sa-widget [editbutton]="false" [deletebutton]="false" color="darken" *ngIf="entry.value.value[0]">
           <header>
             <h2 *ngIf="entry.key == 'ch4'">甲烷</h2>
             <h2 *ngIf="entry.key == 'co'">一氧化碳</h2>
@@ -41,9 +35,7 @@
                 </tr>
                 </thead>
                 <tbody>
-
                 <tr *ngFor="let val of entry.value.value;let idx=index"  [ngStyle]="{'background-color': products['data'][0]['info'][entry.key]['color'][idx]}">
-
                   <td>{{ products['data'][0]['time'][idx] }}</td>
                   <td>{{ val }}</td>
                 </tr>
@@ -58,7 +50,6 @@
           </div>
         </sa-widget>
       </article>
-
 
       <article class="col-sm-3" *ngFor="let entry of (products1['data'][0]['info'] | keys)" >
         <sa-widget  [editbutton]="false" [deletebutton]="false" color="darken" *ngIf="entry.value.value[0]">
@@ -106,7 +97,6 @@
           </div>
         </sa-widget>
       </article>
-
 
     </div>
   </sa-widgets-grid>
@@ -159,8 +149,11 @@
     </div>
   </div>
 
+  <!--<div class="row" *ngIf="! (products['data'] && products['data'][0])">-->
+    <!--<h3>正在努力加载中...</h3>-->
+  <!--</div>-->
   <!--加载-->
-  <div class="modal-backdrop modal-dialog-head fade in">
+  <div class="modal-backdrop modal-dialog-head fade in" *ngIf="! (products['data'] && products['data'][0] && products1['data'] && products1['data'][0] )">
     <div class="modal-dialog modal-dialog-loading">
       <div class="row">
         <img  src="assets/img/loading3.gif" >

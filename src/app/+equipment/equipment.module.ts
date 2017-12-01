@@ -56,8 +56,8 @@ import { AddEquipmentComponent } from './add-equipment/add-equipment.component';
     AddEquipmentComponent
   ],
     exports : [
-  KeysPipe
-],
+      KeysPipe
+    ],
   providers:[CookieService,CookieStoreService,UnsavedGuard,ChartGuard]
 })
 export class EquipmentModule { }

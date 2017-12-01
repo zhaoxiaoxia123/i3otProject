@@ -101,6 +101,7 @@ export class ListClientComponent implements OnInit {
     });
     this.check = c;
   }
+
   //点击列表checkbox事件
   handle(e){
     let t = e.target;

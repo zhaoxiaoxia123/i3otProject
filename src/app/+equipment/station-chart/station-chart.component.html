@@ -124,7 +124,6 @@
                       <i *ngIf="il.i3otp_status == 1" class="fa fa-circle text-danger font-xs">使用中</i>
                       <i *ngIf="il.i3otp_status == 2" class="fa fa-circle txt-color-darken font-xs">返厂维修</i>
                       <i *ngIf="il.i3otp_status == 3" class="fa fa-circle txt-color-darken font-xs">报废</i>
-
                     </td>
                     <td class="percent-12">{{il.i3otp_sensor_intervan}}</td>
                     <td class="percent-16" *ngIf="il.i3otp_attribute1.length!=0 || il.i3otp_attribute2.length!=0 || il.i3otp_attribute3.length!=0">
@@ -136,16 +135,13 @@
                   </tr>
                   <tr *ngIf="status.indexOf(ind+',') != -1">
                     <td colspan="7">
-
                       <table   class="table table-hover table-condensed">
                         <tbody>
-
                         <!--加载完成隐藏-->
                         <tr>
                           <td  colspan="2" class="text-align-center" ><img  src="assets/img/select2-spinner.gif" >
                             <h4 class="txt-color-darken" >加载中</h4></td>
                         </tr>
-
                         <tr>
                           <td class="percent-50" style="border-right:1px solid #ccc; ">
                             <div echarts [options]="chartOption1[ind]" class="demo-chart" *ngIf="chartOption1[ind]" ></div>
@@ -189,11 +185,9 @@
                       </table>
                     </td>
                   </tr>
-
                   </tbody>
                 </table>
               </div>
-
               <!-- 底部-（分页部分）-->
 
               <div class="dt-toolbar-footer">
@@ -202,43 +196,25 @@
                   </div>
                 </div>
                 <div class="col-sm-6 col-xs-12 hidden-xs text-right">
-                  <ul class="pagination">
-                    <li>
-                      <a (click)="pagination(i3otpList.result?.i3otpList?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>
-                    </li>
-                    <li>
-                      <a (click)="pagination(i3otpList.result?.i3otpList?.next_page_url)"><i class="fa fa-arrow-right"></i></a>
+                  <!--<ul class="pagination">-->
+                    <!--<li>-->
+                      <!--<a (click)="pagination(i3otpList.result?.i3otpList?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                      <!--<a (click)="pagination(i3otpList.result?.i3otpList?.next_page_url)"><i class="fa fa-arrow-right"></i></a>-->
+                    <!--</li>-->
+                  <!--</ul>-->
+                  <ul class="pagination pagination-sm">
+                    <li *ngFor="let p of i3otpList?.page" class="{{p.class}}">
+                      <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+                      <a *ngIf="p.method==''">{{p.text}}</a>
                     </li>
                   </ul>
-                  <!--<ul class="pagination pagination-sm">-->
-                  <!--<li class="disabled">-->
-                  <!--<a href="">上一页</a>-->
-                  <!--</li>-->
-                  <!--<li class="success">-->
-                  <!--<a href="">1</a>-->
-                  <!--</li>-->
-                  <!--<li>-->
-                  <!--<a href="">2</a>-->
-                  <!--</li>-->
-                  <!--<li>-->
-                  <!--<a href="">3</a>-->
-                  <!--</li>-->
-                  <!--<li>-->
-                  <!--<a href="">...</a>-->
-                  <!--</li>-->
-                  <!--<li>-->
-                  <!--<a href="">99</a>-->
-                  <!--</li>-->
-                  <!--<li>-->
-                  <!--<a href="">下一页</a>-->
-                  <!--</li>-->
-                  <!--</ul>-->
                 </div>
               </div>
             </div>
           </div>
         </sa-widget>
-
       </article>
     </div>
   </sa-widgets-grid>
@@ -247,23 +223,19 @@
        aria-hidden="true">
     <div class="modal-dialog modal-lg">
 
-
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" (click)="ngOnClose();lgModal.hide()" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h4 class="modal-title">数据对比图 {{loading}}</h4>
+          <h4 class="modal-title">数据对比图</h4>
         </div>
         <div class="modal-body">
           <!--加载中-->
-          <div class="row text-align-center">
+          <div class="row text-align-center" *ngIf="loading != ''">
             <img  src="assets/img/select2-spinner.gif" >
-            <h4 class="txt-color-darken" >加载中</h4>
+            <h4 class="txt-color-darken" >{{loading}}</h4>
           </div>
-
-
-
 
           <div class="row">
             <div class="col-md-12">
@@ -284,18 +256,17 @@
   </div>
 
   <!--数据对比-->
-
-    <div  class="bigBox animated fadeIn fast" style="border:6px solid #3276b1;">
-        <h4>设备数据对比 <i class="botClose fa fa-times" ></i></h4>
-      <ul >
-        <li > <i class="fa fa-times" ></i>ID: p10001</li>
-        <li > <i class="fa fa-times" ></i>ID: p10001</li>
-        <li > <i class="fa fa-times" ></i>ID: p10001</li>
+    <div  class="bigBox animated fadeIn fast" style="border:6px solid #3276b1;" *ngIf="isShowJoin">
+        <h4 (click)="closePid()">设备数据对比 <i class="botClose fa fa-times" ></i></h4>
+      <ul *ngIf="join_pid.length > 0">
+        <li *ngFor="let p of join_pid"> <i class="fa fa-times" (click)="outPid(p)"></i>ID: {{p}}</li>
+      </ul>
+      <ul *ngIf="join_pid.length == 0">
+        <li> 还没有可对比的数据！</li>
       </ul>
         <p class="text-align-center">
-          <a class="btn btn-info" >详情</a>
+          <a class="btn btn-info" (click)="showJoinPic();">详情</a>
         </p>
     </div>
-
 
 </div>
