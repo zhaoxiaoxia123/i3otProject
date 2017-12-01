@@ -54,6 +54,7 @@
                                     </div>
                                   </div>
                                 </fieldset>
+
                                 <fieldset>
                                   <legend><span style="margin-left: 13px;">第一阶段</span></legend>
                                   <div class="form-group">
@@ -77,7 +78,7 @@
                                             <input required class="form-control" placeholder="请输入范围最大值" name="s_interval1_2" formControlName="s_interval1_2" minlength="1" maxlength="10" type="text">
                                           </div>
                                         </div>
-                                      </div>
+                                        </div>
                                     </div>
                                     <div class="col-sm-12">
                                       <div class="form-group">
@@ -88,74 +89,6 @@
                                           </div>
                                         </div>
 
-                                          <div class="form-group">
-                                            <label class="control-label " >颜色</label>
-                                            <div class="col-sm-12">
-                                              <div class="input-group">
-                                                <input class="form-control" style="margin-left:-13px;" type="text" placeholder="#d0e9c6" maxlength="10" name="s_up_color1" formControlName="s_up_color1"/>
-                                                <div class="input-group-btn">
-                                                  <button class="btn btn-default" type="button" (click)="toDefault('#dff0d8',1)">
-                                                    恢复默认（正常）
-                                                  </button>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-
-                                      </div>
-                                    </div>
-                                  </div>
-                                </fieldset>
-
-
-                                <fieldset>
-                                  <legend><span style="margin-left: 13px;">第一阶段</span></legend>
-                                  <div class="form-group">
-                                    <div class="col-sm-12">
-                                      <div class="form-group">
-                                        <div class="col-sm-4">
-                                          <div class="form-group">
-                                            <label>范围取值</label>
-                                            <input required class="form-control" style="margin-left:-13px;" placeholder="请输入范围最小值" name="s_interval1_1" formControlName="s_interval1_1" minlength="1" maxlength="10" type="text">
-                                          </div>
-                                        </div>
-                                        <div class="col-sm-1">
-                                          <div class="form-group">
-                                            <label>  </label>
-                                            <b>至</b>
-                                          </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                          <div class="form-group">
-                                            <label></label>
-                                            <input required class="form-control" placeholder="请输入范围最大值" name="s_interval1_2" formControlName="s_interval1_2" minlength="1" maxlength="10" type="text">
-                                          </div>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12">
-                                      <div class="form-group">
-                                        <div class="col-sm-4">
-                                          <div class="form-group">
-                                            <label>颜色</label>
-                                            <input class="form-control" style="margin-left:-13px;" type="text"  maxlength="10" placeholder="#dff0d8" name="s_color1" formControlName="s_color1" />
-                                          </div>
-                                        </div>
-                                        <div class="col-sm-8">
-                                          <div class="form-group">
-                                            <label class="control-label " >鼠标移上去的颜色</label>
-                                            <div class="col-sm-12">
-                                              <div class="input-group">
-                                                <input class="form-control" style="margin-left:-13px;" type="text" placeholder="#d0e9c6" maxlength="10" name="s_up_color1" formControlName="s_up_color1"/>
-                                                <div class="input-group-btn">
-                                                  <button class="btn btn-default" type="button" (click)="toDefault('#dff0d8',1)">
-                                                    恢复默认（正常）
-                                                  </button>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
                                       </div>
                                     </div>
                                   </div>
@@ -191,22 +124,7 @@
                                         <div class="col-sm-4">
                                           <div class="form-group">
                                             <label>颜色</label>
-                                            <input class="form-control" style="margin-left:-13px;" type="text" placeholder="#fcf8e3" maxlength="10" name="s_color2" formControlName="s_color2"/>
-                                          </div>
-                                        </div>
-                                        <div class="col-sm-8">
-                                          <div class="form-group">
-                                            <label class="control-label " >鼠标移上去的颜色</label>
-                                            <div class="col-sm-12">
-                                              <div class="input-group">
-                                                <input class="form-control" style="margin-left:-13px;" type="text" placeholder="#faf2cc" maxlength="10" name="s_up_color2" formControlName="s_up_color2"/>
-                                                <div class="input-group-btn">
-                                                  <button class="btn btn-default" type="button" (click)="toDefault('#fcf8e3',2)">
-                                                    恢复默认（临界）
-                                                  </button>
-                                                </div>
-                                              </div>
-                                            </div>
+                                            <input class="form-control" style="margin-left:-13px;" type="color" placeholder="#fcf8e3" maxlength="10" name="s_color2" formControlName="s_color2"/>
                                           </div>
                                         </div>
                                       </div>
@@ -245,22 +163,7 @@
                                         <div class="col-sm-4">
                                           <div class="form-group">
                                             <label>颜色</label>
-                                            <input class="form-control"  style="margin-left:-13px;" saColorpicker type="text" placeholder="#f2dede" maxlength="10" name="s_color3" formControlName="s_color3"/>
-                                          </div>
-                                        </div>
-                                        <div class="col-sm-8">
-                                          <div class="form-group">
-                                            <label class="control-label " >鼠标移上去的颜色</label>
-                                            <div class="col-sm-12">
-                                              <div class="input-group">
-                                                <input class="form-control" style="margin-left:-13px;" type="text" placeholder="#ebcccc" maxlength="10" name="s_up_color3" formControlName="s_up_color3"/>
-                                                <div class="input-group-btn">
-                                                  <button class="btn btn-default" type="button" (click)="toDefault('#f2dede',3)">
-                                                    恢复默认（异常）
-                                                  </button>
-                                                </div>
-                                              </div>
-                                            </div>
+                                            <input class="form-control"  style="margin-left:-13px;" saColorpicker type="color" placeholder="#f2dede" maxlength="10" name="s_color3" formControlName="s_color3"/>
                                           </div>
                                         </div>
                                       </div>

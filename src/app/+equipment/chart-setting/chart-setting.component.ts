@@ -46,15 +46,15 @@ export class ChartSettingComponent implements OnInit {
           s_interval1_1:[''],
           s_interval1_2:[''],
           s_color1:[''],
-          s_up_color1:[''],
+          // s_up_color1:[''],
           s_interval2_1:[''],
           s_interval2_2:[''],
           s_color2:[''],
-          s_up_color2: [''],
+          // s_up_color2: [''],
           s_interval3_1:[''],
           s_interval3_2:[''],
           s_color3:[''],
-          s_up_color3:['']
+          // s_up_color3:['']
       });
       this.getSettingsList('1');
   }
@@ -91,17 +91,17 @@ export class ChartSettingComponent implements OnInit {
         if(n==1){
             this.formModel.patchValue({
                 s_color1: str,
-                s_up_color1: str
+                // s_up_color1: str
             });
         }else if(n==2){
             this.formModel.patchValue({
                 s_color2: str,
-                s_up_color2: str
+                // s_up_color2: str
             });
         }else if(n==3){
             this.formModel.patchValue({
                 s_color3: str,
-                s_up_color3: str
+                // s_up_color3: str
             });
         }
     }
@@ -124,15 +124,15 @@ export class ChartSettingComponent implements OnInit {
                 s_interval1_1:this.settings_info['result']['s_interval1_1'],
                 s_interval1_2:this.settings_info['result']['s_interval1_2'],
                 s_color1:this.settings_info['result']['s_color1'],
-                s_up_color1:this.settings_info['result']['s_up_color1'],
+                // s_up_color1:this.settings_info['result']['s_up_color1'],
                 s_interval2_1:this.settings_info['result']['s_interval2_1'],
                 s_interval2_2:this.settings_info['result']['s_interval2_2'],
                 s_color2:this.settings_info['result']['s_color2'],
-                s_up_color2:this.settings_info['result']['s_up_color2'],
+                // s_up_color2:this.settings_info['result']['s_up_color2'],
                 s_interval3_1:this.settings_info['result']['s_interval3_1'],
                 s_interval3_2:this.settings_info['result']['s_interval3_2'],
                 s_color3:this.settings_info['result']['s_color3'],
-                s_up_color3:this.settings_info['result']['s_up_color3'],
+                // s_up_color3:this.settings_info['result']['s_up_color3'],
             });
             this.s_name_default = this.settings_info['result']['s_name'];
         }, 500);
@@ -161,15 +161,15 @@ export class ChartSettingComponent implements OnInit {
             's_interval1_1':this.formModel.value['s_interval1_1'],
             's_interval1_2':this.formModel.value['s_interval1_2'],
             's_color1':this.formModel.value['s_color1'],
-            's_up_color1':this.formModel.value['s_up_color1'],
+            // 's_up_color1':this.formModel.value['s_up_color1'],
             's_interval2_1':this.formModel.value['s_interval2_1'],
             's_interval2_2':this.formModel.value['s_interval2_2'],
             's_color2':this.formModel.value['s_color2'],
-            's_up_color2':this.formModel.value['s_up_color2'],
+            // 's_up_color2':this.formModel.value['s_up_color2'],
             's_interval3_1':this.formModel.value['s_interval3_1'],
             's_interval3_2':this.formModel.value['s_interval3_2'],
             's_color3':this.formModel.value['s_color3'],
-            's_up_color3':this.formModel.value['s_up_color3'],
+            // 's_up_color3':this.formModel.value['s_up_color3'],
             'sid':this.cookieStore.getCookie('sid')
         }).subscribe(
             (data)=>{
@@ -190,7 +190,7 @@ export class ChartSettingComponent implements OnInit {
     /**
      * 删除设置信息
      */
-    deleteSettings(s_id:string){
+    deleteSettings(s_id:number){
         let msg ='您确定要删除该条信息吗？';
         if(confirm(msg)) {
             let url = this.globalService.getDomain()+'/api/v1/deleteSettingsById?s_id=' + s_id + '&type=id&sid=' + this.cookieStore.getCookie('sid');
