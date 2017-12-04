@@ -401,6 +401,15 @@ div.dataTables_paginate ul.pagination {
 .txt-color-grey {
     color: #ccc!important
 }
+.text-danger{
+    color: #ed5565;
+}
+.text-info {
+    color: #23c6c8;
+}
+.text-success {
+    color: #1c84c6;
+}
 .bg-color-blue {
     background-color: #57889c!important
 }

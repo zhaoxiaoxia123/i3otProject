@@ -7,6 +7,9 @@ import {SmartadminModule} from "../../shared/smartadmin.module";
 import { TodoWidgetComponent } from './todo-widget/todo-widget.component';
 import { PanelElementComponent } from './panel-element/panel-element.component';
 import { PanelStaffComponent } from './panel-staff/panel-staff.component';
+import { PanelSellComponent } from './panel-sell/panel-sell.component';
+import { PanelStorehouseComponent } from './panel-storehouse/panel-storehouse.component';
+import { PanelProductsComponent } from './panel-products/panel-products.component';
 
 @NgModule({
   imports: [
@@ -18,7 +21,10 @@ import { PanelStaffComponent } from './panel-staff/panel-staff.component';
       DynamicWallComponent,
       TodoWidgetComponent,
       PanelElementComponent,
-      PanelStaffComponent
+      PanelStaffComponent,
+      PanelSellComponent,
+      PanelStorehouseComponent,
+      PanelProductsComponent
   ]
 })
 export class DynamicWallModule { }

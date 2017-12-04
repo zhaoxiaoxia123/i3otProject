@@ -1,3 +1,219 @@
-<p>
-  todo-widget works!
-</p>
+<sa-widget color="blueDark"  [editbutton]="false" [colorbutton]="false" [togglebutton]="false"
+           [fullscreenbutton]="false" [deletebutton]="false">
+  <header>
+    <span class="widget-icon"> <i class="fa fa-check txt-color-white"></i> </span>
+
+    <h2>待办事项</h2>
+
+    <div class="widget-toolbar">
+      <button class="btn btn-xs btn-default"
+              [class.active]="newTodo" (click)="toggleAdd()"><i
+              *ngIf="!newTodo" class="fa fa-plus"></i><i
+              *ngIf="newTodo" class="fa fa-times"></i> 添加</button>
+
+    </div>
+  </header>
+  <!-- widget div-->
+  <div>
+    <div class="widget-body no-padding smart-form">
+      <!-- content goes here -->
+      <div *ngIf="newTodo">
+        <h5 class="todo-group-title"><i class="fa fa-plus-circle"></i>添加新的待办事项</h5>
+
+        <form #newTodoForm="ngForm" class="smart-form">
+          <fieldset>
+            <section>
+              <label >标题</label>
+              <label class="input">
+                <input type="text" required class="input-lg" [(ngModel)]="newTodo.title" name="title"
+                       placeholder="请输入标题">
+              </label>
+            </section>
+            <section>
+              <label>内容</label>
+              <textarea class="form-control" name="" rows="4"></textarea>
+
+            </section>
+            <!--<section>
+              <div class="col-xs-6">
+                <label class="select">
+                  <select class="input-sm" name="state" [(ngModel)]="newTodo.state" >
+                    <option *ngFor="let state of states" [value]="state.name">{{state.name}}</option>
+                  </select> <i></i> </label>
+              </div>
+            </section>-->
+          </fieldset>
+          <footer>
+            <button [disabled]="!newTodoForm.form.valid" type="button" class="btn btn-primary"
+                    (click)="createTodo()">
+              添加
+            </button>
+            <button type="button" class="btn btn-default" (click)="toggleAdd()">
+              取消
+            </button>
+          </footer>
+        </form>
+      </div>
+      <div>
+
+        <h5 class="todo-group-title"> 全部</h5>
+        <p class="top-btn">
+          <a (click)="(null)" class="btn btn-default active">全部</a>
+          <a (click)="(null)" class="btn btn-default">处理中</a>
+          <a (click)="(null)" class="btn btn-default">正在处理</a>
+          <a (click)="(null)" class="btn btn-default">未处理</a>
+          <a (click)="(null)" class="btn btn-default">垃圾桶</a>
+        </p>
+
+        <ul class="todo">
+          <li>
+                  <span class="handle">
+                  </span>
+
+
+          </li>
+          <li>
+                  <span class="handle">
+                    <label class="checkbox">
+                      <input name="checkbox-inline" type="checkbox">
+                      <i></i>
+                    </label>
+                  </span>
+            <p class="top-btn">
+              <a (click)="(null)" class="btn btn-default"><i class="fa fa-trash-o fa-lg"></i>
+                删除所选</a>
+            </p>
+
+          </li>
+          <li>
+                  <span class="handle">
+                    <label class="checkbox">
+                      <input name="checkbox-inline" type="checkbox">
+                      <i></i>
+                    </label>
+                  </span>
+            <p>
+              <strong>标题</strong> - 内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
+              <span > <a href=""><img class="todo-img online " src="assets/img/avatars/female.png" ></a><a href=""><img class="todo-img online " src="assets/img/avatars/female.png" ></a><a href=""><img  class="todo-img online " src="assets/img/avatars/female.png" ></a><a href=""><img class="todo-img online " src="assets/img/avatars/female.png" ></a><a href=""><img  class="todo-img online " src="assets/img/avatars/female.png" ></a></span>
+              <span class="date">10:47 2017-11-22 - <a class="text-muted"><i class="fa fa-trash"></i></a></span>
+
+            </p>
+
+
+          </li>
+          <li class="complete">
+                  <span class="handle"> <label class="checkbox">
+                      <input name="checkbox-inline" type="checkbox">
+                      <i></i> </label>
+                  </span>
+
+            <p >
+              <strong>标题</strong> - 内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
+              <span > <a href=""><img class="todo-img online " src="assets/img/avatars/female.png" ></a><a href=""><img class="todo-img online " src="assets/img/avatars/female.png" ></a><a href=""><img  class="todo-img online " src="assets/img/avatars/female.png" ></a><a href=""><img class="todo-img online " src="assets/img/avatars/female.png" ></a><a href=""><img  class="todo-img online " src="assets/img/avatars/female.png" ></a></span>
+              <span class="date">10:47 2017-11-22 - <a class="text-muted"><i class="fa fa-trash"></i></a></span>
+
+            </p>
+          </li>
+          <li>
+                  <span class="handle">
+                    <label class="checkbox">
+                      <input name="checkbox-inline" type="checkbox">
+                      <i></i>
+                    </label>
+                  </span>
+            <p>
+              <strong>标题</strong> - 内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
+              <span > <a href=""><img class="todo-img online " src="assets/img/avatars/female.png" ></a><a href=""><img class="todo-img online " src="assets/img/avatars/female.png" ></a><a href=""><img  class="todo-img online " src="assets/img/avatars/female.png" ></a><a href=""><img class="todo-img online " src="assets/img/avatars/female.png" ></a><a href=""><img  class="todo-img online " src="assets/img/avatars/female.png" ></a></span>
+              <span class="date">10:47 2017-11-22 - <a class="text-muted"><i class="fa fa-trash"></i></a></span>
+
+            </p>
+
+
+          </li>
+          <li>
+                  <span class="handle">
+                    <label class="checkbox">
+                      <input name="checkbox-inline" type="checkbox">
+                      <i></i>
+                    </label>
+                  </span>
+            <p>
+              <strong>标题</strong> - 内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
+              <span > <a href=""><img class="todo-img online " src="assets/img/avatars/female.png" ></a><a href=""><img class="todo-img online " src="assets/img/avatars/female.png" ></a><a href=""><img  class="todo-img online " src="assets/img/avatars/female.png" ></a><a href=""><img class="todo-img online " src="assets/img/avatars/female.png" ></a><a href=""><img  class="todo-img online " src="assets/img/avatars/female.png" ></a></span>
+              <span class="date">10:47 2017-11-22 - <a class="text-muted"><i class="fa fa-trash"></i></a></span>
+
+            </p>
+
+
+          </li>
+          <li>
+                  <span class="handle"> <label class="checkbox">
+                      <input name="checkbox-inline" type="checkbox">
+                      <i></i> </label>
+                  </span>
+
+            <p>
+              <strong>标题</strong> - 内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
+              <span > <a href=""><img class="todo-img online " src="assets/img/avatars/female.png" ></a><a href=""><img class="todo-img online " src="assets/img/avatars/female.png" ></a><a href=""><img  class="todo-img online " src="assets/img/avatars/female.png" ></a><a href=""><img class="todo-img online " src="assets/img/avatars/female.png" ></a><a href=""><img  class="todo-img online " src="assets/img/avatars/female.png" ></a></span>
+              <span class="date">10:47 2017-11-22 - <a class="text-muted"><i class="fa fa-trash"></i></a></span>
+
+            </p>
+          </li>
+          <li>
+                  <span class="handle">
+                    <label class="checkbox">
+                      <input name="checkbox-inline" type="checkbox">
+                      <i></i>
+                    </label>
+                  </span>
+            <p>
+              <strong>标题</strong> - 内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
+              <span > <a href=""><img class="todo-img online " src="assets/img/avatars/female.png" ></a><a href=""><img class="todo-img online " src="assets/img/avatars/female.png" ></a><a href=""><img  class="todo-img online " src="assets/img/avatars/female.png" ></a><a href=""><img class="todo-img online " src="assets/img/avatars/female.png" ></a><a href=""><img  class="todo-img online " src="assets/img/avatars/female.png" ></a></span>
+              <span class="date">10:47 2017-11-22 - <a class="text-muted"><i class="fa fa-trash"></i></a></span>
+
+            </p>
+
+
+          </li>
+
+
+
+        </ul>
+        <div class="dt-toolbar" style="padding:10px 0">
+          <div class="text-right" style="margin-right:10px;">
+            <ul class="pagination pagination-sm">
+              <li class="disabled">
+                <a href="">上一页</a>
+              </li>
+              <li class="active">
+                <a href="">1</a>
+              </li>
+              <li>
+                <a href="">2</a>
+              </li>
+              <li>
+                <a href="">3</a>
+              </li>
+              <li>
+                <a href="">...</a>
+              </li>
+              <li>
+                <a href="">99</a>
+              </li>
+              <li>
+                <a href="">下一页</a>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+
+      </div>
+
+
+
+
+    </div>
+
+  </div>
+</sa-widget>
