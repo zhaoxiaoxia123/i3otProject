@@ -22,13 +22,13 @@
                    <section class="col col-6">
                      <label class="label">产品ID</label>
                      <label class="input">
-                       <input type="text"  placeholder="请输入产品ID" maxlength="20" name="i3otp_pid" formControlName="i3otp_pid"/>
+                       <input type="text" placeholder="请输入产品ID" maxlength="20" name="i3otp_pid" formControlName="i3otp_pid"/>
                      </label>
                    </section>
                    <section class="col col-6">
                      <label class="label">产品外部编号</label>
                      <label class="input">
-                       <input type="text"  placeholder="请输入产品外部编号" maxlength="20" name="i3otp_c_pid" formControlName="i3otp_c_pid"/>
+                       <input type="text" placeholder="请输入产品外部编号" maxlength="20" name="i3otp_c_pid" formControlName="i3otp_c_pid"/>
                      </label>
                    </section>
                    <section class="col col-6">
@@ -47,30 +47,23 @@
                    </section>
                  </div>
 
-
-
-
                  <div class="row ">
                    <div class=" col col-6 cl-sm-6">
                      <section>
                        <label>传感器类型</label>
-                       <select select2 multiple style="width:100%;" class="select2">
-                         <optgroup label="">
-                           <option value="">4524</option>
-                           <option value="">45242</option>
-                           <option value="">522</option>
-                         </optgroup>
+                       <span>{{join_sensor_category | json}}</span>
+                       <select multiple (change)="sensorCategoryChange($event)"  name="i3otp_sensor_category_" formControlName="i3otp_sensor_category_" style="width:100%;" class="select2" [(ngModel)]="i3otp_sensor_category_default">
+                           <option *ngFor="let scl of i3otpList.result?.sensorCategoryList" [selected]="i3otp_info.result?.i3otp_sensor_category == scl.category_id || this.i_id == 0" value="{{scl.category_id}}">{{scl.category_desc}}</option>
                        </select>
                      </section>
-
                    </div>
-
-
                    <div class=" col col-6 col-sm-6">
                      <section>
                        <label>通信方式</label>
-                       <select select2 multiple style="width:100%;" class="select2"  name="i3otp_communication" formControlName="i3otp_communication" [(ngModel)]="i3otp_communication_default">
-                         <optgroup label="">
+                       <label>
+                       <span>{{join_category | json}}</span>
+                       </label>
+                       <select multiple (change)="categoryChange($event)" name="i3otp_communication_" formControlName="i3otp_communication_" style="width:100%;" class="select2" [(ngModel)]="i3otp_communication_default">
                            <option value="wifi" [selected]="i3otp_info.result?.i3otp_communication == 'wifi' || this.i_id == 0" >wifi</option>
                            <option value="LoRa" [selected]="i3otp_info.result?.i3otp_communication == 'LoRa' ">LoRa</option>
                            <option value="ZigBee" [selected]="i3otp_info.result?.i3otp_communication == 'ZigBee' ">ZigBee</option>
@@ -78,11 +71,10 @@
                            <option value="485通讯线" [selected]="i3otp_info.result?.i3otp_communication == '485通讯线' ">485通讯线</option>
                            <option value="矿用双绞线" [selected]="i3otp_info.result?.i3otp_communication == '矿用双绞线' ">矿用双绞线</option>
                            <option value="其他" [selected]="i3otp_info.result?.i3otp_communication == '其他' ">其他</option>
-                         </optgroup>
                        </select>
                      </section>
+                     <a (click)="categoryChange()">xxxx</a>
                    </div>
-
                  </div>
 
                 <!-- <section class="col col-6">
