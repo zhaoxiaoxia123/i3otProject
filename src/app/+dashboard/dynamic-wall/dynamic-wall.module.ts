@@ -6,6 +6,7 @@ import {DynamicWallComponent} from "./dynamic-wall.component";
 import {SmartadminModule} from "../../shared/smartadmin.module";
 import { TodoWidgetComponent } from './todo-widget/todo-widget.component';
 import { PanelElementComponent } from './panel-element/panel-element.component';
+import { PanelStaffComponent } from './panel-staff/panel-staff.component';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { PanelElementComponent } from './panel-element/panel-element.component';
   declarations: [
       DynamicWallComponent,
       TodoWidgetComponent,
-      PanelElementComponent
+      PanelElementComponent,
+      PanelStaffComponent
   ]
 })
 export class DynamicWallModule { }

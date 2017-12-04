@@ -3182,3 +3182,12 @@ div.dataTables_editor{
     word-break: break-all;
     overflow: auto;
 }
+
+/*百度图*/
+.font-headline{
+    font-size: 38px;
+    font-weight: 400;
+}
+.demo-chart{
+    height: 400px;
+}
