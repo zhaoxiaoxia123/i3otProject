@@ -119,8 +119,8 @@ export class AddEquipmentComponent implements OnInit {
       this.c_id_default = this.i3otp_info['result']['c_id'];
       this.i3otp_category_default = this.i3otp_info['result']['i3otp_category'];
 
-      this.join_sensor_category = JSON.parse(this.i3otp_info['result']['i3otp_sensor_category']);//传感器类型
-      this.join_category =  JSON.parse(this.i3otp_info['result']['i3otp_communication']);
+      this.join_sensor_category = this.i3otp_info['result']['i3otp_sensor_category'];//传感器类型
+      this.join_category = this.i3otp_info['result']['i3otp_communication'];
 
     }, 500);
   }
@@ -170,7 +170,7 @@ export class AddEquipmentComponent implements OnInit {
       'i3otp_category':this.formModel.value['i3otp_category'],
       'i3otp_name':this.formModel.value['i3otp_name'],
       'i3otp_address':this.formModel.value['i3otp_address'],
-      'i3otp_communication':this.formModel.value['i3otp_communication'],
+      'i3otp_communication':this.join_category,//this.formModel.value['i3otp_communication'],
       'c_id':this.formModel.value['c_id'],
       'u_id':this.formModel.value['u_id'],
       'o_id':this.formModel.value['o_id'],
@@ -185,7 +185,7 @@ export class AddEquipmentComponent implements OnInit {
       'i3otp_firmware':this.formModel.value['i3otp_firmware'],
       'i3otp_f_update':this.formModel.value['i3otp_f_update'],
       'i3otp_mac_addr':this.formModel.value['i3otp_mac_addr'],
-      'i3otp_sensor_category':this.formModel.value['i3otp_sensor_category'],
+      'i3otp_sensor_category':this.join_sensor_category,//this.formModel.value['i3otp_sensor_category'],
       'sid':this.cookieStore.getCookie('sid')
     }).subscribe(
         (data)=>{
@@ -224,8 +224,8 @@ export class AddEquipmentComponent implements OnInit {
         }
       }
     }
-    console.log('this.join_sensor_category');
-    console.log(this.join_sensor_category);
+    // console.log('this.join_sensor_category');
+    // console.log(this.join_sensor_category);
   }
 
   /**
@@ -245,8 +245,8 @@ export class AddEquipmentComponent implements OnInit {
         }
       }
     }
-    console.log('this.join_category');
-    console.log(this.join_category);
+    // console.log('this.join_category');
+    // console.log(this.join_category);
   }
 
 }
