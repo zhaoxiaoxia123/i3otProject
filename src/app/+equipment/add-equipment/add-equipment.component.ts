@@ -27,9 +27,13 @@ export class AddEquipmentComponent implements OnInit {
   // i3otp_communication_default:string;
   // i3otp_sensor_category_default:string;
 
+  //用以提交的
   join_sensor_category : Array<any> = [];//传感器类型
   join_category : Array<any> = [];//设备类型
 
+  //用以显示的
+  show_join_sensor_category : Array<any> = [];//传感器类型
+  show_join_category : Array<any> = [];//设备类型
   //复选框
   color_category_id : number = 0;
   div_show_sensor : boolean = true;//传感器点击显示下拉框
@@ -100,7 +104,7 @@ export class AddEquipmentComponent implements OnInit {
         i3otp_category:this.i3otp_info['result']['i3otp_category'],
         i3otp_name:this.i3otp_info['result']['i3otp_name'],
         i3otp_address:this.i3otp_info['result']['i3otp_address'],
-        i3otp_communication:this.i3otp_info['result']['i3otp_communication'],
+        i3otp_communication:this.i3otp_info['result']['i3otp_communications'],
         c_id:this.i3otp_info['result']['c_id'],
         u_id:this.i3otp_info['result']['u_id'],
         o_id:this.i3otp_info['result']['o_id'],
@@ -115,7 +119,7 @@ export class AddEquipmentComponent implements OnInit {
         i3otp_firmware:this.i3otp_info['result']['i3otp_firmware'],
         i3otp_f_update:this.i3otp_info['result']['i3otp_f_update'],
         i3otp_mac_addr:this.i3otp_info['result']['i3otp_mac_addr'],
-        i3otp_sensor_category:this.i3otp_info['result']['i3otp_sensor_category'],
+        i3otp_sensor_category:this.i3otp_info['result']['i3otp_sensor_categorys'],
 
       });
 
@@ -124,8 +128,12 @@ export class AddEquipmentComponent implements OnInit {
       this.c_id_default = this.i3otp_info['result']['c_id'];
       this.i3otp_category_default = this.i3otp_info['result']['i3otp_category'];
 
-      this.join_sensor_category = this.i3otp_info['result']['i3otp_sensor_category'];//传感器类型
-      this.join_category = this.i3otp_info['result']['i3otp_communication'];
+      this.join_sensor_category = this.i3otp_info['result']['i3otp_sensor_categorys'];//传感器类型
+      this.join_category = this.i3otp_info['result']['i3otp_communications'];
+
+      //显示的值
+      this.show_join_sensor_category =  this.i3otp_info['result']['show_join_sensor_category'];//传感器类型
+      this.show_join_category = this.i3otp_info['result']['show_join_category'];
 
     }, 500);
   }
@@ -154,7 +162,8 @@ export class AddEquipmentComponent implements OnInit {
         this.c_id_default = this.i3otpList['result']['customerList'].length >= 1 ? this.i3otpList['result']['customerList'][0]['c_number'] : 0;
         this.i3otp_category_default = 1;
         this.join_sensor_category =  this.i3otpList['result']['sensorCategoryList'].length >= 1 ? [this.i3otpList['result']['sensorCategoryList'][0]['category_id']] : [];//传感器类型
-        this.join_category =  ['wifi'];
+        this.show_join_sensor_category =  this.i3otpList['result']['sensorCategoryList'].length >= 1 ? [this.i3otpList['result']['sensorCategoryList'][0]['category_desc']] : [];//传感器类型
+        this.join_category = [];
       }
     }, 600);
   }
@@ -216,7 +225,7 @@ export class AddEquipmentComponent implements OnInit {
    *
    join_sensor_category : string;//传感器类型
    */
-  sensorCategoryChange(value:any){
+  sensorCategoryChange(value:any,category_desc:string){
     // let value = obj.target.value;
     // value = value.replace(/'/g, '').replace(/ /g, '');
     // let v = value.split(':');
@@ -226,6 +235,8 @@ export class AddEquipmentComponent implements OnInit {
     //   this.join_sensor_category.push(v[1]);
       if( ! this.cookieStore.in_array(value,this.join_sensor_category)){
         this.join_sensor_category.push(value);
+        this.show_join_sensor_category.push(category_desc);
+
     }else{
       for (let s = 0; s < this.join_sensor_category.length; s++) {
         // if (this.join_sensor_category[s] == v[1]) {
@@ -233,6 +244,7 @@ export class AddEquipmentComponent implements OnInit {
         // }
         if (this.join_sensor_category[s] == value) {
           this.join_sensor_category.splice(s,1);
+          this.show_join_sensor_category.splice(s,1);
         }
       }
     }
@@ -244,7 +256,7 @@ export class AddEquipmentComponent implements OnInit {
    * 通讯方式
    * @param obj
    */
-  categoryChange(value:any){
+  categoryChange(value:any,category_desc:string){
     // let value = obj.target.value;
     // value = value.replace(/'/g, '').replace(/ /g, '');
     // let v = value.split(':');
@@ -252,13 +264,14 @@ export class AddEquipmentComponent implements OnInit {
     console.log(this.join_category);
     // if( ! this.cookieStore.in_array(v[1],this.join_category)){
     //   this.join_category.push(v[1]);
-
       if( ! this.cookieStore.in_array(value,this.join_category)){
         this.join_category.push(value);
+        this.show_join_category.push(category_desc);
     }else{
       for (let s = 0; s < this.join_category.length; s++) {
         if (this.join_category[s] ==value) {
           this.join_category.splice(s,1);
+          this.show_join_category.splice(s,1);
         }
       }
     }
@@ -270,14 +283,12 @@ export class AddEquipmentComponent implements OnInit {
   divColor(value:any){
     this.color_category_id = value;
   }
-
+  //鼠标移除隐藏div
   outMouseColor(){
-    console.log('outMouseColor-------------');
     this.color_category_id = 0;
     this.div_show_sensor = true;
     this.div_show_comm = true;
   }
-
   /**
    * 点击显示下拉框
    */
