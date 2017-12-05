@@ -64,7 +64,7 @@
                 <table *ngFor="let ll of i3otpList.result?.i3otpList?.data;let ind = index;" class="dataTable responsive table table-striped table-bordered table-hover">
 
                   <tbody >
-                  <tr role="row" *ngIf="status.indexOf(ind+',') === -1" class="odd">
+                  <tr role="row" *ngIf="status.indexOf(ind+',') === -1"  [ngClass]="{ 'odd' : (ind%2 == 0), 'even': (ind%2 != 0) }">
                     <td class=" details-control percent-6" (click)="changeStatus(ind,'+')">
                     </td>
                     <td class="percent-12">
@@ -101,7 +101,7 @@
                     </td>
                   </tr>
 
-                  <tr role="row" *ngIf="status.indexOf(ind+',') != -1" class="odd shown">
+                  <tr role="row" *ngIf="status.indexOf(ind+',') != -1" [ngClass]="{ 'odd' : (ind%2 == 0), 'even': (ind%2 != 0) ,'shown':true} ">
                     <td class=" details-control percent-6" (click)="changeStatus(ind,'-')">
                     </td>
                     <td class="percent-12">

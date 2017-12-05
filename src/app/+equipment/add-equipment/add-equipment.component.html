@@ -56,7 +56,7 @@
                            <option *ngFor="let scl of i3otpList.result?.sensorCategoryList" [selected]="i3otp_info.result?.i3otp_sensor_category == scl.category_id || this.i_id == 0" value="{{scl.category_id}}">{{scl.category_desc}}</option>
                        </select>
                      </section>
-                   </div>-->
+                   </div> (mouseout)="outMouseColor()"-->
 
                    <div class=" col col-6 col-sm-6">
                      <section >
@@ -66,7 +66,7 @@
                         </label>-->
                        <span class="select2 select2-container select2-container--default select2-container--below select2-container--focus" dir="ltr" style="width: 100%;">
                        <span class="selection">
-                         <span class="select2-selection select2-selection--multiple">
+                         <span class="select2-selection select2-selection--multiple" (click)="showColorDivSensor()">
                            <ul class="select2-selection__rendered">
                              <li class="select2-selection__choice" title="wifi">
                                <span class="select2-selection__choice__remove" >
@@ -79,24 +79,15 @@
                            </ul>
                          </span>
                        </span>
-
-
                      </span>
-                       <span class="select2 select2-container--open select2-container select2-container--default select2-container--below select2-container--focus" dir="ltr" style="width: 100%;position: absolute;">
+                       <span [ngClass]="{'select2 select2-container--open select2-container select2-container--default select2-container--below select2-container--focus':true,'select-hidden':div_show_sensor}" dir="ltr" style="width: 100%;position: absolute;">
                        <span class="selection">
                          <span class="select2-selection select2-selection--multiple select2-results select2-dropdown select2-drop-active">
-                          <ul class="select2-results__options select2-results__options--nested">
-                            <li class="select2-results__option  select2-results__option--highlighted" >wifi</li>
-                            <li class="select2-results__option">o2</li>
-                            <li class="select2-results__option">ch4</li>
-                            <li class="select2-results__option">dff</li>
-                            <li class="select2-results__option">fdfs</li>
-                            <li class="select2-results__option">sdfsf</li>
-                            <li class="select2-results__option">sdffsdf</li>
+                          <ul class="select2-results__options select2-results__options--nested"><!--  select2-results__option--highlighted-->
+                            <li [ngClass]="{'select2-results__option--highlighted' : (color_category_id == sc.category_id),'select2-results__option':true}" (click)="sensorCategoryChange(sc.category_id)" (mouseover)="divColor(sc.category_id)" *ngFor="let sc of i3otpList.result?.sensorCategoryList" value="{{sc.category_id}}">{{sc.category_desc}}</li>
                           </ul>
                          </span>
                        </span>
-
 
                      </span>
 
@@ -119,17 +110,17 @@
                            <option value="其他" [selected]="i3otp_info.result?.i3otp_communication == '其他' ">其他</option>
                        </select>
                      </section>
-                   </div>-->
+                   </div>(mouseout)="outMouseColor()"-->
 
-                   <div class=" col col-6 col-sm-6">
-                     <section >
+                   <div class=" col col-6 col-sm-6" >
+                     <section>
                        <label class="label">通信方式</label>
                       <!-- <label class="input">
                          <input type="text"  placeholder=""  />
                        </label>-->
-                       <span class="select2 select2-container select2-container--default select2-container--below select2-container--focus" dir="ltr" style="width: 100%;">
+                       <span class="select2 select2-container select2-container--default select2-container--below select2-container--focus" dir="ltr" style="width: 100%" >
                        <span class="selection">
-                         <span class="select2-selection select2-selection--multiple">
+                         <span class="select2-selection select2-selection--multiple" (click)="showColorDivComm()">
                            <ul class="select2-selection__rendered">
                              <li class="select2-selection__choice" title="wifi">
                                <span class="select2-selection__choice__remove" >
@@ -142,30 +133,17 @@
                            </ul>
                          </span>
                        </span>
-
-
                      </span>
-                       <span class="select2 select2-container--open select2-container select2-container--default select2-container--below select2-container--focus" dir="ltr" style="width: 100%;position: absolute;">
+                       <span [ngClass]="{'select2 select2-container--open select2-container select2-container--default select2-container--below select2-container--focus':true,'select-hidden':div_show_comm}" dir="ltr" style="width: 100%;position: absolute;" (mouseout)="outMouseColor()">
                        <span class="selection">
                          <span class="select2-selection select2-selection--multiple select2-results select2-dropdown select2-drop-active">
-                          <ul class="select2-results__options select2-results__options--nested">
-                            <li class="select2-results__option  select2-results__option--highlighted" >wifi</li>
-                            <li class="select2-results__option">LoRa</li>
-                            <li class="select2-results__option">ZigBee</li>
-                            <li class="select2-results__option">NB-IoT</li>
-                            <li class="select2-results__option">485通讯线</li>
-                            <li class="select2-results__option">矿用双绞线</li>
-                            <li class="select2-results__option">其他</li>
+                          <ul class="select2-results__options select2-results__options--nested"><!-- select2-results__option--highlighted-->
+                            <li [ngClass]="{ 'select2-results__option--highlighted' : (color_category_id == cl.category_id),'select2-results__option':true} " (click)="categoryChange(cl.category_id)" (mouseover)="divColor(cl.category_id)" *ngFor="let cl of i3otpList.result?.communicationList" value="{{cl.category_id}}">{{cl.category_desc}}</li>
                           </ul>
                          </span>
                        </span>
-
-
                      </span>
-
                      </section>
-
-
 
                    </div>
                  </div>

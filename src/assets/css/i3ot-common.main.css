@@ -7202,3 +7202,7 @@ label input[type=checkbox][disabled].checkbox+span:before,label input[type=check
     border-bottom-color: rgba(0,0,0,.1);
     background: rgba(248,248,248,.9)
 }
+
+.select-hidden{
+    display:none;
+}

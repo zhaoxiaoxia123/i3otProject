@@ -30,6 +30,11 @@ export class AddEquipmentComponent implements OnInit {
   join_sensor_category : Array<any> = [];//传感器类型
   join_category : Array<any> = [];//设备类型
 
+  //复选框
+  color_category_id : number = 0;
+  div_show_sensor : boolean = true;//传感器点击显示下拉框
+  div_show_comm : boolean = true;//通讯方式点击显示下拉框
+
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -211,17 +216,22 @@ export class AddEquipmentComponent implements OnInit {
    *
    join_sensor_category : string;//传感器类型
    */
-  sensorCategoryChange(obj){
-    let value = obj.target.value;
-    value = value.replace(/'/g, '').replace(/ /g, '');
-    let v = value.split(':');
+  sensorCategoryChange(value:any){
+    // let value = obj.target.value;
+    // value = value.replace(/'/g, '').replace(/ /g, '');
+    // let v = value.split(':');
     console.log('this.join_sensor_category');
     console.log(this.join_sensor_category);
-    if( ! this.cookieStore.in_array(v[1],this.join_sensor_category)){
-      this.join_sensor_category.push(v[1]);
+    // if( ! this.cookieStore.in_array(v[1],this.join_sensor_category)){
+    //   this.join_sensor_category.push(v[1]);
+      if( ! this.cookieStore.in_array(value,this.join_sensor_category)){
+        this.join_sensor_category.push(value);
     }else{
       for (let s = 0; s < this.join_sensor_category.length; s++) {
-        if (this.join_sensor_category[s] == v[1]) {
+        // if (this.join_sensor_category[s] == v[1]) {
+        //   this.join_sensor_category.splice(s,1);
+        // }
+        if (this.join_sensor_category[s] == value) {
           this.join_sensor_category.splice(s,1);
         }
       }
@@ -234,17 +244,20 @@ export class AddEquipmentComponent implements OnInit {
    * 通讯方式
    * @param obj
    */
-  categoryChange(obj){
-    let value = obj.target.value;
-    value = value.replace(/'/g, '').replace(/ /g, '');
-    let v = value.split(':');
+  categoryChange(value:any){
+    // let value = obj.target.value;
+    // value = value.replace(/'/g, '').replace(/ /g, '');
+    // let v = value.split(':');
     console.log('this.join_category');
     console.log(this.join_category);
-    if( ! this.cookieStore.in_array(v[1],this.join_category)){
-      this.join_category.push(v[1]);
+    // if( ! this.cookieStore.in_array(v[1],this.join_category)){
+    //   this.join_category.push(v[1]);
+
+      if( ! this.cookieStore.in_array(value,this.join_category)){
+        this.join_category.push(value);
     }else{
       for (let s = 0; s < this.join_category.length; s++) {
-        if (this.join_category[s] == v[1]) {
+        if (this.join_category[s] ==value) {
           this.join_category.splice(s,1);
         }
       }
@@ -253,4 +266,25 @@ export class AddEquipmentComponent implements OnInit {
     // console.log(this.join_category);
   }
 
+  //鼠标滑过修改样式
+  divColor(value:any){
+    this.color_category_id = value;
+  }
+
+  outMouseColor(){
+    console.log('outMouseColor-------------');
+    this.color_category_id = 0;
+    this.div_show_sensor = true;
+    this.div_show_comm = true;
+  }
+
+  /**
+   * 点击显示下拉框
+   */
+  showColorDivSensor(){
+    this.div_show_sensor = false;
+  }
+  showColorDivComm(){
+    this.div_show_comm = false;
+  }
 }
