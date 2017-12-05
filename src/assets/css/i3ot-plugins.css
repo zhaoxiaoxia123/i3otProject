@@ -981,4 +981,8 @@ time.icon span {
     white-space: nowrap
 }
 
+.select-hidden{
+    display:none;
+}
+
 
