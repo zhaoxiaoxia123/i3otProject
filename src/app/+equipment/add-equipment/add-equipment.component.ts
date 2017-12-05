@@ -148,7 +148,7 @@ export class AddEquipmentComponent implements OnInit {
         // this.o_id_default = this.i3otpList['result']['orderList'].length >= 1 ? this.i3otpList['result']['orderList'][0]['o_order'] : 0;
         this.c_id_default = this.i3otpList['result']['customerList'].length >= 1 ? this.i3otpList['result']['customerList'][0]['c_number'] : 0;
         this.i3otp_category_default = 1;
-        this.join_sensor_category =  this.i3otpList['result']['sensorCategoryList'].length >= 1 ? this.i3otpList['result']['sensorCategoryList'][0]['category_id'] : [];//传感器类型
+        this.join_sensor_category =  this.i3otpList['result']['sensorCategoryList'].length >= 1 ? [this.i3otpList['result']['sensorCategoryList'][0]['category_id']] : [];//传感器类型
         this.join_category =  ['wifi'];
       }
     }, 600);
@@ -215,7 +215,9 @@ export class AddEquipmentComponent implements OnInit {
     let value = obj.target.value;
     value = value.replace(/'/g, '').replace(/ /g, '');
     let v = value.split(':');
-    if( ! this.cookieStore.in_array(v[1],this.join_category)){
+    console.log('this.join_sensor_category');
+    console.log(this.join_sensor_category);
+    if( ! this.cookieStore.in_array(v[1],this.join_sensor_category)){
       this.join_sensor_category.push(v[1]);
     }else{
       for (let s = 0; s < this.join_sensor_category.length; s++) {
@@ -236,6 +238,8 @@ export class AddEquipmentComponent implements OnInit {
     let value = obj.target.value;
     value = value.replace(/'/g, '').replace(/ /g, '');
     let v = value.split(':');
+    console.log('this.join_category');
+    console.log(this.join_category);
     if( ! this.cookieStore.in_array(v[1],this.join_category)){
       this.join_category.push(v[1]);
     }else{
