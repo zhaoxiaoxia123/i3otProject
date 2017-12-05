@@ -40,20 +40,23 @@ export class ChartSettingComponent implements OnInit {
       private cookieStore:CookieStoreService,
       private globalService:GlobalService
   ) {
+      /*#dff0d8
+       #fcf8e3
+       #f2dede */
       this.formModel = fb.group({
           s_id:[''],
           s_name:[''],
           s_interval1_1:[''],
           s_interval1_2:[''],
-          s_color1:[''],
+          s_color1:['#dff0d8'],
           // s_up_color1:[''],
           s_interval2_1:[''],
           s_interval2_2:[''],
-          s_color2:[''],
+          s_color2:['#fcf8e3'],
           // s_up_color2: [''],
           s_interval3_1:[''],
           s_interval3_2:[''],
-          s_color3:[''],
+          s_color3:['#f2dede'],
           // s_up_color3:['']
       });
       this.getSettingsList('1');
@@ -85,24 +88,29 @@ export class ChartSettingComponent implements OnInit {
     }
     /**
      * 恢复默认值
-     * @param str
+     * @param s_id
      */
-    toDefault(str:string,n:number){
-        if(n==1){
-            this.formModel.patchValue({
-                s_color1: str,
-                // s_up_color1: str
-            });
-        }else if(n==2){
-            this.formModel.patchValue({
-                s_color2: str,
-                // s_up_color2: str
-            });
-        }else if(n==3){
-            this.formModel.patchValue({
-                s_color3: str,
-                // s_up_color3: str
-            });
+    toDefault(s_id:number){
+        let msg ='该区间的设置颜色恢复默认后将不能撤销，是否继续？';
+        if(confirm(msg)) {
+            this.http.post(this.globalService.getDomain()+'/api/v1/editSettings',{
+                's_id':s_id,
+                's_color1':'#dff0d8',
+                's_color2':'#fcf8e3',
+                's_color3':'#f2dede',
+                'sid':this.cookieStore.getCookie('sid')
+            }).subscribe(
+                (data)=>{
+                    let info = JSON.parse(data['_body']);
+                    alert(info['msg']);
+                    if(info['status'] == 200) {
+                        this.settingsList = info
+                    }else if(info['status'] == 202){
+                        this.cookieStore.removeAll();
+                        this.router.navigate(['/auth/login']);
+                    }
+                }
+            );
         }
     }
     /**

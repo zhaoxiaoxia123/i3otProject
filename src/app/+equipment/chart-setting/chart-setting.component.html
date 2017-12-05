@@ -85,7 +85,7 @@
                                         <div class="col-sm-4">
                                           <div class="form-group">
                                             <label>颜色</label>
-                                            <input class="form-control"  type="color"  maxlength="10" placeholder="#dff0d8" name="s_color1" formControlName="s_color1" />
+                                            <input class="form-control" type="color"  maxlength="10" placeholder="#dff0d8" name="s_color1" formControlName="s_color1" />
                                           </div>
                                         </div>
                                         </div>
@@ -214,7 +214,7 @@
                                      <span *ngIf="sl.s_name == 'ecg'">心率</span>
                                      <span *ngIf="sl.s_name == 'spo2h'">血氧</span>
                                   </td>
-                                  <td *ngFor="let slc of sl.detail_list"  [style.background-color]="slc.s_color">
+                                  <td *ngFor="let slc of sl.detail_list" [style.background-color]="slc.s_color">
                                     第<span [ngSwitch]="slc.number">
                                     <span *ngSwitchCase="1">一</span>
                                     <span *ngSwitchCase="2">二</span>
@@ -228,7 +228,7 @@
                                     </small></td>
                                   <td><a class="btn btn-warning btn-xs" (click)="getSettingsInfo(sl.s_id)"><span class="glyphicon glyphicon-pencil"></span>修改</a>
                                     <a class="btn btn-danger btn-xs" (click)="deleteSettings(sl.s_id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                    <a class="btn btn-success btn-xs" >默认颜色</a>
+                                    <a class="btn btn-success btn-xs" (click)="toDefault(sl.s_id)">默认颜色</a>
                                   </td>
                                 </tr>
                                 </tbody>
