@@ -37,12 +37,14 @@
                         <i class="fa-fw fa fa-plus"></i>
                         添加设备类型
                       </alert>
-                      <form  class="smart-form ">
+                      <form  class="smart-form " [formGroup]="formModel" (ngSubmit)="onSubmitCategory(10)">
                         <fieldset>
                           <section>
                             <label class="input">
-                              <input type="text"
-                                     placeholder="请输入设备类型" minlength="1" maxlength="20" >
+                              <input type="text" required
+                                     placeholder="请输入设备类型" minlength="1" maxlength="20" formControlName="category_desc" name="category_desc">
+                              <input type="hidden" value="10" formControlName="category_type" name="category_type">
+                              <input type="hidden" value="" formControlName="category_id" name="category_id">
                             </label>
                           </section>
                         </fieldset>
@@ -74,10 +76,10 @@
                           </tr>
                           </thead>
                           <tbody>
-                          <tr >
-                            <td>设备类型</td>
-                            <td><a class="btn btn-warning btn-xs"  ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                              <a class="btn btn-danger btn-xs" ><span class="glyphicon glyphicon-remove"></span>删除</a>
+                          <tr *ngFor="let cl of i3otpList.result?.data">
+                            <td>{{ cl.category_desc }}</td>
+                            <td><a class="btn btn-warning btn-xs" (click)="editCategory(10,cl.category_id, cl.category_desc)" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                              <a class="btn btn-danger btn-xs" (click)="deleteCategory(10,cl.category_id,i3otpList.result?.current_page)"><span class="glyphicon glyphicon-remove"></span>删除</a>
                             </td>
                           </tr>
                           </tbody>
@@ -114,12 +116,14 @@
                         <i class="fa-fw fa fa-plus"></i>
                         添加传感器类型
                       </alert>
-                      <form class="smart-form" >
+                      <form class="smart-form"  [formGroup]="formModelSensor" (ngSubmit)="onSubmitCategory(11)">
                         <fieldset>
                           <section>
                             <label class="input">
                               <input type="text" required
-                                     placeholder="请输入传感器类型" minlength="1" maxlength="20" >
+                                     placeholder="请输入传感器类型" minlength="1" maxlength="20" formControlName="category_desc" name="category_desc">
+                              <input type="hidden" value="10" formControlName="category_type" name="category_type">
+                              <input type="hidden" value="" formControlName="category_id" name="category_id">
                             </label>
                           </section>
                         </fieldset>
@@ -153,10 +157,10 @@
                           </tr>
                           </thead>
                           <tbody>
-                          <tr >
-                            <td>传感器类型</td>
-                            <td><a class="btn btn-warning btn-xs"  ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                              <a class="btn btn-danger btn-xs" ><span class="glyphicon glyphicon-remove"></span>删除</a>
+                          <tr *ngFor="let cl of sensorList.result?.data">
+                            <td>{{ cl.category_desc }}</td>
+                            <td><a class="btn btn-warning btn-xs" (click)="editCategory(11,cl.category_id, cl.category_desc)" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                              <a class="btn btn-danger btn-xs" (click)="deleteCategory(11,cl.category_id,sensorList.result?.current_page)"><span class="glyphicon glyphicon-remove"></span>删除</a>
                             </td>
                           </tr>
                           </tbody>
@@ -192,12 +196,14 @@
                         <i class="fa-fw fa fa-plus"></i>
                         添加通信方式
                       </alert>
-                      <form class="smart-form" >
+                      <form class="smart-form"  [formGroup]="formModelCommunication" (ngSubmit)="onSubmitCategory(12)">
                         <fieldset>
                           <section>
                             <label class="input">
                               <input type="text" required
-                                     placeholder="请输入通信方式" minlength="1" maxlength="20" >
+                                     placeholder="请输入通信方式" minlength="1" maxlength="20" formControlName="category_desc" name="category_desc">
+                              <input type="hidden" value="10" formControlName="category_type" name="category_type">
+                              <input type="hidden" value="" formControlName="category_id" name="category_id">
                             </label>
                           </section>
                         </fieldset>
@@ -215,7 +221,6 @@
 
                 <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
                            [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
-
                   <div>
                     <div class="widget-body no-padding">
                       <alert type="info" class="no-margin" >
@@ -231,13 +236,12 @@
                           </tr>
                           </thead>
                           <tbody>
-                          <tr >
-                            <td>通信方式</td>
-                            <td><a class="btn btn-warning btn-xs"  ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                              <a class="btn btn-danger btn-xs" ><span class="glyphicon glyphicon-remove"></span>删除</a>
+                          <tr *ngFor="let cl of communicationList.result?.data">
+                            <td>{{ cl.category_desc }}</td>
+                            <td><a class="btn btn-warning btn-xs" (click)="editCategory(12,cl.category_id, cl.category_desc)" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                              <a class="btn btn-danger btn-xs" (click)="deleteCategory(12,cl.category_id,communicationList.result?.current_page)"><span class="glyphicon glyphicon-remove"></span>删除</a>
                             </td>
                           </tr>
-
                           </tbody>
                         </table>
                         <!-- 底部-（分页部分）-->
