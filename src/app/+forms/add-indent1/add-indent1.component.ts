@@ -70,6 +70,7 @@ export class AddIndent1Component implements OnInit {
       u_id:[''],
       o_is_complete:[''],
       o_notes:[''],
+      o_is_out:[''],
     });
   }
 
@@ -118,6 +119,7 @@ export class AddIndent1Component implements OnInit {
         u_id:this.order_info['result']['u_id'],
         o_is_complete:this.order_info['result']['o_is_complete'],
         o_notes:this.order_info['result']['o_notes'],
+        o_is_out:this.order_info['result']['o_is_out'],
       });
       // if(this.order_info['result']['o_category1'] != 0){
       //   this.getOrderChild(this.order_info['result']['o_category1'],2);
@@ -208,6 +210,7 @@ export class AddIndent1Component implements OnInit {
       'u_id':this.formModel.value['u_id'],
       'o_is_complete':this.formModel.value['o_is_complete'],
       'o_notes':this.formModel.value['o_notes'],
+      'o_is_out':this.formModel.value['o_is_out'],
       'sid':this.cookieStore.getCookie('sid'),
     }).subscribe(
         (data)=>{

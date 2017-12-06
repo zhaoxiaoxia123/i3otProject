@@ -238,6 +238,13 @@
                       <span *ngSwitchDefault>未知</span>
                     </td>
                   </tr>
+                  <tr><td class="width-120">是否出库:</td>
+                    <td class="" [ngSwitch]="order_info.result?.o_is_out">
+                      <span *ngSwitchCase="1">出库</span>
+                      <span *ngSwitchCase="0">未出库</span>
+                      <span *ngSwitchDefault>未知</span>
+                    </td>
+                  </tr>
                   <tr><td class="width-120">备注说明:</td>
                     <td class="">{{order_info.result?.o_notes}}</td>
                   </tr>
