@@ -68,13 +68,9 @@
                        <span class="selection">
                          <span class="select2-selection select2-selection--multiple" (click)="showColorDivSensor()">
                            <ul class="select2-selection__rendered">
-                             <li class="select2-selection__choice" title="wifi">
+                             <li class="select2-selection__choice" title="{{cs}}" *ngFor="let cs of show_join_sensor_category">
                                <span class="select2-selection__choice__remove" >
-                                 ×</span>02
-                             </li>
-                             <li class="select2-selection__choice" title="LoRa">
-                               <span class="select2-selection__choice__remove" >
-                                 ×</span>ch4
+                                 ×</span>{{cs}}
                              </li>
                            </ul>
                          </span>
@@ -82,9 +78,9 @@
                      </span>
                        <span [ngClass]="{'select2 select2-container--open select2-container select2-container--default select2-container--below select2-container--focus':true,'select-hidden':div_show_sensor}" dir="ltr" style="width: 100%;position: absolute;">
                        <span class="selection">
-                         <span class="select2-selection select2-selection--multiple select2-results select2-dropdown select2-drop-active">
+                         <span class="select2-selection select2-selection--multiple select2-results select2-dropdown select2-drop-active" (mouseleave)="outMouseColor()">
                           <ul class="select2-results__options select2-results__options--nested"><!--  select2-results__option--highlighted-->
-                            <li [ngClass]="{'select2-results__option--highlighted' : (color_category_id == sc.category_id),'select2-results__option':true}" (click)="sensorCategoryChange(sc.category_id)" (mouseover)="divColor(sc.category_id)" *ngFor="let sc of i3otpList.result?.sensorCategoryList" value="{{sc.category_id}}">{{sc.category_desc}}</li>
+                            <li [ngClass]="{'select2-results__option--highlighted' : (color_category_id == sc.category_id),'select2-results__option':true}" (click)="sensorCategoryChange(sc.category_id,sc.category_desc)" (mouseenter)="divColor(sc.category_id)" *ngFor="let sc of i3otpList.result?.sensorCategoryList" value="{{sc.category_id}}">{{sc.category_desc}}</li>
                           </ul>
                          </span>
                        </span>
@@ -122,23 +118,19 @@
                        <span class="selection">
                          <span class="select2-selection select2-selection--multiple" (click)="showColorDivComm()">
                            <ul class="select2-selection__rendered">
-                             <li class="select2-selection__choice" title="wifi">
+                             <li class="select2-selection__choice" title="{{c}}" *ngFor="let c of show_join_category">
                                <span class="select2-selection__choice__remove" >
-                                 ×</span>wifi
-                             </li>
-                             <li class="select2-selection__choice" title="LoRa">
-                               <span class="select2-selection__choice__remove" >
-                                 ×</span>LoRa
+                                 ×</span>{{c}}
                              </li>
                            </ul>
                          </span>
                        </span>
                      </span>
-                       <span [ngClass]="{'select2 select2-container--open select2-container select2-container--default select2-container--below select2-container--focus':true,'select-hidden':div_show_comm}" dir="ltr" style="width: 100%;position: absolute;" (mouseout)="outMouseColor()">
+                       <span [ngClass]="{'select2 select2-container--open select2-container select2-container--default select2-container--below select2-container--focus':true,'select-hidden':div_show_comm}" dir="ltr" style="width: 100%;position: absolute;">
                        <span class="selection">
-                         <span class="select2-selection select2-selection--multiple select2-results select2-dropdown select2-drop-active">
+                         <span class="select2-selection select2-selection--multiple select2-results select2-dropdown select2-drop-active" (mouseleave)="outMouseColor()">
                           <ul class="select2-results__options select2-results__options--nested"><!-- select2-results__option--highlighted-->
-                            <li [ngClass]="{ 'select2-results__option--highlighted' : (color_category_id == cl.category_id),'select2-results__option':true} " (click)="categoryChange(cl.category_id)" (mouseover)="divColor(cl.category_id)" *ngFor="let cl of i3otpList.result?.communicationList" value="{{cl.category_id}}">{{cl.category_desc}}</li>
+                            <li [ngClass]="{ 'select2-results__option--highlighted' : (color_category_id == cl.category_id),'select2-results__option':true} " (click)="categoryChange(cl.category_id,cl.category_desc)" (mouseenter)="divColor(cl.category_id)" *ngFor="let cl of i3otpList.result?.communicationList" value="{{cl.category_id}}">{{cl.category_desc}}</li>
                           </ul>
                          </span>
                        </span>
