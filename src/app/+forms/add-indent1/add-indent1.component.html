@@ -119,53 +119,54 @@
                     <section class="col col-6">
                       <label class="label ">产品批号</label>
                       <label class="select">
-                        <select  name="p_id" formControlName="p_id" [(ngModel)]="p_id_default">
-                          <option *ngFor="let p of orderList.result?.productList" [selected]="order_info.result?.p_id == p.p_id || this.o_id == 0" value="{{p.p_id}}">{{p.p_name}}</option>
+                        <select  name="p_id" formControlName="p_id" [(ngModel)]="p_id_default" (change)="showProInfo($event)">
+                          <option [selected]="this.o_id == 0" value="0">--请选择--</option>
+                          <option *ngFor="let p of orderList.result?.productList" [selected]="order_info.result?.p_id == p.p_id" value="{{p.p_id}}">{{p.p_name}}</option>
                         </select> <i></i>
                       </label>
                     </section>
-
-
-
-
                   </div>
 
-                  <div class="row  product-batch well">
+                  <div [ngClass]="{ 'row  product-batch well':true,'select-hidden':is_show_pro_info}">
                     <div class="col-lg-4">
                       <ul class="list-unstyled">
                         <li>
-                          <span ><strong>产品名称：</strong>读取产品名称</span>
+                          <span ><strong>产品名称：</strong>{{product_info.result?.p_name}}</span>
                         </li>
                         <li>
-                          <span ><strong>入库时间：</strong>读取入库时间</span>
-                        </li>
-                        <li  >
-                          <span ><strong>参数内容：</strong>xx1:yy1;xx2:yy2;xx1:yy1;xx2:yy2;xx1:yy1;xx2:yy2;xx1:yy1;xx2:yy2;xx1:yy1;xx2:yy2;xx1:yy1;xx2:yy2;xx1:yy1;xx2:yy2;xx1:yy1;xx2:yy2;xx1:yy1;xx2:yy2;xx1:yy1;xx2:yy2;xx1:yy1;xx2:yy2;</span>
-                        </li>
-
-                      </ul>
-                    </div>
-                    <div class="col-lg-4">
-                      <ul class="list-unstyled">
-                        <li>
-                          <span ><strong>类型：</strong>一级:读取一级类型&nbsp;&nbsp;&nbsp;&nbsp;二级:读取二级类型</span>
+                          <span ><strong>入库时间：</strong>{{product_info.result?.p_storage_time}}</span>
                         </li>
                         <li>
-                          <span><strong>内部质检员：</strong>读取内部质检员</span>
-                        </li>
-                        <li>
-                          <span ><strong>是否合格：</strong>是或否</span>
+                          <span ><strong>参数内容：</strong>{{product_info.result?.p_specification}}</span>
                         </li>
                       </ul>
                     </div>
                     <div class="col-lg-4">
                       <ul class="list-unstyled">
                         <li>
-                          <span ><strong>存放仓库：</strong>读取存放仓库</span>
+                          <span ><strong>类型：</strong>一级:{{product_info.result?.category1}}&nbsp;&nbsp;&nbsp;&nbsp;二级:{{product_info.result?.category2}}</span>
                         </li>
                         <li>
-                          <span><strong>质检日期：</strong>读取质检日期</span>
+                          <span><strong>内部质检员：</strong>{{product_info.result?.u_username}}</span>
                         </li>
+                        <li>
+                          <span ><strong>是否合格：</strong>
+                          <span [ngSwitch]="product_info.result?.p_is_acceptable">
+                            <span *ngSwitchCase="1">合格</span>
+                            <span *ngSwitchCase="2">不合格</span>
+                            <span *ngSwitchDefault>未知</span>
+                          </span></span>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="col-lg-4">
+                      <ul class="list-unstyled">
+                        <li>
+                          <span ><strong>存放仓库：</strong>{{product_info.result?.storehouse_name}}</span>
+                        </li>
+                        <!--<li>-->
+                          <!--<span><strong>质检日期：</strong>读取质检日期</span>-->
+                        <!--</li>-->
                       </ul>
                     </div>
                   </div>
@@ -178,10 +179,7 @@
                             <input type="text"   disabled="disabled" value="读取产品名称" placeholder="请输入产品名称" />
                           </label>
                         </section>
-
                       </div>
-
-
                       <div class=" col col-6 col-sm-6 about-form">
                         <section class="col col-6">
                           <label class="label">一级类型</label>
@@ -200,10 +198,7 @@
                           </label>
                         </section>
                       </div>
-
                     </div>
-
-
                       <section class="col col-6">
                         <label class="label "> 存放仓库</label>
                         <label class="select">
@@ -218,7 +213,6 @@
                           <input type="text"   disabled="disabled" value="2017年12月30日" placeholder="入库时间" />
                         </label>
                       </section>
-
                     <section class="col col-6">
                       <label class="label "> 内部质检员</label>
                       <label class="select">
@@ -250,15 +244,8 @@
                           <i></i>否</label>
                       </div>
                     </section>
-
-
                     </div>-->
-
-
                   <div class="row">
-
-
-
                     <section class="col col-6">
                       <label class="label">元/吨</label>
                       <label class="input">
@@ -269,7 +256,7 @@
                     <section class="col col-6">
                       <label class="label">数量</label>
                       <label class="input">
-                        <input type="number" maxlength="10" name="o_quantity" formControlName="o_quantity" placeholder="请输入数量 "/>
+                        <input type="number" required maxlength="10" name="o_quantity" formControlName="o_quantity" placeholder="请输入数量 "/>
                       </label>
                     </section>
 
@@ -295,10 +282,9 @@
                       <label class="label">销售时间</label>
                       <label class="input"> <i class="icon-append fa fa-calendar"></i>
                         <input type="date"  maxlength="20" placeholder="销售时间"
-                               saUiDatepicker date-format="dd/mm/yy" />
+                               saUiDatepicker date-format="dd/mm/yy"  name="o_sales_time" formControlName="o_sales_time"  />
                       </label>
                     </section>
-
                     <section class="col col-6">
                       <label class="label "> 销售人员</label>
                       <label class="select">
@@ -306,7 +292,6 @@
                           <option *ngFor="let u of orderList.result?.userList" [selected]="order_info.result?.u_id == u.id || this.o_id == 0" value="{{u.id}}">{{u.u_username}}</option>
                         </select> <i></i> </label>
                     </section>
-
                     <section class="col col-6">
                       <div class=" ">
                         <label class="label "> 运输方式</label>
@@ -353,6 +338,13 @@
                         <label class="radio">
                           <input type="radio" [checked]="order_info.result?.o_is_complete == 2" [value]="2" name="o_is_complete" formControlName="o_is_complete">
                           <i></i>进行中</label>
+                      </div>
+                    </section>
+
+                    <section class="col col-6">
+                      <label class="label">是否出库</label>
+                      <div class="inline-group">
+                          <label class="checkbox"><input type="checkbox" value="yes" [checked]="selects['ch4']" name="i3otp_attribute" formControlName="i3otp_attribute"><i></i>是否出库</label>
                       </div>
                     </section>
                   </div>
