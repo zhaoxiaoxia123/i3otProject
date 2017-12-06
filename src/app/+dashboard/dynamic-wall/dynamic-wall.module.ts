@@ -11,6 +11,7 @@ import { PanelSellComponent } from './panel-sell/panel-sell.component';
 import { PanelStorehouseComponent } from './panel-storehouse/panel-storehouse.component';
 import { PanelProductsComponent } from './panel-products/panel-products.component';
 import {AngularEchartsModule} from 'ngx-echarts';
+import { PanelMineComponent } from './panel-mine/panel-mine.component';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import {AngularEchartsModule} from 'ngx-echarts';
       PanelStaffComponent,
       PanelSellComponent,
       PanelStorehouseComponent,
-      PanelProductsComponent
+      PanelProductsComponent,
+      PanelMineComponent
   ]
 })
 export class DynamicWallModule { }

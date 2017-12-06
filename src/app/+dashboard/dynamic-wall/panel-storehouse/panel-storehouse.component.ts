@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Observable} from "rxjs/Observable";
+import {Http} from "@angular/http";
 
 @Component({
   selector: 'app-panel-storehouse',
@@ -7,9 +9,65 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PanelStorehouseComponent implements OnInit {
 
-  constructor() { }
+    //方法1的 start
+    dataSource: Observable<any>;
+    products: Array<any> = [];
+    ////方法1的 end
+    chartOption;
+    seriesInfo: Array<any> = [];
 
-  ngOnInit() {
-  }
+    constructor(private http:Http) {
+    }
+
+
+    ngOnInit() {
+        this.getSeriesInfo();
+
+    }
+    getSeriesInfo(){
+
+        this.chartOption = {
+            color: ['#c79121','#57889c'],
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b}: {c} ({d}%)"
+            },
+            legend: {
+                orient: 'vertical',
+                x: 'left',
+                data:['激活','未激活']
+            },
+            series: [
+                {
+                    name:'直接访问',
+                    type:'pie',
+                    radius: ['50%', '70%'],
+                    avoidLabelOverlap: false,
+                    label: {
+                        normal: {
+                            show: false,
+                            position: 'center'
+                        },
+                        emphasis: {
+                            show: true,
+                            textStyle: {
+                                fontSize: '30',
+                                fontWeight: 'bold'
+                            }
+                        }
+                    },
+                    labelLine: {
+                        normal: {
+                            show: false
+                        }
+                    },
+                    data:[
+                        {value:80, name:'激活'},
+                        {value:40, name:'未激活'}
+                    ]
+                }
+            ]
+        }
+    }
 
 }

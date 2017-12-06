@@ -1,18 +1,37 @@
-<sa-widget [editbutton]="false" [fullscreenbutton]="false" color="blueDark">
+<sa-widget [editbutton]="false"  color="blueDark">
 
   <header>
-    <span class="widget-icon"> <i class="fa  fa-database txt-color-white"></i> </span>
+    <span class="widget-icon"> <i class="fa  fa-database  txt-color-white"></i> </span>
 
     <h2> 仓库 </h2>
   </header>
 
   <div>
-    <div class="ibox-content">
-      <h1 class="no-margins">5</h1>
-      <div class="stat-percent text-success">激活3个
+    <div class="col-sm-12">
+      <div class="col-sm-12">
+        <div echarts [options]="chartOption" class="demo-chart-220"  ></div>
       </div>
-      <small>总数/个</small>
+     <!-- <div class="col-sm-4">
+        <ul class="list-group ">
+          <li class="list-group-item ">总数：
+            <span class="label label-success">90</span>
+          </li>
+          <li class="list-group-item">激活：
+            <span class="label label-warning">80</span>
+          </li>
+          <li class="list-group-item">未激活：
+            <span class="label label-info">10</span>
+          </li>
+        </ul>
+
+      </div>-->
     </div>
+
+    <!--<div class="ibox-content">
+      <h1 class="no-margins">30</h1>
+      <div class="stat-percent text-success">活跃用户20%<i class="fa fa-bolt"></i>
+      </div>
+      <small>总人数</small>
+    </div>-->
   </div>
 </sa-widget>
-

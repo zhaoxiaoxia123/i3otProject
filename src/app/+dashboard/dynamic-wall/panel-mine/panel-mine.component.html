@@ -3,27 +3,27 @@
   <header>
     <span class="widget-icon"> <i class="fa  fa-child  txt-color-white"></i> </span>
 
-    <h2> 员工健康统计 </h2>
+    <h2> 员工井下人数 </h2>
   </header>
 
   <div>
     <div class="col-sm-12">
-      <div class="col-sm-8">
+      <div class="col-sm-6">
         <div echarts [options]="chartOption" class="demo-chart-220"  ></div>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-6">
         <ul class="list-group ">
-          <li class="list-group-item ">总人数：
-            <span class="label label-success">80</span>
+          <li class="list-group-item ">总人数：<strong>160</strong>
+           <!-- <span class="label label-success">160</span>-->
           </li>
-          <li class="list-group-item">健康：
-            <span class="label label-primary">60</span>
+          <li class="list-group-item">井上：40
+           <!-- <span class="label label-primary">40</span>-->
           </li>
-          <li class="list-group-item">不健康：
-            <span class="label label-warning">20</span>
+          <li class="list-group-item">井下：120
+            <!--<span class="label label-info">120</span>-->
           </li>
           <li class="list-group-item">
-            <a routerLink="/equipment/station-chart" >查看详情</a>
+            <a  routerLink="/equipment/station-chart" class="btn btn-warning btn-block hidden-xs">查看详情</a>
           </li>
 
         </ul>

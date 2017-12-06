@@ -1,4 +1,4 @@
-<sa-widget [editbutton]="false" [fullscreenbutton]="false" color="blueDark">
+<sa-widget [editbutton]="false" color="blueDark">
 
   <header>
     <span class="widget-icon"> <i class="fa  fa-cubes  txt-color-white"></i> </span>
@@ -7,12 +7,31 @@
   </header>
 
   <div>
-    <div class="ibox-content">
-      <h1 class="no-margins">80</h1>
-      <div class="stat-percent text-info">全年20%<i class="fa fa-level-up"></i>
+
+    <div class="col-sm-12">
+
+        <div echarts [options]="chartOption" class="demo-chart-220"  ></div>
       </div>
-      <small>总数</small>
-    </div>
+
+     <!-- <div class="col-sm-4">
+        <ul class="list-group ">
+          <li class="list-group-item ">产品数：
+            <span class="label label-success">300</span>
+          </li>
+          <li class="list-group-item">安全帽：
+            <span class="label label-info">220</span>
+          </li>
+          <li class="list-group-item">基站：
+            <span class="label label-primary">60</span>
+          </li>
+          <li class="list-group-item">其他：
+            <span class="label label-default">20</span>
+          </li>
+        </ul>
+
+      </div>-->
+
+
   </div>
 </sa-widget>
 

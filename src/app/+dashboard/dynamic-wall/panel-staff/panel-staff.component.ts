@@ -25,18 +25,20 @@ export class PanelStaffComponent implements OnInit {
     }
     getSeriesInfo(){
 
-        this.chartOption = {tooltip: {
+        this.chartOption = {
+            color: ['#1ab394','#c79121'],
+          tooltip: {
             trigger: 'item',
             formatter: "{a} <br/>{b}: {c} ({d}%)"
         },
             legend: {
                 orient: 'vertical',
                 x: 'left',
-                data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
+                data:['健康','不健康']
             },
             series: [
                 {
-                    name:'访问来源',
+                    name:'直接访问',
                     type:'pie',
                     radius: ['50%', '70%'],
                     avoidLabelOverlap: false,
@@ -59,11 +61,8 @@ export class PanelStaffComponent implements OnInit {
                         }
                     },
                     data:[
-                        {value:1221, name:'直接访问'},
-                        {value:220, name:'邮件营销'},
-                        {value:234, name:'联盟广告'},
-                        {value:135, name:'视频广告'},
-                        {value:12, name:'搜索引擎'}
+                        {value:80, name:'健康'},
+                        {value:40, name:'不健康'}
                     ]
                 }
             ]

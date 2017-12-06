@@ -3194,6 +3194,9 @@ div.dataTables_editor{
 .demo-chart{
     height: 400px;
 }
+.demo-chart-220{
+    height: 220px;
+}
 
 /*动态墙*/
 .ibox-content{
@@ -3206,4 +3209,10 @@ div.dataTables_editor{
 .no-margins{
     font-size: 36px;
     color: #4c4f53;
+}
+.label-success {
+    background-color: #1c84c6;
+}
+.label-primary {
+    background-color: #1ab394;
 }

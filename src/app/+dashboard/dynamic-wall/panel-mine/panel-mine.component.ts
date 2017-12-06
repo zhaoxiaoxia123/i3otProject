@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {Observable} from "rxjs/Observable";
 import {Http} from "@angular/http";
+import {Observable} from "rxjs/Observable";
 
 @Component({
-  selector: 'app-panel-sell',
-  templateUrl: './panel-sell.component.html',
-  styleUrls: ['./panel-sell.component.css']
+  selector: 'app-panel-mine',
+  templateUrl: './panel-mine.component.html',
+  styleUrls: ['./panel-mine.component.css']
 })
-export class PanelSellComponent implements OnInit {
+export class PanelMineComponent implements OnInit {
+
     //方法1的 start
     dataSource: Observable<any>;
     products: Array<any> = [];
@@ -34,7 +35,7 @@ export class PanelSellComponent implements OnInit {
             legend: {
                 orient: 'vertical',
                 x: 'left',
-                data:['已完成','进行中']
+                data:['井上','井下']
             },
             series: [
                 {
@@ -61,8 +62,8 @@ export class PanelSellComponent implements OnInit {
                         }
                     },
                     data:[
-                        {value:80, name:'已完成'},
-                        {value:40, name:'进行中'}
+                        {value:80, name:'井上'},
+                        {value:40, name:'井下'}
                     ]
                 }
             ]
