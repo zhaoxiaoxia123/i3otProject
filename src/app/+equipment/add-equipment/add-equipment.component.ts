@@ -160,7 +160,7 @@ export class AddEquipmentComponent implements OnInit {
         this.u_id_default = this.i3otpList['result']['userList'].length >= 1 ? this.i3otpList['result']['userList'][0]['name'] : 0;
         // this.o_id_default = this.i3otpList['result']['orderList'].length >= 1 ? this.i3otpList['result']['orderList'][0]['o_order'] : 0;
         this.c_id_default = this.i3otpList['result']['customerList'].length >= 1 ? this.i3otpList['result']['customerList'][0]['c_number'] : 0;
-        this.i3otp_category_default = 1;
+        this.i3otp_category_default = 0;
         this.join_sensor_category = this.i3otpList['result']['sensorCategoryList'].length >= 1 ? [this.i3otpList['result']['sensorCategoryList'][0]['category_id']] : [];//传感器类型
         this.show_join_sensor_category = this.i3otpList['result']['sensorCategoryList'].length >= 1 ? [this.i3otpList['result']['sensorCategoryList'][0]['category_desc']] : [];//传感器类型
 
