@@ -40,6 +40,10 @@ export class SettingEnterpriseComponent implements OnInit {
 
     formModelSource : FormGroup;
     sourceList : Array<any> = [];
+
+    //修改标题显示
+    category_id1 : any = 0;//行业
+    category_id2 : any = 0;//来源
     constructor(
         private jsonApiService:JsonApiService,
         fb:FormBuilder,
@@ -97,6 +101,7 @@ export class SettingEnterpriseComponent implements OnInit {
                         this.prevI = false;
                     }
                 }
+                this.category_id1 = 0;
             }
             if(category_type == 2) {
                 console.log('sourceList:----');
@@ -117,6 +122,7 @@ export class SettingEnterpriseComponent implements OnInit {
                         this.prevI = false;
                     }
                 }
+                this.category_id2 = 0;
             }
         }, 300);
     }
@@ -141,6 +147,8 @@ export class SettingEnterpriseComponent implements OnInit {
                     this.cookieStore.removeAll();
                     this.router.navigate(['/auth/login']);
                 }
+
+                this.category_id1 = 0;
             },
             response => {
                 console.log('PATCH call in error', response);
@@ -169,6 +177,8 @@ export class SettingEnterpriseComponent implements OnInit {
                     this.cookieStore.removeAll();
                     this.router.navigate(['/auth/login']);
                 }
+
+                this.category_id2 = 0;
             },
             response => {
                 console.log('PATCH call in error', response);
@@ -205,12 +215,15 @@ export class SettingEnterpriseComponent implements OnInit {
                 category_type:category_type,
                 category_id:cid
             });
+
+            this.category_id1 = cid;
         }else if(category_type == 2){
             this.formModelSource.setValue({
                 category_desc:cvalue,
                 category_type:category_type,
                 category_id:cid
             });
+            this.category_id2 = cid;
         }
     }
 

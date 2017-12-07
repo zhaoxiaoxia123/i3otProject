@@ -28,9 +28,13 @@
                            [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
                   <div>
                     <div class="widget-body no-padding">
-                      <alert type="info" class="no-margin" >
+                      <alert type="info" class="no-margin" *ngIf="category_id1 == 0">
                         <i class="fa-fw fa fa-plus"></i>
                         添加行业
+                      </alert>
+                      <alert type="info" class="no-margin" *ngIf="category_id1 != 0">
+                        <i class="fa-fw fa fa-plus"></i>
+                        修改行业
                       </alert>
                       <form [formGroup]="formModel" (ngSubmit)="onSubmitIndustryCategory()" novalidate class="smart-form ">
                         <fieldset>
@@ -114,9 +118,13 @@
                            [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
                   <div>
                     <div class="widget-body no-padding">
-                      <alert type="info" class="no-margin" >
+                      <alert type="info" class="no-margin" *ngIf="category_id2 == 0" >
                         <i class="fa-fw fa fa-plus"></i>
                         添加客户来源
+                      </alert>
+                      <alert type="info" class="no-margin" *ngIf="category_id2 != 0">
+                        <i class="fa-fw fa fa-plus"></i>
+                        修改客户来源
                       </alert>
                       <form class="smart-form" [formGroup]="formModelSource" (ngSubmit)="onSubmitSource()" novalidate>
                         <fieldset>

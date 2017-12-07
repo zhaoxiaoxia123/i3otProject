@@ -39,6 +39,11 @@ export class SettingEquipmentComponent implements OnInit {
     //通讯方式
     formModelCommunication : FormGroup;
     communicationList : Array<any> = [];
+
+    //修改标题显示
+    category_id1 : any = 0;//设备类型
+    category_id2 : any = 0;//传感器
+    category_id3 : any = 0;//通讯方式
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -92,18 +97,21 @@ export class SettingEquipmentComponent implements OnInit {
                     this.cookieStore.removeAll();
                     this.router.navigate(['/auth/login']);
                 }
+                this.category_id1 = 0;
             }
             if(category_type == 11) {
                 if(this.sensorList['status'] == 202){
                     this.cookieStore.removeAll();
                     this.router.navigate(['/auth/login']);
                 }
+                this.category_id2 = 0;
             }
             if(category_type == 12) {
                 if(this.communicationList['status'] == 202){
                     this.cookieStore.removeAll();
                     this.router.navigate(['/auth/login']);
                 }
+                this.category_id3 = 0;
             }
         }, 300);
     }
@@ -147,6 +155,7 @@ export class SettingEquipmentComponent implements OnInit {
                         this.cookieStore.removeAll();
                         this.router.navigate(['/auth/login']);
                     }
+                    this.category_id1 = 0;
                 }else if(categoryType == 11){
                     this.formModelSensor.setValue({category_desc: '', category_type: '11', category_id: ''});
                     this.sensorList = JSON.parse(data['_body']);
@@ -154,6 +163,7 @@ export class SettingEquipmentComponent implements OnInit {
                         this.cookieStore.removeAll();
                         this.router.navigate(['/auth/login']);
                     }
+                    this.category_id2 = 0;
                 }else if(categoryType == 12){
                     this.formModelCommunication.setValue({category_desc: '', category_type: '12', category_id: ''});
                     this.communicationList = JSON.parse(data['_body']);
@@ -161,6 +171,7 @@ export class SettingEquipmentComponent implements OnInit {
                         this.cookieStore.removeAll();
                         this.router.navigate(['/auth/login']);
                     }
+                    this.category_id3 = 0;
                 }
                 // this.formModel.reset();
             },
@@ -181,18 +192,21 @@ export class SettingEquipmentComponent implements OnInit {
                 category_type:category_type,
                 category_id:cid
             });
+            this.category_id1 = cid;
         }else if(category_type == 11){
             this.formModelSensor.setValue({
                 category_desc:cvalue,
                 category_type:category_type,
                 category_id:cid
             });
+            this.category_id2 = cid;
         }else if(category_type == 12){
             this.formModelCommunication.setValue({
                 category_desc:cvalue,
                 category_type:category_type,
                 category_id:cid
             });
+            this.category_id3 = cid;
         }
     }
 

@@ -36,9 +36,10 @@ export class SettingEnterprise1Component implements OnInit {
 
     formModelSource : FormGroup;
     sourceList : Array<any> = [];
-    pageS : any;
-    prevS : boolean = false;
-    nextS : boolean = false;
+
+    //修改标题显示
+    category_id1 : any = 0;//合同类型
+    category_id2 : any = 0;//学历来源
     constructor(
         fb:FormBuilder,
         private http:Http,
@@ -94,6 +95,7 @@ export class SettingEnterprise1Component implements OnInit {
                         this.prevI = false;
                     }
                 }
+                this.category_id1 = 0;
             }
             if(category_type == 5) {
                 if(this.sourceList['status'] == 202){
@@ -112,6 +114,7 @@ export class SettingEnterprise1Component implements OnInit {
                         this.prevI = false;
                     }
                 }
+                this.category_id2 = 0;
             }
         }, 500);
     }
@@ -136,6 +139,7 @@ export class SettingEnterprise1Component implements OnInit {
                     this.cookieStore.removeAll();
                     this.router.navigate(['/auth/login']);
                 }
+                this.category_id1 = 0;
             },
             response => {
                 console.log('PATCH call in error', response);
@@ -167,6 +171,7 @@ export class SettingEnterprise1Component implements OnInit {
                     this.cookieStore.removeAll();
                     this.router.navigate(['/auth/login']);
                 }
+                this.category_id2 = 0;
             },
             response => {
                 console.log('PATCH call in error', response);
@@ -209,12 +214,14 @@ export class SettingEnterprise1Component implements OnInit {
                 category_type:category_type,
                 category_id:cid
             });
+            this.category_id1 = cid;
         }else if(category_type == 5){
             this.formModelSource.setValue({
                 category_desc:cvalue,
                 category_type:category_type,
                 category_id:cid
             });
+            this.category_id2 = cid;
         }
     }
 
