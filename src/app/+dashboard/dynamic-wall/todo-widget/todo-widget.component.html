@@ -1,5 +1,4 @@
-<sa-widget color="blueDark"  [editbutton]="false" [colorbutton]="false" [togglebutton]="false"
-           [fullscreenbutton]="false" [deletebutton]="false">
+<sa-widget color="blueDark"  [editbutton]="false" [colorbutton]="false" >
   <header>
     <span class="widget-icon"> <i class="fa fa-check txt-color-white"></i> </span>
 
@@ -10,6 +9,10 @@
               [class.active]="newTodo" (click)="toggleAdd()"><i
               *ngIf="!newTodo" class="fa fa-plus"></i><i
               *ngIf="newTodo" class="fa fa-times"></i> 添加</button>
+
+    </div>
+    <div class="widget-toolbar">
+      <button routerLink="/equipment/todo-details" class="btn btn-xs btn-default" >查看详情</button>
 
     </div>
   </header>
