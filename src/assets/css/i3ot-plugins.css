@@ -320,7 +320,7 @@ div.dataTables_paginate ul.pagination {
 }
 
 .txt-color-blue {
-    color: #57889c!important
+    color: #3782e7!important
 }
 
 .txt-color-blueLight {
@@ -344,7 +344,7 @@ div.dataTables_paginate ul.pagination {
 }
 
 .txt-color-red {
-    color: #a90329!important
+    color: #F44336!important
 }
 
 .txt-color-yellow {
@@ -619,6 +619,9 @@ div.dataTables_paginate ul.pagination {
 }
 .margin-top-20{
     margin-top:-20px;!important
+}
+.margin-left-15{
+    margin-left:-15px;
 }
 
 /*文本内容区域*/
@@ -980,9 +983,9 @@ time.icon span {
     text-overflow: ellipsis;
     white-space: nowrap
 }
-
+/*隐藏*/
 .select-hidden{
-    display:none;
+    display:none!important;
 }
 
 
