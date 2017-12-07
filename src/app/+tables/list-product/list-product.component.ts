@@ -221,7 +221,7 @@ export class ListProductComponent implements OnInit {
    * @param id
    */
   getProductInfo(id){
-    this.http.get(this.globalService.getDomain()+'/api/v1/getProdcutInfo?p_id='+id+'&type=detail')
+    this.http.get(this.globalService.getDomain()+'/api/v1/getProductInfo?p_id='+id+'&type=detail')
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.product_info = data;

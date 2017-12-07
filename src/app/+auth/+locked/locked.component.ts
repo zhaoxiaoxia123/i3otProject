@@ -17,7 +17,7 @@ export class LockedComponent implements OnInit {
 
   unlock(event){
     event.preventDefault();
-    this.router.navigate(['/dashboard/+social'])
+    this.router.navigate(['/dashboard/dynamic-wall'])
   }
 
 

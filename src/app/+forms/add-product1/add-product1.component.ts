@@ -73,7 +73,7 @@ export class AddProduct1Component implements OnInit {
   }
 
   getproductInfo(p_id:number){
-    this.http.get(this.globalService.getDomain()+'/api/v1/getProdcutInfo?p_id='+p_id)
+    this.http.get(this.globalService.getDomain()+'/api/v1/getProductInfo?p_id='+p_id)
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.product_info = data;

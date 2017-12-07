@@ -161,9 +161,11 @@ export class AddEquipmentComponent implements OnInit {
         // this.o_id_default = this.i3otpList['result']['orderList'].length >= 1 ? this.i3otpList['result']['orderList'][0]['o_order'] : 0;
         this.c_id_default = this.i3otpList['result']['customerList'].length >= 1 ? this.i3otpList['result']['customerList'][0]['c_number'] : 0;
         this.i3otp_category_default = 1;
-        this.join_sensor_category =  this.i3otpList['result']['sensorCategoryList'].length >= 1 ? [this.i3otpList['result']['sensorCategoryList'][0]['category_id']] : [];//传感器类型
-        this.show_join_sensor_category =  this.i3otpList['result']['sensorCategoryList'].length >= 1 ? [this.i3otpList['result']['sensorCategoryList'][0]['category_desc']] : [];//传感器类型
-        this.join_category = [];
+        this.join_sensor_category = this.i3otpList['result']['sensorCategoryList'].length >= 1 ? [this.i3otpList['result']['sensorCategoryList'][0]['category_id']] : [];//传感器类型
+        this.show_join_sensor_category = this.i3otpList['result']['sensorCategoryList'].length >= 1 ? [this.i3otpList['result']['sensorCategoryList'][0]['category_desc']] : [];//传感器类型
+
+        this.join_category = this.i3otpList['result']['communicationList'].length >= 1 ? [this.i3otpList['result']['communicationList'][0]['category_id']] : [];
+        this.show_join_category = this.i3otpList['result']['communicationList'].length >= 1 ? [this.i3otpList['result']['communicationList'][0]['category_desc']] : [];//通讯方式
       }
     }, 600);
   }
@@ -226,44 +228,27 @@ export class AddEquipmentComponent implements OnInit {
    join_sensor_category : string;//传感器类型
    */
   sensorCategoryChange(value:any,category_desc:string){
-    // let value = obj.target.value;
-    // value = value.replace(/'/g, '').replace(/ /g, '');
-    // let v = value.split(':');
     console.log('this.join_sensor_category');
     console.log(this.join_sensor_category);
-    // if( ! this.cookieStore.in_array(v[1],this.join_sensor_category)){
-    //   this.join_sensor_category.push(v[1]);
       if( ! this.cookieStore.in_array(value,this.join_sensor_category)){
         this.join_sensor_category.push(value);
         this.show_join_sensor_category.push(category_desc);
 
     }else{
       for (let s = 0; s < this.join_sensor_category.length; s++) {
-        // if (this.join_sensor_category[s] == v[1]) {
-        //   this.join_sensor_category.splice(s,1);
-        // }
         if (this.join_sensor_category[s] == value) {
           this.join_sensor_category.splice(s,1);
           this.show_join_sensor_category.splice(s,1);
         }
       }
     }
-    // console.log('this.join_sensor_category');
-    // console.log(this.join_sensor_category);
   }
 
   /**
    * 通讯方式
-   * @param obj
+   * @param value
    */
   categoryChange(value:any,category_desc:string){
-    // let value = obj.target.value;
-    // value = value.replace(/'/g, '').replace(/ /g, '');
-    // let v = value.split(':');
-    console.log('this.join_category');
-    console.log(this.join_category);
-    // if( ! this.cookieStore.in_array(v[1],this.join_category)){
-    //   this.join_category.push(v[1]);
       if( ! this.cookieStore.in_array(value,this.join_category)){
         this.join_category.push(value);
         this.show_join_category.push(category_desc);
@@ -275,8 +260,6 @@ export class AddEquipmentComponent implements OnInit {
         }
       }
     }
-    // console.log('this.join_category');
-    // console.log(this.join_category);
   }
 
   //鼠标滑过修改样式
@@ -297,5 +280,31 @@ export class AddEquipmentComponent implements OnInit {
   }
   showColorDivComm(){
     this.div_show_comm = false;
+  }
+
+  /**
+   * 删除通讯方式
+   */
+  deleteJoin($event:Event,sc:any) {
+    $event.stopPropagation();
+    for (let s = 0; s < this.show_join_category.length; s++) {
+      if (this.show_join_category[s] ==sc) {
+        this.join_category.splice(s,1);
+        this.show_join_category.splice(s,1);
+      }
+    }
+  }
+
+  /**
+   * 删除传感器
+   */
+  deleteJoinSensor($event:Event,sc:any) {
+    $event.stopPropagation();
+    for (let s = 0; s < this.show_join_sensor_category.length; s++) {
+      if (this.show_join_sensor_category[s] ==sc) {
+        this.join_sensor_category.splice(s,1);
+        this.show_join_sensor_category.splice(s,1);
+      }
+    }
   }
 }

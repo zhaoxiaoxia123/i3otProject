@@ -103,6 +103,56 @@
                             <i class="fa-fw fa fa-spoon"></i>
                             规格/参数
                           </alert>
+
+
+                          <!--这个替换下面的下拉列表框-->
+                          <div class="widget-body">
+                            <form class="">
+                              <fieldset>
+
+
+
+                                <div class="col col-12 col-sm-12">
+                                  <!--添加或删除对比设备-->
+                                  <section  >
+                                    <label class="">选择类型</label>
+
+                                    <span class="select2 select2-container select2-container--default select2-container--below select2-container--focus" dir="ltr" style="width: 100%;">
+                                       <span class="selection">
+                                         <span class="select2-selection select2-selection--multiple" (click)="showColorDiv()">
+                                           <ul class="select2-selection__rendered">
+                                             <li class="select2-selection__choice" title="{{cs}}" *ngFor="let cs of show_join">
+                                               <span class="select2-selection__choice__remove" (click)="deleteJoin($event,cs)">
+                                                 ×</span>{{cs}}
+                                             </li>
+                                           </ul>
+                                         </span>
+                                       </span>
+                                      </span>
+
+                                    <span [ngClass]="{'select2 select2-container--open select2-container select2-container--default select2-container--below select2-container--focus':true,'select-hidden':div_show}" dir="ltr" style="width: 100%;">
+                                       <span class="selection">
+                                         <span class="select2-selection select2-selection--multiple select2-results select2-dropdown select2-drop-active" (mouseleave)="outMouseColor()">
+                                          <ul class="select2-results__options select2-results__options--nested">
+                                            <li [ngClass]="{'select2-results__option':true,'select2-results__option--highlighted' : (color_category_id ==cl.category_id)}" *ngFor="let cl of categoryList.result"  (click)="categoryChange(cl.category_id,cl.category_desc)" (mouseenter)="divColor(cl.category_id)" value="{{cl.category_id}}">
+                                              <b *ngIf="cl.category_depth == 0">{{cl.category_desc}}</b>
+                                              <b *ngIf="cl.category_depth != 0">--{{cl.category_desc}}</b>
+                                            </li>
+                                          </ul>
+                                         </span>
+                                       </span>
+                                     </span>
+                                  </section>
+
+                                  <div class="note">
+                                    <strong>备注:</strong> 点击名称或名称后面空白区域将弹出下拉框，可以选择添加和取消显示的内容。
+                                  </div>
+                                </div>
+                              </fieldset>
+
+                            </form>
+                          </div>
+
                           <!--form包含的内容替换成上面的-->
                           <form class="smart-form ">
                             <fieldset>

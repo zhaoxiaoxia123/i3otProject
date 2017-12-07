@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
   options = new RequestOptions({headers: this.headers});
   ngOnInit() {
     if(this.cookieStoreService.getCookie('username')) {
-      this.router.navigate(['/dashboard/social']);
+      this.router.navigate(['/dashboard/dynamic-wall']);
     }
   }
 
@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
             this.username = info['result']['u_username'];
             this.uid = info['result']['id'];
             this.cid = info['result']['c_id'];
-            this.router.navigate(['/dashboard/social']);
+            this.router.navigate(['/dashboard/dynamic-wall']);
           }else if(info['status'] == 202){
             this.cookieStoreService.removeAll();
             this.router.navigate(['/auth/login']);
