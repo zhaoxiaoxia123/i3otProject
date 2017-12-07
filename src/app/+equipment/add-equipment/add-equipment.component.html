@@ -52,32 +52,18 @@
                        </select> <i></i> </label>
                    </section>
                  </div>
+
                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                   <!-- <section  >
-                       <label class="label">传感器类型</label>
-                       <select class="col-12">
-                           <option >传感器类型</option>
-                           <option >传感器类型</option>
-                       </select>
-                       &lt;!&ndash; <label class="input">
-                          <input type="text"  placeholder=""  />
-                        </label>&ndash;&gt;
-
-
-                     </section>-->
+                   <section>
                    <label  class="label">传感器类型</label>
-                   <!--<section>
 
-                     <label class="select">
+
+                     <label class="select select-hidden">
                        <select name="">
-                         <option>总经理</option>
-                         <option>组长</option>
-                         <option>财务经理</option>
                          <option></option>
-                         <option></option>
-                       </select><i></i>
+                       </select>
                      </label>
-                   </section>-->
+
                    <span class="select2 select2-container select2-container--default select2-container--below select2-container--focus" dir="ltr" style="width: 100%;">
                        <span class="selection">
                          <span class="select2-selection select2-selection--multiple" (click)="showColorDivSensor()">
@@ -90,23 +76,84 @@
                          </span>
                        </span>
                      </span>
+
                    <span [ngClass]="{'select2 select2-container--open select2-container select2-container--default select2-container--below select2-container--focus':true,'select-hidden':div_show_sensor}" dir="ltr" style="width: 100%;position: absolute;">
                        <span class="selection">
                          <span class="select2-selection select2-selection--multiple select2-results select2-dropdown select2-drop-active" (mouseleave)="outMouseColor()">
                           <ul class="select2-results__options select2-results__options--nested"><!--  select2-results__option--highlighted-->
                             <li [ngClass]="{'select2-results__option--highlighted' : (color_category_id == sc.category_id),'select2-results__option':true}" (click)="sensorCategoryChange(sc.category_id,sc.category_desc)" (mouseenter)="divColor(sc.category_id)" *ngFor="let sc of i3otpList.result?.sensorCategoryList" value="{{sc.category_id}}">{{sc.category_desc}}</li>
+
+                          </ul>
+
+                         </span>
+                       </span>
+
+                     </span>
+
+                   </section>
+                 </div>
+                <!-- <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                   &lt;!&ndash; <section  >
+                       <label class="label">传感器类型</label>
+                       <select class="col-12">
+                           <option >传感器类型</option>
+                           <option >传感器类型</option>
+                       </select>
+                       &lt;!&ndash; <label class="input">
+                          <input type="text"  placeholder=""  />
+                        </label>&ndash;&gt;
+
+
+                     </section>&ndash;&gt;
+                   <label  class="label">传感器类型</label>
+                   &lt;!&ndash;<section>
+
+                     <label class="select">
+                       <select name="">
+                         <option>总经理</option>
+                         <option>组长</option>
+                         <option>财务经理</option>
+                         <option></option>
+                         <option></option>
+                       </select><i></i>
+                     </label>
+                   </section>&ndash;&gt;
+                   <span class="select2 select2-container select2-container&#45;&#45;default select2-container&#45;&#45;below select2-container&#45;&#45;focus" dir="ltr" style="width: 100%;">
+                       <span class="selection">
+                         <span class="select2-selection select2-selection&#45;&#45;multiple" (click)="showColorDivSensor()">
+                           <ul class="select2-selection__rendered">
+                             <li class="select2-selection__choice" title="{{cs}}" *ngFor="let cs of show_join_sensor_category">
+                               <span class="select2-selection__choice__remove" (click)="deleteJoinSensor($event,cs)">
+                                 ×</span>{{cs}}
+                             </li>
+                           </ul>
+                         </span>
+                       </span>
+                     </span>
+                   <span [ngClass]="{'select2 select2-container&#45;&#45;open select2-container select2-container&#45;&#45;default select2-container&#45;&#45;below select2-container&#45;&#45;focus':true,'select-hidden':div_show_sensor}" dir="ltr" style="width: 100%;position: absolute;">
+                       <span class="selection">
+                         <span class="select2-selection select2-selection&#45;&#45;multiple select2-results select2-dropdown select2-drop-active" (mouseleave)="outMouseColor()">
+                          <ul class="select2-results__options select2-results__options&#45;&#45;nested">&lt;!&ndash;  select2-results__option&#45;&#45;highlighted&ndash;&gt;
+                            <li [ngClass]="{'select2-results__option&#45;&#45;highlighted' : (color_category_id == sc.category_id),'select2-results__option':true}" (click)="sensorCategoryChange(sc.category_id,sc.category_desc)" (mouseenter)="divColor(sc.category_id)" *ngFor="let sc of i3otpList.result?.sensorCategoryList" value="{{sc.category_id}}">{{sc.category_desc}}</li>
                           </ul>
                          </span>
                        </span>
 
                      </span>
-                 </div>
+                 </div>-->
                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
                    <section>
                      <label class="label">通信方式</label>
-                     <!-- <label class="input">
-                        <input type="text"  placeholder=""  />
-                      </label>-->
+
+                       <label class="select select-hidden ">
+                         <select >
+                           <option>42Hz</option>
+                           <option>42Hz</option>
+                           <option>42Hz</option>
+                           <option>42Hz</option>
+                           <option>42Hz</option>
+                         </select>
+                       </label>
                      <span class="select2 select2-container select2-container--default select2-container--below select2-container--focus" dir="ltr" style="width: 100%" >
                        <span class="selection">
                          <span class="select2-selection select2-selection--multiple" (click)="showColorDivComm()">
