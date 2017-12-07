@@ -18,26 +18,32 @@
               <form id="smart-form-register" class="smart-form" [formGroup]="formModel" (ngSubmit)="onSubmit()">
                <fieldset>
                  <input type="hidden" name="i3otp_id" formControlName="i3otp_id">
-                 <div class="row">
-                   <section class="col col-6">
+                 <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                   <section >
                      <label class="label">产品ID</label>
                      <label class="input">
                        <input type="text" placeholder="请输入产品ID" maxlength="20" name="i3otp_pid" formControlName="i3otp_pid"/>
                      </label>
                    </section>
-                   <section class="col col-6">
+                 </div>
+                 <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                   <section >
                      <label class="label">产品外部编号</label>
                      <label class="input">
                        <input type="text" placeholder="请输入产品外部编号" maxlength="20" name="i3otp_c_pid" formControlName="i3otp_c_pid"/>
                      </label>
                    </section>
-                   <section class="col col-6">
+                 </div>
+                 <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                   <section >
                      <label class="label">产品名称</label>
                      <label class="input">
                        <input type="text"  placeholder="请输入产品名称" maxlength="20" name="i3otp_name" formControlName="i3otp_name"/>
                      </label>
                    </section>
-                   <section class="col col-6">
+                 </div>
+                 <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                   <section >
                      <label class="label">产品类别</label>
                      <label class="select">
                        <select name="i3otp_category" formControlName="i3otp_category" [(ngModel)]="i3otp_category_default">
@@ -45,6 +51,116 @@
                          <option *ngFor="let cate of i3otpList.result?.categoryList" [selected]="i3otp_info.result?.i3otp_category == cate.category_id || this.i_id == 0" value="{{cate.category_id}}">{{cate.category_desc}}</option>
                        </select> <i></i> </label>
                    </section>
+                 </div>
+                 <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                   <!-- <section  >
+                       <label class="label">传感器类型</label>
+                       <select class="col-12">
+                           <option >传感器类型</option>
+                           <option >传感器类型</option>
+                       </select>
+                       &lt;!&ndash; <label class="input">
+                          <input type="text"  placeholder=""  />
+                        </label>&ndash;&gt;
+
+
+                     </section>-->
+                   <label  class="label">传感器类型</label>
+                   <!--<section>
+
+                     <label class="select">
+                       <select name="">
+                         <option>总经理</option>
+                         <option>组长</option>
+                         <option>财务经理</option>
+                         <option></option>
+                         <option></option>
+                       </select><i></i>
+                     </label>
+                   </section>-->
+                   <span class="select2 select2-container select2-container--default select2-container--below select2-container--focus" dir="ltr" style="width: 100%;">
+                       <span class="selection">
+                         <span class="select2-selection select2-selection--multiple" (click)="showColorDivSensor()">
+                           <ul class="select2-selection__rendered">
+                             <li class="select2-selection__choice" title="{{cs}}" *ngFor="let cs of show_join_sensor_category">
+                               <span class="select2-selection__choice__remove" (click)="deleteJoinSensor($event,cs)">
+                                 ×</span>{{cs}}
+                             </li>
+                           </ul>
+                         </span>
+                       </span>
+                     </span>
+                   <span [ngClass]="{'select2 select2-container--open select2-container select2-container--default select2-container--below select2-container--focus':true,'select-hidden':div_show_sensor}" dir="ltr" style="width: 100%;position: absolute;">
+                       <span class="selection">
+                         <span class="select2-selection select2-selection--multiple select2-results select2-dropdown select2-drop-active" (mouseleave)="outMouseColor()">
+                          <ul class="select2-results__options select2-results__options--nested"><!--  select2-results__option--highlighted-->
+                            <li [ngClass]="{'select2-results__option--highlighted' : (color_category_id == sc.category_id),'select2-results__option':true}" (click)="sensorCategoryChange(sc.category_id,sc.category_desc)" (mouseenter)="divColor(sc.category_id)" *ngFor="let sc of i3otpList.result?.sensorCategoryList" value="{{sc.category_id}}">{{sc.category_desc}}</li>
+                          </ul>
+                         </span>
+                       </span>
+
+                     </span>
+                 </div>
+                 <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                   <section>
+                     <label class="label">通信方式</label>
+                     <!-- <label class="input">
+                        <input type="text"  placeholder=""  />
+                      </label>-->
+                     <span class="select2 select2-container select2-container--default select2-container--below select2-container--focus" dir="ltr" style="width: 100%" >
+                       <span class="selection">
+                         <span class="select2-selection select2-selection--multiple" (click)="showColorDivComm()">
+                           <ul class="select2-selection__rendered">
+                             <li class="select2-selection__choice" title="{{c}}" *ngFor="let c of show_join_category">
+                               <span class="select2-selection__choice__remove" (click)="deleteJoin($event,c)">
+                                 ×</span>{{c}}
+                             </li>
+                           </ul>
+                         </span>
+                       </span>
+                     </span>
+                     <span [ngClass]="{'select2 select2-container--open select2-container select2-container--default select2-container--below select2-container--focus':true,'select-hidden':div_show_comm}" dir="ltr" style="width: 100%;position: absolute;">
+                       <span class="selection">
+                         <span class="select2-selection select2-selection--multiple select2-results select2-dropdown select2-drop-active" (mouseleave)="outMouseColor()">
+                          <ul class="select2-results__options select2-results__options--nested"><!-- select2-results__option--highlighted-->
+                            <li [ngClass]="{ 'select2-results__option--highlighted' : (color_category_id == cl.category_id),'select2-results__option':true} " (click)="categoryChange(cl.category_id,cl.category_desc)" (mouseenter)="divColor(cl.category_id)" *ngFor="let cl of i3otpList.result?.communicationList" value="{{cl.category_id}}">{{cl.category_desc}}</li>
+                          </ul>
+                         </span>
+                       </span>
+                     </span>
+                   </section>
+                 </div>
+                 <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                   <section >
+                     <label class="label">Mac</label>
+                     <label class="input">
+                       <input type="text"  placeholder="请输入Mac" maxlength="20" name="i3otp_mac_addr" formControlName="i3otp_mac_addr"/>
+                     </label>
+                   </section>
+                 </div>
+                 <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                   <section class="col col-6">
+                     <label class="label">产地</label>
+                     <label class="input">
+                       <input type="text"  placeholder="请输入产地" maxlength="20" name="i3otp_p_origin" formControlName="i3otp_p_origin"/>
+                     </label>
+                   </section>
+                 </div>
+                 <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                 </div>
+                 <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                 </div>
+                 <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                 </div>
+                 <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                 </div>
+                 <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                 </div>
+                 <div class="row">
+
+
+
+
                  </div>
 
                  <div class="row ">
@@ -59,35 +175,9 @@
                    </div> (mouseout)="outMouseColor()"-->
 
                    <div class=" col col-6 col-sm-6">
-                     <section >
-                       <label class="label">传感器类型</label>
-                       <!-- <label class="input">
-                          <input type="text"  placeholder=""  />
-                        </label>-->
-                       <span class="select2 select2-container select2-container--default select2-container--below select2-container--focus" dir="ltr" style="width: 100%;">
-                       <span class="selection">
-                         <span class="select2-selection select2-selection--multiple" (click)="showColorDivSensor()">
-                           <ul class="select2-selection__rendered">
-                             <li class="select2-selection__choice" title="{{cs}}" *ngFor="let cs of show_join_sensor_category">
-                               <span class="select2-selection__choice__remove" (click)="deleteJoinSensor($event,cs)">
-                                 ×</span>{{cs}}
-                             </li>
-                           </ul>
-                         </span>
-                       </span>
-                     </span>
-                       <span [ngClass]="{'select2 select2-container--open select2-container select2-container--default select2-container--below select2-container--focus':true,'select-hidden':div_show_sensor}" dir="ltr" style="width: 100%;position: absolute;">
-                       <span class="selection">
-                         <span class="select2-selection select2-selection--multiple select2-results select2-dropdown select2-drop-active" (mouseleave)="outMouseColor()">
-                          <ul class="select2-results__options select2-results__options--nested"><!--  select2-results__option--highlighted-->
-                            <li [ngClass]="{'select2-results__option--highlighted' : (color_category_id == sc.category_id),'select2-results__option':true}" (click)="sensorCategoryChange(sc.category_id,sc.category_desc)" (mouseenter)="divColor(sc.category_id)" *ngFor="let sc of i3otpList.result?.sensorCategoryList" value="{{sc.category_id}}">{{sc.category_desc}}</li>
-                          </ul>
-                         </span>
-                       </span>
 
-                     </span>
 
-                     </section>
+
                    </div>
 
                    <!--<div class=" col col-6 col-sm-6">
@@ -109,50 +199,14 @@
                    </div>(mouseout)="outMouseColor()"-->
 
                    <div class=" col col-6 col-sm-6" >
-                     <section>
-                       <label class="label">通信方式</label>
-                      <!-- <label class="input">
-                         <input type="text"  placeholder=""  />
-                       </label>-->
-                       <span class="select2 select2-container select2-container--default select2-container--below select2-container--focus" dir="ltr" style="width: 100%" >
-                       <span class="selection">
-                         <span class="select2-selection select2-selection--multiple" (click)="showColorDivComm()">
-                           <ul class="select2-selection__rendered">
-                             <li class="select2-selection__choice" title="{{c}}" *ngFor="let c of show_join_category">
-                               <span class="select2-selection__choice__remove" (click)="deleteJoin($event,c)">
-                                 ×</span>{{c}}
-                             </li>
-                           </ul>
-                         </span>
-                       </span>
-                     </span>
-                       <span [ngClass]="{'select2 select2-container--open select2-container select2-container--default select2-container--below select2-container--focus':true,'select-hidden':div_show_comm}" dir="ltr" style="width: 100%;position: absolute;">
-                       <span class="selection">
-                         <span class="select2-selection select2-selection--multiple select2-results select2-dropdown select2-drop-active" (mouseleave)="outMouseColor()">
-                          <ul class="select2-results__options select2-results__options--nested"><!-- select2-results__option--highlighted-->
-                            <li [ngClass]="{ 'select2-results__option--highlighted' : (color_category_id == cl.category_id),'select2-results__option':true} " (click)="categoryChange(cl.category_id,cl.category_desc)" (mouseenter)="divColor(cl.category_id)" *ngFor="let cl of i3otpList.result?.communicationList" value="{{cl.category_id}}">{{cl.category_desc}}</li>
-                          </ul>
-                         </span>
-                       </span>
-                     </span>
-                     </section>
+
 
                    </div>
                  </div>
 
                  <div class="row">
-                   <section class="col col-6">
-                     <label class="label">Mac</label>
-                     <label class="input">
-                       <input type="text"  placeholder="请输入Mac" maxlength="20" name="i3otp_mac_addr" formControlName="i3otp_mac_addr"/>
-                     </label>
-                   </section>
-                   <section class="col col-6">
-                     <label class="label">产地</label>
-                     <label class="input">
-                       <input type="text"  placeholder="请输入产地" maxlength="20" name="i3otp_p_origin" formControlName="i3otp_p_origin"/>
-                     </label>
-                   </section>
+
+
                    <section class="col col-6">
                      <label class="label">硬件版本</label>
                      <label class="input">
