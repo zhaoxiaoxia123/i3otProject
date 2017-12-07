@@ -108,6 +108,9 @@
           <li routerLinkActive="active">
             <a routerLink="/forms/inventory1/0">{{'添加仓库' | i18n}}</a>
           </li>
+          <li routerLinkActive="active">
+            <a routerLink="/equipment/todo-details">{{'待办事项详情' | i18n}}</a>
+          </li>
         </ul>
       </li>
 
@@ -125,6 +128,9 @@
             <a routerLink="/management/enterprise2">{{'订单设置' | i18n}}</a>
           </li>
           <li routerLinkActive="active">
+            <a routerLink="/equipment/add-equipment/0">{{'添加设备' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
             <a routerLink="/management/setting-equipment">{{'设备设置' | i18n}}</a>
           </li>
         </ul>
@@ -137,31 +143,28 @@
             <a routerLink="/equipment/equipment-list">{{'设备列表' | i18n}}</a>
           </li>
           <li routerLinkActive="active">
-            <a routerLink="/equipment/data-map">{{'数据对比' | i18n}}</a>
+            <a routerLink="/equipment/data-map">{{'全部实时数据' | i18n}}</a>
           </li>
           <li routerLinkActive="active">
-            <a routerLink="/equipment/helmet-chart">{{'人员查看' | i18n}}</a>
+            <a routerLink="/equipment/helmet-chart">{{'员工传感数据' | i18n}}</a>
           </li>
           <li routerLinkActive="active">
-            <a routerLink="/equipment/station-chart">{{'基站设备图表' | i18n}}</a>
+            <a routerLink="/equipment/station-chart">{{'基站传感数据' | i18n}}</a>
           </li>
-          <li routerLinkActive="active">
-            <a routerLink="/equipment/equipment-beacon">{{'信标' | i18n}}</a>
-          </li>
-          <li routerLinkActive="active">
-            <a routerLink="/equipment/equipment-positioning">{{'定位' | i18n}}</a>
-          </li>
-          <li routerLinkActive="active">
-            <a routerLink="/equipment/add-equipment/0">{{'添加设备' | i18n}}</a>
-          </li>
+
           <li routerLinkActive="active">
             <a routerLink="/equipment/phonics">{{'添加语音文字' | i18n}}</a>
           </li>
-          <li routerLinkActive="active">
-            <a routerLink="/equipment/chart-setting">{{'图表设置' | i18n}}</a>
-          </li>
-          <li routerLinkActive="active">
-            <a routerLink="/equipment/todo-details">{{'待办事项详情' | i18n}}</a>
+          <li>
+            <a href="#">{{'设备基本设置' | i18n}}</a>
+            <ul>
+              <li routerLinkActive="active">
+                <a routerLink=""> {{'设备绑定' | i18n}}</a>
+              </li>
+              <li routerLinkActive="active">
+                <a routerLink="/equipment/chart-setting">{{'图表设置' | i18n}}</a>
+              </li>
+            </ul>
           </li>
         </ul>
       </li>
@@ -174,6 +177,12 @@
           </li>
           <li routerLinkActive="active">
             <a routerLink="/equipment/helmet-list">{{'安全帽' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/equipment/equipment-beacon">{{'信标' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/equipment/equipment-positioning">{{'定位' | i18n}}</a>
           </li>
           <li routerLinkActive="active">
             <a routerLink="/equipment/station-list">{{'基站设备' | i18n}}</a>
