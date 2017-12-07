@@ -69,7 +69,7 @@
                          <span class="select2-selection select2-selection--multiple" (click)="showColorDivSensor()">
                            <ul class="select2-selection__rendered">
                              <li class="select2-selection__choice" title="{{cs}}" *ngFor="let cs of show_join_sensor_category">
-                               <span class="select2-selection__choice__remove" >
+                               <span class="select2-selection__choice__remove" (click)="deleteJoinSensor($event,cs)">
                                  ×</span>{{cs}}
                              </li>
                            </ul>
@@ -119,7 +119,7 @@
                          <span class="select2-selection select2-selection--multiple" (click)="showColorDivComm()">
                            <ul class="select2-selection__rendered">
                              <li class="select2-selection__choice" title="{{c}}" *ngFor="let c of show_join_category">
-                               <span class="select2-selection__choice__remove" >
+                               <span class="select2-selection__choice__remove" (click)="deleteJoin($event,c)">
                                  ×</span>{{c}}
                              </li>
                            </ul>

@@ -281,4 +281,30 @@ export class AddEquipmentComponent implements OnInit {
   showColorDivComm(){
     this.div_show_comm = false;
   }
+
+  /**
+   * 删除通讯方式
+   */
+  deleteJoin($event:Event,sc:any) {
+    $event.stopPropagation();
+    for (let s = 0; s < this.show_join_category.length; s++) {
+      if (this.show_join_category[s] ==sc) {
+        this.join_category.splice(s,1);
+        this.show_join_category.splice(s,1);
+      }
+    }
+  }
+
+  /**
+   * 删除传感器
+   */
+  deleteJoinSensor($event:Event,sc:any) {
+    $event.stopPropagation();
+    for (let s = 0; s < this.show_join_sensor_category.length; s++) {
+      if (this.show_join_sensor_category[s] ==sc) {
+        this.join_sensor_category.splice(s,1);
+        this.show_join_sensor_category.splice(s,1);
+      }
+    }
+  }
 }

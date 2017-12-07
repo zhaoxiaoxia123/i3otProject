@@ -316,5 +316,20 @@ export class AddIndent1Component implements OnInit {
     }
   }
 
+  /**
+   * 计算总价
+   */
+  saveNum(){
+    let quantity = this.formModel.value['o_quantity'];
+    let price = this.formModel.value['o_unit_price'];
+    if(parseFloat(quantity) > 0 && parseFloat(price) > 0) {
+      let total_price = parseFloat(quantity) * parseFloat(price);
+      // console.log(total_price);
+      this.formModel.patchValue({
+        o_total_price: total_price
+      });
+    }
+  }
+
   @ViewChild('lgModal') public lgModal:ModalDirective;
 }
