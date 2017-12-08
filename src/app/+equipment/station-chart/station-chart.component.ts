@@ -435,9 +435,9 @@ export class StationChartComponent implements OnInit {
 
     changeStatus(index:string,type:string){
         if(type == '-'){
-            this.status = this.status.replace(index +',','');
+            this.status = this.status.replace(','+index +',','');
         }else{
-            this.status += index +',';
+            this.status += ','+index +',';
         }
     }
 
