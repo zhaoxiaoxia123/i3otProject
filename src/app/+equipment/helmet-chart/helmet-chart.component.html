@@ -64,7 +64,7 @@
                 <table *ngFor="let ll of i3otpList.result?.i3otpList?.data;let ind = index;" class="dataTable responsive table table-striped table-bordered table-hover">
 
                   <tbody >
-                  <tr role="row" *ngIf="status.indexOf(ind+',') === -1"  [ngClass]="{ 'odd' : (ind%2 == 0), 'even': (ind%2 != 0) }">
+                  <tr role="row" *ngIf="status.indexOf(','+ind+',') === -1"  [ngClass]="{ 'odd' : (ind%2 == 0), 'even': (ind%2 != 0) }">
                     <td class=" details-control percent-6" (click)="changeStatus(ind,'+')" *ngIf="ll.i3otp_attribute1.length!=0 || ll.i3otp_attribute2.length!=0 || ll.i3otp_attribute3.length!=0">
                     </td>
                     <td *ngIf="ll.i3otp_attribute1.length==0 && ll.i3otp_attribute2.length==0 && ll.i3otp_attribute3.length==0">
@@ -102,7 +102,7 @@
                     <td class="percent-16" *ngIf="ll.i3otp_attribute1.length==0 && ll.i3otp_attribute2.length==0 && ll.i3otp_attribute3.length==0">
                     </td>
                   </tr>
-                  <tr role="row" *ngIf="status.indexOf(ind+',') != -1" [ngClass]="{ 'odd' : (ind%2 == 0), 'even': (ind%2 != 0) ,'shown':true} ">
+                  <tr role="row" *ngIf="status.indexOf(','+ind+',') != -1" [ngClass]="{ 'odd' : (ind%2 == 0), 'even': (ind%2 != 0) ,'shown':true} ">
                     <td class=" details-control percent-6" (click)="changeStatus(ind,'-')" *ngIf="ll.i3otp_attribute1.length!=0 || ll.i3otp_attribute2.length!=0 || ll.i3otp_attribute3.length!=0">
                     </td>
                     <td *ngIf="ll.i3otp_attribute1.length==0 && ll.i3otp_attribute2.length==0 && ll.i3otp_attribute3.length==0">
@@ -141,12 +141,12 @@
                     </td>
                   </tr>
 
-                  <tr *ngIf="status.indexOf(ind+',') != -1">
+                  <tr *ngIf="status.indexOf(','+ind+',') != -1">
                     <td colspan="7">
                       <table    class="table table-hover table-condensed">
                         <tbody>
                         <!--加载完成隐藏-->
-                        <tr>
+                        <tr *ngIf="!chartOption1[ind]">
                           <td  colspan="2" class="text-align-center" ><img  src="assets/img/select2-spinner.gif" >
                             <h4 class="txt-color-darken" >加载中</h4></td>
                         </tr>

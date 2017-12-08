@@ -399,11 +399,15 @@ export class HelmetChartComponent implements OnInit {
     }
 
     changeStatus(index:string,type:string){
+        console.log('this.status');
+        console.log(this.status);
+        console.log(type);
         if(type == '-'){
-            this.status = this.status.replace(index +',','');
+            this.status = this.status.replace(','+index +',','');
         }else{
-            this.status += index +',';
+            this.status += ','+index +',';
         }
+        console.log(this.status);
     }
 
     @ViewChild('lgModal') public lgModal:ModalDirective;
