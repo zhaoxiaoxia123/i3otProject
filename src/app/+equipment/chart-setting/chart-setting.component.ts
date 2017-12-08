@@ -33,6 +33,7 @@ export class ChartSettingComponent implements OnInit {
     settings_info : Array<any> = [];
     //默认选中值
     s_name_default : string;
+    s_id : number = 0;
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -143,6 +144,7 @@ export class ChartSettingComponent implements OnInit {
                 // s_up_color3:this.settings_info['result']['s_up_color3'],
             });
             this.s_name_default = this.settings_info['result']['s_name'];
+            this.s_id = this.settings_info['result']['s_id'];
         }, 500);
     }
 
@@ -151,6 +153,10 @@ export class ChartSettingComponent implements OnInit {
      * @returns {boolean}
      */
     onSubmit(){
+        if(this.formModel.value['s_name'] == ''){
+            alert('请选择名称！');
+            return false;
+        }
         if(this.formModel.value['s_interval1_1'] == ''){
             alert('请填写第一阶段区间值！');
             return false;
@@ -184,7 +190,21 @@ export class ChartSettingComponent implements OnInit {
                 let info = JSON.parse(data['_body']);
                 alert(info['msg']);
                 if(info['status'] == 200) {
-                    this.settingsList = info
+                    this.settingsList = info;
+                    this.formModel.patchValue({
+                        s_id:0,
+                        s_name:'',
+                        s_interval1_1:'',
+                        s_interval1_2:'',
+                        s_color1:'#dff0d8',
+                        s_interval2_1:'',
+                        s_interval2_2:'',
+                        s_color2:'#fcf8e3',
+                        s_interval3_1:'',
+                        s_interval3_2:'',
+                        s_color3:'#f2dede',
+                    });
+                    this.s_id = 0;
                 }else if(info['status'] == 202){
                     this.cookieStore.removeAll();
                     this.router.navigate(['/auth/login']);

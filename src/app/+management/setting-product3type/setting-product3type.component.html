@@ -22,9 +22,13 @@
                                [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
                       <div>
                         <div class="widget-body no-padding">
-                          <alert type="info" class="no-margin" >
+                          <alert type="info" class="no-margin" *ngIf="category_id1 == 0 && category_id2 == 0 ">
                             <i class="fa-fw fa fa-plus"></i>
                             添加类型
+                          </alert>
+                          <alert type="info" class="no-margin" *ngIf="category_id1 != 0 || category_id2 != 0 ">
+                            <i class="fa-fw fa fa-plus"></i>
+                            修改类型
                           </alert>
                           <form class="smart-form ">
                             <fieldset>
@@ -33,7 +37,7 @@
                                   <div class="col col-6">
                                     <label class="label ">一级</label>
                                     <label class="select" [ngStyle]="{'display':is_edit?'block':'none'}">
-                                      <select name="category_desc_s" [(ngModel)]="category_desc_s">
+                                      <select name="category_desc_s" [(ngModel)]="category_id1">
                                         <option *ngFor="let cd of parentCategoryList" [selected]="category_depth2 == cd.category_id" value="{{cd.category_id}}">
                                           {{cd.category_desc}}
                                         </option>

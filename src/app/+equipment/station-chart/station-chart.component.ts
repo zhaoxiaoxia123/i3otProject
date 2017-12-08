@@ -190,7 +190,7 @@ export class StationChartComponent implements OnInit {
             for (var s = 0; s < this.colorShow['result'][entry].length; s++) {
                 let min = parseInt(this.colorShow['result'][entry][s]['s_interval_1']);
                 let max = parseInt(this.colorShow['result'][entry][s]['s_interval_2']);
-                let val = parseInt(pro[entry]['value'][0]);//this.size - 1
+                let val = parseInt(pro[entry]['value'][this.size - 1]);//this.size - 1
                 if (val >= min && val <= max) {
                     color_.color = this.colorShow['result'][entry][s]['s_color'];
                     // color_.up_color = this.colorShow['result'][entry][s]['s_up_color'] == '' ? color_.up_color : this.colorShow['result'][entry][s]['s_up_color'];
@@ -229,10 +229,10 @@ export class StationChartComponent implements OnInit {
                     let color_ = this.getColor(this.products1['data'][i]['info'], entry);
                     this.lastList1.push({
                         name: entry,
-                        time: dataInfo['time'][0],//this.size - 1
+                        time: dataInfo['time'][this.size - 1],//this.size - 1
                         color: color_.color,
                         // up_color: color_.up_color,
-                        value: this.products1['data'][i]['info'][entry]['value'][0]//this.size - 1
+                        value: this.products1['data'][i]['info'][entry]['value'][this.size - 1]//this.size - 1
                     });
                 }
                 // console.log('this.lastList1');

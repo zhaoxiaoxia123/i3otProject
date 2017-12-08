@@ -65,7 +65,9 @@
 
                   <tbody >
                   <tr role="row" *ngIf="status.indexOf(ind+',') === -1"  [ngClass]="{ 'odd' : (ind%2 == 0), 'even': (ind%2 != 0) }">
-                    <td class=" details-control percent-6" (click)="changeStatus(ind,'+')">
+                    <td class=" details-control percent-6" (click)="changeStatus(ind,'+')" *ngIf="ll.i3otp_attribute1.length!=0 || ll.i3otp_attribute2.length!=0 || ll.i3otp_attribute3.length!=0">
+                    </td>
+                    <td *ngIf="ll.i3otp_attribute1.length==0 && ll.i3otp_attribute2.length==0 && ll.i3otp_attribute3.length==0">
                     </td>
                     <td class="percent-12">
                       {{ll.u_username}}
@@ -100,9 +102,10 @@
                     <td class="percent-16" *ngIf="ll.i3otp_attribute1.length==0 && ll.i3otp_attribute2.length==0 && ll.i3otp_attribute3.length==0">
                     </td>
                   </tr>
-
                   <tr role="row" *ngIf="status.indexOf(ind+',') != -1" [ngClass]="{ 'odd' : (ind%2 == 0), 'even': (ind%2 != 0) ,'shown':true} ">
-                    <td class=" details-control percent-6" (click)="changeStatus(ind,'-')">
+                    <td class=" details-control percent-6" (click)="changeStatus(ind,'-')" *ngIf="ll.i3otp_attribute1.length!=0 || ll.i3otp_attribute2.length!=0 || ll.i3otp_attribute3.length!=0">
+                    </td>
+                    <td *ngIf="ll.i3otp_attribute1.length==0 && ll.i3otp_attribute2.length==0 && ll.i3otp_attribute3.length==0">
                     </td>
                     <td class="percent-12">
                       {{ll.u_username}}

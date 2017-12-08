@@ -22,9 +22,13 @@
                                [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
                       <div>
                         <div class="widget-body no-padding">
-                          <alert type="info" class="no-margin" >
+                          <alert type="info" class="no-margin" *ngIf="category_id1 == 0" >
                             <i class="fa-fw fa fa-plus"></i>
                             添加部门
+                          </alert>
+                          <alert type="info" class="no-margin" *ngIf="category_id1 != 0">
+                            <i class="fa-fw fa fa-plus"></i>
+                            修改部门
                           </alert>
                           <form  [formGroup]="formModel" (ngSubmit)="onSubmitCategory()" novalidate class="smart-form ">
                             <fieldset>

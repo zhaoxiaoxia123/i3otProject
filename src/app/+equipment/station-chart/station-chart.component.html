@@ -69,7 +69,9 @@
                 <table *ngFor="let il of i3otpList.result?.i3otpList?.data;let ind = index;" class="dataTable responsive table table-striped table-bordered table-hover">
                   <tbody >
                   <tr role="row" *ngIf="status.indexOf(ind+',') === -1" [ngClass]="{ 'odd' : (ind%2 == 0), 'even': (ind%2 != 0) }"><!-- shown-->
-                    <td class=" details-control percent-6" (click)="changeStatus(ind,'+')">
+                    <td class=" details-control percent-6" (click)="changeStatus(ind,'+')"  *ngIf="il.i3otp_attribute1.length!=0 || il.i3otp_attribute2.length!=0 || il.i3otp_attribute3.length!=0">
+                    </td>
+                    <td *ngIf="il.i3otp_attribute1.length==0 && il.i3otp_attribute2.length==0 && il.i3otp_attribute3.length==0">
                     </td>
                     <td class="percent-12">
                       {{il.i3otp_address}}
@@ -102,7 +104,9 @@
                     </td>
                   </tr>
                   <tr role="row" *ngIf="status.indexOf(ind+',') != -1" [ngClass]="{ 'odd' : (ind%2 == 0), 'even': (ind%2 != 0) ,'shown':true} "><!-- shown-->
-                    <td class=" details-control percent-6" (click)="changeStatus(ind,'-')">
+                    <td class=" details-control percent-6" (click)="changeStatus(ind,'-')"  *ngIf="il.i3otp_attribute1.length!=0 || il.i3otp_attribute2.length!=0 || il.i3otp_attribute3.length!=0">
+                    </td>
+                    <td *ngIf="il.i3otp_attribute1.length==0 && il.i3otp_attribute2.length==0 && il.i3otp_attribute3.length==0">
                     </td>
                     <td class="percent-12">
                       {{il.i3otp_address}}

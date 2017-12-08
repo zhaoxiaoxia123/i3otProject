@@ -24,11 +24,14 @@
 
                   <div>
                     <div class="widget-body no-padding">
-                      <alert type="info" class="no-margin" >
+                      <alert type="info" class="no-margin" *ngIf="category_id1 == 0" >
                         <i class="fa-fw fa fa-plus"></i>
                         添加合同类型
                       </alert>
-
+                      <alert type="info" class="no-margin" *ngIf="category_id1 != 0">
+                        <i class="fa-fw fa fa-plus"></i>
+                        修改合同类型
+                      </alert>
                       <form [formGroup]="formModel" (ngSubmit)="onSubmitUserCategory()" novalidate class="smart-form ">
                         <fieldset>
                           <section>
@@ -105,11 +108,14 @@
                            [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
                   <div>
                     <div class="widget-body no-padding">
-                      <alert type="info" class="no-margin" >
+                      <alert type="info" class="no-margin" *ngIf="category_id2 == 0" >
                         <i class="fa-fw fa fa-plus"></i>
                         添加学历来源
                       </alert>
-
+                      <alert type="info" class="no-margin" *ngIf="category_id2 != 0">
+                        <i class="fa-fw fa fa-plus"></i>
+                        修改学历来源
+                      </alert>
                       <form [formGroup]="formModelSource" (ngSubmit)="onSubmitSource()" novalidate class="smart-form ">
                         <fieldset>
                           <section>

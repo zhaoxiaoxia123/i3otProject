@@ -126,6 +126,7 @@ export class SettingProduct3typeComponent implements OnInit {
                       }
                       alert(info['msg']);
                       this.categoryList = info;
+                      this.category_desc1='';
                       this.category_depth2 = info['category_id'];//二级信息的父类id
                       this.child_style = 'block';
                       //刷新父类修改下拉选择
@@ -202,11 +203,13 @@ export class SettingProduct3typeComponent implements OnInit {
                       return false;
                   }
                   this.categoryList = info;
+                  this.category_desc1='';
                   this.category_desc2 = '';
                   this.category_depth2 = info['category_id'];//二级信息的父类id
                   this.category_id2 = 0;
                   //刷新父类修改下拉选择
                   let arr : Array<any> = this.categoryList['result'];
+                  this.parentCategoryList = [];
                   arr.forEach((val, idx, array) => {
                       if(val.c_id == this.cid || this.cid == this.super_admin_id) {
                           this.parentCategoryList.push(val);
@@ -218,6 +221,21 @@ export class SettingProduct3typeComponent implements OnInit {
               }
           );
       }
+
+        this.formModel.setValue({
+            category_desc:'',
+            category_type:'6',
+            category_depth:'',
+            category_id:''
+        });
+        this.category_id1 = 0;
+        this.category_id2 = 0;
+        this.category_desc2='';
+        this.category_depth2=0;
+        this.child_style  = 'none';
+        this.button1_title = '保存并添加二级类型';
+        this.button2_title = '保存并添加二级类型';
+        this.is_edit  = false;
     }
 
     /**
@@ -248,6 +266,7 @@ export class SettingProduct3typeComponent implements OnInit {
                 this.is_edit = true;
                 this.child_style = 'block';
                 this.category_id2 = category_id;
+                this.category_id1 = this.edit_category_info['result']['parent']['category_id'];
                 this.category_desc2 = this.edit_category_info['result']['child']['category_desc'];
                 this.category_depth2 = this.edit_category_info['result']['child']['category_depth'];
             }

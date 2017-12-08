@@ -36,6 +36,8 @@ export class SettingDepartmentComponent implements OnInit {
 
     cid : any = 0;
     super_admin_id : any = 0;
+    //修改标题显示
+    category_id1 : any = 0;//部门
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -66,6 +68,7 @@ export class SettingDepartmentComponent implements OnInit {
                 this.router.navigate(['/auth/login']);
             }
             this.super_admin_id = this.categoryList['super_admin_id'];
+            this.category_id1 = 0;
             if (this.categoryList) {
                 if (this.categoryList['result']['current_page'] == this.categoryList['result']['last_page']) {
                     this.next = true;
@@ -96,6 +99,7 @@ export class SettingDepartmentComponent implements OnInit {
                 console.log( JSON.parse(data['_body'])['result']);
 
                 this.formModel.patchValue({category_desc:'',category_type:'3',category_id:''});
+                this.category_id1 = 0;
                 this.categoryList = JSON.parse(data['_body']);
                 if(this.categoryList['status'] == 202){
                     this.cookieStore.removeAll();
@@ -136,6 +140,7 @@ export class SettingDepartmentComponent implements OnInit {
                 category_type:3,
                 category_id:cid
             });
+        this.category_id1 = cid;
     }
 
     /**

@@ -33,9 +33,13 @@
                            [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
                   <div>
                     <div class="widget-body no-padding">
-                      <alert type="info" class="no-margin" >
+                      <alert type="info" class="no-margin" *ngIf="category_id1 == 0" >
                         <i class="fa-fw fa fa-plus"></i>
                         添加设备类型
+                      </alert>
+                      <alert type="info" class="no-margin" *ngIf="category_id1 != 0">
+                        <i class="fa-fw fa fa-plus"></i>
+                        修改设备类型
                       </alert>
                       <form  class="smart-form " [formGroup]="formModel" (ngSubmit)="onSubmitCategory(10)">
                         <fieldset>
@@ -112,9 +116,13 @@
                            [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
                   <div>
                     <div class="widget-body no-padding">
-                      <alert type="info" class="no-margin" >
+                      <alert type="info" class="no-margin" *ngIf="category_id2 == 0" >
                         <i class="fa-fw fa fa-plus"></i>
                         添加传感器类型
+                      </alert>
+                      <alert type="info" class="no-margin" *ngIf="category_id2 != 0">
+                        <i class="fa-fw fa fa-plus"></i>
+                        修改传感器类型
                       </alert>
                       <form class="smart-form"  [formGroup]="formModelSensor" (ngSubmit)="onSubmitCategory(11)">
                         <fieldset>
@@ -192,9 +200,13 @@
                            [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
                   <div>
                     <div class="widget-body no-padding">
-                      <alert type="info" class="no-margin" >
+                      <alert type="info" class="no-margin" *ngIf="category_id3 == 0" >
                         <i class="fa-fw fa fa-plus"></i>
                         添加通信方式
+                      </alert>
+                      <alert type="info" class="no-margin" *ngIf="category_id3 != 0">
+                        <i class="fa-fw fa fa-plus"></i>
+                        修改通信方式
                       </alert>
                       <form class="smart-form"  [formGroup]="formModelCommunication" (ngSubmit)="onSubmitCategory(12)">
                         <fieldset>

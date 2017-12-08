@@ -29,9 +29,13 @@
                         <div>
                           <!-- widget content -->
                           <div class="widget-body no-padding">
-                            <alert type="info" class="no-margin" >
+                            <alert type="info" class="no-margin" *ngIf="s_id == 0">
                               <i class="fa-fw fa fa-plus"></i>
                               添加图表取值范围和颜色效果
+                            </alert>
+                            <alert type="info" class="no-margin" *ngIf="s_id != 0">
+                              <i class="fa-fw fa fa-plus"></i>
+                              修改图表取值范围和颜色效果
                             </alert>
                             <div class="widget-body">
                               <form class="" [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate>
@@ -41,6 +45,7 @@
                                       <label >选择名称</label>
                                       <input type="hidden" name="s_id" formControlName="s_id">
                                       <select class="form-control" style="width:100%" name="s_name" formControlName="s_name" [(ngModel)]="s_name_default">
+                                          <option value="0" [selected]="s_id == 0">--请选择---</option>
                                           <option value="ch4"  >甲烷</option>
                                           <option value="co">一氧化碳</option>
                                           <option value="co2">二氧化碳</option>
