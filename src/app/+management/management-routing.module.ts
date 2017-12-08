@@ -36,6 +36,36 @@ export const routes:Routes = [
         path: 'product4parameters',
         loadChildren: 'app/+management/setting-product4parameters/setting-product4parameters.module#SettingProduct4parametersModule',
         data: {pageTitle: 'Setting Product4parameters'}
+    },
+    {
+        path: 'setting-personnel',
+        loadChildren: 'app/+management/setting-personnel/setting-personnel.module#SettingPersonnelModule',
+        data: {pageTitle: 'Setting Personnel'}
+    },
+    {
+        path: 'setting-departmentnew',
+        loadChildren: 'app/+management/setting-departmentnew/setting-departmentnew.module#SettingDepartmentnewModule',
+        data: {pageTitle: 'Setting Departmentnew'}
+    },
+    {
+        path: 'setting-honor',
+        loadChildren: 'app/+management/setting-honor/setting-honor.module#SettingHonorModule',
+        data: {pageTitle: 'Setting Honor'}
+    },
+    {
+        path: 'setting-repertory',
+        loadChildren: 'app/+management/setting-repertory/setting-repertory.module#SettingRepertoryModule',
+        data: {pageTitle: 'Setting Repertory'}
+    },
+    {
+        path: 'setting-archives',
+        loadChildren: 'app/+management/setting-archives/setting-archives.module#SettingArchivesModule',
+        data: {pageTitle: 'Setting Archives'}
+    },
+    {
+        path: 'setting-conversion',
+        loadChildren: 'app/+management/setting-conversion/setting-conversion.module#SettingConversionModule',
+        data: {pageTitle: 'Setting Conversion'}
     }
 ];
 

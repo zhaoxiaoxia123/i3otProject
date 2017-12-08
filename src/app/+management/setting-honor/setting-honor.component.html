@@ -1,0 +1,116 @@
+<div id="content">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="['人事管理', '职称']" icon="pencil-square-o" class="col-xs-12 col-sm-9 col-md-9 col-lg-9"></sa-big-breadcrumbs>
+  </div>
+  <sa-widget [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+    <header>
+      <ul class="nav nav-tabs pull-left in">
+        <li [class.active]="state.tabs.demo4=='AA'" class="active">
+          <a (click)="state.tabs.demo4 = 'AA'">职称编码</a>
+        </li>
+      </ul>
+    </header>
+    <div>
+      <div class="widget-body">
+        <tabset>
+          <tab [active]="state.tabs.demo4 == 'AA'">
+            <tabset class="padding-10">
+              <tab [active]="state.tabs.demo4 == 'AA'">
+                <div class="row">
+                  <article class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                               [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+                      <div>
+                        <div class="widget-body no-padding">
+                          <alert type="info" class="no-margin"  >
+                            <i class="fa-fw fa fa-plus"></i>
+                            添加职称
+                          </alert>
+                          <!--<alert type="info" class="no-margin">
+                            <i class="fa-fw fa fa-plus"></i>
+                            修改职称
+                          </alert>-->
+                          <form   class="smart-form ">
+                            <fieldset>
+                              <section>
+                                <label class="label">职称编码</label>
+                                <label class="input">
+                                  <input type="text" disabled="disabled" placeholder="自动编码" minlength="1" maxlength="20" >
+                                </label>
+                              </section>
+                              <section>
+                                <label class="label">职称名称</label>
+                                <label class="input">
+                                  <input type="text" placeholder="请输职称" minlength="1" maxlength="20" >
+                                </label>
+                              </section>
+                            </fieldset>
+                            <footer>
+                              <button  type="submit" class="btn btn-primary">
+                                保存
+                              </button>
+                            </footer>
+                          </form>
+                        </div>
+                      </div>
+                    </sa-widget>
+                  </article>
+                  <article class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                               [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+                      <div>
+                        <div class="widget-body no-padding">
+                          <alert type="info" class="no-margin" >
+                            <i class="fa-fw fa fa-spoon"></i>
+                            职称
+                          </alert>
+                          <div class="table-responsive">
+                            <table class="table table-hover table-bordered dataTable">
+                              <thead>
+                              <tr>
+                                <th>职称编码</th>
+                                <th>职称名称</th>
+                                <th>操作</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr>
+                                <td>001</td>
+                                <td>总经理</td>
+                                <td>
+                                  <div >
+                                    <a class="btn btn-warning btn-xs"  ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                    <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                  </div>
+                                  <!--<div >无权操作</div>-->
+                                </td>
+                              </tr>
+                              </tbody>
+                            </table>
+                            <!-- 底部-（分页部分）-->
+                            <div class="dt-toolbar">
+                              <div class="hidden-xs right">
+                                <ul class="pagination pagination-sm">
+                                  <li *ngFor="let p of categoryList?.page" class="{{p.class}}">
+                                    <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+                                    <a *ngIf="p.method==''">{{p.text}}</a>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </sa-widget>
+                    <!-- end widget -->
+                  </article>
+                </div>
+              </tab>
+            </tabset>
+          </tab>
+        </tabset>
+      </div>
+    </div>
+  </sa-widget>
+</div>
+
