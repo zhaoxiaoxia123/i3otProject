@@ -3,20 +3,25 @@
   <fieldset>
     <legend>基本信息</legend>
     <input type="hidden" name="u_id" formControlName="u_id">
+    <div class="form-group text-align-center col-lg-4 col-md-4 col-sm-6 col-xs-12" >
+       <span class="user-image">
+           <img  alt="" style="width: 180px; height: 180px;" src="assets/img/default_user.png"  data-toggle="modal" data-target="#myModal">
+         </span>
+    </div>
     <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
       <section >
         <label class="label txt-color-blue">人员编码</label>
         <label class="input"> <i class="icon-append fa fa-user"></i>
-          <input type="text" name="employee_id" placeholder="人员编码 " maxlength="20" formControlName="employee_id"/>
-          <b class="tooltip tooltip-bottom-right">请输入人员编码</b> </label>
+          <input type="text" name="employee_id" placeholder="请输入人员编码 " maxlength="20" formControlName="employee_id"/>
+         </label>
       </section>
     </div>
     <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
       <section>
         <label class="label txt-color-blue">姓名</label>
         <label class="input"> <i class="icon-append fa fa-user"></i>
-          <input type="text" name="name" placeholder="姓名 " maxlength="20" formControlName="name"/>
-          <b class="tooltip tooltip-bottom-right">请输姓名</b> </label>
+          <input type="text" name="name" placeholder="请输入姓名 " maxlength="20" formControlName="name"/>
+           </label>
       </section>
 
     </div>
@@ -24,8 +29,7 @@
       <section>
         <label class="label txt-color-blue">密码</label>
         <label class="input"> <i class="icon-append fa fa-lock"></i>
-          <input type="text" name="password" placeholder="密码" id="password" maxlength="16" minlength="6" formControlName="password"/>
-          <b class="tooltip tooltip-bottom-right">请输入密码</b>
+          <input type="text" name="password" placeholder="请输入密码" id="password" maxlength="16" minlength="6" formControlName="password"/>
           <div [hidden]="!formModel.hasError('minlength','password')">
             输入密码的最小长度为6
           </div>
@@ -117,10 +121,10 @@
         <label  class="label txt-color-red">职称</label>
         <label class="select">
           <select name="">
+            <option></option>
             <option>总经理</option>
             <option>组长</option>
             <option>财务经理</option>
-            <option></option>
             <option></option>
           </select><i></i>
         </label>
@@ -137,352 +141,406 @@
     </div>
     <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
       <section >
-        <label class="label">电话</label>
+        <label class="label txt-color-red ">电话</label>
         <label class="input"> <i class="icon-append fa fa-phone"></i>
-          <input name="phone"  placeholder="请输入电话号码" aria-required="true" class="valid" aria-invalid="false" maxlength="12">
+          <input name=""  placeholder="请输入电话号码" maxlength="12">
         </label>
       </section>
     </div>
     <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+      <section >
+        <label class="label">Email</label>
+        <label class="input"> <i class="icon-append fa fa-envelope-o"></i>
+          <input name="email" formControlName="email" placeholder="请输入E-mail" type="email" maxlength="20">
+        </label>
+      </section>
     </div>
-
-    <div class="row">
-
-
-
-
-
-
-
-
-
-      <div class=" col-6">
-
-
-
-      </div>
-
-
+    <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+      <section >
+        <label class="label txt-color-red">出生日期</label>
+        <label class="input"> <i class="icon-append fa fa-calendar"></i>
+          <input type="date" name="" saUiDatepicker date-format="dd/mm/yy"  />
+        </label>
+      </section>
     </div>
-  </fieldset>
-
-    <fieldset>
-      <legend>备注说明</legend>
+    <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
       <section>
+        <label class="label txt-color-red">助记码</label>
+        <label class="input">
+          <input type="text" name="" placeholder="手工录入或自动生成 " maxlength="20" />
+        </label>
+      </section>
+    </div>
+    <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+      <section>
+        <label class="label">备注</label>
         <label class="textarea textarea-resizable">
           <textarea class="custom-scroll" rows="3" name="notes" formControlName="notes"></textarea>
         </label>
       </section>
-    </fieldset>
+    </div>
+
+  </fieldset>
+  <!--<fieldset>
+    <section class="col col-6">
+    <div class="form-group ">
+      <label class="col-md-2 control-label">上传头像</label>
+      <div class="col-md-10">
+        <input type="file" ng2FileSelect [uploader]="uploader" />
+        &lt;!&ndash;<input type="file" class="btn btn-default" disabled="disabled" id="exampleInputFile2">&ndash;&gt;
+        <p class="help-block">
+          说明文字
+        </p>
+      </div>
+    </div>
+  </section>
+    <section class="col col-4">
+      <button *ngFor="let item of uploader.queue" type="button" class="btn btn-success btn-xs"
+              (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+        <span class="glyphicon glyphicon-upload"></span> Upload
+      </button>
+    </section>
+    <section class="col col-6">
+      <label class="label">预览图</label>
+      <label class="select">
+        <img class="" src="{{url}}{{path}}">
+      </label>
+    </section>
+  </fieldset>-->
+
+
 
   <fieldset>
     <legend>其他信息</legend>
-    <button type="button" class="btn btn-primary btn-sm " (click)="changeDivStatus()" >
-      {{(is_showDiv == true) ?'收起':'展开'}}
-    </button>
   </fieldset>
 
   <div [ngStyle]="{'display':is_showDiv?'block':'none'}" >
     <fieldset>
-
-        <section class="col col-6">
-          <div class="form-group ">
-            <label class="col-md-2 control-label">上传头像</label>
-            <div class="col-md-10">
-              <input type="file" ng2FileSelect [uploader]="uploader" />
-              <!--<input type="file" class="btn btn-default" disabled="disabled" id="exampleInputFile2">-->
-              <p class="help-block">
-                说明文字
-              </p>
-            </div>
-          </div>
-        </section>
-        <section class="col col-4">
-          <button *ngFor="let item of uploader.queue" type="button" class="btn btn-success btn-xs"
-                  (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
-            <span class="glyphicon glyphicon-upload"></span> Upload
-          </button>
-        </section>
-        <section class="col col-6">
-          <label class="label">预览图</label>
+      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+        <section>
+          <label  class="label txt-color-red">人员属性</label>
           <label class="select">
-            <img class="" src="{{url}}{{path}}">
+            <select name="">
+              <option></option>
+              <option>正式工</option>
+              <option>临时工</option>
+              <option>实习生</option>
+            </select><i></i>
           </label>
         </section>
-
-
-
-      <section class="col col-6">
-        <label class="label">入职时间</label>
-        <label class="input"> <i class="icon-append fa fa-calendar"></i>
-          <input type="date" name="enrol_time" placeholder="入职时间"
-                 saUiDatepicker date-format="dd/mm/yy"  formControlName="enrol_time"/>
-        </label>
-      </section>
-
-
-
-      <section class="col col-6">
-        <label class="label">选择合同类型</label>
-
-        <div class="">
-          <label class="select">
-            <select name="contract_type" formControlName="contract_type" [(ngModel)]="contract_type_default">
-              <option *ngFor="let c of userList.result?.contractTypeList" [selected]="user_info.result?.u_contract_type == c.category_id" value="{{c.category_id}}">{{c.category_desc}}</option>
-            </select> <i></i> </label></div>
-
-        <!-- <div class="col col-lg-2">
-           <button type="button" class="btn btn-info btn-sm">
-             添加合同类型
-           </button>
-         </div>-->
-      </section>
-
-
-
-      <!--<section class="col col-6">
-        <label class="label">籍贯</label>
-        <div class="col-sm-6">
-          <label class="select ">
-            <select name="birthplace1" formControlName="birthplace1" [(ngModel)]="birthplace1_default" (change)="getBrithplaceCity()">
-              <option value="0">&#45;&#45;请选择省&#45;&#45;</option>
-              <option *ngFor="let p of birthplace_province" [selected]="user_info.result?.birthplace1 == p" value="{{p}}">{{p}}</option>
-            </select> <i></i> </label>
-        </div>
-        <div class="col col-6">
-          <label class="select ">
-            <select  name="birthplace2" formControlName="birthplace2" [(ngModel)]="birthplace2_default">
-              <option value="0">&#45;&#45;请选择市&#45;&#45;</option>
-              <option *ngFor="let c of birthplace_city" [selected]="user_info.result?.birthplace2 == c" value="{{c}}">{{c}}</option>
-            </select> <i></i> </label>
-        </div>
-      </section>-->
-
-      <section class="col col-6">
-        <label class="label">民族</label>
-        <label class="select">
-          <select name="nation" formControlName="nation" [(ngModel)]="nation_default">
-            <option value="汉族" [selected]="user_info.result?.u_nation == '汉族'">汉族</option>
-            <option value="蒙古族" [selected]="user_info.result?.u_nation == '蒙古族'">蒙古族</option>
-            <option value="彝族" [selected]="user_info.result?.u_nation == '彝族'">彝族</option>
-            <option value="侗族" [selected]="user_info.result?.u_nation == '侗族'">侗族</option>
-            <option value="哈萨克族" [selected]="user_info.result?.u_nation == '哈萨克族'">哈萨克族</option>
-            <option value="畲族" [selected]="user_info.result?.u_nation == '畲族'">畲族</option>
-            <option value="纳西族" [selected]="user_info.result?.u_nation == '纳西族'">纳西族</option>
-            <option value="仫佬族" [selected]="user_info.result?.u_nation == '仫佬族'">仫佬族</option>
-            <option value="仡佬族" [selected]="user_info.result?.u_nation == '仡佬族'">仡佬族</option>
-            <option value="怒族" [selected]="user_info.result?.u_nation == '怒族'">怒族</option>
-            <option value="保安族" [selected]="user_info.result?.u_nation == '保安族'">保安族</option>
-            <option value="鄂伦春族" [selected]="user_info.result?.u_nation == '鄂伦春族'">鄂伦春族</option>
-            <option value="回族" [selected]="user_info.result?.u_nation == '回族'">回族</option>
-            <option value="壮族" [selected]="user_info.result?.u_nation == '壮族'">壮族</option>
-            <option value="瑶族" [selected]="user_info.result?.u_nation == '瑶族'">瑶族</option>
-            <option value="傣族" [selected]="user_info.result?.u_nation == '傣族'">傣族</option>
-            <option value="高山族" [selected]="user_info.result?.u_nation == '高山族'">高山族</option>
-            <option value="景颇族" [selected]="user_info.result?.u_nation == '景颇族'">景颇族</option>
-            <option value="羌族" [selected]="user_info.result?.u_nation == '羌族'">羌族</option>
-            <option value="锡伯族" [selected]="user_info.result?.u_nation == '锡伯族'">锡伯族</option>
-            <option value="乌孜别克族" [selected]="user_info.result?.u_nation == '乌孜别克族'">乌孜别克族</option>
-            <option value="裕固族" [selected]="user_info.result?.u_nation == '裕固族'">裕固族</option>
-            <option value="赫哲族" [selected]="user_info.result?.u_nation == '赫哲族'">赫哲族</option>
-            <option value="藏族" [selected]="user_info.result?.u_nation == '藏族'">藏族</option>
-            <option value="布依族" [selected]="user_info.result?.u_nation == '布依族'">布依族</option>
-            <option value="白族" [selected]="user_info.result?.u_nation == '白族'">白族</option>
-            <option value="黎族" [selected]="user_info.result?.u_nation == '黎族'">黎族</option>
-            <option value="拉祜族" [selected]="user_info.result?.u_nation == '拉祜族'">拉祜族</option>
-            <option value="柯尔克孜族" [selected]="user_info.result?.u_nation == '柯尔克孜族'">柯尔克孜族</option>
-            <option value="布朗族" [selected]="user_info.result?.u_nation == '布朗族'">布朗族</option>
-            <option value="阿昌族" [selected]="user_info.result?.u_nation == '阿昌族'">阿昌族</option>
-            <option value="俄罗斯族" [selected]="user_info.result?.u_nation == '俄罗斯族'">俄罗斯族</option>
-            <option value="京族" [selected]="user_info.result?.u_nation == '京族'">京族</option>
-            <option value="门巴族" [selected]="user_info.result?.u_nation == '门巴族'">门巴族</option>
-            <option value="维吾尔族" [selected]="user_info.result?.u_nation == '维吾尔族'">维吾尔族</option>
-            <option value="朝鲜族" [selected]="user_info.result?.u_nation == '朝鲜族'">朝鲜族</option>
-            <option value="土家族" [selected]="user_info.result?.u_nation == '土家族'">土家族</option>
-            <option value="傈僳族" [selected]="user_info.result?.u_nation == '傈僳族'">傈僳族</option>
-            <option value="水族" [selected]="user_info.result?.u_nation == '水族'">水族</option>
-            <option value="土族" [selected]="user_info.result?.u_nation == '土族'">土族</option>
-            <option value="撒拉族" [selected]="user_info.result?.u_nation == '撒拉族'">撒拉族</option>
-            <option value="普米族" [selected]="user_info.result?.u_nation == '普米族'">普米族</option>
-            <option value="鄂温克族" [selected]="user_info.result?.u_nation == '鄂温克族'">鄂温克族</option>
-            <option value="塔塔尔族" [selected]="user_info.result?.u_nation == '塔塔尔族'">塔塔尔族</option>
-            <option value="珞巴族" [selected]="user_info.result?.u_nation == '珞巴族'">珞巴族</option>
-            <option value="苗族" [selected]="user_info.result?.u_nation == '苗族'">苗族</option>
-            <option value="满族" [selected]="user_info.result?.u_nation == '满族'">满族</option>
-            <option value="哈尼族" [selected]="user_info.result?.u_nation == '哈尼族'">哈尼族</option>
-            <option value="佤族" [selected]="user_info.result?.u_nation == '佤族'">佤族</option>
-            <option value="东乡族" [selected]="user_info.result?.u_nation == '东乡族'">东乡族</option>
-            <option value="达斡尔族" [selected]="user_info.result?.u_nation == '达斡尔族'">达斡尔族</option>
-            <option value="毛南族" [selected]="user_info.result?.u_nation == '毛南族'">毛南族</option>
-            <option value="塔吉克族" [selected]="user_info.result?.u_nation == '塔吉克族'">塔吉克族</option>
-            <option value="德昂族" [selected]="user_info.result?.u_nation == '德昂族'">德昂族</option>
-            <option value="独龙族" [selected]="user_info.result?.u_nation == '独龙族'">独龙族</option>
-            <option value="基诺族" [selected]="user_info.result?.u_nation == '基诺族'">基诺族</option>
-          </select> <i></i> </label>
-      </section>
-
-      <div class=" col-6">
-
-        <section class="col col-4">
-          <label class="label">籍贯</label>
-
-          <label class="select " >
-            <select name="birthplace1" formControlName="birthplace1" [(ngModel)]="birthplace1_default" (change)="getBrithplaceCity()">
-              <option value="0">--请选择省--</option>
-              <option *ngFor="let p of birthplace_province" [selected]="user_info.result?.birthplace1 == p" value="{{p}}">{{p}}</option>
-            </select> <i></i> </label>
-        </section>
-        <section class="col col-8">
-          <label class="select margin-top-24 ">
-            <select  name="birthplace2" formControlName="birthplace2" [(ngModel)]="birthplace2_default">
-              <option value="0">--请选择市--</option>
-              <option *ngFor="let c of birthplace_city" [selected]="user_info.result?.birthplace2 == c" value="{{c}}">{{c}}</option>
-            </select> <i></i> </label>
-        </section>
-
-
       </div>
-
-      <section class="col col-6">
-        <label class="label">婚姻状况</label>
-        <label class="select">
-          <select name="marital_status"  formControlName="marital_status" [(ngModel)]="marital_status_default">
-            <option value="1" [selected]="user_info.result?.u_marital_status == 1">未婚</option>
-            <option value="2" [selected]="user_info.result?.u_marital_status == 2">已婚</option>
-          </select> <i></i> </label>
-      </section>
-      <section class="col col-6">
-        <label class="label">毕业院校</label>
-        <label class="input">
-          <input  name='graduate_institutions' formControlName="graduate_institutions" placeholder="请输入毕业院校"  type="text" maxlength="25">
-        </label>
-      </section>
-      <section class="col col-6">
-        <label class="label">专业</label>
-        <label class="input">
-          <input  name='study_major' formControlName="study_major" placeholder="请输入专业名称"  type="text" maxlength="20">
-        </label>
-      </section>
-      <section class="col col-6">
-        <label class="label">文凭</label>
-        <label class="select">
-          <select name="study_diploma"  formControlName="study_diploma" [(ngModel)]="study_diploma_default">
-            <option value="1" [selected]="user_info.result?.u_study_diploma == 1">高中以下</option>
-            <option value="2" [selected]="user_info.result?.u_study_diploma == 2">高中</option>
-            <option value="3" [selected]="user_info.result?.u_study_diploma == 3">中专/技校</option>
-            <option value="4" [selected]="user_info.result?.u_study_diploma == 4">大专</option>
-            <option value="5" [selected]="user_info.result?.u_study_diploma == 5">本科</option>
-            <option value="6" [selected]="user_info.result?.u_study_diploma == 6">硕士</option>
-            <option value="7" [selected]="user_info.result?.u_study_diploma == 7">博士</option>
-            <option value="8" [selected]="user_info.result?.u_study_diploma == 8">MBA/EMBA</option>
-          </select> <i></i> </label>
-      </section>
-
-      <section class="col col-6">
-        <label class="label">学历来源</label>
-        <div class="">
-          <label class="select">
-            <select name="study_category"  formControlName="study_category" [(ngModel)]="study_category_default">
-              <option *ngFor="let c of userList.result?.studyCategoryList" [selected]="user_info.result?.u_study_category == c.category_id" value="{{c.category_id}}">{{c.category_desc}}</option>
-            </select> <i></i> </label></div>
-
-        <!--<div class="col col-lg-2">
-          <button type="button" class="btn btn-info btn-sm">
-            添加学历来源
-          </button>
-        </div>-->
-
-      </section>
-
-
-      <div class=" col-6">
-        <label class="labe2">联系人</label>
-        <section class="col col-4">
-
+      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+        <section >
+          <label class="label txt-color-red">职业</label>
           <label class="input">
-            <input  name='emergency_contact' formControlName="emergency_contact" placeholder="请输入姓名"  type="text" maxlength="20">
+            <input  name=''  placeholder="" size="18" maxlength="18" type="text">
           </label>
         </section>
-        <section class="col col-8">
-          <label class="input"> <i class="icon-append fa fa-phone"></i>
-            <input name="emergency_phone" formControlName="emergency_phone" placeholder="请输入联系电话" samaskedinput="(999) 999-9999" type="tel" ng-reflect-sa-masked-input="(999) 999-9999" maxlength="20" aria-required="true" class="valid" aria-invalid="false">
-          </label>
-        </section>
-
-
       </div>
-      <section class="col col-6 margin-top-20">
-        <label class="label">个人邮箱</label>
-        <label class="input"> <i class="icon-append fa fa-envelope-o"></i>
-          <input name="email" formControlName="email" placeholder="E-mail" type="email" maxlength="20">
-        </label>
-      </section>
+      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+        <section >
+          <label class="label txt-color-pink">入职时间</label>
+          <label class="input"> <i class="icon-append fa fa-calendar"></i>
+            <input type="date" name="enrol_time" placeholder="入职时间"
+                   saUiDatepicker date-format="dd/mm/yy"  formControlName="enrol_time"/>
+          </label>
+        </section>
+      </div>
+      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+        <section>
+          <label class="label txt-color-pink">选择合同类型</label>
+            <label class="select">
+              <select name="contract_type" formControlName="contract_type" [(ngModel)]="contract_type_default">
+                <option *ngFor="let c of userList.result?.contractTypeList" [selected]="user_info.result?.u_contract_type == c.category_id" value="{{c.category_id}}">{{c.category_desc}}</option>
+              </select> <i></i> </label>
+        </section>
+      </div>
+      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+        <section >
+          <label class="label txt-color-pink">民族</label>
+          <label class="select">
+            <select name="nation" formControlName="nation" [(ngModel)]="nation_default">
+              <option value="汉族" [selected]="user_info.result?.u_nation == '汉族'">汉族</option>
+              <option value="蒙古族" [selected]="user_info.result?.u_nation == '蒙古族'">蒙古族</option>
+              <option value="彝族" [selected]="user_info.result?.u_nation == '彝族'">彝族</option>
+              <option value="侗族" [selected]="user_info.result?.u_nation == '侗族'">侗族</option>
+              <option value="哈萨克族" [selected]="user_info.result?.u_nation == '哈萨克族'">哈萨克族</option>
+              <option value="畲族" [selected]="user_info.result?.u_nation == '畲族'">畲族</option>
+              <option value="纳西族" [selected]="user_info.result?.u_nation == '纳西族'">纳西族</option>
+              <option value="仫佬族" [selected]="user_info.result?.u_nation == '仫佬族'">仫佬族</option>
+              <option value="仡佬族" [selected]="user_info.result?.u_nation == '仡佬族'">仡佬族</option>
+              <option value="怒族" [selected]="user_info.result?.u_nation == '怒族'">怒族</option>
+              <option value="保安族" [selected]="user_info.result?.u_nation == '保安族'">保安族</option>
+              <option value="鄂伦春族" [selected]="user_info.result?.u_nation == '鄂伦春族'">鄂伦春族</option>
+              <option value="回族" [selected]="user_info.result?.u_nation == '回族'">回族</option>
+              <option value="壮族" [selected]="user_info.result?.u_nation == '壮族'">壮族</option>
+              <option value="瑶族" [selected]="user_info.result?.u_nation == '瑶族'">瑶族</option>
+              <option value="傣族" [selected]="user_info.result?.u_nation == '傣族'">傣族</option>
+              <option value="高山族" [selected]="user_info.result?.u_nation == '高山族'">高山族</option>
+              <option value="景颇族" [selected]="user_info.result?.u_nation == '景颇族'">景颇族</option>
+              <option value="羌族" [selected]="user_info.result?.u_nation == '羌族'">羌族</option>
+              <option value="锡伯族" [selected]="user_info.result?.u_nation == '锡伯族'">锡伯族</option>
+              <option value="乌孜别克族" [selected]="user_info.result?.u_nation == '乌孜别克族'">乌孜别克族</option>
+              <option value="裕固族" [selected]="user_info.result?.u_nation == '裕固族'">裕固族</option>
+              <option value="赫哲族" [selected]="user_info.result?.u_nation == '赫哲族'">赫哲族</option>
+              <option value="藏族" [selected]="user_info.result?.u_nation == '藏族'">藏族</option>
+              <option value="布依族" [selected]="user_info.result?.u_nation == '布依族'">布依族</option>
+              <option value="白族" [selected]="user_info.result?.u_nation == '白族'">白族</option>
+              <option value="黎族" [selected]="user_info.result?.u_nation == '黎族'">黎族</option>
+              <option value="拉祜族" [selected]="user_info.result?.u_nation == '拉祜族'">拉祜族</option>
+              <option value="柯尔克孜族" [selected]="user_info.result?.u_nation == '柯尔克孜族'">柯尔克孜族</option>
+              <option value="布朗族" [selected]="user_info.result?.u_nation == '布朗族'">布朗族</option>
+              <option value="阿昌族" [selected]="user_info.result?.u_nation == '阿昌族'">阿昌族</option>
+              <option value="俄罗斯族" [selected]="user_info.result?.u_nation == '俄罗斯族'">俄罗斯族</option>
+              <option value="京族" [selected]="user_info.result?.u_nation == '京族'">京族</option>
+              <option value="门巴族" [selected]="user_info.result?.u_nation == '门巴族'">门巴族</option>
+              <option value="维吾尔族" [selected]="user_info.result?.u_nation == '维吾尔族'">维吾尔族</option>
+              <option value="朝鲜族" [selected]="user_info.result?.u_nation == '朝鲜族'">朝鲜族</option>
+              <option value="土家族" [selected]="user_info.result?.u_nation == '土家族'">土家族</option>
+              <option value="傈僳族" [selected]="user_info.result?.u_nation == '傈僳族'">傈僳族</option>
+              <option value="水族" [selected]="user_info.result?.u_nation == '水族'">水族</option>
+              <option value="土族" [selected]="user_info.result?.u_nation == '土族'">土族</option>
+              <option value="撒拉族" [selected]="user_info.result?.u_nation == '撒拉族'">撒拉族</option>
+              <option value="普米族" [selected]="user_info.result?.u_nation == '普米族'">普米族</option>
+              <option value="鄂温克族" [selected]="user_info.result?.u_nation == '鄂温克族'">鄂温克族</option>
+              <option value="塔塔尔族" [selected]="user_info.result?.u_nation == '塔塔尔族'">塔塔尔族</option>
+              <option value="珞巴族" [selected]="user_info.result?.u_nation == '珞巴族'">珞巴族</option>
+              <option value="苗族" [selected]="user_info.result?.u_nation == '苗族'">苗族</option>
+              <option value="满族" [selected]="user_info.result?.u_nation == '满族'">满族</option>
+              <option value="哈尼族" [selected]="user_info.result?.u_nation == '哈尼族'">哈尼族</option>
+              <option value="佤族" [selected]="user_info.result?.u_nation == '佤族'">佤族</option>
+              <option value="东乡族" [selected]="user_info.result?.u_nation == '东乡族'">东乡族</option>
+              <option value="达斡尔族" [selected]="user_info.result?.u_nation == '达斡尔族'">达斡尔族</option>
+              <option value="毛南族" [selected]="user_info.result?.u_nation == '毛南族'">毛南族</option>
+              <option value="塔吉克族" [selected]="user_info.result?.u_nation == '塔吉克族'">塔吉克族</option>
+              <option value="德昂族" [selected]="user_info.result?.u_nation == '德昂族'">德昂族</option>
+              <option value="独龙族" [selected]="user_info.result?.u_nation == '独龙族'">独龙族</option>
+              <option value="基诺族" [selected]="user_info.result?.u_nation == '基诺族'">基诺族</option>
+            </select> <i></i> </label>
+        </section>
+      </div>
+      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+        <div class="margin-left-15" >
 
+          <section class="col col-4">
+            <label class="label">籍贯</label>
+
+            <label class="select " >
+              <select name="birthplace1" formControlName="birthplace1" [(ngModel)]="birthplace1_default" (change)="getBrithplaceCity()">
+                <option value="0">--请选择省--</option>
+                <option *ngFor="let p of birthplace_province" [selected]="user_info.result?.birthplace1 == p" value="{{p}}">{{p}}</option>
+              </select> <i></i> </label>
+          </section>
+          <section class="col col-8">
+            <label class="select margin-top-24 ">
+              <select  name="birthplace2" formControlName="birthplace2" [(ngModel)]="birthplace2_default">
+                <option value="0">--请选择市--</option>
+                <option *ngFor="let c of birthplace_city" [selected]="user_info.result?.birthplace2 == c" value="{{c}}">{{c}}</option>
+              </select> <i></i> </label>
+          </section>
+
+
+        </div>
+      </div>
+      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+        <section >
+          <label class="label txt-color-pink">婚姻状况</label>
+          <label class="select">
+            <select name="marital_status"  formControlName="marital_status" [(ngModel)]="marital_status_default">
+              <option value="1" [selected]="user_info.result?.u_marital_status == 1">未婚</option>
+              <option value="2" [selected]="user_info.result?.u_marital_status == 2">已婚</option>
+            </select> <i></i> </label>
+        </section>
+      </div>
+      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+        <section >
+          <label class="label txt-color-pink">毕业院校</label>
+          <label class="input">
+            <input  name='graduate_institutions' formControlName="graduate_institutions" placeholder="请输入毕业院校"  type="text" maxlength="25">
+          </label>
+        </section>
+      </div>
+      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+        <section>
+          <label class="label txt-color-pink">专业</label>
+          <label class="input">
+            <input  name='study_major' formControlName="study_major" placeholder="请输入专业名称"  type="text" maxlength="20">
+          </label>
+        </section>
+      </div>
+      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+        <section >
+          <label class="label">学历</label>
+          <label class="select">
+            <select name="study_diploma"  formControlName="study_diploma" [(ngModel)]="study_diploma_default">
+              <option value="1" [selected]="user_info.result?.u_study_diploma == 1">高中以下</option>
+              <option value="2" [selected]="user_info.result?.u_study_diploma == 2">高中</option>
+              <option value="3" [selected]="user_info.result?.u_study_diploma == 3">中专/技校</option>
+              <option value="4" [selected]="user_info.result?.u_study_diploma == 4">大专</option>
+              <option value="5" [selected]="user_info.result?.u_study_diploma == 5">本科</option>
+              <option value="6" [selected]="user_info.result?.u_study_diploma == 6">硕士</option>
+              <option value="7" [selected]="user_info.result?.u_study_diploma == 7">博士</option>
+              <option value="8" [selected]="user_info.result?.u_study_diploma == 8">MBA/EMBA</option>
+            </select> <i></i> </label>
+        </section>
+      </div>
+      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+        <section >
+          <label class="label txt-color-pink">学历来源</label>
+          <div class="">
+            <label class="select">
+              <select name="study_category"  formControlName="study_category" [(ngModel)]="study_category_default">
+                <option *ngFor="let c of userList.result?.studyCategoryList" [selected]="user_info.result?.u_study_category == c.category_id" value="{{c.category_id}}">{{c.category_desc}}</option>
+              </select> <i></i> </label></div>
+        </section>
+      </div>
+
+      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+        <section >
+          <label class="label txt-color-red">邮编</label>
+          <label class="input">
+            <input  name=''  placeholder="" size="18" maxlength="18" type="text">
+          </label>
+        </section>
+      </div>
+      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+        <section >
+          <label class="label txt-color-red ">家庭电话</label>
+          <label class="input"> <i class="icon-append fa fa-phone"></i>
+            <input name=""  placeholder="请输入家庭号码" maxlength="12">
+          </label>
+        </section>
+      </div>
+      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+        <div class="margin-left-15">
+          <label class="labe2">紧急联系人</label>
+          <section class="col col-4">
+
+            <label class="input">
+              <input  name='emergency_contact' formControlName="emergency_contact" placeholder="请输入姓名"  type="text" maxlength="20">
+            </label>
+          </section>
+          <section class="col col-8">
+            <label class="input"> <i class="icon-append fa fa-phone"></i>
+              <input name="emergency_phone" formControlName="emergency_phone" placeholder="请输入紧急联系电话" samaskedinput="(999) 999-9999" type="tel" ng-reflect-sa-masked-input="(999) 999-9999" maxlength="20" aria-required="true" class="valid" aria-invalid="false">
+            </label>
+          </section>
+
+
+        </div>
+      </div>
+      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+        <section >
+          <label class="label txt-color-red">通讯地址</label>
+          <label class="input">
+            <input  name=''  placeholder="请输入通讯地址"  type="text" >
+          </label>
+        </section>
+      </div>
+
+      <!--创建人、修改人、停用人、创建日期、修改时间、启用时间、停用时间：只读项，系统自动产生。-->
+      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+        <section >
+          <label class="label txt-color-red">创建人</label>
+          <label class="input">
+            <input  name=''  disabled="disabled"  type="text" >
+          </label>
+        </section>
+      </div>
+      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+        <section >
+          <label class="label txt-color-red">修改人</label>
+          <label class="input">
+            <input  name=''  disabled="disabled"  type="text" >
+          </label>
+        </section>
+      </div>
+      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+        <section >
+          <label class="label txt-color-red">停用人</label>
+          <label class="input">
+            <input  name=''  disabled="disabled"  type="text" >
+          </label>
+        </section>
+      </div>
+      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+        <section >
+          <label class="label txt-color-red">创建日期</label>
+          <label class="input">
+            <input  name=''  disabled="disabled"  type="text" >
+          </label>
+        </section>
+      </div>
+      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+        <section >
+          <label class="label txt-color-red">修改时间</label>
+          <label class="input">
+            <input  name=''  disabled="disabled"  type="text" >
+          </label>
+        </section>
+      </div>
+      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+        <section >
+          <label class="label txt-color-red">启用时间</label>
+          <label class="input">
+            <input  name=''  disabled="disabled"  type="text" >
+          </label>
+        </section>
+      </div>
+      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+        <section >
+          <label class="label txt-color-red">停用时间</label>
+          <label class="input">
+            <input  name=''  disabled="disabled"  type="text" >
+          </label>
+        </section>
+      </div>
     </fieldset>
     <fieldset>
-      <div class=" col-6">
+      <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
+        <div class="margin-left-15">
+          <section class="col col-4">
+            <label class="label txt-color-pink">家庭住址</label>
+            <label class="select ">
+              <select name="address1"  formControlName="address1" [(ngModel)]="address1_default" (change)="getCity()">
+                <option value="0">--请选择省--</option>
+                <option *ngFor="let p of province" [selected]="user_info.result?.address1 == p" value="{{p}}">{{p}}</option>
+              </select> <i></i> </label>
+          </section>
+          <section class="col col-4">
+            <label class="select margin-top-24">
+              <select name="address2"  formControlName="address2" [(ngModel)]="address2_default" (change)="getArea()">
+                <option value="0">--请选择市--</option>
+                <option *ngFor="let c of city" [selected]="user_info.result?.address2 == c" value="{{c}}">{{c}}</option>
+              </select> <i></i> </label>
+          </section>
+          <section class="col col-4">
+            <label class="select margin-top-24">
+              <select name="address3"  formControlName="address3" [(ngModel)]="address3_default">
+                <option value="0">--请选择区--</option>
+                <option *ngFor="let a of area" [selected]="user_info.result?.address3 == a" value="{{a}}">{{a}}</option>
+              </select> <i></i> </label>
+          </section>
 
-        <section class="col col-4">
-          <label class="label">家庭住址</label>
 
-          <label class="select ">
-            <select name="address1"  formControlName="address1" [(ngModel)]="address1_default" (change)="getCity()">
-              <option value="0">--请选择省--</option>
-              <option *ngFor="let p of province" [selected]="user_info.result?.address1 == p" value="{{p}}">{{p}}</option>
-            </select> <i></i> </label>
-        </section>
-        <section class="col col-4">
-          <label class="select margin-top-24">
-            <select name="address2"  formControlName="address2" [(ngModel)]="address2_default" (change)="getArea()">
-              <option value="0">--请选择市--</option>
-              <option *ngFor="let c of city" [selected]="user_info.result?.address2 == c" value="{{c}}">{{c}}</option>
-            </select> <i></i> </label>
-        </section>
-        <section class="col col-4">
-          <label class="select margin-top-24">
-            <select name="address3"  formControlName="address3" [(ngModel)]="address3_default">
-              <option value="0">--请选择区--</option>
-              <option *ngFor="let a of area" [selected]="user_info.result?.address3 == a" value="{{a}}">{{a}}</option>
-            </select> <i></i> </label>
-        </section>
-
-
+        </div>
       </div>
-
-      <!--<section class="col col-6">
-        <label class="label">家庭住址</label>
-        <div class="col-lg-4">
-          <label class="select ">
-            <select name="address1"  formControlName="address1" [(ngModel)]="address1_default" (change)="getCity()">
-              <option value="0">&#45;&#45;请选择省&#45;&#45;</option>
-              <option *ngFor="let p of province" [selected]="user_info.result?.address1 == p" value="{{p}}">{{p}}</option>
-            </select> <i></i> </label>
-        </div>
-        <div class="col col-lg-4">
-          <label class="select ">
-            <select name="address2"  formControlName="address2" [(ngModel)]="address2_default" (change)="getArea()">
-              <option value="0">&#45;&#45;请选择市&#45;&#45;</option>
-              <option *ngFor="let c of city" [selected]="user_info.result?.address2 == c" value="{{c}}">{{c}}</option>
-            </select> <i></i> </label>
-        </div>
-        <div class="col col-lg-4">
-          <label class="select ">
-            <select name="address3"  formControlName="address3" [(ngModel)]="address3_default">
-              <option value="0">&#45;&#45;请选择区&#45;&#45;</option>
-              <option *ngFor="let a of area" [selected]="user_info.result?.address3 == a" value="{{a}}">{{a}}</option>
-            </select> <i></i> </label>
-        </div>
-      </section>-->
-      <section class="col col-6">
-        <label class="label">详细地址</label>
-        <label class="input">
-          <input  name='address4' formControlName="address4" placeholder="请输入详细地址"  type="text" maxlength="20">
-        </label>
-      </section>
+      <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
+        <section >
+          <label class="label txt-color-pink">详细地址</label>
+          <label class="input">
+            <input  name='address4' formControlName="address4" placeholder="请输入详细地址"  type="text" maxlength="20">
+          </label>
+        </section>
+      </div>
     </fieldset>
   </div>
 
-
+  <fieldset>
+    <button type="button" class="btn btn-primary btn-sm margin-top-20 margin-left-20 " (click)="changeDivStatus()" >
+      {{(is_showDiv == true) ?'收起':'展开'}}
+    </button>
+  </fieldset>
 
   <footer>
     <button type="submit" class="btn btn-primary">
@@ -524,5 +582,75 @@
     </div>
   </div>
   <!--</form>-->
+</div>
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- 关闭按钮 -->
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          ×
+        </button>
+        <!-- 标题 -->
+        <h3 class="modal-title" data-ng-bind='results.title'><i class="fa fa-file-photo-o" ></i>头像编辑</h3>
+
+      </div>
+      <div class="modal-body">
+        <form>
+          <fieldset>
+            <div class="text-align-center col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <section>
+                <div class="form-group ">
+                  <label class="col-md-2 control-label">上传头像</label>
+                  <div class="col-md-10">
+                    <input type="file" ng2FileSelect [uploader]="uploader" />
+                    <!--<input type="file" class="btn btn-default" disabled="disabled" id="exampleInputFile2">-->
+                    <p class="help-block">
+                      仅支持JPG、GIF、PNG图片文件，且小于3M
+                    </p>
+                  </div>
+                </div>
+              </section>
+
+              <div class="text-align-center col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+                <section >
+                  <button *ngFor="let item of uploader.queue" type="button" class="btn btn-success btn-xs"
+                          (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+                    <span class="glyphicon glyphicon-upload"></span> Upload
+                  </button>
+                </section>
+                <section >
+
+                  <label class="select user-image">
+                    <img class="" style="width: 180px; height: 180px;"   src="{{url}}{{path}}">
+                  </label>
+                </section>
+                <p class="help-block">
+                  大尺寸图片，180px×180px
+                </p>
+
+              </div>
+
+
+            </div>
+            <div class="text-align-center col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+             <span class="user-image">
+                 <img  alt="" style="width: 180px; height: 180px;" src="assets/img/default_user.png"  >
+               </span>
+            </div>
+
+          </fieldset>
+        </form>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-ng-click="ok()">确定</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
 </div>
 

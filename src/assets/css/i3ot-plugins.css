@@ -620,8 +620,14 @@ div.dataTables_paginate ul.pagination {
 .margin-top-20{
     margin-top:-20px;!important
 }
+.margin-top-20{
+    margin-top:-20px;!important
+}
 .margin-left-15{
     margin-left:-15px;
+}
+.margin-left-20{
+    margin-left:20px;
 }
 
 /*文本内容区域*/

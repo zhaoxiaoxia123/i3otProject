@@ -3216,3 +3216,17 @@ div.dataTables_editor{
 .label-primary {
     background-color: #1ab394;
 }
+
+/*图像*/
+.user-image{
+    background-color: rgb(255, 255, 255);
+    display: inline-block;
+    max-width: 100%;
+    box-sizing: border-box;
+    box-shadow: rgba(0, 0, 0, 0.14902) 1px 1px 1px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #ccc;
+    border-image: initial;
+    padding: 4px;   border-radius: 4px;
+}

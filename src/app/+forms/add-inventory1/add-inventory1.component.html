@@ -11,7 +11,6 @@
         <sa-widget [editbutton]="false" [deletebutton]="false" >
           <header>
             <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
-            <h2>添加仓库</h2>
             <h2 *ngIf="storehouse_id == 0">添加仓库</h2>
             <h2 *ngIf="storehouse_id != 0">修改仓库</h2>
           </header>
@@ -24,21 +23,66 @@
                 <fieldset>
                   <legend>基本信息</legend>
                   <input type="hidden" name="storehouse_id" formControlName="storehouse_id" >
-                  <div class="row">
-                    <section class="col col-6">
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section >
+                      <label class="label txt-color-red">仓库编码</label>
+                      <label class="input">
+                        <input type="text" name="" maxlength="15" placeholder="自动编码"/>
+                      </label>
+                    </section>
+                  </div>
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section >
                       <label class="label">仓库名称</label>
                       <label class="input">
                         <input type="text" name="storehouse_name" maxlength="15" formControlName="storehouse_name" placeholder="请输入仓库名称"/>
                       </label>
                     </section>
-                    <!--<section class="col col-6">-->
-                      <!--<label class="label">总库存量</label>-->
-                      <!--<label class="input">-->
-                        <!--<input type="text" name="storehouse_total_quantity" maxlength="10" formControlName="storehouse_total_quantity" placeholder="请输入仓库总库存量"/>-->
-                      <!--</label>-->
-                    <!--</section>-->
-                    <section class="col col-6">
-                      <label class="label "> 仓库状态</label>
+                  </div>
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section>
+                      <label class="label txt-color-red">助记码</label>
+                      <label class="input">
+                        <input type="text" name="" placeholder="手工录入或自动生成 " maxlength="20" />
+                      </label>
+                    </section>
+                  </div>
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section>
+                      <label class="label txt-color-red">所属地区</label>
+                      <label class="input">
+                        <input type="text" name="" placeholder=" " maxlength="20" />
+                      </label>
+                    </section>
+                  </div>
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section >
+                      <label class="label "> 负责人</label>
+                      <label class="select">
+                        <select name="u_id" formControlName="u_id" [(ngModel)]="u_id_default">
+                          <option *ngFor="let u of storehouseList.result?.userList" [selected]="storehouse_info.result?.u_id == u.id || this.storehouse_id == 0" value="{{u.id}}">{{u.u_username}}</option>
+                        </select> <i></i> </label>
+                    </section>
+                  </div>
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section >
+                      <label class="label txt-color-red ">联系电话</label>
+                      <label class="input"> <i class="icon-append fa fa-phone"></i>
+                        <input name=""  placeholder="请输入电话号码" maxlength="12">
+                      </label>
+                    </section>
+                  </div>
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section>
+                      <label class="label txt-color-red">地址</label>
+                      <label class="input">
+                        <input type="text" name="" placeholder=" " maxlength="20" />
+                      </label>
+                    </section>
+                  </div>
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section >
+                      <label class="label txt-color-pink "> 仓库状态</label>
                       <label class="select">
                         <select name="storehouse_status" formControlName="storehouse_status" [(ngModel)]="storehouse_status_default">
                           <option value="1" [selected]="storehouse_info.result?.storehouse_status == 1">正常</option>
@@ -47,27 +91,36 @@
                         </select> <i></i>
                       </label>
                     </section>
-                    <section class="col col-6">
-                      <label class="label "> 保管员</label>
-                      <label class="select">
-                        <select name="u_id" formControlName="u_id" [(ngModel)]="u_id_default">
-                          <option *ngFor="let u of storehouseList.result?.userList" [selected]="storehouse_info.result?.u_id == u.id || this.storehouse_id == 0" value="{{u.id}}">{{u.u_username}}</option>
-                        </select> <i></i> </label>
-                    </section>
-                    <section class="col col-6">
-                      <label class="label "> 固定电话</label>
+                  </div>
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section >
+                      <label class="label txt-color-pink"> 固定电话</label>
                       <label class="input"> <i class="icon-append fa fa-phone"></i>
                         <input formControlName="storehouse_phone" maxlength="13" name="storehouse_phone" placeholder="请输入保管室座机" samaskedinput="(999) 999-9999" type="tel" ng-reflect-sa-masked-input="(999) 999-9999" aria-required="true" class="valid" aria-invalid="false">
                       </label>
                     </section>
                   </div>
-                  <section>
-                    <label class="label">备注说明</label>
-                    <label class="textarea textarea-resizable">
+                  <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                    <section>
+                      <label class="label">备注</label>
+                      <label class="textarea textarea-resizable">
                       <textarea class="custom-scroll" rows="3" formControlName="storehouse_notes" name="storehouse_notes">
                       </textarea>
-                    </label>
-                  </section>
+                      </label>
+                    </section>
+                  </div>
+                  <div class="row">
+
+                    <!--<section class="col col-6">-->
+                      <!--<label class="label">总库存量</label>-->
+                      <!--<label class="input">-->
+                        <!--<input type="text" name="storehouse_total_quantity" maxlength="10" formControlName="storehouse_total_quantity" placeholder="请输入仓库总库存量"/>-->
+                      <!--</label>-->
+                    <!--</section>-->
+
+
+                  </div>
+
                 </fieldset>
                 <footer>
                   <button type="submit" class="btn btn-primary">
