@@ -169,7 +169,7 @@
         </ul>
       </li>
       <li *ngIf="is_admin=='1'">
-        <a href="#"><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i> <span
+        <a href="#"><i class="fa fa-lg fa-fw  fa-th txt-color-blue"></i> <span
                 class="menu-item-parent">{{'收藏夹' | i18n}}</span></a>
         <ul>
           <li routerLinkActive="active">
@@ -190,7 +190,24 @@
           <li routerLinkActive="active">
             <a routerLink="/equipment/i3otp/0">{{'添加设备' | i18n}}</a>
           </li>
-
+          <li routerLinkActive="active">
+            <a routerLink="/management/setting-personnel">{{'人员类别' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/management/setting-departmentnew">{{'部门设置' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/management/setting-honor">{{'职称' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/management/setting-repertory">{{'出入库类别' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/management/setting-archives">{{'存货档案' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/management/setting-conversion">{{'单位换算' | i18n}}</a>
+          </li>
         </ul>
       </li>
     </ul>
