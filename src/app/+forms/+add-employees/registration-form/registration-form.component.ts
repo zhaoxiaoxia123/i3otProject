@@ -1,20 +1,21 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';//,Input, AfterViewInit, ViewEncapsulation
 import {CookieStoreService} from '../../../shared/cookies/cookie-store.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {mobileAsyncValidator, mobileValidator, passwordValidator} from '../../../shared/common/validator';
 import {getProvince,getCity,getArea} from '../../../shared/common/area';
-
 import {Http} from '@angular/http';
 import {Router,ActivatedRoute} from '@angular/router';
 import {GlobalService} from '../../../core/global.service';
 import {FadeInTop} from '../../../shared/animations/fade-in-top.decorator';
 import {ModalDirective} from "ngx-bootstrap";
-import {FileItem, FileUploader, ParsedResponseHeaders} from "ng2-file-upload";
+import {ImageCropperComponent, CropperSettings, Bounds} from 'ng2-img-cropper';
+// import {FileItem, FileUploader, ParsedResponseHeaders} from "ng2-file-upload";
 
 @FadeInTop()
 @Component({
   selector: 'app-registration-form',
   templateUrl: './registration-form.component.html',
+  styleUrls: ['./registration-form.scss'],
 })
 export class RegistrationFormComponent implements OnInit {
   formModel : FormGroup;
@@ -53,6 +54,15 @@ export class RegistrationFormComponent implements OnInit {
   department_1 : string;
   url : string = this.globalService.getDomain();
   path:string = '';
+
+  name:string;
+  data1:any;
+  cropperSettings1:CropperSettings;
+  croppedWidth:number;
+  croppedHeight:number;
+
+  @ViewChild('cropper', undefined) cropper:ImageCropperComponent;
+
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -105,18 +115,35 @@ export class RegistrationFormComponent implements OnInit {
     // }
     this.province = getProvince(); //家庭住址
     this.birthplace_province = getProvince();  //籍贯
+
+    this.name = 'Angular2';
+    this.cropperSettings1 = new CropperSettings();
+    this.cropperSettings1.width = 200;
+    this.cropperSettings1.height = 200;
+
+    this.cropperSettings1.croppedWidth = 200;
+    this.cropperSettings1.croppedHeight = 200;
+
+    this.cropperSettings1.canvasWidth = 300;
+    this.cropperSettings1.canvasHeight = 300;
+
+    this.cropperSettings1.minWidth = 10;
+    this.cropperSettings1.minHeight = 10;
+
+    this.cropperSettings1.rounded = false;
+    this.cropperSettings1.keepAspect = false;
+
+    this.cropperSettings1.cropperDrawSettings.strokeColor = 'rgba(255,255,255,1)';
+    this.cropperSettings1.cropperDrawSettings.strokeWidth = 2;
+
+    this.data1 = {};
   }
 
-  // 初始化上次图片变量
-  public uploader:FileUploader = new FileUploader({
-    url: this.globalService.getDomain() + "/api/v1/uploadFile",
-    method: "POST",
-    removeAfterUpload:true,
-    itemAlias: "uploadedfile",
-
-  });
-
-
+  cropped(bounds:Bounds) {
+    this.croppedHeight =bounds.bottom-bounds.top;
+    this.croppedWidth = bounds.right-bounds.left;
+    console.log(bounds);
+  }
   ngOnInit() {
     this.u_id = this.routInfo.snapshot.params['u_id'];
     if(this.u_id != 0){
@@ -124,20 +151,27 @@ export class RegistrationFormComponent implements OnInit {
     }
     this.getUserDefault(1);
 
-    //上传成功回调
-    this.uploader.onSuccessItem = (item, response, status, headers) => {
-      if (status == 200) {
-        // 上传文件后获取服务器返回的数据
-        let tempRes = JSON.parse(response);
-        this.path= tempRes['result'];
-        // console.info('tempRes；------');
-        console.info(this.path);
-      }
-      // console.info(response+" for "+item.file.name + " status " + status);
-    };
-
-
+    // //上传成功回调
+    // this.uploader.onSuccessItem = (item, response, status, headers) => {
+    //   if (status == 200) {
+    //     // 上传文件后获取服务器返回的数据
+    //     let tempRes = JSON.parse(response);
+    //     this.path= tempRes['result'];
+    //     // console.info('tempRes；------');
+    //     console.info(this.path);
+    //   }
+    //   // console.info(response+" for "+item.file.name + " status " + status);
+    // };
   }
+  // // 初始化上次图片变量
+  // public uploader:FileUploader = new FileUploader({
+  //   url: this.globalService.getDomain() + "/api/v1/uploadFile",
+  //   method: "POST",
+  //   removeAfterUpload:true,
+  //   itemAlias: "uploadedfile",
+  //
+  // });
+
 
   getUserInfo(u_id:number){
     this.http.get(this.globalService.getDomain()+'/api/v1/getUserInfo?u_id='+u_id)
@@ -212,7 +246,6 @@ export class RegistrationFormComponent implements OnInit {
    * 获取添加员工的默认参数
    */
   getUserDefault(num:number) {
-
     this.http.get(this.globalService.getDomain()+'/api/v1/getUserDefault?sid='+this.cookieStoreService.getCookie('sid'))
         .map((res)=>res.json())
         .subscribe((data)=>{
@@ -356,6 +389,58 @@ export class RegistrationFormComponent implements OnInit {
     this.birthplace_city = getCity(brithplacePro);
   }
 
+  /**
+   * 将base64编码转换为Blob
+   * @param urlData
+   * @returns {Blob}
+   */
+  convertBase64UrlToBlob(urlData){
+    var bytes=window.atob(urlData.split(',')[1]);        //去掉url的头，并转换为byte
+    //处理异常,将ascii码小于0的转换为大于0
+    var ab = new ArrayBuffer(bytes.length);
+    var ia = new Uint8Array(ab);
+    for (var i = 0; i < bytes.length; i++) {
+      ia[i] = bytes.charCodeAt(i);
+    }
+    return new Blob( [ab] , {type : 'image/png'});
+  }
+
+  /**
+   * 上传文件
+   */
+  postFile(){
+    var that = this;
+    var form=document.forms[0];
+    var formData : FormData = new FormData(form);
+    //convertBase64UrlToBlob函数是将base64编码转换为Blob
+    formData.append("uploadedfile",this.convertBase64UrlToBlob(this.data1.image),"file_"+ new Date().getTime() +".png");
+    console.log(this.data1);
+    //组建XMLHttpRequest 上传文件
+    var infos ;
+    var request = new XMLHttpRequest();
+    //上传连接地址
+    request.open("POST", this.globalService.getDomain() + "/api/v1/uploadFile");
+    request.onreadystatechange=function()
+    {
+      console.log(request);
+      if (request.readyState==4)
+      {
+        if(request.status==200){
+          infos = JSON.parse(request.response);
+          if(infos['status']==200){
+            that.path = infos['result'];
+            alert("上传成功");
+          }else{
+            alert("上传失败，无法获取图片上传地址");
+          }
+          console.log(that.path);
+        }else{
+          alert("上传失败,检查上传地址是否正确");
+        }
+      }
+    }
+    request.send(formData);
+  }
 
   @ViewChild('lgModal') public lgModal:ModalDirective;
 

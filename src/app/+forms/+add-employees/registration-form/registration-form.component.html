@@ -1,13 +1,18 @@
-<form id="smart-form-register" class="smart-form"  [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate>
 
+<form id="smart-form-register" class="smart-form"  [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate>
   <fieldset>
     <legend>基本信息</legend>
     <input type="hidden" name="u_id" formControlName="u_id">
     <div class="form-group text-align-center col-lg-4 col-md-4 col-sm-6 col-xs-12" >
-       <span class="user-image">
+       <span class="user-image" *ngIf="!data1.image" >
            <img  alt="" style="width: 180px; height: 180px;" src="assets/img/default_user.png"  data-toggle="modal" data-target="#myModal">
          </span>
+      <span class="user-image" *ngIf="data1.image" >
+          <img [src]="data1.image"
+               style="width: 180px; height: 180px;">
+      </span>
     </div>
+
     <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
       <section >
         <label class="label txt-color-blue">人员编码</label>
@@ -605,49 +610,38 @@
                 <div class="form-group ">
                   <label class="col-md-2 control-label">上传头像</label>
                   <div class="col-md-10">
-                    <input type="file" ng2FileSelect [uploader]="uploader" />
-                    <!--<input type="file" class="btn btn-default" disabled="disabled" id="exampleInputFile2">-->
+
+                    <div class="c-content-inner">
+                      <img-cropper #cropper [image]="data1" [settings]="cropperSettings1" (onCrop)="cropped($event)"></img-cropper>
+                      <div  class="c-file-upload">
+                        <button class="btn btn-primary ">浏览图片</button>
+                        <input id="image-input" class="btn btn-primary " type="file" c-img-cropper-select [cropper]="cropper">
+                      </div>
+                    </div>
+
                     <p class="help-block">
                       仅支持JPG、GIF、PNG图片文件，且小于3M
                     </p>
                   </div>
                 </div>
               </section>
-
               <div class="text-align-center col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-                <section >
-                  <button *ngFor="let item of uploader.queue" type="button" class="btn btn-success btn-xs"
-                          (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
-                    <span class="glyphicon glyphicon-upload"></span> Upload
-                  </button>
-                </section>
-                <section >
-
-                  <label class="select user-image">
-                    <img class="" style="width: 180px; height: 180px;"   src="{{url}}{{path}}">
-                  </label>
-                </section>
                 <p class="help-block">
                   大尺寸图片，180px×180px
                 </p>
-
               </div>
-
-
             </div>
             <div class="text-align-center col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-             <span class="user-image">
-                 <img  alt="" style="width: 180px; height: 180px;" src="assets/img/default_user.png"  >
-               </span>
+              <span class="user-image" *ngIf="data1.image" >
+                  <img [src]="data1.image"
+                       style="width: 180px; height: 180px;">
+              </span>
             </div>
-
           </fieldset>
         </form>
-
-
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-ng-click="ok()">确定</button>
+        <button type="button" class="btn btn-primary" (click)="postFile()"  data-dismiss="modal" aria-hidden="true">确定</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
       </div>
     </div><!-- /.modal-content -->
