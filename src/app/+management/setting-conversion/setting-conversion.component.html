@@ -1,3 +1,50 @@
-<p>
-  setting-conversion works!
-</p>
+<div id="content">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="['仓库管理', '单位换算']" icon="pencil-square-o" class="col-xs-12 col-sm-9 col-md-9 col-lg-9"></sa-big-breadcrumbs>
+  </div>
+
+
+  <sa-widget [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+    <header>
+      <ul class="nav nav-tabs pull-left in">
+        <li [class.active]="state.tabs.demo3=='hr1'" class="active">
+          <a (click)="state.tabs.demo3 = 'hr1'">单位换算</a>
+        </li>
+        <li [class.active]="state.tabs.demo3=='hr2'" >
+          <a (click)="state.tabs.demo3 = 'hr2'">规划法好</a>
+        </li>
+      </ul>
+    </header>
+    <div>
+      <div class="widget-body">
+        <tabset>
+          <tab [active]="state.tabs.demo3 == 'hr1'">
+            <tabset class="padding-10">
+              <tab [active]="state.tabs.demo3 == 'hr1'">
+                <div class="row">
+                 递四方速递防守打法
+                </div>
+              </tab>
+            </tabset>
+          </tab>
+          <tab [active]="state.tabs.demo3 == 'hr2'">
+            <tabset class="padding-10">
+              <tab [active]="state.tabs.demo3 == 'hr2'">
+                <div class="row">
+                  递四方速递防守打法
+                </div>
+              </tab>
+            </tabset>
+          </tab>
+        </tabset>
+      </div>
+    </div>
+  </sa-widget>
+
+
+
+
+
+</div>
+
+
