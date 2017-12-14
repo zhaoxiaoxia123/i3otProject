@@ -149,12 +149,20 @@
                           <td  colspan="2" class="text-align-center" ><img  src="assets/img/select2-spinner.gif" >
                             <h4 class="txt-color-darken" >加载中</h4></td>
                         </tr>
+
+                        <tr *ngIf="chartOption1[ind].legend.data.length == 0">
+                          <td colspan="2">
+                            <h4 class="text-align-center" >
+                              无检测信息
+                            </h4>
+                          </td>
+                        </tr>
                         <tr >
                           <td class="percent-50" style="border-right:1px solid #ccc; ">
-                            <div echarts [options]="chartOption1[ind]" class="demo-chart" *ngIf="chartOption1[ind]" ></div>
+                            <div echarts [options]="chartOption1[ind]" class="demo-chart" *ngIf="chartOption1[ind].legend.data.length != 0" ></div>
                           </td>
                           <td  class="percent-50">
-                            <div class="row">
+                            <div class="row" *ngIf="chartOption1[ind].legend.data.length != 0">
                               <div class="col-md-12">
                                 <p class="alert alert-info">
                                   <strong>最新数据</strong>
