@@ -15,6 +15,7 @@ import {stringify} from "querystring";
 export class AddEquipmentComponent implements OnInit {
   formModel : FormGroup;
   i3otpList : Array<any> = [];
+  i3otpListUser : Array<any> = [];
 
   i_id : number = 0;
   i3otp_info : Array<any> = [];
@@ -157,9 +158,9 @@ export class AddEquipmentComponent implements OnInit {
       }
       if(this.i_id == 0) {
         //默认选中值
-        this.u_id_default = this.i3otpList['result']['userList'].length >= 1 ? this.i3otpList['result']['userList'][0]['name'] : 0;
+        // this.u_id_default = this.i3otpList['result']['userList'].length >= 1 ? this.i3otpList['result']['userList'][0]['name'] : 0;
         // this.o_id_default = this.i3otpList['result']['orderList'].length >= 1 ? this.i3otpList['result']['orderList'][0]['o_order'] : 0;
-        this.c_id_default = this.i3otpList['result']['customerList'].length >= 1 ? this.i3otpList['result']['customerList'][0]['c_number'] : 0;
+        this.c_id_default = 0;
         this.i3otp_category_default = 0;
         this.join_sensor_category = this.i3otpList['result']['sensorCategoryList'].length >= 1 ? [this.i3otpList['result']['sensorCategoryList'][0]['category_id']] : [];//传感器类型
         this.show_join_sensor_category = this.i3otpList['result']['sensorCategoryList'].length >= 1 ? [this.i3otpList['result']['sensorCategoryList'][0]['category_desc']] : [];//传感器类型
@@ -170,6 +171,32 @@ export class AddEquipmentComponent implements OnInit {
     }, 600);
   }
 
+  /**
+   * 获取隶属该公司下的员工信息
+   * @param $event
+   */
+  getTheUserList(obj){
+    // console.log('obj.target.value:-----');
+    // console.log(obj.target.value);
+    this.http.get(this.globalService.getDomain()+'/api/v1/getTheUserList?c_id='+obj.target.value)
+        .map((res)=>res.json())
+        .subscribe((data)=>{
+          this.i3otpListUser = data;
+        });
+    setTimeout(() => {
+      // console.log('this.i3otpListUser');
+      // console.log(this.i3otpListUser);
+      if(this.i3otpListUser['status'] == 202){
+        alert(this.i3otpListUser['msg']);
+        this.cookieStore.removeAll();
+        this.router.navigate(['/auth/login']);
+      }
+      if(this.i_id == 0) {
+        //默认选中值
+        this.u_id_default = 0;
+      }
+    }, 600);
+  }
   onSubmit(){
     if(this.formModel.value['i_number'] == ''){
       alert('请填写设备编号！');
