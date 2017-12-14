@@ -92,35 +92,35 @@
                                 </td>
                               </tr>
 
-                             <!-- <tr>
-                                <td colspan="14">
-                                <table border="0" class="table table-hover table-bordered dataTable">
-                                <tbody>
-                                <tr>
-                                  <td><span class="padding-left-10"><i class="fa-fw fa   fa-file-o"></i>家福</span></td>
-                                  <td>001</td>
-                                  <td>地方</td>
-                                  <td>环境</td>
-                                  <td>2017-12 02:24:24</td>
-                                  <td>2542</td>
-                                  <td>2017-12 02:24:24</td>
-                                  <td>大贵</td>
-                                  <td>2017-12 02:24:24</td>
-                                  <td>单事</td>
-                                  <td>4132636</td>
-                                  <td>正常</td>
-                                  <td>梵蒂冈的非官方鼓捣鼓捣个</td>
-                                  <td>
-                                    <div >
-                                      <a class="btn btn-warning btn-xs"  ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                      <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                    </div>
-                                    &lt;!&ndash;<div >无权操作</div>&ndash;&gt;
-                                  </td>
-                                </tr>
-                              </tbody>
-                              </table></td>
-                              </tr>-->
+                              <!-- <tr>
+                                 <td colspan="14">
+                                 <table border="0" class="table table-hover table-bordered dataTable">
+                                 <tbody>
+                                 <tr>
+                                   <td><span class="padding-left-10"><i class="fa-fw fa   fa-file-o"></i>家福</span></td>
+                                   <td>001</td>
+                                   <td>地方</td>
+                                   <td>环境</td>
+                                   <td>2017-12 02:24:24</td>
+                                   <td>2542</td>
+                                   <td>2017-12 02:24:24</td>
+                                   <td>大贵</td>
+                                   <td>2017-12 02:24:24</td>
+                                   <td>单事</td>
+                                   <td>4132636</td>
+                                   <td>正常</td>
+                                   <td>梵蒂冈的非官方鼓捣鼓捣个</td>
+                                   <td>
+                                     <div >
+                                       <a class="btn btn-warning btn-xs"  ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                       <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                     </div>
+                                     &lt;!&ndash;<div >无权操作</div>&ndash;&gt;
+                                   </td>
+                                 </tr>
+                               </tbody>
+                               </table></td>
+                               </tr>-->
 
 
 
@@ -186,7 +186,7 @@
           </button>
           <!-- 标题 -->
           <h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>添加部门</h3>
-         <!-- <h3 class="modal-title  glyphicon glyphicon-pencil txt-color-red" data-ng-bind='results.title'>修改部门</h3>-->
+          <!-- <h3 class="modal-title  glyphicon glyphicon-pencil txt-color-red" data-ng-bind='results.title'>修改部门</h3>-->
         </div>
         <div class="modal-body">
           <sa-widget [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
@@ -222,7 +222,7 @@
                                   <label class="label">上级部门</label>
                                   <label class="select">
                                     <select class="input-sm">
-                                      <option value="" ></option>
+                                      <option value="" disabled="disabled" >选择上级部门</option>
                                       <option value="" >1010</option>
                                       <option value="" >--1010-10</option>
                                       <option value="" >1010</option>
@@ -408,7 +408,7 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-ng-click="ok()">保存并添加</button>
+          <button type="button" class="btn btn-success btn-sm" data-ng-click="ok()">保存并添加</button>
           <button type="button" class="btn btn-primary" data-ng-click="ok()">保存</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
         </div>
@@ -416,4 +416,3 @@
     </div>
   </div>
 </div>
-
