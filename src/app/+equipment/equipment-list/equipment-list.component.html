@@ -152,8 +152,14 @@
                     <td class="">{{i3otpInfo.result?.category_desc}}</td>
                   </tr>
                   <tr>
+                    <td class="width-120">传感器：</td>
+                    <td class="" >
+                      <span *ngFor="let jsc of i3otpInfo.result?.show_join_sensor_category">{{jsc}}&nbsp;&nbsp;</span></td>
+                  </tr>
+                  <tr>
                     <td class="width-120">通信方式：</td>
-                    <td class="">{{i3otpInfo.result?.i3otp_communication | json}}</td>
+                    <td class="" >
+                      <span *ngFor="let jc of i3otpInfo.result?.show_join_category">{{jc}}&nbsp;&nbsp;</span></td>
                   </tr>
                   <tr>
                     <td class="width-120">Mac：</td>
