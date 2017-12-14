@@ -11,6 +11,12 @@
           <li routerLinkActive="active">
             <a routerLink="/dashboard/dynamic-wall">{{'动态墙' | i18n}}</a>
           </li>
+          <li routerLinkActive="active">
+            <a routerLink="">{{'I3oT产品' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="">{{'用户手册' | i18n}}</a>
+          </li>
           <!--<li routerLinkActive="active">-->
             <!--<a routerLink="/auth/homepage">{{'首页' | i18n}}</a>-->
           <!--</li>-->
@@ -96,9 +102,7 @@
           <li routerLinkActive="active">
             <a routerLink="/forms/inventory1/0">{{'添加仓库' | i18n}}</a>
           </li>
-          <li routerLinkActive="active">
-            <a routerLink="/equipment/todo-details">{{'待办事项详情' | i18n}}</a>
-          </li>
+
         </ul>
       </li>
 
@@ -151,10 +155,6 @@
           <li routerLinkActive="active">
             <a routerLink="/equipment/station-chart">{{'基站传感数据' | i18n}}</a>
           </li>
-
-          <li routerLinkActive="active" *ngIf="is_admin=='1'">
-            <a routerLink="/equipment/phonics">{{'添加语音文字' | i18n}}</a>
-          </li>
           <li *ngIf="is_admin=='1'">
             <a href="#">{{'设备基本设置' | i18n}}</a>
             <ul>
@@ -166,6 +166,43 @@
               </li>
             </ul>
           </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#"><i class="fa fa-lg fa-fw  fa-cog"></i> <span
+                class="menu-item-parent">{{'待办事项' | i18n}}</span></a>
+        <ul>
+          <li routerLinkActive="active">
+            <a routerLink="">{{'项目' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/equipment/todo-details">{{'待办事项详情' | i18n}}</a>
+          </li>
+
+        </ul>
+      </li>
+      <li>
+        <a href="#"><i class="fa fa-lg fa-fw  fa-cog"></i> <span
+                class="menu-item-parent">{{'广播预警预防系统' | i18n}}</span></a>
+        <ul>
+          <li routerLinkActive="active">
+            <a routerLink="">{{'广播信息列表' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active" *ngIf="is_admin=='1'">
+            <a routerLink="/equipment/phonics">{{'添加语音文字' | i18n}}</a>
+          </li>
+
+
+        </ul>
+      </li>
+      <li>
+        <a href="#"><i class="fa fa-lg fa-fw  fa-cog"></i> <span
+                class="menu-item-parent">{{'设置' | i18n}}</span></a>
+        <ul>
+          <li routerLinkActive="active">
+            <a routerLink="/tables/normal">{{'公司信息' | i18n}}</a>
+          </li>
+
         </ul>
       </li>
       <li *ngIf="is_admin=='1'">
@@ -208,16 +245,6 @@
           <li routerLinkActive="active">
             <a routerLink="/management/setting-conversion">{{'单位换算' | i18n}}</a>
           </li>
-        </ul>
-      </li>
-      <li>
-        <a href="#"><i class="fa fa-lg fa-fw  fa-cog"></i> <span
-                class="menu-item-parent">{{'设置' | i18n}}</span></a>
-        <ul>
-          <li routerLinkActive="active">
-            <a routerLink="/tables/normal">{{'公司信息' | i18n}}</a>
-          </li>
-
         </ul>
       </li>
     </ul>
