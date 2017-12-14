@@ -157,10 +157,21 @@
                  </div>
                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
                    <section >
+                     <label class="label">购买公司</label>
+                     <label class="select">
+                       <select name="c_id" formControlName="c_id" [(ngModel)]="c_id_default" (change)="getTheUserList($event)">
+                         <option value="0" [selected]="i_id == 0">--请选择--</option>
+                         <option *ngFor="let c of i3otpList.result?.customerList" [selected]="i3otp_info.result?.c_id == c.c_number" value="{{c.c_number}}">{{c.c_name}}</option>
+                       </select> <i></i> </label>
+                   </section>
+                 </div>
+                 <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                   <section >
                      <label class="label">内部质检员</label>
                      <label class="select">
                        <select name="u_id" formControlName="u_id" [(ngModel)]="u_id_default">
-                         <option *ngFor="let u of i3otpList.result?.userList" [selected]="i3otp_info.result?.u_id == u.name || this.i_id == 0" value="{{u.name}}">{{u.u_username}}</option>
+                         <option value="0" [selected]="i_id == 0">--请选择--</option>
+                         <option *ngFor="let u of i3otpListUser.result?.userList" [selected]="i3otp_info.result?.u_id == u.name" value="{{u.name}}">{{u.u_username}}</option>
                        </select> <i></i> </label>
                    </section>
                  </div>
@@ -170,15 +181,6 @@
                      <label class="input">
                        <input type="date" name="i3otp_qc_date" formControlName="i3otp_qc_date"/>
                      </label>
-                   </section>
-                 </div>
-                 <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                   <section >
-                     <label class="label">购买公司</label>
-                     <label class="select">
-                       <select name="c_id" formControlName="c_id" [(ngModel)]="c_id_default">
-                         <option *ngFor="let c of i3otpList.result?.customerList" [selected]="i3otp_info.result?.c_id == c.c_number || this.i_id == 0" value="{{c.c_number}}">{{c.c_name}}</option>
-                       </select> <i></i> </label>
                    </section>
                  </div>
                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
