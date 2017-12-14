@@ -357,11 +357,16 @@ export class StationChartComponent implements OnInit {
      * 分页
      * @param url
      */
-    pagination(url : string) {
-        if(url) {
-            this.page = url.substring((url.lastIndexOf('=') + 1), url.length);
-            this.getI3otpList(this.page);
-        }
+    // pagination(url : string) {
+    //     if(url) {
+    //         this.page = url.substring((url.lastIndexOf('=') + 1), url.length);
+    //         this.getI3otpList(this.page);
+    //     }
+    // }
+
+    pagination(page : any) {
+        this.page = page;
+        this.getI3otpList(this.page);
     }
 
     showJoinPic(){

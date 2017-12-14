@@ -131,7 +131,7 @@ export class RegistrationFormComponent implements OnInit {
     this.cropperSettings1.minHeight = 10;
 
     this.cropperSettings1.rounded = false;
-    this.cropperSettings1.keepAspect = false;
+    this.cropperSettings1.keepAspect = true;
 
     this.cropperSettings1.cropperDrawSettings.strokeColor = 'rgba(255,255,255,1)';
     this.cropperSettings1.cropperDrawSettings.strokeWidth = 2;
@@ -331,6 +331,7 @@ export class RegistrationFormComponent implements OnInit {
           let info = JSON.parse(data['_body']);
           alert(info['msg']);
           if(info['status'] == 200) {
+            this.cookieStoreService.setCookie('u_avatar', this.path);
             this.router.navigateByUrl('/tables/staff');
           }else if(info['status'] == 202){
             this.cookieStoreService.removeAll();
@@ -413,7 +414,7 @@ export class RegistrationFormComponent implements OnInit {
     var form=document.forms[0];
     var formData : FormData = new FormData(form);
     //convertBase64UrlToBlob函数是将base64编码转换为Blob
-    formData.append("uploadedfile",this.convertBase64UrlToBlob(this.data1.image),"file_"+ new Date().getTime() +".png");
+    formData.append("uploadedfile",this.convertBase64UrlToBlob(this.data1.image),"head_"+ new Date().getTime() +".png");
     console.log(this.data1);
     //组建XMLHttpRequest 上传文件
     var infos ;

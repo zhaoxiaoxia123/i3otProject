@@ -13,7 +13,7 @@ import {GlobalService} from "../../../core/global.service";
 export class LoginInfoComponent implements OnInit {
 
   user:any;
-
+    pic : string;
   constructor(
     private userService: UserService,
               private layoutService: LayoutService,
@@ -23,9 +23,10 @@ export class LoginInfoComponent implements OnInit {
       console.log('u_avatar:----');
       console.log(this.cookieStoreService.getCookie('u_avatar'));
       if(this.cookieStoreService.getCookie('username')) {
+          this.pic = this.cookieStoreService.getCookie('u_avatar') != '' ? this.global.getDomain() + this.cookieStoreService.getCookie('u_avatar'):"assets/img/avatars/male.png";
           this.user = {
               "username": this.cookieStoreService.getCookie('username'),
-              "picture": this.cookieStoreService.getCookie('u_avatar') != '' ? this.global.getDomain() + this.cookieStoreService.getCookie('u_avatar'):"assets/img/avatars/male.png",
+              "picture": this.pic,
               "activity": 12
           };
           // }else if(location.origin == 'http://www.i3ot.com'){

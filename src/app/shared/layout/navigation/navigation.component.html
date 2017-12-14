@@ -135,7 +135,7 @@
           </li>
         </ul>
       </li>
-      <li *ngIf="is_admin=='1'">
+      <li>
         <a href="#"><i class="fa fa-lg fa-fw  fa-list"></i> <span
                 class="menu-item-parent">{{'设备管理' | i18n}}</span></a>
         <ul>
@@ -152,10 +152,10 @@
             <a routerLink="/equipment/station-chart">{{'基站传感数据' | i18n}}</a>
           </li>
 
-          <li routerLinkActive="active">
+          <li routerLinkActive="active" *ngIf="is_admin=='1'">
             <a routerLink="/equipment/phonics">{{'添加语音文字' | i18n}}</a>
           </li>
-          <li>
+          <li *ngIf="is_admin=='1'">
             <a href="#">{{'设备基本设置' | i18n}}</a>
             <ul>
               <li routerLinkActive="active">
