@@ -17,18 +17,6 @@
         </ul>
       </li>
 
-      <li *ngIf="is_admin=='1'">
-        <a href="#"><i class="fa fa-lg fa-fw fa-suitcase"></i> <span
-                class="menu-item-parent">{{'客户管理' | i18n}}</span></a>
-        <ul>
-          <li routerLinkActive="active">
-            <a routerLink="/tables/client">{{'客户列表' | i18n}}</a>
-          </li>
-          <li routerLinkActive="active">
-            <a routerLink="/forms/customer/0">{{'添加客户' | i18n}}</a>
-          </li>
-        </ul>
-      </li>
       <li>
         <a href="#"><i class="fa fa-lg fa-fw fa-child "></i> <span
                 class="menu-item-parent">{{'人事管理' | i18n}}</span></a>
@@ -133,6 +121,18 @@
           <li routerLinkActive="active">
             <a routerLink="/management/setting-equipment">{{'设备设置' | i18n}}</a>
           </li>
+          <li *ngIf="is_admin=='1'">
+            <a href="#"><i class="fa fa-lg fa-fw fa-suitcase"></i> <span
+                    class="menu-item-parent">{{'客户管理' | i18n}}</span></a>
+            <ul>
+              <li routerLinkActive="active">
+                <a routerLink="/tables/client">{{'客户列表' | i18n}}</a>
+              </li>
+              <li routerLinkActive="active">
+                <a routerLink="/forms/customer/0">{{'添加客户' | i18n}}</a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </li>
       <li>
@@ -208,6 +208,16 @@
           <li routerLinkActive="active">
             <a routerLink="/management/setting-conversion">{{'单位换算' | i18n}}</a>
           </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#"><i class="fa fa-lg fa-fw  fa-cog"></i> <span
+                class="menu-item-parent">{{'设置' | i18n}}</span></a>
+        <ul>
+          <li routerLinkActive="active">
+            <a routerLink="/tables/normal">{{'公司信息' | i18n}}</a>
+          </li>
+
         </ul>
       </li>
     </ul>

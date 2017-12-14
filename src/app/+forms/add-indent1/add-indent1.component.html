@@ -21,98 +21,16 @@
                 <fieldset>
                   <legend>基本信息</legend>
                   <input type="hidden" name="o_id" formControlName="o_id" >
-
-                  <!--<div class="row">
-                    &lt;!&ndash;<section class="col col-6">&ndash;&gt;
-                      &lt;!&ndash;<div class="col col-8">&ndash;&gt;
-                        &lt;!&ndash;<label class="label "> 型号</label>&ndash;&gt;
-                        &lt;!&ndash;<label class="select">&ndash;&gt;
-                          &lt;!&ndash;<select name="o_specification"  formControlName="o_specification">&ndash;&gt;
-                            &lt;!&ndash;<option *ngFor="let c7 of orderList.result?.categoryList7" [selected]="order_info.result?.o_specification == c7.category_id" value="{{c7.category_id}}">{{c7.category_desc}}</option>&ndash;&gt;
-                          &lt;!&ndash;</select> <i></i>&ndash;&gt;
-                        &lt;!&ndash;</label>&ndash;&gt;
-                      &lt;!&ndash;</div>&ndash;&gt;
-                      &lt;!&ndash;<div class="col col-4">&ndash;&gt;
-                        &lt;!&ndash;<label > </label>&ndash;&gt;
-                        &lt;!&ndash;<button type="button" class="btn btn-primary btn-sm btn-block">&ndash;&gt;
-                          &lt;!&ndash;添加型号&ndash;&gt;
-                        &lt;!&ndash;</button>&ndash;&gt;
-                      &lt;!&ndash;</div>&ndash;&gt;
-                    &lt;!&ndash;</section>&ndash;&gt;
-                    &lt;!&ndash;<section class="col col-6">&ndash;&gt;
-                      &lt;!&ndash;<label class="label "> 产品</label>&ndash;&gt;
-                      &lt;!&ndash;<label class="select">&ndash;&gt;
-                        &lt;!&ndash;<select  name="p_id" formControlName="p_id" >&ndash;&gt;
-                          &lt;!&ndash;<option *ngFor="let p of orderList.result?.productList" [selected]="order_info.result?.p_id == p.p_id" value="{{p.p_id}}">{{p.p_name}}</option>&ndash;&gt;
-                        &lt;!&ndash;</select> <i></i>&ndash;&gt;
-                      &lt;!&ndash;</label>&ndash;&gt;
-                    &lt;!&ndash;</section>&ndash;&gt;
-                  </div>-->
-                  <!--<section>-->
-                    <!--<label class="label">参数内容</label>-->
-                    <!--<label class="textarea textarea-resizable">-->
-                      <!--<textarea class="custom-scroll" name="o_specification_content" formControlName="o_specification_content" rows="3"></textarea>-->
-                    <!--</label>-->
-                  <!--</section>-->
-
-                  <!--需要删除的-->
-
-                  <!--<div class="col-6">
-                    <section class="col col-4">
-                      <label class="label">一级类型</label>
-                      <label class="select">
-                        <select name="o_category1" formControlName="o_category1" (change)="getOrderChild($event.target.value,1)" [(ngModel)]="category_id1_default">
-                          <option *ngFor="let c of orderList.result?.categoryList6" [selected]="order_info.result?.o_category1 == c.category_id || this.o_id == 0" value="{{c.category_id}}">{{c.category_desc}}</option>
-                        </select> <i></i>
-                      </label>
-                    </section>
-                    <section class="col col-4">
-                      <label class="label">二级类型</label>
-                      <label class="select">
-                        <select name="o_category2" formControlName="o_category2" [(ngModel)]="category_id2_default">
-                          <option *ngFor="let pc of childCategory.result" [selected]="order_info.result?.o_category2 == pc.category_id" value="{{pc.category_id}}">{{pc.category_desc}}</option>
-                        </select> <i></i>
-                      </label>
-                    </section>
-                    <section class="col col-4">
-                      <button type="button"  class="btn btn-info btn-sm margin-top-26 "  (click)="lgModal.show()">
-                        添加类型
-                      </button>
-                    </section>
-                  </div>-->
-
-                  <!--  <section class="col col-6">
-                   <label class="label "> 质检员</label>
-                   <label class="select">
-                     <select  name="o_inspector" formControlName="o_inspector" [(ngModel)]="o_inspector_default">
-                       <option *ngFor="let u of orderList.result?.userList" [selected]="order_info.result?.o_inspector == u.id || this.o_id == 0" value="{{u.id}}">{{u.u_username}}</option>
-                     </select> <i></i> </label>
-                 </section>-->
-                  <!--<div class="col-6">
-                    <section class="col col-6">
-                      <label class="label "> 出库仓库</label>
-                      <label class="select">
-                        <select  name="o_out_storehouse" formControlName="o_out_storehouse" [(ngModel)]="o_out_storehouse_default">
-                          <option *ngFor="let s of orderList.result?.storehouseList" [selected]="order_info.result?.o_out_storehouse == s.storehouse_id || this.o_id == 0" value="{{s.storehouse_id}}">{{s.storehouse_name}}</option>
-                        </select> <i></i>
-                      </label>
-                    </section>
-                    <section class="col col-6">
-                      <label class="label">出库时间</label>
-                      <label class="input"> <i class="icon-append fa fa-calendar"></i>
-                        <input type="date"  maxlength="20" name="o_out_storehouse_time" formControlName="o_out_storehouse_time" placeholder="出库时间"
-                               saUiDatepicker date-format="dd/mm/yy" />
-                      </label>
-                    </section>
-                  </div>-->
-                  <div class="row">
-                    <section class="col col-6">
+                  <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
+                    <section >
                       <label class="label">订单号/合同号</label>
                       <label class="input">
                         <input type="text" name="o_order" maxlength="20" formControlName="o_order" placeholder="请输入订单号/合同号 "/>
                       </label>
                     </section>
-                    <section class="col col-6">
+                  </div>
+                  <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
+                    <section >
                       <label class="label ">产品批号</label>
                       <label class="select">
                         <select  name="p_id" formControlName="p_id" [(ngModel)]="p_id_default" (change)="showProInfo($event)">
@@ -121,148 +39,88 @@
                         </select> <i></i>
                       </label>
                     </section>
+
                   </div>
-                  <div [ngClass]="{ 'row  product-batch well':true,'select-hidden':is_show_pro_info}">
-                    <div class="col-lg-4">
-                      <ul class="list-unstyled">
-                        <li>
-                          <span ><strong>产品名称：</strong>{{product_info.result?.p_name}}</span>
-                        </li>
-                        <li>
-                          <span ><strong>入库时间：</strong>{{product_info.result?.p_storage_time}}</span>
-                        </li>
-                        <li>
-                          <span ><strong>参数内容：</strong>{{product_info.result?.p_specification}}</span>
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="col-lg-4">
-                      <ul class="list-unstyled">
-                        <li>
-                          <span ><strong>类型：</strong>一级:{{product_info.result?.category1}}&nbsp;&nbsp;&nbsp;&nbsp;二级:{{product_info.result?.category2}}</span>
-                        </li>
-                        <li>
-                          <span><strong>内部质检员：</strong>{{product_info.result?.u_username}}</span>
-                        </li>
-                        <li>
-                          <span><strong>剩余总量：</strong>{{product_info.result?.p_t_quantity}}</span>
-                        </li>
-                        <li>
+                  <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                    <div [ngClass]="{ 'row  product-batch well':true,'select-hidden':is_show_pro_info}">
+                      <div class="col-lg-4">
+                        <ul class="list-unstyled">
+                          <li>
+                            <span ><strong>产品名称：</strong>{{product_info.result?.p_name}}</span>
+                          </li>
+                          <li>
+                            <span ><strong>入库时间：</strong>{{product_info.result?.p_storage_time}}</span>
+                          </li>
+                          <li>
+                            <span><strong>剩余总量：</strong>{{product_info.result?.p_t_quantity}}</span>
+                          </li>
+
+                        </ul>
+                      </div>
+                      <div class="col-lg-4">
+                        <ul class="list-unstyled">
+                          <li>
+                            <span ><strong>类型：</strong>一级:{{product_info.result?.category1}}&nbsp;&nbsp;&nbsp;&nbsp;二级:{{product_info.result?.category2}}</span>
+                          </li>
+                          <li>
+                            <span><strong>内部质检员：</strong>{{product_info.result?.u_username}}</span>
+                          </li>
+                          <li>
                           <span ><strong>是否合格：</strong>
                           <span [ngSwitch]="product_info.result?.p_is_acceptable">
                             <span *ngSwitchCase="1">合格</span>
                             <span *ngSwitchCase="2">不合格</span>
                             <span *ngSwitchDefault>未知</span>
                           </span></span>
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="col-lg-4">
-                      <ul class="list-unstyled">
-                        <li>
-                          <span ><strong>存放仓库：</strong>{{product_info.result?.storehouse_name}}</span>
-                        </li>
-                        <!--<li>-->
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="col-lg-4">
+                        <ul class="list-unstyled">
+                          <li>
+                            <span ><strong>存放仓库：</strong>{{product_info.result?.storehouse_name}}</span>
+                          </li>
+                          <li>
+                            <span ><strong>参数内容：</strong>{{product_info.result?.p_specification}}</span>
+                          </li>
+                          <!--<li>-->
                           <!--<span><strong>质检日期：</strong>读取质检日期</span>-->
-                        <!--</li>-->
-                      </ul>
+                          <!--</li>-->
+                        </ul>
+                      </div>
                     </div>
+
                   </div>
-                <!--  <div class="row product-batch">
-                    <div class="col-12">
-                      <div class=" col col-6 cl-sm-6">
-                        <section class="">
-                          <label class="label">产品名称</label>
-                          <label class="input">
-                            <input type="text"   disabled="disabled" value="读取产品名称" placeholder="请输入产品名称" />
-                          </label>
-                        </section>
-                      </div>
-                      <div class=" col col-6 col-sm-6 about-form">
-                        <section class="col col-6">
-                          <label class="label">一级类型</label>
-                          <label class="select">
-                            <select disabled="disabled">
-                              <option >读取一级类型</option>
-                            </select> <i></i>
-                          </label>
-                        </section>
-                        <section class="col col-6 ">
-                          <label class="label">二级类型</label>
-                          <label class="select">
-                            <select disabled="disabled">
-                              <option >读取一级类型</option>
-                            </select> <i></i>
-                          </label>
-                        </section>
-                      </div>
-                    </div>
-                      <section class="col col-6">
-                        <label class="label "> 存放仓库</label>
-                        <label class="select">
-                          <select   disabled="disabled">
-                            <option  >读取存放仓库</option>
-                          </select> <i></i>
-                        </label>
-                      </section>
-                      <section class="col col-6">
-                        <label class="label">入库时间</label>
-                        <label class="input">
-                          <input type="text"   disabled="disabled" value="2017年12月30日" placeholder="入库时间" />
-                        </label>
-                      </section>
-                    <section class="col col-6">
-                      <label class="label "> 内部质检员</label>
-                      <label class="select">
-                        <select   disabled="disabled">
-                          <option  >读取内部质检员</option>
-                        </select> <i></i>
-                      </label>
-                    </section>
-                    <section class="col col-6">
-                      <label class="label">质检日期</label>
-                      <label class="input">
-                        <input type="text"   disabled="disabled" value="2017年12月30日" placeholder="质检日期" />
-                      </label>
-                    </section>
-                    <section class="col col-6">
-                      <label class="label">参数内容</label>
-                      <label class="textarea textarea-resizable">
-                        <textarea  rows="5" disabled="disabled"  placeholder="xx1:yy1;xx2:yy2;"   ></textarea>
-                      </label>
-                    </section>
-                    <section class="col col-6">
-                      <label class="label">是否合格</label>
-                      <div class="inline-group" >
-                        <label class="radio">
-                          <input   disabled="disabled" checked="checked" type="radio" >
-                          <i></i>是</label>
-                        <label class="radio">
-                          <input  disabled="disabled" type="radio" >
-                          <i></i>否</label>
-                      </div>
-                    </section>
-                    </div>-->
-                  <div class="row">
-                    <section class="col col-6">
+                  
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section >
                       <label class="label">元/吨</label>
                       <label class="input">
                         <input type="number" (blur)="saveNum()" maxlength="6" name="o_unit_price" formControlName="o_unit_price" placeholder="请输入单价(元/吨) "/>
                       </label>
                     </section>
-                    <section class="col col-6">
+
+                  </div>
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section >
                       <label class="label">数量</label>
                       <label class="input">
                         <input type="number" (blur)="saveNum()" required minlength="1" maxlength="10" name="o_quantity" formControlName="o_quantity" placeholder="请输入数量 "/>
                       </label>
                     </section>
-                    <section class="col col-6">
+
+                  </div>
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section >
                       <label class="label">总价</label>
                       <label class="input">
                         <input type="text" disabled="disabled" maxlength="8" name="o_total_price" formControlName="o_total_price"/>
                       </label>
                     </section>
-                    <section class="col col-6">
+
+                  </div>
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section >
                       <label class="label "> 购买公司</label>
                       <label class="select">
                         <select name="o_buy_company_id" formControlName="o_buy_company_id" [(ngModel)]="o_buy_company_id_default">
@@ -270,23 +128,29 @@
                         </select> <i></i> </label>
                     </section>
 
-                    <!--新增-->
-
-                    <section class="col col-6">
+                  </div>
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section >
                       <label class="label">销售时间</label>
-                      <label class="input"> <i class="icon-append fa fa-calendar"></i>
+                      <label class="input">
                         <input type="date"  maxlength="20" placeholder="销售时间"
                                saUiDatepicker date-format="dd/mm/yy"  name="o_sales_time" formControlName="o_sales_time"  />
                       </label>
                     </section>
-                    <section class="col col-6">
+
+                  </div>
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section >
                       <label class="label "> 销售人员</label>
                       <label class="select">
                         <select  name="u_id" formControlName="u_id" [(ngModel)]="u_id_default">
                           <option *ngFor="let u of orderList.result?.userList" [selected]="order_info.result?.u_id == u.id || this.o_id == 0" value="{{u.id}}">{{u.u_username}}</option>
                         </select> <i></i> </label>
                     </section>
-                    <section class="col col-6">
+
+                  </div>
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section >
                       <div class=" ">
                         <label class="label "> 运输方式</label>
                         <label class="select">
@@ -297,21 +161,27 @@
                       </div>
                     </section>
 
-                    <section class="col col-6">
+                  </div>
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section >
                       <label class="label">运单号</label>
                       <label class="input">
                         <input type="text"  maxlength="20" name="o_waybill_number" formControlName="o_waybill_number" placeholder="请输入运单号 "/>
                       </label>
                     </section>
 
-                    <section class="col col-6">
+                  </div>
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section >
                       <label class="label">交货地点</label>
                       <label class="input">
                         <input type="text"  maxlength="50" name="o_receiver_address" formControlName="o_receiver_address" placeholder="请输入交货地点 "/>
                       </label>
                     </section>
 
-                    <section class="col col-6">
+                  </div>
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section >
                       <div class="">
                         <label class="label "> 结算方式</label>
                         <label class="select">
@@ -322,8 +192,9 @@
                       </div>
 
                     </section>
-
-                    <section class="col col-6">
+                  </div>
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section >
                       <label class="label">订单状态</label>
                       <div class="inline-group">
                         <label class="radio">
@@ -335,23 +206,41 @@
                       </div>
                     </section>
 
-                    <section class="col col-6">
+                  </div>
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section >
                       <label class="label">是否出库</label>
                       <div class="inline-group">
-                          <label class="checkbox"><input type="checkbox" value="1" [checked]="order_info.result?.o_is_out == 1" name="o_is_out" formControlName="o_is_out"><i></i>是</label>
+                        <label class="checkbox"><input type="checkbox" value="1" [checked]="order_info.result?.o_is_out == 1" name="o_is_out" formControlName="o_is_out"><i></i>是</label>
                       </div>
                     </section>
+
                   </div>
-                  <section>
-                    <label class="label">备注说明</label>
-                    <label class="textarea textarea-resizable">
-                      <textarea class="custom-scroll" rows="3" name="o_notes" formControlName="o_notes"></textarea>
-                    </label>
-                  </section>
+                  <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                    <section>
+                      <label class="label">备注说明</label>
+                      <label class="textarea textarea-resizable">
+                        <textarea class="custom-scroll" rows="3" name="o_notes" formControlName="o_notes"></textarea>
+                      </label>
+                    </section>
+
+                  </div>
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+
+                  </div>
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+
+                  </div>
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+
+                  </div>
 
                 </fieldset>
 
                 <footer>
+                  <button type="button" class="btn btn-default" >
+                    返回
+                  </button>
                   <button type="submit" class="btn btn-primary">
                     保存
                   </button>

@@ -87,10 +87,11 @@
                   <th>ID  </th>
                   <th>全称</th>
                   <!--<th>简称 </th>-->
-                  <th>所属行业 </th>
+                  <!--<th>所属行业 </th>-->
                   <th>联系人 </th>
-                  <th>联系电话</th>
-                  <th>企业邮箱</th>
+                  <!--<th>联系电话</th>
+                  <th>企业邮箱</th>-->
+                  <th>所在地</th>
                   <th>主要产品</th>
                   <!--<th>详细地址</th>-->
                   <!--<th>更新时间</th>-->
@@ -101,8 +102,8 @@
 
                 <tr style="display: none;">
                   <td></td><td></td><td></td><td></td>
-                  <td></td><td></td><td></td><td></td>
-                  <td></td>
+                  <td></td><td></td><!--<td></td><td></td>
+                  <td></td>-->
                   <!--<td></td>-->
                   <!--<td></td><td></td>-->
                 </tr>
@@ -116,10 +117,11 @@
                   <td>{{ cl.c_id }}</td>
                   <td>{{ cl.c_name }}</td>
                   <!--<td>{{ cl.c_abbreviation }}</td>-->
-                  <td>{{ cl.category_desc }}</td>
+                 <!-- <td>{{ cl.category_desc }}</td>-->
                   <td>{{ cl.c_contacts }}</td>
-                  <td>{{ cl.c_phone }}</td>
-                  <td>{{ cl.c_email }}</td>
+                  <!--<td>{{ cl.c_phone }}</td>
+                  <td>{{ cl.c_email }}</td>-->
+                  <td>所在地所在地所在地所在地所在地</td>
                   <td>{{ cl.c_products }}</td>
                   <!--<td>{{ cl.c_address }}</td>-->
                   <!--<td>{{ cl.updated_at }}</td>-->
@@ -198,6 +200,9 @@
                   <tr>
                     <td class="width-120">企业邮箱：</td>
                     <td class="">{{customer_info.result?.c_email}}</td>
+                  </tr>
+                  <tr><td class="width-120">所在地：</td>
+                    <td class="">读取所在地</td>
                   </tr>
                   <tr><td class="width-120">详细地址：</td>
                     <td class="">{{customer_info.result?.c_address}}</td>
