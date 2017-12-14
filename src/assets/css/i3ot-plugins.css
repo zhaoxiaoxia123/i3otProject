@@ -336,7 +336,7 @@ div.dataTables_paginate ul.pagination {
 }
 
 .txt-color-greenLight {
-    color: #71843f!important
+    color: #739e73!important
 }
 
 .txt-color-greenDark {
@@ -546,7 +546,10 @@ div.dataTables_paginate ul.pagination {
 }
 
 .padding-10 {
-    padding: 10px!important
+    padding: 10px!important;
+}
+.padding-left-10 {
+    padding-left: 10px!important;
 }
 
 .padding-gutter {
