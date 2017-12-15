@@ -19,6 +19,7 @@ import {TodoDetailsComponent} from "./todo-details/todo-details.component";
 import {EquipmentListComponent} from "./equipment-list/equipment-list.component";
 import {AddEquipmentComponent} from "./add-equipment/add-equipment.component";
 import {HelmetChartGuard} from "../shared/cookies/helmetChart.guard";
+import {PhonicsListComponent} from "./phonics-list/phonics-list.component";
 
 export const routes:Routes = [
     {
@@ -79,6 +80,10 @@ export const routes:Routes = [
     {
         path: 'add-equipment/:i_id',
         component: AddEquipmentComponent
+    },
+    {
+        path: 'phonics-list',
+        component: PhonicsListComponent
     },
 ];
 
