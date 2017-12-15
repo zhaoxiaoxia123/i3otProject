@@ -242,8 +242,6 @@ export class HelmetChartComponent implements OnInit {
                         value: this.products1['data'][i]['info'][entry]['value'][this.size - 1]
                     });
                 }
-                // console.log('this.lastList1');
-                // console.log(this.lastList1);
                 if (this.lastList1 == []) {
                     result[i] = [];
                 } else {
@@ -252,9 +250,6 @@ export class HelmetChartComponent implements OnInit {
                 this.newList[i] = this.lastList1;
                 i++;
             }
-            // console.log('newList:----');
-            // console.log(this.newList);
-            // console.log(result);
             return result;
         }else if(num == 2){
             if (this.products2.length == 0 && this.join_str != [] && this.join_pid != []) {
@@ -264,7 +259,6 @@ export class HelmetChartComponent implements OnInit {
                 alert('没有可对比的数据！');
                 return false;
             }
-
             this.metric_title = this.products2['title'];
             let result: Array<any> = [];
             let i: number = 0;
@@ -283,7 +277,8 @@ export class HelmetChartComponent implements OnInit {
                 }
                 i++;
             }
-            // console.log(result);
+            console.log('result:-------------');
+            console.log(result);
             return result;
         }
     }

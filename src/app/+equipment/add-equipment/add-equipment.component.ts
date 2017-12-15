@@ -23,7 +23,7 @@ export class AddEquipmentComponent implements OnInit {
   //默认选中值
   u_id_default : number;
   // o_id_default : number;
-  c_id_default : number;
+  c_id_default : number = 0;
   i3otp_category_default : number;
   // i3otp_communication_default:string;
   // i3otp_sensor_category_default:string;
@@ -47,6 +47,7 @@ export class AddEquipmentComponent implements OnInit {
       private routInfo : ActivatedRoute,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
+
     this.formModel = fb.group({
       i3otp_id:[''],
       i3otp_pid:[''],
@@ -72,6 +73,7 @@ export class AddEquipmentComponent implements OnInit {
       i3otp_f_update:[''],
       i3otp_mac_addr:[''],
       i3otp_qc_date:[''],
+      i3otp_production_date:[''],
     });
   }
 
@@ -121,7 +123,7 @@ export class AddEquipmentComponent implements OnInit {
         i3otp_f_update:this.i3otp_info['result']['i3otp_f_update'],
         i3otp_mac_addr:this.i3otp_info['result']['i3otp_mac_addr'],
         i3otp_sensor_category:this.i3otp_info['result']['i3otp_sensor_categorys'],
-
+        i3otp_production_date:this.i3otp_info['result']['i3otp_production_date'],
       });
 
       this.u_id_default = this.i3otp_info['result']['u_id'];
@@ -136,6 +138,9 @@ export class AddEquipmentComponent implements OnInit {
       this.show_join_sensor_category =  this.i3otp_info['result']['show_join_sensor_category'];//传感器类型
       this.show_join_category = this.i3otp_info['result']['show_join_category'];
 
+      if(this.c_id_default != 0){
+        this.getTheUserList(this.c_id_default,2);
+      }
     }, 500);
   }
 
@@ -175,10 +180,16 @@ export class AddEquipmentComponent implements OnInit {
    * 获取隶属该公司下的员工信息
    * @param $event
    */
-  getTheUserList(obj){
+  getTheUserList(obj,type:number){
     // console.log('obj.target.value:-----');
     // console.log(obj.target.value);
-    this.http.get(this.globalService.getDomain()+'/api/v1/getTheUserList?c_id='+obj.target.value)
+    let value = 0;
+    if(type == 1){
+      value = obj.target.value;
+    }else{
+      value =obj;
+    }
+    this.http.get(this.globalService.getDomain()+'/api/v1/getTheUserList?c_id='+value)
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.i3otpListUser = data;
@@ -228,6 +239,7 @@ export class AddEquipmentComponent implements OnInit {
       'i3otp_firmware':this.formModel.value['i3otp_firmware'],
       'i3otp_f_update':this.formModel.value['i3otp_f_update'],
       'i3otp_mac_addr':this.formModel.value['i3otp_mac_addr'],
+      'i3otp_production_date':this.formModel.value['i3otp_production_date'],
       'i3otp_sensor_category':this.join_sensor_category,//this.formModel.value['i3otp_sensor_category'],
       'sid':this.cookieStore.getCookie('sid')
     }).subscribe(

@@ -154,6 +154,9 @@ export class ListStaffComponent implements OnInit {
    * @param uid
    */
   deleteUser(uid:any,current_page:any){
+    if(this.globalService.demoAlert('','')){
+      return false;
+    }
     // console.log('current_page-----');
     // console.log(current_page);
     if(confirm('您确定要删除该条信息吗？')) {
@@ -188,6 +191,9 @@ export class ListStaffComponent implements OnInit {
    * 全选删除
    */
   deleteUserAll(current_page:any){
+    if(this.globalService.demoAlert('','')){
+      return false;
+    }
     if(confirm('删除后将不可恢复，您确定要删除吗？')) {
       let ids : string = '';
       this.selects.forEach((val, idx, array) => {
@@ -235,5 +241,12 @@ export class ListStaffComponent implements OnInit {
           this.user_info = data;
         });
   }
-
+  /**
+   * 演示账号输出
+   * @param url
+   * @param param
+   */
+  isDemo(url:string,param:any){
+    this.globalService.demoAlert(url,param);
+  }
 }

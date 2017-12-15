@@ -4,7 +4,7 @@
                         class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
   </div>
   <div class="box-header with-border" >
-    <a class="btn btn-success btn-sm" routerLink="/forms/employees/0" >
+    <a class="btn btn-success btn-sm"  (click)="isDemo('/forms/employees','0')" >
       <span class="glyphicon glyphicon-plus"></span>添加员工</a>
   </div>
 
@@ -118,7 +118,7 @@
                   <td>{{ ul.category_desc}}</td>
                   <td>{{ ul.u_phone }}</td>
                   <td>
-                    <a *ngIf="uRole != 3" class="btn btn-warning btn-xs" [routerLink]="['/forms/employees',ul.id]">
+                    <a *ngIf="uRole != 3" class="btn btn-warning btn-xs" (click)="isDemo('/forms/employees',ul.id)">
                       <span class="glyphicon glyphicon-pencil"></span>修改
                     </a>
                     <a *ngIf="uRole != 3" class="btn btn-danger btn-xs" (click)="deleteUser( ul.id ,userList.result?.current_page)">

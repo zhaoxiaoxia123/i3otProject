@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import {Router} from "@angular/router";
+import {CookieStoreService} from "../shared/cookies/cookie-store.service";
 
 @Injectable()
 export class GlobalService {
@@ -6,7 +8,10 @@ export class GlobalService {
   tsdbDomain ='http://182.61.53.58:10088';
   station1 = '155';//安全帽
   station2 = '156';//基站
-  constructor() {
+  constructor(
+      private router : Router,
+      private cookieStoreService : CookieStoreService,
+  ) {
   }
 
   setDomain(value:string){
@@ -35,4 +40,20 @@ export class GlobalService {
   }
 
 
+  /**
+   * 是演示账号
+   * @param url
+   * @param param
+   * @returns {boolean}
+   */
+  demoAlert(url:string,param:any) {
+    if(this.cookieStoreService.getCookie('urole') == '0') {
+      alert('演示账号，不能做此操作！');
+      return true;
+    }else if(url != "" && param != ""){
+      let path = url+'/'+param;
+      this.router.navigate([path]);
+    }
+    return false;
+  }
 }

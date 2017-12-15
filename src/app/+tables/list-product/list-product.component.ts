@@ -144,6 +144,9 @@ export class ListProductComponent implements OnInit {
    * @param uid
    */
   deleteProduct(uid:any,current_page:any){
+    if(this.globalService.demoAlert('','')){
+      return false;
+    }
     // console.log('current_page-----');
     // console.log(current_page);
     if(confirm('您确定要删除该条信息吗？')) {
@@ -180,6 +183,9 @@ export class ListProductComponent implements OnInit {
    * @param current_page
    */
   deleteProductAll(current_page:any){
+    if(this.globalService.demoAlert('','')){
+      return false;
+    }
     if(confirm('删除后将不可恢复，您确定要删除吗？')) {
       let ids : string = '';
       this.selects.forEach((val, idx, array) => {
@@ -245,4 +251,12 @@ export class ListProductComponent implements OnInit {
     public hideChildModal():void {
         this.lgModal.hide();
     }
+  /**
+   * 演示账号输出
+   * @param url
+   * @param param
+   */
+  isDemo(url:string,param:any){
+    this.globalService.demoAlert(url,param);
+  }
 }

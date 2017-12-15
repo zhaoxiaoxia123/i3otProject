@@ -123,6 +123,9 @@ export class EquipmentListComponent implements OnInit {
    * 删除（安全帽）设备信息
    */
   deleteI3otp (i3otp_id:any,current_page:any){
+    if(this.globalService.demoAlert('','')){
+      return false;
+    }
     if(confirm('您确定要删除该条信息吗？')) {
       this.http.delete(this.globalService.getDomain()+'/api/v1/deleteI3otpById?i_id=' + i3otp_id + '&page=' + current_page+'&type=id&sid='+this.cookiestore.getCookie('sid'))
           .map((res) => res.json())
@@ -184,6 +187,9 @@ export class EquipmentListComponent implements OnInit {
    * @param current_page
    */
   deleteI3otpAll(current_page:any){
+    if(this.globalService.demoAlert('','')){
+      return false;
+    }
     if(confirm('删除后将不可恢复，您确定要删除吗？')) {
       let ids : string = '';
       this.selects.forEach((val, idx, array) => {
@@ -219,4 +225,12 @@ export class EquipmentListComponent implements OnInit {
     }
   }
 
+  /**
+   * 演示账号输出
+   * @param url
+   * @param param
+   */
+  isDemo(url:string,param:any){
+    this.globalService.demoAlert(url,param);
+  }
 }
