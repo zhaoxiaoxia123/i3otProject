@@ -1000,6 +1000,12 @@ time.icon span {
     overflow: auto!important;
     height: 320px;
 }
-
+.text-overflow{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    height: 30px;
+    overflow: hidden;
+}
 
 
