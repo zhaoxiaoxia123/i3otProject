@@ -7203,4 +7203,6 @@ label input[type=checkbox][disabled].checkbox+span:before,label input[type=check
     background: rgba(248,248,248,.9)
 }
 
-
+.ng2-imgcrop input{
+    display: none;!important;
+}

@@ -8,7 +8,7 @@
   display: block;
   overflow: hidden;
   position: relative;
-  width:100px;
+  //width:100px;
   [type=file] {
     cursor: pointer;
     display: block;
@@ -42,5 +42,6 @@ $c-box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.03) !default;
 .c-mt15 {
   margin-top: 15px;
 }
+
 
 

@@ -120,29 +120,23 @@ export class RegistrationFormComponent implements OnInit {
     this.cropperSettings1 = new CropperSettings();
     this.cropperSettings1.width = 200;
     this.cropperSettings1.height = 200;
-
     this.cropperSettings1.croppedWidth = 200;
     this.cropperSettings1.croppedHeight = 200;
-
     this.cropperSettings1.canvasWidth = 300;
     this.cropperSettings1.canvasHeight = 300;
-
     this.cropperSettings1.minWidth = 10;
     this.cropperSettings1.minHeight = 10;
-
     this.cropperSettings1.rounded = false;
     this.cropperSettings1.keepAspect = true;
-
     this.cropperSettings1.cropperDrawSettings.strokeColor = 'rgba(255,255,255,1)';
     this.cropperSettings1.cropperDrawSettings.strokeWidth = 2;
-
     this.data1 = {};
   }
 
   cropped(bounds:Bounds) {
     this.croppedHeight =bounds.bottom-bounds.top;
     this.croppedWidth = bounds.right-bounds.left;
-    console.log(bounds);
+    // console.log(bounds);
   }
   ngOnInit() {
     this.u_id = this.routInfo.snapshot.params['u_id'];

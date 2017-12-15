@@ -252,7 +252,9 @@ export class HelmetChartComponent implements OnInit {
                 this.newList[i] = this.lastList1;
                 i++;
             }
-            console.log(result);
+            // console.log('newList:----');
+            // console.log(this.newList);
+            // console.log(result);
             return result;
         }else if(num == 2){
             if (this.products2.length == 0 && this.join_str != [] && this.join_pid != []) {

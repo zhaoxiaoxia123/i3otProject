@@ -4,13 +4,12 @@
     <legend>基本信息</legend>
     <input type="hidden" name="u_id" formControlName="u_id">
     <div class="form-group text-align-center col-lg-4 col-md-4 col-sm-6 col-xs-12" >
-       <span class="user-image" *ngIf="!data1.image" >
+       <span class="user-image" *ngIf="!path" >
            <img  alt="" style="width: 180px; height: 180px;" src="assets/img/default_user.png"  data-toggle="modal" data-target="#myModal">
-         </span>
-      <span class="user-image" *ngIf="data1.image" >
-          <img [src]="data1.image"
-               style="width: 180px; height: 180px;">
-      </span>
+       </span>
+       <span class="user-image" *ngIf="path" >
+          <img src="{{url}}{{path}}" style="width: 180px; height: 180px;" data-toggle="modal" data-target="#myModal">
+       </span>
     </div>
 
     <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
