@@ -28,6 +28,7 @@ import {DuallistboxWidgetComponent} from "./duallistbox-widget/duallistbox-widge
 import { EquipmentListComponent } from './equipment-list/equipment-list.component';
 import { AddEquipmentComponent } from './add-equipment/add-equipment.component';
 import {HelmetChartGuard} from "../shared/cookies/helmetChart.guard";
+import { PhonicsListComponent } from './phonics-list/phonics-list.component';
 
 @NgModule({
   imports: [
@@ -54,7 +55,8 @@ import {HelmetChartGuard} from "../shared/cookies/helmetChart.guard";
     FullTablesComponent,
     TodoDetailsComponent,
     EquipmentListComponent,
-    AddEquipmentComponent
+    AddEquipmentComponent,
+    PhonicsListComponent
   ],
     exports : [
       KeysPipe

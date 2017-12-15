@@ -169,11 +169,11 @@
         </ul>
       </li>
       <li>
-        <a href="#"><i class="fa fa-lg fa-fw  fa-cog"></i> <span
+        <a href="#"><i class="fa fa-lg fa-fw  fa-envelope"></i> <span
                 class="menu-item-parent">{{'待办事项' | i18n}}</span></a>
         <ul>
           <li routerLinkActive="active">
-            <a routerLink="">{{'项目' | i18n}}</a>
+            <a routerLink="/app-views/todo-projects">{{'项目' | i18n}}</a>
           </li>
           <li routerLinkActive="active">
             <a routerLink="/equipment/todo-details">{{'待办事项详情' | i18n}}</a>
@@ -182,14 +182,14 @@
         </ul>
       </li>
       <li>
-        <a href="#"><i class="fa fa-lg fa-fw  fa-cog"></i> <span
+        <a href="#"><i class="fa fa-lg fa-fw   fa-bell"></i> <span
                 class="menu-item-parent">{{'广播预警预防系统' | i18n}}</span></a>
         <ul>
           <li routerLinkActive="active">
-            <a routerLink="">{{'广播信息列表' | i18n}}</a>
+            <a routerLink="/equipment/phonics-list">{{'广播信息列表' | i18n}}</a>
           </li>
           <li routerLinkActive="active" *ngIf="is_admin=='1'">
-            <a routerLink="/equipment/phonics">{{'添加语音文字' | i18n}}</a>
+            <a routerLink="/equipment/phonics">{{'添加广播信息' | i18n}}</a>
           </li>
 
 
