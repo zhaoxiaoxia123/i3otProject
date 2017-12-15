@@ -3230,3 +3230,100 @@ div.dataTables_editor{
     border-image: initial;
     padding: 4px;   border-radius: 4px;
 }
+
+/*待办事项*/
+
+
+.project-grid-panel{
+    margin: 15px;
+    padding: 15px;
+}
+
+.projects-panel-header {
+    font-size: 16px;
+    color: #8a959e;
+    padding-bottom: 10px;
+    border-bottom: 1px #e9ecf5 solid;
+    margin-bottom: 10px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+.projects-panel .projects-panel-header i {
+    margin-right: 5px
+}
+.project-grid {
+    padding-left: 0;
+    margin-bottom: 30px;
+}
+.project-grid .project-item {
+    width: 212px;
+    float: left;
+    position: relative;
+    margin: 15px 0 15px 15px;
+}
+.project-grid .project-item a.star.star-started {
+    visibility: visible;
+}
+.project-grid .project-item a.star {
+    color: #d3d3d3;
+    font-size: 18px;
+    visibility: hidden;
+    left: 5px;
+    top: 5px;
+    z-index: 1;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    display: block;
+    text-align: center;
+    line-height: 30px;
+}
+.project-grid .project-item a.star.star-started {
+    color: #ffd860;
+}
+.project-grid .project-item a.center {
+    display: block;
+    text-align: center;
+    border: solid 1px #e9ecf5;
+    background: #fff;
+    padding-top: 35px;
+    height: 132px;
+}
+.project-grid .project-item a.center h4 {
+    margin-top: 15px;
+    margin-bottom: 35px;
+    color: #333;
+    padding-left: 5px;
+    font-weight: 500;
+    padding-right: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.project-grid .project-item a.members {
+    color: #d3d3d3;
+    font-size: 14px;
+    visibility: visible;
+    right: 5px;
+    top: 5px;
+    z-index: 1;
+    height: 30px;
+    position: absolute;
+    display: block;
+    text-align: center;
+    line-height: 30px;
+}
+/*::selection {
+    color: #ddd;
+    background: rgba(216,76,49,.8);
+}*/
+
+.project-grid .project-item a.center:hover {
+    background: #f8f6f2;
+}
+.project-grid .project-item a.center:hover h4 {
+    color: #da4f4a;
+}
+.project-grid .project-item a.center i {
+    font-size: 32px;
+    text-shadow: 0 2px 0 #fff, 0 -2px 0 #f2f2ea;
+}

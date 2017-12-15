@@ -1,0 +1,189 @@
+<!--主要内容-->
+<div id="content">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="['待办事项', '项目']" icon="inbox" class="col-xs-12 col-sm-9 col-md-9 col-lg-9"></sa-big-breadcrumbs>
+  </div>
+
+  <sa-widgets-grid>
+    <div class="row">
+
+      <article class="col-sm-12 ">
+
+        <sa-widget [editbutton]="false" [deletebutton]="false" >
+          <header>
+            <span class="widget-icon"> <i class="fa fa-inbox"></i> </span>
+            <h2>项目</h2>
+          </header>
+
+          <div>
+            <!--小部件内容-->
+            <div class="widget-body no-padding">
+
+              <div class="project-grid-panel">
+                <div class="form-group ">
+                  <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal">
+                    <span class="glyphicon glyphicon-plus"></span>新建项目</a>
+                </div>
+                <div class="projects-panel-header ng-binding ng-hide">
+                  <i class="fa fa-star"></i>
+                  常用项目
+                  <span class="color-text-act-red ml-5 mr-5 ng-binding">0</span>
+                </div>
+                <div class="ng-scope">
+                  <div class="projects-panel-header">
+                    <span  class="ng-binding ng-scope">
+                      <i class="fa fa-user padding-left-5"></i>&nbsp;&nbsp;个人项目
+                    </span>
+                    <span class="txt-color-red padding-left-10" >
+                      2
+                    </span>
+                  </div>
+                  <div class="project-grid ui-sortable" >
+                    <div class="project-item ng-scope ui-sortable-handle ng-isolate-scope"  project="project" icon="star" team="team" type="team">
+                      <a href="javascript:;"  class="js-popbox ng-scope star"  >
+                        <i class="fa fa-star-o" ></i> </a>
+                      <a class="center team-link" >
+                        <i  class="fa-fw fa fa-inbox" style="color: rgb(115, 158, 115);"></i>
+                        <h4 class="ng-binding">梵蒂冈大概</h4></a>
+                      <a href="javascript:;" class="members">
+                        <i class="fa fa-user"></i>
+                        <span class="ng-binding">1</span>
+                      </a>
+                    </div>
+                    <div class="project-item ng-scope ui-sortable-handle ng-isolate-scope"  type="team">
+                    <a href=""  class="js-popbox ng-scope star" >
+                      <i class="fa fa-star-o" ></i>
+                    </a>
+                      <a class="center team-link" >
+                        <i class="fa-fw fa fa-inbox" style="color: rgb(115, 158, 115);"></i>
+                        <h4 class="ng-binding">发给</h4>
+                      </a>
+                      <a href="" class="members">
+                        <i class="fa fa-user"></i>
+                        <span class="ng-binding">1</span>
+                      </a>
+                    </div>
+                    <div class="project-item projects-empty ng-hide ui-sortable-handle" >
+                      <a class="center" href="" >
+                        <i class="fa-fw fa fa-inbox" style="color: rgb(115, 158, 115);"></i>
+                        <h4 class="ng-binding">还没有参与任何项目</h4>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <!--<div  class="ng-scope">
+                  <div class="projects-panel-header">
+                    <a href="/teams/b76a30f2534647ea9573c64464f1fd01" class="ng-binding ng-scope">
+                      <i class="fa fa-sitemap"></i>&nbsp;&nbsp;四川省矿业有限公司 </a>
+                    <span  class="color-text-act-red ml-5 ng-binding ng-scope">1</span>
+                    </div>
+                  <div class="project-grid ui-sortable" >
+                    <div class="project-item ng-scope ui-sortable-handle ng-isolate-scope"  type="team">
+                     <a href="javascript:;"  class="js-popbox ng-scope star" >
+                       <i class="fa fa-star-o" ></i>
+                     </a>
+                      <a class="center team-link" href="/project/8efb840fe1a445f88f788f4cc24775a4">
+                        <i  class="icon-desktop" style="color: rgb(56, 168, 170);"></i>
+                        <h4 class="ng-binding">熟悉Worktile</h4>
+                      </a>
+                      <a href="javascript:;" class="members">
+                        <i class="fa fa-user"></i>
+                        <span  class="ng-binding">34</span></a>
+                    </div>
+                    <div class="project-item projects-empty ng-hide ui-sortable-handle" >
+                      <a class="center" href="javascript:;" >
+                        <i class="fa fa-inbox"></i>
+                        <h4 class="ng-binding">还没有参与任何项目</h4>
+                      </a>
+                    </div>
+                  </div>
+                </div>-->
+                <!--<div class="empty-panel ng-hide" >
+                  <i class="fa fa-inbox"></i>
+                  <br>
+                  <span class="ng-binding">还没有参与任何项目</span>
+                </div>-->
+
+              </div>
+
+
+            </div>
+
+          </div>
+        </sa-widget>
+
+      </article>
+
+    </div>
+
+
+
+
+  </sa-widgets-grid>
+
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <!-- 关闭按钮 -->
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            ×
+          </button>
+          <!-- 标题 -->
+          <h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>新建项目</h3>
+        </div>
+        <div class="modal-body">
+          <form   class="smart-form ">
+            <fieldset>
+              <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <section>
+                  <label class="label">项目所属：</label>
+                  <label class="select">
+                    <select class="input-sm">
+                      <option value="" disabled="disabled" style="color:#ccc;">请选择所有者：</option>
+                      <option value="" >个人项目</option>
+                      <option value="" >四川省矿业有限公司</option>
+                    </select> <i></i> </label>
+                </section>
+              </div>
+
+              <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <section>
+                  <label class="label">项目信息：</label>
+                  <label class="input">
+                    <input type="text" placeholder="请输入项目名称" >
+                  </label>
+                </section>
+              </div>
+              <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <section>
+                  <label class="textarea textarea-resizable">
+                    <textarea class="custom-scroll" rows="2" name="" placeholder="项目描述（可选"></textarea>
+                  </label>
+                </section>
+              </div>
+              <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <section>
+                  <label class="label">项目公开性：</label>
+                  <label class="select">
+                    <select class="input-sm">
+                      <option value="" disabled="disabled" style="color:#ccc;">请选择公开性：</option>
+                      <option value="" >私有项目（只有加入项目的成员才能看到该项目内容）</option>
+                      <option value="" >公开项目（所有注册用户都可以访问该项目内容）</option>
+                    </select> <i></i> </label>
+                </section>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-ng-click="ok()">确定</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+  </div>
+
+
+</div>

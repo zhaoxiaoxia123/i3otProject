@@ -43,6 +43,11 @@ export const routes: Routes = [
         path: 'inventory1/:storehouse_id',
         loadChildren: 'app/+forms/add-inventory1/add-inventory1.module#AddInventory1Module',
         data: {pageTitle: 'Inventory1'}
+    },
+    {
+        path: 'todo-projects',
+        loadChildren: 'app/+forms/todo-projects/todo-projects.module#TodoProjectsModule',
+        data: {pageTitle: 'TodoProjects'}
     }
 /*    {
         path: 'inventory1',
