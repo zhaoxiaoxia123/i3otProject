@@ -342,7 +342,9 @@ div.dataTables_paginate ul.pagination {
 .txt-color-greenDark {
     color: #496949!important
 }
-
+.txt-color-greenNormal{
+    color: #5b835b!important
+}
 .txt-color-red {
     color: #F44336!important
 }
@@ -350,7 +352,9 @@ div.dataTables_paginate ul.pagination {
 .txt-color-yellow {
     color: #b09b5b!important
 }
-
+.txt-color-yellowMing{
+    color: #ffd860!important
+}
 .txt-color-orange {
     color: #b19a6b!important
 }
@@ -1009,6 +1013,12 @@ time.icon span {
     -webkit-line-clamp: 2;
     height: 30px;
     overflow: hidden;
+}
+.table>tbody>tr>td>span{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    max-height: 52px;
+    overflow-y: auto;
 }
 
 

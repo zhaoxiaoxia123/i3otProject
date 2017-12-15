@@ -6,6 +6,7 @@ import { TodoProjectsComponent } from './todo-projects.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {SmartadminModule} from "../../shared/smartadmin.module";
 import {SmartadminEditorsModule} from "../../shared/forms/editors/smartadmin-editors.module";
+import { TodoMissionComponent } from './todo-mission/todo-mission.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import {SmartadminEditorsModule} from "../../shared/forms/editors/smartadmin-edi
       SmartadminEditorsModule,
     TodoProjectsRoutingModule
   ],
-  declarations: [TodoProjectsComponent]
+  declarations: [TodoProjectsComponent, TodoMissionComponent]
 })
 export class TodoProjectsModule { }

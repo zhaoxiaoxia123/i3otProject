@@ -20,89 +20,110 @@
             <div class="widget-body no-padding">
 
               <div class="project-grid-panel">
+
                 <div class="form-group ">
                   <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal">
                     <span class="glyphicon glyphicon-plus"></span>新建项目</a>
                 </div>
-                <div class="projects-panel-header ng-binding ng-hide">
-                  <i class="fa fa-star"></i>
-                  常用项目
-                  <span class="color-text-act-red ml-5 mr-5 ng-binding">0</span>
+                <div class="row margin-bottom-10">
+                  <div class="projects-panel-header ">
+                    <i class="fa fa-star padding-left-5"></i>
+                    常用项目
+                    <span class="txt-color-red padding-left-10">0</span>
+                  </div>
+                  <div class="project-grid ">
+                    <div class="project-item ">
+                      <a class="star">
+                        <i class="fa fa-star txt-color-yellowMing"></i> </a>
+                      <a class="center ">
+                        <i class="fa-fw fa fa-inbox txt-color-greenNormal"></i>
+                        <h4 class="">梵蒂冈大概</h4></a>
+                      <a class="members">
+                        <i class="fa fa-user"></i>
+                        <span class="">1</span>
+                      </a>
+                    </div>
+
+
+                  </div>
+
                 </div>
-                <div class="ng-scope">
+
+                <div class="row margin-bottom-10">
                   <div class="projects-panel-header">
-                    <span  class="ng-binding ng-scope">
+                    <span>
                       <i class="fa fa-user padding-left-5"></i>&nbsp;&nbsp;个人项目
                     </span>
-                    <span class="txt-color-red padding-left-10" >
+                    <span class="txt-color-red padding-left-10">
                       2
                     </span>
                   </div>
-                  <div class="project-grid ui-sortable" >
-                    <div class="project-item ng-scope ui-sortable-handle ng-isolate-scope"  project="project" icon="star" team="team" type="team">
-                      <a href="javascript:;"  class="js-popbox ng-scope star"  >
-                        <i class="fa fa-star-o" ></i> </a>
-                      <a class="center team-link" >
-                        <i  class="fa-fw fa fa-inbox" style="color: rgb(115, 158, 115);"></i>
-                        <h4 class="ng-binding">梵蒂冈大概</h4></a>
-                      <a href="javascript:;" class="members">
+                  <div class="project-grid ">
+                    <div class="project-item ">
+
+                      <a class="center " data-toggle="modal" data-target="#myModal">
+                      <i class="fa-fw fa fa-inbox txt-color-greenNormal"></i>
+                      <h4 class="">还没有参与任何项目</h4></a>
+
+                    </div>
+                    <div class="project-item ">
+                      <a class="star">
+                        <i class="fa fa-star txt-color-yellowMing"></i> </a>
+                      <a class="center ">
+                        <i class="fa-fw fa fa-inbox txt-color-greenNormal"></i>
+                        <h4 class="">梵蒂冈大概</h4></a>
+                      <a class="members">
                         <i class="fa fa-user"></i>
-                        <span class="ng-binding">1</span>
+                        <span class="">1</span>
                       </a>
                     </div>
-                    <div class="project-item ng-scope ui-sortable-handle ng-isolate-scope"  type="team">
-                    <a href=""  class="js-popbox ng-scope star" >
-                      <i class="fa fa-star-o" ></i>
-                    </a>
-                      <a class="center team-link" >
-                        <i class="fa-fw fa fa-inbox" style="color: rgb(115, 158, 115);"></i>
-                        <h4 class="ng-binding">发给</h4>
-                      </a>
-                      <a href="" class="members">
+                    <div class="project-item ">
+                      <a class="star">
+                        <i class="fa fa-star-o"></i> </a>
+                      <a class="center ">
+                        <i class="fa-fw fa fa-inbox txt-color-greenNormal"></i>
+                        <h4 class="">梵蒂</h4></a>
+                      <a class="members">
                         <i class="fa fa-user"></i>
-                        <span class="ng-binding">1</span>
+                        <span class="">10</span>
                       </a>
                     </div>
-                    <div class="project-item projects-empty ng-hide ui-sortable-handle" >
-                      <a class="center" href="" >
-                        <i class="fa-fw fa fa-inbox" style="color: rgb(115, 158, 115);"></i>
-                        <h4 class="ng-binding">还没有参与任何项目</h4>
-                      </a>
-                    </div>
+
+
                   </div>
                 </div>
-                <!--<div  class="ng-scope">
+                <div class="row margin-bottom-10">
                   <div class="projects-panel-header">
-                    <a href="/teams/b76a30f2534647ea9573c64464f1fd01" class="ng-binding ng-scope">
-                      <i class="fa fa-sitemap"></i>&nbsp;&nbsp;四川省矿业有限公司 </a>
-                    <span  class="color-text-act-red ml-5 ng-binding ng-scope">1</span>
-                    </div>
-                  <div class="project-grid ui-sortable" >
-                    <div class="project-item ng-scope ui-sortable-handle ng-isolate-scope"  type="team">
-                     <a href="javascript:;"  class="js-popbox ng-scope star" >
-                       <i class="fa fa-star-o" ></i>
-                     </a>
-                      <a class="center team-link" href="/project/8efb840fe1a445f88f788f4cc24775a4">
-                        <i  class="icon-desktop" style="color: rgb(56, 168, 170);"></i>
-                        <h4 class="ng-binding">熟悉Worktile</h4>
-                      </a>
-                      <a href="javascript:;" class="members">
-                        <i class="fa fa-user"></i>
-                        <span  class="ng-binding">34</span></a>
-                    </div>
-                    <div class="project-item projects-empty ng-hide ui-sortable-handle" >
-                      <a class="center" href="javascript:;" >
-                        <i class="fa fa-inbox"></i>
-                        <h4 class="ng-binding">还没有参与任何项目</h4>
-                      </a>
-                    </div>
+                    <span>
+                      <i class="fa fa-sitemap padding-left-5"></i>&nbsp;&nbsp;公司项目
+                    </span>
+                    <span class="txt-color-red padding-left-10">
+                      1
+                    </span>
                   </div>
-                </div>-->
-                <!--<div class="empty-panel ng-hide" >
-                  <i class="fa fa-inbox"></i>
-                  <br>
-                  <span class="ng-binding">还没有参与任何项目</span>
-                </div>-->
+                  <div class="project-grid ">
+                    <div class="project-item ">
+
+                      <a class="center " data-toggle="modal" data-target="#myModal">
+                        <i class="fa-fw fa fa-inbox txt-color-greenNormal"></i>
+                        <h4 class="">还没有参与任何项目</h4></a>
+
+                    </div>
+                    <div class="project-item ">
+                      <a class="star">
+                        <i class="fa fa-star-o"></i> </a>
+                      <a class="center ">
+                        <i class="fa-fw fa fa-inbox txt-color-greenNormal"></i>
+                        <h4 class="">梵蒂</h4></a>
+                      <a class="members">
+                        <i class="fa fa-user"></i>
+                        <span class="">10</span>
+                      </a>
+                    </div>
+
+
+                  </div>
+                </div>
 
               </div>
 
@@ -172,6 +193,17 @@
                       <option value="" >私有项目（只有加入项目的成员才能看到该项目内容）</option>
                       <option value="" >公开项目（所有注册用户都可以访问该项目内容）</option>
                     </select> <i></i> </label>
+                </section>
+              </div>
+              <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                <section>
+                  <label class="label">选择模板</label>
+
+                  <div class="inline-group">
+                    <label class="checkbox state-disabled">
+                      <input type="checkbox" name="checkbox-inline"  >
+                      <i></i>通用模板</label>
+                  </div>
                 </section>
               </div>
             </fieldset>
