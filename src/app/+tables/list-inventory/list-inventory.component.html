@@ -5,7 +5,7 @@
   </div>
 
   <div class="box-header with-border" >
-    <a class="btn btn-success btn-sm"  routerLink="/forms/inventory1/0"><!-- (click)="lgModal.show()"-->
+    <a class="btn btn-success btn-sm"  (click)="isDemo('/forms/inventory1','0')"><!-- (click)="lgModal.show()"-->
       <span class="glyphicon glyphicon-plus"></span>添加仓库</a>
   </div>
 
@@ -119,7 +119,7 @@
                   </td>
                   <td>{{ sl.updated_at }}</td>
                   <!--(click)="editStorehouse(sl.storehouse_id)"   [routerLink]="['/forms/inventory1',sl.storehouse_id]" -->
-                  <td><a class="btn btn-warning btn-xs" [routerLink]="['/forms/inventory1',sl.storehouse_id]"><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                  <td><a class="btn btn-warning btn-xs" (click)="isDemo('/forms/inventory1',sl.storehouse_id)"><span class="glyphicon glyphicon-pencil"></span>修改</a>
                     <a class="btn btn-danger btn-xs" (click)="deleteStorehouse(sl.storehouse_id ,storehouseList.result?.current_page)"><span class="glyphicon glyphicon-remove"></span>删除</a>
                     <a class="btn btn-success btn-xs" (click)="getStorehouseInfo(sl.storehouse_id);lgModal.show();"><span class="glyphicon glyphicon-zoom-in"></span>详情</a>
                   </td>

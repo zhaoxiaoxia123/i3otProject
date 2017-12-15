@@ -4,7 +4,7 @@
                         class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
   </div>
   <div class="box-header with-border" >
-    <a class="btn btn-success btn-sm" routerLink="/forms/product1/0">
+    <a class="btn btn-success btn-sm" (click)="isDemo('/forms/product1','0')">
       <span class="glyphicon glyphicon-plus"></span>添加产品</a>
   </div>
 
@@ -108,7 +108,7 @@
                   <td>{{ pl.p_production_date }}</td>
                   <td>{{ pl.storehouse_name }}</td>
                   <td>
-                    <a class="btn btn-warning btn-xs" [routerLink]="['/forms/product1', pl.p_id]">
+                    <a class="btn btn-warning btn-xs" (click)="isDemo('/forms/product1',pl.p_id)">
                       <span class="glyphicon glyphicon-pencil"></span>修改
                     </a>
                     <a class="btn btn-danger btn-xs" (click)="deleteProduct( pl.p_id ,productList.result?.current_page)">

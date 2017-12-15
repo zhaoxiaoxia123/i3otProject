@@ -113,20 +113,26 @@ export class ListInventoryComponent implements OnInit {
    * 分页
    * @param url
    */
-  pagination(url : string) {
-    // console.log('url:'+url);
-    if(url) {
-      this.page = url.substring((url.lastIndexOf('=') + 1), url.length);
-      // console.log(this.page);
+  // pagination(url : string) {
+  //   // console.log('url:'+url);
+  //   if(url) {
+  //     this.page = url.substring((url.lastIndexOf('=') + 1), url.length);
+  //     // console.log(this.page);
+  //     this.getStorehouseList(this.page);
+  //   }
+  // }
+  pagination(page : string) {
+      this.page = page;
       this.getStorehouseList(this.page);
-    }
   }
-
   /**
    * 删除信息
    * @param cid
    */
   deleteStorehouse(storehouse_id:any,current_page:any){
+    if(this.globalService.demoAlert('','')){
+      return false;
+    }
     let url = this.globalService.getDomain()+'/api/v1/deleteStorehouseById?storehouse_id=' + storehouse_id + '&page=' + current_page+'&type=id&sid='+this.cookiestore.getCookie('sid');
     if(this.formModel.value['keyword'].trim() != ''){
       url += '&keyword='+this.formModel.value['keyword'].trim();
@@ -158,6 +164,9 @@ export class ListInventoryComponent implements OnInit {
   }
 
   deleteStorehouseAll(current_page:any){
+    if(this.globalService.demoAlert('','')){
+      return false;
+    }
     if(confirm('删除后将不可恢复，您确定要删除吗？')) {
       let ids : string = '';
       this.selects.forEach((val, idx, array) => {
@@ -234,4 +243,12 @@ export class ListInventoryComponent implements OnInit {
     },300);
   }
 
+  /**
+   * 演示账号输出
+   * @param url
+   * @param param
+   */
+  isDemo(url:string,param:any){
+    this.globalService.demoAlert(url,param);
+  }
 }

@@ -237,7 +237,6 @@ export class StationChartComponent implements OnInit {
                 }
                 // console.log('this.lastList1');
                 // console.log(this.lastList1);
-
                 if (this.lastList1 == []) {
                     result[i] = [];
                 } else {

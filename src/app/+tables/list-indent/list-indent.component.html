@@ -4,7 +4,7 @@
                         class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
   </div>
   <div class="box-header with-border" >
-    <a class="btn btn-success btn-sm" routerLink="/forms/indent1/0">
+    <a class="btn btn-success btn-sm" (click)="isDemo('/forms/indent1','0')">
       <span class="glyphicon glyphicon-plus"></span>添加订单</a>
   </div>
 
@@ -121,7 +121,7 @@
                 <span *ngSwitchDefault>未知</span>
               </span>
                   </td>
-                  <td><a class="btn btn-warning btn-xs" [routerLink]="['/forms/indent1',ol.o_id]"><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                  <td><a class="btn btn-warning btn-xs" (click)="isDemo('/forms/indent1',ol.o_id)"><span class="glyphicon glyphicon-pencil"></span>修改</a>
                     <a class="btn btn-danger btn-xs" (click)="deleteOrder(ol.o_id ,orderList.result?.current_page)"><span class="glyphicon glyphicon-remove"></span>删除</a>
                     <a class="btn btn-success btn-xs" (click)="getOrderInfo(ol.o_id);lgModal.show();"><span class="glyphicon glyphicon-zoom-in"></span>详情</a>
                   </td>

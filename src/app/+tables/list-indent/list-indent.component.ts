@@ -114,18 +114,24 @@ export class ListIndentComponent implements OnInit {
    * 分页
    * @param url
    */
-  pagination(url : string) {
-    if(url) {
-      this.page = url.substring((url.lastIndexOf('=') + 1), url.length);
+  // pagination(url : string) {
+  //   if(url) {
+  //     this.page = url.substring((url.lastIndexOf('=') + 1), url.length);
+  //     this.getOrderList(this.page);
+  //   }
+  // }
+  pagination(page : string) {
+    this.page = page;
       this.getOrderList(this.page);
-    }
   }
-
   /**
    * 删除订单信息
    * @param cid
    */
   deleteOrder(oid:any,current_page:any){
+    if(this.globalService.demoAlert('','')){
+      return false;
+    }
     if(confirm('您确定要删除该条信息吗？')) {
       let url = this.globalService.getDomain()+'/api/v1/deleteOrderById?o_id=' + oid + '&type=id&page=' + current_page+'&sid='+this.cookiestore.getCookie('sid');
       if(this.formModel.value['keyword'].trim() != ''){
@@ -164,6 +170,9 @@ export class ListIndentComponent implements OnInit {
    * @param current_page
    */
   deleteOrderAll(current_page:any){
+    if(this.globalService.demoAlert('','')){
+      return false;
+    }
     if(confirm('删除后将不可恢复，您确定要删除吗？')) {
       let ids : string = '';
       this.selects.forEach((val, idx, array) => {
@@ -241,5 +250,12 @@ export class ListIndentComponent implements OnInit {
     public hideChildModal(): void {
         this.lgModal.hide();
     }
-
+  /**
+   * 演示账号输出
+   * @param url
+   * @param param
+   */
+  isDemo(url:string,param:any){
+    this.globalService.demoAlert(url,param);
+  }
 }

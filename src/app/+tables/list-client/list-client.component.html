@@ -37,7 +37,7 @@
                           </select>
                         </div>-->
                         <div class="form-group ">
-                          <a class="btn btn-success btn-sm" routerLink="/forms/customer/0">
+                          <a class="btn btn-success btn-sm" (click)="isDemo('/forms/customer','0')">
                             <span class="glyphicon glyphicon-plus"></span>添加客户</a>
                         </div>
                         <div class="form-group padding-left-10">
@@ -106,7 +106,7 @@
 
                 <tr style="display: none;">
                   <td></td><td></td><td></td><td></td>
-                  <td></td><td></td><!--<td></td><td></td>
+                  <td></td><td></td><td></td><!--<td></td>
                   <td></td>-->
                   <!--<td></td>-->
                   <!--<td></td><td></td>-->
@@ -125,11 +125,12 @@
                   <td>{{ cl.c_contacts }}</td>
                   <!--<td>{{ cl.c_phone }}</td>
                   <td>{{ cl.c_email }}</td>-->
-                  <td>所在地所在地所在地所在地所在地</td>
+                  <td>{{ cl.c_address}}</td>
                   <td>{{ cl.c_products }}</td>
                   <!--<td>{{ cl.c_address }}</td>-->
                   <!--<td>{{ cl.updated_at }}</td>-->
-                  <td><a class="btn btn-warning btn-xs" [routerLink]="['/forms/customer',cl.c_id]"><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                  <!-- [routerLink]="['/forms/customer',cl.c_id]"-->
+                  <td><a class="btn btn-warning btn-xs" (click)="isDemo('/forms/customer',cl.c_id)"><span class="glyphicon glyphicon-pencil"></span>修改</a>
                     <a class="btn btn-danger btn-xs" (click)="deleteCustomer(cl.c_id ,customerList.result?.current_page)"><span class="glyphicon glyphicon-remove"></span>删除</a>
                     <a class="btn btn-success btn-xs"  (click)="getCustomerInfo(cl.c_id);lgModal.show();" ><span class="glyphicon glyphicon-zoom-in"></span>详情</a>
                   </td>

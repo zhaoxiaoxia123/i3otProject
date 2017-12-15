@@ -33,6 +33,7 @@ export class ListClientComponent implements OnInit {
     this.getCustomerList('1');
     window.scrollTo(0,0);
 
+
   }
 
   ngOnInit() {
@@ -147,6 +148,9 @@ export class ListClientComponent implements OnInit {
    * @param cid
    */
   deleteCustomer(cid:any,current_page:any){
+    if(this.globalService.demoAlert('','')){
+      return false;
+    }
     if(confirm('您确定要删除该条信息吗？')) {
       this.http.delete(this.globalService.getDomain()+'/api/v1/deleteCustomerById?c_id=' + cid + '&role=1&page=' + current_page+'&sid='+this.cookiestore.getCookie('sid'))
           .map((res) => res.json())
@@ -182,6 +186,9 @@ export class ListClientComponent implements OnInit {
    * @param current_page
    */
   deleteCustomerAll(current_page:any){
+    if(this.globalService.demoAlert('','')){
+      return false;
+    }
     if(confirm('删除后将不可恢复，您确定要删除吗？')) {
       let ids : string = '';
       this.selects.forEach((val, idx, array) => {
@@ -231,5 +238,12 @@ export class ListClientComponent implements OnInit {
         });
   }
 
-
+  /**
+   * 演示账号输出
+   * @param url
+   * @param param
+   */
+  isDemo(url:string,param:any){
+    this.globalService.demoAlert(url,param);
+  }
 }
