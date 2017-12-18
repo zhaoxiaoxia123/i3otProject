@@ -28,7 +28,6 @@ export class EquipmentListComponent implements OnInit {
       private cookiestore:CookieStoreService,
       private globalService:GlobalService
   ) {
-
     this.formModel = fb.group({
       keyword:[''],
     });

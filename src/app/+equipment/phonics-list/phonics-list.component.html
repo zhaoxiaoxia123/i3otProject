@@ -4,6 +4,10 @@
                         class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
   </div>
 
+  <div class="form-group">
+    <a class="btn btn-success btn-sm" (click)="isDemo('/equipment/phonics','0')">
+      <span class="glyphicon glyphicon-plus"></span>添加广播信息列表</a>
+  </div>
   <sa-widgets-grid>
     <div class="row">
       <article class="col-sm-12 ">
@@ -13,7 +17,6 @@
             <h2>广播信息列表 </h2>
           </header>
           <div>
-
             <div class="widget-body no-padding">
               <div class="row">
                 <article class="col-sm-12">
@@ -21,58 +24,16 @@
 
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-                      <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                          <a class="btn btn-success btn-sm" routerLink="/equipment/phonics">
-                            <span class="glyphicon glyphicon-plus"></span>添加广播信息列表</a>
-                        </div>
-
-                        <!--筛选-->
-                        <!--<div class="form-group">
-                          <select class="form-control">
-                            <option value =""></option>
-                            <option value =""></option>
-                            <option value=""></option>
-                            <option value=""></option>
-                          </select>
-                        </div>-->
-
+                      <form class="navbar-form navbar-left" role="search"  [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate >
                         <div class="form-group padding-left-10">
-                          <input type="text" name="keyword" maxlength="15"  class="form-control" placeholder="请输入搜索内容">
+                          <input type="text" name="keyword" maxlength="15" formControlName="keyword" class="form-control" placeholder="请输入搜索内容">
                         </div>
-
                         <button type="submit" class="btn btn-default">
                           <i class="glyphicon glyphicon-search"></i>
                           搜索
                         </button>
                       </form>
-                      <!--<ul class="nav navbar-nav navbar-right">
-                        <li dropdown class="dropdown">
-                          <a (click)="(null)" dropdownToggle>自定义显示内容 <span class="caret"></span></a>
-                          <ul *dropdownMenu  role="menu" class="dt-button-collection dropdown-menu" >
-                            <li class="dt-button  active"  >
-                              <a (click)="(null)">ID</a>
-                            </li>
-                            <li class="dt-button  active " >
-                              <a (click)="(null)" >订单号/合同号</a>
-                            </li>
-                            <li class="dt-button active " tabindex="0" >
-                              <a (click)="(null)">类型</a>
-                            </li>
-                            <li class="dt-button active " tabindex="0" >
-                              <a (click)="(null)">规格/参数</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li class="dt-button  ">
-                              <a (click)="(null)">购买公司</a>
-                            </li>
-                          </ul>
-                        </li>
-                      </ul>-->
-
                     </div>
-
-
                   </div>
                 </article>
               </div>
@@ -82,7 +43,7 @@
                 <tr>
                   <td>
                     <label class="checkbox">
-                      <input type="checkbox" name="" >
+                      <input type="checkbox" [checked]="check" (change)="changeCheckAll($event)">
                       <i></i>
                     </label>
                   </td>
@@ -95,23 +56,30 @@
                 </tr>
                 </thead>
                 <tbody>
-
-                <tr >
+                <tr style="display: none;">
+                  <td></td><td></td><td></td><td></td>
+                  <td></td><td></td><td></td>
+                </tr>
+                <tr *ngFor="let bl of broadcastList.result?.data">
                   <td>
                     <label class="checkbox">
-                      <input type="checkbox">
+                      <input type="checkbox" value="{{ bl.b_id }}" [checked]="selects[bl.b_id]" (change)="handle($event)">
                       <i></i>
                     </label>
                   </td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td>
+                  <td>{{ bl.i3otp_pid }}</td>
+                  <td [ngSwitch]="bl.b_category">
+                    <span *ngSwitchCase="1">文字</span>
+                    <span *ngSwitchCase="2">语音</span>
+                    <span *ngSwitchCase="3">文字，语言</span>
+                    <span *ngSwitchDefault>未知</span>
                   </td>
-                  <td></td>
-                  <td><a class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                    <a class="btn btn-danger btn-xs" ><span class="glyphicon glyphicon-remove"></span>删除</a>
-                    <a class="btn btn-success btn-xs"  data-toggle="modal" data-target="#myModal" ><span class="glyphicon glyphicon-zoom-in"></span>详情</a>
+                  <td>{{ bl.b_info }}</td>
+                  <td>{{ bl.b_led }}</td>
+                  <td>{{ bl.b_buzzer }}</td>
+                  <td><a class="btn btn-warning btn-xs" (click)="isDemo('/equipment/phonics',bl.b_id)"><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                    <a class="btn btn-danger btn-xs" (click)="deleteBroadcast(bl.b_id ,broadcastList.result?.current_page)"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                    <a class="btn btn-success btn-xs" (click)="getBroadcastInfo(bl.b_id);lgModal.show();" ><span class="glyphicon glyphicon-zoom-in"></span>详情</a><!--data-toggle="modal" data-target="#myModal" -->
                   </td>
                 </tr>
                 </tbody>
@@ -120,7 +88,7 @@
               <!-- 底部-（分页部分）-->
               <div class="dt-toolbar">
                 <div class="col-xs-12 col-sm-6">
-                  <button  class="btn btn-default" >
+                  <button  class="btn btn-default" (click)="deleteBroadcastAll(broadcastList.result?.current_page)">
                     <i class="fa fa-trash-o fa-lg"></i>
                     删除所选
                   </button>
@@ -128,19 +96,11 @@
                 <div class="col-sm-6 col-xs-12 hidden-xs text-right">
                   <div class="dataTables_paginate">
                     <ul class="pagination pagination-sm">
-                      <li *ngFor="let p of storehouseList?.page" class="{{p.class}}">
+                      <li *ngFor="let p of broadcastList?.page" class="{{p.class}}">
                         <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
                         <a *ngIf="p.method==''">{{p.text}}</a>
                       </li>
                     </ul>
-                    <!--<ul class="pagination">-->
-                    <!--<li>-->
-                    <!--<a (click)="pagination(storehouseList.result?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                    <!--<a (click)="pagination(storehouseList.result?.next_page_url)"><i class="fa fa-arrow-right"></i></a>-->
-                    <!--</li>-->
-                    <!--</ul>-->
                   </div>
                 </div>
               </div>
@@ -152,12 +112,12 @@
   </sa-widgets-grid>
 
 
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div  bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <!-- 关闭按钮 -->
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          <button type="button" class="close"  (click)="lgModal.hide()">
             ×
           </button>
           <!-- 标题 -->
@@ -172,21 +132,26 @@
                   <tbody>
                   <tr>
                     <td class="width-120">设备ID:</td>
-                    <td></td>
+                    <td>{{broadcastInfo.result?.i3otp_pid}}</td>
                   </tr>
                   <tr><td class="width-120">警报类型:</td>
-                    <td ></td>
+                    <td [ngSwitch]="broadcastInfo.result?.b_category">
+                      <span *ngSwitchCase="1">文字</span>
+                      <span *ngSwitchCase="2">语音</span>
+                      <span *ngSwitchCase="3">文字,语音</span>
+                      <span *ngSwitchDefault>未知</span>
+                    </td>
                   </tr>
                   <tr>
                     <td class="width-120">文字输入:</td>
-                    <td ></td>
+                    <td >{{broadcastInfo.result?.b_info}}</td>
                   </tr>
                   <tr><td class="width-120">闪烁：</td>
-                    <td ></td>
+                    <td >{{broadcastInfo.result?.b_led}}</td>
                   </tr>
                   <tr>
                     <td class="width-120">闪烁：</td>
-                    <td ></td>
+                    <td >{{broadcastInfo.result?.b_buzzer}}</td>
                   </tr>
                   </tbody>
                 </table>
@@ -195,12 +160,10 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+          <button type="button" class="btn btn-default"  (click)="lgModal.hide()">返回</button>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal -->
   </div>
-
-
 </div>
 

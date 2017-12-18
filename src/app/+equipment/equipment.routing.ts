@@ -58,7 +58,7 @@ export const routes:Routes = [
         canDeactivate:[UnsavedGuard]  //路由守卫
     },
     {
-        path: 'phonics',
+        path: 'phonics/:b_id',
         component: AddPhonicsComponent
     },
     {
