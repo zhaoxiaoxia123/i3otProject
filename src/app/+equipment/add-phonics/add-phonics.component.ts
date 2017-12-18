@@ -26,7 +26,7 @@ export class AddPhonicsComponent implements OnInit {
 
   join_i3otp_category : Array<any> = [];
   //用以显示的
-  show_i3otp_category : Array<any> = [];//传感器类型
+  // show_i3otp_category : Array<any> = [];//传感器类型
   //复选框
   color_i3otp_id : number = 0;
   div_show_i3otp : boolean = true;//传感器点击显示下拉框
@@ -83,26 +83,20 @@ export class AddPhonicsComponent implements OnInit {
       //显示的值
       this.u_id_default = this.broadcastInfo['result']['u_id'];
       this.c_id_default = this.broadcastInfo['result']['c_id'];
-      this.show_i3otp_category =  this.broadcastInfo['result']['i3otp_pid'];//传感器类型
+      this.join_i3otp_category =  this.broadcastInfo['result']['i3otp_pids'];//传感器类型
 
-      console.log("this.broadcastInfo['result']['b_category']:----");
-      console.log(this.broadcastInfo['result']['b_category']);
-      for (let i3otpa of this.broadcastInfo['result']['b_category']) {
-        for (let key of this.getKeys(i3otpa)) {
-          this.selects[key] = i3otpa[key];
-        }
+      for (let i3otpa of this.broadcastInfo['result']['type']) {
+        this.selects[i3otpa] = true;
       }
 
       if(this.c_id_default != 0){
         this.getTheUserList(this.c_id_default,2);
       }
+      console.log('this.selects:====');
       console.log(this.selects);
     }, 500);
   }
 
-  getKeys(item){
-    return Object.keys(item);
-  }
   /**
    * 获取添加语音播报的默认参数
    */
