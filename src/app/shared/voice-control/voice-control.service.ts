@@ -3,7 +3,7 @@ import {
   ApplicationRef
 } from '@angular/core';
 
-import {config} from '../smartadmin.config';
+import {config} from '../i3otp.config';
 import {CommandsHelpComponent} from "./commands-help.component";
 import {SoundService} from "../sound/sound.service";
 import {SpeechRecognition} from "./speech-recognition.api";

@@ -16,4 +16,4 @@ import {BootstrapValidatorDirective} from "./bootstrap-validator.directive";
     BootstrapValidatorDirective
   ]
 })
-export class SmartadminValidationModule { }
+export class I3otpValidationModule { }

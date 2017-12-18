@@ -12,7 +12,7 @@ import {
 
 import {PopoverModule} from "ngx-popover";
 
-import {SmartadminLayoutModule} from './layout'
+import {I3otpLayoutModule} from './layout'
 
 import {UserService} from './user'
 
@@ -21,13 +21,13 @@ import {I18nModule} from "./i18n/i18n.module";
 import {UserModule} from "./user/user.module";
 import {VoiceControlModule} from "./voice-control/voice-control.module";
 
-import {SmartadminWidgetsModule} from "./widgets/smartadmin-widgets.module";
+import {I3otpWidgetsModule} from "./widgets/i3otp-widgets.module";
 
 import {UtilsModule} from "./utils/utils.module";
 import {ChatModule} from "./chat/chat.module";
 import {StatsModule} from "./stats/stats.module";
 import {InlineGraphsModule} from "./graphs/inline/inline-graphs.module";
-import {SmartadminFormsLiteModule} from "./forms/smartadmin-forms-lite.module";
+import {I3otpFormsLiteModule} from "./forms/i3otp-forms-lite.module";
 import {SmartProgressbarModule} from "./ui/smart-progressbar/smart-progressbar.module";
 
 
@@ -50,20 +50,20 @@ import {SmartProgressbarModule} from "./ui/smart-progressbar/smart-progressbar.m
     ProgressbarModule,
     PopoverModule,
 
-    SmartadminLayoutModule,
+    I3otpLayoutModule,
 
     I18nModule,
 
     UtilsModule,
 
 
-    SmartadminFormsLiteModule,
+    I3otpFormsLiteModule,
 
     SmartProgressbarModule,
 
     InlineGraphsModule,
 
-    SmartadminWidgetsModule,
+    I3otpWidgetsModule,
 
     ChatModule,
 
@@ -73,4 +73,4 @@ import {SmartProgressbarModule} from "./ui/smart-progressbar/smart-progressbar.m
 
   ]
 })
-export class SmartadminModule {}
+export class I3otpModule {}

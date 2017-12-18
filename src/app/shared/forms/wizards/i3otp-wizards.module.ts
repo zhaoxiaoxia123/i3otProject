@@ -9,4 +9,4 @@ import {FuelUxWizardComponent} from "./fuel-ux-wizard.component";
   declarations: [FuelUxWizardComponent],
   exports: [FuelUxWizardComponent]
 })
-export class SmartadminWizardsModule { }
+export class I3otpWizardsModule { }

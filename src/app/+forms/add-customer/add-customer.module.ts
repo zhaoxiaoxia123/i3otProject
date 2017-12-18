@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 
 
 import { AddCustomerComponent } from './add-customer.component';
-import {SmartadminModule} from '../../shared/smartadmin.module';
+import {I3otpModule} from '../../shared/i3otp.module';
 import {addCustomerRouting} from './add-customer-routing.module';
-import {SmartadminEditorsModule} from '../../shared/forms/editors/smartadmin-editors.module';
+import {I3otpEditorsModule} from '../../shared/forms/editors/i3otp-editors.module';
 import {ReactiveFormsModule} from '@angular/forms';
 import {CookieService} from 'angular2-cookie/core';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
@@ -14,8 +14,8 @@ import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    SmartadminModule,
-    SmartadminEditorsModule,
+    I3otpModule,
+    I3otpEditorsModule,
     addCustomerRouting
   ],
   declarations: [AddCustomerComponent],

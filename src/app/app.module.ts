@@ -16,7 +16,7 @@ import { AppState, InternalStateType } from './app.service';
 
 // Core providers
 import {CoreModule} from "./core/core.module";
-import {SmartadminLayoutModule} from "./shared/layout/layout.module";
+import {I3otpLayoutModule} from "./shared/layout/layout.module";
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {GlobalService} from './core/global.service';
 import { AngularEchartsModule } from 'ngx-echarts';
@@ -49,7 +49,7 @@ type StoreType = {
     HttpModule,
 
     CoreModule,
-    SmartadminLayoutModule,
+    I3otpLayoutModule,
     AngularEchartsModule,
     routing,
 

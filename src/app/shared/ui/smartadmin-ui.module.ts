@@ -10,4 +10,4 @@ import {NestableListModule} from "./nestable-list/nestable-list.module";
 
   exports: [SmartProgressbarModule, JqueryUiModule, NestableListModule, TreeViewModule],
 })
-export class SmartadminUiModule{}
+export class I3otpUiModule{}

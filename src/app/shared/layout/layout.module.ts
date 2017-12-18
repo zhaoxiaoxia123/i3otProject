@@ -50,6 +50,6 @@ import {UtilsModule} from "../utils/utils.module";
     LayoutSwitcherComponent,
   ]
 })
-export class SmartadminLayoutModule{
+export class I3otpLayoutModule{
 
 }

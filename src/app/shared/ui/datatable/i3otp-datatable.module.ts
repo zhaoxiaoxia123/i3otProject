@@ -11,4 +11,4 @@ import { DatatableComponent } from './datatable.component';
   declarations: [DatatableComponent],
   exports: [DatatableComponent],
 })
-export class SmartadminDatatableModule { }
+export class I3otpDatatableModule { }

@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 
 import {LayoutService} from '../../layout/layout.service';
-import {config} from '../../smartadmin.config';
+import {config} from '../../i3otp.config';
 
 //noinspection TypeScriptUnresolvedFunction
 const $script = require('scriptjs');

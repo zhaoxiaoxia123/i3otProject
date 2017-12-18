@@ -8,4 +8,4 @@ import {CommonModule} from "@angular/common";
   declarations: [WidgetComponent, WidgetsGridComponent],
   exports: [WidgetComponent, WidgetsGridComponent]
 })
-export class SmartadminWidgetsModule{}
+export class I3otpWidgetsModule{}

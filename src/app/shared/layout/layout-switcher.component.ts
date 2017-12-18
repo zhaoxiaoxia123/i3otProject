@@ -1,6 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 
-import {config} from '../smartadmin.config';
+import {config} from '../i3otp.config';
 
 import {LayoutService} from './layout.service'
 import {Subscription} from "rxjs/Rx";

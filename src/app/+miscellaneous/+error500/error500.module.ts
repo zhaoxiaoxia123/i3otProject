@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Error500RoutingModule } from './error500-routing.module';
 import { Error500Component } from './error500.component';
-import {SmartadminLayoutModule} from "../../shared/layout/layout.module";
+import {I3otpLayoutModule} from "../../shared/layout/layout.module";
 import {StatsModule} from "../../shared/stats/stats.module";
 
 @NgModule({
@@ -11,7 +11,7 @@ import {StatsModule} from "../../shared/stats/stats.module";
     Error500RoutingModule,
 
 
-    SmartadminLayoutModule,
+    I3otpLayoutModule,
 		StatsModule,
 
   ],
