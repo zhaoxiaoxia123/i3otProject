@@ -9,8 +9,7 @@ import {stringify} from "querystring";
 
 @Component({
   selector: 'app-add-phonics',
-  templateUrl: './add-phonics.component.html',
-  styleUrls: ['./add-phonics.component.css']
+  templateUrl: './add-phonics.component.html'
 })
 
 @FadeInTop()

@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-setting-archives',
-  templateUrl: './setting-archives.component.html',
-  styleUrls: ['./setting-archives.component.css']
+  templateUrl: './setting-archives.component.html'
 })
 export class SettingArchivesComponent implements OnInit {
     public states: Array<any>;

@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-setting-conversion',
-  templateUrl: './setting-conversion.component.html',
-  styleUrls: ['./setting-conversion.component.css']
+  templateUrl: './setting-conversion.component.html'
 })
 export class SettingConversionComponent implements OnInit {
     public states: Array<any>;

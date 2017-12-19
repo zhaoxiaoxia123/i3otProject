@@ -8,8 +8,7 @@ import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-station-list',
-  templateUrl: './station-list.component.html',
-  styleUrls: ['./station-list.component.css']
+  templateUrl: './station-list.component.html'
 })
 export class StationListComponent implements OnInit {
   public state: any = {

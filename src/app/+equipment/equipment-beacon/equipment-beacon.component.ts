@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-equipment-beacon',
-  templateUrl: './equipment-beacon.component.html',
-  styleUrls: ['./equipment-beacon.component.css']
+  templateUrl: './equipment-beacon.component.html'
 })
 export class EquipmentBeaconComponent implements OnInit {
 

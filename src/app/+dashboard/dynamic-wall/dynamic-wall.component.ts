@@ -5,7 +5,6 @@ import {FadeInTop} from "../../shared/animations/fade-in-top.decorator";
 @Component({
   selector: 'app-dynamic-wall',
   templateUrl: './dynamic-wall.component.html',
-  styleUrls: ['./dynamic-wall.component.css']
 })
 export class DynamicWallComponent implements OnInit {
 

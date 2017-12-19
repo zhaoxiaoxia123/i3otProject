@@ -8,8 +8,7 @@ import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-helmet-list',
-  templateUrl: './helmet-list.component.html',
-  styleUrls: ['./helmet-list.component.css']
+  templateUrl: './helmet-list.component.html'
 })
 export class HelmetListComponent implements OnInit {
   public state: any = {

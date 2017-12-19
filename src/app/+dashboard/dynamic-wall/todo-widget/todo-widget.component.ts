@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-todo-widget',
-  templateUrl: './todo-widget.component.html',
-  styleUrls: ['./todo-widget.component.css']
+  templateUrl: './todo-widget.component.html'
 })
 export class TodoWidgetComponent implements OnInit {
 

@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-setting-honor',
   templateUrl: './setting-honor.component.html',
-  styleUrls: ['./setting-honor.component.css']
 })
 export class SettingHonorComponent implements OnInit {
     public states: Array<any>;

@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-setting-departmentnew',
-  templateUrl: './setting-departmentnew.component.html',
-  styleUrls: ['./setting-departmentnew.component.css']
+  templateUrl: './setting-departmentnew.component.html'
 })
 export class SettingDepartmentnewComponent implements OnInit {
     public states: Array<any>;

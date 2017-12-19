@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-setting-personnel',
   templateUrl: './setting-personnel.component.html',
-  styleUrls: ['./setting-personnel.component.css']
 })
 export class SettingPersonnelComponent implements OnInit {
     public states: Array<any>;

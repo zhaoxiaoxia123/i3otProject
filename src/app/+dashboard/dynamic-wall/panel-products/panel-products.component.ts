@@ -4,8 +4,7 @@ import {Http} from "@angular/http";
 
 @Component({
   selector: 'app-panel-products',
-  templateUrl: './panel-products.component.html',
-  styleUrls: ['./panel-products.component.css']
+  templateUrl: './panel-products.component.html'
 })
 export class PanelProductsComponent implements OnInit {
     //方法1的 start

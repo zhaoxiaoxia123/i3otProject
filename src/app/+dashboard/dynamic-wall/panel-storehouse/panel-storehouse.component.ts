@@ -4,8 +4,7 @@ import {Http} from "@angular/http";
 
 @Component({
   selector: 'app-panel-storehouse',
-  templateUrl: './panel-storehouse.component.html',
-  styleUrls: ['./panel-storehouse.component.css']
+  templateUrl: './panel-storehouse.component.html'
 })
 export class PanelStorehouseComponent implements OnInit {
 

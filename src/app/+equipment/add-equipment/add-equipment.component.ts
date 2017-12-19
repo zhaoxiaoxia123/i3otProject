@@ -9,8 +9,7 @@ import {stringify} from "querystring";
 
 @Component({
   selector: 'app-add-equipment',
-  templateUrl: './add-equipment.component.html',
-  styleUrls: ['./add-equipment.component.css']
+  templateUrl: './add-equipment.component.html'
 })
 export class AddEquipmentComponent implements OnInit {
   formModel : FormGroup;

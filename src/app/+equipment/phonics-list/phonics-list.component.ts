@@ -7,8 +7,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-phonics-list',
-  templateUrl: './phonics-list.component.html',
-  styleUrls: ['./phonics-list.component.css']
+  templateUrl: './phonics-list.component.html'
 })
 export class PhonicsListComponent implements OnInit {
 

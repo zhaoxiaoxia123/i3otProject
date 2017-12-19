@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-setting-repertory',
   templateUrl: './setting-repertory.component.html',
-  styleUrls: ['./setting-repertory.component.css']
 })
 export class SettingRepertoryComponent implements OnInit {
     public states: Array<any>;

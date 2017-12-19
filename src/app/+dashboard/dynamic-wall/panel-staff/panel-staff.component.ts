@@ -4,8 +4,7 @@ import {Http} from "@angular/http";
 
 @Component({
   selector: 'app-panel-staff',
-  templateUrl: './panel-staff.component.html',
-  styleUrls: ['./panel-staff.component.css']
+  templateUrl: './panel-staff.component.html'
 })
 export class PanelStaffComponent implements OnInit {
     //方法1的 start

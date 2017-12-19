@@ -6,8 +6,7 @@ import {Observable} from "rxjs/Observable";
 @FadeInTop()
 @Component({
   selector: 'app-panel-element',
-  templateUrl: './panel-element.component.html',
-  styleUrls: ['./panel-element.component.css']
+  templateUrl: './panel-element.component.html'
 })
 export class PanelElementComponent implements OnInit {
 

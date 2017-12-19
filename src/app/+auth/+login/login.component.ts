@@ -8,8 +8,7 @@ import {GlobalService} from '../../core/global.service';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-    styleUrls: ['./login.component.css']
+  templateUrl: './login.component.html'
 })
 export class LoginComponent implements OnInit {
  /* //默认显示项

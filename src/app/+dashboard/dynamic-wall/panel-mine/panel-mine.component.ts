@@ -4,8 +4,7 @@ import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'app-panel-mine',
-  templateUrl: './panel-mine.component.html',
-  styleUrls: ['./panel-mine.component.css']
+  templateUrl: './panel-mine.component.html'
 })
 export class PanelMineComponent implements OnInit {
 

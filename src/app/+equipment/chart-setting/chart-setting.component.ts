@@ -9,8 +9,7 @@ import {GlobalService} from '../../core/global.service';
 @FadeInTop()
 @Component({
   selector: 'app-chart-setting',
-  templateUrl: './chart-setting.component.html',
-  styleUrls: ['./chart-setting.component.css']
+  templateUrl: './chart-setting.component.html'
 })
 export class ChartSettingComponent implements OnInit {
     public states: Array<any>;

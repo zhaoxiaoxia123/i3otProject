@@ -11,7 +11,6 @@ import {GlobalService} from "../../core/global.service";
 @Component({
   selector: 'app-setting-equipment',
   templateUrl: './setting-equipment.component.html',
-  styleUrls: ['./setting-equipment.component.css']
 })
 export class SettingEquipmentComponent implements OnInit {
     public states: Array<any>;
