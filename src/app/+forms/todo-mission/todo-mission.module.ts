@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { TodoProjectsRoutingModule } from './todo-projects-routing.module';
-import { TodoProjectsComponent } from './todo-projects.component';
+import { TodoMissionRoutingModule } from './todo-mission-routing.module';
 import {ReactiveFormsModule} from "@angular/forms";
 import {SmartadminModule} from "../../shared/smartadmin.module";
 import {SmartadminEditorsModule} from "../../shared/forms/editors/smartadmin-editors.module";
+import {TodoMissionComponent} from "./todo-mission.component";
 
 @NgModule({
   imports: [
@@ -13,8 +13,8 @@ import {SmartadminEditorsModule} from "../../shared/forms/editors/smartadmin-edi
       ReactiveFormsModule,
       SmartadminModule,
       SmartadminEditorsModule,
-    TodoProjectsRoutingModule
+    TodoMissionRoutingModule
   ],
-  declarations: [TodoProjectsComponent]
+  declarations: [TodoMissionComponent]
 })
-export class TodoProjectsModule { }
+export class TodoMissionModule { }

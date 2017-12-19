@@ -558,7 +558,9 @@ div.dataTables_paginate ul.pagination {
 .padding-left-10 {
     padding-left: 10px!important;
 }
-
+.padding-left-20 {
+    padding-left: 20px!important;
+}
 .padding-gutter {
     padding: 13px!important
 }
@@ -587,9 +589,15 @@ div.dataTables_paginate ul.pagination {
 .no-margin {
     margin: 0!important
 }
-
+.margin-padding{
+    margin:0;
+    padding:0;
+}
 .margin-top-5 {
     margin-top: 5px!important
+}
+.margin-10{
+    margin:10px!important;
 }
 
 .margin-top-10 {
@@ -1021,4 +1029,11 @@ time.icon span {
     overflow-y: auto;
 }
 
+/*图片宽度*/
+.width-40{
+    width:40px!important;
+}
+.width-28{
+    width:28px!important;
+}
 

@@ -48,6 +48,11 @@ export const routes: Routes = [
         path: 'todo-projects',
         loadChildren: 'app/+forms/todo-projects/todo-projects.module#TodoProjectsModule',
         data: {pageTitle: 'TodoProjects'}
+    },
+    {
+        path: 'todo-mission',
+        loadChildren: 'app/+forms/todo-mission/todo-mission.module#TodoMissionModule',
+        data: {pageTitle: 'TodoMission'}
     }
 /*    {
         path: 'inventory1',
