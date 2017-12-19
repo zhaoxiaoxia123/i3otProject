@@ -13,4 +13,4 @@ import {CommonModule} from "@angular/common";
   exports: []
 
 })
-export class SmartadminFormsLiteModule{}
+export class I3otpFormsLiteModule{}

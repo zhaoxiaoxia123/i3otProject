@@ -3,16 +3,16 @@ import { CommonModule } from '@angular/common';
 
 import { TodoMissionRoutingModule } from './todo-mission-routing.module';
 import {ReactiveFormsModule} from "@angular/forms";
-import {SmartadminModule} from "../../shared/smartadmin.module";
-import {SmartadminEditorsModule} from "../../shared/forms/editors/smartadmin-editors.module";
 import {TodoMissionComponent} from "./todo-mission.component";
+import {I3otpModule} from "../../shared/i3otp.module";
+import {I3otpEditorsModule} from "../../shared/forms/editors/i3otp-editors.module";
 
 @NgModule({
   imports: [
     CommonModule,
+      I3otpModule,
+      I3otpEditorsModule,
       ReactiveFormsModule,
-      SmartadminModule,
-      SmartadminEditorsModule,
     TodoMissionRoutingModule
   ],
   declarations: [TodoMissionComponent]

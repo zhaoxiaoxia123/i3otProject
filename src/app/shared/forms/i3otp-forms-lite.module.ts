@@ -14,4 +14,4 @@ import {OnOffSwitchModule} from "./input/on-off-switch/on-off-switch.module";
   ]
 
 })
-export class SmartadminFormsLiteModule{}
+export class I3otpFormsLiteModule{}

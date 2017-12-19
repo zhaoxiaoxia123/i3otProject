@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { flotChartsRouting } from './flot-charts.routing';
 import { FlotChartsComponent } from './flot-charts.component';
-import {SmartadminModule} from "../../shared/smartadmin.module";
+import {I3otpModule} from "../../shared/i3otp.module";
 import {FlotChartModule} from "../../shared/graphs/flot-chart/flot-chart.module";
 
 @NgModule({
   imports: [
     CommonModule,
     flotChartsRouting,
-    SmartadminModule,
+    I3otpModule,
     FlotChartModule
   ],
   declarations: [FlotChartsComponent]

@@ -1,7 +1,7 @@
 import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import { ChatWidgetComponent } from './chat-widget/chat-widget.component';
-import {SmartadminWidgetsModule} from "../widgets/smartadmin-widgets.module";
+import {I3otpWidgetsModule} from "../widgets/i3otp-widgets.module";
 import {ChatService} from "./chat.service";
 import { ChatComponent } from './chat/chat.component';
 import { ChatUsersComponent } from './chat/chat-users.component';
@@ -18,7 +18,7 @@ import {BsDropdownModule} from "ngx-bootstrap"
 @NgModule({
   imports: [
       PopoverModule, BsDropdownModule,
-    CommonModule, FormsModule, UtilsModule, UserModule, SmartadminWidgetsModule],
+    CommonModule, FormsModule, UtilsModule, UserModule, I3otpWidgetsModule],
   declarations: [ChatWidgetComponent, ChatComponent, ChatUsersComponent, ChatBodyComponent, ChatFormComponent, AsideChatComponent, AsideChatUserComponent],
   exports: [ChatWidgetComponent, AsideChatComponent, AsideChatUserComponent ],
   providers: [ChatService]

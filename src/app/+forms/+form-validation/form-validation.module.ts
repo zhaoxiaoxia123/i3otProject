@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { formValidationRouting } from './form-validation.routing';
-import {SmartadminModule} from "../../shared/smartadmin.module";
+import {I3otpModule} from "../../shared/i3otp.module";
 import {FormValidationComponent} from "./form-validation.component";
 
 @NgModule({
   imports: [
     CommonModule,
     formValidationRouting,
-    SmartadminModule
+    I3otpModule
   ],
   declarations: [FormValidationComponent]
 })

@@ -1,7 +1,7 @@
 import {Injectable, EventEmitter} from '@angular/core';
 
 import {SpeechRecognition} from './speech-recognition.api';
-import {config} from '../smartadmin.config';
+import {config} from '../i3otp.config';
 
 
 @Injectable()

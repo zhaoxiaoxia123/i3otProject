@@ -19,9 +19,10 @@
                         <!--小部件内容-->
                         <div class="widget-body no-padding">
 
-                            <form id="smart-form-register" class="smart-form" >
+                            <form id="smart-form-register" class="smart-form"  [formGroup]="formModel" (ngSubmit)="onSubmit()">
                                 <fieldset>
 
+                                    <input type="hidden" name="b_id" formControlName="b_id">
                                     <legend>基本信息</legend>
                                     <div class="form-group col col-lg-8 col-md-8 col-sm-8 col-xs-12 ">
                                         <section>
@@ -29,98 +30,62 @@
 
                                             <span class="select2 select2-container select2-container--default select2-container--below select2-container--focus "  style="width: 100%;">
                                            <span class="selection">
-                                             <span class="select2-selection select2-selection--multiple">
+                                             <span class="select2-selection select2-selection--multiple" (click)="showColorDivI3otp()">
                                                <ul class="select2-selection__rendered">
-                                                 <li class="select2-selection__choice" >
-                                                   <span class="select2-selection__choice__remove" >
-                                                     ×</span>124
+                                                 <li class="select2-selection__choice" title="{{cs}}" *ngFor="let cs of join_i3otp_category">
+                                                   <span class="select2-selection__choice__remove" (click)="deleteI3otp($event,cs)">
+                                                     ×</span>{{cs}}
                                                  </li>
-                                                 <li class="select2-selection__choice" >
-                                                   <span class="select2-selection__choice__remove" >
-                                                     ×</span>4565
-                                                 </li>
+                                                   <li></li>
                                                </ul>
                                              </span>
                                            </span>
                                          </span>
-                                            <span class="select2 select2-container--open select2-container select2-container--default select2-container--below select2-container--focus select-hidden" dir="ltr" style="width: 100%;position: absolute;">
-                                           <span class="selection">
-                                             <span class="select2-selection select2-selection--multiple select2-results select2-dropdown select2-drop-active">
-                                              <ul class="select2-results__options select2-results__options--nested">
-                                                <li class="select2-results__option  select2-results__option--highlighted" >4566</li>
-                                                <li class="select2-results__option">4666</li>
-                                                <li class="select2-results__option">456465456</li>
-                                                <li class="select2-results__option">4-45665</li>
-                                                <li class="select2-results__option">46656</li>
-                                                <li class="select2-results__option">456456</li>
-                                                <li class="select2-results__option">456546</li>
-                                              </ul>
-                                             </span>
-                                           </span>
-
-
-                                         </span>
+                                            <!--<span class="select2 select2-container&#45;&#45;open select2-container select2-container&#45;&#45;default select2-container&#45;&#45;below select2-container&#45;&#45;focus select-hidden" dir="ltr" style="width: 100%;position: absolute;">-->
+                                           <!--<span class="selection">-->
+                                             <!--<span class="select2-selection select2-selection&#45;&#45;multiple select2-results select2-dropdown select2-drop-active">-->
+                                              <!--<ul class="select2-results__options select2-results__options&#45;&#45;nested">-->
+                                                <!--<li class="select2-results__option  select2-results__option&#45;&#45;highlighted" >4566</li>-->
+                                                <!--<li class="select2-results__option">4666</li>-->
+                                                <!--<li class="select2-results__option">456465456</li>-->
+                                                <!--<li class="select2-results__option">4-45665</li>-->
+                                                <!--<li class="select2-results__option">46656</li>-->
+                                                <!--<li class="select2-results__option">456456</li>-->
+                                                <!--<li class="select2-results__option">456546</li>-->
+                                              <!--</ul>-->
+                                             <!--</span>-->
+                                           <!--</span>-->
+                                         <!--</span>-->
+                                            <span [ngClass]="{'select2 select2-container--open select2-container select2-container--default select2-container--below select2-container--focus':true,'select-hidden':div_show_i3otp}" dir="ltr" style="width: 100%;position: absolute;">
+                                               <span class="selection">
+                                                 <span class="select2-selection select2-selection--multiple select2-results select2-dropdown select2-drop-active" (mouseleave)="outMouseColor()">
+                                                  <ul class="select2-results__options select2-results__options--nested"><!--  select2-results__option--highlighted-->
+                                                    <li [ngClass]="{'select2-results__option--highlighted' : (color_i3otp_id == sc.i3otp_pid),'select2-results__option':true}" (click)="i3otpChange(sc.i3otp_pid)" (mouseenter)="divColor(sc.i3otp_pid)" *ngFor="let sc of broadcastList.result?.i3otpList" value="{{sc.i3otp_pid}}">{{sc.i3otp_pid}}</li>
+                                                  </ul>
+                                                 </span>
+                                               </span>
+                                            </span>
                                         </section>
-
                                     </div>
 
                                     <div class="form-group col col-lg-4 col-md-4 col-sm-4 col-xs-12 ">
                                         <section>
                                             <label class="label">警报类型（多选按钮）</label>
-
                                             <div class="inline-group">
                                                 <label class="checkbox state-disabled">
-                                                    <input type="checkbox" name="checkbox-inline"  >
-                                                    <i></i>语音</label>
-                                                <label class="checkbox state-disabled">
-                                                    <input type="checkbox" name="checkbox-inline" >
+                                                    <input type="checkbox" value="text" [checked]="selects['text']" (change)="handle($event)" name="b_category" formControlName="b_category">
                                                     <i></i>文字</label>
+                                                <label class="checkbox state-disabled">
+                                                    <input type="checkbox" value="voice" [checked]="selects['voice']" (change)="handle($event)" name="b_category" formControlName="b_category">
+                                                    <i></i>语音</label>
                                             </div>
                                         </section>
                                     </div>
-                                    <!--<div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                                        <section>
-                                            <label class="label">通信方式</label>
-
-                                                <label class="select select-hidden ">
-                                                    <select>
-                                                        <option>42Hz</option>
-                                                        <option>42Hz</option>
-                                                        <option>42Hz</option>
-                                                        <option>42Hz</option>
-                                                        <option>42Hz</option>
-                                                    </select>
-                                                </label>
-                                            <span class="select2 select2-container select2-container&#45;&#45;default select2-container&#45;&#45;below select2-container&#45;&#45;focus" dir="ltr" style="width: 100%">
-                                               <span class="selection">
-                                                 <span class="select2-selection select2-selection&#45;&#45;multiple">
-                                                   <ul class="select2-selection__rendered">
-                                                     <li class="select2-selection__choice" title="42HZ">
-                                                       <span class="select2-selection__choice__remove">
-                                                         ×</span>42HZ
-                                                     </li>
-                                                   </ul>
-                                                 </span>
-                                               </span>
-                                             </span>
-                                               <span dir="ltr" style="width: 100%;position: absolute;" class="select2 select2-container&#45;&#45;open select2-container select2-container&#45;&#45;default select2-container&#45;&#45;below select2-container&#45;&#45;focus select-hidden" ng-reflect-ng-class="[object Object]">
-                                               <span class="selection">
-                                                 <span class="select2-selection select2-selection&#45;&#45;multiple select2-results select2-dropdown select2-drop-active">
-                                                  <ul class="select2-results__options select2-results__options&#45;&#45;nested">
-                                                     <li class="select2-results__option" value="170">42HZ</li>
-                                                      <li class="select2-results__option"  value="167">4G</li>
-                                                      <li class="select2-results__option" value="166">wifi</li>
-                                                  </ul>
-                                                 </span>
-                                               </span>
-                                             </span>
-                                        </section>
-                                    </div>-->
                                     <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
                                         <section >
                                             <label class="label">文字输入</label>
                                             <label class="input">
-                                                <input type="text" name="" placeholder="请输入内容 " maxlength="40" />
+                                                <input type="text" placeholder="请输入内容 " maxlength="150" name="b_info" formControlName="b_info"/>
                                             </label>
                                         </section>
                                     </div>
@@ -128,7 +93,7 @@
                                         <section >
                                             <label class="label">闪烁</label>
                                             <label class="input">
-                                                <input type="text" name="" placeholder="请输入内容 " maxlength="" />
+                                                <input type="text" placeholder="请输入闪烁时间" maxlength="10" name="b_led" formControlName="b_led" />
                                             </label>
                                         </section>
                                     </div>
@@ -136,37 +101,44 @@
                                         <section >
                                             <label class="label">警报</label>
                                             <label class="input">
-                                                <input type="text" name="" placeholder="请输入内容 " maxlength="" />
+                                                <input type="text" placeholder="请输入警报持续时间" maxlength="10" name="b_buzzer" formControlName="b_buzzer"/>
                                             </label>
+                                        </section>
+                                    </div>
+                                    <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                                        <section >
+                                            <label class="label">广播公司</label>
+                                            <label class="select">
+                                                <select name="c_id" formControlName="c_id" [(ngModel)]="c_id_default" (change)="getTheUserList($event,1)">
+                                                    <option value="0" [selected]="b_id == 0">--请选择--</option>
+                                                    <option *ngFor="let c of broadcastList.result?.customerList" [selected]="broadcastInfo.result?.c_id == c.c_number" value="{{c.c_number}}">{{c.c_name}}</option>
+                                                </select> <i></i> </label>
+                                        </section>
+                                    </div>
+                                    <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                                        <section >
+                                            <label class="label">广播人员</label>
+                                            <label class="select">
+                                                <select name="u_id" formControlName="u_id" [(ngModel)]="u_id_default">
+                                                    <option value="0" [selected]="b_id == 0">--请选择--</option>
+                                                    <option *ngFor="let u of broadcastListUser.result?.userList" [selected]="broadcastInfo.result?.u_id == u.name" value="{{u.name}}">{{u.u_username}}</option>
+                                                </select> <i></i> </label>
                                         </section>
                                     </div>
                                 </fieldset>
                                 <footer>
-                                    <button type="button" class="btn btn-default" >
+                                    <button type="button" class="btn btn-default" routerLink="/equipment/phonics-list">
                                         返回
                                     </button>
                                     <button type="submit" class="btn btn-primary">
                                         保存
                                     </button>
                                 </footer>
-
                             </form>
                         </div>
-
                     </div>
                 </sa-widget>
-
             </article>
-
         </div>
-
-
-
-
     </sa-widgets-grid>
-
-
-
-
-
 </div>

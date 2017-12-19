@@ -22,4 +22,4 @@ import {MarkdownEditorDirective} from './markdown-editor.directive'
     MarkdownEditorDirective,
   ]
 })
-export class SmartadminEditorsModule { }
+export class I3otpEditorsModule { }

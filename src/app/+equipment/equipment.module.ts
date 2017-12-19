@@ -5,8 +5,8 @@ import { EquipmentBeaconComponent } from './equipment-beacon/equipment-beacon.co
 import { EquipmentPositioningComponent } from './equipment-positioning/equipment-positioning.component';
 import { HelmetListComponent } from './helmet-list/helmet-list.component';
 import { StationListComponent } from './station-list/station-list.component';
-import {SmartadminModule} from '../shared/smartadmin.module';
-import {SmartadminDatatableModule} from '../shared/ui/datatable/smartadmin-datatable.module';
+import {I3otpModule} from '../shared/i3otp.module';
+import {I3otpDatatableModule} from '../shared/ui/datatable/i3otp-datatable.module';
 import {routing} from './equipment.routing';
 import {ReactiveFormsModule} from '@angular/forms';
 import {AddI3otpComponent} from './add-i3otp/add-i3otp.component';
@@ -34,9 +34,9 @@ import { PhonicsListComponent } from './phonics-list/phonics-list.component';
   imports: [
     CommonModule,
     routing,
-    SmartadminModule,
+    I3otpModule,
     StatsModule,
-    SmartadminDatatableModule,
+    I3otpDatatableModule,
     ReactiveFormsModule,
     AngularEchartsModule,
   ],

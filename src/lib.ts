@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 
 
-// Smartadmin Dependencies
+// I3otp Dependencies
 window['jQuery'] = require('jquery');
 window['$'] = window['jQuery'];
 import 'jquery-ui-npm/jquery-ui.min.js'

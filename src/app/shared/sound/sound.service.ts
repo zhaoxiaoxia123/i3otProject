@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 
-import {config} from '../smartadmin.config';
+import {config} from '../i3otp.config';
 import {NotificationService} from "../utils/notification.service";
 
 @Injectable()

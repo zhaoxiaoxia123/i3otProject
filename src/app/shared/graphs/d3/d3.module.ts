@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SmartadminLayoutModule } from '../../layout/layout.module';
+import { I3otpLayoutModule } from '../../layout/layout.module';
 import { D3MapComponent } from './d3-map.component';
 
 

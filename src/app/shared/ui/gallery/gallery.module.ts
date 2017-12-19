@@ -9,4 +9,4 @@ import { GalleryComponent } from './gallery.component';
   declarations: [GalleryComponent],
   exports: [GalleryComponent],
 })
-export class SmartadminGalleryModule { }
+export class I3otpGalleryModule { }

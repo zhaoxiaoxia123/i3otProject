@@ -1,6 +1,6 @@
 import {Injectable, ApplicationRef} from '@angular/core';
 import {Observable, Subject, Subscription} from "rxjs/Rx";
-import {config} from '../smartadmin.config';
+import {config} from '../i3otp.config';
 import {languages} from './languages.model';
 import {JsonApiService} from "../../core/api/json-api.service";
 

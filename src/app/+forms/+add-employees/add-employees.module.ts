@@ -5,7 +5,7 @@ import { AddEmployeesComponent } from './add-employees.component';
 import { EmployeeFormComponent } from './employee-form/employee-form.component';
 import {addEmployeesRouting} from './add-employees-routing.module';
 import { RegistrationFormComponent} from './registration-form/registration-form.component';
-import {SmartadminModule} from '../../shared/smartadmin.module';
+import {I3otpModule} from '../../shared/i3otp.module';
 import {CookieService} from 'angular2-cookie/core';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -14,7 +14,7 @@ import {ImgCropperSelectModule} from "../../shared/img-cropper-select/img-croppe
 @NgModule({
   imports: [
     CommonModule,
-    SmartadminModule,
+    I3otpModule,
     ReactiveFormsModule,
     addEmployeesRouting,
     ImgCropperSelectModule,

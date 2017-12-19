@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Http, Response} from "@angular/http";
 
-import {config} from '../../shared/smartadmin.config';
+import {config} from '../../shared/i3otp.config';
 import {Observable} from "rxjs/Rx";
 
 import 'rxjs/add/operator/map';
