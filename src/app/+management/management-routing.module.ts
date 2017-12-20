@@ -66,6 +66,26 @@ export const routes:Routes = [
         path: 'setting-conversion',
         loadChildren: 'app/+management/setting-conversion/setting-conversion.module#SettingConversionModule',
         data: {pageTitle: 'Setting Conversion'}
+    },
+    {
+        path: 'setting-affiliation',
+        loadChildren: 'app/+management/setting-affiliation/setting-affiliation.module#SettingAffiliationModule',
+        data: {pageTitle: 'Setting Affiliation'}
+    },
+    {
+        path: 'setting-openness',
+        loadChildren: 'app/+management/setting-openness/setting-openness.module#SettingOpennessModule',
+        data: {pageTitle: 'Setting Openness'}
+    },
+    {
+        path: 'setting-formwork',
+        loadChildren: 'app/+management/setting-formwork/setting-formwork.module#SettingFormworkModule',
+        data: {pageTitle: 'Setting Formwork'}
+    },
+    {
+        path: 'setting-labelling',
+        loadChildren: 'app/+management/setting-labelling/setting-labelling.module#SettingLabellingModule',
+        data: {pageTitle: 'Setting Labelling'}
     }
 ];
 
