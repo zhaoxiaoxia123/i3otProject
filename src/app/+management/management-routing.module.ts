@@ -86,6 +86,11 @@ export const routes:Routes = [
         path: 'setting-labelling',
         loadChildren: 'app/+management/setting-labelling/setting-labelling.module#SettingLabellingModule',
         data: {pageTitle: 'Setting Labelling'}
+    },
+    {
+        path: 'total-project',
+        loadChildren: 'app/+management/total-project/total-project.module#TotalProjectModule',
+        data: {pageTitle: 'Total Project'}
     }
 ];
 
