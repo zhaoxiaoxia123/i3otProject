@@ -32,60 +32,60 @@
     ]}
   ],
   "demo2": [
-    {"content": "<span><i class=\"fa fa-lg fa-folder-open\"></i> Parent</span>", "expanded": true, "children": [
-      {"content": "<span> Administrators</span>", "expanded": true, "children": [
-        {"content": "<span> <label class=\"checkbox inline-block\"><input type=\"checkbox\" name=\"checkbox-inline\"><i></i>Michael.Jackson</label> </span>"},
-        {"content": "<span> <label class=\"checkbox inline-block\"><input type=\"checkbox\" checked=\"checked\" name=\"checkbox-inline\"><i></i>Sunny.Ahmed</label> </span>"},
-        {"content": "<span> <label class=\"checkbox inline-block\"><input type=\"checkbox\" checked=\"checked\" name=\"checkbox-inline\"><i></i>Jackie.Chan</label> </span>"}
+    {"content": "<span><i class=\"fa fa-lg fa-folder-open\"></i> 公司名1</span>", "expanded": true, "children": [
+      {"content": "<span> 事情</span>", "expanded": true, "children": [
+        {"content": "<span> <label class=\"checkbox inline-block\"><input type=\"checkbox\" name=\"checkbox-inline\"><i></i>事情</label> </span>"},
+        {"content": "<span> <label class=\"checkbox inline-block\"><input type=\"checkbox\" checked=\"checked\" name=\"checkbox-inline\"><i></i>名称</label> </span>"},
+        {"content": "<span> <label class=\"checkbox inline-block\"><input type=\"checkbox\" checked=\"checked\" name=\"checkbox-inline\"><i></i>事情</label> </span>"}
       ]},
-      {"content": "<span> <label class=\"checkbox inline-block\"><input type=\"checkbox\" name=\"checkbox-inline\"><i></i>Michael.Jackson</label> </span>"},
-      {"content": "<span> <label class=\"checkbox inline-block\"><input type=\"checkbox\" checked=\"checked\" name=\"checkbox-inline\"><i></i>Sunny.Ahmed</label> </span>"},
-      {"content": "<span> <label class=\"checkbox inline-block\"><input type=\"checkbox\" checked=\"checked\" name=\"checkbox-inline\"><i></i>Jackie.Chan</label> </span>"},
-      {"content": "<span> Child</span>", "expanded": true, "children": [
-        {"content": "<span><i class=\"icon-leaf\"></i> Grand Child</span>"},
-        {"content": "<span><i class=\"icon-leaf\"></i> Grand Child</span>"},
-        {"content": "<span> Grand Child</span>",  "children": [
-          {"content": "<span> Great Grand Child</span>", "children": [
-            {"content": "<span><i class=\"icon-leaf\"></i> Great great Grand Child</span>"},
-            {"content": "<span><i class=\"icon-leaf\"></i> Great great Grand Child</span>"}
+      {"content": "<span> <label class=\"checkbox inline-block\"><input type=\"checkbox\" name=\"checkbox-inline\"><i></i>事情</label> </span>"},
+      {"content": "<span> <label class=\"checkbox inline-block\"><input type=\"checkbox\" checked=\"checked\" name=\"checkbox-inline\"><i></i>名称</label> </span>"},
+      {"content": "<span> <label class=\"checkbox inline-block\"><input type=\"checkbox\" checked=\"checked\" name=\"checkbox-inline\"><i></i>事情</label> </span>"},
+      {"content": "<span>事情</span>", "expanded": true, "children": [
+        {"content": "<span><i class=\"icon-leaf\"></i> 财务部</span>"},
+        {"content": "<span><i class=\"icon-leaf\"></i> 财务部</span>"},
+        {"content": "<span> 财务部</span>",  "children": [
+          {"content": "<span> 产品部</span>", "children": [
+            {"content": "<span><i class=\"icon-leaf\"></i> 销售部</span>"},
+            {"content": "<span><i class=\"icon-leaf\"></i> 销售部</span>"}
           ]},
-          {"content": "<span><i class=\"icon-leaf\"></i> Great great Grand Child</span>"},
-          {"content": "<span><i class=\"icon-leaf\"></i> Great great Grand Child</span>"},
-          {"content": "<span><i class=\"icon-leaf\"></i> Great Grand Child</span>"},
-          {"content": "<span><i class=\"icon-leaf\"></i> Great Grand Child</span>"}
+          {"content": "<span><i class=\"icon-leaf\"></i> 销售部</span>"},
+          {"content": "<span><i class=\"icon-leaf\"></i> 销售部</span>"},
+          {"content": "<span><i class=\"icon-leaf\"></i> 产品部</span>"},
+          {"content": "<span><i class=\"icon-leaf\"></i> 产品部</span>"}
         ]},
-        {"content": "<span> Great Grand Child</span>", "children": [
-          {"content": "<span><i class=\"icon-leaf\"></i> Great great Grand Child</span>"},
-          {"content": "<span><i class=\"icon-leaf\"></i> Great great Grand Child</span>"}
+        {"content": "<span> 产品部</span>", "children": [
+          {"content": "<span><i class=\"icon-leaf\"></i> 销售部</span>"},
+          {"content": "<span><i class=\"icon-leaf\"></i> 销售部</span>"}
         ]},
-        {"content": "<span><i class=\"icon-leaf\"></i> Great great Grand Child</span>"},
-        {"content": "<span><i class=\"icon-leaf\"></i> Great great Grand Child</span>"},
-        {"content": "<span><i class=\"icon-leaf\"></i> Great Grand Child</span>"},
-        {"content": "<span><i class=\"icon-leaf\"></i> Great Grand Child</span>"}
+        {"content": "<span><i class=\"icon-leaf\"></i> 销售部</span>"},
+        {"content": "<span><i class=\"icon-leaf\"></i> 销售部</span>"},
+        {"content": "<span><i class=\"icon-leaf\"></i> 产品部</span>"},
+        {"content": "<span><i class=\"icon-leaf\"></i> 产品部</span>"}
       ]},
-      {"content": "<span><i class=\"icon-leaf\"></i> Grand Child</span>"},
-      {"content": "<span><i class=\"icon-leaf\"></i> Grand Child</span>"},
-      {"content": "<span> Grand Child</span>", "children": [
-        {"content": "<span> Great Grand Child</span>", "children": [
-          {"content": "<span><i class=\"icon-leaf\"></i> Great great Grand Child</span>"},
-          {"content": "<span><i class=\"icon-leaf\"></i> Great great Grand Child</span>"}
+      {"content": "<span><i class=\"icon-leaf\"></i> 财务部</span>"},
+      {"content": "<span><i class=\"icon-leaf\"></i> 财务部</span>"},
+      {"content": "<span> 财务部</span>", "children": [
+        {"content": "<span> 产品部</span>", "children": [
+          {"content": "<span><i class=\"icon-leaf\"></i> 销售部</span>"},
+          {"content": "<span><i class=\"icon-leaf\"></i> 销售部</span>"}
         ]},
-        {"content": "<span><i class=\"icon-leaf\"></i> Great great Grand Child</span>"},
-        {"content": "<span><i class=\"icon-leaf\"></i> Great great Grand Child</span>"},
-        {"content": "<span><i class=\"icon-leaf\"></i> Great Grand Child</span>"},
-        {"content": "<span><i class=\"icon-leaf\"></i> Great Grand Child</span>"}
+        {"content": "<span><i class=\"icon-leaf\"></i> 销售部</span>"},
+        {"content": "<span><i class=\"icon-leaf\"></i> 销售部</span>"},
+        {"content": "<span><i class=\"icon-leaf\"></i> 产品部</span>"},
+        {"content": "<span><i class=\"icon-leaf\"></i> 产品部</span>"}
       ]},
-      {"content": "<span> Great Grand Child</span>", "children": [
-        {"content": "<span><i class=\"icon-leaf\"></i> Great great Grand Child</span>"},
-        {"content": "<span><i class=\"icon-leaf\"></i> Great great Grand Child</span>"}
+      {"content": "<span> 产品部</span>", "children": [
+        {"content": "<span><i class=\"icon-leaf\"></i> 销售部</span>"},
+        {"content": "<span><i class=\"icon-leaf\"></i> 销售部</span>"}
       ]},
-      {"content": "<span><i class=\"icon-leaf\"></i> Great great Grand Child</span>"},
-      {"content": "<span><i class=\"icon-leaf\"></i> Great great Grand Child</span>"},
-      {"content": "<span><i class=\"icon-leaf\"></i> Great Grand Child</span>"},
-      {"content": "<span><i class=\"icon-leaf\"></i> Great Grand Child</span>"}
+      {"content": "<span><i class=\"icon-leaf\"></i> 销售部</span>"},
+      {"content": "<span><i class=\"icon-leaf\"></i> 销售部</span>"},
+      {"content": "<span><i class=\"icon-leaf\"></i> 产品部</span>"},
+      {"content": "<span><i class=\"icon-leaf\"></i> 产品部</span>"}
     ]},
-    {"content": "<span><i class=\"fa fa-lg fa-folder-open\"></i> Parent2</span>", "children": [
-      {"content": "<span><i class=\"icon-leaf\"></i> Child</span>"}
+    {"content": "<span><i class=\"fa fa-lg fa-folder-open\"></i> 公司名2</span>", "children": [
+      {"content": "<span><i class=\"icon-leaf\"></i> 分公司名</span>"}
     ]}
   ]
 }

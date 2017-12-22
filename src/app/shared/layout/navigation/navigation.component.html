@@ -200,6 +200,13 @@
             <a routerLink="/tables/normal">{{'公司信息' | i18n}}</a>
           </li>
 
+          <li routerLinkActive="active">
+            <a routerLink="/inventory-management/effect-tabe">{{'表格文件' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/inventory-management/effect-test">{{'下级目录' | i18n}}</a>
+          </li>
+
         </ul>
       </li>
       <li *ngIf="is_admin=='1'">
@@ -240,6 +247,9 @@
             <a routerLink="/management/setting-archives">{{'存货档案' | i18n}}</a>
           </li>
           <li routerLinkActive="active">
+            <a routerLink="/inventory-management/inventory-classification">{{'存货分类' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
             <a routerLink="/management/setting-conversion">{{'单位换算设置' | i18n}}</a>
           </li>
 
@@ -249,7 +259,7 @@
           <li routerLinkActive="active">
             <a routerLink="/forms/todo-mission">{{'待办事项详情' | i18n}}</a>
           </li>
-          <li routerLinkActive="active">
+         <!-- <li routerLinkActive="active">
             <a routerLink="/management/setting-affiliation">{{'项目所属设置' | i18n}}</a>
           </li>
           <li routerLinkActive="active">
@@ -260,10 +270,15 @@
           </li>
           <li routerLinkActive="active">
             <a routerLink="/management/setting-labelling">{{'项目标签设置' | i18n}}</a>
-          </li>
+          </li>-->
           <li routerLinkActive="active">
-            <a routerLink="/management/total-project">{{'项目设置' | i18n}}</a>
+            <a routerLink="/management/setting-labellinga">{{'项目设置' | i18n}}</a>
           </li>
+
+          <li routerLinkActive="active">
+            <a routerLink="/management/setting-affiliation">{{'项目设置' | i18n}}</a>
+          </li>
+
         </ul>
       </li>
     </ul>

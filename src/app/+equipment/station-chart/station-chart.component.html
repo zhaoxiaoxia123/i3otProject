@@ -71,7 +71,7 @@
                   <tr role="row" *ngIf="status.indexOf(','+ind+',') === -1" [ngClass]="{ 'odd' : (ind%2 == 0), 'even': (ind%2 != 0) }"><!-- shown-->
                     <td class=" details-control percent-6" (click)="changeStatus(ind,'+')"  *ngIf="il.i3otp_attribute1.length!=0 ">
                     </td>
-                    <td *ngIf="il.i3otp_attribute1.length==0 ">
+                    <td class="percent-6" *ngIf="il.i3otp_attribute1.length==0 " >
                     </td>
                     <td class="percent-12">
                       {{il.i3otp_address}}

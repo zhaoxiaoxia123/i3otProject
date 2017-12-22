@@ -5,35 +5,24 @@
   <sa-widget [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
     <header>
       <ul class="nav nav-tabs pull-left in" id="myTab">
-       <!-- <li class="active" [class.active]="state.tabs.demo4=='AA'" >
-          <a (click)="state.tabs.demo4 = 'AA'" routerLink="/management/setting-affiliation">项目所属</a>
-        </li>
-        <li [class.active]="state.tabs.demo4=='BB'" routerLink="/management/setting-openness">
-          <a (click)="state.tabs.demo4 = 'BB'" >项目公开性</a>
-        </li>
-        <li [class.active]="state.tabs.demo4=='CC'"  >
-          <a (click)="state.tabs.demo4 = 'CC'" routerLink="/management/setting-formwork">项目模板</a>
-        </li>
-        <li [class.active]="state.tabs.demo4=='DD'" >
-          <a (click)="state.tabs.demo4 = 'DD'" routerLink="/management/setting-formwork">项目标签</a>
-        </li>-->
 
 
-        <li class="active">
-          <a data-toggle="tab" href="#s1" [routerLink]="['/management/setting-affiliation']"><span
+
+        <li class="active"  [routerLink]="['/management/setting-affiliation']">
+          <a data-toggle="tab" href="#s1"><span
                   class="hidden-mobile hidden-tablet">项目所属</span></a>
         </li>
-        <li >
-          <a data-toggle="tab" href="#s2" routerLink="/management/setting-openness"> <span
+        <li routerLink="/management/setting-openness">
+          <a data-toggle="tab" href="#s2" > <span
                   class="hidden-mobile hidden-tablet">项目公开性</span></a>
         </li>
 
-        <li>
-          <a data-toggle="tab" href="#s3" routerLink="/management/setting-formwork"><span
+        <li routerLink="/management/setting-formwork">
+          <a data-toggle="tab" href="#s3" ><span
                   class="hidden-mobile hidden-tablet">项目模板</span></a>
         </li>
-        <li>
-          <a data-toggle="tab" href="#s4" routerLink="/management/setting-formwork"><span
+        <li routerLink="/management/setting-labelling">
+          <a data-toggle="tab" href="#s4" ><span
                   class="hidden-mobile hidden-tablet">项目标签</span></a>
         </li>
       </ul>
@@ -161,108 +150,6 @@
       </div>
 
     </div>
-    <!--<div>
-      <div class="widget-body">
-        <tabset>
-          <tab [active]="state.tabs.demo4 == 'AA'">
-            <tabset class="padding-10">
-              <tab [active]="state.tabs.demo4 == 'AA'">
-                <div class="row">
-                  <article class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
-                               [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
-                      <div>
-                        <div class="widget-body no-padding">
-                          <alert type="info" class="no-margin"  >
-                            <i class="fa-fw fa fa-plus"></i>
-                            添加项目所属
-                          </alert>
-                          &lt;!&ndash;<alert type="info" class="no-margin">
-                            <i class="fa-fw fa fa-plus"></i>
-                            修改项目所属
 
-
-                          </alert>&ndash;&gt;
-                          <form   class="smart-form ">
-                            <fieldset>
-                              <section>
-                                <label class="label txt-color-blue">项目所属编码</label>
-                                <label class="input">
-                                  <input type="text" disabled="disabled" placeholder="自动编码"  >
-                                </label>
-                              </section>
-                              <section>
-                                <label class="label txt-color-blue">项目所属名称</label>
-                                <label class="input">
-                                  <input type="text" placeholder="请输项目所属名称" >
-                                </label>
-                              </section>
-                            </fieldset>
-                            <footer>
-                              <button  type="submit" class="btn btn-primary">
-                                保存
-                              </button>
-                            </footer>
-                          </form>
-                        </div>
-                      </div>
-                    </sa-widget>
-                  </article>
-                  <article class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
-                               [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
-                      <div>
-                        <div class="widget-body no-padding">
-                          <alert type="info" class="no-margin" >
-                            <i class="fa-fw fa fa-spoon"></i>
-                            项目所属
-                          </alert>
-                          <div class="table-responsive">
-                            <table class="table table-hover table-bordered dataTable">
-                              <thead>
-                              <tr>
-                                <th>项目所属编码</th>
-                                <th>项目所属名称</th>
-                                <th>操作</th>
-                              </tr>
-                              </thead>
-                              <tbody>
-                              <tr>
-                                <td>001</td>
-                                <td>个人项目</td>
-                                <td>
-                                  <div >
-                                    <a class="btn btn-warning btn-xs"  ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                    <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                  </div>
-                                  &lt;!&ndash;<div >无权操作</div>&ndash;&gt;
-                                </td>
-                              </tr>
-                              </tbody>
-                            </table>
-                            &lt;!&ndash; 底部-（分页部分）&ndash;&gt;
-                            <div class="dt-toolbar">
-                              <div class="hidden-xs right">
-                                <ul class="pagination pagination-sm">
-                                  <li *ngFor="let p of categoryList?.page" class="{{p.class}}">
-                                    <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
-                                    <a *ngIf="p.method==''">{{p.text}}</a>
-                                  </li>
-                                </ul>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </sa-widget>
-                    &lt;!&ndash; end widget &ndash;&gt;
-                  </article>
-                </div>
-              </tab>
-            </tabset>
-          </tab>
-        </tabset>
-      </div>
-    </div>-->
   </sa-widget>
 </div>

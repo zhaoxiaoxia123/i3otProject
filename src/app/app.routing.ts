@@ -56,6 +56,11 @@ export const routes: Routes = [
           loadChildren: 'app/+equipment/equipment.module#EquipmentModule',
           data: {pageTitle: 'Equipment'}
       },
+        {
+            path: 'inventory-management',
+            loadChildren: 'app/+inventory-management/inventory-management.module#InventoryManagementModule',
+            data: {pageTitle: 'InventoryManagement'}
+        }
     ]
   },
     {path: 'auth', component: AuthLayoutComponent, loadChildren: 'app/+auth/auth.module#AuthModule'},

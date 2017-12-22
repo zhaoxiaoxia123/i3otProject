@@ -5,21 +5,8 @@
   <sa-widget [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
     <header>
       <ul class="nav nav-tabs pull-left in" id="myTab">
-        <li [routerLink]="['/management/setting-affiliation']">
+        <li class="active" >
           <a data-toggle="tab" href="#s1" ><span
-                  class="hidden-mobile hidden-tablet">项目所属</span></a>
-        </li>
-        <li  routerLink="/management/setting-openness">
-          <a data-toggle="tab" href="#s2" > <span
-                  class="hidden-mobile hidden-tablet">项目公开性</span></a>
-        </li>
-
-        <li  routerLink="/management/setting-formwork">
-          <a data-toggle="tab" href="#s3" ><span
-                  class="hidden-mobile hidden-tablet">项目模板</span></a>
-        </li>
-        <li class="active" routerLink="/management/setting-labelling">
-          <a data-toggle="tab" href="#s4" ><span
                   class="hidden-mobile hidden-tablet">项目标签</span></a>
         </li>
       </ul>
@@ -31,21 +18,7 @@
 
         <div id="myTabContent" class="tab-content">
 
-          <div class="tab-pane fade   padding-10 no-padding-bottom" id="s1">
-
-          </div>
-
-          <div class="tab-pane fade  padding-10 no-padding-bottom" id="s2" >
-
-
-          </div>
-
-          <div class="tab-pane fade  padding-10 no-padding-bottom" id="s3" >
-
-
-          </div>
-
-          <div class="tab-pane fade active in padding-10 no-padding-bottom" id="s4" >
+          <div class="tab-pane fade  active in padding-10 no-padding-bottom" id="s1">
             <div class="row">
               <article class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"

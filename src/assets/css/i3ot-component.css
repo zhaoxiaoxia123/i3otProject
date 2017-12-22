@@ -2470,7 +2470,7 @@ ul.ColVis_collection li label {
 
 .dataTable tbody .details-control {
     vertical-align: middle;
-    text-align: center;
+    /*text-align: center;*/
     cursor: pointer
 }
 
@@ -2485,6 +2485,7 @@ ul.ColVis_collection li label {
     content: "\f056";
     color: #a90329
 }
+
 
 .dataTable tbody .shown+tr>td {
     padding: 0!important

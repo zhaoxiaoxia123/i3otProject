@@ -18,21 +18,21 @@
           <a (click)="state.tabs.demo4 = 'DD'" routerLink="/management/setting-formwork">项目标签</a>
         </li>-->
 
-        <li>
-          <a data-toggle="tab" href="#s1" [routerLink]="['/management/setting-affiliation']"><span
+        <li [routerLink]="['/management/setting-affiliation']">
+          <a data-toggle="tab" href="#s1" ><span
                   class="hidden-mobile hidden-tablet">项目所属</span></a>
         </li>
-        <li class="active">
-          <a data-toggle="tab" href="#s2" routerLink="/management/setting-openness"> <span
+        <li class="active" routerLink="/management/setting-openness">
+          <a data-toggle="tab" href="#s2" > <span
                   class="hidden-mobile hidden-tablet">项目公开性</span></a>
         </li>
 
-        <li>
-          <a data-toggle="tab" href="#s3" routerLink="/management/setting-formwork"><span
+        <li routerLink="/management/setting-formwork">
+          <a data-toggle="tab" href="#s3" ><span
                   class="hidden-mobile hidden-tablet">项目模板</span></a>
         </li>
-        <li>
-          <a data-toggle="tab" href="#s4" routerLink="/management/setting-formwork"><span
+        <li routerLink="/management/setting-labelling">
+          <a data-toggle="tab" href="#s4" ><span
                   class="hidden-mobile hidden-tablet">项目标签</span></a>
         </li>
 
@@ -46,8 +46,6 @@
         <div id="myTabContent" class="tab-content">
 
           <div class="tab-pane fade   padding-10 no-padding-bottom" id="s1">
-
-
 
           </div>
 
