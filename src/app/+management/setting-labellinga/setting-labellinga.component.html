@@ -28,31 +28,23 @@
                           </alert>
                           <!--<alert type="info" class="no-margin">
                             <i class="fa-fw fa fa-plus"></i>
-                            修改项目标签
-
-
+                            修改项目标
                           </alert>-->
-                          <form   class="smart-form ">
+                          <form class="smart-form ">
                             <fieldset>
-                              <section>
-                                <label class="label txt-color-blue">项目标签编码</label>
-                                <label class="input">
-                                  <input type="text" disabled="disabled" placeholder="自动编码"  >
-                                </label>
-                              </section>
                               <section>
                                 <label class="label txt-color-blue">项目标签名称</label>
                                 <label class="input">
-                                  <input type="text" placeholder="请输项目标签名称" >
+                                  <input type="text" placeholder="请输项目标签名称" name="category_desc" [(ngModel)]="category_desc">
                                 </label>
                               </section>
                               <section>
                                 <label>选择颜色</label>
-                                <input class="form-control" type="color"    />
+                                <input class="form-control" type="color" name="color" [(ngModel)]="color"/>
                               </section>
                             </fieldset>
                             <footer>
-                              <button  type="submit" class="btn btn-primary">
+                              <button  type="button" class="btn btn-primary" (click)="addCategory()">
                                 保存
                               </button>
                             </footer>
@@ -81,16 +73,16 @@
                               </tr>
                               </thead>
                               <tbody>
-                              <tr>
-                                <td>001</td>
-                                <td>一般</td>
-                                <td><div class="task-badges"><span class="task-badge task-label yellow-label" title="">一般</span></div></td>
+                              <tr *ngFor="let c of categoryList?.result">
+                                <td>{{c.category_id}}</td>
+                                <td>{{c.category_desc}}</td><!--yellow-label-->
+                                <td><div class="task-badges"><span class="task-badge task-label " [ngStyle]="{'background-color':c.category_tab}" title="">{{c.category_desc}}</span></div></td>
                                 <td>
-                                  <div >
-                                    <a class="btn btn-warning btn-xs"  ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                    <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                  <div *ngIf="cid == super_admin_id || c.c_id == cid" >
+                                    <a class="btn btn-warning btn-xs" (click)="editCategory(c.category_id)"><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                    <a class="btn btn-danger btn-xs" (click)="deleteCategory(c.category_id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
                                   </div>
-                                  <!--<div >无权操作</div>-->
+                                  <div *ngIf="cid != super_admin_id && c.c_id != cid">无权操作</div>
                                 </td>
                               </tr>
                               </tbody>
