@@ -7,16 +7,6 @@ export const routes: Routes = [
         data: {pageTitle: 'InventoryClassification'}
     },
     {
-        path: 'effect-tabe',
-        loadChildren: 'app/+inventory-management/effect-tabe/effect-tabe.module#EffectTabeModule',
-        data: {pageTitle: 'EffectTabe'}
-    },
-    {
-        path: 'effect-test',
-        loadChildren: 'app/+inventory-management/effect-test/effect-test.module#EffectTestModule',
-        data: {pageTitle: 'EffectTest'}
-    },
-    {
         path: 'inventory-requisition',
         loadChildren: 'app/+inventory-management/inventory-requisition/inventory-requisition.module#InventoryRequisitionModule',
         data: {pageTitle: 'InventoryRequisition'}

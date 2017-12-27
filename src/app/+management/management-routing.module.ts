@@ -88,6 +88,11 @@ export const routes:Routes = [
         data: {pageTitle: 'Setting Labelling'}
     },
     {
+        path: 'setting-labellinga',
+        loadChildren: 'app/+management/setting-labellinga/setting-labellinga.module#SettingLabellingaModule',
+        data: {pageTitle: 'Setting Labellinga'}
+    },
+    {
         path: 'total-project',
         loadChildren: 'app/+management/total-project/total-project.module#TotalProjectModule',
         data: {pageTitle: 'Total Project'}
