@@ -3668,7 +3668,7 @@ div.dataTables_editor{
 }
 .entries_panel .entries_panel_sortarea .entry .entry-task-footer {
     position: relative;
-    z-index: 2;
+    /*z-index: 2;*/
     padding: 5px 8px 0 0;
     line-height: 28px;
 }

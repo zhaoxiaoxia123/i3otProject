@@ -6,6 +6,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {TodoMissionComponent} from "./todo-mission.component";
 import {I3otpModule} from "../../shared/i3otp.module";
 import {I3otpEditorsModule} from "../../shared/forms/editors/i3otp-editors.module";
+import { MissionDetailsComponent } from './mission-details/mission-details.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import {I3otpEditorsModule} from "../../shared/forms/editors/i3otp-editors.modul
       ReactiveFormsModule,
     TodoMissionRoutingModule
   ],
-  declarations: [TodoMissionComponent]
+  declarations: [TodoMissionComponent, MissionDetailsComponent]
 })
 export class TodoMissionModule { }

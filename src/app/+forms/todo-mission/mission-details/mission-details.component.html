@@ -1,172 +1,3 @@
-  <div class="layout_content wt-project-background ng-scope" style="background-image: none;background-color: transparent;">
-    <div class="layout_content_main" style="margin-right: 0px;" *ngIf="is_show_power[cookie_u_id]">
-      <div class="mod-navbar">
-        <div class="main ng-scope" >
-          <div class="title">
-            <h3>
-              <a  class="js-popbox prj_icon" >
-                <i class="fa-fw fa fa-inbox txt-color-greenNormal" ></i>
-              </a>
-              <a class="js-popbox prj_name ng-binding" >{{todoList?.result?.project_title}}</a>
-            </h3>
-            <!--<a class="fa fa-cog color-text-graylight js-popbox">
-            </a>-->
-          </div>
-          <div class="main_toolbar">
-            <div   class="ng-scope">
-              <div class="sub_toolbar ng-scope">
-                <div class="btn-group js-popbox mr-5 ng-scope" >
-                  <button class="btn btn-success btn--fancy ng-binding" data-toggle="dropdown" (click)="showPublishTemplate(todoList?.result?.project_id,3)">新建任务列表</button>
-                  <ul class="dropdown-menu pull-right" style="width: 300px;padding: 10px 20px;">
-                    <!--<li>-->
-                      <!--<button type="button" class="close margin-bottom-10" data-dismiss="modal" aria-hidden="true">-->
-                      <!--×-->
-                    <!--</button>-->
-                    <!--</li>-->
-                    <li>
-                      <div class="form-group">
-                        <input  name="template_name" [(ngModel)]="template_name" placeholder="列表名" type="text" class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" required="" >
-                      </div>
-                    </li>
-                    <li>
-                      <div class="form-group">
-                        <button  data-loading-text="保存中…" class="btn btn-success mr_15 ng-binding" (click)="showPublishTemplate(todoList?.result?.project_id,2)" >保&nbsp;&nbsp;存</button>
-                        <button  class="btn btn-link btn-cancel ng-binding" (click)="showPublishTemplate(todoList?.result?.project_id,3)">取&nbsp;&nbsp;消</button>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div id="content">
-        <div class="ng-scope">
-          <div class="entries_panel js-sortable layout_content_main_tasks ng-scope wt-scroll"   style="overflow-x: auto; overflow-y: hidden;">
-            <div class="entries_panel_sortarea ui-sortable" >
-
-              <div class="entry ng-scope" *ngFor="let tl of todoList?.result?.template_list" >
-                <div class="entry_header ui-sortable-handle">
-                  <i class="wtfont wtf-entryhover ng-scope" ></i>
-                  <div class="entry_header_title">
-                    <h2>
-                      <a data-toggle="dropdown"><span class="ng-binding ng-scope" (click)="showEditTemplateName(tl.info,tl.key)">{{tl.info}}</span></a>
-                      <ul class="dropdown-menu pull-right" style="width: 300px;padding: 10px 20px;">
-                        <li>
-                          <button type="button" class="close margin-bottom-10" data-dismiss="modal" aria-hidden="true">
-                            ×
-                          </button>
-                          <h4>重命名</h4>
-                        </li>
-                        <li>
-                          <div class="form-group">
-                            <input name="entry_name" [(ngModel)]="edit_template_name[tl.key]" placeholder="" type="text" class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" required="" >
-                          </div>
-                        </li>
-                        <li>
-                          <div class="form-group">
-                            <button  data-loading-text="保存中…" class="btn btn-success mr_15 ng-binding" (click)="editTemplateName(todoList?.result?.project_id,tl.key)">保&nbsp;&nbsp;存</button>
-                            <button  class="btn btn-link btn-cancel ng-binding">取&nbsp;&nbsp;消</button>
-                          </div>
-                        </li>
-                      </ul>
-
-                    </h2>
-                  </div>
-                    <a  class="entry_header_number ng-binding ng-scope" >
-                      {{tl.complate_count}} / {{tl.todo_list_count}} </a>
-                  </div>
-                  <div class="entry-task-panel wt-scroll"  style="overflow-x: hidden; overflow-y: auto;">
-                    <div class="entry-tasks js-sortable ui-sortable" >
-
-                      <div [ngClass]="{'right_click_trigger slide-trigger js-popbox false task task_style task-':true,'task-selected':tl1.todo_status==2}" *ngFor="let tl1 of tl.todo_list">
-                        <div [ngClass]="{'entry-task-main':true,'task-completed-style':tl1.todo_status==2}">
-                          <a class="entry-task-check ng-scope" *ngIf="tl1.todo_status != 2" (click)="editStatus(2,tl1.todo_id,todoList?.result?.project_id)">
-                            <i class="fa fa-square-o"></i>
-                          </a>
-                          <a class="entry-task-check ng-scope" *ngIf="tl1.todo_status == 2" (click)="editStatus(1,tl1.todo_id,todoList?.result?.project_id)">
-                            <i class="fa fa-check-square"></i>
-                          </a>
-                          <a class="entry-task-title ng-binding" (click)="showDetail(tl1.todo_id,tl.key,tl.info)">{{tl1.todo_title}}</a>
-                        </div>
-                        <div class="task-badges">
-                          <span class="task-badge fa fa-clock-o badge-expire-soon" title="任务即将截止">{{tl1.expired_at | date:'yyyy-MM-dd'}}</span>
-                          <span class="task-badge fa fa-comment-o" title="任务有 {{tl1.comment_count}} 个评论">{{tl1.comment_count}}</span>
-                          <span class="task-badge fa fa-align-left" title="任务有描述" *ngIf="tl1.todo_content"></span>
-                          <span class="task-badge task-label yellow-label" title="{{tag}}" *ngFor="let tag of tl1.tags">{{tag}}</span>
-                        </div>
-                        <div class="entry-task-members" *ngIf="tl1.todo_assign">
-                          <a class="js-popbox member avatar ng-scope avatar-28" title="{{h.u_username}}" *ngFor="let h of tl1.assignList">
-                            <img alt="{{h.u_username}}" class="online width-28" src="{{domain_url}}{{h.u_avatar}}" *ngIf="h.u_avatar">
-                            <img alt="{{h.u_username}}" class="online width-28" src="assets/img/avatars/male.png" *ngIf="!h.u_avatar">
-                          </a>
-                        </div>
-                      </div>
-
-                    </div>
-
-                    <!--新建任务发布框-->
-                    <div class="entry-add-bottom-composer entry-task-composer ng-isolate-scope" *ngIf="selects[tl.key]">
-                      <div class="composer-body" >
-                        <div class="entry-task-labels">
-                        </div>
-                        <textarea rows="2" class="form-control help-block" placeholder="请输入任务标题" [(ngModel)]="publish_todo_title[tl.key]"></textarea>
-                        <div class="composer-body-footer">
-                          <div class="task-badges" >
-                          </div>
-                        </div>
-                      </div>
-                      <div class="composer-footer">
-                        <button  class="btn btn-success btn--big confirm mr-10 ng-binding" (click)="submitTodo(todoList?.result?.project_id,tl.key)">保&nbsp;&nbsp;存</button>
-                        <button  class="btn btn-link btn-cancel ng-binding" (click)="showAddTodo(tl.key)">取&nbsp;&nbsp;消</button>
-                      </div>
-                    </div>
-
-                  </div>
-                  <div class="entry-task-footer ng-scope" *ngIf=" ! selects[tl.key]">
-                    <a  class="js-add-task-composer ng-binding ng-scope" (click)="showAddTodo(tl.key)">
-                      <i class="fa fa-plus-circle"></i> 新建任务
-                    </a>
-                  </div>
-                </div>
-
-
-            <div class="entry-new ng-scope" >
-              <a  class="ng-binding entry-add" *ngIf="!is_show_publish_template" (click)="showPublishTemplate(todoList?.result?.project_id,1)">
-                <i class="fa fa-plus-circle"></i> 新建任务列表
-              </a>
-              <div  class="padding-10 " *ngIf="is_show_publish_template"><!-- ng-hide-->
-                <div class="form-group">
-                  <input name="template_name" [(ngModel)]="template_name" placeholder="列表名" type="text" class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" required="" >
-                </div>
-                <div class="form-group">
-                  <button  data-loading-text="保存中…" class="btn btn-success mr_15 ng-binding" (click)="showPublishTemplate(todoList?.result?.project_id,2)">保&nbsp;&nbsp;存</button>
-                  <button  class="btn btn-link btn-cancel ng-binding" (click)="showPublishTemplate(todoList?.result?.project_id,3)">取&nbsp;&nbsp;消</button>
-                </div>
-              </div>
-            </div>
-
-            </div>
-          </div>
-        </div>
-        <div class="layout_right_sidebar layout_right_sidebar--project" style="width: 1px;">
-
-        </div>
-      </div>
-    </div>
-    <div class="empty-panel" *ngIf="! is_show_power[cookie_u_id]">
-      <i class="fa fa-ban"></i>
-      <br>
-      <span  class="ng-binding ng-scope">你没有权限访问该项目<br>该项目被删除或者你不是该项目的成员。 </span>
-      <span  class="ng-binding ng-hide"></span>
-    </div>
-
-    <!--<app-mission-details></app-mission-details>-->
-
-<!-- select-hidden-->
 <div class="slide-content dragfile_element_309416 in" *ngIf="is_show_detail">
   <div class="entity-well entity-well--tasks">
 
@@ -183,7 +14,7 @@
               <ul [ngClass]="{'popbox-menu checkable checkable--popboxmenu dropdown-menu pull-right':true,'show-tag':is_show_center_tag==4}" style="width: 300px;padding: 10px 20px;" *ngIf="is_show_center_tag==4">
                 <li>
                   <!--<button type="button" class="close margin-bottom-10" data-dismiss="modal" aria-hidden="true">-->
-                    <!--×-->
+                  <!--×-->
                   <!--</button>-->
                   <h3 class="">设置标签</h3>
                   <hr>
@@ -202,8 +33,8 @@
               </ul>
             </li>
             <!--<li class="js-popbox ng-scope" >-->
-              <!--<a  class="dropdown-toggle ng-binding"  title="添加附件">-->
-                <!--<i class="fa fa-paperclip"></i> 附件</a>-->
+            <!--<a  class="dropdown-toggle ng-binding"  title="添加附件">-->
+            <!--<i class="fa fa-paperclip"></i> 附件</a>-->
             <!--</li>-->
             <li class="divider-v ng-scope" >
             </li>
@@ -338,11 +169,11 @@
                       </div>
                     </li>
                     <!--<li >-->
-                      <!--<div class="js-popbox text-center" >-->
-                        <!--<a class="avatar-add" title="取消关注" >-->
-                          <!--<span class="o ng-binding">－</span>-->
-                        <!--</a>-->
-                      <!--</div>-->
+                    <!--<div class="js-popbox text-center" >-->
+                    <!--<a class="avatar-add" title="取消关注" >-->
+                    <!--<span class="o ng-binding">－</span>-->
+                    <!--</a>-->
+                    <!--</div>-->
                     <!--</li>-->
                   </ul>
                 </dd>
@@ -370,17 +201,17 @@
                       </a>
                     </li>
                     <!--<li class="task-label yellow-label" title="">-->
-                      <!--<span  class="ng-binding">一般</span>-->
-                      <!--<a class="action-icon edit fa fa-remove"  title="移除该标签"></a>-->
+                    <!--<span  class="ng-binding">一般</span>-->
+                    <!--<a class="action-icon edit fa fa-remove"  title="移除该标签"></a>-->
                     <!--</li>-->
                     <!--<li class="task-label orange-label" title="" >-->
-                      <!--<span  class="ng-binding">紧急</span>-->
-                      <!--<a class="action-icon edit fa fa-remove" title="移除该标签">-->
-                      <!--</a>-->
+                    <!--<span  class="ng-binding">紧急</span>-->
+                    <!--<a class="action-icon edit fa fa-remove" title="移除该标签">-->
+                    <!--</a>-->
                     <!--</li>-->
                     <!--<li class="task-label red-label" title="" >-->
-                      <!--<span  class="ng-binding">非常紧急</span>-->
-                      <!--<a class="action-icon edit fa fa-remove"  title="移除该标签"></a>-->
+                    <!--<span  class="ng-binding">非常紧急</span>-->
+                    <!--<a class="action-icon edit fa fa-remove"  title="移除该标签"></a>-->
                     <!--</li>-->
                     <li class="task-label-add">
                       <a  class="js-popbox ng-binding ng-scope" data-toggle="dropdown" (click)="showPublishTag(todo_info?.result?.todo_id,1)" *ngIf="!is_show_publish_tag && (!is_show_center_tag || is_show_center_tag == 4)">＋ 添加标签
@@ -462,60 +293,60 @@
                             <div class="comment-list">
 
                               <div *ngFor="let cl of comment_list?.result;let ind=index;">
-                              <div class="timeline-seperator text-center"><span>{{cl.created_at | date:"yyyy-MM-dd"}}</span>
-                              </div>
-                              <div class="chat-body no-padding profile-message">
-                                <ul>
-                                  <li class="message">
-                                    <img src="assets/img/avatars/female.png" class="online" alt="user">
-                                    <span class="message-text">
+                                <div class="timeline-seperator text-center"><span>{{cl.created_at | date:"yyyy-MM-dd"}}</span>
+                                </div>
+                                <div class="chat-body no-padding profile-message">
+                                  <ul>
+                                    <li class="message">
+                                      <img src="assets/img/avatars/female.png" class="online" alt="user">
+                                      <span class="message-text">
                                       <a class="username">{{cl.u_username}}
                                           <small class="text-muted pull-right ultra-light"> {{cl.return_time}}</small>
                                       </a> {{cl.comment_content}}
                                     </span>
-                                    <ul class="list-inline font-xs">
-                                      <li>
-                                        <a class="text-info" (click)="showComment(cl.comment_id,ind)"><i class="fa fa-reply"></i> 回复</a>
+                                      <ul class="list-inline font-xs">
+                                        <li>
+                                          <a class="text-info" (click)="showComment(cl.comment_id,ind)"><i class="fa fa-reply"></i> 回复</a>
+                                        </li>
+                                        <li>
+                                          <a class="text-danger"><i class="fa fa-thumbs-up"></i>赞</a>
+                                        </li>
+                                        <li>
+                                          <a class="text-muted">显示所有的评论 ({{cl.replayCount}})</a>
+                                        </li>
+                                        <li *ngIf="is_show_replay != ind && cl.replayCount > 0">
+                                          <a class="text-primary" (click)="isShowReplayList(ind)">显示回复</a>
+                                        </li>
+                                        <li *ngIf="is_show_replay == ind && cl.replayCount > 0">
+                                          <a class="text-primary" (click)="isShowReplayList(99999)">隐藏回复</a>
+                                        </li>
+                                      </ul>
+                                    </li>
+                                    <div *ngIf="is_show_replay == ind">
+                                      <li class="message message-reply" *ngFor="let rl of cl.replayList">
+                                        <img src="assets/img/avatars/female.png" class="online" alt="user">
+                                        <span class="message-text"> <a class="username">{{rl.u_username}} </a> {{rl.comment_content}} <i class="fa fa-smile-o txt-color-orange"></i> </span>
+                                        <ul class="list-inline font-xs">
+                                          <li>
+                                            <a  class="text-muted"> {{rl.return_time}}</a>
+                                          </li>
+                                          <li>
+                                            <a class="text-danger"><i class="fa fa-thumbs-up"></i> 赞</a>
+                                          </li>
+                                        </ul>
                                       </li>
-                                      <li>
-                                        <a class="text-danger"><i class="fa fa-thumbs-up"></i>赞</a>
-                                      </li>
-                                      <li>
-                                        <a class="text-muted">显示所有的评论 ({{cl.replayCount}})</a>
-                                      </li>
-                                      <li *ngIf="is_show_replay != ind && cl.replayCount > 0">
-                                        <a class="text-primary" (click)="isShowReplayList(ind)">显示回复</a>
-                                      </li>
-                                      <li *ngIf="is_show_replay == ind && cl.replayCount > 0">
-                                        <a class="text-primary" (click)="isShowReplayList(99999)">隐藏回复</a>
-                                      </li>
-                                    </ul>
-                                  </li>
-                                  <div *ngIf="is_show_replay == ind">
-                                  <li class="message message-reply" *ngFor="let rl of cl.replayList">
-                                    <img src="assets/img/avatars/female.png" class="online" alt="user">
-                                    <span class="message-text"> <a class="username">{{rl.u_username}} </a> {{rl.comment_content}} <i class="fa fa-smile-o txt-color-orange"></i> </span>
-                                    <ul class="list-inline font-xs">
-                                      <li>
-                                        <a  class="text-muted"> {{rl.return_time}}</a>
-                                      </li>
-                                      <li>
-                                        <a class="text-danger"><i class="fa fa-thumbs-up"></i> 赞</a>
-                                      </li>
-                                    </ul>
-                                  </li>
-                                  </div>
-                                  <li *ngIf="comment_parent_id == cl.comment_id">
-                                    <div class="input-group wall-comment-reply">
-                                      <input  type="text" class="form-control" placeholder="这里输入您回复的消息..." name="replay_content" [(ngModel)]="replay_content">
-                                      <span class="input-group-btn">
+                                    </div>
+                                    <li *ngIf="comment_parent_id == cl.comment_id">
+                                      <div class="input-group wall-comment-reply">
+                                        <input  type="text" class="form-control" placeholder="这里输入您回复的消息..." name="replay_content" [(ngModel)]="replay_content">
+                                        <span class="input-group-btn">
                                         <button class="btn btn-success" (click)="publishComment(todo_info?.result?.todo_id,2)">
                                             <i class="fa fa-reply"></i> 回复
                                         </button> </span>
-                                    </div>
-                                  </li>
-                                </ul>
-                              </div>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </div>
                               </div>
 
                               <div class="new-comment ng-scope" >
@@ -713,7 +544,7 @@
                                   </div>
                                   <a class="activity-avatar avatar avatar-30" >
                                     <img alt="user" class="online width-28" src="assets/img/avatars/male.png">
-                                </a>
+                                  </a>
                                   <div class="activity-itemwarp">
                                     <span class="activity">
                                           <span class="actor ng-scope">兴凤</span>
@@ -977,81 +808,79 @@
   </div>
 </div>
 
-    <div class="modal fade" id="myModalname" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <!-- 关闭按钮 -->
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-              ×
-            </button>
-            <!-- 标题 -->
-            <h3 class="modal-title" data-ng-bind='results.title'>分配任务</h3>
-          </div>
-          <div class="modal-body">
-            <div class="row">
-              <div class=" form-group  col col-lg-12" >
-                <div class="selector-choices-wrapper">
+<div class="modal fade" id="myModalname" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- 关闭按钮 -->
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          ×
+        </button>
+        <!-- 标题 -->
+        <h3 class="modal-title" data-ng-bind='results.title'>分配任务</h3>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class=" form-group  col col-lg-12" >
+            <div class="selector-choices-wrapper">
 
-                  <div class="tab-contents">
-                    <div class="tab-contents-box">
-                      <ul>
+              <div class="tab-contents">
+                <div class="tab-contents-box">
+                  <ul>
 
-                        <li class="entity-members" *ngIf="cookie_c_id == admin_id">
-                          <dl class="entity-members-assign ng-scope" >
-                            <dt class="ng-binding">选择公司</dt>
-                            <dd>
-                              <select name="c_id" [(ngModel)]="c_id" (change)="selectCustomer($event)">
-                                <option value="0" >--选择公司--</option>
-                                <option value="{{c.c_id}}" *ngFor="let c of todo_info?.result?.customer_list">{{c.c_name}}</option>
-                              </select>
-                            </dd>
-                          </dl>
-                        </li>
+                    <li class="entity-members" *ngIf="cookie_c_id == admin_id">
+                      <dl class="entity-members-assign ng-scope" >
+                        <dt class="ng-binding">选择公司</dt>
+                        <dd>
+                          <select name="c_id" [(ngModel)]="c_id" (change)="selectCustomer($event)">
+                            <option value="0" >--选择公司--</option>
+                            <option value="{{c.c_id}}" *ngFor="let c of todo_info?.result?.customer_list">{{c.c_name}}</option>
+                          </select>
+                        </dd>
+                      </dl>
+                    </li>
 
-                        <li class="checkbox-item table  smart-form">
-                          <label class="checkbox">
-                            <input name="checkbox-inline" type="checkbox" [checked]="check" (change)="changeCheckAll($event)">全选
-                            <i></i>
-                          </label>
-                        </li>
-                        <li *ngFor="let au of user_list?.result?.userList">
-                          <div class="table smart-form">
-                            <label class="checkbox">
-                              <input name="checkbox-inline" type="checkbox" (change)="handle($event)" [checked]="selected_user[au.id]" value="{{au.id}}">
-                              <i></i>
-                              <img alt="{{au.u_username}}" class="online width-40" src="{{domain_url}}{{au.u_avatar}}" *ngIf="au.u_avatar">
-                              <img alt="{{au.u_username}}" class="online width-40" src="assets/img/avatars/male.png" *ngIf="!au.u_avatar">
-                              <span >{{au.u_username}}</span>
-                            </label>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
+                    <li class="checkbox-item table  smart-form">
+                      <label class="checkbox">
+                        <input name="checkbox-inline" type="checkbox" [checked]="check" (change)="changeCheckAll($event)">全选
+                        <i></i>
+                      </label>
+                    </li>
+                    <li *ngFor="let au of user_list?.result?.userList">
+                      <div class="table smart-form">
+                        <label class="checkbox">
+                          <input name="checkbox-inline" type="checkbox" (change)="handle($event)" [checked]="selected_user[au.id]" value="{{au.id}}">
+                          <i></i>
+                          <img alt="{{au.u_username}}" class="online width-40" src="{{domain_url}}{{au.u_avatar}}" *ngIf="au.u_avatar">
+                          <img alt="{{au.u_username}}" class="online width-40" src="assets/img/avatars/male.png" *ngIf="!au.u_avatar">
+                          <span >{{au.u_username}}</span>
+                        </label>
+                      </div>
+                    </li>
+                  </ul>
                 </div>
               </div>
-              <!--<div class=" form-group col col-lg-6">-->
-                <!--<div class="selector-choices-wrapper">-->
-                  <!--<ul class="select2-selection__rendered" *ngIf="show_user_type == 1">-->
-                    <!--<li class="select2-selection__choice" title="" *ngFor="let au1 of todo_info?.result?.assign_list">-->
-                      <!--<span class="select2-selection__choice__remove" >×</span>{{au1.u_username}}</li>-->
-                  <!--</ul>-->
-                  <!--<ul class="select2-selection__rendered" *ngIf="show_user_type == 2">-->
-                    <!--<li class="select2-selection__choice" title="Montana" *ngFor="let au2 of todo_info?.result?.follower_list">-->
-                      <!--<span class="select2-selection__choice__remove" role="presentation">×</span>{{au2.u_username}}-->
-                    <!--</li>-->
-                  <!--</ul>-->
-                <!--</div>-->
-              <!--</div>-->
             </div>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-ng-click="ok()"  data-dismiss="modal" (click)="submitSelectedUser(todo_info?.result?.todo_id)">确定</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal -->
-    </div>
-
-  </div>
+          <!--<div class=" form-group col col-lg-6">-->
+          <!--<div class="selector-choices-wrapper">-->
+          <!--<ul class="select2-selection__rendered" *ngIf="show_user_type == 1">-->
+          <!--<li class="select2-selection__choice" title="" *ngFor="let au1 of todo_info?.result?.assign_list">-->
+          <!--<span class="select2-selection__choice__remove" >×</span>{{au1.u_username}}</li>-->
+          <!--</ul>-->
+          <!--<ul class="select2-selection__rendered" *ngIf="show_user_type == 2">-->
+          <!--<li class="select2-selection__choice" title="Montana" *ngFor="let au2 of todo_info?.result?.follower_list">-->
+          <!--<span class="select2-selection__choice__remove" role="presentation">×</span>{{au2.u_username}}-->
+          <!--</li>-->
+          <!--</ul>-->
+          <!--</div>-->
+          <!--</div>-->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-ng-click="ok()"  data-dismiss="modal" (click)="submitSelectedUser(todo_info?.result?.todo_id)">确定</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+</div>
