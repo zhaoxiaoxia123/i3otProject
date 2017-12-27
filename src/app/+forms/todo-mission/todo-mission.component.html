@@ -87,8 +87,8 @@
                             <i class="fa fa-square-o"></i>
                           </a>
                           <a class="entry-task-check ng-scope" *ngIf="tl1.todo_status == 2" (click)="editStatus(1,tl1.todo_id,todoList?.result?.project_id)">
-                          <i class="fa fa-check-square"></i>
-                        </a>
+                            <i class="fa fa-check-square"></i>
+                          </a>
                           <a class="entry-task-title ng-binding" (click)="showDetail(tl1.todo_id,tl.key,tl.info)">{{tl1.todo_title}}</a>
                         </div>
                         <div class="task-badges">
@@ -98,8 +98,9 @@
                           <span class="task-badge task-label yellow-label" title="{{tag}}" *ngFor="let tag of tl1.tags">{{tag}}</span>
                         </div>
                         <div class="entry-task-members" *ngIf="tl1.todo_assign">
-                          <a class="js-popbox member avatar ng-scope avatar-28">
-                            <img alt="user" class="online width-28" src="assets/img/avatars/male.png">
+                          <a class="js-popbox member avatar ng-scope avatar-28" title="{{h.u_username}}" *ngFor="let h of tl1.assignList">
+                            <img alt="{{h.u_username}}" class="online width-28" src="{{domain_url}}{{h.u_avatar}}" *ngIf="h.u_avatar">
+                            <img alt="{{h.u_username}}" class="online width-28" src="assets/img/avatars/male.png" *ngIf="!h.u_avatar">
                           </a>
                         </div>
                       </div>
@@ -184,7 +185,7 @@
                   <h3 class="">设置标签</h3>
                   <hr>
                 </li>
-                <li  [ngClass]="{'label-item ng-scope':true,'selected':selected_tag['T'+tcl1.category_id]}" (click)="selectTag(tcl1.category_id)" *ngFor="let tcl1 of todo_info?.result?.category_list ">
+                <li [ngClass]="{'label-item ng-scope':true,'selected':selected_tag['T'+tcl1.category_id]}" (click)="selectTag(tcl1.category_id)" *ngFor="let tcl1 of todo_info?.result?.category_list ">
                   <a  class="js-toggle-label-filter green-label" >
                     <span class="label-name padding-left-20" title="{{tcl1.category_desc}}">{{tcl1.category_desc}}</span>
                   </a>
@@ -208,7 +209,7 @@
                 <i class="fa fa-chevron-down"></i> 更多</a>
               <ul class="dropdown-menu dropdown-menu-right">
                 <li  class="ng-scope">
-                  <a   class="ng-binding">
+                  <a   class="ng-binding" (click)="showPublishDetail(todo_info?.result?.todo_id,1)">
                     <i class="fa fa-pencil fa-fw"></i> 编辑
                   </a>
                 </li>
@@ -280,7 +281,8 @@
                     <li  class="ng-scope" *ngFor="let au1 of todo_info?.result?.assign_list">
                       <a  class="fa fa-times-circle" ></a>
                       <a class="js-popbox avatar avatar-40"  title="{{au1.u_username}}">
-                        <img alt="{{au1.u_username}}" class="online width-40" src="{{domain_url}}{{au1.u_avatar}}">
+                        <img alt="{{au1.u_username}}" class="online width-40" src="{{domain_url}}{{au1.u_avatar}}" *ngIf="au1.u_avatar">
+                        <img alt="{{au1.u_username}}" class="online width-40" src="assets/img/avatars/male.png" *ngIf="!au1.u_avatar">
                       </a>
                     </li>
                     <li  class="ng-scope">
@@ -300,7 +302,8 @@
                     <li  class="ng-scope" *ngFor="let au2 of todo_info?.result?.follower_list">
                       <a  class="fa fa-times-circle" ></a>
                       <a class="js-popbox avatar avatar-40"  title="{{au2.u_username}}">
-                        <img alt="{{au2.u_username}}" class="online width-40" src="{{domain_url}}{{au2.u_avatar}}">
+                        <img alt="{{au2.u_username}}" class="online width-40" src="{{domain_url}}{{au2.u_avatar}}" *ngIf="au2.u_avatar">
+                        <img alt="{{au2.u_username}}" class="online width-40" src="assets/img/avatars/male.png" *ngIf="!au2.u_avatar">
                       </a>
                     </li>
                     <li  class="ng-scope">
@@ -342,68 +345,6 @@
                 </dd>
               </dl>
             </div>
-            <!--<div class="entity-members" *ngIf="cookie_c_id != admin_id">-->
-              <!--<dl class="entity-members-assign ng-scope" >-->
-                <!--<dt class="ng-binding">分配任务给</dt>-->
-                <!--<dd>-->
-                  <!--<ul class="avatars">-->
-                    <!--<li  class="ng-scope" *ngFor="let u1 of todo_info?.result?.user_list">-->
-                      <!--<a  class="fa fa-times-circle" ></a>-->
-                      <!--<a class="js-popbox avatar avatar-40"  title="{{u1.u_username}}">-->
-                        <!--<img alt="{{u1.u_username}}" class="online width-40" src="{{domain_url}}{{u1.u_avatar}}">-->
-                        <!--</a>-->
-                    <!--</li>-->
-                    <!--<li  class="ng-scope">-->
-                      <!--<div class="js-popbox text-center ng-isolate-scope" type="member" >-->
-                        <!--<a class="avatar-add">-->
-                          <!--<span class="o">＋</span>-->
-                        <!--</a>-->
-                      <!--</div>-->
-                    <!--</li>-->
-                  <!--</ul>-->
-                <!--</dd>-->
-              <!--</dl>-->
-              <!--<dl class="entity-members-watchs ng-scope">-->
-                <!--<dt class="ng-binding">关注的人</dt>-->
-                <!--<dd>-->
-                  <!--<ul class="avatars">-->
-                    <!--<li  class="ng-scope" *ngFor="let u2 of todo_info?.result?.user_list">-->
-                      <!--<a  class="fa fa-times-circle" ></a>-->
-                      <!--<a class="js-popbox avatar avatar-40"  title="{{u2.u_username}}">-->
-                        <!--<img alt="{{u2.u_username}}" class="online width-40" src="{{domain_url}}{{u2.u_avatar}}">-->
-                      <!--</a>-->
-                    <!--</li>-->
-                    <!--<li  class="ng-scope">-->
-                      <!--<div class="js-popbox text-center ng-isolate-scope"  type="watch" >-->
-                        <!--<a class="avatar-add" >-->
-                          <!--<span class="o">＋</span>-->
-                        <!--</a>-->
-                      <!--</div>-->
-                    <!--</li>-->
-                  <!--</ul>-->
-                <!--</dd>-->
-              <!--</dl>-->
-              <!--<dl class="entity-members-watchs ng-scope">-->
-                <!--<dt class="ng-binding">审批人</dt>-->
-                <!--<dd>-->
-                  <!--<ul class="avatars">-->
-                    <!--<li  class="ng-scope">-->
-                      <!--<a  class="fa fa-times-circle" ></a>-->
-                      <!--<a class="js-popbox avatar avatar-40" title="兴凤" >-->
-                        <!--<img alt="user" class="online width-40" src="assets/img/avatars/male.png">-->
-                      <!--</a>-->
-                    <!--</li>-->
-                    <!--<li  class="ng-scope">-->
-                      <!--<div class="js-popbox text-center ng-isolate-scope"  type="watch" >-->
-                        <!--<a class="avatar-add" >-->
-                          <!--<span class="o">＋</span>-->
-                        <!--</a>-->
-                      <!--</div>-->
-                    <!--</li>-->
-                  <!--</ul>-->
-                <!--</dd>-->
-              <!--</dl>-->
-            <!--</div>-->
             <hr class="entity-hr ng-scope" >
             <div class="entity-well-content-module">
               <dl class="module-expire-date ng-scope">
@@ -531,7 +472,7 @@
                                     </span>
                                     <ul class="list-inline font-xs">
                                       <li>
-                                        <a class="text-info" (click)="showComment(cl.comment_id)"><i class="fa fa-reply"></i> 回复</a>
+                                        <a class="text-info" (click)="showComment(cl.comment_id,ind)"><i class="fa fa-reply"></i> 回复</a>
                                       </li>
                                       <li>
                                         <a class="text-danger"><i class="fa fa-thumbs-up"></i>赞</a>
@@ -543,7 +484,7 @@
                                         <a class="text-primary" (click)="isShowReplayList(ind)">显示回复</a>
                                       </li>
                                       <li *ngIf="is_show_replay == ind && cl.replayCount > 0">
-                                        <a class="text-primary" (click)="isShowReplayList(ind)">隐藏回复</a>
+                                        <a class="text-primary" (click)="isShowReplayList(99999)">隐藏回复</a>
                                       </li>
                                     </ul>
                                   </li>
@@ -560,6 +501,7 @@
                                       </li>
                                     </ul>
                                   </li>
+                                  </div>
                                   <li *ngIf="comment_parent_id == cl.comment_id">
                                     <div class="input-group wall-comment-reply">
                                       <input  type="text" class="form-control" placeholder="这里输入您回复的消息..." name="replay_content" [(ngModel)]="replay_content">
@@ -569,7 +511,6 @@
                                         </button> </span>
                                     </div>
                                   </li>
-                                  </div>
                                 </ul>
                               </div>
                               </div>
@@ -1076,7 +1017,8 @@
                             <label class="checkbox">
                               <input name="checkbox-inline" type="checkbox" (change)="handle($event)" [checked]="selected_user[au.id]" value="{{au.id}}">
                               <i></i>
-                              <img alt="{{au.u_username}}" class="online width-40" src="{{domain_url}}{{au.u_avatar}}">
+                              <img alt="{{au.u_username}}" class="online width-40" src="{{domain_url}}{{au.u_avatar}}" *ngIf="au.u_avatar">
+                              <img alt="{{au.u_username}}" class="online width-40" src="assets/img/avatars/male.png" *ngIf="!au.u_avatar">
                               <span >{{au.u_username}}</span>
                             </label>
                           </div>

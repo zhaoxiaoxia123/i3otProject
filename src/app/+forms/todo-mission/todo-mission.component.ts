@@ -86,8 +86,6 @@ export class TodoMissionComponent implements OnInit {
           CKEDITOR.replace('ckeditor-showcase');
       });
       this.routInfo.params.subscribe((param : Params)=>this.project_id=param['project_id']); //这种获取方式是参数订阅，解决在本页传参不生效问题
-      // console.log( 'this.project_id:----');
-      // console.log( this.project_id);
       if(this.project_id != 0){
           this.getTodoDefault(this.project_id);
       }
@@ -111,26 +109,20 @@ export class TodoMissionComponent implements OnInit {
             });
 
         setTimeout(() => {
-            console.log(this.todoList);
             if(this.todoList['status'] == 202){
                 this.cookieStore.removeAll();
                 this.router.navigate(['/auth/login']);
             }
-
             this.selects = [];
             for (let entry of this.todoList['result']['template_list']) {
                 this.selects[entry['key']] = false;
                 this.publish_todo_title[entry['key']] = '';
                 this.edit_template_name[entry['key']] = '';
             }
-
             this.is_show_power = [];
             for (let entry1 of this.todoList['result']['user_id_list']) {
                 this.is_show_power[entry1] = true;
             }
-            console.log('selects:----');
-            console.log(this.selects);
-            console.log(this.is_show_power);
         }, 600);
 
     }
@@ -141,7 +133,6 @@ export class TodoMissionComponent implements OnInit {
      */
     showAddTodo(template_id:number){
         this.selects[template_id] = !this.selects[template_id];
-
     }
 
     /**
@@ -163,7 +154,6 @@ export class TodoMissionComponent implements OnInit {
                 let info = JSON.parse(data['_body']);
                 if(info['status'] == 200) {
                     this.todoList = info;
-
                     this.selects = [];
                     for (let entry of this.todoList['result']['template_list']) {
                         this.selects[entry['key']] = false;
@@ -285,7 +275,6 @@ export class TodoMissionComponent implements OnInit {
                 this.todo_info = data;
             });
         setTimeout(() => {
-            // console.log(this.todo_info);
             if(this.todo_info['status'] == 202){
                 this.cookieStore.removeAll();
                 this.router.navigate(['/auth/login']);
@@ -299,8 +288,6 @@ export class TodoMissionComponent implements OnInit {
                     this.selected_tag['T'+val] = true;
                 }
             });
-            console.log(this.selected_tag);
-
             //调用显示评论列表信息
             this.getCommentList(todo_id);
         }, 800);
@@ -442,8 +429,6 @@ export class TodoMissionComponent implements OnInit {
      */
     selectTag(category_id:string){
         this.selected_tag['T'+category_id] = !this.selected_tag['T'+category_id];
-        console.log('this.selected_tag:----');
-        console.log(this.selected_tag);
     }
 
     /**
@@ -516,7 +501,6 @@ export class TodoMissionComponent implements OnInit {
         if(num == 1){//为过期时间
             this.expired_at = todo_id;
             this.is_expired_at = 1;
-            console.log(this.expired_at );
         }else if(num == 2){//为任务id
             this.http.post(this.globalService.getDomain()+'/api/v1/addTodo',{
                 'todo_id': todo_id,
@@ -565,7 +549,6 @@ export class TodoMissionComponent implements OnInit {
         let v = t.value;
         let c = t.checked;
         this.selected_user[v] = c;
-        console.log(stringify(this.selected_user));
         let isAll = 0;
         for (let s of this.selected_user) {
             if(s == false) {
@@ -596,12 +579,10 @@ export class TodoMissionComponent implements OnInit {
         }
         let result = this.user_list['result']['userList'];
         result.forEach((val, idx, array) => {
-            if(val != '') {
-                this.selected_user[val] = false;
+            if(val['id'] != '' && this.selected_user[val['id']] != true) {
+                this.selected_user[val['id']] = false;
             }
         });
-        console.log('this.selected_user:---');
-        console.log(this.selected_user);
     }, 800);
 }
     /**
@@ -645,12 +626,8 @@ export class TodoMissionComponent implements OnInit {
                     }
                 });
             }
-        }else if(num == 3){
-
         }
-        console.log(this.show_user_type);
-        console.log(this.selected_user);
-
+        // else if(num == 3){}
     }
 
     /**
@@ -705,9 +682,14 @@ export class TodoMissionComponent implements OnInit {
     /**
      * 展示回复框
      * @param comment_id
+     * ind 索引
      */
-    showComment(comment_id:number){
+    showComment(comment_id:number,ind:number){
         this.comment_parent_id = comment_id;
+        this.is_show_replay = ind;
+        console.log('this.comment_parent_id');
+        console.log(this.comment_parent_id);
+        console.log(this.is_show_replay);
     }
 
     /**
@@ -752,6 +734,7 @@ export class TodoMissionComponent implements OnInit {
      */
     isShowReplayList(ind:number){
         this.is_show_replay = ind;
+        console.log('this.is_show_replay');
         console.log(this.is_show_replay);
     }
 
