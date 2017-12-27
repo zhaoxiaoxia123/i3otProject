@@ -1,6 +1,5 @@
-
   <div class="layout_content wt-project-background ng-scope" style="background-image: none;background-color: transparent;">
-    <div class="layout_content_main" style="margin-right: 0px;">
+    <div class="layout_content_main" style="margin-right: 0px;" *ngIf="is_show_power[cookie_u_id]">
       <div class="mod-navbar">
         <div class="main ng-scope" >
           <div class="title">
@@ -8,93 +7,52 @@
               <a  class="js-popbox prj_icon" >
                 <i class="fa-fw fa fa-inbox txt-color-greenNormal" ></i>
               </a>
-              <a class="js-popbox prj_name ng-binding" >贵航股份好</a>
+              <a class="js-popbox prj_name ng-binding" >{{todoList?.result?.project_title}}</a>
             </h3>
-            <!--<a href="" class="fa fa-cog color-text-graylight js-popbox">
+            <!--<a class="fa fa-cog color-text-graylight js-popbox">
             </a>-->
-
           </div>
           <div class="main_toolbar">
             <div   class="ng-scope">
               <div class="sub_toolbar ng-scope">
                 <div class="btn-group js-popbox mr-5 ng-scope" >
-                  <button class="btn btn-success btn--fancy ng-binding" data-toggle="dropdown" >新建任务列表</button>
-                  <!--<a class="btn btn-success btn&#45;&#45;fancy dropdown-toggle" >
-                    <i class="fa fa-caret-down"></i>
-                  </a>-->
+                  <button class="btn btn-success btn--fancy ng-binding" data-toggle="dropdown" (click)="showPublishTemplate(todoList?.result?.project_id,3)">新建任务列表</button>
                   <ul class="dropdown-menu pull-right" style="width: 300px;padding: 10px 20px;">
-                    <li>
-                      <button type="button" class="close margin-bottom-10" data-dismiss="modal" aria-hidden="true">
-                      ×
-                    </button>
-                    </li>
+                    <!--<li>-->
+                      <!--<button type="button" class="close margin-bottom-10" data-dismiss="modal" aria-hidden="true">-->
+                      <!--×-->
+                    <!--</button>-->
+                    <!--</li>-->
                     <li>
                       <div class="form-group">
-                        <input name="entry_name"  placeholder="列表名" type="text" class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" required="" >
+                        <input  name="template_name" [(ngModel)]="template_name" placeholder="列表名" type="text" class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" required="" >
                       </div>
                     </li>
                     <li>
                       <div class="form-group">
-                        <button  data-loading-text="保存中…" class="btn btn-success mr_15 ng-binding" >保&nbsp;&nbsp;存</button>
-                        <button  class="btn btn-link btn-cancel ng-binding">取&nbsp;&nbsp;消</button>
+                        <button  data-loading-text="保存中…" class="btn btn-success mr_15 ng-binding" (click)="showPublishTemplate(todoList?.result?.project_id,2)" >保&nbsp;&nbsp;存</button>
+                        <button  class="btn btn-link btn-cancel ng-binding" (click)="showPublishTemplate(todoList?.result?.project_id,3)">取&nbsp;&nbsp;消</button>
                       </div>
                     </li>
                   </ul>
                 </div>
-                <!--<div class="btn-group js-popbox">
-                  <a class="btn btn&#45;&#45;fancy">
-                   <span  class="ng-binding ng-scope">筛选 </span>
-                   </a>
-                  <a class="btn btn&#45;&#45;fancy dropdown-toggle" data-toggle="dropdown">
-                    <i class="fa fa-caret-down"></i>
-                  </a>
-                  <ul class="dropdown-menu pull-right">
-                    <li><a  class="ng-binding">
-                      <i class="fa icon-xx" ></i> 分配给我的任务
-                    </a>
-                    </li>
-                    <li>
-                      <a  class="ng-binding">
-                        <i class="fa icon-xx" ></i>
-                        我关注的任务
-                      </a>
-                    </li>
-                    <li>
-                      <a  class="ng-binding">
-                        <i class="fa icon-xx" ></i> 我创建的任务
-                      </a>
-                    </li>
-                    <li class="divider">
 
-                    </li>
-                    <li>
-                      <a  class="ng-binding"><i class="fa fa-fw">
-
-                      </i> 任务筛选
-                      </a>
-                    </li>
-                  </ul>
-                </div>-->
               </div>
             </div>
           </div>
-
         </div>
       </div>
       <div id="content">
         <div class="ng-scope">
           <div class="entries_panel js-sortable layout_content_main_tasks ng-scope wt-scroll"   style="overflow-x: auto; overflow-y: hidden;">
             <div class="entries_panel_sortarea ui-sortable" >
-              <div class="entry ng-scope" >
-                <div class="entry_header ui-sortable-handle">
-                  <i class="wtfont wtf-entryhover ng-scope" >
 
-                  </i>
+              <div class="entry ng-scope" *ngFor="let tl of todoList?.result?.template_list" >
+                <div class="entry_header ui-sortable-handle">
+                  <i class="wtfont wtf-entryhover ng-scope" ></i>
                   <div class="entry_header_title">
                     <h2>
-                      <a data-toggle="dropdown"><span  title="要做"  class="ng-binding ng-scope">要做</span></a>
-                    <!--  <button class="btn btn-success btn&#45;&#45;fancy ng-binding"  >新建任务列表</button>-->
-
+                      <a data-toggle="dropdown"><span class="ng-binding ng-scope" (click)="showEditTemplateName(tl.info,tl.key)">{{tl.info}}</span></a>
                       <ul class="dropdown-menu pull-right" style="width: 300px;padding: 10px 20px;">
                         <li>
                           <button type="button" class="close margin-bottom-10" data-dismiss="modal" aria-hidden="true">
@@ -104,12 +62,12 @@
                         </li>
                         <li>
                           <div class="form-group">
-                            <input name="entry_name"  placeholder="" type="text" class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" required="" >
+                            <input name="entry_name" [(ngModel)]="edit_template_name[tl.key]" placeholder="" type="text" class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" required="" >
                           </div>
                         </li>
                         <li>
                           <div class="form-group">
-                            <button  data-loading-text="保存中…" class="btn btn-success mr_15 ng-binding" >保&nbsp;&nbsp;存</button>
+                            <button  data-loading-text="保存中…" class="btn btn-success mr_15 ng-binding" (click)="editTemplateName(todoList?.result?.project_id,tl.key)">保&nbsp;&nbsp;存</button>
                             <button  class="btn btn-link btn-cancel ng-binding">取&nbsp;&nbsp;消</button>
                           </div>
                         </li>
@@ -118,167 +76,73 @@
                     </h2>
                   </div>
                     <a  class="entry_header_number ng-binding ng-scope" >
-                      1 / 3 </a>
+                      {{tl.complate_count}} / {{tl.todo_list_count}} </a>
                   </div>
                   <div class="entry-task-panel wt-scroll"  style="overflow-x: hidden; overflow-y: auto; max-height: 218px;">
                     <div class="entry-tasks js-sortable ui-sortable" >
-                      <div  class="right_click_trigger slide-trigger js-popbox false task task_style task- task-selected" >
-                        <div class="entry-task-main task-completed-style" >
-                          <a class="entry-task-check ng-scope">
-                            <i class="fa fa-check-square" >
 
-                            </i>
+                      <div [ngClass]="{'right_click_trigger slide-trigger js-popbox false task task_style task-':true,'task-selected':tl1.todo_status==2}" *ngFor="let tl1 of tl.todo_list">
+                        <div [ngClass]="{'entry-task-main':true,'task-completed-style':tl1.todo_status==2}">
+                          <a class="entry-task-check ng-scope" *ngIf="tl1.todo_status != 2" (click)="editStatus(2,tl1.todo_id,todoList?.result?.project_id)">
+                            <i class="fa fa-square-o"></i>
                           </a>
-                          <a class="entry-task-title ng-binding" >吃VB成本</a>
-
+                          <a class="entry-task-check ng-scope" *ngIf="tl1.todo_status == 2" (click)="editStatus(1,tl1.todo_id,todoList?.result?.project_id)">
+                          <i class="fa fa-check-square"></i>
+                        </a>
+                          <a class="entry-task-title ng-binding" (click)="showDetail(tl1.todo_id,tl.key,tl.info)">{{tl1.todo_title}}</a>
                         </div>
                         <div class="task-badges">
-
+                          <span class="task-badge fa fa-clock-o badge-expire-soon" title="任务即将截止">{{tl1.expired_at | date:'yyyy-MM-dd'}}</span>
+                          <span class="task-badge fa fa-comment-o" title="任务有 {{tl1.comment_count}} 个评论">{{tl1.comment_count}}</span>
+                          <span class="task-badge fa fa-align-left" title="任务有描述" *ngIf="tl1.todo_content"></span>
+                          <span class="task-badge task-label yellow-label" title="{{tag}}" *ngFor="let tag of tl1.tags">{{tag}}</span>
                         </div>
-                        <div class="entry-task-members">
-
-                        </div>
-                      </div>
-                      <div  class="right_click_trigger slide-trigger js-popbox false task task_style task-" >
-                        <div class="entry-task-main" >
-                          <a class="entry-task-check ng-scope" >
-                            <i class="fa fa-square-o" ></i>
-                          </a>
-                          <a class="entry-task-title ng-binding">V吃Vv</a>
-                        </div>
-                        <div class="task-badges">
-
-                        </div>
-                        <div class="entry-task-members">
-
-                        </div>
-                      </div>
-                      <div  class="right_click_trigger slide-trigger js-popbox false task task_style task-" >
-                        <div class="entry-task-main" >
-                          <a class="entry-task-check ng-scope">
-                            <i class="fa fa-square-o" ></i>
-                          </a>
-                          <a class="entry-task-title ng-binding" >冻干粉大花荆芥黑寡妇地方</a>
-                        </div>
-                        <div class="task-badges">
-                          <span class="task-badge fa fa-clock-o badge-expire-soon" title="任务即将截止">12-18</span>
-                          <span class="task-badge fa fa-list " title="1/3个检查项已全部完成">1/3</span>
-                          <span class="task-badge fa fa-comment-o" title="任务有 1 个评论">1</span>
-                          <span class="task-badge fa fa-align-left" title="任务有描述"></span>
-                          <span class="task-badge task-label yellow-label" title=""></span>
-                        </div>
-                        <div class="entry-task-members">
+                        <div class="entry-task-members" *ngIf="tl1.todo_assign">
                           <a class="js-popbox member avatar ng-scope avatar-28">
                             <img alt="user" class="online width-28" src="assets/img/avatars/male.png">
                           </a>
                         </div>
                       </div>
+
                     </div>
+
+                    <!--新建任务发布框-->
+                    <div class="entry-add-bottom-composer entry-task-composer ng-isolate-scope" *ngIf="selects[tl.key]">
+                      <div class="composer-body" >
+                        <div class="entry-task-labels">
+                        </div>
+                        <textarea rows="2" class="form-control help-block" placeholder="请输入任务标题" [(ngModel)]="publish_todo_title[tl.key]"></textarea>
+                        <div class="composer-body-footer">
+                          <div class="task-badges" >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="composer-footer">
+                        <button  class="btn btn-success btn--big confirm mr-10 ng-binding" (click)="submitTodo(todoList?.result?.project_id,tl.key)">保&nbsp;&nbsp;存</button>
+                        <button  class="btn btn-link btn-cancel ng-binding" (click)="showAddTodo(tl.key)">取&nbsp;&nbsp;消</button>
+                      </div>
+                    </div>
+
                   </div>
-                  <div class="entry-task-footer ng-scope" >
-                    <a  class="js-add-task-composer ng-binding ng-scope" >
+                  <div class="entry-task-footer ng-scope" *ngIf=" ! selects[tl.key]">
+                    <a  class="js-add-task-composer ng-binding ng-scope" (click)="showAddTodo(tl.key)">
                       <i class="fa fa-plus-circle"></i> 新建任务
                     </a>
                   </div>
                 </div>
-              <div class="entry ng-scope" >
-                <div class="entry_header ui-sortable-handle" >
-                  <i class="wtfont wtf-entryhover ng-scope"></i>
-                  <div class="entry_header_title"><h2>
-                    <span title="在做" class="ng-binding ng-scope">在做</span>
-                  </h2>
-                  </div>
-                  <a class="entry_header_number ng-binding ng-scope">1 / 2
-                  </a>
-                  </div>
-                <div class="entry-task-panel wt-scroll"  style="overflow-x: hidden; overflow-y: auto; max-height: 218px;">
-                  <div class="entry-tasks js-sortable ui-sortable" >
-                    <div  class="right_click_trigger slide-trigger js-popbox false task task_style task-" >
-                      <div class="entry-task-main task-completed-style" >
-                        <a class="entry-task-check ng-scope" >
-                          <i class="fa fa-check-square">
 
-                          </i>
-                        </a>
-                        <a class="entry-task-title ng-binding" >东方饭店你不会</a>
-
-                      </div>
-                      <div class="task-badges">
-
-                      </div>
-                      <div class="entry-task-members">
-
-                      </div>
-                    </div>
-                    <div  class="right_click_trigger slide-trigger js-popbox false task task_style task-" >
-                      <div class="entry-task-main" >
-                        <a class="entry-task-check ng-scope" >
-                          <i class="fa fa-square-o" >
-                          </i>
-                        </a>
-                        <a class="entry-task-title ng-binding" >孤鸿寡鹄</a>
-                      </div>
-                      <div class="task-badges">
-                      </div>
-                      <div class="entry-task-members">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="entry-add-bottom-composer entry-task-composer ng-isolate-scope">
-                    <div class="composer-body" >
-                      <div class="entry-task-labels">
-                      </div>
-                      <textarea rows="2" class="form-control help-block" placeholder="请输入标题"></textarea>
-                      <div class="composer-body-footer">
-                        <div class="task-badges" >
-                        </div>
-                      </div>
-                    </div>
-                    <div class="composer-footer">
-                      <button  class="btn btn-success btn--big confirm mr-10 ng-binding" >保&nbsp;&nbsp;存</button>
-                      <button  class="btn btn-link btn-cancel ng-binding">取&nbsp;&nbsp;消</button>
-                    </div>
-                  </div>
-                </div>
-                <div class="entry-task-footer ng-scope" >
-                  <a  class="js-add-task-composer ng-binding ng-scope" >
-                    <i class="fa fa-plus-circle"></i> 新建任务
-                  </a>
-                </div>
-              </div>
-
-              <div  class="entry ng-scope" >
-                <div class="entry_header ui-sortable-handle" >
-                  <i class="wtfont wtf-entryhover ng-scope" ></i>
-                  <div class="entry_header_title"><h2>
-                    <span  class="ng-binding ng-scope">待定</span>
-                  </h2></div>
-                  <a  class="entry_header_number ng-binding ng-scope" >0 / 0
-                  </a>
-                </div>
-                <div class="entry-task-panel wt-scroll"  style="overflow-x: hidden; overflow-y: auto; max-height: 218px;">
-                  <div class="entry-tasks js-sortable ui-sortable" >
-
-                  </div>
-                </div>
-                <div class="entry-task-footer ng-scope" >
-                  <a  class="js-add-task-composer ng-binding ng-scope" >
-                    <i class="fa fa-plus-circle"></i> 新建任务</a>
-                </div>
-              </div>
-              </div>
 
             <div class="entry-new ng-scope" >
-              <a  class="ng-binding entry-add">
+              <a  class="ng-binding entry-add" *ngIf="!is_show_publish_template" (click)="showPublishTemplate(todoList?.result?.project_id,1)">
                 <i class="fa fa-plus-circle"></i> 新建任务列表
               </a>
-              <div  class="padding-10 ng-hide ">
+              <div  class="padding-10 " *ngIf="is_show_publish_template"><!-- ng-hide-->
                 <div class="form-group">
-                  <input name="entry_name"  placeholder="列表名" type="text" class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" required="" >
+                  <input name="template_name" [(ngModel)]="template_name" placeholder="列表名" type="text" class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" required="" >
                 </div>
                 <div class="form-group">
-                  <button  data-loading-text="保存中…" class="btn btn-success mr_15 ng-binding" >保&nbsp;&nbsp;存</button>
-                  <button  class="btn btn-link btn-cancel ng-binding">取&nbsp;&nbsp;消</button>
+                  <button  data-loading-text="保存中…" class="btn btn-success mr_15 ng-binding" (click)="showPublishTemplate(todoList?.result?.project_id,2)">保&nbsp;&nbsp;存</button>
+                  <button  class="btn btn-link btn-cancel ng-binding" (click)="showPublishTemplate(todoList?.result?.project_id,3)">取&nbsp;&nbsp;消</button>
                 </div>
               </div>
             </div>
@@ -290,98 +154,53 @@
 
         </div>
       </div>
-
-  </div>
-
-
-
-
-<div class="slide-content dragfile_element_309416 in" >
-  <div class="entity-well entity-well--tasks">
-    <div class="empty-panel ng-hide" >
+    </div>
+    <div class="empty-panel" *ngIf="! is_show_power[cookie_u_id]">
       <i class="fa fa-ban"></i>
       <br>
       <span  class="ng-binding ng-scope">你没有权限访问该项目<br>该项目被删除或者你不是该项目的成员。 </span>
       <span  class="ng-binding ng-hide"></span>
     </div>
+
+<!-- select-hidden-->
+<div class="slide-content dragfile_element_309416 in" *ngIf="is_show_detail">
+  <div class="entity-well entity-well--tasks">
+
     <div  class="ng-scope">
       <div  class="h_100p ng-scope dragfile_element_622735" >
         <div class="entity-well-header" >
-          <a  class="entity-project-name ng-binding" >贵航股份好</a>
+          <a  class="entity-project-name ng-binding" >{{todoList?.result?.project_title}}</a>
           <ul class="entity-well-header-nav nav nav-pills pull-right">
-            <li class="js-popbox ng-scope">
-              <a  title="截止日期" class="ng-binding">
-                <i class="fa fa-clock-o"></i> 日期
-              </a>
-            </li>
-            <li class="js-popbox ng-scope" >
-              <a  class="ng-binding" data-toggle="dropdown">
+
+            <li [ngClass]="{'js-popbox ng-scope':!is_show_center_tag && is_show_center_tag != 4}" ><!--data-toggle="dropdown" -->
+              <a  class="ng-binding" (click)="showPublishTag(todo_info?.result?.todo_id,4)">
                 <i class="fa fa-tag"></i> 标签
               </a>
-              <ul class="popbox-menu checkable  checkable--popboxmenu dropdown-menu pull-right" style="width: 300px;padding: 10px 20px;">
+              <ul [ngClass]="{'popbox-menu checkable checkable--popboxmenu dropdown-menu pull-right':true,'show-tag':is_show_center_tag==4}" style="width: 300px;padding: 10px 20px;" *ngIf="is_show_center_tag==4">
                 <li>
-                  <button type="button" class="close margin-bottom-10" data-dismiss="modal" aria-hidden="true">
-                    ×
-                  </button>
+                  <!--<button type="button" class="close margin-bottom-10" data-dismiss="modal" aria-hidden="true">-->
+                    <!--×-->
+                  <!--</button>-->
                   <h3 class="">设置标签</h3>
                   <hr>
                 </li>
-                <li class="label-item ng-scope selected" >
+                <li  [ngClass]="{'label-item ng-scope':true,'selected':selected_tag['T'+tcl1.category_id]}" (click)="selectTag(tcl1.category_id)" *ngFor="let tcl1 of todo_info?.result?.category_list ">
                   <a  class="js-toggle-label-filter green-label" >
-                    <span class="label-name padding-left-20 ng-binding" title="重要" >重要</span>
-                  </a>
-                </li>
-                <li class="label-item ng-scope selected" >
-                  <a  class="js-toggle-label-filter yellow-label" >
-                    <span class="label-name padding-left-20 ng-binding" title="一般" >一般</span>
-                  </a>
-                </li>
-                <li class="label-item ng-scope selected" >
-                  <a  class="js-toggle-label-filter orange-label" >
-                    <span class="label-name padding-left-20 ng-binding" title="紧急" >紧急</span>
-                  </a>
-                </li>
-                <li class="label-item ng-scope selected" >
-                  <a  class="js-toggle-label-filter red-label" >
-                    <span class="label-name padding-left-20 ng-binding" title="非常紧急" >非常紧急</span>
+                    <span class="label-name padding-left-20" title="{{tcl1.category_desc}}">{{tcl1.category_desc}}</span>
                   </a>
                 </li>
                 <li>
                   <div class="form-group">
-                    <button  data-loading-text="保存中…" class="btn btn-success mr_15 ng-binding" >保&nbsp;&nbsp;存</button>
-                    <button  class="btn btn-link btn-cancel ng-binding">取&nbsp;&nbsp;消</button>
+                    <button  data-loading-text="保存中…" class="btn btn-success mr_15 ng-binding" (click)="showPublishTag('',2)">保&nbsp;&nbsp;存</button>
+                    <button  class="btn btn-link btn-cancel ng-binding" (click)="showPublishTag('',3)">取&nbsp;&nbsp;消</button>
                   </div>
                 </li>
               </ul>
             </li>
-            <!--<li  class="ng-scope">
-              <a  title="添加检查项" class="ng-binding">
-                <i class="fa fa-th-list"></i> 检查项</a></li>-->
-            <li class="js-popbox ng-scope" >
-              <a  class="dropdown-toggle ng-binding"  title="添加附件">
-                <i class="fa fa-paperclip"></i> 附件</a>
-              <!--<ul class="dropdown-menu dropdown-menu-right">
-                <li>
-                  <a  class="ng-binding">
-                    <i class="fa fa-desktop"></i> 本地上传
-                  </a>
-                </li>
-                <li>
-                  <a  class="ng-binding">
-                    <i class="fa fa-file"></i> 从项目文件选择
-                  </a>
-                </li>
-                <li class="divider">
-
-                </li>
-                <li >
-                  <form class="form-inline text-nowarp ng-pristine ng-valid" role="form">
-                    <input type="text"  class="form-control input-sm fs_14 ng-pristine ng-untouched ng-valid ng-empty" placeholder="粘贴下载链接">
-                    <button class="btn btn-default plr_10 ng-binding" type="button">添加</button>
-                  </form>
-                </li>
-              </ul>-->
-            </li>
+            <!--<li class="js-popbox ng-scope" >-->
+              <!--<a  class="dropdown-toggle ng-binding"  title="添加附件">-->
+                <!--<i class="fa fa-paperclip"></i> 附件</a>-->
+            <!--</li>-->
             <li class="divider-v ng-scope" >
             </li>
             <li class="js-popbox ng-scope" >
@@ -396,13 +215,13 @@
                 <li  class="divider ng-scope">
                 </li>
                 <li  class="ng-scope">
-                  <a  class="ng-binding">
+                  <a  class="ng-binding" (click)="deleteTodo(todo_info?.result?.project_id,todo_info?.result?.todo_id)">
                     <i class="fa fa-trash-o fa-fw"></i> 删除</a>
                 </li>
               </ul>
             </li>
             <li class="divider-v"></li>
-            <li><a class="entity-well-header-close"  >
+            <li><a class="entity-well-header-close" (click)="hideDetail()">
               <i class="fa fa-times"></i></a>
             </li>
           </ul>
@@ -410,51 +229,47 @@
         <div class="entity-well-scroll height-nonav height-nonav--notab ng-scope wt-scroll"  style="overflow-x: hidden; overflow-y: auto;">
           <div class="entity-well-content">
             <div  class="ng-scope">
-              <div class="entity-title">
-                <a >
+              <div class="entity-title" *ngIf="todo_info?.result?.todo_status == 1">
+                <a (click)="editStatusInfo(2,todo_info?.result?.todo_id)">
                   <i class="fa fa-square-o" ></i>
                 </a>
-
-                <h2 >
-                  <span  class="ng-binding">冻干粉大花荆芥黑寡妇地方</span>
-                  <span class="entity-title--entry ng-binding ng-scope" >要做</span>
+                <h2 (dblclick)="showPublishDetail(todo_info?.result?.todo_id,1)">
+                  <span  class="ng-binding">{{todo_info?.result?.todo_title}}</span>
+                  <span class="entity-title--entry ng-binding ng-scope">{{detail_template_name}}</span>
                 </h2>
               </div>
-              <div class="entity-title">
-                <a >
+              <div class="entity-title" *ngIf="todo_info?.result?.todo_status == 2">
+                <a (click)="editStatusInfo(1,todo_info?.result?.todo_id)">
                   <i class="fa fa-check-square" ></i>
                 </a>
                 <h2 >
-                  <span  class="ng-binding task-completed-style">冻干粉大花荆芥黑寡妇地方 </span>
-                  <span class="entity-title--entry ng-binding ng-scope" >要做</span>
+                  <span  class="ng-binding task-completed-style">{{todo_info?.result?.todo_title}} </span>
+                  <span class="entity-title--entry ng-binding ng-scope" >{{detail_template_name}}</span>
                 </h2>
               </div>
-              <div class="entity-desc markdown ng-scope ng-binding " >
-                <p>黑寡妇韩国代购 孤鸿寡鹄发给</p>
+              <div class="entity-desc markdown ng-scope ng-binding " *ngIf="todo_info?.result?.todo_content">
+                <p>{{todo_info?.result?.todo_content}}</p>
               </div>
-              <a class="entity-desc-edit ng-binding ng-scope" >添加任务描述</a>
+              <a class="entity-desc-edit ng-binding ng-scope" *ngIf="! todo_info?.result?.todo_content && !is_show_publish_detail" (click)="showPublishDetail(todo_info?.result?.todo_id,1)">添加任务描述</a>
             </div>
-            <div class="edit-section ng-scope well" >
+            <div class="edit-section ng-scope well"  *ngIf="is_show_publish_detail">
               <div>
-                <input type="text"  class="form-control help-block ng-pristine ng-valid ng-not-empty ng-valid-required ng-touched" placeholder="任务名称" required="">
-                <sa-widget [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [fullscreenbutton]="false" [sortable]="false"
-                          >
+                <input type="text" name="todo_name" [(ngModel)]="todo_name" class="form-control help-block ng-pristine ng-valid ng-not-empty ng-valid-required ng-touched" placeholder="任务名称" required="">
+                <sa-widget [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [fullscreenbutton]="false" [sortable]="false">
                   <header>
                     <span class="widget-icon"> <i class="fa fa-pencil"></i> </span>
                     <h2>添加任务描述 </h2>
                   </header>
-
                   <div>
                     <div class="widget-body no-padding">
-                      <textarea name="ckeditor-showcase" class="form-control help-block" placeholder="请输入任务描述"></textarea>
+                      <textarea class="form-control help-block" placeholder="请输入任务描述" name="todo_content" [(ngModel)]="todo_content"></textarea>
                     </div>
                   </div>
-
                 </sa-widget>
               </div>
               <div class="form-group">
-                <button  class="btn btn-success mr_15 ng-binding">保&nbsp;&nbsp;存</button>
-                <button  class="btn btn-link btn-cancel ng-binding">取&nbsp;&nbsp;消</button>
+                <button  class="btn btn-success mr_15 ng-binding" (click)="showPublishDetail('',2)">保&nbsp;&nbsp;存</button>
+                <button  class="btn btn-link btn-cancel ng-binding" (click)="showPublishDetail('',3)">取&nbsp;&nbsp;消</button>
               </div>
             </div>
             <div class="entity-members">
@@ -462,15 +277,15 @@
                 <dt class="ng-binding">分配任务给</dt>
                 <dd>
                   <ul class="avatars">
-                    <li  class="ng-scope">
+                    <li  class="ng-scope" *ngFor="let au1 of todo_info?.result?.assign_list">
                       <a  class="fa fa-times-circle" ></a>
-                      <a class="js-popbox avatar avatar-40"  title="兴凤">
-                        <img alt="user" class="online width-40" src="assets/img/avatars/male.png">
-                        </a>
+                      <a class="js-popbox avatar avatar-40"  title="{{au1.u_username}}">
+                        <img alt="{{au1.u_username}}" class="online width-40" src="{{domain_url}}{{au1.u_avatar}}">
+                      </a>
                     </li>
                     <li  class="ng-scope">
                       <div class="js-popbox text-center ng-isolate-scope" type="member" >
-                        <a class="avatar-add">
+                        <a class="avatar-add" data-toggle="modal" data-target="#myModalname" (click)="showUserListDiv(todo_info?.result?.c_id,1)">
                           <span class="o">＋</span>
                         </a>
                       </div>
@@ -482,26 +297,20 @@
                 <dt class="ng-binding">关注的人</dt>
                 <dd>
                   <ul class="avatars">
-                    <li  class="ng-scope">
+                    <li  class="ng-scope" *ngFor="let au2 of todo_info?.result?.follower_list">
                       <a  class="fa fa-times-circle" ></a>
-                      <a class="js-popbox avatar avatar-40"title="兴凤" >
-                        <img alt="user" class="online width-40" src="assets/img/avatars/male.png">
+                      <a class="js-popbox avatar avatar-40"  title="{{au2.u_username}}">
+                        <img alt="{{au2.u_username}}" class="online width-40" src="{{domain_url}}{{au2.u_avatar}}">
                       </a>
                     </li>
                     <li  class="ng-scope">
                       <div class="js-popbox text-center ng-isolate-scope"  type="watch" >
-                        <a class="avatar-add" >
+                        <a class="avatar-add"  data-toggle="modal" data-target="#myModalname" (click)="showUserListDiv(todo_info?.result?.c_id,2)">
                           <span class="o">＋</span>
                         </a>
                       </div>
                     </li>
-                    <li >
-                      <div class="js-popbox text-center" >
-                        <a class="avatar-add" title="取消关注" >
-                          <span class="o ng-binding">－</span>
-                        </a>
-                      </div>
-                    </li>
+
                   </ul>
                 </dd>
               </dl>
@@ -522,17 +331,79 @@
                         </a>
                       </div>
                     </li>
-                    <li >
-                      <div class="js-popbox text-center" >
-                        <a class="avatar-add" title="取消关注" >
-                          <span class="o ng-binding">－</span>
-                        </a>
-                      </div>
-                    </li>
+                    <!--<li >-->
+                      <!--<div class="js-popbox text-center" >-->
+                        <!--<a class="avatar-add" title="取消关注" >-->
+                          <!--<span class="o ng-binding">－</span>-->
+                        <!--</a>-->
+                      <!--</div>-->
+                    <!--</li>-->
                   </ul>
                 </dd>
               </dl>
             </div>
+            <!--<div class="entity-members" *ngIf="cookie_c_id != admin_id">-->
+              <!--<dl class="entity-members-assign ng-scope" >-->
+                <!--<dt class="ng-binding">分配任务给</dt>-->
+                <!--<dd>-->
+                  <!--<ul class="avatars">-->
+                    <!--<li  class="ng-scope" *ngFor="let u1 of todo_info?.result?.user_list">-->
+                      <!--<a  class="fa fa-times-circle" ></a>-->
+                      <!--<a class="js-popbox avatar avatar-40"  title="{{u1.u_username}}">-->
+                        <!--<img alt="{{u1.u_username}}" class="online width-40" src="{{domain_url}}{{u1.u_avatar}}">-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <!--<li  class="ng-scope">-->
+                      <!--<div class="js-popbox text-center ng-isolate-scope" type="member" >-->
+                        <!--<a class="avatar-add">-->
+                          <!--<span class="o">＋</span>-->
+                        <!--</a>-->
+                      <!--</div>-->
+                    <!--</li>-->
+                  <!--</ul>-->
+                <!--</dd>-->
+              <!--</dl>-->
+              <!--<dl class="entity-members-watchs ng-scope">-->
+                <!--<dt class="ng-binding">关注的人</dt>-->
+                <!--<dd>-->
+                  <!--<ul class="avatars">-->
+                    <!--<li  class="ng-scope" *ngFor="let u2 of todo_info?.result?.user_list">-->
+                      <!--<a  class="fa fa-times-circle" ></a>-->
+                      <!--<a class="js-popbox avatar avatar-40"  title="{{u2.u_username}}">-->
+                        <!--<img alt="{{u2.u_username}}" class="online width-40" src="{{domain_url}}{{u2.u_avatar}}">-->
+                      <!--</a>-->
+                    <!--</li>-->
+                    <!--<li  class="ng-scope">-->
+                      <!--<div class="js-popbox text-center ng-isolate-scope"  type="watch" >-->
+                        <!--<a class="avatar-add" >-->
+                          <!--<span class="o">＋</span>-->
+                        <!--</a>-->
+                      <!--</div>-->
+                    <!--</li>-->
+                  <!--</ul>-->
+                <!--</dd>-->
+              <!--</dl>-->
+              <!--<dl class="entity-members-watchs ng-scope">-->
+                <!--<dt class="ng-binding">审批人</dt>-->
+                <!--<dd>-->
+                  <!--<ul class="avatars">-->
+                    <!--<li  class="ng-scope">-->
+                      <!--<a  class="fa fa-times-circle" ></a>-->
+                      <!--<a class="js-popbox avatar avatar-40" title="兴凤" >-->
+                        <!--<img alt="user" class="online width-40" src="assets/img/avatars/male.png">-->
+                      <!--</a>-->
+                    <!--</li>-->
+                    <!--<li  class="ng-scope">-->
+                      <!--<div class="js-popbox text-center ng-isolate-scope"  type="watch" >-->
+                        <!--<a class="avatar-add" >-->
+                          <!--<span class="o">＋</span>-->
+                        <!--</a>-->
+                      <!--</div>-->
+                    <!--</li>-->
+                  <!--</ul>-->
+                <!--</dd>-->
+              <!--</dl>-->
+            <!--</div>-->
             <hr class="entity-hr ng-scope" >
             <div class="entity-well-content-module">
               <dl class="module-expire-date ng-scope">
@@ -540,7 +411,8 @@
                   <i class="fa fa-clock-o"></i> 截止日期
                 </dt>
                 <dd class="js_popbox">
-                  <a  class="ng-binding expire-text-soon">12-18</a>
+                  <a class="ng-binding expire-text-soon" *ngIf="!is_expired_at" (click)="editExpiredAt(todo_info?.result?.expired_at,1)">&nbsp;&nbsp;{{todo_info?.result?.expired_at | date:'yyyy-MM-dd'}}&nbsp;&nbsp;</a>
+                  <input type="date" name="expired_at" (blur)="editExpiredAt(todo_info?.result?.todo_id,2)" [(ngModel)]="expired_at" value="{{expired_at}}" class="ng-binding expire-text-soon" *ngIf="is_expired_at"/>
                 </dd>
               </dl>
               <dl class="module-label ng-scope">
@@ -548,28 +420,28 @@
                 </dt>
                 <dd>
                   <ul class="margin-padding">
-                    <li class="task-label green-label" title="">
-                      <span class="ng-binding">重要</span>
-                      <a class="action-icon edit fa fa-remove" title="移除该标签">
+                    <li class="task-label green-label" title="" *ngFor="let ta of todo_info?.result?.todo_category_list ">
+                      <span class="ng-binding">{{ta.category_desc}}</span>
+                      <a class="action-icon edit fa fa-remove" title="移除该标签" (click)="removeTags(todo_info?.result?.todo_id,ta.category_id)">
                       </a>
                     </li>
-                    <li class="task-label yellow-label" title="">
-                      <span  class="ng-binding">一般</span>
-                      <a class="action-icon edit fa fa-remove"  title="移除该标签"></a>
-                    </li>
-                    <li class="task-label orange-label" title="" >
-                      <span  class="ng-binding">紧急</span>
-                      <a class="action-icon edit fa fa-remove" title="移除该标签">
-                      </a>
-                    </li>
-                    <li class="task-label red-label" title="" >
-                      <span  class="ng-binding">非常紧急</span>
-                      <a class="action-icon edit fa fa-remove"  title="移除该标签"></a>
-                    </li>
+                    <!--<li class="task-label yellow-label" title="">-->
+                      <!--<span  class="ng-binding">一般</span>-->
+                      <!--<a class="action-icon edit fa fa-remove"  title="移除该标签"></a>-->
+                    <!--</li>-->
+                    <!--<li class="task-label orange-label" title="" >-->
+                      <!--<span  class="ng-binding">紧急</span>-->
+                      <!--<a class="action-icon edit fa fa-remove" title="移除该标签">-->
+                      <!--</a>-->
+                    <!--</li>-->
+                    <!--<li class="task-label red-label" title="" >-->
+                      <!--<span  class="ng-binding">非常紧急</span>-->
+                      <!--<a class="action-icon edit fa fa-remove"  title="移除该标签"></a>-->
+                    <!--</li>-->
                     <li class="task-label-add">
-                      <a  class="js-popbox ng-binding ng-scope" data-toggle="dropdown">＋ 添加标签
+                      <a  class="js-popbox ng-binding ng-scope" data-toggle="dropdown" (click)="showPublishTag(todo_info?.result?.todo_id,1)" *ngIf="!is_show_publish_tag && (!is_show_center_tag || is_show_center_tag == 4)">＋ 添加标签
                       </a>
-                      <ul class="popbox-menu checkable  checkable--popboxmenu dropdown-menu pull-right" style="width: 300px;padding: 10px 20px;">
+                      <ul class="popbox-menu checkable  checkable--popboxmenu dropdown-menu pull-right" style="width: 300px;padding: 10px 20px;display: block;" *ngIf="is_show_publish_tag && is_show_center_tag==1">
                         <li>
                           <button type="button" class="close margin-bottom-10" data-dismiss="modal" aria-hidden="true">
                             ×
@@ -577,30 +449,15 @@
                           <h3 class="">设置标签</h3>
                           <hr>
                         </li>
-                        <li class="label-item ng-scope selected" >
-                          <a  class="js-toggle-label-filter green-label" >
-                            <span class="label-name padding-left-20 ng-binding" title="重要" >重要</span>
-                          </a>
-                        </li>
-                        <li class="label-item ng-scope selected" >
-                          <a  class="js-toggle-label-filter yellow-label" >
-                            <span class="label-name padding-left-20 ng-binding" title="一般" >一般</span>
-                          </a>
-                        </li>
-                        <li class="label-item ng-scope selected" >
-                          <a  class="js-toggle-label-filter orange-label" >
-                            <span class="label-name padding-left-20 ng-binding" title="紧急" >紧急</span>
-                          </a>
-                        </li>
-                        <li class="label-item ng-scope selected" >
-                          <a  class="js-toggle-label-filter red-label" >
-                            <span class="label-name padding-left-20 ng-binding" title="非常紧急" >非常紧急</span>
+                        <li [ngClass]="{'label-item ng-scope':true,' selected':selected_tag['T'+tcl.category_id]}" (click)="selectTag(tcl.category_id)" *ngFor="let tcl of todo_info?.result?.category_list ">
+                          <a  class="js-toggle-label-filter green-label" ><!--yellow-label orange-label red-label  -->
+                            <span class="label-name padding-left-20 ng-binding" title="{{tcl.category_desc}}" >{{tcl.category_desc}}</span>
                           </a>
                         </li>
                         <li>
                           <div class="form-group">
-                            <button  data-loading-text="保存中…" class="btn btn-success mr_15 ng-binding" >保&nbsp;&nbsp;存</button>
-                            <button  class="btn btn-link btn-cancel ng-binding">取&nbsp;&nbsp;消</button>
+                            <button  data-loading-text="保存中…" class="btn btn-success mr_15 ng-binding" (click)="showPublishTag('',2)" >保&nbsp;&nbsp;存</button>
+                            <button  class="btn btn-link btn-cancel ng-binding" (click)="showPublishTag('',1)">取&nbsp;&nbsp;消</button>
                           </div>
                         </li>
                       </ul>
@@ -636,7 +493,7 @@
             </div>
             <hr class="entity-hr">
             <div class="entity-content-footer">
-              <div  class="ng-binding ng-scope">兴凤 12-18 08:47，创建了任务</div>
+              <div  class="ng-binding ng-scope">{{todo_info?.result?.u_username}} {{todo_info?.result?.created_at}}，创建了任务</div>
             </div>
           </div>
           <div class="margin-10">
@@ -659,229 +516,80 @@
                         <tab [active]="state.tabs.demo3 == 'hr1'">
                           <div class="row">
                             <div class="comment-list">
-                              <div class="timeline-seperator text-center"><span>2017.11.30</span>
 
-
-                              </div>
-                              <div class="chat-body no-padding profile-message">
-                                <ul>
-                                  <li class="message">
-                                    <img src="assets/img/avatars/female.png" class="online" alt="sunny">
-                                    <span class="message-text"> <a href="" class="username">陈强
-                                                        <small class="text-muted pull-right ultra-light"> 1分钟前
-                                                        </small>
-                                                    </a> 为帮助开发者给用户呈现最合适的小程序分享效果，我们开放了自定义分享卡片配图的能力。未定义分享卡片配图的，仍将由微信截屏，作为小程序分享卡片配图。未定义分享卡片配图的，仍将由微信截屏，作为小程序分享卡片配图。未定义分享卡片配图的，仍将由微信截屏，作为小程序分享卡片配图。未定义分享卡片配图的，仍将由微信截屏，作为小程序分享卡片配图。未定义分享卡片配图的，仍将由微信截屏，作为小程序分享卡片配图。未定义分享卡片配图的，仍将由微信截屏，作为小程序分享卡片配图。未定义分享卡片配图的，仍将由微信截屏，作为小程序分享卡片配图。未定义分享卡片配图的，仍将由微信截屏，作为小程序分享卡片配图。未定义分享卡片配图的，仍将由微信截屏，作为小程序分享卡片配图。 </span>
-                                    <ul class="list-inline font-xs">
-                                      <li>
-                                        <a href="" class="text-info"><i class="fa fa-reply"></i> 回复</a>
-                                      </li>
-                                      <li>
-                                        <a href="" class="text-danger"><i class="fa fa-thumbs-up"></i> 赞</a>
-                                      </li>
-                                      <li>
-                                        <a href="" class="text-muted">显示所有的评论 (14)</a>
-                                      </li>
-                                      <li>
-                                        <a href="" class="text-primary">编辑</a>
-                                      </li>
-                                      <li>
-                                        <a href="" class="text-danger">删除</a>
-                                      </li>
-                                    </ul>
-                                  </li>
-                                  <li class="message message-reply">
-                                    <img src="assets/img/avatars/male.png" class="online" alt="user">
-                                    <span class="message-text"> <a href="" class="username">陈强</a> 为提升小程序开发体验，帮助开发者更高效地开发小程序代码，微信开发者工具全新改版，现面向所有开发者开放。 <i class="fa fa-smile-o txt-color-orange"></i> </span>
-                                    <ul class="list-inline font-xs">
-                                      <li>
-                                        <a href="" class="text-muted">1分钟前 </a>
-                                      </li>
-                                      <li>
-                                        <a href="" class="text-danger"><i class="fa fa-thumbs-up"></i> 赞</a>
-                                      </li>
-                                    </ul>
-                                  </li>
-                                  <li class="message message-reply">
-                                    <img src="assets/img/avatars/female.png" class="online" alt="user">
-                                    <span class="message-text"> <a href="" class="username">陈强 </a> 为提升小程序开发体验，帮助开发者更高效地开发小程序代码，微信开发者工具全新改版，现面向所有开发者开放。 <i class="fa fa-smile-o txt-color-orange"></i> </span>
-                                    <ul class="list-inline font-xs">
-                                      <li>
-                                        <a href="" class="text-muted">1分钟前 </a>
-                                      </li>
-                                      <li>
-                                        <a href="" class="text-danger"><i class="fa fa-thumbs-up"></i> 赞</a>
-                                      </li>
-                                    </ul>
-
-                                  </li>
-                                </ul>
-                              </div>
-                              <div class="timeline-seperator text-center"><span>2017.11.01</span>
-
+                              <div *ngFor="let cl of comment_list?.result;let ind=index;">
+                              <div class="timeline-seperator text-center"><span>{{cl.created_at | date:"yyyy-MM-dd"}}</span>
                               </div>
                               <div class="chat-body no-padding profile-message">
                                 <ul>
                                   <li class="message">
                                     <img src="assets/img/avatars/female.png" class="online" alt="user">
-                                    <span class="message-text"> <a href="" class="username">李猛
-                    <small class="text-muted pull-right ultra-light"> 2 分钟前</small>
-                </a> 为帮助开发者给用户呈现最合适的小程序分享效果，我们开放了自定义分享卡片配图的能力。未定义分享卡片配图的，仍将由微信截屏，作为小程序分享卡片配图。 </span>
+                                    <span class="message-text">
+                                      <a class="username">{{cl.u_username}}
+                                          <small class="text-muted pull-right ultra-light"> {{cl.return_time}}</small>
+                                      </a> {{cl.comment_content}}
+                                    </span>
                                     <ul class="list-inline font-xs">
                                       <li>
-                                        <a href="" class="text-info"><i class="fa fa-reply"></i> 回复</a>
+                                        <a class="text-info" (click)="showComment(cl.comment_id)"><i class="fa fa-reply"></i> 回复</a>
                                       </li>
                                       <li>
-                                        <a href="" class="text-danger"><i class="fa fa-thumbs-up"></i>赞</a>
+                                        <a class="text-danger"><i class="fa fa-thumbs-up"></i>赞</a>
                                       </li>
                                       <li>
-                                        <a href="" class="text-muted">显示所有的评论 (14)</a>
+                                        <a class="text-muted">显示所有的评论 ({{cl.replayCount}})</a>
                                       </li>
-                                      <li>
-                                        <a href="" class="text-primary">隐藏</a>
+                                      <li *ngIf="is_show_replay != ind && cl.replayCount > 0">
+                                        <a class="text-primary" (click)="isShowReplayList(ind)">显示回复</a>
+                                      </li>
+                                      <li *ngIf="is_show_replay == ind && cl.replayCount > 0">
+                                        <a class="text-primary" (click)="isShowReplayList(ind)">隐藏回复</a>
                                       </li>
                                     </ul>
                                   </li>
-                                  <li class="message message-reply">
-                                    <img src="assets/img/avatars/male.png" class="online" alt="user">
-                                    <span class="message-text"> <a href="" class="username">贾勋涛</a> 为提升小程序开发体验，帮助开发者更高效地开发小程序代码，微信开发者工具全新改版，现面向所有开发者开放。 <i class="fa fa-smile-o txt-color-orange"></i> </span>
-                                    <ul class="list-inline font-xs">
-                                      <li>
-                                        <a href="" class="text-muted">1分钟前 </a>
-                                      </li>
-                                      <li>
-                                        <a href="" class="text-danger"><i class="fa fa-thumbs-up"></i> 赞</a>
-                                      </li>
-                                    </ul>
-                                  </li>
-                                  <li class="message message-reply">
+                                  <div *ngIf="is_show_replay == ind">
+                                  <li class="message message-reply" *ngFor="let rl of cl.replayList">
                                     <img src="assets/img/avatars/female.png" class="online" alt="user">
-                                    <span class="message-text"> <a href="" class="username">贾勋涛 </a> 为提升小程序开发体验，帮助开发者更高效地开发小程序代码，微信开发者工具全新改版，现面向所有开发者开放。 <i class="fa fa-smile-o txt-color-orange"></i> </span>
+                                    <span class="message-text"> <a class="username">{{rl.u_username}} </a> {{rl.comment_content}} <i class="fa fa-smile-o txt-color-orange"></i> </span>
                                     <ul class="list-inline font-xs">
                                       <li>
-                                        <a href="" class="text-muted">1分钟前 </a>
+                                        <a  class="text-muted"> {{rl.return_time}}</a>
                                       </li>
                                       <li>
-                                        <a href="" class="text-danger"><i class="fa fa-thumbs-up"></i> 赞</a>
+                                        <a class="text-danger"><i class="fa fa-thumbs-up"></i> 赞</a>
                                       </li>
                                     </ul>
                                   </li>
-                                  <li class="message message-reply">
-                                    <img src="assets/img/avatars/female.png" class="online" alt="user">
-                                    <span class="message-text"> <a href="" class="username">贾勋涛 </a> 为提升小程序开发体验，帮助开发者更高效地开发小程序代码，微信开发者工具全新改版，现面向所有开发者开放。 <i class="fa fa-smile-o txt-color-orange"></i> </span>
-                                    <ul class="list-inline font-xs">
-                                      <li>
-                                        <a href="" class="text-muted">1分钟前</a>
-                                      </li>
-                                      <li>
-                                        <a href="" class="text-danger"><i class="fa fa-thumbs-up"></i> 赞</a>
-                                      </li>
-                                    </ul>
-                                  </li>
-                                  <li>
+                                  <li *ngIf="comment_parent_id == cl.comment_id">
                                     <div class="input-group wall-comment-reply">
-                                      <input  type="text" class="form-control" placeholder="这里输入您的消息...">
+                                      <input  type="text" class="form-control" placeholder="这里输入您回复的消息..." name="replay_content" [(ngModel)]="replay_content">
                                       <span class="input-group-btn">
-															<button class="btn btn-success" >
-                                                                <i class="fa fa-reply"></i> 回复
-                                                            </button> </span>
+                                        <button class="btn btn-success" (click)="publishComment(todo_info?.result?.todo_id,2)">
+                                            <i class="fa fa-reply"></i> 回复
+                                        </button> </span>
                                     </div>
                                   </li>
+                                  </div>
                                 </ul>
                               </div>
-                              <!--<ul class="comments">
-                                <li class="comment-item ng-scope" >
-                                  <a class="comment-avatar avatar avatar-40"  size="40" title="兴凤">
-                                  <span class="avatar-face ">
-                                    <span class="avatar-text">兴凤</span>
-                                  </span>
-                                  </a>
-                                  <div class="comment">
-                                    <a  class="comment-name ng-binding" >兴凤</a>
-                                    <span class="comment-time ng-binding date" >今天 08:49</span>
-                                    <span class="comment-meta ng-scope" >
-                                    <a  class="comment-action ng-binding ng-scope" >回复 </a>&nbsp;
-                                    <a  class="comment-action js-popbox ng-binding ng-scope" >删除</a>
-                                  </span>
-                                    <div class="current-comment-wrap current-comment-wrap&#45;&#45;border">
-                                      <div class="current-comment ng-binding markdown" ><p>孤鸿寡鹄骨灰盒广告费风格的鬼地方个泛海国际好久好久好借好还简介</p>
-                                      </div>
-                                      <div class="comment-attachments">
+                              </div>
 
-                                      </div>
-                                    </div>
-                                    <div class="edit-controls clearfix"  style="display: none;">
-                                    </div>
-                                  </div>
-                                </li>
-                              </ul>-->
                               <div class="new-comment ng-scope" >
                                 <hr class="ng-scope">
                                 <form method="post" class="well  margin-10" onsubmit="return false;">
-                                  <textarea rows="2" class="form-control" placeholder="你在想什么?"></textarea>
+                                  <textarea rows="2" class="form-control" placeholder="你在想什么?" name="comment_content" [(ngModel)]="comment_content"></textarea>
 
                                   <div class="margin-top-10">
                                     <!--<button type="submit" class="btn btn-sm btn-primary pull-right">
                                       发布
                                     </button>-->
-                                    <button class="btn btn-success pull-right ng-binding">发表评论</button>
-                                    <a href="" class="btn btn-link profile-link-btn" rel="tooltip" data-placement="bottom" title="添加位置"><i class="fa fa-location-arrow"></i></a>
-                                    <a href="" class="btn btn-link profile-link-btn" rel="tooltip" data-placement="bottom" title="添加声音"><i class="fa fa-microphone"></i></a>
-                                    <a href="" class="btn btn-link profile-link-btn" rel="tooltip" data-placement="bottom" title="添加照片"><i class="fa fa-camera"></i></a>
-                                    <a href="" class="btn btn-link profile-link-btn" rel="tooltip" data-placement="bottom" title="添加文件"><i class="fa fa-file"></i></a>
+                                    <button class="btn btn-success pull-right ng-binding" (click)="publishComment(todo_info?.result?.todo_id,1)">发表评论</button>
+                                    <a class="btn btn-link profile-link-btn" rel="tooltip" data-placement="bottom" title="添加位置"><i class="fa fa-location-arrow"></i></a>
+                                    <a class="btn btn-link profile-link-btn" rel="tooltip" data-placement="bottom" title="添加声音"><i class="fa fa-microphone"></i></a>
+                                    <a class="btn btn-link profile-link-btn" rel="tooltip" data-placement="bottom" title="添加照片"><i class="fa fa-camera"></i></a>
+                                    <a class="btn btn-link profile-link-btn" rel="tooltip" data-placement="bottom" title="添加文件"><i class="fa fa-file"></i></a>
                                   </div>
                                 </form>
-                               <!-- <div  class="ng-isolate-scope">
-                                  <div class="new-comment-edit">
-                                    <section>
-                                      <label class="textarea textarea-resizable">
-                                        <textarea class="custom-scroll ng-pristine ng-untouched ng-valid ng-scope ng-empty" rows="2" name="" placeholder="说点什么(按Ctrl + 回车键提交)"></textarea>
-                                      </label>
-                                    </section>
-                                    <div class="comment-upload-queue">
-                                      <div class="comment-attachments">
-                                      </div>
-                                    </div>
-                                    <div class="add-controls">
-                                      <ul class="nav nav-pills">
-                                        <li class="btn-group js-popbox dropup mr-5" >
-                                          <a class="dropdown-toggle"  title="添加附件">
-                                            <i class="fa fa-paperclip"></i>
-                                          </a>
-                                          <ul class="dropdown-menu">
-                                            <li>
-                                              <a class="ng-binding">
-                                                <i class="fa fa-desktop"></i> 本地上传
-                                              </a>
-                                            </li>
-                                            <li>
-                                              <a data-placement="top"  class="ng-binding">
-                                                <i class="fa fa-file"></i> 从项目文件选择
-                                              </a>
-                                            </li>
-                                          </ul>
-                                        </li>
-                                        <li class="divider-v"></li>
-                                        <li class="js-popbox mr-10">
-                                          <a >
-                                            <i class="fa fa-smile-o"></i>
-                                          </a>
-                                        </li>
-                                        <li>
-                                          <a  class="js-popbox" >
-                                            <i class="fa fa-at"></i>
-                                          </a>
-                                        </li>
-                                        <li class="divider-v"></li>
-                                        <li>
-                                          <a class="js-popbox" >
-                                            <i class="wtfont wtf-linkentity"></i>
-                                          </a>
-                                        </li>
-                                      </ul>
-                                      <button class="btn btn-success pull-right ng-binding">发表评论</button>
-                                    </div>
-                                  </div>
-                                </div>-->
                               </div>
                             </div>
 
@@ -1324,3 +1032,80 @@
     </div>
   </div>
 </div>
+
+    <div class="modal fade" id="myModalname" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <!-- 关闭按钮 -->
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+              ×
+            </button>
+            <!-- 标题 -->
+            <h3 class="modal-title" data-ng-bind='results.title'>分配任务</h3>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class=" form-group  col col-lg-12" >
+                <div class="selector-choices-wrapper">
+
+                  <div class="tab-contents">
+                    <div class="tab-contents-box">
+                      <ul>
+
+                        <li class="entity-members" *ngIf="cookie_c_id == admin_id">
+                          <dl class="entity-members-assign ng-scope" >
+                            <dt class="ng-binding">选择公司</dt>
+                            <dd>
+                              <select name="c_id" [(ngModel)]="c_id" (change)="selectCustomer($event)">
+                                <option value="0" >--选择公司--</option>
+                                <option value="{{c.c_id}}" *ngFor="let c of todo_info?.result?.customer_list">{{c.c_name}}</option>
+                              </select>
+                            </dd>
+                          </dl>
+                        </li>
+
+                        <li class="checkbox-item table  smart-form">
+                          <label class="checkbox">
+                            <input name="checkbox-inline" type="checkbox" [checked]="check" (change)="changeCheckAll($event)">全选
+                            <i></i>
+                          </label>
+                        </li>
+                        <li *ngFor="let au of user_list?.result?.userList">
+                          <div class="table smart-form">
+                            <label class="checkbox">
+                              <input name="checkbox-inline" type="checkbox" (change)="handle($event)" [checked]="selected_user[au.id]" value="{{au.id}}">
+                              <i></i>
+                              <img alt="{{au.u_username}}" class="online width-40" src="{{domain_url}}{{au.u_avatar}}">
+                              <span >{{au.u_username}}</span>
+                            </label>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--<div class=" form-group col col-lg-6">-->
+                <!--<div class="selector-choices-wrapper">-->
+                  <!--<ul class="select2-selection__rendered" *ngIf="show_user_type == 1">-->
+                    <!--<li class="select2-selection__choice" title="" *ngFor="let au1 of todo_info?.result?.assign_list">-->
+                      <!--<span class="select2-selection__choice__remove" >×</span>{{au1.u_username}}</li>-->
+                  <!--</ul>-->
+                  <!--<ul class="select2-selection__rendered" *ngIf="show_user_type == 2">-->
+                    <!--<li class="select2-selection__choice" title="Montana" *ngFor="let au2 of todo_info?.result?.follower_list">-->
+                      <!--<span class="select2-selection__choice__remove" role="presentation">×</span>{{au2.u_username}}-->
+                    <!--</li>-->
+                  <!--</ul>-->
+                <!--</div>-->
+              <!--</div>-->
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-ng-click="ok()"  data-dismiss="modal" (click)="submitSelectedUser(todo_info?.result?.todo_id)">确定</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal -->
+    </div>
+  </div>

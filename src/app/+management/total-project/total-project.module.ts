@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SettingLabellingaRoutingModule } from './setting-labellinga-routing.module';
-import { SettingLabellingaComponent } from './setting-labellinga.component';
+import { TotalProjectRoutingModule } from './total-project-routing.module';
+import { TotalProjectComponent } from './total-project.component';
 import {I3otpEditorsModule} from "../../shared/forms/editors/i3otp-editors.module";
 import {I3otpModule} from "../../shared/i3otp.module";
 
@@ -11,8 +11,8 @@ import {I3otpModule} from "../../shared/i3otp.module";
     CommonModule,
       I3otpEditorsModule,
       I3otpModule,
-    SettingLabellingaRoutingModule
+      TotalProjectRoutingModule,
   ],
-  declarations: [SettingLabellingaComponent]
+  declarations: [TotalProjectComponent]
 })
-export class SettingLabellingaModule { }
+export class TotalProjectModule { }

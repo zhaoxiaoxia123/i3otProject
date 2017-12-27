@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-setting-labelling',
-  templateUrl: './setting-labelling.component.html',
+  selector: 'app-total-project',
+  templateUrl: './total-project.component.html'
 })
-export class SettingLabellingComponent implements OnInit {
+export class TotalProjectComponent implements OnInit {
     public states: Array<any>;
     public state: any = {
         tabs: {

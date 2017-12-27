@@ -8,6 +8,7 @@ export class GlobalService {
   tsdbDomain ='http://182.61.53.58:10088';
   station1 = '155';//安全帽
   station2 = '156';//基站
+  adminID = 1;//超级管理员c_id
   constructor(
       private router : Router,
       private cookieStoreService : CookieStoreService,
@@ -37,6 +38,10 @@ export class GlobalService {
       return this.station2;
     }
 
+  }
+
+  getAdminID() : number{
+    return this.adminID;
   }
 
 

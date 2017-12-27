@@ -88,7 +88,7 @@
       "content": " <i class=\"fa fa-check text-success\"></i> Item 18 <br> "
     }
   ],
-  "demo3": [
+  "demo2": [
 
     {
       "id": 38,
@@ -191,7 +191,7 @@
       "content": " 钼矿<a class=\"btn pull-right btn-warning btn-xs\" ><span class=\"glyphicon glyphicon-pencil\"></span>修改</a><a class=\"btn pull-right btn-danger btn-xs\"><span class=\"glyphicon glyphicon-remove\"></span>删除</a>"
     }
   ],
-  "demo2": [
+  "demo3": [
     {
       "id": 100,
       "content": " Drag "

@@ -504,14 +504,8 @@ div.dataTables_paginate ul.pagination {
 .percent-16{
     width:16%!important
 }
-.percent-20{
-    width:20%!important
-}
 .percent-30{
     width:30%!important
-}
-.percent-40{
-    width:40%!important
 }
 .percent-50{
     width:50%!important
@@ -650,14 +644,8 @@ div.dataTables_paginate ul.pagination {
 .margin-left-15{
     margin-left:-15px;
 }
-.margin-left-10{
-    margin-left:10px;
-}
 .margin-left-20{
     margin-left:20px;
-}
-.margin-left-30{
-    margin-left:30px;
 }
 
 /*文本内容区域*/

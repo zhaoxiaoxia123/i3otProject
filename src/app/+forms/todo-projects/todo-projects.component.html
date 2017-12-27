@@ -20,138 +20,76 @@
             <div class="widget-body no-padding">
 
               <div class="project-grid-panel">
-
-
                 <div class="form-group ">
-                  <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal">
+                  <a class="btn btn-success btn-sm" (click)="showAddProject($event,0,0);lgModal.show();">
                     <span class="glyphicon glyphicon-plus"></span>新建项目</a>
                 </div>
                 <div class="row margin-bottom-10">
                   <div class="projects-panel-header ">
                     <i class="fa fa-star padding-left-5"></i>
                     常用项目
-                    <span class="txt-color-red padding-left-10">0</span>
+                    <span class="txt-color-red padding-left-10">{{projectList?.result?.commonArrayCount}}</span>
                   </div>
                   <div class="project-grid ">
-                    <div class="project-item ">
-                      <a class="star">
+                    <div class="project-item " *ngFor="let ca of projectList?.result?.commonArray">
+                      <a class="star" (click)="isCommon($event,ca.project_id,ca.project_status);">
                         <i class="fa fa-star txt-color-yellowMing"></i> </a>
                       <a class="center ">
                         <i class="fa-fw fa fa-inbox txt-color-greenNormal"></i>
-                        <h4 class="">梵蒂冈大概</h4></a>
+                        <h4 class="">{{ca.project_title}}</h4></a>
                       <a class="members">
                         <i class="fa fa-user"></i>
                         <span class="">1</span>
                       </a>
                     </div>
-
-
                   </div>
-
                 </div>
 
-                <div class="row margin-bottom-10">
+                <div class="row margin-bottom-10" *ngFor="let cl of projectList?.result?.categoryList;">
                   <div class="projects-panel-header">
                     <span>
-                      <i class="fa fa-user padding-left-5"></i>&nbsp;&nbsp;个人项目
+                      <i class="fa fa-sitemap padding-left-5"></i>&nbsp;&nbsp;{{cl.category_desc}}
                     </span>
                     <span class="txt-color-red padding-left-10">
-                      2
+                      {{cl.project_count}}
                     </span>
                   </div>
                   <div class="project-grid ">
                     <div class="project-item ">
-
-                      <a class="center " data-toggle="modal" data-target="#myModal">
-                      <i class="fa-fw fa fa-inbox txt-color-greenNormal"></i>
-                      <h4 class="">还没有参与任何项目</h4></a>
-
-                    </div>
-                    <div class="project-item " routerLink="/forms/todo-mission">
-                      <a class="star">
-                        <i class="fa fa-star txt-color-yellowMing"></i> </a>
-                      <a class="center ">
+                      <a class="center "  (click)="showAddProject($event,cl.category_id,0);lgModal.show();">
                         <i class="fa-fw fa fa-inbox txt-color-greenNormal"></i>
-                        <h4 class="">梵蒂冈大概</h4></a>
-                      <a class="members">
+                        <h4 class="">发起项目</h4></a>
+                    </div>
+                    <div class="project-item " [routerLink]="['/forms/todo-mission',pl.project_id]" *ngFor="let pl of
+cl.project_list">
+                      <a class="star" (click)="isCommon($event,pl.project_id,pl.project_status);">
+                        <i class="fa fa-star-o" *ngIf="pl.project_status == 1"></i>
+                        <i class="fa fa-star txt-color-yellowMing" *ngIf="pl.project_status == 2"></i></a>
+                      <a class="center">
+                        <i class="fa-fw fa fa-inbox txt-color-greenNormal"></i>
+                        <h4 class="">{{pl.project_title}}</h4></a>
+                      <a class="members" (click)="showAddProject($event,cl.category_id,pl.project_id);lgModal.show();">
                         <i class="fa fa-user"></i>
-                        <span class="">1</span>
                       </a>
                     </div>
-                    <div class="project-item " routerLink="/forms/todo-mission">
-                      <a class="star">
-                        <i class="fa fa-star-o"></i> </a>
-                      <a class="center ">
-                        <i class="fa-fw fa fa-inbox txt-color-greenNormal"></i>
-                        <h4 class="">梵蒂</h4></a>
-                      <a class="members">
-                        <i class="fa fa-user"></i>
-                        <span class="">10</span>
-                      </a>
-                    </div>
-
-
-                  </div>
-                </div>
-                <div class="row margin-bottom-10">
-                  <div class="projects-panel-header">
-                    <span>
-                      <i class="fa fa-sitemap padding-left-5"></i>&nbsp;&nbsp;公司项目
-                    </span>
-                    <span class="txt-color-red padding-left-10">
-                      1
-                    </span>
-                  </div>
-                  <div class="project-grid ">
-                    <div class="project-item ">
-
-                      <a class="center " data-toggle="modal" data-target="#myModal">
-                        <i class="fa-fw fa fa-inbox txt-color-greenNormal"></i>
-                        <h4 class="">还没有参与任何项目</h4></a>
-
-                    </div>
-                    <div class="project-item " routerLink="/forms/todo-mission">
-                      <a class="star">
-                        <i class="fa fa-star-o"></i> </a>
-                      <a class="center ">
-                        <i class="fa-fw fa fa-inbox txt-color-greenNormal"></i>
-                        <h4 class="">梵蒂</h4></a>
-                      <a class="members">
-                        <i class="fa fa-user"></i>
-                        <span class="">10</span>
-                      </a>
-                    </div>
-
-
                   </div>
                 </div>
 
               </div>
-
-
             </div>
-
           </div>
         </sa-widget>
-
       </article>
-
     </div>
-
-
-
-
   </sa-widgets-grid>
 
-
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+       aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <!-- 关闭按钮 -->
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-            ×
-          </button>
+          <button type="button"  (click)="lgModal.hide()" aria-label="Close"> × </button>
           <!-- 标题 -->
           <h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>新建项目</h3>
         </div>
@@ -162,10 +100,9 @@
                 <section>
                   <label class="label">项目所属：</label>
                   <label class="select">
-                    <select class="input-sm">
-                      <option value="" disabled="disabled" style="color:#ccc;">请选择所有者：</option>
-                      <option value="" >个人项目</option>
-                      <option value="" >四川省矿业有限公司</option>
+                    <select class="input-sm" name="project_owner" [(ngModel)]="project_owner" >
+                      <option value="0" disabled="disabled" style="color:#ccc;">请选择所有者：</option>
+                      <option *ngFor="let c1 of projectDefault?.result?.categoryList1" [selected]="projectInfo.result?.project_owner == c1.category_id" value="{{c1.category_id}}">{{c1.category_desc}}</option>
                     </select> <i></i> </label>
                 </section>
               </div>
@@ -174,14 +111,14 @@
                 <section>
                   <label class="label">项目信息：</label>
                   <label class="input">
-                    <input type="text" placeholder="请输入项目名称" >
+                    <input type="text" placeholder="请输入项目名称" minlength="1" maxlength="30" name="project_title" [(ngModel)]="project_title" >
                   </label>
                 </section>
               </div>
               <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <section>
                   <label class="textarea textarea-resizable">
-                    <textarea class="custom-scroll" rows="2" name="" placeholder="项目描述（可选"></textarea>
+                    <textarea class="custom-scroll" rows="2" minlength="1" maxlength="30" name="project_content" [(ngModel)]="project_content" placeholder="项目描述(可选)"></textarea>
                   </label>
                 </section>
               </div>
@@ -189,10 +126,9 @@
                 <section>
                   <label class="label">项目公开性：</label>
                   <label class="select">
-                    <select class="input-sm">
-                      <option value="" disabled="disabled" style="color:#ccc;">请选择公开性：</option>
-                      <option value="" >私有项目（只有加入项目的成员才能看到该项目内容）</option>
-                      <option value="" >公开项目（所有注册用户都可以访问该项目内容）</option>
+                    <select class="input-sm" name="project_publicity" [(ngModel)]="project_publicity">
+                      <option value="0" disabled="disabled" style="color:#ccc;">请选择公开性：</option>
+                      <option *ngFor="let c2 of projectDefault?.result?.categoryList2" value="{{c2.category_id}}" [selected]="projectInfo.result?.project_publicity == c2.category_id" >{{c2.category_desc}}</option>
                     </select> <i></i> </label>
                 </section>
               </div>
@@ -202,7 +138,7 @@
 
                   <div class="inline-group">
                     <label class="checkbox state-disabled">
-                      <input type="checkbox" name="checkbox-inline"  >
+                      <input type="checkbox" [checked]="project_template" name="project_template" [(ngModel)]="project_template" >
                       <i></i>通用模板</label>
                   </div>
                 </section>
@@ -211,8 +147,8 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-ng-click="ok()">确定</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+          <button type="button" class="btn btn-primary" (click)="onSubmit();lgModal.hide();">确定</button>
+          <button type="button" class="btn btn-default" (click)="lgModal.hide()">关闭</button>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal -->
