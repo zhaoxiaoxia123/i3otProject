@@ -16,6 +16,16 @@ export const routes: Routes = [
         loadChildren: 'app/+inventory-management/effect-test/effect-test.module#EffectTestModule',
         data: {pageTitle: 'EffectTest'}
     },
+    {
+        path: 'inventory-requisition',
+        loadChildren: 'app/+inventory-management/inventory-requisition/inventory-requisition.module#InventoryRequisitionModule',
+        data: {pageTitle: 'InventoryRequisition'}
+    },
+    {
+        path: 'add-requisition',
+        loadChildren: 'app/+inventory-management/add-requisition/add-requisition.module#AddRequisitionModule',
+        data: {pageTitle: 'AddRequisition'}
+    },
 ];
 
 export const routing = RouterModule.forChild(routes);

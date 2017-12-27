@@ -211,9 +211,9 @@
         display: inline-block!important
     }
 
-    .display-inline.hidden-tablet,.hidden-tablet {
+    /*.display-inline.hidden-tablet,.hidden-tablet {
         display: none!important
-    }
+    }*/
 
     .jarviswidget header h2 {
         width: 310px;
@@ -729,9 +729,9 @@
         display: block
     }
 
-    .hidden-tablet {
+    /*.hidden-tablet {
         display: none!important
-    }
+    }*/
 
     .jarviswidget header h2 {
         width: 300px;

@@ -200,83 +200,165 @@
             <a routerLink="/tables/normal">{{'公司信息' | i18n}}</a>
           </li>
 
-          <li routerLinkActive="active">
-            <a routerLink="/inventory-management/effect-tabe">{{'表格文件' | i18n}}</a>
-          </li>
-          <li routerLinkActive="active">
-            <a routerLink="/inventory-management/effect-test">{{'下级目录' | i18n}}</a>
-          </li>
-
         </ul>
       </li>
       <li *ngIf="is_admin=='1'">
         <a href="#"><i class="fa fa-lg fa-fw  fa-th txt-color-blue"></i> <span
                 class="menu-item-parent">{{'收藏夹' | i18n}}</span></a>
         <ul>
-          <li routerLinkActive="active">
-            <a routerLink="/equipment/full-tables">{{'全员查看' | i18n}}</a>
+          <li>
+            <a href="#">{{'人事管理新' | i18n}}</a>
+            <ul>
+
+              <li routerLinkActive="active">
+                <a routerLink="/management/setting-departmentnew">{{'部门设置' | i18n}}</a>
+              </li>
+              <li routerLinkActive="active">
+                <a routerLink="/management/setting-honor">{{'职称设置' | i18n}}</a>
+              </li>
+            </ul>
           </li>
-          <li routerLinkActive="active">
-            <a routerLink="/equipment/helmet-list">{{'安全帽' | i18n}}</a>
+          <li>
+            <a href="#">{{'矿易帮设置新' | i18n}}</a>
+            <ul>
+              <li routerLinkActive="active">
+                <a routerLink="/management/setting-affiliation">{{'项目设置' | i18n}}</a>
+              </li>
+              <li routerLinkActive="active">
+                <a routerLink="/management/setting-personnel">{{'人员类别' | i18n}}</a>
+              </li>
+            </ul>
           </li>
-          <li routerLinkActive="active">
-            <a routerLink="/equipment/equipment-beacon">{{'信标' | i18n}}</a>
+          <li>
+            <a href="#">{{'仓库设置新' | i18n}}</a>
+            <ul>
+              <li routerLinkActive="active">
+                <a routerLink="/management/setting-repertory">{{'出入库类别' | i18n}}</a>
+              </li>
+              <li routerLinkActive="active">
+                <a routerLink="/inventory-management/inventory-requisition">{{'调拨单' | i18n}}</a>
+              </li>
+              <li routerLinkActive="active">
+                <a routerLink="/inventory-management/add-requisition">{{'添加调拨单' | i18n}}</a>
+              </li>
+            </ul>
           </li>
-          <li routerLinkActive="active">
-            <a routerLink="/equipment/equipment-positioning">{{'定位' | i18n}}</a>
+          <li>
+            <a href="#">{{'客户管理新' | i18n}}</a>
+            <ul>
+              <li routerLinkActive="active">
+                <a routerLink="/customer-management/unit-classify">{{'单位分类' | i18n}}</a>
+              </li>
+              <li routerLinkActive="active">
+                <a routerLink="/customer-management/unit-list">{{'往来客户或单位' | i18n}}</a>
+              </li>
+            </ul>
           </li>
-          <li routerLinkActive="active">
-            <a routerLink="/equipment/station-list">{{'基站设备' | i18n}}</a>
+          <li>
+            <a href="#">{{'采购管理新' | i18n}}</a>
+            <ul>
+              <li routerLinkActive="active">
+                <a routerLink="/procurement-management/procurement-type">{{'采购类型' | i18n}}</a>
+              </li>
+              <li routerLinkActive="active">
+                <a routerLink="/procurement-management/procurement-receipt">{{'进货单' | i18n}}</a>
+              </li>
+              <li routerLinkActive="active">
+                <a routerLink="/procurement-management/add-receipt">{{'添加进货单' | i18n}}</a>
+              </li>
+
+            </ul>
           </li>
-          <li routerLinkActive="active">
-            <a routerLink="/equipment/i3otp/0">{{'添加设备' | i18n}}</a>
+          <li>
+            <a href="#">{{'销售管理新' | i18n}}</a>
+            <ul>
+              <li routerLinkActive="active">
+                <a routerLink="/sales-management/sales-type">{{'销售类型' | i18n}}</a>
+              </li>
+              <li routerLinkActive="active">
+                <a routerLink="/sales-management/sales-list">{{'销售单' | i18n}}</a>
+              </li>
+              <li routerLinkActive="active">
+                <a routerLink="/sales-management/add-sales">{{'添加销售单' | i18n}}</a>
+              </li>
+
+            </ul>
           </li>
-          <li routerLinkActive="active">
-            <a routerLink="/management/setting-personnel">{{'人员类别' | i18n}}</a>
+          <li>
+            <a href="#">{{'产品管理新' | i18n}}</a>
+            <ul>
+              <li routerLinkActive="active">
+                <a routerLink="/management/setting-archives">{{'存货档案' | i18n}}</a>
+              </li>
+              <li routerLinkActive="active">
+                <a routerLink="/inventory-management/inventory-classification">{{'存货分类' | i18n}}</a>
+              </li>
+              <li routerLinkActive="active">
+                <a routerLink="/management/setting-conversion">{{'单位换算设置' | i18n}}</a>
+              </li>
+
+            </ul>
           </li>
-          <li routerLinkActive="active">
-            <a routerLink="/management/setting-departmentnew">{{'部门设置' | i18n}}</a>
-          </li>
-          <li routerLinkActive="active">
-            <a routerLink="/management/setting-honor">{{'职称设置' | i18n}}</a>
-          </li>
-          <li routerLinkActive="active">
-            <a routerLink="/management/setting-repertory">{{'出入库类别' | i18n}}</a>
-          </li>
-          <li routerLinkActive="active">
-            <a routerLink="/management/setting-archives">{{'存货档案' | i18n}}</a>
-          </li>
-          <li routerLinkActive="active">
-            <a routerLink="/inventory-management/inventory-classification">{{'存货分类' | i18n}}</a>
-          </li>
-          <li routerLinkActive="active">
-            <a routerLink="/management/setting-conversion">{{'单位换算设置' | i18n}}</a>
+          <li>
+            <a href="#">{{'项目管理' | i18n}}</a>
+            <ul>
+
+            </ul>
           </li>
 
-          <li routerLinkActive="active">
-            <a routerLink="/equipment/todo-details">{{'待办事项详情' | i18n}}</a>
-          </li>
-          <li routerLinkActive="active">
-            <a routerLink="/forms/todo-mission">{{'待办事项详情' | i18n}}</a>
-          </li>
-         <!-- <li routerLinkActive="active">
-            <a routerLink="/management/setting-affiliation">{{'项目所属设置' | i18n}}</a>
-          </li>
-          <li routerLinkActive="active">
-            <a routerLink="/management/setting-openness">{{'项目公开性设置' | i18n}}</a>
-          </li>
-          <li routerLinkActive="active">
-            <a routerLink="/management/setting-formwork">{{'项目模板设置' | i18n}}</a>
-          </li>
-          <li routerLinkActive="active">
-            <a routerLink="/management/setting-labelling">{{'项目标签设置' | i18n}}</a>
-          </li>-->
           <li routerLinkActive="active">
             <a routerLink="/management/setting-labellinga">{{'项目设置' | i18n}}</a>
           </li>
 
-          <li routerLinkActive="active">
-            <a routerLink="/management/setting-affiliation">{{'项目设置' | i18n}}</a>
+
+          <li>
+            <a href="#">{{'暂时不需要' | i18n}}</a>
+            <ul>
+              <li routerLinkActive="active">
+                <a routerLink="/inventory-management/effect-tabe">{{'表格文件' | i18n}}</a>
+              </li>
+              <li routerLinkActive="active">
+                <a routerLink="/inventory-management/effect-test">{{'下级目录' | i18n}}</a>
+              </li>
+              <li routerLinkActive="active">
+                <a routerLink="/equipment/todo-details">{{'待办事项详情' | i18n}}</a>
+              </li>
+              <li routerLinkActive="active">
+                <a routerLink="/forms/todo-mission">{{'待办事项详情' | i18n}}</a>
+              </li>
+              <!-- <li routerLinkActive="active">
+           <a routerLink="/management/setting-affiliation">{{'项目所属设置' | i18n}}</a>
+         </li>
+         <li routerLinkActive="active">
+           <a routerLink="/management/setting-openness">{{'项目公开性设置' | i18n}}</a>
+         </li>
+         <li routerLinkActive="active">
+           <a routerLink="/management/setting-formwork">{{'项目模板设置' | i18n}}</a>
+         </li>
+         <li routerLinkActive="active">
+           <a routerLink="/management/setting-labelling">{{'项目标签设置' | i18n}}</a>
+         </li>-->
+              <li routerLinkActive="active">
+                <a routerLink="/equipment/full-tables">{{'全员查看' | i18n}}</a>
+              </li>
+              <li routerLinkActive="active">
+                <a routerLink="/equipment/helmet-list">{{'安全帽' | i18n}}</a>
+              </li>
+              <li routerLinkActive="active">
+                <a routerLink="/equipment/equipment-beacon">{{'信标' | i18n}}</a>
+              </li>
+              <li routerLinkActive="active">
+                <a routerLink="/equipment/equipment-positioning">{{'定位' | i18n}}</a>
+              </li>
+              <li routerLinkActive="active">
+                <a routerLink="/equipment/station-list">{{'基站设备' | i18n}}</a>
+              </li>
+              <li routerLinkActive="active">
+                <a routerLink="/equipment/i3otp/0">{{'添加设备' | i18n}}</a>
+              </li>
+
+
+            </ul>
           </li>
 
         </ul>

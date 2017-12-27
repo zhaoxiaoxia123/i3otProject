@@ -60,6 +60,21 @@ export const routes: Routes = [
             path: 'inventory-management',
             loadChildren: 'app/+inventory-management/inventory-management.module#InventoryManagementModule',
             data: {pageTitle: 'InventoryManagement'}
+        },
+        {
+            path: 'customer-management',
+            loadChildren: 'app/customer-management/customer-management.module#CustomerManagementModule',
+            data: {pageTitle: 'CustomerManagement'}
+        },
+        {
+            path: 'sales-management',
+            loadChildren: 'app/sales-management/sales-management.module#SalesManagementModule',
+            data: {pageTitle: 'SalesManagement'}
+        },
+        {
+            path: 'procurement-management',
+            loadChildren: 'app/procurement-management/procurement-management.module#ProcurementManagementModule',
+            data: {pageTitle: 'ProcurementManagement'}
         }
     ]
   },

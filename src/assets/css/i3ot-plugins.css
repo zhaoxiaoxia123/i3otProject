@@ -861,7 +861,7 @@ h1,h2,h3,h4 {
 
 .dd-handle {
     display: block;
-    font-size: 15px;
+    font-size: 16px;
     margin: 5px 0;
     padding: 7px 15px;
     color: #333;
@@ -869,7 +869,25 @@ h1,h2,h3,h4 {
     border: 1px solid #cfcfcf;
     background: #fbfbfb
 }
+.text-muted {
+    color: #999;
+    font-size:50%;
+}
+.dd-handle>span {
+    font-size: 13px;
+    color: #777;
+}
+.dd-handle:hover, .dd-handle:hover+.dd-list .dd-handle {
+    background: #FDDFB3!important;
+    border: 1px solid #FAA937;
+    color: #333!important;
+}
 
+.dd-handle-color{
+    background: #FDDFB3!important;
+    border: 1px solid #FAA937;
+    color: #333!important;
+}
 .dd-item>button {
     position: relative;
     cursor: pointer;
@@ -1040,6 +1058,64 @@ time.icon span {
     max-height: 52px;
     overflow-y: auto;
 }
+/*图片*/
+.ace-thumbnails {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.ace-thumbnails>li {
+    float: left;
+    display: block;
+    position: relative;
+    overflow: hidden;
+    margin: 2px;
+    border: 1px solid #D0D0D0;
+}
+.ace-thumbnails>li>:first-child {
+    display: block;
+    position: relative;
+}
+.ace-thumbnails>li>.tools {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -30px;
+    width: 24px;
+    background-color: rgba(0,0,0,0.55);
+    text-align: center;
+    vertical-align: middle;
+    -webkit-transition: all .2s ease;
+    -o-transition: all .2s ease;
+    transition: all .2s ease;
+}
+.ace-thumbnails>li>.tools.tools-top {
+    width: auto;
+    height: 28px;
+    left: 0;
+    right: 0;
+    top: -30px;
+    bottom: auto;
+}
+.ace-thumbnails>li:hover>.tools.tools-top {
+    bottom: auto;
+    top: 0;
+}
+.ace-thumbnails>li:hover>.tools {
+    left: 0;
+    right: 0;
+}
+.ace-thumbnails>li>.tools>a, .ace-thumbnails>li>:first-child .inner a {
+    display: inline-block;
+    color: #FFF;
+    font-size: 18px;
+    font-weight: normal;
+    padding: 0 4px;
+}
+.ace-thumbnails>li .tools.tools-bottom>a, .ace-thumbnails>li .tools.tools-top>a {
+    display: inline-block;
+}
+
 
 /*图片宽度*/
 .width-40{
@@ -1048,4 +1124,33 @@ time.icon span {
 .width-28{
     width:28px!important;
 }
+
+/*图标*/
+span.input-icon {
+    display: inline-block;
+}
+.input-icon-right {
+    position: relative;
+}
+.input-icon-left>i,.input-icon-right>i {
+    position: absolute;
+    right: 10px;
+    top: 30%;
+    font-size: 16px;
+    color: #bfbfbf
+}
+
+.input-icon-left>i {
+    right: auto;
+    left: 24px
+}
+
+.input-icon-right .form-control {
+    padding-right: 27px
+}
+
+.input-icon-left .form-control {
+    padding-left: 29px
+}
+
 

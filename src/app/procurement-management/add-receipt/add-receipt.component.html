@@ -1,0 +1,575 @@
+
+<!--主要内容-->
+<div id="content">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="['采购管理', '添加进货单']" icon="pencil-square-o" class="col-xs-12 col-sm-9 col-md-9 col-lg-9"></sa-big-breadcrumbs>
+  </div>
+
+  <sa-widgets-grid>
+    <div class="row">
+
+      <article class="col-sm-12 ">
+
+        <sa-widget [editbutton]="false" [deletebutton]="false" >
+          <header>
+            <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+            <h2>添加进货单</h2>
+          </header>
+
+          <div>
+            <!--小部件内容-->
+            <div class="widget-body no-padding">
+
+              <form id="smart-form-register" class="smart-form" >
+                <fieldset>
+                  <legend>基本信息</legend>
+
+
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section>
+                      <label class="label ">进货方式</label>
+                      <div class="inline-group">
+                        <label class="radio">
+                          <input checked="" name="radio-inline" type="radio">
+                          <i></i>进货单</label>
+                        <label class="radio">
+                          <input name="radio-inline" type="radio">
+                          <i></i>退货单</label>
+                      </div>
+                    </section>
+
+
+                  </div>
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section >
+                      <label class="label txt-color-blue">单据日期</label>
+                      <label  class="input">
+                        <input  type="date">
+                      </label>
+                    </section>
+
+                  </div>
+
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section>
+                      <label class="label txt-color-blue">单据号</label>
+                      <label class="input">
+                        <input type="text"   placeholder="自动编码"  >
+                      </label>
+                    </section>
+                  </div>
+
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section>
+                      <label class="label ">供应商</label>
+                      <label class="input">
+                        <i class="icon-append glyphicon glyphicon-search cursor-pointer" data-toggle="modal" data-target="#myModal"></i>
+                        <input type="text" placeholder="" >
+                      </label>
+                    </section>
+
+                  </div>
+                  
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section>
+                      <label  class="label ">采购部门</label>
+                      <label class="select">
+                        <select name="">
+                          <option></option>
+                          <option>dfd</option>
+                          <option>dgr</option>
+                          <option>drtyy</option>
+                          <option></option>
+                        </select><i></i>
+                      </label>
+                    </section>
+
+                  </div>
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section>
+                      <label  class="label">采购员</label>
+                      <label class="select">
+                        <select name="">
+                          <option></option>
+                          <option>fgf</option>
+                          <option>dfe</option>
+                          <option>dfhy</option>
+                          <option></option>
+                        </select><i></i>
+                      </label>
+                    </section>
+
+                  </div>
+
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section>
+                      <label  class="label">默认仓库</label>
+                      <label class="select">
+                        <select name="">
+                          <option>dfer</option>
+                          <option>fgf</option>
+                          <option>fgg</option>
+                          <option>drty</option>
+                          <option></option>
+                        </select><i></i>
+                      </label>
+                    </section>
+
+                  </div>
+
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section>
+                      <label  class="label">采购类型</label>
+                      <label class="select">
+                        <select name="">
+                          <option>trtert</option>
+                          <option>ertret</option>
+                          <option>fgg</option>
+                          <option>drty</option>
+                          <option></option>
+                        </select><i></i>
+                      </label>
+                    </section>
+
+                  </div>
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section>
+                      <label  class="label">发运方式</label>
+                      <label class="select">
+                        <select name="">
+                          <option>dtrt</option>
+                          <option>ertret</option>
+                          <option>fgg</option>
+                          <option>drty</option>
+                          <option></option>
+                        </select><i></i>
+                      </label>
+                    </section>
+
+                  </div>
+
+
+                  <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                    <section>
+                      <label class="label">扫码</label>
+                      <label class="textarea textarea-resizable">
+                        <textarea class="custom-scroll" rows="1" name="" ></textarea>
+                      </label>
+                    </section>
+                  </div>
+
+
+                  <table class="table table-hover table-bordered dataTable">
+                    <thead>
+                    <tr>
+                      <th></th>
+                      <th>操作</th>
+                      <th class="txt-color-blue">材质</th>
+                      <th >存货编码  </th>
+                      <th>条码 </th>
+                      <th>存货分类  </th>
+                      <th class="txt-color-blue">规格型号</th>
+                      <th class="txt-color-blue">单位 </th>
+                      <th class="txt-color-blue">仓库</th>
+                      <th class="txt-color-blue">数量</th>
+                      <th class="txt-color-blue">单价 </th>
+                      <th class="txt-color-blue">采购金额 </th>
+                      <th class="txt-color-blue">备注 </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td style=" width: 112px;">
+                        <a class="btn btn-warning btn-xs"  ><span class="glyphicon glyphicon-plus"></span>添加</a>
+                        <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                      </td>
+                      <td>
+                        <div >
+                          <table border="0" cellspacing="0" cellpadding="1">
+                            <tbody>
+                            <tr>
+                              <td>
+                                <form class="smart-form">
+                                  <section>
+                                    <label class="input">
+                                      <i class="icon-append glyphicon glyphicon-search cursor-pointer" data-toggle="modal" data-target="#myModal"></i>
+                                      <input type="text" placeholder="" >
+                                    </label>
+                                  </section>
+                                </form>
+                              </td>
+                              <td>
+                              </td>
+                            </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>
+                        <div >
+                          <span class="txt-color-red">请先选择存货</span>
+                          <table border="0" cellspacing="0" cellpadding="1">
+                            <tbody>
+                            <tr>
+                              <td>
+                                <form class="smart-form">
+                                  <section>
+                                    <label class="select">
+                                      <select name="">
+                                        <option></option>
+                                        <option>fgf</option>
+                                        <option>fgg</option>
+                                        <option>dfgfg</option>
+                                        <option></option>
+                                      </select><i></i>
+                                    </label>
+                                  </section>
+
+                                </form>
+
+                              </td>
+                            </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </td>
+                      <td>
+                        <div >
+                          <span class="txt-color-red">请先选择存货</span>
+                          <table border="0" cellspacing="0" cellpadding="1">
+                            <tbody>
+                            <tr>
+                              <td>
+                                <form class="smart-form">
+                                  <section>
+                                    <label class="select">
+                                      <select name="">
+                                        <option></option>
+                                        <option>fgf</option>
+                                        <option>fgg</option>
+                                        <option>dfgfg</option>
+                                        <option></option>
+                                      </select><i></i>
+                                    </label>
+                                  </section>
+
+                                </form>
+
+                              </td>
+                            </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </td>
+                      <td>
+                        <div >
+                          <span class="txt-color-red">请先选择存货</span>
+                          <table border="0" cellspacing="0" cellpadding="1">
+                            <tbody>
+                            <tr>
+                              <td>
+                                <form class="smart-form">
+                                  <section>
+                                    <label class="select">
+                                      <select name="">
+                                        <option></option>
+                                        <option>fgf</option>
+                                        <option>fgg</option>
+                                        <option>dfgfg</option>
+                                        <option></option>
+                                      </select><i></i>
+                                    </label>
+                                  </section>
+
+                                </form>
+
+                              </td>
+                            </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </td>
+                      <td>
+                        <div >
+                          <span class="txt-color-red">请先选择存货</span>
+                          <table border="0" cellspacing="0" cellpadding="1">
+                            <tbody>
+                            <tr>
+                              <td>
+                                <form class="smart-form">
+                                  <section>
+                                    <form class="smart-form">
+                                      <section>
+                                        <label class="input">
+                                          <input  name="" type="number">
+                                        </label>
+                                      </section>
+
+                                    </form>
+                                  </section>
+
+                                </form>
+
+                              </td>
+                            </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </td>
+                      <td>
+                        <div >
+                          <span class="txt-color-red">请先选择存货</span>
+                          <table border="0" cellspacing="0" cellpadding="1">
+                            <tbody>
+                            <tr>
+                              <td>
+                                <form class="smart-form">
+                                  <section>
+                                    <form class="smart-form">
+                                      <section>
+                                        <label class="input">
+                                          <input  name="" type="number">
+                                        </label>
+                                      </section>
+
+                                    </form>
+                                  </section>
+
+                                </form>
+
+                              </td>
+                            </tr>
+                            </tbody>
+                          </table>
+                        </div>
+
+                      </td>
+                      <td>
+                        <div >
+                          <span class="txt-color-red">请先选择存货</span>
+                          <table border="0" cellspacing="0" cellpadding="1">
+                            <tbody>
+                            <tr>
+                              <td>
+                                <form class="smart-form">
+                                  <section>
+                                    <form class="smart-form">
+                                      <section>
+                                        <label class="input">
+                                          <input  name="" type="number">
+                                        </label>
+                                      </section>
+
+                                    </form>
+                                  </section>
+
+                                </form>
+
+                              </td>
+                            </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </td>
+                      <td>
+                        <div >
+                          <span class="txt-color-red">请先选择存货</span>
+                          <table border="0" cellspacing="0" cellpadding="1">
+                            <tbody>
+                            <tr>
+                              <td>
+                                <form class="smart-form">
+                                  <section>
+                                    <label class="input">
+                                      <input  name="" type="number">
+                                    </label>
+                                  </section>
+
+                                </form>
+
+                              </td>
+                            </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>
+                        <a class="btn btn-warning btn-xs"  ><span class="glyphicon glyphicon-plus"></span>添加</a>
+                        <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                      </td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+
+                    </tr>
+                    <tr >
+                      <td colspan="13" style="height: 40px;"></td>
+                    </tr>
+
+
+
+
+                    </tbody>
+                    <tfoot>
+                    <tr >
+                      <th></th>
+                      <th></th>
+                      <th>合计</th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th>0</th>
+                      <th></th>
+                      <th>0.00</th>
+                      <th></th>
+                    </tr>
+
+                    </tfoot>
+                  </table>
+
+
+
+                  <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                    <section>
+                      <label class="label">备注</label>
+                      <label class="textarea textarea-resizable">
+                        <textarea class="custom-scroll" rows="2" name="" ></textarea>
+                      </label>
+                    </section>
+                  </div>
+
+
+
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+
+
+                  </div>
+
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+
+                  </div>
+
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+
+                  </div>
+                </fieldset>
+                <footer>
+                  <button type="button" class="btn btn-success btn-sm" ><span class="glyphicon glyphicon-plus"></span>保存并新增</button>
+                  <button type="button" class="btn btn-default" >
+                    返回
+                  </button>
+                  <button type="submit" class="btn btn-primary">
+                    保存
+                  </button>
+                </footer>
+              </form>
+            </div>
+          </div>
+        </sa-widget>
+      </article>
+    </div>
+  </sa-widgets-grid>
+</div>
+
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- 关闭按钮 -->
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          ×
+        </button>
+        <!-- 标题 -->
+        <h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>选择供应商</h3>
+      </div>
+      <div class="modal-body height-overflow-320">
+        <div class="row text-center" style="padding:10px 40px;">
+          <div class="dd" >
+            <ol class="dd-list">
+              <li class="dd-item " >
+                <button data-action="expand" type="button" style="display: none;">收起</button>
+                <button data-action="collapse" type="button"  style="display: block;">展开</button>
+                <div class="dd-handle dd-handle-color">
+                  矿
+                  <small  class="text-muted">
+                    <i >(202500)</i>
+                  </small>
+                  <span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>
+                  <div>
+                  </div>
+                </div>
+                <ol class="dd-list"  style="display: block;">
+                  <li class="dd-item" >
+                    <div class="dd-handle">
+                      矿
+                      <small  class="text-muted">
+                        <i >(202500)</i>
+                      </small>
+                      <span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>
+                      <div>
+                      </div>
+                    </div>
+                  </li>
+                </ol>
+              </li>
+              <li class="dd-item" >
+                <button  type="button"  style="display: block;">收起</button>
+                <button  type="button" style="display: none;">展开</button>
+                <div class="dd-handle">
+                  矿
+                  <small  class="text-muted">
+                    <i >(202500)</i>
+                  </small>
+                  <span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>
+                  <div>
+                  </div>
+
+                </div>
+                <ol class="dd-list"  style="display: none;">
+                  <li class="dd-item" id="186">
+                    <div class="dd-handle">
+                      矿
+                      <small  class="text-muted">
+                        <i >(202500)</i>
+                      </small>
+                      <span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>
+                      <div>
+                      </div>
+                    </div>
+                  </li>
+                </ol>
+              </li>
+
+
+            </ol>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success btn-sm" ><span class="glyphicon glyphicon-plus"></span>选入</button>
+        <!--    <button type="button" class="btn btn-primary" data-ng-click="ok()">保存</button>-->
+        <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,438 @@
+
+<!--主要内容-->
+<div id="content">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="['仓库管理', '添加调拨单']" icon="pencil-square-o" class="col-xs-12 col-sm-9 col-md-9 col-lg-9"></sa-big-breadcrumbs>
+  </div>
+
+  <sa-widgets-grid>
+    <div class="row">
+
+      <article class="col-sm-12 ">
+
+        <sa-widget [editbutton]="false" [deletebutton]="false" >
+          <header>
+            <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+            <h2>添加调拨单</h2>
+          </header>
+
+          <div>
+            <!--小部件内容-->
+            <div class="widget-body no-padding">
+
+              <form id="smart-form-register" class="smart-form" >
+                <fieldset>
+                  <legend>基本信息</legend>
+
+
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section>
+                      <label class="label ">调拨方式</label>
+                      <div class="inline-group">
+                        <label class="radio">
+                          <input checked="" name="radio-inline" type="radio">
+                          <i></i>等价调拨</label>
+                        <label class="radio">
+                          <input name="radio-inline" type="radio">
+                          <i></i>差价调拨</label>
+                      </div>
+                    </section>
+
+
+                  </div>
+
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section>
+                      <label class="label txt-color-blue">单据号</label>
+                      <label class="input">
+                        <input type="text"   placeholder="自动编码"  >
+                      </label>
+                    </section>
+                  </div>
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section >
+                      <label class="label txt-color-blue">单据日期</label>
+                      <label  class="input">
+                        <input  type="date">
+                      </label>
+                    </section>
+
+                  </div>
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section>
+                      <label  class="label ">调出仓库</label>
+                      <label class="select">
+                        <select name="">
+                          <option></option>
+                          <option>fgf</option>
+                          <option>fgg</option>
+                          <option>dfgfg</option>
+                          <option></option>
+                        </select><i></i>
+                      </label>
+                    </section>
+
+                  </div>
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section>
+                      <label  class="label">调入仓库</label>
+                      <label class="select">
+                        <select name="">
+                          <option></option>
+                          <option>fgf</option>
+                          <option>fgg</option>
+                          <option>dfgfg</option>
+                          <option></option>
+                        </select><i></i>
+                      </label>
+                    </section>
+
+                  </div>
+
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section>
+                      <label  class="label">经手人</label>
+                      <label class="select">
+                        <select name="">
+                          <option></option>
+                          <option>fgf</option>
+                          <option>fgg</option>
+                          <option>dfgfg</option>
+                          <option></option>
+                        </select><i></i>
+                      </label>
+                    </section>
+
+                  </div>
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section>
+                      <label class="label ">业务部门</label>
+                      <label class="input">
+                        <i class="icon-append glyphicon glyphicon-search cursor-pointer" data-toggle="modal" data-target="#myModal"></i>
+                        <input type="text" placeholder="" >
+                      </label>
+                    </section>
+
+                  </div>
+
+                  <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                    <section>
+                      <label class="label">扫码</label>
+                      <label class="textarea textarea-resizable">
+                        <textarea class="custom-scroll" rows="1" name="" ></textarea>
+                      </label>
+                    </section>
+                  </div>
+
+
+                  <table class="table table-hover table-bordered dataTable">
+                    <thead>
+                    <tr>
+                      <th>操作</th>
+                      <th class="txt-color-blue">存货名称 </th>
+                      <th >存货编码 </th>
+                      <th>存货分类 </th>
+                      <th>规格型号  </th>
+                      <th class="txt-color-blue">单位</th>
+                      <th class="txt-color-blue">调出仓库</th>
+                      <th class="txt-color-blue">调入仓库</th>
+                      <th class="txt-color-blue">数量</th>
+                      <th>调拨单位成本</th>
+                      <th>调拨成本</th>
+                      <th class="txt-color-blue">调拨费用</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td style=" width: 112px;"><a class="btn btn-warning btn-xs"  ><span class="glyphicon glyphicon-plus"></span>添加</a>
+                        <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                      </td>
+                      <td>
+                        <div  >
+                          <table border="0" cellspacing="0" cellpadding="1">
+                            <tbody>
+                            <tr>
+                              <td>
+                                <form class="smart-form">
+                                  <section>
+                                    <label class="input">
+                                      <i class="icon-append glyphicon glyphicon-search cursor-pointer" data-toggle="modal" data-target="#myModal"></i>
+                                      <input type="text" placeholder="" >
+                                    </label>
+                                  </section>
+                                </form>
+                              </td>
+                              <td>
+                              </td>
+                            </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>
+                        <div  >
+                        <span class="txt-color-red">请先设置存货名称</span>
+                        <table border="0" cellspacing="0" cellpadding="1">
+                          <tbody>
+                          <tr>
+                            <td>
+                              <form class="smart-form">
+                                <section>
+                                  <label class="select">
+                                    <select name="">
+                                      <option></option>
+                                      <option>fgf</option>
+                                      <option>fgg</option>
+                                      <option>dfgfg</option>
+                                      <option></option>
+                                    </select><i></i>
+                                  </label>
+                                </section>
+
+                              </form>
+
+                            </td>
+                          </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      </td>
+                      <td>
+                        <div  >
+                          <span class="txt-color-red">请先设置存货名称</span>
+                          <table border="0" cellspacing="0" cellpadding="1">
+                            <tbody>
+                            <tr>
+                              <td>
+                                <form class="smart-form">
+                                  <section>
+                                    <label class="select">
+                                      <select name="">
+                                        <option></option>
+                                        <option>fgf</option>
+                                        <option>fgg</option>
+                                        <option>dfgfg</option>
+                                        <option></option>
+                                      </select><i></i>
+                                    </label>
+                                  </section>
+
+                                </form>
+
+                              </td>
+                            </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </td>
+                      <td><div  >
+                        <span class="txt-color-red">请先设置存货名称</span>
+                        <table border="0" cellspacing="0" cellpadding="1">
+                          <tbody>
+                          <tr>
+                            <td>
+                              <form class="smart-form">
+                                <section>
+                                  <label class="input">
+                                    <input  name="" type="text">
+                                  </label>
+                                </section>
+
+                              </form>
+
+                            </td>
+                          </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      </td>
+                      <td>
+                        <div  >
+                          <span class="txt-color-red">请先设置存货名称</span>
+                          <table border="0" cellspacing="0" cellpadding="1">
+                            <tbody>
+                            <tr>
+                              <td>
+                                <form class="smart-form">
+                                  <section>
+                                    <form class="smart-form">
+                                      <section>
+                                        <label class="input">
+                                          <input  name="" type="number">
+                                        </label>
+                                      </section>
+
+                                    </form>
+                                  </section>
+
+                                </form>
+
+                              </td>
+                            </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </td>
+                      <td>
+
+                      </td>
+                      <td>
+                      </td>
+                      <td>
+                        <div  >
+                          <span class="txt-color-red">请先设置存货名称</span>
+                          <table border="0" cellspacing="0" cellpadding="1">
+                            <tbody>
+                            <tr>
+                              <td>
+                                <form class="smart-form">
+                                  <section>
+                                    <label class="input">
+                                      <input  name="" type="number">
+                                    </label>
+                                  </section>
+
+                                </form>
+
+                              </td>
+                            </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </td>
+                    </tr>
+
+                    </tbody>
+                  </table>
+
+
+
+                  <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                    <section>
+                      <label class="label">备注</label>
+                      <label class="textarea textarea-resizable">
+                        <textarea class="custom-scroll" rows="2" name="" ></textarea>
+                      </label>
+                    </section>
+                  </div>
+
+
+
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+
+
+                  </div>
+
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+
+                  </div>
+
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+
+                  </div>
+                </fieldset>
+                <footer>
+                  <button type="button" class="btn btn-success btn-sm" ><span class="glyphicon glyphicon-plus"></span>保存并新增</button>
+                  <button type="button" class="btn btn-default" >
+                    返回
+                  </button>
+                  <button type="submit" class="btn btn-primary">
+                    保存
+                  </button>
+                </footer>
+              </form>
+            </div>
+          </div>
+        </sa-widget>
+      </article>
+    </div>
+  </sa-widgets-grid>
+</div>
+
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- 关闭按钮 -->
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          ×
+        </button>
+        <!-- 标题 -->
+        <h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>选择业务部门</h3>
+      </div>
+      <div class="modal-body height-overflow-320">
+        <div class="row text-center" style="padding:10px 40px;">
+          <div class="dd" >
+            <ol class="dd-list">
+              <li class="dd-item " >
+                <button data-action="expand" type="button" style="display: none;">收起</button>
+                <button data-action="collapse" type="button"  style="display: block;">展开</button>
+                <div class="dd-handle dd-handle-color">
+                  矿
+                  <small  class="text-muted">
+                    <i >(202500)</i>
+                  </small>
+                  <span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>
+                  <div>
+                  </div>
+                </div>
+                <ol class="dd-list"  style="display: block;">
+                  <li class="dd-item" >
+                    <div class="dd-handle">
+                      矿
+                      <small  class="text-muted">
+                        <i >(202500)</i>
+                      </small>
+                      <span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>
+                      <div>
+                      </div>
+                    </div>
+                  </li>
+                </ol>
+              </li>
+              <li class="dd-item" >
+                <button  type="button"  style="display: block;">收起</button>
+                <button  type="button" style="display: none;">展开</button>
+                <div class="dd-handle">
+                  矿
+                  <small  class="text-muted">
+                    <i >(202500)</i>
+                  </small>
+                  <span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>
+                  <div>
+                  </div>
+
+                </div>
+                <ol class="dd-list"  style="display: none;">
+                  <li class="dd-item" id="186">
+                    <div class="dd-handle">
+                      矿
+                      <small  class="text-muted">
+                        <i >(202500)</i>
+                      </small>
+                      <span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>
+                      <div>
+                      </div>
+                    </div>
+                  </li>
+                </ol>
+              </li>
+
+
+            </ol>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success btn-sm" ><span class="glyphicon glyphicon-plus"></span>选入</button>
+        <!--    <button type="button" class="btn btn-primary" data-ng-click="ok()">保存</button>-->
+        <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+      </div>
+    </div>
+  </div>
+</div>
