@@ -83,11 +83,6 @@ export const routes:Routes = [
         data: {pageTitle: 'Setting Formwork'}
     },
     {
-        path: 'setting-labelling',
-        loadChildren: 'app/+management/setting-labelling/setting-labelling.module#SettingLabellingModule',
-        data: {pageTitle: 'Setting Labelling'}
-    },
-    {
         path: 'setting-labellinga',
         loadChildren: 'app/+management/setting-labellinga/setting-labellinga.module#SettingLabellingaModule',
         data: {pageTitle: 'Setting Labellinga'}
