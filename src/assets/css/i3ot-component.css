@@ -2014,6 +2014,17 @@ table.dataTable {
     background-image: -o-linear-gradient(top,#f2f2f2 0,#fafafa 100%);
     font-size: 14px;
 }
+
+.table tfoot tr{
+    background-color: #eee;
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#f2f2f2),to(#fafafa));
+    background-image: -webkit-linear-gradient(top,#f2f2f2 0,#fafafa 100%);
+    background-image: -moz-linear-gradient(top,#f2f2f2 0,#fafafa 100%);
+    background-image: -ms-linear-gradient(top,#f2f2f2 0,#fafafa 100%);
+    background-image: -o-linear-gradient(top,#f2f2f2 0,#fafafa 100%);
+    font-size: 14px;
+
+}
 .table-bordered>thead>tr>td, .table-bordered>thead>tr>th {
     border-width: 1px;
 }
@@ -4397,6 +4408,7 @@ ul.checkable.checkable--popboxmenu li a .label-name {
 }
 .tab-contents-box ul li{
     margin-bottom:10px;
+
 }
 
 .show-tag{

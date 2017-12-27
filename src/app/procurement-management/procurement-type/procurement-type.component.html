@@ -1,0 +1,147 @@
+<div id="content">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="['采购管理', '采购类型']" icon="pencil-square-o" class="col-xs-12 col-sm-9 col-md-9 col-lg-9"></sa-big-breadcrumbs>
+  </div>
+
+
+
+
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-sm-12 ">
+        <sa-widget [editbutton]="false" [deletebutton]="false" [colorbutton]="false">
+          <header>
+            <ul class="nav nav-tabs pull-left in"  id="myTab">
+              <li class="active" >
+                <a data-toggle="tab" href="#AA" > <span
+                        class="hidden-mobile hidden-tablet">采购类型</span></a>
+              </li>
+            </ul>
+          </header>
+
+          <div >
+
+            <div class="widget-body">
+
+              <div id="myTabContent" class="tab-content">
+
+                <div class="tab-pane fade active in  padding-left-10 no-padding-bottom" id="AA">
+                  <div class="row">
+                    <article class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                      <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                                 [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+                        <div>
+                          <div class="widget-body no-padding">
+                            <alert type="info" class="no-margin">
+                              <i class="fa-fw fa fa-plus"></i>
+                              添加采购类型
+                            </alert>
+                             <!--<alert type="info" class="no-margin" >
+                               <i class="glyphicon glyphicon-pencil"></i>
+                               修改采购类型
+                             </alert>-->
+                            <form class="smart-form ">
+                              <fieldset>
+                                <section>
+                                  <label class="label txt-color-blue">类型编码</label>
+                                  <label class="input">
+                                    <input type="number"  disabled="disabled" placeholder="自动编码"  >
+                                  </label>
+                                </section>
+                                <section>
+                                  <label class="label txt-color-blue">类型名称</label>
+                                  <label class="input">
+                                    <input type="text" placeholder="请输分类名称" >
+                                  </label>
+                                </section>
+                              </fieldset>
+
+
+                              <footer>
+                                <button type="submit" class="btn btn-primary">
+                                  保存
+                                </button>
+                              </footer>
+                            </form>
+                          </div>
+                        </div>
+                      </sa-widget>
+                    </article>
+                    <article class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                      <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                                 [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+                        <div>
+                          <div class="widget-body no-padding">
+                            <alert type="info" class="no-margin" >
+                              <i class="fa-fw fa fa-spoon"></i>
+                              采购类型
+                            </alert>
+                            <div class="table-responsive">
+                              <table class="table table-hover table-bordered dataTable">
+                                <thead>
+                                <tr>
+                                  <th>类型编码</th>
+                                  <th>类型名称</th>
+                                  <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                  <td>001</td>
+                                  <td>低分段</td>
+                                  <td>
+                                    <div >
+                                      <a class="btn btn-warning btn-xs"  ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                      <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                    </div>
+                                    <!--<div >无权操作</div>-->
+                                  </td>
+                                </tr>
+                                </tbody>
+                              </table>
+                              <!-- 底部-（分页部分）-->
+                              <div class="dt-toolbar">
+                                <div class="hidden-xs right">
+                                  <ul class="pagination pagination-sm">
+                                    <li *ngFor="let p of categoryList?.page" class="{{p.class}}">
+                                      <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+                                      <a *ngIf="p.method==''">{{p.text}}</a>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </sa-widget>
+                      <!-- end widget -->
+                    </article>
+
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+        </sa-widget>
+      </article>
+    </div>
+  </sa-widgets-grid>
+
+
+
+</div>
+
+
+
+
+
+
+
+

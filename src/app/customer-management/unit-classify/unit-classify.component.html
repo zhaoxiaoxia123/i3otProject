@@ -1,0 +1,299 @@
+<div id="content">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="['客户管理', '单位分类']" icon="pencil-square-o" class="col-xs-12 col-sm-9 col-md-9 col-lg-9"></sa-big-breadcrumbs>
+  </div>
+
+
+
+
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-sm-12 ">
+        <sa-widget [editbutton]="false" [deletebutton]="false" [colorbutton]="false">
+          <header>
+            <ul class="nav nav-tabs pull-left in"  id="myTab">
+              <li class="active" >
+                <a data-toggle="tab" href="#AA" > <span
+                        class="hidden-mobile hidden-tablet">单位分类</span></a>
+              </li>
+            </ul>
+          </header>
+
+          <div >
+
+            <div class="widget-body">
+
+              <div id="myTabContent" class="tab-content">
+
+                <div class="tab-pane fade active in  padding-left-10 no-padding-bottom" id="AA">
+                  <div class="row">
+                    <article class="col-lg-6">
+                      <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                                 [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+                        <div>
+                          <div class="widget-body no-padding">
+                            <alert type="info" class="no-margin">
+                              <i class="fa-fw fa fa-plus"></i>
+                              添加单位分类
+                            </alert>
+                            <!-- <alert type="info" class="no-margin" >
+                               <i class="glyphicon glyphicon-pencil"></i>
+                               修改单位分类
+                             </alert>-->
+                            <form class="smart-form ">
+                              <fieldset>
+                                <section>
+                                  <label class="label txt-color-blue">分类编码</label>
+                                  <label class="input">
+                                    <input type="number"  placeholder=""  >
+                                  </label>
+                                </section>
+                                <section>
+                                  <label class="label txt-color-blue">分类名称</label>
+                                  <label class="input">
+                                    <input type="text" placeholder="请输分类名称" >
+                                  </label>
+                                </section>
+                                <section>
+                                  <label class="label txt-color-blue">价格类型</label>
+                                  <label class="select">
+                                    <select>
+                                      <option disabled="" selected="" value="0" >请选择价格类型</option>
+                                      <option value="" >参数默认</option>
+                                      <option value="" >参考价</option>
+                                      <option value="" >零售价</option>
+                                      <option value="" >一级价</option>
+                                    </select> <i></i> </label>
+                                </section>
+                                <section>
+                                  <label class="label txt-color-blue">单位类别</label>
+                                  <label class="select">
+                                    <select>
+                                      <option disabled="" selected="" value="0" >请选择单位类别</option>
+                                      <option value="" >供应商</option>
+                                      <option value="" >客户</option>
+                                    </select> <i></i> </label>
+                                </section>
+                                <section>
+                                  <label class="label ">上级分类</label>
+                                  <label class="input">
+                                    <i class="icon-append glyphicon glyphicon-search cursor-pointer" data-toggle="modal" data-target="#myModal"></i>
+                                    <input type="text" placeholder="请输分类名称" >
+                                  </label>
+                                </section>
+                                <!-- <section>
+                                   <label class="label ">显示顺序</label>
+                                   <label class="input">
+                                     <input type="number" placeholder="" >
+                                   </label>
+                                 </section>-->
+                              </fieldset>
+
+
+                              <footer>
+                                <button type="submit" class="btn btn-primary">
+                                  保存
+                                </button>
+                              </footer>
+                            </form>
+                          </div>
+                        </div>
+                      </sa-widget>
+                    </article>
+                    <article class="col-lg-6">
+                      <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                                 [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+                        <div>
+                          <div class="widget-body no-padding">
+                            <alert type="info" class="no-margin" >
+                              <i class="fa-fw fa fa-spoon"></i>
+                              存货分类
+                            </alert>
+                            <div class="widget-body">
+                              <div class="row text-center" style="padding:10px 40px;">
+                                <div class="dd" >
+                                  <ol class="dd-list">
+                                    <li class="dd-item" >
+                                      <button data-action="expand" type="button" style="display: none;">收起</button>
+                                      <button data-action="collapse" type="button"  style="display: block;">展开</button>
+                                      <div class="dd-handle">
+                                        矿
+                                        <small  class="text-muted">
+                                          <i >(202500)</i>
+                                        </small>
+                                        <span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>
+                                        <div>
+                                        <a class="btn pull-right btn-warning btn-xs btn-20"><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                        <a class="btn pull-right btn-danger btn-xs btn-20"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                      </div>
+                                      </div>
+                                      <ol class="dd-list"  style="display: block;">
+                                        <li class="dd-item" >
+                                          <div class="dd-handle">
+                                            矿
+                                            <small  class="text-muted">
+                                              <i >(202500)</i>
+                                            </small>
+                                            <span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>
+                                            <div>
+                                              <a class="btn pull-right btn-warning btn-xs btn-20"><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                              <a class="btn pull-right btn-danger btn-xs btn-20"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                            </div>
+                                          </div>
+                                        </li>
+                                      </ol>
+                                    </li>
+                                    <li class="dd-item" id="185">
+                                      <button  type="button"  style="display: block;">收起</button>
+                                      <button  type="button" style="display: none;">展开</button>
+                                      <div class="dd-handle">
+                                        矿
+                                        <small  class="text-muted">
+                                          <i >(202500)</i>
+                                        </small>
+                                        <span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>
+                                        <div>
+                                          <a class="btn pull-right btn-warning btn-xs btn-20"><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                          <a class="btn pull-right btn-danger btn-xs btn-20"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                        </div>
+
+                                      </div>
+                                      <ol class="dd-list"  style="display: none;">
+                                        <li class="dd-item" >
+                                          <div class="dd-handle">
+                                            矿
+                                            <small  class="text-muted">
+                                              <i >(202500)</i>
+                                            </small>
+                                            <span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>
+                                            <div>
+                                              <a class="btn pull-right btn-warning btn-xs btn-20"><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                              <a class="btn pull-right btn-danger btn-xs btn-20"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                            </div>
+                                          </div>
+                                        </li>
+                                      </ol>
+                                    </li>
+
+
+                                  </ol>
+                                </div>
+                              </div>
+
+                              <div class="dt-toolbar">
+
+                              </div>
+                            </div>
+
+                          </div>
+
+                        </div>
+
+                      </sa-widget>
+                    </article>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+        </sa-widget>
+      </article>
+    </div>
+  </sa-widgets-grid>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <!-- 关闭按钮 -->
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            ×
+          </button>
+          <!-- 标题 -->
+          <h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>添加上级分类</h3>
+          <!-- <h3 class="modal-title  glyphicon glyphicon-pencil txt-color-red" data-ng-bind='results.title'>修改部门</h3>-->
+        </div>
+        <div class="modal-body height-overflow-320">
+          <div class="row text-center" style="padding:10px 40px;">
+            <div class="dd" >
+              <ol class="dd-list">
+                <li class="dd-item " >
+                  <button data-action="expand" type="button" style="display: none;">收起</button>
+                  <button data-action="collapse" type="button"  style="display: block;">展开</button>
+                  <div class="dd-handle dd-handle-color">
+                    矿
+                    <small  class="text-muted">
+                      <i >(202500)</i>
+                    </small>
+                    <span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>
+                    <div>
+                    </div>
+                  </div>
+                  <ol class="dd-list"  style="display: block;">
+                    <li class="dd-item" >
+                      <div class="dd-handle">
+                        矿
+                        <small  class="text-muted">
+                          <i >(202500)</i>
+                        </small>
+                        <span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>
+                        <div>
+                        </div>
+                      </div>
+                    </li>
+                  </ol>
+                </li>
+                <li class="dd-item" >
+                  <button  type="button"  style="display: block;">收起</button>
+                  <button  type="button" style="display: none;">展开</button>
+                  <div class="dd-handle">
+                    矿
+                    <small  class="text-muted">
+                      <i >(202500)</i>
+                    </small>
+                    <span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>
+                    <div>
+                    </div>
+
+                  </div>
+                  <ol class="dd-list"  style="display: none;">
+                    <li class="dd-item" id="186">
+                      <div class="dd-handle">
+                        矿
+                        <small  class="text-muted">
+                          <i >(202500)</i>
+                        </small>
+                        <span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>
+                        <div>
+                        </div>
+                      </div>
+                    </li>
+                  </ol>
+                </li>
+
+
+              </ol>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success btn-sm" ><span class="glyphicon glyphicon-plus"></span>选入</button>
+          <!--    <button type="button" class="btn btn-primary" data-ng-click="ok()">保存</button>-->
+          <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+
+

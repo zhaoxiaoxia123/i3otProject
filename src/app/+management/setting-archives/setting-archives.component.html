@@ -33,7 +33,7 @@
 
                                   <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
                                     <div class="form-group">
-                                      <a class="btn btn-success btn-sm"  data-toggle="modal" data-target="#myModal">
+                                      <a class="btn btn-success btn-sm"  data-toggle="modal" data-target="#myModal3">
                                         <span class="glyphicon glyphicon-plus"></span>添加存货档案</a>
                                     </div>
                                     <div class="form-group padding-left-10">
@@ -66,15 +66,19 @@
                               </thead>
                               <tbody>
                               <tr>
-                                <td >互换</td>
+                                <td >11255525222</td>
                                 <td>001</td>
                                 <td>地方</td>
                                 <td>环境</td>
                                 <td>2017-12 02:24:24</td>
                                 <td>2542</td>
-                                <td>2017-12 02:24:24</td>
+                                <td>
+                                  <div style="text-align:center;height:auto;" >
+                                    <img alt=""  height="36" width="36" style="cursor: pointer;border: 1px solid #AAA;padding: 2px;background-color: #FFF;margin-right: 2px;" src="assets/img/news/news4.jpg">
+                                  </div>
+                                </td>
                                 <td>大贵</td>
-                                <td>2017-12 02:24:24</td>
+                                <td>正常</td>
                                 <td>
                                   <div >
                                     <a class="btn btn-warning btn-xs"  ><span class="glyphicon glyphicon-pencil"></span>修改</a>
@@ -112,7 +116,7 @@
   </sa-widget>
 
 
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -121,8 +125,8 @@
             ×
           </button>
           <!-- 标题 -->
-          <h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>添加部门</h3>
-          <!-- <h3 class="modal-title  glyphicon glyphicon-pencil txt-color-red" data-ng-bind='results.title'>修改部门</h3>-->
+          <h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>添加存货档案</h3>
+          <!-- <h3 class="modal-title  glyphicon glyphicon-pencil txt-color-red" data-ng-bind='results.title'>修改存货档案</h3>-->
         </div>
         <div class="modal-body">
           <sa-widget [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
@@ -133,6 +137,15 @@
                 </li>
                 <li [class.active]="state.tabs.demo3=='hr2'" class="active">
                   <a (click)="state.tabs.demo3 = 'hr2'">其他信息</a>
+                </li>
+                <li [class.active]="state.tabs.demo3=='hr3'" class="active">
+                  <a (click)="state.tabs.demo3 = 'hr3'">多单位</a>
+                </li>
+                <li [class.active]="state.tabs.demo3=='hr4'" class="active">
+                  <a (click)="state.tabs.demo3 = 'hr4'">多级价格</a>
+                </li>
+                <li [class.active]="state.tabs.demo3=='hr5'" class="active">
+                  <a (click)="state.tabs.demo3 = 'hr5'">图片信息</a>
                 </li>
               </ul>
             </header>
@@ -149,10 +162,33 @@
                                 <section>
                                   <label class="label txt-color-blue">ID</label>
                                   <label class="input">
-                                    <input type="text"   placeholder="171225500000025441"  >
+                                    <input type="text"   placeholder="14755544444"  >
                                   </label>
                                 </section>
                               </div>
+                            <!--  <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <section>
+                                  <label class="label">使用机构</label>
+                                  <label class="select">
+                                    <select class="input-sm">
+                                      <option value="" disabled="disabled" >选择使用机构</option>
+                                      <option value="" >1010</option>
+                                      <option value="" >&#45;&#45;1010-10</option>
+                                      <option value="" >1010</option>
+                                      <option value="" >&#45;&#45;1010-10</option>
+                                      <option value="" >1010</option>
+                                      <option value="" >&#45;&#45;1010-10</option>
+                                    </select> <i></i> </label>
+                                </section>
+                              </div>-->
+                              <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <section>
+                                  <label class="label txt-color-blue">存货编码</label>
+                                  <label class="input">
+                                    <input type="text" placeholder="系统默认，可修改" >
+                                  </label>
+                                </section>
+                              </div>-->
                               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <section>
                                   <label class="label txt-color-blue">存货名称</label>
@@ -163,72 +199,110 @@
                               </div>
                               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <section>
-                                  <label class="label">存货分类</label>
+                                  <label class="label txt-color-blue">存货分类</label>
+                                  <label class="input">
+                                    <i class="icon-append glyphicon glyphicon-search cursor-pointer"></i>
+                                    <input type="text" placeholder="" >
+                                  </label>
+                                </section>
+                              </div>
+                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <section>
+                                  <label class="label">规格型号</label>
+                                  <label class="input">
+                                    <input type="text" placeholder="" >
+                                  </label>
+                                </section>
+                              </div>
+                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <section>
+                                  <label class="label">助记码</label>
+                                  <label class="input">
+                                    <input type="text" placeholder="手工录入或自动生成" >
+                                  </label>
+                                </section>
+                              </div>
+                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <section>
+                                  <label class="label">存货属性</label>
+                                  <span class="select2 select2-container select2-container--default select2-container--below select2-container--focus"  style="width: 100%;">
+                                           <span class="selection">
+                                             <span class="select2-selection select2-selection--multiple" >
+                                               <ul class="select2-selection__rendered">
+                                                 <li class="select2-selection__choice" >
+                                                   <span class="select2-selection__choice__remove" >
+                                                     ×</span>销售
+                                                 </li>
+                                                 <li class="select2-selection__choice" >
+                                                   <span class="select2-selection__choice__remove" >
+                                                     ×</span>外购
+                                                 </li>
+                                               </ul>
+                                             </span>
+                                           </span>
+                                         </span>
+                                  <span  style="width: 100%;position: absolute;" class="select2 select2-container--open select2-container select2-container--default select2-container--below select2-container--focus  select-hidden">
+                                               <span class="selection">
+                                                 <span class="select2-selection select2-selection--multiple select2-results select2-dropdown select2-drop-active">
+                                                  <ul class="select2-results__options select2-results__options--nested">
+                                                    <li class="select2-results__option"  >销售</li>
+                                                    <li class="select2-results__option"  >外购</li>
+                                                    <li class="select2-results__option"  >耗用</li>
+                                                    <li class="select2-results__option"  >自制</li>
+                                                    <li class="select2-results__option">劳务</li>
+                                                    <li class="select2-results__option" >折扣</li>
+                                                  </ul>
+                                                 </span>
+                                               </span>
+                                            </span>
+                                </section>
+                              </div>
+                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <section>
+                                  <label class="label">计量单位</label>
                                   <label class="select">
                                     <select class="input-sm">
-                                      <option value="" disabled="disabled" >选择分类</option>
-                                      <option value="" >1010</option>
-                                      <option value="" >--1010-10</option>
-                                      <option value="" >1010</option>
-                                      <option value="" >--1010-10</option>
-                                      <option value="" >1010</option>
-                                      <option value="" >--1010-10</option>
+                                      <option value="" disabled="disabled" >选择计量单位</option>
+                                      <option value="" >件</option>
+                                      <option value="" >颗</option>
+                                      <option value="" >kg</option>
                                     </select> <i></i> </label>
                                 </section>
                               </div>
+                              <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <section>
+                                  <label class="label">存货属性</label>
+                                  <label class="select">
+                                    <select class="input-sm">
+                                      <option value="" disabled="disabled" >选择存货属性</option>
+                                      <option value="" >件</option>
+                                      <option value="" >颗</option>
+                                      <option value="" >kg</option>
+                                    </select> <i></i> </label>
+                                </section>
+                              </div>-->
 
                               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <section>
-                                  <label class="label ">规格型号</label>
+                                  <label class="label ">参考进价</label>
                                   <label class="input">
-                                    <input type="text" placeholder="" >
+                                    <input type="number" placeholder="" >
                                   </label>
                                 </section>
                               </div>
                               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <section>
-                                  <label class="label ">助记码</label>
-                                  <label class="input ">
-                                    <input type="text"   placeholder="手工录入或自动生成"  >
-                                  </label>
-                                </section>
-                              </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section>
-                                  <label class="label">负责人</label>
-                                  <label class="select ">
-                                    <select class="input-sm">
-                                      <option value=""  disabled="disabled">请选择负责人</option>
-                                      <option value="" >发给</option>
-                                      <option value="" >给对方</option>
-                                      <option value="" >股份</option>
-                                      <option value="" >官方</option>
-                                      <option value="" >冻干粉</option>
-                                      <option value="" >苟富贵</option>
-                                    </select> <i></i> </label>
-                                </section>
-                              </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section >
-                                  <label class="label  ">电话</label>
-                                  <label class="input"> <i class="icon-append fa fa-phone"></i>
-                                    <input name=""  placeholder="请输入电话号码" maxlength="12">
-                                  </label>
-                                </section>
-                              </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section>
-                                  <label class="label txt-color-blue">部门编码</label>
+                                  <label class="label ">参考售价</label>
                                   <label class="input">
-                                    <input type="text"  disabled="disabled" placeholder="自动编码" >
+                                    <input type="number" placeholder="" >
                                   </label>
                                 </section>
                               </div>
                               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <section>
-                                  <label class="label txt-color-blue">传真</label>
+                                  <label class="label ">零售价</label>
                                   <label class="input">
-                                    <input type="text" placeholder="" >
+                                    <input type="number" placeholder="" >
                                   </label>
                                 </section>
                               </div>
@@ -240,7 +314,22 @@
                                   </label>
                                 </section>
                               </div>
-
+                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <section>
+                                  <label class="label ">购物券</label>
+                                  <label class="input">
+                                    <input type="text" placeholder="" >
+                                  </label>
+                                </section>
+                              </div>
+                              <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <section>
+                                  <label class="label ">条码</label>
+                                  <label class="input">
+                                    <input type="text" placeholder="" >
+                                  </label>
+                                </section>
+                              </div>
 
                             </fieldset>
                           </form>
@@ -257,9 +346,148 @@
                             <fieldset>
                               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <section >
+                                  <label class="label ">厂家</label>
+                                  <label class="input">
+                                    <input  name=""    type="text" >
+                                  </label>
+                                </section>
+
+                              </div>
+                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <section >
+                                  <label class="label ">品牌</label>
+                                  <label class="input">
+                                    <input  name=""    type="text" >
+                                  </label>
+                                </section>
+
+                              </div>
+                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <section >
+                                  <label class="label ">颜色</label>
+                                  <label class="input">
+                                    <input  name=""    type="text" >
+                                  </label>
+                                </section>
+
+                              </div>
+                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <section >
+                                  <label class="label ">材质</label>
+                                  <label class="input">
+                                    <input  name=""    type="text" >
+                                  </label>
+                                </section>
+
+                              </div>
+                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <section >
+                                  <label class="label ">尺码</label>
+                                  <label class="input">
+                                    <input  name=""    type="text" >
+                                  </label>
+                                </section>
+
+                              </div>
+                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <section >
+                                  <label class="label ">重量Kg</label>
+                                  <label class="input">
+                                    <input  name=""    type="number" >
+                                  </label>
+                                </section>
+
+                              </div>
+                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <section >
+                                  <label class="label ">产地</label>
+                                  <label class="input">
+                                    <input  name=""    type="text" >
+                                  </label>
+                                </section>
+
+                              </div>
+                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <section >
+                                  <label class="label ">最高库存</label>
+                                  <label class="input">
+                                    <input  name=""    type="text" >
+                                  </label>
+                                </section>
+
+                              </div>
+                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <section >
+                                  <label class="label ">最低库存</label>
+                                  <label class="input">
+                                    <input  name=""    type="text" >
+                                  </label>
+                                </section>
+
+                              </div>
+                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <section >
+                                  <label class="label ">参考成本</label>
+                                  <label class="input">
+                                    <input  name=""    type="text" >
+                                  </label>
+                                </section>
+                              </div>
+                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <section>
+                                  <label class="label">零售提成方式</label>
+                                  <label class="select">
+                                    <select class="input-sm">
+                                      <option value="" disabled="disabled" >选择零售提成方式</option>
+                                      <option value="" >不设置</option>
+                                      <option value="" >按金额</option>
+                                      <option value="" >按比例</option>
+                                    </select> <i></i> </label>
+                                </section>
+                              </div>
+                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <section >
+                                  <label class="label ">零售提成设置</label>
+                                  <label class="input">
+                                    <input  name=""    type="text" >
+                                  </label>
+                                </section>
+                              </div>
+
+                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <section>
+                                  <label class="label">销售提成方式</label>
+                                  <label class="select">
+                                    <select class="input-sm">
+                                      <option value="" disabled="disabled" >选择销售提成方式</option>
+                                      <option value="" >不设置</option>
+                                      <option value="" >按金额</option>
+                                      <option value="" >按比例</option>
+                                    </select> <i></i> </label>
+                                </section>
+                              </div>
+                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <section >
+                                  <label class="label ">销售提成设置</label>
+                                  <label class="input">
+                                    <input  name=""    type="text" >
+                                  </label>
+                                </section>
+                              </div>
+                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <section >
+                                  <label class="label ">创建人</label>
+                                  <label class="input">
+                                    <input  name=""  disabled="disabled"  type="text" placeholder="用户名" >
+                                  </label>
+                                </section>
+                              </div>
+
+                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <section >
                                   <label class="label ">创建时间</label>
                                   <label class="input">
-                                    <input  name=''  disabled="disabled"  type="text" placeholder="2017-12-13 00:00:30">
+                                    <input  name=""  disabled="disabled"  type="text" placeholder="2017-12-13 00:00:30">
                                   </label>
                                 </section>
 
@@ -268,7 +496,7 @@
                                 <section >
                                   <label class="label ">修改人</label>
                                   <label class="input">
-                                    <input  name=''  disabled="disabled"  type="text" >
+                                    <input  name=""  disabled="disabled"  type="text" >
                                   </label>
                                 </section>
 
@@ -286,7 +514,7 @@
                                 <section >
                                   <label class="label ">启用时间</label>
                                   <label class="input">
-                                    <input  name=''  disabled="disabled"  type="text" >
+                                    <input  name=""  disabled="disabled"  type="text" >
                                   </label>
                                 </section>
 
@@ -295,7 +523,7 @@
                                 <section >
                                   <label class="label ">启用人</label>
                                   <label class="input">
-                                    <input  name=''  disabled="disabled"  type="text" >
+                                    <input  name=""  disabled="disabled"  type="text" >
                                   </label>
                                 </section>
 
@@ -304,7 +532,7 @@
                                 <section >
                                   <label class="label ">停用时间</label>
                                   <label class="input">
-                                    <input  name=''  disabled="disabled"  type="text" >
+                                    <input  name=""  disabled="disabled"  type="text" >
                                   </label>
                                 </section>
 
@@ -313,25 +541,7 @@
                                 <section >
                                   <label class="label ">停用人</label>
                                   <label class="input">
-                                    <input  name=''  disabled="disabled"  type="text" >
-                                  </label>
-                                </section>
-
-                              </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section >
-                                  <label class="label ">自定义项—</label>
-                                  <label class="input">
-                                    <input  name=''    type="text" >
-                                  </label>
-                                </section>
-
-                              </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section >
-                                  <label class="label ">创建人</label>
-                                  <label class="input">
-                                    <input  name=''  disabled="disabled"  type="text" placeholder="用户名">
+                                    <input  name=""  disabled="disabled"  type="text" >
                                   </label>
                                 </section>
 
@@ -345,6 +555,303 @@
                       </tab>
                     </tabset>
                   </tab>
+                  <tab [active]="state.tabs.demo3 == 'hr3'">
+                    <tabset >
+                      <tab [active]="state.tabs.demo3 == 'hr3'">
+                        <div class="row">
+                          <div class="well padding">
+                            只能设置一个库存单位,当库存单位设置为浮动换算时,只能设置一个辅单位。
+                            主计量单位数量=辅计量单位数量*换算率。<br/>
+                            例如：一箱有100包，主单位为"包"，辅单位为"箱"，换算率为100（包装数）, 或者 主单位为"箱"，辅单位为"包"，换算率为0.01（1/100）
+                          </div>
+                          <table class="table table-hover table-bordered dataTable">
+                            <thead>
+                            <tr>
+                              <th>操作</th>
+                              <th>辅单位 </th>
+                              <th>库存单位 </th>
+                              <th>浮动换算</th>
+                              <th>换算率  </th>
+                              <th>条码 </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                              <td><a class="btn btn-warning btn-xs"  ><span class="glyphicon glyphicon-plus"></span>添加</a>
+                                <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                              </td>
+                              <td>
+                                <div style="text-align: center; width: 100px;" >
+                                  <table border="0" cellspacing="0" cellpadding="1">
+                                    <tbody>
+                                    <tr>
+                                      <td>
+                                        <form class="smart-form">
+                                          <section>
+                                            <label class="input">
+                                              <input  name="" type="text">
+                                              <i class="fa fa-search icon-append cursor-pointer"></i>
+                                            </label>
+                                          </section>
+                                        </form>
+                                      </td>
+                                      <td>
+                                      </td>
+                                    </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                                </td>
+                              <td>
+                                <div style="text-align: center; width: 100px;" >
+                                  否
+                                  <span class="txt-color-red">请先设置辅单位</span>
+                                  <table border="0" cellspacing="0" cellpadding="1">
+                                    <tbody>
+                                    <tr>
+                                      <td>
+                                        <form class="smart-form">
+                                          <section>
+                                            <div class="inline-group">
+                                              <label class="radio">
+                                                <input  name="radio-inline" type="radio">
+                                                <i></i>是</label>
+                                              <label class="radio">
+                                                <input name="radio-inline" checked="" type="radio">
+                                                <i></i>否</label>
+                                            </div>
+                                          </section>
+
+                                        </form>
+
+                                      </td>
+                                    </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </td>
+                              <td>
+                                <div style="text-align: center; width: 100px;" >
+                                  否
+                                  <span class="txt-color-red">请先设置辅单位</span>
+                                  <table border="0" cellspacing="0" cellpadding="1">
+                                    <tbody>
+                                    <tr>
+                                      <td>
+                                        <form class="smart-form">
+                                          <section>
+                                            <div class="inline-group">
+                                              <label class="radio">
+                                                <input  name="radio-inline" type="radio">
+                                                <i></i>是</label>
+                                              <label class="radio">
+                                                <input name="radio-inline" checked="" type="radio">
+                                                <i></i>否</label>
+                                            </div>
+                                          </section>
+
+                                        </form>
+
+                                      </td>
+                                    </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </td>
+                              <td>
+                                <div style="text-align: center; width: 100px;" >
+                                  <span class="txt-color-red">请先设置辅单位</span>
+                                  <table border="0" cellspacing="0" cellpadding="1">
+                                    <tbody>
+                                    <tr>
+                                      <td>
+                                        <form class="smart-form">
+                                          <section>
+                                              <label class="input">
+                                                <input  name="" type="text">
+                                           </label>
+                                          </section>
+
+                                        </form>
+
+                                      </td>
+                                    </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </td>
+                              <td>
+                                <div style="text-align: center; width: 100px;" >
+                                  <span class="txt-color-red">请先设置辅单位</span>
+                                  <table border="0" cellspacing="0" cellpadding="1">
+                                    <tbody>
+                                    <tr>
+                                      <td>
+                                        <form class="smart-form">
+                                          <section>
+                                            <label class="input">
+                                              <input  name="" type="text">
+                                            </label>
+                                          </section>
+
+                                        </form>
+
+                                      </td>
+                                    </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </td>
+                            </tr>
+
+                            </tbody>
+                          </table>
+
+                        </div>
+                      </tab>
+                    </tabset>
+                  </tab>
+                  <tab [active]="state.tabs.demo3 == 'hr4'">
+                    <tabset >
+                      <tab [active]="state.tabs.demo3 == 'hr4'">
+                        <div class="row">
+                          <form   class="smart-form ">
+                            <fieldset>
+                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <section >
+                                  <label class="label ">一级价</label>
+                                  <label class="input">
+                                    <input  name=""    type="text" >
+                                  </label>
+                                </section>
+
+                              </div>
+                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <section >
+                                  <label class="label ">二级价</label>
+                                  <label class="input">
+                                    <input  name=""    type="text" >
+                                  </label>
+                                </section>
+
+                              </div>
+                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <section >
+                                  <label class="label ">三级价</label>
+                                  <label class="input">
+                                    <input  name=""    type="text" >
+                                  </label>
+                                </section>
+
+                              </div>
+                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <section >
+                                  <label class="label ">市场价</label>
+                                  <label class="input">
+                                    <input  name=""    type="text" >
+                                  </label>
+                                </section>
+
+                              </div>
+                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <section >
+                                  <label class="label ">厉害价</label>
+                                  <label class="input">
+                                    <input  name=""    type="text" >
+                                  </label>
+                                </section>
+
+                              </div>
+                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <section >
+                                  <label class="label ">最高级</label>
+                                  <label class="input">
+                                    <input  name=""    type="text" >
+                                  </label>
+                                </section>
+
+                              </div>
+                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <section >
+                                  <label class="label ">参考价格</label>
+                                  <label class="input">
+                                    <input  name=""    type="text" >
+                                  </label>
+                                </section>
+
+                              </div>
+                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <section >
+                                  <label class="label ">跳楼价</label>
+                                  <label class="input">
+                                    <input  name=""    type="text" >
+                                  </label>
+                                </section>
+
+                              </div>
+                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <section >
+                                  <label class="label ">蹦极价</label>
+                                  <label class="input">
+                                    <input  name=""    type="text" >
+                                  </label>
+                                </section>
+
+                              </div>
+                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <section >
+                                  <label class="label ">十级价</label>
+                                  <label class="input">
+                                    <input  name=""    type="text" >
+                                  </label>
+                                </section>
+
+                              </div>
+
+
+
+                            </fieldset>
+                          </form>
+
+
+
+                        </div>
+                      </tab>
+                    </tabset>
+                  </tab>
+                  <tab [active]="state.tabs.demo3 == 'hr5'">
+                    <tabset >
+                      <tab [active]="state.tabs.demo3 == 'hr5'">
+                        <div class="row">
+                          <div class="col-xs-12">
+                            <div>
+                              <ul class="ace-thumbnails clearfix">
+                                <li class="canDel">
+                                  <a href="assets/img/news/news4.jpg"  class="cboxElement">
+                                    <img width="150" height="150" alt="150x150" src="assets/img/news/news4.jpg">
+                                  </a>
+                                  <div class="tools tools-top">
+                                    <a href="" class="pull-right">
+                                      <i class="ace-icon fa fa-times txt-color-red">
+                                      </i>
+                                    </a>
+                                  </div>
+                                </li>
+                                <li>
+                                  <a style="width: 150px; height: 150px;" >
+                                    <i class="fa fa-plus fa-2x" style="color: #ccc; padding-top: 7px; padding-left: 16px; font-size: 152px;"></i>
+                                  </a>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+
+
+
+                        </div>
+                      </tab>
+                    </tabset>
+                  </tab>
 
                 </tabset>
               </div>
@@ -353,6 +860,7 @@
 
         </div>
         <div class="modal-footer">
+          <button type="button" class="btn btn-success btn-sm" ><span class="glyphicon glyphicon-plus"></span>保存并新增</button>
           <button type="button" class="btn btn-primary" data-ng-click="ok()">保存</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
         </div>
