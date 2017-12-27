@@ -16,6 +16,10 @@ export const routes:Routes = [
     path: 'forgot-password',
     loadChildren: './+forgot/forgot.module#ForgotModule'
   },
+    {
+        path: 'homepage',
+        loadChildren: './homepage/homepage.module#HomepageModule'
+    },
   {
     path: 'locked',
     loadChildren: './+locked/locked.module#LockedModule'
