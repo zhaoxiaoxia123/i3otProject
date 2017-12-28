@@ -1040,12 +1040,12 @@ time.icon span {
     height: 30px;
     overflow: hidden;
 }
-.table>tbody>tr>td>span{
+/*.table>tbody>tr>td>span{
     display: -webkit-box;
     -webkit-box-orient: vertical;
     max-height: 52px;
     overflow-y: auto;
-}
+}*/
 /*图片*/
 .ace-thumbnails {
     list-style: none;

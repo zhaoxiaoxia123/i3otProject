@@ -9,7 +9,7 @@
         <sa-widget [editbutton]="false" [deletebutton]="false" [colorbutton]="false">
           <header>
             <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-            <h2>调拨单</h2>
+            <h2>进货单</h2>
           </header>
           <div>
             <div class="widget-body">
@@ -45,7 +45,7 @@
                         </article>
                       </div>
                       <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover smart-form">
+                        <table class="dataTable table  table-striped table-bordered table-hover smart-form">
                           <thead>
                           <tr>
                             <td><label class="checkbox">
@@ -100,16 +100,17 @@
                           </tr>
                           </tbody>
                         </table>
-                        <!-- 底部-（分页部分）-->
-                        <div class="dt-toolbar">
-                          <div class="hidden-xs right">
-                            <ul class="pagination pagination-sm">
-                              <li *ngFor="let p of categoryList?.page" class="{{p.class}}">
-                                <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
-                                <a *ngIf="p.method==''">{{p.text}}</a>
-                              </li>
-                            </ul>
-                          </div>
+
+                      </div>
+                      <!-- 底部-（分页部分）-->
+                      <div class="dt-toolbar">
+                        <div class="hidden-xs right">
+                          <ul class="pagination pagination-sm">
+                            <li *ngFor="let p of categoryList?.page" class="{{p.class}}">
+                              <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+                              <a *ngIf="p.method==''">{{p.text}}</a>
+                            </li>
+                          </ul>
                         </div>
                       </div>
                     </div>
