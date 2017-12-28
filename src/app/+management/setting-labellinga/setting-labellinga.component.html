@@ -22,14 +22,14 @@
                                [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
                       <div>
                         <div class="widget-body no-padding">
-                          <alert type="info" class="no-margin"  >
+                          <alert type="info" class="no-margin" *ngIf="category_id == 0">
                             <i class="fa-fw fa fa-plus"></i>
                             添加项目标签
                           </alert>
-                          <!--<alert type="info" class="no-margin">
+                          <alert type="info" class="no-margin" *ngIf="category_id != 0">
                             <i class="fa-fw fa fa-plus"></i>
-                            修改项目标
-                          </alert>-->
+                            修改项目标签
+                          </alert>
                           <form class="smart-form ">
                             <fieldset>
                               <section>
@@ -88,16 +88,16 @@
                               </tbody>
                             </table>
                             <!-- 底部-（分页部分）-->
-                            <div class="dt-toolbar">
-                              <div class="hidden-xs right">
-                                <ul class="pagination pagination-sm">
-                                  <li *ngFor="let p of categoryList?.page" class="{{p.class}}">
-                                    <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
-                                    <a *ngIf="p.method==''">{{p.text}}</a>
-                                  </li>
-                                </ul>
-                              </div>
-                            </div>
+                            <!--<div class="dt-toolbar">-->
+                              <!--<div class="hidden-xs right">-->
+                                <!--<ul class="pagination pagination-sm">-->
+                                  <!--<li *ngFor="let p of categoryList?.page" class="{{p.class}}">-->
+                                    <!--<a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>-->
+                                    <!--<a *ngIf="p.method==''">{{p.text}}</a>-->
+                                  <!--</li>-->
+                                <!--</ul>-->
+                              <!--</div>-->
+                            <!--</div>-->
                           </div>
                         </div>
                       </div>

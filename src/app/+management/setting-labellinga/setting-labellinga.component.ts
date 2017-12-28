@@ -32,6 +32,7 @@ export class SettingLabellingaComponent implements OnInit {
 
     cid : any = 0;//当前登录用户的所属公司id
     super_admin_id : any = 0;//超级管理员所属公司id
+    category_type : number = 16;
   constructor(
       private http:Http,
       private router : Router,
@@ -48,11 +49,11 @@ export class SettingLabellingaComponent implements OnInit {
   }
 
     /**
-     * 获取标签列表  16
+     * 获取标签列表  this.category_type
      * @param number
      */
     getCategoryList(number:string) {
-        let url = this.globalService.getDomain()+'/api/v1/getCategory?category_type=16&page='+number+'&sid='+this.cookieStoreService.getCookie('sid');
+        let url = this.globalService.getDomain()+'/api/v1/getCategory?category_type='+this.category_type+'&page='+number+'&sid='+this.cookieStoreService.getCookie('sid');
         this.http.get(url)
             .map((res)=>res.json())
             .subscribe((data)=>{
@@ -77,7 +78,7 @@ export class SettingLabellingaComponent implements OnInit {
         }
         this.http.post(this.globalService.getDomain()+'/api/v1/addCategory',{
             'category_id' : this.category_id,
-            'category_type' : 16,
+            'category_type' : this.category_type,
             'category_desc' : this.category_desc,
             'category_tab' : this.color,
             'sid':this.cookieStoreService.getCookie('sid')
@@ -123,7 +124,7 @@ export class SettingLabellingaComponent implements OnInit {
     deleteCategory(category_id:number){
         let msg = '您确定要删除该标签信息吗？';
         if(confirm(msg)) {
-            let url = this.globalService.getDomain()+'/api/v1/deleteCategory?category_id=' + category_id + '&number=1&category_type=16&sid=' + this.cookieStoreService.getCookie('sid');
+            let url = this.globalService.getDomain()+'/api/v1/deleteCategory?category_id=' + category_id + '&number=1&category_type='+this.category_type+'&sid=' + this.cookieStoreService.getCookie('sid');
             this.http.delete(url)
                 .map((res) => res.json())
                 .subscribe((data) => {
