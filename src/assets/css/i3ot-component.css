@@ -3833,31 +3833,29 @@ div.dataTables_editor{
     animation: showBox 0.5s ease-in-out;
     display: -webkit-box;
     display: -moz-box;
-    display: box;
+    /*display: box;*/
     display: -webkit-flex;
     display: -moz-flex;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-orient: vertical;
     -moz-box-orient: vertical;
-    box-orient: vertical;
+   /* box-orient: vertical;*/
     -webkit-box-direction: normal;
     -moz-box-direction: normal;
-    box-direction: normal;
+    /*box-direction: normal;*/
     -webkit-flex-direction: column;
-    -moz-flex-direction: column;
+    /*-moz-flex-direction: column;*/
     flex-direction: column;
     -ms-flex-direction: column;
     box-shadow: 0 7px 21px rgba(0, 0, 0, 0.25);
     display: -webkit-box;
     display: -moz-box;
-    display: box;
     display: -webkit-flex;
     display: -moz-flex;
     display: -ms-flexbox;
-    display: flex;
     -webkit-flex-flow: column wrap;
-    -moz-flex-flow: column wrap;
+    /*-moz-flex-flow: column wrap;*/
     flex-flow: column wrap;
     z-index: 1000;
 }
