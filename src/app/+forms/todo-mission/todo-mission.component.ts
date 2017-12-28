@@ -687,9 +687,6 @@ export class TodoMissionComponent implements OnInit {
     showComment(comment_id:number,ind:number){
         this.comment_parent_id = comment_id;
         this.is_show_replay = ind;
-        console.log('this.comment_parent_id');
-        console.log(this.comment_parent_id);
-        console.log(this.is_show_replay);
     }
 
     /**
@@ -734,8 +731,6 @@ export class TodoMissionComponent implements OnInit {
      */
     isShowReplayList(ind:number){
         this.is_show_replay = ind;
-        console.log('this.is_show_replay');
-        console.log(this.is_show_replay);
     }
 
 }

@@ -20,8 +20,6 @@ export class LoginInfoComponent implements OnInit {
     private cookieStoreService:CookieStoreService,
     private global:GlobalService,
     private router:Router) {
-      console.log('u_avatar:----');
-      console.log(this.cookieStoreService.getCookie('u_avatar'));
       if(this.cookieStoreService.getCookie('username')) {
           this.pic = this.cookieStoreService.getCookie('u_avatar') != '' ? this.global.getDomain() + this.cookieStoreService.getCookie('u_avatar'):"assets/img/avatars/male.png";
           this.user = {

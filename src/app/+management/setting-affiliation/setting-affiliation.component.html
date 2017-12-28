@@ -20,14 +20,9 @@
         </li>
       </ul>
     </header>
-
-
     <div class="no-padding">
-
       <div class="widget-body">
-
         <div id="myTabContent" class="tab-content">
-
           <div class="tab-pane fade  active in  padding-10 no-padding-bottom" id="s1">
             <div class="row">
               <article class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -35,31 +30,25 @@
                            [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
                   <div>
                     <div class="widget-body no-padding">
-                      <alert type="info" class="no-margin"  >
+                      <alert type="info" class="no-margin" *ngIf="category_id == 0">
                         <i class="fa-fw fa fa-plus"></i>
                         添加项目所属
                       </alert>
-                      <!--<alert type="info" class="no-margin">
+                      <alert type="info" class="no-margin"  *ngIf="category_id != 0">
                         <i class="glyphicon glyphicon-pencil"></i>
                         修改项目所属
-                      </alert>-->
+                      </alert>
                       <form   class="smart-form ">
                         <fieldset>
                           <section>
-                            <label class="label txt-color-blue">项目所属编码</label>
-                            <label class="input">
-                              <input type="text" disabled="disabled" placeholder="自动编码"  >
-                            </label>
-                          </section>
-                          <section>
                             <label class="label txt-color-blue">项目所属名称</label>
                             <label class="input">
-                              <input type="text" placeholder="请输项目所属名称" >
+                              <input type="text" placeholder="请输项目所属名称" name="category_desc" [(ngModel)]="category_desc">
                             </label>
                           </section>
                         </fieldset>
                         <footer>
-                          <button  type="submit" class="btn btn-primary">
+                          <button type="button" class="btn btn-primary" (click)="addCategory()">
                             保存
                           </button>
                         </footer>
@@ -87,30 +76,30 @@
                           </tr>
                           </thead>
                           <tbody>
-                          <tr>
-                            <td>001</td>
-                            <td>个人项目</td>
+                          <tr *ngFor="let c of categoryList?.result">
+                            <td>{{c.category_id}}</td>
+                            <td>{{c.category_desc}}</td><!--yellow-label-->
                             <td>
-                              <div >
-                                <a class="btn btn-warning btn-xs"  ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                              <div *ngIf="cid == super_admin_id || c.c_id == cid" >
+                                <a class="btn btn-warning btn-xs" (click)="editCategory(c.category_id)"><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                <a class="btn btn-danger btn-xs" (click)="deleteCategory(c.category_id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
                               </div>
-                              <!--<div >无权操作</div>-->
+                              <div *ngIf="cid != super_admin_id && c.c_id != cid">无权操作</div>
                             </td>
                           </tr>
                           </tbody>
                         </table>
                         <!-- 底部-（分页部分）-->
-                        <div class="dt-toolbar">
-                          <div class="hidden-xs right">
-                            <ul class="pagination pagination-sm">
-                              <li *ngFor="let p of categoryList?.page" class="{{p.class}}">
-                                <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
-                                <a *ngIf="p.method==''">{{p.text}}</a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
+                        <!--<div class="dt-toolbar">-->
+                          <!--<div class="hidden-xs right">-->
+                            <!--<ul class="pagination pagination-sm">-->
+                              <!--<li *ngFor="let p of categoryList?.page" class="{{p.class}}">-->
+                                <!--<a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>-->
+                                <!--<a *ngIf="p.method==''">{{p.text}}</a>-->
+                              <!--</li>-->
+                            <!--</ul>-->
+                          <!--</div>-->
+                        <!--</div>-->
                       </div>
                     </div>
                   </div>
@@ -118,24 +107,9 @@
                 <!-- end widget -->
               </article>
             </div>
-
-
-
           </div>
-
-          <div class="tab-pane fade padding-10 no-padding-bottom" id="s2" >
-
-
-          </div>
-
-          <div class="tab-pane fade padding-10 no-padding-bottom" id="s3" >
-
-          </div>
-
         </div>
-
       </div>
-
     </div>
   </sa-widget>
 </div>
