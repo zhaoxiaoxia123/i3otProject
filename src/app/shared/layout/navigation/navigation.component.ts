@@ -14,8 +14,8 @@ export class NavigationComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('role:---');
-        console.log(this.cookieStoreService.getCookie('urole'));
+        // console.log('role:---');
+        // console.log(this.cookieStoreService.getCookie('urole'));
         if(this.cookieStoreService.getCookie('urole')) {
             this.is_admin = this.cookieStoreService.getCookie('urole');
         }

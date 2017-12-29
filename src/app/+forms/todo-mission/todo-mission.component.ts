@@ -1,18 +1,41 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FadeInTop} from "../../shared/animations/fade-in-top.decorator";
-import {FormBuilder} from "@angular/forms";
 import {Http} from "@angular/http";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
 import {stringify} from "querystring";
+// import { DOCUMENT } from '@angular/platform-browser';
+// import {Observable} from "rxjs/Observable";
+import {DropEvent} from 'ng-drag-drop';
 
 const $script = require('scriptjs');
 
 @FadeInTop()
 @Component({
   selector: 'app-todo-mission',
-  templateUrl: './todo-mission.component.html'
+  templateUrl: './todo-mission.component.html',
+    styles: [`
+        div.scroll-list {
+            overflow: auto;
+            max-height: 70vh;
+        }
+
+        .drag-over {
+            border: #ff525b dashed 2px !important;
+        }
+
+        .drag-hint {
+            border: #ffc100 dashed 2px !important;
+            /*transition: all .2s ease-in-out;*/
+            /*transform: scale(1.05);*/
+        }
+
+        .drag-target-border {
+            border: #00bfff dashed 2px !important;
+        }
+    `
+    ]
 })
 export class TodoMissionComponent implements OnInit {
     public state: any = {
@@ -41,8 +64,7 @@ export class TodoMissionComponent implements OnInit {
     todo_name : string = '';
     todo_content : string = '';
     //是否显示标签添加框
-    is_show_publish_tag : number = 0; //详情中部
-    is_show_center_tag : number = 0; //详情右上方
+    is_show_publish_tag : number = 0; //详情右上方标签添加框
 
     selected_tag:Array<any> = [];//标签状态
     //是否显示编辑框
@@ -71,16 +93,47 @@ export class TodoMissionComponent implements OnInit {
     comment_content : string = '';
     comment_parent_id : number = 0;
     is_show_replay : number = 0;
-  constructor(
-      fb:FormBuilder,
+    // scroll_ :any ='0px';
+    list = [ {'childList': [
+        {name: 'Toyota'},
+        {name: 'Bugati'},
+        {name: 'Suzuki'}
+    ],'d':['d-1','d-2']},{'childList': [
+        {name: 'Mercedes'},
+        {name: 'Honda'},
+        {name: 'BMW'}
+    ],'d':['d-0','d-2']}, {'childList':[
+        {name: '123'},
+        {name: '345'},
+        {name: '456'}
+    ],'d':['d-0','d-1']}
+    ];
+    dropTemplateId : any = '';//拽入模版编号
+
+    constructor(
       private http:Http,
       private router : Router,
       private routInfo : ActivatedRoute,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService
-  ) { }
+  ) {
+      // this.scroll_ = '0px';
+      // Observable.fromEvent(window, 'scroll').subscribe((event) => {
+      //     this.onWindowScroll();
+      // });
+  }
+    // onWindowScroll() {
+    //   let scroll_1 = (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop);
+    //     if(scroll_1 < document.body.clientHeight) {
+    //         if (scroll_1 > 90) {
+    //             this.scroll_ = (scroll_1 - 90) + 'px';
+    //         } else {
+    //             this.scroll_ = (scroll_1) + 'px';
+    //         }
+    //     }
+    // }
 
-  ngOnInit() {
+    ngOnInit() {
       $script("https://cdn.ckeditor.com/4.5.11/standard/ckeditor.js", ()=> {
           const CKEDITOR = window['CKEDITOR'];
           CKEDITOR.replace('ckeditor-showcase');
@@ -93,8 +146,50 @@ export class TodoMissionComponent implements OnInit {
       this.cookie_c_id = this.cookieStore.getCookie('cid');
       this.cookie_u_id = this.cookieStore.getCookie('uid');
       this.domain_url = this.globalService.getDomain();
-
+      this.is_show_power[this.cookie_u_id] = true;
   }
+
+    /**
+     * 拖拽
+     * template_id:string,
+     */
+    onDragList_(todoId :number,project_id:number){
+        if(this.dropTemplateId == ''){
+            alert('请拖拽进框内再放开鼠标！');
+            return false;
+        }
+        this.http.post(this.globalService.getDomain()+'/api/v1/todoDnd',{
+            // 'dragTemplateId':template_id,
+            'project_id':project_id,
+            'dragTodoId':todoId,
+            'dropTemplateId':this.dropTemplateId,
+            'sid':this.cookieStore.getCookie('sid')
+        }).subscribe(
+            (data)=>{
+                let info = JSON.parse(data['_body']);
+                if(info['status'] == 200) {
+                    this.todoList = info;
+                    this.selects = [];
+                    for (let entry of this.todoList['result']['template_list']) {
+                        this.selects[entry['key']] = false;
+                        this.publish_todo_title[entry['key']] = '';
+                    }
+                }else if(info['status'] == 202){
+                    alert(info['msg']);
+                    this.cookieStore.removeAll();
+                    this.router.navigate(['/auth/login']);
+                }else if(info['status'] == 201){
+                    alert(info['msg']);
+                }
+            }
+        );
+    }
+
+    onListDrop_(key:string) {
+        this.dropTemplateId = key;
+        console.log('dropTemplateId:------');
+        console.log(this.dropTemplateId);
+    }
 
     /**
      * 获取默认的模版信息和任务列表信息
@@ -266,6 +361,11 @@ export class TodoMissionComponent implements OnInit {
      * template_name 模版名称
      */
     showDetail(todo_id:number,template_id:string,template_name:string){
+        // if(document.body.scrollTop >90){
+        //     this.scroll_ = (document.body.scrollTop-90) +'px';
+        // }else{
+        //     this.scroll_ = document.body.scrollTop + 'px';
+        // }
         this.is_show_detail = template_id;
         this.detail_template_name = template_name;
         let url = this.globalService.getDomain()+'/api/v1/getTodoInfo?todo_id='+todo_id+'&sid='+this.cookieStore.getCookie('sid');
@@ -297,7 +397,8 @@ export class TodoMissionComponent implements OnInit {
      * 编辑任务状态  任务列表下编辑
      * @param num
      */
-    editStatus(num:number,todo_id:string,project_id:number){
+    editStatus($event:Event,num:number,todo_id:string,project_id:number){
+        $event.stopPropagation();
         let msg = '您确定此任务已完成？';
         if(num == 1){
             msg = '您确定恢复此任务状态为未完成？';
@@ -330,6 +431,7 @@ export class TodoMissionComponent implements OnInit {
                 }
             );
         }
+
     }
 
     /**
@@ -408,12 +510,20 @@ export class TodoMissionComponent implements OnInit {
             this.http.post(this.globalService.getDomain()+'/api/v1/addTodo',{
                 'todo_id':todo_id,
                 'category_id':category_id,
+                'is_add':2,//是否是添加或删除 1：添加 0：编辑 2：删除
                 'sid':this.cookieStore.getCookie('sid')
             }).subscribe(
                 (data)=>{
                     let info = JSON.parse(data['_body']);
                     if(info['status'] == 200) {
                         this.todo_info = info;
+                        this.selected_tag = [];
+                        let tags = this.todo_info['result']['tags'];
+                        tags.forEach((val, idx, array) => {
+                            if(val != '') {
+                                this.selected_tag['T'+val] = true;
+                            }
+                        });
                     }else if(info['status'] == 202){
                         alert(info['msg']);
                         this.cookieStore.removeAll();
@@ -434,7 +544,7 @@ export class TodoMissionComponent implements OnInit {
     /**
      * 展示并添加标签的输入框
      * @param todo_id
-     * num 判断是否操作数据 2：操作  4: 显示右上角的标签
+     * num 判断是否操作数据 2：操作  is_show_publish_tag有值: 显示右上角的标签
      */
     showPublishTag(todo_id:number,num:number){
         if(num == 2){
@@ -455,14 +565,8 @@ export class TodoMissionComponent implements OnInit {
                     }
                 }
             );
-            this.is_show_center_tag = 0;
         }
         this.is_show_publish_tag = todo_id;
-        if(num == 1 || num == 4){
-            this.is_show_center_tag = num;
-        }else if(num == 3){
-            this.is_show_center_tag = 0;
-        }
     }
 
     /**
@@ -664,6 +768,30 @@ export class TodoMissionComponent implements OnInit {
     }
 
     /**
+     * 删除任务列表 模版下某类和该类下的所有任务信息
+     * @param template_id
+     */
+    deleteTodoList(template_id:string ,project_id:any){
+        if(confirm("您确定要删除该模版，以及此模版下所有任务及评论信息吗？")) {
+            this.http.delete(this.globalService.getDomain()+'/api/v1/deleteTodoById?template_id=' + template_id + '&project_id='+project_id+'&type=all&sid='+this.cookieStore.getCookie('sid'))
+                .map((res) => res.json())
+                .subscribe((data) => {
+                    this.todoList = data;
+                });
+            setTimeout(() => {
+                if (this.todoList['status'] == 202) {
+                    alert(this.todoList['msg']);
+                    this.cookieStore.removeAll();
+                    this.router.navigate(['/auth/login']);
+                }
+            }, 300);
+            this.is_show_detail = '';
+        }
+    }
+
+
+
+    /**
      * --------------------以下为评论的方法-------------------------------------------------------
      */
     /**
@@ -733,4 +861,8 @@ export class TodoMissionComponent implements OnInit {
         this.is_show_replay = ind;
     }
 
+    onscroll($event){
+        console.log(2312);
+        console.log($event);
+    }
 }
