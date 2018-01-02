@@ -14,7 +14,7 @@
 
     <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
       <section >
-        <label class="label txt-color-blue">人员编码</label>
+        <label class="label txt-color-blue">人员编码<span class="asterisk-color">*</span></label>
         <label class="input"> <i class="icon-append fa fa-user"></i>
           <input type="text" name="employee_id" placeholder="请输入人员编码 " maxlength="20" formControlName="employee_id"/>
          </label>
@@ -22,7 +22,7 @@
     </div>
     <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
       <section>
-        <label class="label txt-color-blue">姓名</label>
+        <label class="label txt-color-blue">姓名<span class="asterisk-color">*</span></label>
         <label class="input"> <i class="icon-append fa fa-user"></i>
           <input type="text" name="name" placeholder="请输入姓名 " maxlength="20" formControlName="name"/>
            </label>
@@ -31,7 +31,7 @@
     </div>
     <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
       <section>
-        <label class="label txt-color-blue">密码</label>
+        <label class="label txt-color-blue">密码<span class="asterisk-color">*</span></label>
         <label class="input"> <i class="icon-append fa fa-lock"></i>
           <input type="text" name="password" placeholder="请输入密码" id="password" maxlength="16" minlength="6" formControlName="password"/>
           <div [hidden]="!formModel.hasError('minlength','password')">
@@ -44,7 +44,7 @@
 
     <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
       <section >
-        <label class="label txt-color-blue">性别</label>
+        <label class="label txt-color-blue">性别<span class="asterisk-color">*</span></label>
         <label class="select">
           <select name="gender" formControlName="gender" [(ngModel)]="gender_default">
             <option value="1" [selected]="user_info.result?.u_gender == 1">男</option>
@@ -80,7 +80,7 @@
     </div>
     <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
       <div class="margin-left-15">
-        <label class="labe2 txt-color-blue">所属部门</label>
+        <label class="labe2 txt-color-blue">所属部门<span class="asterisk-color">*</span></label>
         <section class="col col-8 col-sm-8 col-xs-8">
 
           <label class="select">

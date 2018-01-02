@@ -16,6 +16,16 @@ export const routes: Routes = [
         loadChildren: 'app/+procurement-management/procurement-type/procurement-type.module#ProcurementTypeModule',
         data: {pageTitle: 'ProcurementType'}
     },
+    {
+        path: 'procurement-order',
+        loadChildren: 'app/+procurement-management/procurement-order/procurement-order.module#ProcurementOrderModule',
+        data: {pageTitle: 'ProcurementOrder'}
+    },
+    {
+        path: 'app-order',
+        loadChildren: 'app/+procurement-management/app-order/app-order.module#AppOrderModule',
+        data: {pageTitle: 'AppOrder'}
+    },
 ];
 
 export const routing = RouterModule.forChild(routes);
