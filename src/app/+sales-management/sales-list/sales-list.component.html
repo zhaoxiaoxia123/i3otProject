@@ -11,119 +11,230 @@
             <h2>销售单</h2>
           </header>
           <div>
-            <div class="widget-body">
-              <article class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
-                           [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
-                  <div>
-                    <div class="widget-body no-padding">
-                      <alert type="info" class="no-margin" >
-                        <i class="fa-fw fa fa-spoon"></i>
-                        销售单
-                      </alert>
-                      <div  class="row">
-                        <article  class="col-sm-12">
-                          <div class="navbar navbar-default">
-                            <div class="collapse navbar-collapse">
+            <div class="widget-body  no-padding">
+              <div  class="row">
+                <article  class="col-sm-12">
+                  <div class="navbar navbar-default">
+                    <div class="collapse navbar-collapse">
 
-                              <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-                                <div class="form-group">
-                                  <a class="btn btn-success btn-sm"  routerLink="/sales-management/add-sales">
-                                    <span class="glyphicon glyphicon-plus"></span>添加销售单</a>
-                                </div>
-                                <div class="form-group padding-left-10">
-                                  <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" name="keyword" placeholder="请输入搜索内容" type="text">
-                                </div>
-                                <button class="btn btn-default" type="submit">
-                                  <i  class="glyphicon glyphicon-search"></i>
-                                  搜索
-                                </button>
-                              </form>
-                            </div>
-                          </div>
-                        </article>
-                      </div>
-                      <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover smart-form">
-                          <thead>
-                          <tr>
-                            <td><label class="checkbox">
-                              <input type="checkbox" name="checkbox-inline" >
-                              <i></i>
-                            </label>
-                            </td>
-                            <th>单据号</th>
-                            <th>单据日期 </th>
-                            <th>客户</th>
-                            <th>销售部门 </th>
-                            <th>销售员 </th>
-                            <th>销售金额 </th>
-                            <th>折让金额</th>
-                            <th>制单人</th>
-                            <th>创建时间 </th>
-                            <th>标记 </th>
-                            <th>附件 </th>
-                            <th>单据状态  </th>
-                            <th>作废人</th>
-                            <th>自定义数值项一</th>
-                            <th>操作</th>
-                          </tr>
-                          </thead>
-                          <tbody>
-                          <tr>
-                            <td>
-                              <label class="checkbox">
-                                <input type="checkbox" >
-                                <i></i>
-                              </label>
-                            </td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                              <div >
-                                <a class="btn btn-warning btn-xs"  ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                              </div>
-                              <!--<div >无权操作</div>-->
-                            </td>
-                          </tr>
-                          </tbody>
-                        </table>
-                        <!-- 底部-（分页部分）-->
-                        <div class="dt-toolbar">
-                          <div class="col-xs-12 col-sm-6">
-                            <button class="btn btn-default">
-                              <i class="fa fa-trash-o fa-lg"></i>
-                              删除所选
-                            </button>
-                          </div>
-                          <div class="hidden-xs right">
-                            <ul class="pagination pagination-sm">
-                              <li *ngFor="let p of categoryList?.page" class="{{p.class}}">
-                                <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
-                                <a *ngIf="p.method==''">{{p.text}}</a>
-                              </li>
-                            </ul>
-                          </div>
+                      <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
+                        <div class="form-group">
+                          <a class="btn btn-primary btn-sm"  routerLink="/sales-management/add-sales">
+                            <span class="glyphicon glyphicon-plus"></span>添加销售单</a>
                         </div>
-                      </div>
+                        <div class="form-group">
+                          <a class="btn btn-warning btn-sm"  data-toggle="modal" data-target="#myModal">
+                            <span class="glyphicon glyphicon-pencil"></span>修改</a>
+                        </div>
+                        <div class="form-group">
+                          <a class="btn btn-success btn-sm"  >
+                            <span class="glyphicon glyphicon-zoom-in"></span>详情</a>
+                        </div>
+                        <div class="form-group padding-left-10">
+                          <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" name="keyword" placeholder="请输入搜索内容" type="text">
+                        </div>
+                        <button class="btn btn-default" type="submit">
+                          <i  class="glyphicon glyphicon-search"></i>
+                          搜索
+                        </button>
+                      </form>
                     </div>
                   </div>
-                </sa-widget>
-                <!-- end widget -->
-              </article>
+                </article>
+              </div>
+
+              <div  class="padding0">
+                <div style="z-index: 2;width:30%;float:left;" class="table-responsive padding0">
+                  <table class="table table-striped  table-hover smart-form">
+                    <thead>
+                    <tr >
+                      <td><label class="checkbox">
+                        <input type="checkbox" name="checkbox-inline" >
+                        <i></i>
+                      </label>
+                      </td>
+                      <th>单据号</th>
+                      <th>单据日期 </th>
+                      <th>单据状态 </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="table-color">
+                      <td>
+                        <label class="checkbox">
+                          <input type="checkbox" >
+                          <i></i>
+                        </label>
+                      </td>
+                      <td>20145552111</td>
+                      <td>20145552111</td>
+                      <td>四川矿业</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label class="checkbox">
+                          <input type="checkbox" >
+                          <i></i>
+                        </label>
+                      </td>
+                      <td>20145552111</td>
+                      <td>20145552111</td>
+                      <td>四川矿业</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label class="checkbox">
+                          <input type="checkbox" >
+                          <i></i>
+                        </label>
+                      </td>
+                      <td>20145552111</td>
+                      <td>20145552111</td>
+                      <td>四川矿业</td>
+                    </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+                <div style="padding: 0;z-index:1;width:70%;float:left;" class="table-responsive">
+                  <table class="table table-striped  table-hover smart-form">
+                    <thead>
+                    <tr>
+                      <th>客户</th>
+                      <th>销售部门 </th>
+                      <th>销售员 </th>
+                      <th>销售金额 </th>
+                      <th>折让金额</th>
+                      <th>制单人</th>
+                      <th>创建时间 </th>
+                      <th>标记 </th>
+                      <th>附件 </th>
+                      <th>作废人</th>
+                      <th>自定义数值项一</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="table-color">
+                      <td>2017-09-26</td>
+                      <td>矿矿业</td>
+                      <td>15952788795</td>
+                      <td>121544785421</td>
+                      <td><span>成绩欧安李凤娟我废旧塑料快递费科技科技看空水电费闻风丧胆范文芳间看</span></td>
+                      <td><span>中高级撒旦法而非热风特然个特点刚发的鬼地方个十大歌手如果是规范化都是</span></td>
+                      <td>政策</td>
+                      <td>政策</td>
+                      <td>政策</td>
+                      <td>政策</td>
+                      <td>政策</td>
+
+                    </tr>
+                    <tr>
+                      <td>2017-09-26</td>
+                      <td>矿矿业</td>
+                      <td>15952788795</td>
+                      <td>121544785421</td>
+                      <td><span>成绩欧安李凤娟我废旧塑料快递费科技科技看空水电费闻风丧胆范文芳间看</span></td>
+                      <td><span>中高级撒旦法而非热风特然个特点刚发的鬼地方个十大歌手如果是规范化都是</span></td>
+                      <td>政策</td>
+                      <td>政策</td>
+                      <td>政策</td>
+                      <td>政策</td>
+                      <td>政策</td>
+                    </tr>
+                    <tr>
+                      <td>2017-09-26</td>
+                      <td>矿矿业</td>
+                      <td>15952788795</td>
+                      <td>121544785421</td>
+                      <td><span>成绩欧安李凤娟我废旧塑料快递费科技科技看空水电费闻风丧胆范文芳间看</span></td>
+                      <td><span   >中高级撒旦法而非热风特然个特点刚发的鬼地方个十大歌手如果是规范化都是</span></td>
+                      <td>政策</td>
+                      <td>政策</td>
+                      <td>政策</td>
+                      <td>政策</td>
+                      <td>政策</td>
+                    </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+              <!--<div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover smart-form">
+                  <thead>
+                  <tr>
+                    <td><label class="checkbox">
+                      <input type="checkbox" name="checkbox-inline" >
+                      <i></i>
+                    </label>
+                    </td>
+                    <th>单据号</th>
+                    <th>单据日期 </th>
+                    <th>客户</th>
+                    <th>销售部门 </th>
+                    <th>销售员 </th>
+                    <th>销售金额 </th>
+                    <th>折让金额</th>
+                    <th>制单人</th>
+                    <th>创建时间 </th>
+                    <th>标记 </th>
+                    <th>附件 </th>
+                    <th>单据状态  </th>
+                    <th>作废人</th>
+                    <th>自定义数值项一</th>
+                    <th>操作</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td>
+                      <label class="checkbox">
+                        <input type="checkbox" >
+                        <i></i>
+                      </label>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <div >
+                        <a class="btn btn-warning btn-xs"  ><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                        <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                      </div>
+                      &lt;!&ndash;<div >无权操作</div>&ndash;&gt;
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+                &lt;!&ndash; 底部-（分页部分）&ndash;&gt;
+                <div class="dt-toolbar">
+                  <div class="col-xs-12 col-sm-6">
+                    <button class="btn btn-default">
+                      <i class="fa fa-trash-o fa-lg"></i>
+                      删除所选
+                    </button>
+                  </div>
+                  <div class="hidden-xs right">
+                    <ul class="pagination pagination-sm">
+                      <li *ngFor="let p of categoryList?.page" class="{{p.class}}">
+                        <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+                        <a *ngIf="p.method==''">{{p.text}}</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>-->
             </div>
 
 
