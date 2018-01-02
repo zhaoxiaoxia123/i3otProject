@@ -48,12 +48,13 @@
           <div class="entries_panel js-sortable layout_content_main_tasks ng-scope wt-scroll"   style="overflow-x: auto; overflow-y: hidden;">
             <div class="entries_panel_sortarea ui-sortable" >
 
-              <div class="entry ng-scope" *ngFor="let tl of todoList?.result?.template_list" >
+              <div class="entry ng-scope" *ngFor="let tl of todoList?.result?.template_list;let ind = index;" droppable [dropScope]="''+tl.key" [dragOverClass]="'drag-target-border'"
+                   [dragHintClass]="'drag-hint'" (onDrop)="onListDrop_(tl.key)">
                 <div class="entry_header ui-sortable-handle">
                   <i class="wtfont wtf-entryhover ng-scope" ></i>
                   <div class="entry_header_title">
                     <h2>
-                      <a data-toggle="dropdown"><span class="ng-binding ng-scope" (click)="showEditTemplateName(tl.info,tl.key)">{{tl.info}}</span></a>
+                      <a data-toggle="dropdown"><span class="ng-binding ng-scope" (click)="showEditTemplateName(tl.info,tl.key)">{{tl.info}}</span>&nbsp; &nbsp;({{tl.complate_count}} / {{tl.todo_list_count}}) </a>
                       <ul class="dropdown-menu pull-right" style="width: 300px;padding: 10px 20px;">
                         <li>
                           <button type="button" class="close margin-bottom-10" data-dismiss="modal" aria-hidden="true">
@@ -76,38 +77,37 @@
 
                     </h2>
                   </div>
-                    <a  class="entry_header_number ng-binding ng-scope" >
-                      {{tl.complate_count}} / {{tl.todo_list_count}} </a>
+                  <a class="entry_header_number ng-binding ng-scope" (click)="deleteTodoList(tl.key,todoList?.result?.project_id)">
+                    删除 </a>
                   </div>
                   <div class="entry-task-panel wt-scroll"  style="overflow-x: hidden; overflow-y: auto;">
                     <div class="entry-tasks js-sortable ui-sortable" >
 
-                      <div [ngClass]="{'right_click_trigger slide-trigger js-popbox false task task_style task-':true,'task-selected':tl1.todo_status==2}" *ngFor="let tl1 of tl.todo_list">
+                      <div [ngClass]="{'right_click_trigger slide-trigger js-popbox false task task_style task-':true,'task-selected':tl1.todo_status==2}" *ngFor="let tl1 of tl.todo_list" (click)="showDetail(tl1.todo_id,tl.key,tl.info)"  draggable [dragScope]="tl.d" [dragClass]="'drag-over'" [dragData]="tl1" (onDragEnd)="onDragList_(tl1.todo_id,tl1.project_id)"><!--tl1.template_id,-->
                         <div [ngClass]="{'entry-task-main':true,'task-completed-style':tl1.todo_status==2}">
-                          <a class="entry-task-check ng-scope" *ngIf="tl1.todo_status != 2" (click)="editStatus(2,tl1.todo_id,todoList?.result?.project_id)">
+                          <a class="entry-task-check ng-scope" *ngIf="tl1.todo_status != 2" (click)="editStatus($event,2,tl1.todo_id,todoList?.result?.project_id)">
                             <i class="fa fa-square-o"></i>
                           </a>
-                          <a class="entry-task-check ng-scope" *ngIf="tl1.todo_status == 2" (click)="editStatus(1,tl1.todo_id,todoList?.result?.project_id)">
+                          <a class="entry-task-check ng-scope" *ngIf="tl1.todo_status == 2" (click)="editStatus($event,1,tl1.todo_id,todoList?.result?.project_id)">
                             <i class="fa fa-check-square"></i>
                           </a>
-                          <a class="entry-task-title ng-binding" (click)="showDetail(tl1.todo_id,tl.key,tl.info)">{{tl1.todo_title}}</a>
+                          <a class="entry-task-title ng-binding">{{tl1.todo_title}}</a>
                         </div>
                         <div class="task-badges">
                           <span class="task-badge fa fa-clock-o badge-expire-soon" title="任务即将截止">{{tl1.expired_at | date:'yyyy-MM-dd'}}</span>
                           <span class="task-badge fa fa-comment-o" title="任务有 {{tl1.comment_count}} 个评论">{{tl1.comment_count}}</span>
                           <span class="task-badge fa fa-align-left" title="任务有描述" *ngIf="tl1.todo_content"></span>
-                          <span class="task-badge task-label yellow-label" title="{{tag}}" *ngFor="let tag of tl1.tags">{{tag}}</span>
+                          <span class="task-badge task-label" title="{{tag}}" *ngFor="let tag of tl1.tags;let ti = index;"  [ngStyle]="{'background-color': tl1.tags_color[ti]}">{{tag}}</span>
                         </div>
                         <div class="entry-task-members" *ngIf="tl1.todo_assign">
                           <a class="js-popbox member avatar ng-scope avatar-28" title="{{h.u_username}}" *ngFor="let h of tl1.assignList">
-                            <img alt="{{h.u_username}}" class="online width-28" src="{{domain_url}}{{h.u_avatar}}" *ngIf="h.u_avatar">
-                            <img alt="{{h.u_username}}" class="online width-28" src="assets/img/avatars/male.png" *ngIf="!h.u_avatar">
+                            {{h.u_username}}
+                            <!--<img alt="{{h.u_username}}" class="online width-28" src="{{domain_url}}{{h.u_avatar}}" *ngIf="h.u_avatar">-->
+                            <!--<img alt="{{h.u_username}}" class="online width-28" src="assets/img/avatars/male.png" *ngIf="!h.u_avatar">-->
                           </a>
                         </div>
                       </div>
-
                     </div>
-
                     <!--新建任务发布框-->
                     <div class="entry-add-bottom-composer entry-task-composer ng-isolate-scope" *ngIf="selects[tl.key]">
                       <div class="composer-body" >
@@ -167,7 +167,7 @@
     <!--<app-mission-details></app-mission-details>-->
 
 <!-- select-hidden-->
-<div class="slide-content dragfile_element_309416 in" *ngIf="is_show_detail">
+<div class="slide-content dragfile_element_309416 in" style="position:fixed;" *ngIf="is_show_detail"><!--'position':'fixed','margin-top':scroll_-->
   <div class="entity-well entity-well--tasks">
 
     <div  class="ng-scope">
@@ -176,11 +176,11 @@
           <a  class="entity-project-name ng-binding" >{{todoList?.result?.project_title}}</a>
           <ul class="entity-well-header-nav nav nav-pills pull-right">
 
-            <li [ngClass]="{'js-popbox ng-scope':!is_show_center_tag && is_show_center_tag != 4}" ><!--data-toggle="dropdown" -->
+            <li [ngClass]="{'js-popbox ng-scope':!is_show_publish_tag}" ><!--data-toggle="dropdown" -->
               <a  class="ng-binding" (click)="showPublishTag(todo_info?.result?.todo_id,4)">
                 <i class="fa fa-tag"></i> 标签
               </a>
-              <ul [ngClass]="{'popbox-menu checkable checkable--popboxmenu dropdown-menu pull-right':true,'show-tag':is_show_center_tag==4}" style="width: 300px;padding: 10px 20px;" *ngIf="is_show_center_tag==4">
+              <ul [ngClass]="{'popbox-menu checkable checkable--popboxmenu dropdown-menu pull-right':true,'show-tag':is_show_publish_tag}" style="width: 300px;padding: 10px 20px;" *ngIf="is_show_publish_tag">
                 <li>
                   <!--<button type="button" class="close margin-bottom-10" data-dismiss="modal" aria-hidden="true">-->
                     <!--×-->
@@ -189,7 +189,7 @@
                   <hr>
                 </li>
                 <li [ngClass]="{'label-item ng-scope':true,'selected':selected_tag['T'+tcl1.category_id]}" (click)="selectTag(tcl1.category_id)" *ngFor="let tcl1 of todo_info?.result?.category_list ">
-                  <a  class="js-toggle-label-filter green-label" >
+                  <a  class="js-toggle-label-filter" [ngStyle]="{'background-color': tcl1.category_tab}">
                     <span class="label-name padding-left-20" title="{{tcl1.category_desc}}">{{tcl1.category_desc}}</span>
                   </a>
                 </li>
@@ -284,8 +284,9 @@
                     <li  class="ng-scope" *ngFor="let au1 of todo_info?.result?.assign_list">
                       <a  class="fa fa-times-circle" ></a>
                       <a class="js-popbox avatar avatar-40"  title="{{au1.u_username}}">
-                        <img alt="{{au1.u_username}}" class="online width-40" src="{{domain_url}}{{au1.u_avatar}}" *ngIf="au1.u_avatar">
-                        <img alt="{{au1.u_username}}" class="online width-40" src="assets/img/avatars/male.png" *ngIf="!au1.u_avatar">
+                        {{au1.u_username}}
+                        <!--<img alt="{{au1.u_username}}" class="online width-40" src="{{domain_url}}{{au1.u_avatar}}" *ngIf="au1.u_avatar">-->
+                        <!--<img alt="{{au1.u_username}}" class="online width-40" src="assets/img/avatars/male.png" *ngIf="!au1.u_avatar">-->
                       </a>
                     </li>
                     <li  class="ng-scope">
@@ -305,8 +306,9 @@
                     <li  class="ng-scope" *ngFor="let au2 of todo_info?.result?.follower_list">
                       <a  class="fa fa-times-circle" ></a>
                       <a class="js-popbox avatar avatar-40"  title="{{au2.u_username}}">
-                        <img alt="{{au2.u_username}}" class="online width-40" src="{{domain_url}}{{au2.u_avatar}}" *ngIf="au2.u_avatar">
-                        <img alt="{{au2.u_username}}" class="online width-40" src="assets/img/avatars/male.png" *ngIf="!au2.u_avatar">
+                        {{au2.u_username}}
+                        <!--<img alt="{{au2.u_username}}" class="online width-40" src="{{domain_url}}{{au2.u_avatar}}" *ngIf="au2.u_avatar">-->
+                        <!--<img alt="{{au2.u_username}}" class="online width-40" src="assets/img/avatars/male.png" *ngIf="!au2.u_avatar">-->
                       </a>
                     </li>
                     <li  class="ng-scope">
@@ -369,71 +371,13 @@
                       <a class="action-icon edit fa fa-remove" title="移除该标签" (click)="removeTags(todo_info?.result?.todo_id,ta.category_id)">
                       </a>
                     </li>
-                    <!--<li class="task-label yellow-label" title="">-->
-                      <!--<span  class="ng-binding">一般</span>-->
-                      <!--<a class="action-icon edit fa fa-remove"  title="移除该标签"></a>-->
-                    <!--</li>-->
-                    <!--<li class="task-label orange-label" title="" >-->
-                      <!--<span  class="ng-binding">紧急</span>-->
-                      <!--<a class="action-icon edit fa fa-remove" title="移除该标签">-->
-                      <!--</a>-->
-                    <!--</li>-->
-                    <!--<li class="task-label red-label" title="" >-->
-                      <!--<span  class="ng-binding">非常紧急</span>-->
-                      <!--<a class="action-icon edit fa fa-remove"  title="移除该标签"></a>-->
-                    <!--</li>-->
                     <li class="task-label-add">
-                      <a  class="js-popbox ng-binding ng-scope" data-toggle="dropdown" (click)="showPublishTag(todo_info?.result?.todo_id,1)" *ngIf="!is_show_publish_tag && (!is_show_center_tag || is_show_center_tag == 4)">＋ 添加标签
+                      <a class="js-popbox ng-binding ng-scope" data-toggle="dropdown" (click)="showPublishTag(todo_info?.result?.todo_id,1)" *ngIf="!is_show_publish_tag">＋ 添加标签
                       </a>
-                      <ul class="popbox-menu checkable  checkable--popboxmenu dropdown-menu pull-right" style="width: 300px;padding: 10px 20px;display: block;" *ngIf="is_show_publish_tag && is_show_center_tag==1">
-                        <li>
-                          <button type="button" class="close margin-bottom-10" data-dismiss="modal" aria-hidden="true">
-                            ×
-                          </button>
-                          <h3 class="">设置标签</h3>
-                          <hr>
-                        </li>
-                        <li [ngClass]="{'label-item ng-scope':true,' selected':selected_tag['T'+tcl.category_id]}" (click)="selectTag(tcl.category_id)" *ngFor="let tcl of todo_info?.result?.category_list ">
-                          <a  class="js-toggle-label-filter green-label" ><!--yellow-label orange-label red-label  -->
-                            <span class="label-name padding-left-20 ng-binding" title="{{tcl.category_desc}}" >{{tcl.category_desc}}</span>
-                          </a>
-                        </li>
-                        <li>
-                          <div class="form-group">
-                            <button  data-loading-text="保存中…" class="btn btn-success mr_15 ng-binding" (click)="showPublishTag('',2)" >保&nbsp;&nbsp;存</button>
-                            <button  class="btn btn-link btn-cancel ng-binding" (click)="showPublishTag('',1)">取&nbsp;&nbsp;消</button>
-                          </div>
-                        </li>
-                      </ul>
-
                     </li>
                   </ul>
                 </dd>
               </dl>
-              <!--<dl class="module-attachment dragfile-hover-show ng-scope" >
-                <dt class="ng-binding">
-                  <i class="fa fa-paperclip"></i> 附件</dt>
-                <dd>
-                  <div class="dragfile-hover-placeholder">
-                    <span class="name ng-binding"><i class="fa fa-upload"></i> 松开上传文件</span>
-                  </div>
-                </dd>
-              </dl>
-              <dl class="module-attachment ng-hide">
-                <dt class="ng-binding"><i class="fa fa-paperclip"></i> 附件</dt>
-                <dd>
-                  <div type="task"  class="ng-isolate-scope">
-                    <div  class="upload-attachment-file-process ng-hide" >
-                    </div>
-                  </div>
-                  <div class="task-attachment-add ng-scope" >
-                    <a  class="ng-binding">＋ 添加附件</a>
-                  </div>
-                  <div class="dragfile-hover-placeholder">
-                    <span class="name ng-binding"><i class="fa fa-upload"></i> 松开上传文件</span>
-                  </div>
-                </dd>
-              </dl>-->
             </div>
             <hr class="entity-hr">
             <div class="entity-content-footer">
@@ -467,7 +411,8 @@
                               <div class="chat-body no-padding profile-message">
                                 <ul>
                                   <li class="message">
-                                    <img src="assets/img/avatars/female.png" class="online" alt="user">
+                                    <img alt="{{cl.u_username}}" class="online" src="{{domain_url}}{{cl.u_avatar}}" *ngIf="cl.u_avatar">
+                                    <img alt="{{cl.u_username}}" class="online" src="assets/img/avatars/male.png" *ngIf="!cl.u_avatar">
                                     <span class="message-text">
                                       <a class="username">{{cl.u_username}}
                                           <small class="text-muted pull-right ultra-light"> {{cl.return_time}}</small>
@@ -1020,8 +965,8 @@
                             <label class="checkbox">
                               <input name="checkbox-inline" type="checkbox" (change)="handle($event)" [checked]="selected_user[au.id]" value="{{au.id}}">
                               <i></i>
-                              <img alt="{{au.u_username}}" class="online width-40" src="{{domain_url}}{{au.u_avatar}}" *ngIf="au.u_avatar">
-                              <img alt="{{au.u_username}}" class="online width-40" src="assets/img/avatars/male.png" *ngIf="!au.u_avatar">
+                              <!--<img alt="{{au.u_username}}" class="online width-40" src="{{domain_url}}{{au.u_avatar}}" *ngIf="au.u_avatar">-->
+                              <!--<img alt="{{au.u_username}}" class="online width-40" src="assets/img/avatars/male.png" *ngIf="!au.u_avatar">-->
                               <span >{{au.u_username}}</span>
                             </label>
                           </div>

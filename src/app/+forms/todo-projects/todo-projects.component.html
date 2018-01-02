@@ -31,7 +31,7 @@
                     <span class="txt-color-red padding-left-10">{{projectList?.result?.commonArrayCount}}</span>
                   </div>
                   <div class="project-grid ">
-                    <div class="project-item " *ngFor="let ca of projectList?.result?.commonArray">
+                    <div class="project-item" [routerLink]="['/forms/todo-mission',ca.project_id]" *ngFor="let ca of projectList?.result?.commonArray">
                       <a class="star" (click)="isCommon($event,ca.project_id,ca.project_status);">
                         <i class="fa fa-star txt-color-yellowMing"></i> </a>
                       <a class="center ">
@@ -39,7 +39,7 @@
                         <h4 class="">{{ca.project_title}}</h4></a>
                       <a class="members">
                         <i class="fa fa-user"></i>
-                        <span class="">1</span>
+                        <!--<span class="">1</span>-->
                       </a>
                     </div>
                   </div>
@@ -60,8 +60,7 @@
                         <i class="fa-fw fa fa-inbox txt-color-greenNormal"></i>
                         <h4 class="">发起项目</h4></a>
                     </div>
-                    <div class="project-item " [routerLink]="['/forms/todo-mission',pl.project_id]" *ngFor="let pl of
-cl.project_list">
+                    <div class="project-item " [routerLink]="['/forms/todo-mission',pl.project_id]" *ngFor="let pl of cl.project_list">
                       <a class="star" (click)="isCommon($event,pl.project_id,pl.project_status);">
                         <i class="fa fa-star-o" *ngIf="pl.project_status == 1"></i>
                         <i class="fa fa-star txt-color-yellowMing" *ngIf="pl.project_status == 2"></i></a>
@@ -89,7 +88,7 @@ cl.project_list">
       <div class="modal-content">
         <div class="modal-header">
           <!-- 关闭按钮 -->
-          <button type="button"  (click)="lgModal.hide()" aria-label="Close"> × </button>
+          <button type="button" (click)="lgModal.hide()" aria-label="Close"> × </button>
           <!-- 标题 -->
           <h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>新建项目</h3>
         </div>

@@ -8,13 +8,15 @@ import {I3otpModule} from "../../shared/i3otp.module";
 import {I3otpEditorsModule} from "../../shared/forms/editors/i3otp-editors.module";
 import { MissionDetailsComponent } from './mission-details/mission-details.component';
 
+import { NgDragDropModule } from 'ng-drag-drop';
 @NgModule({
   imports: [
     CommonModule,
       I3otpModule,
       I3otpEditorsModule,
       ReactiveFormsModule,
-    TodoMissionRoutingModule
+    TodoMissionRoutingModule,
+    NgDragDropModule.forRoot()
   ],
   declarations: [TodoMissionComponent, MissionDetailsComponent]
 })
