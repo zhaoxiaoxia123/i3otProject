@@ -1052,7 +1052,7 @@ legend {
     outline: 0;
     border-width: 1px;
     border-style: solid;
-    border-radius: 0;
+    border-radius: 2px;
     background: #fff;
     font: 13px/16px 'Open Sans',Helvetica,Arial,sans-serif;
     color: #404040;
@@ -2560,11 +2560,11 @@ ul.ColVis_collection li label {
 }
 @media screen and (max-width: 1920px) {
     .table-responsive {
-        width:100%;
+        /*width:100%;*/
         /*margin-bottom: 13.5px;*/
         overflow-y: hidden;
         -ms-overflow-style: -ms-autohiding-scrollbar;
-        border: 1px solid #ddd
+       /* border: 1px solid #ddd*/
     }
 
     .table-responsive>.table {
@@ -2592,9 +2592,48 @@ ul.ColVis_collection li label {
     }
 }
 
+@media screen and (max-width: 767px) {
+    .table-responsive {
+        /*width:100%;*/
+        margin-bottom: 13.5px;
+        overflow-y: hidden;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+        border: none;
+    }
 
+    .table-responsive>.table {
+        margin-bottom: 0
+    }
 
+    .table-responsive>.table>tbody>tr>td,.table-responsive>.table>tbody>tr>th,.table-responsive>.table>tfoot>tr>td,.table-responsive>.table>tfoot>tr>th,.table-responsive>.table>thead>tr>td,.table-responsive>.table>thead>tr>th {
+        white-space: nowrap
+    }
 
+    .table-responsive>.table-bordered {
+        border: 0
+    }
+
+    .table-responsive>.table-bordered>tbody>tr>td:first-child,.table-responsive>.table-bordered>tbody>tr>th:first-child,.table-responsive>.table-bordered>tfoot>tr>td:first-child,.table-responsive>.table-bordered>tfoot>tr>th:first-child,.table-responsive>.table-bordered>thead>tr>td:first-child,.table-responsive>.table-bordered>thead>tr>th:first-child {
+        border-left: 0
+    }
+
+    .table-responsive>.table-bordered>tbody>tr>td:last-child,.table-responsive>.table-bordered>tbody>tr>th:last-child,.table-responsive>.table-bordered>tfoot>tr>td:last-child,.table-responsive>.table-bordered>tfoot>tr>th:last-child,.table-responsive>.table-bordered>thead>tr>td:last-child,.table-responsive>.table-bordered>thead>tr>th:last-child {
+        border-right: 0
+    }
+
+    .table-responsive>.table-bordered>tbody>tr:last-child>td,.table-responsive>.table-bordered>tbody>tr:last-child>th,.table-responsive>.table-bordered>tfoot>tr:last-child>td,.table-responsive>.table-bordered>tfoot>tr:last-child>th {
+        border-bottom: 0
+    }
+}
+
+.table>thead>tr>td {
+    border-bottom: 2px solid #ddd;
+}
+
+.table-color{
+    background: #FDDFB3!important;
+    color: #000!important;
+}
 /*员工详情*/
 
 .well {
@@ -3762,6 +3801,17 @@ div.dataTables_editor{
     background-color: #4dbe91;
     border-color: #4dbe91;
 }
+.btn.btn-toolbar{
+    color: #646464;
+    border: 0 !important;
+    background-color: transparent !important;
+}
+.btn.btn-toolbar:hover{
+    color: #fff;
+    background-color: #4dbe91 !important;
+    border-color: #4dbe91;
+}
+
 .entry-task-composer .composer-footer .btn {
     float: left;
 }

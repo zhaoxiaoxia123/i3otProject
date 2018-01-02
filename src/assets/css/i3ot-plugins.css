@@ -34,7 +34,12 @@
     opacity: 1
 }
 
-/*头像状态*/
+.asterisk-color{
+    color: red;
+    vertical-align: middle;
+}
+
+    /*头像状态*/
 img.away,img.busy,img.offline,img.online {
     border-left: 3px solid #fff
 }
@@ -540,6 +545,9 @@ div.dataTables_paginate ul.pagination {
 
 .no-padding-bottom {
     padding-bottom: 0!important
+}
+.padding0{
+    padding:0 !important;
 }
 .padding-5 {
     padding: 5px!important;
@@ -1142,3 +1150,18 @@ span.input-icon {
 }
 
 
+.table-height>tbody>tr>td{
+    height:34px;
+    vertical-align: middle
+}
+
+.table-height-70>tbody>tr>td{
+    height:70px;
+    vertical-align: middle
+}
+.table-border>tbody>tr>td{
+    border-bottom: 1px solid #ddd;
+}
+.table-border{
+    border: 1px solid #ddd!important;
+}

@@ -75,6 +75,11 @@ export const routes: Routes = [
             path: 'procurement-management',
             loadChildren: 'app/+procurement-management/procurement-management.module#ProcurementManagementModule',
             data: {pageTitle: 'ProcurementManagement'}
+        },
+        {
+            path: 'assets-management',
+            loadChildren: 'app/+assets-management/assets-management.module#AssetsManagementModule',
+            data: {pageTitle: 'AssetsManagement'}
         }
     ]
   },
