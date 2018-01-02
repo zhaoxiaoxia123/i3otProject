@@ -93,21 +93,7 @@ export class TodoMissionComponent implements OnInit {
     comment_content : string = '';
     comment_parent_id : number = 0;
     is_show_replay : number = 0;
-    // scroll_ :any ='0px';
-    list = [ {'childList': [
-        {name: 'Toyota'},
-        {name: 'Bugati'},
-        {name: 'Suzuki'}
-    ],'d':['d-1','d-2']},{'childList': [
-        {name: 'Mercedes'},
-        {name: 'Honda'},
-        {name: 'BMW'}
-    ],'d':['d-0','d-2']}, {'childList':[
-        {name: '123'},
-        {name: '345'},
-        {name: '456'}
-    ],'d':['d-0','d-1']}
-    ];
+
     dropTemplateId : any = '';//拽入模版编号
 
     constructor(
@@ -185,10 +171,11 @@ export class TodoMissionComponent implements OnInit {
         );
     }
 
+    //放下的模版id
     onListDrop_(key:string) {
         this.dropTemplateId = key;
-        console.log('dropTemplateId:------');
-        console.log(this.dropTemplateId);
+        // console.log('dropTemplateId:------');
+        // console.log(this.dropTemplateId);
     }
 
     /**
