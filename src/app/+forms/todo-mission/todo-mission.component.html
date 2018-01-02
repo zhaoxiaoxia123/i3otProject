@@ -366,7 +366,7 @@
                 </dt>
                 <dd>
                   <ul class="margin-padding">
-                    <li class="task-label green-label" title="" *ngFor="let ta of todo_info?.result?.todo_category_list ">
+                    <li class="task-label" [ngStyle]="{'background-color':ta.category_tab }" title="" *ngFor="let ta of todo_info?.result?.todo_category_list ">
                       <span class="ng-binding">{{ta.category_desc}}</span>
                       <a class="action-icon edit fa fa-remove" title="移除该标签" (click)="removeTags(todo_info?.result?.todo_id,ta.category_id)">
                       </a>
