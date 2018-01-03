@@ -141,6 +141,7 @@ export class DataMapComponent implements OnInit {
             this.search_datapoint();
         },500);
     }
+
     search_datapoint(){
         if(this.count >= 5){
             return false;
@@ -162,7 +163,7 @@ export class DataMapComponent implements OnInit {
             console.log(this.products);
             if (this.products.length == 0) {
                 this.count++;
-                this.search_datapoint();
+                //     this.search_datapoint();
                 return false;
             }
 
@@ -196,57 +197,59 @@ export class DataMapComponent implements OnInit {
             }
         }, 5*1000);
 
-
         setTimeout(() => {
-            that.size = 5;
-            that.dataSource1 = that.http.get(that.globalService.getTsdbDomain()+'/tsdb/api/getDatapoint.php?size='+that.size+'&cid='+that.company+'&index=2')
-                .map((res)=>res.json());
-            that.dataSource1.subscribe(
-                (data)=>that.products1=data
-            );
-
-            setTimeout(() => {
-                console.log('this.products1:-----');
-                console.log(this.products1);
-                if (this.products1.length == 0) {
-                    this.count++;
-                    this.search_datapoint();
-                    return false;
-                }
-
-                for (let dataInfo of this.products1['data']) {
-                    let c: number = 0;
-                    for (let entry of dataInfo['name']) {
-                        let vNum :number = 0;
-                        let colorA : Array<any> = [];
-                        // let upColorA : Array<any> = [];
-                        for(let value of dataInfo['info'][entry]['value']) {
-                            if(this.colorShow['result'] && this.colorShow['result'][entry]) {
-                                for (var s = 0; s < this.colorShow['result'][entry].length; s++) {
-                                    let min = parseInt(this.colorShow['result'][entry][s]['s_interval_1']);
-                                    let max = parseInt(this.colorShow['result'][entry][s]['s_interval_2']);
-                                    let val = parseInt(value);
-                                    if (val >= min && val <= max) {
-                                        colorA.push(this.colorShow['result'][entry][s]['s_color']);
-                                        // upColorA.push(this.colorShow['result'][entry][s]['s_up_color'] == '' ? color_.up_color : this.colorShow['result'][entry][s]['s_up_color']);
-                                    }
-                                }
-                            } else {
-                                colorA.push(color_.color);
-                                // upColorA.push(color_.up_color) ;
-                            }
-                            this.products1['data'][0]['info'][entry]['color'] = colorA;
-                            // this.products1['data'][0]['info'][entry]['up_color'] = upColorA ;
-                            vNum++;
-                        }
-                        c++;
-                    }
-                }
-            }, 5*1000);
+            that.search_datapoint1(color_);
         },1000);
-
     }
 
+    search_datapoint1(color_){
+        let that = this;
+        that.size = 5;
+        that.dataSource1 = that.http.get(that.globalService.getTsdbDomain()+'/tsdb/api/getDatapoint.php?size='+that.size+'&cid='+that.company+'&index=2')
+            .map((res)=>res.json());
+        that.dataSource1.subscribe(
+            (data)=>that.products1=data
+        );
+
+        setTimeout(() => {
+            console.log('this.products1:-----');
+            console.log(this.products1);
+            if (this.products1.length == 0) {
+                this.count++;
+                this.search_datapoint1(color_);
+                return false;
+            }
+
+            for (let dataInfo of this.products1['data']) {
+                let c: number = 0;
+                for (let entry of dataInfo['name']) {
+                    let vNum :number = 0;
+                    let colorA : Array<any> = [];
+                    // let upColorA : Array<any> = [];
+                    for(let value of dataInfo['info'][entry]['value']) {
+                        if(this.colorShow['result'] && this.colorShow['result'][entry]) {
+                            for (var s = 0; s < this.colorShow['result'][entry].length; s++) {
+                                let min = parseInt(this.colorShow['result'][entry][s]['s_interval_1']);
+                                let max = parseInt(this.colorShow['result'][entry][s]['s_interval_2']);
+                                let val = parseInt(value);
+                                if (val >= min && val <= max) {
+                                    colorA.push(this.colorShow['result'][entry][s]['s_color']);
+                                    // upColorA.push(this.colorShow['result'][entry][s]['s_up_color'] == '' ? color_.up_color : this.colorShow['result'][entry][s]['s_up_color']);
+                                }
+                            }
+                        } else {
+                            colorA.push(color_.color);
+                            // upColorA.push(color_.up_color) ;
+                        }
+                        this.products1['data'][0]['info'][entry]['color'] = colorA;
+                        // this.products1['data'][0]['info'][entry]['up_color'] = upColorA ;
+                        vNum++;
+                    }
+                    c++;
+                }
+            }
+        }, 5*1000);
+    }
 
     /**
      * 离开页面的时候移除定时器
