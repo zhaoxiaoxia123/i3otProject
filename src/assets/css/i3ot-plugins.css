@@ -1151,7 +1151,7 @@ span.input-icon {
     padding-left: 29px
 }
 
-
+/*表格*/
 .table-height>tbody>tr>td{
     height:34px;
     vertical-align: middle
@@ -1159,6 +1159,11 @@ span.input-icon {
 
 .table-height-70>tbody>tr>td{
     height:70px;
+    vertical-align: middle
+}
+
+.table-height-32>tbody>tr>td{
+    height:32px;
     vertical-align: middle
 }
 .table-border>tbody>tr>td{
