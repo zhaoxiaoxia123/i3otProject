@@ -43,6 +43,7 @@ export class SettingEquipmentComponent implements OnInit {
     category_id1 : any = 0;//设备类型
     category_id2 : any = 0;//传感器
     category_id3 : any = 0;//通讯方式
+    rollback_url : string = '/management/setting-equipment';
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -93,21 +94,21 @@ export class SettingEquipmentComponent implements OnInit {
         setTimeout(() => {
             if(category_type == 10) {
                 if(this.i3otpList['status'] == 202){
-                    this.cookieStore.removeAll();
+                    this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
                 this.category_id1 = 0;
             }
             if(category_type == 11) {
                 if(this.sensorList['status'] == 202){
-                    this.cookieStore.removeAll();
+                    this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
                 this.category_id2 = 0;
             }
             if(category_type == 12) {
                 if(this.communicationList['status'] == 202){
-                    this.cookieStore.removeAll();
+                    this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
                 this.category_id3 = 0;
@@ -151,7 +152,7 @@ export class SettingEquipmentComponent implements OnInit {
 
                     this.i3otpList = JSON.parse(data['_body']);
                     if(this.i3otpList['status'] == 202){
-                        this.cookieStore.removeAll();
+                        this.cookieStore.removeAll(this.rollback_url);
                         this.router.navigate(['/auth/login']);
                     }
                     this.category_id1 = 0;
@@ -159,7 +160,7 @@ export class SettingEquipmentComponent implements OnInit {
                     this.formModelSensor.setValue({category_desc: '', category_type: '11', category_id: ''});
                     this.sensorList = JSON.parse(data['_body']);
                     if(this.sensorList['status'] == 202){
-                        this.cookieStore.removeAll();
+                        this.cookieStore.removeAll(this.rollback_url);
                         this.router.navigate(['/auth/login']);
                     }
                     this.category_id2 = 0;
@@ -167,7 +168,7 @@ export class SettingEquipmentComponent implements OnInit {
                     this.formModelCommunication.setValue({category_desc: '', category_type: '12', category_id: ''});
                     this.communicationList = JSON.parse(data['_body']);
                     if(this.communicationList['status'] == 202){
-                        this.cookieStore.removeAll();
+                        this.cookieStore.removeAll(this.rollback_url);
                         this.router.navigate(['/auth/login']);
                     }
                     this.category_id3 = 0;
@@ -229,21 +230,21 @@ export class SettingEquipmentComponent implements OnInit {
                 if(category_type == 10) {
                     if(this.i3otpList['status'] == 202){
                         alert(this.i3otpList['msg']);
-                        this.cookieStore.removeAll();
+                        this.cookieStore.removeAll(this.rollback_url);
                         this.router.navigate(['/auth/login']);
                     }
                 }
                 if(category_type == 11) {
                     if(this.sensorList['status'] == 202){
                         alert(this.sensorList['msg']);
-                        this.cookieStore.removeAll();
+                        this.cookieStore.removeAll(this.rollback_url);
                         this.router.navigate(['/auth/login']);
                     }
                 }
                 if(category_type == 12) {
                     if(this.communicationList['status'] == 202){
                         alert(this.communicationList['msg']);
-                        this.cookieStore.removeAll();
+                        this.cookieStore.removeAll(this.rollback_url);
                         this.router.navigate(['/auth/login']);
                     }
                 }

@@ -24,6 +24,7 @@ export class ListStaffComponent implements OnInit {
   user_info : Array<any> = [];
   uRole : string = '';
   // pageHtml:SafeHtml;
+  rollback_url : string = '/tables/client';
   constructor(
       private http:Http,
       fb:FormBuilder,
@@ -76,7 +77,7 @@ export class ListStaffComponent implements OnInit {
     setTimeout(() => {
       // console.log(typeof (this.userList));
       if(this.userList['status'] == 202){
-        this.cookiestore.removeAll();
+        this.cookiestore.removeAll(this.rollback_url);
         this.router.navigate(['/auth/login']);
       }
       //服务器返回html正确解析输出
@@ -168,7 +169,7 @@ export class ListStaffComponent implements OnInit {
       setTimeout(() => {
         // console.log(this.userList);
         if(this.userList['status'] == 202){
-          this.cookiestore.removeAll();
+          this.cookiestore.removeAll(this.rollback_url);
           this.router.navigate(['/auth/login']);
         }
         if (this.userList) {
@@ -210,7 +211,7 @@ export class ListStaffComponent implements OnInit {
       setTimeout(() => {
         // console.log(this.userList);
         if(this.userList['status'] == 202){
-          this.cookiestore.removeAll();
+          this.cookiestore.removeAll(this.rollback_url);
           this.router.navigate(['/auth/login']);
         }
         if (this.userList) {

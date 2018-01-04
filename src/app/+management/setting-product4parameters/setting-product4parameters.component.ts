@@ -41,6 +41,7 @@ export class SettingProduct4parametersComponent implements OnInit {
     cid : any = 0;//当前登录用户的所属公司id
     super_admin_id : any = 0;//超级管理员所属公司id
     parentCategoryList:Array<any> = []; //用于绑定修改父类信息类表
+    rollback_url : string = '/management/product4parameters';
   constructor(
       private http:Http,
       private router:Router,
@@ -69,7 +70,7 @@ export class SettingProduct4parametersComponent implements OnInit {
             console.log('categoryList result:----');
             console.log(this.categoryList);
             if(this.categoryList['status'] == 202){
-                this.cookieStore.removeAll();
+                this.cookieStore.removeAll(this.rollback_url);
                 this.router.navigate(['/auth/login']);
             }
             this.super_admin_id = this.categoryList['super_admin_id'];

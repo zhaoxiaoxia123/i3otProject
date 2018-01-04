@@ -44,6 +44,7 @@ export class SettingEnterpriseComponent implements OnInit {
     //修改标题显示
     category_id1 : any = 0;//行业
     category_id2 : any = 0;//来源
+    rollback_url : string = '/management/enterprise';
     constructor(
         private jsonApiService:JsonApiService,
         fb:FormBuilder,
@@ -86,7 +87,7 @@ export class SettingEnterpriseComponent implements OnInit {
                 console.log('industryCategoryList:----');
                 console.log(this.industryCategoryList);
                 if(this.industryCategoryList['status'] == 202){
-                    this.cookieStore.removeAll();
+                    this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
                 if (this.industryCategoryList) {
@@ -107,7 +108,7 @@ export class SettingEnterpriseComponent implements OnInit {
                 console.log('sourceList:----');
                 console.log(this.sourceList);
                 if(this.sourceList['status'] == 202){
-                    this.cookieStore.removeAll();
+                    this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
                 if (this.sourceList) {
@@ -144,7 +145,7 @@ export class SettingEnterpriseComponent implements OnInit {
                 // this.formModel.reset();
                 this.industryCategoryList = JSON.parse(data['_body']);
                 if(this.industryCategoryList['status'] == 202){
-                    this.cookieStore.removeAll();
+                    this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
 
@@ -174,7 +175,7 @@ export class SettingEnterpriseComponent implements OnInit {
                 // this.formModel.reset();
                 this.sourceList = JSON.parse(data['_body']);
                 if(this.sourceList['status'] == 202){
-                    this.cookieStore.removeAll();
+                    this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
 
@@ -245,7 +246,7 @@ export class SettingEnterpriseComponent implements OnInit {
                 if(category_type == 1){
                     if(this.industryCategoryList['status'] == 202){
                         alert(this.industryCategoryList['msg']);
-                        this.cookieStore.removeAll();
+                        this.cookieStore.removeAll(this.rollback_url);
                         this.router.navigate(['/auth/login']);
                     }
                     if (this.industryCategoryList) {
@@ -266,7 +267,7 @@ export class SettingEnterpriseComponent implements OnInit {
 
                     if(this.sourceList['status'] == 202){
                         alert(this.sourceList['msg']);
-                        this.cookieStore.removeAll();
+                        this.cookieStore.removeAll(this.rollback_url);
                         this.router.navigate(['/auth/login']);
                     }
                     if (this.sourceList['result']['current_page'] == this.sourceList['result']['last_page']) {

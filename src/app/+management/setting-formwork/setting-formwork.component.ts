@@ -34,6 +34,7 @@ export class SettingFormworkComponent implements OnInit {
     cid : any = 0;//当前登录用户的所属公司id
     super_admin_id : any = 0;//超级管理员所属公司id
     category_type : number = 15;
+    rollback_url : string  = '/management/setting-formwork';
     constructor(
         private http:Http,
         private router : Router,
@@ -63,7 +64,7 @@ export class SettingFormworkComponent implements OnInit {
         setTimeout(() => {
             console.log(this.categoryList);
             if(this.categoryList['status'] == 202){
-                this.cookieStoreService.removeAll();
+                this.cookieStoreService.removeAll(this.rollback_url);
                 this.router.navigate(['/auth/login']);
             }
         }, 300);
@@ -73,7 +74,7 @@ export class SettingFormworkComponent implements OnInit {
      * 添加项目下任务模版信息
      */
     addCategory(){
-        if(this.category_desc == ''){
+        if(this.category_desc.trim() == ''){
             alert('请输入模版标题！');
             return false;
         }
@@ -92,7 +93,7 @@ export class SettingFormworkComponent implements OnInit {
                     this.category_tab = '';
                 }else if(info['status'] == 202){
                     alert(info['msg']);
-                    this.cookieStoreService.removeAll();
+                    this.cookieStoreService.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
                 this.categoryList = info;
@@ -134,7 +135,7 @@ export class SettingFormworkComponent implements OnInit {
 
             setTimeout(() => {
                 if(this.categoryList['status'] == 202){
-                    this.cookieStoreService.removeAll();
+                    this.cookieStoreService.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
             }, 300);

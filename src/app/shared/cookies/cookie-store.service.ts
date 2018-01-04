@@ -14,8 +14,9 @@ export class CookieStoreService {
     return this._cookieService.put(key,value);
   }
 
-  removeAll(){
+  removeAll(url:string = '/dashboard/dynamic-wall'){
     this._cookieService.removeAll();
+    this.setCookie('rollback',url);
   }
 
   getTestZN(key: string){
@@ -25,6 +26,7 @@ export class CookieStoreService {
       'o2':'氧气',
       'ch4':'甲烷',
       'temp':'温度',
+      'tem':'温度',
       'humi':'湿度',
       'eeg':'脑电',
       'ecg':'心率',
@@ -40,7 +42,8 @@ export class CookieStoreService {
       '二氧化碳':'co2',
       '氧气':'o2',
       '甲烷':'ch4',
-      '温度':'temp',
+      // '温度':'temp',
+      '温度':'tem',
       '湿度':'humi',
       '脑电':'eeg',
       '心率':'ecg',

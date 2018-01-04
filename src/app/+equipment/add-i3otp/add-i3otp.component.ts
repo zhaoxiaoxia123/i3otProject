@@ -25,6 +25,7 @@ export class AddI3otpComponent implements OnInit {
   o_id_default : number;
   i3otp_category_default : number;
   selects: Array<any> = [];
+  rollback_url : string = '/equipment/i3otp';
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -68,6 +69,9 @@ export class AddI3otpComponent implements OnInit {
     this.i_id = this.routInfo.snapshot.params['i_id'];
     if(this.i_id != 0){
       this.getI3otpInfo(this.i_id);
+      this.rollback_url += '/' + this.i_id;
+    }else{
+      this.rollback_url += '/0';
     }
     this.getI3otpDefault();
   }
@@ -125,7 +129,7 @@ export class AddI3otpComponent implements OnInit {
       console.log(this.i3otpList);
       if(this.i3otpList['status'] == 202){
         alert(this.i3otpList['msg']);
-        this.cookieStore.removeAll();
+        this.cookieStore.removeAll(this.rollback_url);
         this.router.navigate(['/auth/login']);
       }
       if(this.i_id == 0) {
@@ -138,11 +142,11 @@ export class AddI3otpComponent implements OnInit {
   }
 
   onSubmit(){
-    if(this.formModel.value['i_number'] == ''){
+    if(this.formModel.value['i_number'].trim() == ''){
       alert('请填写设备编号！');
       return false;
     }
-    if(this.formModel.value['i_name'] == ''){
+    if(this.formModel.value['i_name'].trim() == ''){
       alert('请填写设备名称！');
       return false;
     }
@@ -172,7 +176,7 @@ export class AddI3otpComponent implements OnInit {
               this.router.navigateByUrl('/equipment/station-list');
             }
           }else if(info['status'] == 202){
-            this.cookieStore.removeAll();
+            this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
         },

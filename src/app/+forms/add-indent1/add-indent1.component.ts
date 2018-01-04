@@ -39,6 +39,7 @@ export class AddIndent1Component implements OnInit {
   //是否显示产品信息
   is_show_pro_info : boolean = true;
   product_info : Array<any> = [];
+  rollback_url : string = '/forms/indent1';
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -82,6 +83,9 @@ export class AddIndent1Component implements OnInit {
     console.log( this.o_id);
     if(this.o_id != 0){
       this.getOrderInfo(this.o_id);
+      this.rollback_url += '/' + this.o_id;
+    }else{
+      this.rollback_url += '/0';
     }
 
     this.getOrderDefault(1);
@@ -139,7 +143,7 @@ export class AddIndent1Component implements OnInit {
     setTimeout(() => {
       if(this.orderList['status'] == 202){
         alert(this.orderList['msg'] );
-        this.cookieStore.removeAll();
+        this.cookieStore.removeAll(this.rollback_url);
         this.router.navigate(['/auth/login']);
       }
       // this.category_id1_default = this.orderList['result']['categoryList6'].length >= 1 ? this.orderList['result']['categoryList6'][0]['category_id'] : 0;
@@ -182,7 +186,7 @@ export class AddIndent1Component implements OnInit {
   // }
 
   onSubmit(){
-    if(this.formModel.value['o_order'] == ''){
+    if(this.formModel.value['o_order'].trim() == ''){
       alert('请填写订单号！');
       return false;
     }
@@ -219,7 +223,7 @@ export class AddIndent1Component implements OnInit {
           if(info['status'] == 200) {
             this.router.navigateByUrl('/tables/indent');
           }else if(info['status'] == 202){
-            this.cookieStore.removeAll();
+            this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
         },
@@ -254,7 +258,7 @@ export class AddIndent1Component implements OnInit {
   //           let info =JSON.parse(data['_body']);
   //           alert(info['msg']);
   //           if(info['status'] == 202){
-  //             this.cookieStore.removeAll();
+  //             this.cookieStore.removeAll(this.rollback_url);
   //             this.router.navigate(['/auth/login']);
   //           }
   //           if(info['status'] == 203){
@@ -284,7 +288,7 @@ export class AddIndent1Component implements OnInit {
   //           let info =JSON.parse(data['_body']);
   //           alert(info['msg']);
   //           if(info['status'] == 202){
-  //             this.cookieStore.removeAll();
+  //             this.cookieStore.removeAll(this.rollback_url);
   //             this.router.navigate(['/auth/login']);
   //           }
   //           if(info['status'] == 203){

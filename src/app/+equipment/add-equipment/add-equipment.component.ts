@@ -39,6 +39,7 @@ export class AddEquipmentComponent implements OnInit {
   div_show_sensor : boolean = true;//传感器点击显示下拉框
   div_show_comm : boolean = true;//通讯方式点击显示下拉框
 
+  rollback_url : string = '/equipment/add-equipment';
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -80,6 +81,9 @@ export class AddEquipmentComponent implements OnInit {
     this.i_id = this.routInfo.snapshot.params['i_id'];
     if(this.i_id != 0){
       this.getI3otpInfo(this.i_id);
+      this.rollback_url += '/' + this.i_id;
+    }else{
+      this.rollback_url += '/0';
     }
     this.getI3otpDefault();
   }
@@ -157,7 +161,7 @@ export class AddEquipmentComponent implements OnInit {
       console.log(this.i3otpList);
       if(this.i3otpList['status'] == 202){
         alert(this.i3otpList['msg']);
-        this.cookieStore.removeAll();
+        this.cookieStore.removeAll(this.rollback_url);
         this.router.navigate(['/auth/login']);
       }
       if(this.i_id == 0) {
@@ -198,7 +202,7 @@ export class AddEquipmentComponent implements OnInit {
       // console.log(this.i3otpListUser);
       if(this.i3otpListUser['status'] == 202){
         alert(this.i3otpListUser['msg']);
-        this.cookieStore.removeAll();
+        this.cookieStore.removeAll(this.rollback_url);
         this.router.navigate(['/auth/login']);
       }
       if(this.i_id == 0) {
@@ -208,11 +212,11 @@ export class AddEquipmentComponent implements OnInit {
     }, 600);
   }
   onSubmit(){
-    if(this.formModel.value['i_number'] == ''){
+    if(this.formModel.value['i_number'].trim() == ''){
       alert('请填写设备编号！');
       return false;
     }
-    if(this.formModel.value['i_name'] == ''){
+    if(this.formModel.value['i_name'].trim() == ''){
       alert('请填写设备名称！');
       return false;
     }
@@ -248,7 +252,7 @@ export class AddEquipmentComponent implements OnInit {
           if(info['status'] == 200) {
               this.router.navigateByUrl('/equipment/equipment-list');
           }else if(info['status'] == 202) {
-            this.cookieStore.removeAll();
+            this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
         },

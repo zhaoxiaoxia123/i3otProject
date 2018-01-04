@@ -22,6 +22,7 @@ export class ListInventoryComponent implements OnInit {
   check : boolean = false;
 
   storehouse_info : Array<any> = [];
+  rollback_url : string = '/tables/client';
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -57,7 +58,7 @@ export class ListInventoryComponent implements OnInit {
     setTimeout(() => {
       console.log(this.storehouseList);
       if(this.storehouseList['status'] == 202){
-        this.cookiestore.removeAll();
+        this.cookiestore.removeAll(this.rollback_url);
         this.router.navigate(['/auth/login']);
       }
       if (this.storehouseList) {
@@ -187,7 +188,7 @@ export class ListInventoryComponent implements OnInit {
         // console.log(this.productList);
         alert(this.storehouseList['msg']);
         if(this.storehouseList['status'] == 202){
-          this.cookiestore.removeAll();
+          this.cookiestore.removeAll(this.rollback_url);
           this.router.navigate(['/auth/login']);
         }
         if (this.storehouseList) {

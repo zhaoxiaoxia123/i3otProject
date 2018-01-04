@@ -65,6 +65,7 @@ export class StationChartComponent implements OnInit {
 
     selectedStr : Object = {};
     isShowJoin : boolean = false;
+    rollback_url : string = '/equipment/station-chart';
     constructor(
         fb:FormBuilder,
         private http: Http,
@@ -104,7 +105,7 @@ export class StationChartComponent implements OnInit {
             console.log('this.i3otpList:--');
             console.log(this.i3otpList);
             if(this.i3otpList['status'] == 202){
-                this.cookieStore.removeAll();
+                this.cookieStore.removeAll(this.rollback_url);
                 this.router.navigate(['/auth/login']);
             }
             if(this.i3otpList.length == 0){
@@ -146,7 +147,7 @@ export class StationChartComponent implements OnInit {
             console.log('this.colorShow:--');
             console.log(this.colorShow);
             if(this.colorShow['status'] == 202){
-                this.cookieStore.removeAll();
+                this.cookieStore.removeAll(this.rollback_url);
                 this.router.navigate(['/auth/login']);
             }
         }, 500);
@@ -210,7 +211,7 @@ export class StationChartComponent implements OnInit {
             if (this.products1.length == 0 && this.metric.replace('_', '') != '' && this.pid.replace(',', '') != '') {
                 this.search_datapoint();
                 return false;
-            } else if (this.metric.replace('_', '') == '' || this.pid.replace(',', '') == '') {
+            } else if (this.metric.replace('_', '').trim() == '' || this.pid.replace(',', '').trim() == '') {
                 alert('数据格式有误！');
                 return false;
             }

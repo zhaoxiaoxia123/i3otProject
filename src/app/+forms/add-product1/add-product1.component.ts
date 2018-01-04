@@ -33,6 +33,7 @@ export class AddProduct1Component implements OnInit {
   category_id1 : number = 0;
   category_desc1: string;
   category_desc2: string;
+  rollback_url : string = '/form/product1';
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -68,6 +69,9 @@ export class AddProduct1Component implements OnInit {
     console.log( this.p_id);
     if(this.p_id != 0){
       this.getproductInfo(this.p_id);
+      this.rollback_url += '/' + this.p_id;
+    }else{
+      this.rollback_url += '/0';
     }
     this.getProductDefault(1);
   }
@@ -127,7 +131,7 @@ export class AddProduct1Component implements OnInit {
       // console.log('this.productList:---');
       // console.log(this.productList);
       if(this.productList['status'] == 202){
-        this.cookieStore.removeAll();
+        this.cookieStore.removeAll(this.rollback_url);
         this.router.navigate(['/auth/login']);
       }
       if(this.p_id == 0) {
@@ -194,7 +198,7 @@ export class AddProduct1Component implements OnInit {
   updateCategory(){
     if(this.formModel.value['category_id'] != 0){
       let msg = '你确定要使用此条';
-      if(this.formModel.value['specifications'] == ''){
+      if(this.formModel.value['specifications'].trim() == ''){
         msg += '空白';
       }
       msg += '参数信息作为模版？';
@@ -207,7 +211,7 @@ export class AddProduct1Component implements OnInit {
             let info = JSON.parse(data['_body']);
             alert(info['msg']);
             if(info['status'] == 202){
-              this.cookieStore.removeAll();
+              this.cookieStore.removeAll(this.rollback_url);
               this.router.navigate(['/auth/login']);
             }
           },
@@ -220,7 +224,7 @@ export class AddProduct1Component implements OnInit {
   }
 
   onSubmit(){
-    if(this.formModel.value['product_id'] == ''){
+    if(this.formModel.value['product_id'].trim() == ''){
       alert('请填写产品编号！');
       return false;
     }
@@ -249,7 +253,7 @@ export class AddProduct1Component implements OnInit {
           if(info['status'] == 200) {
             this.router.navigateByUrl('/tables/product');
           }else if(info['status'] == 202){
-            this.cookieStore.removeAll();
+            this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
         },
@@ -296,7 +300,7 @@ export class AddProduct1Component implements OnInit {
     if(number == 1){  //发布一级类型
       console.log(this.category_desc1);
        //发布一级类型文字信息
-        if(this.category_desc1 == '' || !this.category_desc1){
+        if(this.category_desc1.trim() == '' || !this.category_desc1){
           alert("请输入要添加的信息！");
           return false;
         }
@@ -311,7 +315,7 @@ export class AddProduct1Component implements OnInit {
               let info =JSON.parse(data['_body']);
               alert(info['msg']);
               if(info['status'] == 202){
-                this.cookieStore.removeAll();
+                this.cookieStore.removeAll(this.rollback_url);
                 this.router.navigate(['/auth/login']);
               }
               if(info['status'] == 203){
@@ -326,7 +330,7 @@ export class AddProduct1Component implements OnInit {
         alert("没有一级类型，无法添加二级类型！");
         return false;
       }
-      if(this.category_desc2 == '' || !this.category_desc2){
+      if(this.category_desc2.trim() == '' || !this.category_desc2){
         alert("请输入要添加的信息！");
         return false;
       }
@@ -341,7 +345,7 @@ export class AddProduct1Component implements OnInit {
             let info =JSON.parse(data['_body']);
             alert(info['msg']);
             if(info['status'] == 202){
-              this.cookieStore.removeAll();
+              this.cookieStore.removeAll(this.rollback_url);
               this.router.navigate(['/auth/login']);
             }
             if(info['status'] == 203){

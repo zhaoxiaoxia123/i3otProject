@@ -33,6 +33,7 @@ export class SettingLabellingaComponent implements OnInit {
     cid : any = 0;//当前登录用户的所属公司id
     super_admin_id : any = 0;//超级管理员所属公司id
     category_type : number = 16;
+    rollback_url : string = '/management/setting-labellinga';
   constructor(
       private http:Http,
       private router : Router,
@@ -62,7 +63,7 @@ export class SettingLabellingaComponent implements OnInit {
         setTimeout(() => {
             console.log(this.categoryList);
             if(this.categoryList['status'] == 202){
-                this.cookieStoreService.removeAll();
+                this.cookieStoreService.removeAll(this.rollback_url);
                 this.router.navigate(['/auth/login']);
             }
         }, 300);
@@ -72,7 +73,7 @@ export class SettingLabellingaComponent implements OnInit {
      * 添加项目下任务标签信息
      */
     addCategory(){
-        if(this.category_desc == ''){
+        if(this.category_desc.trim() == ''){
             alert('请输入项目标题！');
             return false;
         }
@@ -91,7 +92,7 @@ export class SettingLabellingaComponent implements OnInit {
                     this.color = '';
                 }else if(info['status'] == 202){
                     alert(info['msg']);
-                    this.cookieStoreService.removeAll();
+                    this.cookieStoreService.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
                 this.categoryList = info;
@@ -133,7 +134,7 @@ export class SettingLabellingaComponent implements OnInit {
 
             setTimeout(() => {
                 if(this.categoryList['status'] == 202){
-                    this.cookieStoreService.removeAll();
+                    this.cookieStoreService.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
             }, 300);

@@ -60,7 +60,7 @@ export class RegistrationFormComponent implements OnInit {
   cropperSettings1:CropperSettings;
   croppedWidth:number;
   croppedHeight:number;
-
+  rollback_url :string = '/forms/employees';
   @ViewChild('cropper', undefined) cropper:ImageCropperComponent;
 
   constructor(
@@ -142,6 +142,9 @@ export class RegistrationFormComponent implements OnInit {
     this.u_id = this.routInfo.snapshot.params['u_id'];
     if(this.u_id != 0){
       this.getUserInfo(this.u_id);
+      this.rollback_url += '/' + this.u_id;
+    }else{
+      this.rollback_url += '/0';
     }
     this.getUserDefault(1);
 
@@ -251,7 +254,7 @@ export class RegistrationFormComponent implements OnInit {
       console.log(this.userList);
       if(this.userList['status'] == 202) {
         alert(this.userList['msg']);
-        this.cookieStoreService.removeAll();
+        this.cookieStoreService.removeAll(this.rollback_url);
         this.router.navigate(['/auth/login']);
       }
       if(this.u_id == 0){
@@ -281,11 +284,11 @@ export class RegistrationFormComponent implements OnInit {
   }
 
   onSubmit(){
-    if(this.formModel.value['employee_id'] == ''){
+    if(this.formModel.value['employee_id'].trim() == ''){
       alert('请填写员工编号！');
       return false;
     }
-    if(this.formModel.value['name'] == ''){
+    if(this.formModel.value['name'].trim() == ''){
       alert('请填写员工姓名！');
       return false;
     }
@@ -328,7 +331,7 @@ export class RegistrationFormComponent implements OnInit {
             this.cookieStoreService.setCookie('u_avatar', this.path);
             this.router.navigateByUrl('/tables/staff');
           }else if(info['status'] == 202){
-            this.cookieStoreService.removeAll();
+            this.cookieStoreService.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
         },
@@ -343,7 +346,7 @@ export class RegistrationFormComponent implements OnInit {
    * @returns {boolean}
    */
   onSubmit_1(){
-    if(this.department_1 == ''){
+    if(this.department_1.trim() == ''){
       alert('请输入部门名称！');
       return false;
     }
@@ -358,7 +361,7 @@ export class RegistrationFormComponent implements OnInit {
           if(info['status'] == 200) {
             this.department_1 = '';
           }else if(info['status'] == 202){
-            this.cookieStoreService.removeAll();
+            this.cookieStoreService.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
         },

@@ -29,6 +29,7 @@ export class AddPhonicsComponent implements OnInit {
   //复选框
   color_i3otp_id : number = 0;
   div_show_i3otp : boolean = true;//传感器点击显示下拉框
+  rollback_url : string = '/equipment/phonics';
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -55,6 +56,9 @@ export class AddPhonicsComponent implements OnInit {
     this.b_id = this.routInfo.snapshot.params['b_id'];
     if(this.b_id != 0){
       this.getBroadcastInfo(this.b_id);
+      this.rollback_url += '/' + this.b_id;
+    }else{
+      this.rollback_url += '/0';
     }
   }
 
@@ -108,7 +112,7 @@ export class AddPhonicsComponent implements OnInit {
     setTimeout(() => {
       if(this.broadcastList['status'] == 202){
         alert(this.broadcastList['msg']);
-        this.cookieStore.removeAll();
+        this.cookieStore.removeAll(this.rollback_url);
         this.router.navigate(['/auth/login']);
       }
       if(this.b_id == 0) {
@@ -140,7 +144,7 @@ export class AddPhonicsComponent implements OnInit {
     setTimeout(() => {
       if(this.broadcastListUser['status'] == 202){
         alert(this.broadcastListUser['msg']);
-        this.cookieStore.removeAll();
+        this.cookieStore.removeAll(this.rollback_url);
         this.router.navigate(['/auth/login']);
       }
       if(this.b_id == 0) {
@@ -156,7 +160,7 @@ export class AddPhonicsComponent implements OnInit {
    * @returns {boolean}
    */
   onSubmit(){
-    if(this.formModel.value['b_info'] == ''){
+    if(this.formModel.value['b_info'].trim() == ''){
       alert('请填写文字信息！');
       return false;
     }
@@ -178,7 +182,7 @@ export class AddPhonicsComponent implements OnInit {
           if(info['status'] == 200) {
             this.router.navigateByUrl('/equipment/phonics-list');
           }else if(info['status'] == 202) {
-            this.cookieStore.removeAll();
+            this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
         }

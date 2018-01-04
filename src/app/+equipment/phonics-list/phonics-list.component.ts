@@ -20,6 +20,7 @@ export class PhonicsListComponent implements OnInit {
   prev : boolean = false;
   next : boolean = false;
   broadcastInfo : Array<any> = [];
+  rollback_url : string = '/equipment/phonics-list';
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -54,7 +55,7 @@ export class PhonicsListComponent implements OnInit {
 
     setTimeout(() => {
       if(this.broadcastList['status'] == 202){
-        this.cookiestore.removeAll();
+        this.cookiestore.removeAll(this.rollback_url);
         this.router.navigate(['/auth/login']);
       }
       if (this.broadcastList) {
@@ -131,7 +132,7 @@ export class PhonicsListComponent implements OnInit {
       setTimeout(() => {
         // console.log(this.userList);
         if(this.broadcastList['status'] == 202){
-          this.cookiestore.removeAll();
+          this.cookiestore.removeAll(this.rollback_url);
           this.router.navigate(['/auth/login']);
         }
         if (this.broadcastList) {
@@ -202,7 +203,7 @@ export class PhonicsListComponent implements OnInit {
       setTimeout(() => {
         alert(this.broadcastList['msg']);
         if(this.broadcastList['status'] == 202){
-          this.cookiestore.removeAll();
+          this.cookiestore.removeAll(this.rollback_url);
           this.router.navigate(['/auth/login']);
         }
         if (this.broadcastList) {

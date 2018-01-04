@@ -96,6 +96,7 @@ export class TodoMissionComponent implements OnInit {
 
     dropTemplateId : any = '';//拽入模版编号
 
+    rollback_url : string = '/forms/todo-mission';
     constructor(
       private http:Http,
       private router : Router,
@@ -125,9 +126,12 @@ export class TodoMissionComponent implements OnInit {
           CKEDITOR.replace('ckeditor-showcase');
       });
       this.routInfo.params.subscribe((param : Params)=>this.project_id=param['project_id']); //这种获取方式是参数订阅，解决在本页传参不生效问题
-      if(this.project_id != 0){
+        if(this.project_id != 0){
           this.getTodoDefault(this.project_id);
-      }
+            this.rollback_url += '/'+this.project_id
+      }else{
+            this.rollback_url += '/0';
+        }
       this.admin_id = this.globalService.getAdminID();
       this.cookie_c_id = this.cookieStore.getCookie('cid');
       this.cookie_u_id = this.cookieStore.getCookie('uid');
@@ -140,7 +144,7 @@ export class TodoMissionComponent implements OnInit {
      * template_id:string,
      */
     onDragList_(todoId :number,project_id:number){
-        if(this.dropTemplateId == ''){
+        if(this.dropTemplateId.trim() == ''){
             alert('请拖拽进框内再放开鼠标！');
             return false;
         }
@@ -162,7 +166,7 @@ export class TodoMissionComponent implements OnInit {
                     }
                 }else if(info['status'] == 202){
                     alert(info['msg']);
-                    this.cookieStore.removeAll();
+                    this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }else if(info['status'] == 201){
                     alert(info['msg']);
@@ -192,7 +196,7 @@ export class TodoMissionComponent implements OnInit {
 
         setTimeout(() => {
             if(this.todoList['status'] == 202){
-                this.cookieStore.removeAll();
+                this.cookieStore.removeAll(this.rollback_url);
                 this.router.navigate(['/auth/login']);
             }
             this.selects = [];
@@ -221,7 +225,7 @@ export class TodoMissionComponent implements OnInit {
      * 提交发布任务
      */
     submitTodo(project_id:number,template_id:number){
-        if(this.publish_todo_title[template_id] == ''){
+        if(this.publish_todo_title[template_id].trim() == ''){
             alert('请填写任务标题！');
             return false;
         }
@@ -243,7 +247,7 @@ export class TodoMissionComponent implements OnInit {
                     }
                 }else if(info['status'] == 202){
                     alert(info['msg']);
-                    this.cookieStore.removeAll();
+                    this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }else if(info['status'] == 201){
                     alert(info['msg']);
@@ -284,7 +288,7 @@ export class TodoMissionComponent implements OnInit {
                         this.is_show_publish_template = false;
                     }else if(info['status'] == 202){
                         alert(info['msg']);
-                        this.cookieStore.removeAll();
+                        this.cookieStore.removeAll(this.rollback_url);
                         this.router.navigate(['/auth/login']);
                     }else if(info['status'] == 201){
                         alert(info['msg']);
@@ -311,7 +315,7 @@ export class TodoMissionComponent implements OnInit {
      * @param template_id
      */
     editTemplateName(project_id:number,template_id:number){
-        if(this.edit_template_name[template_id] == ''){
+        if(this.edit_template_name[template_id].trim() == ''){
             alert('请填写任务列表标题！');
             return false;
         }
@@ -333,7 +337,7 @@ export class TodoMissionComponent implements OnInit {
                     }
                 }else if(info['status'] == 202){
                     alert(info['msg']);
-                    this.cookieStore.removeAll();
+                    this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }else if(info['status'] == 201){
                     alert(info['msg']);
@@ -363,7 +367,7 @@ export class TodoMissionComponent implements OnInit {
             });
         setTimeout(() => {
             if(this.todo_info['status'] == 202){
-                this.cookieStore.removeAll();
+                this.cookieStore.removeAll(this.rollback_url);
                 this.router.navigate(['/auth/login']);
             }
             this.todo_name = this.todo_info['result']['todo_title'];
@@ -410,7 +414,7 @@ export class TodoMissionComponent implements OnInit {
                         }
                     }else if(info['status'] == 202){
                         alert(info['msg']);
-                        this.cookieStore.removeAll();
+                        this.cookieStore.removeAll(this.rollback_url);
                         this.router.navigate(['/auth/login']);
                     }else if(info['status'] == 201){
                         alert(info['msg']);
@@ -443,7 +447,7 @@ export class TodoMissionComponent implements OnInit {
                         this.todo_info = info;
                     }else if(info['status'] == 202){
                         alert(info['msg']);
-                        this.cookieStore.removeAll();
+                        this.cookieStore.removeAll(this.rollback_url);
                         this.router.navigate(['/auth/login']);
                     }else if(info['status'] == 201){
                         alert(info['msg']);
@@ -460,7 +464,7 @@ export class TodoMissionComponent implements OnInit {
      */
     showPublishDetail(todo_id:number,num:number){
         if(num == 2){
-            if(this.todo_name == ''){
+            if(this.todo_name.trim() == ''){
                 alert('请填写任务列表标题！');
                 return false;
             }
@@ -477,7 +481,7 @@ export class TodoMissionComponent implements OnInit {
                         this.todo_info = info;
                     }else if(info['status'] == 202){
                         alert(info['msg']);
-                        this.cookieStore.removeAll();
+                        this.cookieStore.removeAll(this.rollback_url);
                         this.router.navigate(['/auth/login']);
                     }
                 }
@@ -513,7 +517,7 @@ export class TodoMissionComponent implements OnInit {
                         });
                     }else if(info['status'] == 202){
                         alert(info['msg']);
-                        this.cookieStore.removeAll();
+                        this.cookieStore.removeAll(this.rollback_url);
                         this.router.navigate(['/auth/login']);
                     }
                 }
@@ -547,7 +551,7 @@ export class TodoMissionComponent implements OnInit {
                         this.todo_info = info;
                     }else if(info['status'] == 202){
                         alert(info['msg']);
-                        this.cookieStore.removeAll();
+                        this.cookieStore.removeAll(this.rollback_url);
                         this.router.navigate(['/auth/login']);
                     }
                 }
@@ -569,7 +573,7 @@ export class TodoMissionComponent implements OnInit {
             setTimeout(() => {
                  if (this.todoList['status'] == 202) {
                     alert(this.todoList['msg']);
-                    this.cookieStore.removeAll();
+                    this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
             }, 300);
@@ -605,7 +609,7 @@ export class TodoMissionComponent implements OnInit {
                         this.is_expired_at = 0;
                     }else if(info['status'] == 202){
                         alert(info['msg']);
-                        this.cookieStore.removeAll();
+                        this.cookieStore.removeAll(this.rollback_url);
                         this.router.navigate(['/auth/login']);
                     }
                 }
@@ -665,7 +669,7 @@ export class TodoMissionComponent implements OnInit {
         });
     setTimeout(() => {
         if(this.user_list['status'] == 202){
-            this.cookieStore.removeAll();
+            this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
         }
         let result = this.user_list['result']['userList'];
@@ -692,7 +696,7 @@ export class TodoMissionComponent implements OnInit {
 
         }else if(c_id != this.cookie_c_id && c_id != this.admin_id){
             alert('当前登陆用户所属公司和发布此任务的用户所属公司不符，请重新登陆！！');
-            this.cookieStore.removeAll();
+            this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
         }
         //返还初始化
@@ -747,7 +751,7 @@ export class TodoMissionComponent implements OnInit {
                     this.selected_user = [];
                 }else if(info['status'] == 202){
                     alert(info['msg']);
-                    this.cookieStore.removeAll();
+                    this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
             }
@@ -768,7 +772,7 @@ export class TodoMissionComponent implements OnInit {
             setTimeout(() => {
                 if (this.todoList['status'] == 202) {
                     alert(this.todoList['msg']);
-                    this.cookieStore.removeAll();
+                    this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
             }, 300);
@@ -830,7 +834,7 @@ export class TodoMissionComponent implements OnInit {
                     this.comment_list = info;
                 }else if(info['status'] == 202){
                     alert(info['msg']);
-                    this.cookieStore.removeAll();
+                    this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
             }
