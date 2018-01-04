@@ -41,6 +41,7 @@ export class SettingEnterprise2Component implements OnInit {
     //修改标题显示
     category_id1 : any = 0;//结算方式
     category_id2 : any = 0;//运输方式
+    rollback_url : string = '/management/enterprise2';
     constructor(
         fb:FormBuilder,
         private http:Http,
@@ -85,7 +86,7 @@ export class SettingEnterprise2Component implements OnInit {
         setTimeout(() => {
             if(category_type == 8) {
                 if(this.orderCategoryList['status'] == 202){
-                    this.cookieStore.removeAll();
+                    this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
                 if (this.orderCategoryList) {
@@ -104,7 +105,7 @@ export class SettingEnterprise2Component implements OnInit {
             }
             if(category_type == 9) {
                 if(this.sourceList['status'] == 202){
-                    this.cookieStore.removeAll();
+                    this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
                 if (this.sourceList) {
@@ -141,7 +142,7 @@ export class SettingEnterprise2Component implements OnInit {
                 // this.formModel.reset();
                 this.orderCategoryList = JSON.parse(data['_body']);
                 if(this.orderCategoryList['status'] == 202){
-                    this.cookieStore.removeAll();
+                    this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
                 this.category_id1 = 0;
@@ -170,7 +171,7 @@ export class SettingEnterprise2Component implements OnInit {
                 // this.formModel.reset();
                 this.sourceList = JSON.parse(data['_body']);
                 if(this.sourceList['status'] == 202){
-                    this.cookieStore.removeAll();
+                    this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
                 this.category_id2 = 0;
@@ -240,7 +241,7 @@ export class SettingEnterprise2Component implements OnInit {
             setTimeout(() => {
                 if(category_type == 8){
                     if(this.orderCategoryList['status'] == 202){
-                        this.cookieStore.removeAll();
+                        this.cookieStore.removeAll(this.rollback_url);
                         this.router.navigate(['/auth/login']);
                     }
                     if (this.orderCategoryList) {
@@ -259,7 +260,7 @@ export class SettingEnterprise2Component implements OnInit {
                 if(category_type == 9)
                 {
                     if(this.sourceList['status'] == 202){
-                        this.cookieStore.removeAll();
+                        this.cookieStore.removeAll(this.rollback_url);
                         this.router.navigate(['/auth/login']);
                     }
                     if (this.sourceList['result']['current_page'] == this.sourceList['result']['last_page']) {

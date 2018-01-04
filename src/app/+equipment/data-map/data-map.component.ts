@@ -44,6 +44,7 @@ export class DataMapComponent implements OnInit {
     //颜色设置列表信息
     colorShow  : Array<any> = [];
     count : number = 0;
+    rollback_url : string = '/equipment/data-map';
     constructor(
         private http : Http,
         private router:Router,
@@ -76,7 +77,7 @@ export class DataMapComponent implements OnInit {
             console.log('this.colorShow:--');
             console.log(this.colorShow);
             if(this.colorShow['status'] == 202){
-                this.cookiestore.removeAll();
+                this.cookiestore.removeAll(this.rollback_url);
                 this.router.navigate(['/auth/login']);
             }
         }, 500);
@@ -129,7 +130,7 @@ export class DataMapComponent implements OnInit {
             console.log(this.customerDefault);
 
             if(this.customerDefault['status'] == 202){
-                this.cookiestore.removeAll();
+                this.cookiestore.removeAll(this.rollback_url);
                 this.router.navigate(['/auth/login']);
             }
             this.company = this.customerDefault['result']['c_number'];

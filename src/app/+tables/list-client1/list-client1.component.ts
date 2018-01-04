@@ -20,6 +20,7 @@ export class ListClient1Component implements OnInit {
   selects : Array<any> = [];
   check : boolean = false;
   customer_info : Array<any> = [];
+  rollback_url : string = '/tables/client1';
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -70,7 +71,7 @@ export class ListClient1Component implements OnInit {
     setTimeout(() => {
       console.log(this.customerList);
       if(this.customerList['status'] == 202){
-        this.cookiestore.removeAll();
+        this.cookiestore.removeAll(this.rollback_url);
         this.router.navigate(['/auth/login']);
       }
       if (this.customerList) {
@@ -162,7 +163,7 @@ export class ListClient1Component implements OnInit {
         // console.log(this.userList);
         alert(this.customerList['msg']);
         if(this.customerList['status'] == 202){
-          this.cookiestore.removeAll();
+          this.cookiestore.removeAll(this.rollback_url);
           this.router.navigate(['/auth/login']);
         }
         if (this.customerList) {
@@ -206,7 +207,7 @@ export class ListClient1Component implements OnInit {
       // console.log(this.userList);
       alert(this.customerList['msg']);
       if(this.customerList['status'] == 202){
-        this.cookiestore.removeAll();
+        this.cookiestore.removeAll(this.rollback_url);
         this.router.navigate(['/auth/login']);
       }
       if (this.customerList) {

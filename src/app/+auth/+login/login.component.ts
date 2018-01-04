@@ -56,7 +56,13 @@ export class LoginComponent implements OnInit {
             this.username = info['result']['u_username'];
             this.uid = info['result']['id'];
             this.cid = info['result']['c_id'];
-            this.router.navigate(['/dashboard/dynamic-wall']);
+            if (this.cookieStoreService.getCookie('rollback')) {
+              console.log('rollback:------');
+              console.log(this.cookieStoreService.getCookie('rollback'));
+              this.router.navigate([this.cookieStoreService.getCookie('rollback')]);
+            }else {
+              this.router.navigate(['/dashboard/dynamic-wall']);
+            }
           }else if(info['status'] == 202){
             this.cookieStoreService.removeAll();
             this.router.navigate(['/auth/login']);

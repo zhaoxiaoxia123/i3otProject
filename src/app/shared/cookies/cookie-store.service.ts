@@ -14,8 +14,9 @@ export class CookieStoreService {
     return this._cookieService.put(key,value);
   }
 
-  removeAll(){
+  removeAll(url:string = '/dashboard/dynamic-wall'){
     this._cookieService.removeAll();
+    this.setCookie('rollback',url);
   }
 
   getTestZN(key: string){

@@ -22,6 +22,7 @@ export class ListIndentComponent implements OnInit {
   check : boolean = false;
 
   order_info : Array<any> = [];
+  rollback_url : string = '/tables/client';
   constructor(
       fb:FormBuilder,
       private router : Router,
@@ -58,7 +59,7 @@ export class ListIndentComponent implements OnInit {
     setTimeout(() => {
       console.log(this.orderList);
       if(this.orderList['status'] == 202){
-        this.cookiestore.removeAll();
+        this.cookiestore.removeAll(this.rollback_url);
         this.router.navigate(['/auth/login']);
       }
       if (this.orderList) {
@@ -146,7 +147,7 @@ export class ListIndentComponent implements OnInit {
         // console.log(this.userList);
 
         if(this.orderList['status'] == 202){
-          this.cookiestore.removeAll();
+          this.cookiestore.removeAll(this.rollback_url);
           this.router.navigate(['/auth/login']);
         }
         if (this.orderList) {
@@ -193,7 +194,7 @@ export class ListIndentComponent implements OnInit {
         // console.log(this.userList);
 
         if(this.orderList['status'] == 202){
-          this.cookiestore.removeAll();
+          this.cookiestore.removeAll(this.rollback_url);
           this.router.navigate(['/auth/login']);
         }
         if (this.orderList) {

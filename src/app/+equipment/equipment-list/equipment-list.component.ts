@@ -20,6 +20,7 @@ export class EquipmentListComponent implements OnInit {
   prev : boolean = false;
   next : boolean = false;
   i3otpInfo : Array<any> = [];
+  rollback_url : string = '/equipment/equipment-list';
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -56,7 +57,7 @@ export class EquipmentListComponent implements OnInit {
       console.log(this.i3otpList);
 
       if(this.i3otpList['status'] == 202){
-        this.cookiestore.removeAll();
+        this.cookiestore.removeAll(this.rollback_url);
         this.router.navigate(['/auth/login']);
       }
       if (this.i3otpList) {
@@ -133,7 +134,7 @@ export class EquipmentListComponent implements OnInit {
       setTimeout(() => {
         // console.log(this.userList);
         if(this.i3otpList['status'] == 202){
-          this.cookiestore.removeAll();
+          this.cookiestore.removeAll(this.rollback_url);
           this.router.navigate(['/auth/login']);
         }
         if (this.i3otpList) {
@@ -204,7 +205,7 @@ export class EquipmentListComponent implements OnInit {
       setTimeout(() => {
         alert(this.i3otpList['msg']);
         if(this.i3otpList['status'] == 202){
-          this.cookiestore.removeAll();
+          this.cookiestore.removeAll(this.rollback_url);
           this.router.navigate(['/auth/login']);
         }
         if (this.i3otpList) {

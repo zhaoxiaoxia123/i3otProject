@@ -21,6 +21,7 @@ export class TodoProjectsComponent implements OnInit {
   project_content : string;
   project_publicity : number = 0;
   project_template:boolean = false;
+  rollback_url : string = '/forms/todo-projects';
   constructor(
       private http:Http,
       private router : Router,
@@ -48,7 +49,7 @@ export class TodoProjectsComponent implements OnInit {
     setTimeout(() => {
       console.log(this.projectDefault);
       if(this.projectDefault['status'] == 202){
-        this.cookiestore.removeAll();
+        this.cookiestore.removeAll(this.rollback_url);
         this.router.navigate(['/auth/login']);
       }
     }, 300);
@@ -69,7 +70,7 @@ export class TodoProjectsComponent implements OnInit {
     setTimeout(() => {
       console.log(this.projectList);
       if(this.projectList['status'] == 202){
-        this.cookiestore.removeAll();
+        this.cookiestore.removeAll(this.rollback_url);
         this.router.navigate(['/auth/login']);
       }
     }, 300);
@@ -94,7 +95,7 @@ export class TodoProjectsComponent implements OnInit {
       setTimeout(() => {
         console.log(this.projectInfo);
         if(this.projectInfo['status'] == 202){
-          this.cookiestore.removeAll();
+          this.cookiestore.removeAll(this.rollback_url);
           this.router.navigate(['/auth/login']);
         }
         this.project_owner = this.projectInfo['result']['project_owner'];
@@ -129,7 +130,7 @@ export class TodoProjectsComponent implements OnInit {
               alert(info['msg']);
             }else if(info['status'] == 202){
               alert(info['msg']);
-              this.cookiestore.removeAll();
+              this.cookiestore.removeAll(this.rollback_url);
               this.router.navigate(['/auth/login']);
             }
             this.projectList = info;
@@ -143,7 +144,7 @@ export class TodoProjectsComponent implements OnInit {
    * @returns {boolean}
    */
   onSubmit(){
-    if(this.project_title == ''){
+    if(this.project_title.trim() == ''){
       alert('请输入项目标题！');
       return false;
     }
@@ -167,7 +168,7 @@ export class TodoProjectsComponent implements OnInit {
             this.project_publicity = 0;
           }else if(info['status'] == 202){
             alert(info['msg']);
-            this.cookiestore.removeAll();
+            this.cookiestore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
           this.projectList = info;

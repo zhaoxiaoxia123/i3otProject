@@ -33,6 +33,7 @@ export class ChartSettingComponent implements OnInit {
     //默认选中值
     s_name_default : string;
     s_id : number = 0;
+    rollback_url : string = '/equipment/chart-setting';
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -81,7 +82,7 @@ export class ChartSettingComponent implements OnInit {
             console.log('this.settingsList:--');
             console.log(this.settingsList);
             if(this.settingsList['status'] == 202){
-                this.cookieStore.removeAll();
+                this.cookieStore.removeAll(this.rollback_url);
                 this.router.navigate(['/auth/login']);
             }
         }, 300);
@@ -106,7 +107,7 @@ export class ChartSettingComponent implements OnInit {
                     if(info['status'] == 200) {
                         this.settingsList = info
                     }else if(info['status'] == 202){
-                        this.cookieStore.removeAll();
+                        this.cookieStore.removeAll(this.rollback_url);
                         this.router.navigate(['/auth/login']);
                     }
                 }
@@ -152,19 +153,19 @@ export class ChartSettingComponent implements OnInit {
      * @returns {boolean}
      */
     onSubmit(){
-        if(this.formModel.value['s_name'] == ''){
+        if(this.formModel.value['s_name'].trim() == ''){
             alert('请选择名称！');
             return false;
         }
-        if(this.formModel.value['s_interval1_1'] == ''){
+        if(this.formModel.value['s_interval1_1'].trim() == ''){
             alert('请填写第一阶段区间值！');
             return false;
         }
-        if(this.formModel.value['s_interval2_1'] == ''){
+        if(this.formModel.value['s_interval2_1'].trim() == ''){
             alert('请填写第二阶段区间值！');
             return false;
         }
-        if(this.formModel.value['s_interval3_1'] == ''){
+        if(this.formModel.value['s_interval3_1'].trim() == ''){
             alert('请填写第三阶段区间值！');
             return false;
         }
@@ -205,7 +206,7 @@ export class ChartSettingComponent implements OnInit {
                     });
                     this.s_id = 0;
                 }else if(info['status'] == 202){
-                    this.cookieStore.removeAll();
+                    this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
             },
@@ -228,7 +229,7 @@ export class ChartSettingComponent implements OnInit {
                 });
             setTimeout(() => {
                 if(this.settingsList['status'] == 202){
-                    this.cookieStore.removeAll();
+                    this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
             }, 300);

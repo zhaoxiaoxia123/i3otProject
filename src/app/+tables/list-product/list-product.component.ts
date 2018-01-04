@@ -23,6 +23,7 @@ export class ListProductComponent implements OnInit {
   selects : Array<any> = [];
   check : boolean = false;
   product_info : Array<any> = [];
+  rollback_url : string = '/tables/client';
   constructor(private http:Http,
               fb:FormBuilder,
               private router : Router,
@@ -72,7 +73,7 @@ export class ListProductComponent implements OnInit {
 
     setTimeout(() => {
       if(this.productList['status'] == 202){
-        this.cookiestore.removeAll();
+        this.cookiestore.removeAll(this.rollback_url);
         this.router.navigate(['/auth/login']);
       }
       // console.log(typeof (this.productList));
@@ -159,7 +160,7 @@ export class ListProductComponent implements OnInit {
         // console.log(this.productList);
         alert(this.productList['msg']);
         if(this.productList['status'] == 202){
-          this.cookiestore.removeAll();
+          this.cookiestore.removeAll(this.rollback_url);
           this.router.navigate(['/auth/login']);
         }
         if (this.productList) {
@@ -202,7 +203,7 @@ export class ListProductComponent implements OnInit {
         // console.log(this.productList);
         alert(this.productList['msg']);
         if(this.productList['status'] == 202){
-          this.cookiestore.removeAll();
+          this.cookiestore.removeAll(this.rollback_url);
           this.router.navigate(['/auth/login']);
         }
         if (this.productList) {

@@ -38,6 +38,7 @@ export class SettingDepartmentComponent implements OnInit {
     super_admin_id : any = 0;
     //修改标题显示
     category_id1 : any = 0;//部门
+    rollback_url : string = '/management/department';
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -64,7 +65,7 @@ export class SettingDepartmentComponent implements OnInit {
             console.log('categoryList:----');
             console.log(this.categoryList);
             if(this.categoryList['status'] == 202){
-                this.cookieStore.removeAll();
+                this.cookieStore.removeAll(this.rollback_url);
                 this.router.navigate(['/auth/login']);
             }
             this.super_admin_id = this.categoryList['super_admin_id'];
@@ -102,7 +103,7 @@ export class SettingDepartmentComponent implements OnInit {
                 this.category_id1 = 0;
                 this.categoryList = JSON.parse(data['_body']);
                 if(this.categoryList['status'] == 202){
-                    this.cookieStore.removeAll();
+                    this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
             },
@@ -158,7 +159,7 @@ export class SettingDepartmentComponent implements OnInit {
                 console.log(this.categoryList);
 
                 if(this.categoryList['status'] == 202){
-                    this.cookieStore.removeAll();
+                    this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
                 if (this.categoryList) {

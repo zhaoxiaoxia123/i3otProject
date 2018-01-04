@@ -32,6 +32,7 @@ export class StationListComponent implements OnInit {
   prev : boolean = false;
   next : boolean = false;
   i3otpInfo : Array<any> = [];
+  rollback_url : string = '/equipment/station-list';
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -70,7 +71,7 @@ export class StationListComponent implements OnInit {
       console.log(this.i3otpList);
 
       if(this.i3otpList['status'] == 202){
-        this.cookieStore.removeAll();
+        this.cookieStore.removeAll(this.rollback_url);
         this.router.navigate(['/auth/login']);
       }
       // if(this.i3otpList['result']['data'].length >= 1) {
@@ -146,7 +147,7 @@ export class StationListComponent implements OnInit {
       setTimeout(() => {
         // console.log(this.userList);
         if(this.i3otpList['status'] == 202){
-          this.cookieStore.removeAll();
+          this.cookieStore.removeAll(this.rollback_url);
           this.router.navigate(['/auth/login']);
         }
         if (this.i3otpList) {

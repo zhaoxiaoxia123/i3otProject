@@ -21,6 +21,7 @@ export class AddInventory1Component implements OnInit {
   //默认选中的值
   storehouse_status_default : number;
   u_id_default : number;
+  rollback_url : string = '/forms/inventory1';
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -46,6 +47,9 @@ export class AddInventory1Component implements OnInit {
     console.log( this.storehouse_id);
     if(this.storehouse_id != 0){
       this.getStorehouseInfo(this.storehouse_id);
+      this.rollback_url += '/' + this.storehouse_id;
+    }else{
+      this.rollback_url += '/0';
     }
     this.getStorehouseDefault();
   }
@@ -63,7 +67,7 @@ export class AddInventory1Component implements OnInit {
       console.log(this.storehouseList);
       if(this.storehouseList['status'] == 202){
         alert(this.storehouseList['msg'] );
-        this.cookieStore.removeAll();
+        this.cookieStore.removeAll(this.rollback_url);
         this.router.navigate(['/auth/login']);
       }
       if(this.storehouse_id == 0) {
@@ -96,7 +100,7 @@ export class AddInventory1Component implements OnInit {
 
   onSubmit(){
     console.log(this.formModel.value['u_id'] );
-    if(this.formModel.value['storehouse_name'] == ''){
+    if(this.formModel.value['storehouse_name'].trim() == ''){
       alert('请填写仓库名称！');
       return false;
     }
@@ -116,7 +120,7 @@ export class AddInventory1Component implements OnInit {
           if(info['status'] == 200) {
             this.router.navigateByUrl('/tables/inventory');
           }else if(info['status'] == 202){
-            this.cookieStore.removeAll();
+            this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
         },

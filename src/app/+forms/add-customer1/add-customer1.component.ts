@@ -26,6 +26,7 @@ export class AddCustomer1Component implements OnInit {
   industry_category_default : number;
   source_default : number;
   service_person_default : number;
+  rollback_url : string = '/forms/customer1';
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -67,7 +68,9 @@ export class AddCustomer1Component implements OnInit {
     console.log( this.c_id);
     if(this.c_id != 0){
       this.getCustomerInfo(this.c_id);
+      this.rollback_url += '/' + this.c_id;
     }else{
+      this.rollback_url += '/0';
       this.formModel.patchValue({parent_id:this.cookieStore.getCookie('cid')});
     }
     this.getCustomerDefault();
@@ -117,7 +120,7 @@ export class AddCustomer1Component implements OnInit {
     setTimeout(() => {
       if(this.customerList['status'] == 202){
         alert(this.customerList['msg']);
-        this.cookieStore.removeAll();
+        this.cookieStore.removeAll(this.rollback_url);
         this.router.navigate(['/auth/login']);
       }
 
@@ -131,11 +134,11 @@ export class AddCustomer1Component implements OnInit {
   }
 
   onSubmit(){
-    if(this.formModel.value['number'] == ''){
+    if(this.formModel.value['number'].trim() == ''){
       alert('请填写客户编号！');
       return false;
     }
-    if(this.formModel.value['name'] == ''){
+    if(this.formModel.value['name'].trim() == ''){
       alert('请填写客户名称！');
       return false;
     }
@@ -167,7 +170,7 @@ export class AddCustomer1Component implements OnInit {
           if(info['status'] == 200) {
             this.router.navigateByUrl('/tables/client1');
           }else if(info['status'] == 202){
-            this.cookieStore.removeAll();
+            this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
         },

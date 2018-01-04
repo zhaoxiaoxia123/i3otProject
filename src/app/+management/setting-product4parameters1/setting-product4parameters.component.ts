@@ -47,6 +47,7 @@ export class SettingProduct4parametersComponent implements OnInit {
     div_show :boolean = true;
     join_:Array<any> = [];
     show_join:Array<any> = [];
+    rollback_url : string = '/management/product4parameters';
   constructor(
       private http:Http,
       private router:Router,
@@ -75,7 +76,7 @@ export class SettingProduct4parametersComponent implements OnInit {
             console.log('categoryList result:----');
             console.log(this.categoryList);
             if(this.categoryList['status'] == 202){
-                this.cookieStore.removeAll();
+                this.cookieStore.removeAll(this.rollback_url);
                 this.router.navigate(['/auth/login']);
             }
             this.super_admin_id = this.categoryList['super_admin_id'];

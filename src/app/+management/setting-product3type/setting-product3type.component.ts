@@ -51,6 +51,7 @@ export class SettingProduct3typeComponent implements OnInit {
     cid : any = 0;//当前登录用户的所属公司id
     super_admin_id : any = 0;//超级管理员所属公司id
     parentCategoryList:Array<any> = []; //用于绑定修改父类信息类表
+    rollback_url : string = '/management/product3type';
   constructor(private jsonApiService:JsonApiService,
               fb:FormBuilder,
               private http:Http,
@@ -81,7 +82,7 @@ export class SettingProduct3typeComponent implements OnInit {
             // console.log('categoryList:----');
             // console.log(this.categoryList);
             if(this.categoryList['status'] == 202){
-                this.cookieStoreService.removeAll();
+                this.cookieStoreService.removeAll(this.rollback_url);
                 this.router.navigate(['/auth/login']);
             }
             this.super_admin_id = this.categoryList['super_admin_id'];
@@ -121,7 +122,7 @@ export class SettingProduct3typeComponent implements OnInit {
                   (data)=>{
                       let info =JSON.parse(data['_body']);
                       if(info['status'] == 202){
-                          this.cookieStoreService.removeAll();
+                          this.cookieStoreService.removeAll(this.rollback_url);
                           this.router.navigate(['/auth/login']);
                       }
                       alert(info['msg']);
@@ -142,7 +143,7 @@ export class SettingProduct3typeComponent implements OnInit {
                   }
               );
           }else{ //发布一级类型文字信息
-              if(this.category_desc1 == '' || !this.category_desc1){
+              if(this.category_desc1.trim() == '' || !this.category_desc1){
                   alert("请输入要添加的信息！");
                   return false;
               }
@@ -157,7 +158,7 @@ export class SettingProduct3typeComponent implements OnInit {
                       let info =JSON.parse(data['_body']);
                       alert(info['msg']);
                       if(info['status'] == 202){
-                          this.cookieStoreService.removeAll();
+                          this.cookieStoreService.removeAll(this.rollback_url);
                           this.router.navigate(['/auth/login']);
                       }
                       if(info['status'] == 203){
@@ -181,7 +182,7 @@ export class SettingProduct3typeComponent implements OnInit {
           }
       }else if(number == 2){//添加二级类型信息
           console.log(this.category_desc2);
-          if(this.category_desc2 == '' || !this.category_desc2){
+          if(this.category_desc2.trim() == '' || !this.category_desc2){
               alert("请输入要添加的信息！");
               return false;
           }
@@ -196,7 +197,7 @@ export class SettingProduct3typeComponent implements OnInit {
                   let info =JSON.parse(data['_body']);
                   alert(info['msg']);
                   if(info['status'] == 202){
-                      this.cookieStoreService.removeAll();
+                      this.cookieStoreService.removeAll(this.rollback_url);
                       this.router.navigate(['/auth/login']);
                   }
                   if(info['status'] == 203){
@@ -298,7 +299,7 @@ export class SettingProduct3typeComponent implements OnInit {
                     }
                 });
                 if(this.categoryList['status'] == 202){
-                    this.cookieStoreService.removeAll();
+                    this.cookieStoreService.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
             }, 300);
