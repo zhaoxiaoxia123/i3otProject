@@ -11,7 +11,9 @@ export class CookieStoreService {
   }
 
   setCookie(key: string,value:any){
-    return this._cookieService.put(key,value);
+    var expireDate = new Date();
+    expireDate.setDate(expireDate.getDate() + 15);
+    return this._cookieService.put(key,value, {'expires': expireDate.toUTCString()});
   }
 
   removeAll(url:string = '/dashboard/dynamic-wall'){

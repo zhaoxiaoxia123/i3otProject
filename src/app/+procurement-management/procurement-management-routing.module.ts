@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 export const routes: Routes = [
     {
-        path: 'add-receipt',
+        path: 'add-receipt/:pr_id',
         loadChildren: 'app/+procurement-management/add-receipt/add-receipt.module#AddReceiptModule',
         data: {pageTitle: 'AddReceipt'}
     },
@@ -22,7 +22,7 @@ export const routes: Routes = [
         data: {pageTitle: 'ProcurementOrder'}
     },
     {
-        path: 'app-order',
+        path: 'app-order/:pr_id',
         loadChildren: 'app/+procurement-management/app-order/app-order.module#AppOrderModule',
         data: {pageTitle: 'AppOrder'}
     },

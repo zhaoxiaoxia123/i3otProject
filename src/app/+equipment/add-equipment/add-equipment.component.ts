@@ -212,11 +212,11 @@ export class AddEquipmentComponent implements OnInit {
     }, 600);
   }
   onSubmit(){
-    if(this.formModel.value['i_number'].trim() == ''){
+    if(this.formModel.value['i3otp_pid'].trim() == ''){
       alert('请填写设备编号！');
       return false;
     }
-    if(this.formModel.value['i_name'].trim() == ''){
+    if(this.formModel.value['i3otp_name'].trim() == ''){
       alert('请填写设备名称！');
       return false;
     }

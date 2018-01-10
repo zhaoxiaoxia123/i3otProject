@@ -1,4 +1,3 @@
-
 <!--主要内容-->
 <div id="content">
   <div class="row">
@@ -7,79 +6,70 @@
 
   <sa-widgets-grid>
     <div class="row">
-
       <article class="col-sm-12 ">
-
         <sa-widget [editbutton]="false" [deletebutton]="false" >
           <header>
             <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
-            <h2>添加进货单</h2>
+            <h2 *ngIf="pr_id == 0">添加进货单</h2>
+            <h2 *ngIf="pr_id != 0">修改进货单</h2>
           </header>
-
           <div>
-            <!--小部件内容-->
             <div class="widget-body no-padding">
-
-              <form id="smart-form-register" class="smart-form" >
+              <form id="smart-form-register" class="smart-form" [formGroup]="formModel" (ngSubmit)="onSubmit()">
                 <fieldset>
                   <legend>基本信息</legend>
-
-
+                  <input type="hidden" name="pr_id" formControlName="pr_id">
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
                     <section>
                       <label class="label ">进货方式</label>
                       <div class="inline-group">
                         <label class="radio">
-                          <input checked="" name="radio-inline" type="radio">
+                          <input [checked]="purchaseInfo.result?.pr_type == 1 || this.pr_id == 0" [value]="1" type="radio" name="pr_type" formControlName="pr_type">
                           <i></i>进货单</label>
                         <label class="radio">
-                          <input name="radio-inline" type="radio">
+                          <input type="radio" [checked]="purchaseInfo.result?.pr_type == 2" [value]="2" name="pr_type" formControlName="pr_type">
                           <i></i>退货单</label>
                       </div>
                     </section>
-
-
                   </div>
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
                     <section >
                       <label class="label txt-color-blue">单据日期<span class="asterisk-color">*</span></label>
                       <label  class="input">
-                        <input  type="date">
+                        <input  type="date" name="pr_date" formControlName="pr_date">
                       </label>
                     </section>
-
                   </div>
-
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
                     <section>
                       <label class="label txt-color-blue">单据号<span class="asterisk-color">*</span></label>
                       <label class="input">
-                        <input type="text"   placeholder="自动编码"  >
+                        <input type="text" placeholder="单据号" name="pr_order" formControlName="pr_order">
                       </label>
                     </section>
                   </div>
-
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
                     <section>
                       <label class="label ">供应商</label>
-                      <label class="input">
-                        <i class="icon-append glyphicon glyphicon-search cursor-pointer" data-toggle="modal" data-target="#myModal"></i>
-                        <input type="text" placeholder="" >
+                        <!--<label class="input">-->
+                        <!--<i class="icon-append glyphicon glyphicon-search cursor-pointer" data-toggle="modal" data-target="#myModal"></i>-->
+                        <!--<input type="text" placeholder=""  name="pr_supplier" formControlName="pr_supplier">-->
+                      <label class="select">
+                        <select name="pr_supplier" formControlName="pr_supplier" [(ngModel)]="pr_supplier_default">
+                          <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                          <option *ngFor="let cus of purchaseList.result?.supplier" [selected]="purchaseInfo.result?.pr_supplier == cus.c_id" value="{{ cus.c_id }}">{{cus.c_name}}</option>
+                        </select><i></i>
                       </label>
                     </section>
-
                   </div>
                   
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
                     <section>
-                      <label  class="label ">采购部门</label>
+                      <label class="label ">采购部门</label>
                       <label class="select">
-                        <select name="">
-                          <option></option>
-                          <option>dfd</option>
-                          <option>dgr</option>
-                          <option>drtyy</option>
-                          <option></option>
+                        <select name="pr_department" formControlName="pr_department" [(ngModel)]="pr_department_default" (change)="getUserList($event,1)">
+                          <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                          <option *ngFor="let d of purchaseList.result?.department" [selected]="purchaseInfo.result?.pr_department == d.category_id" value="{{ d.category_id}}">{{d.category_desc}}</option>
                         </select><i></i>
                       </label>
                     </section>
@@ -89,13 +79,10 @@
                     <section>
                       <label  class="label">采购员</label>
                       <label class="select">
-                        <select name="">
-                          <option></option>
-                          <option>fgf</option>
-                          <option>dfe</option>
-                          <option>dfhy</option>
-                          <option></option>
-                        </select><i></i>
+                          <select  name="pr_employee" formControlName="pr_employee" [(ngModel)]="pr_employee_default">
+                            <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                            <option *ngFor="let u of userList.result" [selected]="purchaseInfo.result?.pr_employee == u.id" value="{{ u.id }}">{{u.u_username}}</option>
+                          </select><i></i>
                       </label>
                     </section>
 
@@ -103,15 +90,12 @@
 
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
                     <section>
-                      <label  class="label">默认仓库</label>
+                      <label class="label">默认仓库</label>
                       <label class="select">
-                        <select name="">
-                          <option>dfer</option>
-                          <option>fgf</option>
-                          <option>fgg</option>
-                          <option>drty</option>
-                          <option></option>
-                        </select><i></i>
+                          <select name="storehouse_id" formControlName="storehouse_id" [(ngModel)]="storehouse_id_default">
+                            <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                            <option *ngFor="let s of purchaseList.result?.storehouse" [selected]="purchaseInfo.result?.storehouse_id == s.storehouse_id" value="{{s.storehouse_id }}">{{s.storehouse_name}}</option>
+                          </select><i></i>
                       </label>
                     </section>
 
@@ -121,13 +105,10 @@
                     <section>
                       <label  class="label">采购类型</label>
                       <label class="select">
-                        <select name="">
-                          <option>trtert</option>
-                          <option>ertret</option>
-                          <option>fgg</option>
-                          <option>drty</option>
-                          <option></option>
-                        </select><i></i>
+                          <select name="pr_category" formControlName="pr_category" [(ngModel)]="pr_category_default">
+                            <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                            <option *ngFor="let ca of purchaseList.result?.category" [selected]="purchaseInfo.result?.pr_category == ca.category_id" value="{{ca.category_id }}">{{ca.category_desc}}</option>
+                          </select><i></i>
                       </label>
                     </section>
 
@@ -136,54 +117,32 @@
                     <section>
                       <label  class="label">发运方式</label>
                       <label class="select">
-                        <select name="">
-                          <option>dtrt</option>
-                          <option>ertret</option>
-                          <option>fgg</option>
-                          <option>drty</option>
-                          <option></option>
-                        </select><i></i>
-                      </label>
-                    </section>
-
-                  </div>
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <section>
-                      <label class="label">折扣率%</label>
-                      <label class="input">
-                        <input type="number"   placeholder=""  >
+                          <select name="pr_transport" formControlName="pr_transport" [(ngModel)]="pr_transport_default">
+                            <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                            <option *ngFor="let tr of purchaseList.result?.transport" [selected]="purchaseInfo.result?.pr_transport == tr.category_id" value="{{tr.category_id }}">{{tr.category_desc}}</option>
+                          </select><i></i>
                       </label>
                     </section>
                   </div>
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <section>
-                      <label class="label">税率%</label>
-                      <label class="input">
-                        <input type="number"   placeholder=""  >
-                      </label>
-                    </section>
-                  </div>
-
 
                   <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
                     <section>
                       <label class="label">扫码</label>
                       <label class="input">
-                        <input type="text"   placeholder=""  >
+                        <input type="text" placeholder="" name="pr_qrcode" formControlName="pr_qrcode">
                       </label>
                     </section>
                   </div>
 
                   <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 padding20">
                     <div class="widget-body no-padding">
-
                       <div  class="padding0">
                         <div style="z-index: 2;width:20%;float:left;" class="table-responsive padding0 table-minheight">
                           <table class="table table-hover table-border  table-bordered dataTable table-height-70">
                             <thead>
                             <tr>
                               <th></th>
-                              <th>操作</th>
+                              <th>操作</th><!--pr_detail-->
                               <th class="txt-color-blue">存货名称</th>
                             </tr>
                             </thead>
@@ -370,18 +329,14 @@
                                                   <input  name="" type="number">
                                                 </label>
                                               </section>
-
                                             </form>
                                           </section>
-
                                         </form>
-
                                       </td>
                                     </tr>
                                     </tbody>
                                   </table>
                                 </div>
-
                               </td>
                               <td>
                                 <div >
@@ -401,9 +356,7 @@
 
                                             </form>
                                           </section>
-
                                         </form>
-
                                       </td>
                                     </tr>
                                     </tbody>
@@ -423,18 +376,14 @@
                                               <input  name="" type="text">
                                             </label>
                                           </section>
-
                                         </form>
-
                                       </td>
                                     </tr>
                                     </tbody>
                                   </table>
                                 </div>
                               </td>
-
                             </tr>
-
                             <tr>
                               <td></td>
                               <td></td>
@@ -445,13 +394,8 @@
                               <td></td>
                               <td></td>
                               <td></td>
-
-
-
                             </tr>
-
                             </tbody>
-
                             <tfoot>
                             <tr >
                               <th></th>
@@ -464,23 +408,18 @@
                               <th></th>
                               <th></th>
                             </tr>
-
                             </tfoot>
                           </table>
                         </div>
                       </div>
-
-
                     </div>
                   </div>
-
-
 
                   <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
                     <section>
                       <label class="label">备注</label>
                       <label class="textarea textarea-resizable">
-                        <textarea class="custom-scroll" rows="2" name="" ></textarea>
+                        <textarea class="custom-scroll" rows="2" name="pr_note" formControlName="pr_note" ></textarea>
                       </label>
                     </section>
                   </div>
@@ -508,85 +447,85 @@
 
 
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <!-- 关闭按钮 -->
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-          ×
-        </button>
-        <!-- 标题 -->
-        <h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>选择供应商</h3>
-      </div>
-      <div class="modal-body height-overflow-320">
-        <div class="row text-center" style="padding:10px 40px;">
-          <div class="dd" >
-            <ol class="dd-list">
-              <li class="dd-item " >
-                <button data-action="expand" type="button" style="display: none;">收起</button>
-                <button data-action="collapse" type="button"  style="display: block;">展开</button>
-                <div class="dd-handle dd-handle-color">
-                  矿
-                  <small  class="text-muted">
-                    <i >(202500)</i>
-                  </small>
-                  <span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>
-                  <div>
-                  </div>
-                </div>
-                <ol class="dd-list"  style="display: block;">
-                  <li class="dd-item" >
-                    <div class="dd-handle">
-                      矿
-                      <small  class="text-muted">
-                        <i >(202500)</i>
-                      </small>
-                      <span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>
-                      <div>
-                      </div>
-                    </div>
-                  </li>
-                </ol>
-              </li>
-              <li class="dd-item" >
-                <button  type="button"  style="display: block;">收起</button>
-                <button  type="button" style="display: none;">展开</button>
-                <div class="dd-handle">
-                  矿
-                  <small  class="text-muted">
-                    <i >(202500)</i>
-                  </small>
-                  <span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>
-                  <div>
-                  </div>
+<!--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
+  <!--<div class="modal-dialog">-->
+    <!--<div class="modal-content">-->
+      <!--<div class="modal-header">-->
+        <!--&lt;!&ndash; 关闭按钮 &ndash;&gt;-->
+        <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">-->
+          <!--×-->
+        <!--</button>-->
+        <!--&lt;!&ndash; 标题 &ndash;&gt;-->
+        <!--<h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>选择供应商</h3>-->
+      <!--</div>-->
+      <!--<div class="modal-body height-overflow-320">-->
+        <!--<div class="row text-center" style="padding:10px 40px;">-->
+          <!--<div class="dd" >-->
+            <!--<ol class="dd-list">-->
+              <!--<li class="dd-item " >-->
+                <!--<button data-action="expand" type="button" style="display: none;">收起</button>-->
+                <!--<button data-action="collapse" type="button"  style="display: block;">展开</button>-->
+                <!--<div class="dd-handle dd-handle-color">-->
+                  <!--矿-->
+                  <!--<small  class="text-muted">-->
+                    <!--<i >(202500)</i>-->
+                  <!--</small>-->
+                  <!--<span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>-->
+                  <!--<div>-->
+                  <!--</div>-->
+                <!--</div>-->
+                <!--<ol class="dd-list"  style="display: block;">-->
+                  <!--<li class="dd-item" >-->
+                    <!--<div class="dd-handle">-->
+                      <!--矿-->
+                      <!--<small  class="text-muted">-->
+                        <!--<i >(202500)</i>-->
+                      <!--</small>-->
+                      <!--<span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>-->
+                      <!--<div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</li>-->
+                <!--</ol>-->
+              <!--</li>-->
+              <!--<li class="dd-item" >-->
+                <!--<button  type="button"  style="display: block;">收起</button>-->
+                <!--<button  type="button" style="display: none;">展开</button>-->
+                <!--<div class="dd-handle">-->
+                  <!--矿-->
+                  <!--<small  class="text-muted">-->
+                    <!--<i >(202500)</i>-->
+                  <!--</small>-->
+                  <!--<span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>-->
+                  <!--<div>-->
+                  <!--</div>-->
 
-                </div>
-                <ol class="dd-list"  style="display: none;">
-                  <li class="dd-item" id="186">
-                    <div class="dd-handle">
-                      矿
-                      <small  class="text-muted">
-                        <i >(202500)</i>
-                      </small>
-                      <span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>
-                      <div>
-                      </div>
-                    </div>
-                  </li>
-                </ol>
-              </li>
+                <!--</div>-->
+                <!--<ol class="dd-list"  style="display: none;">-->
+                  <!--<li class="dd-item" id="186">-->
+                    <!--<div class="dd-handle">-->
+                      <!--矿-->
+                      <!--<small  class="text-muted">-->
+                        <!--<i >(202500)</i>-->
+                      <!--</small>-->
+                      <!--<span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>-->
+                      <!--<div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</li>-->
+                <!--</ol>-->
+              <!--</li>-->
 
 
-            </ol>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success btn-sm" ><span class="glyphicon glyphicon-plus"></span>选入</button>
-        <!--    <button type="button" class="btn btn-primary" data-ng-click="ok()">保存</button>-->
-        <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
-      </div>
-    </div>
-  </div>
-</div>
+            <!--</ol>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class="modal-footer">-->
+        <!--<button type="button" class="btn btn-success btn-sm" ><span class="glyphicon glyphicon-plus"></span>选入</button>-->
+        <!--&lt;!&ndash;    <button type="button" class="btn btn-primary" data-ng-click="ok()">保存</button>&ndash;&gt;-->
+        <!--<button type="button" class="btn btn-default" data-dismiss="modal">返回</button>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->

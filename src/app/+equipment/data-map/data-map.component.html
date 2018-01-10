@@ -3,7 +3,7 @@
     <sa-big-breadcrumbs [items]="['设备管理', '全部实时数据']" icon="file-text-o" ></sa-big-breadcrumbs>
   </div>
   <sa-widgets-grid>
-    <div class="row" *ngIf="products['data'] && products['data'][0]">
+    <div class="row" *ngIf="products['data'] && products1['data'] && products['data'][0] && is_show_products">
       <div *ngFor="let entry of (products['data'][0]['info'] | keys)" >
       <article class="col-sm-3" *ngIf="entry.value.value[0]">
         <sa-widget [editbutton]="false" [deletebutton]="false" color="darken">
@@ -53,7 +53,7 @@
       </article>
       </div>
     </div>
-      <div class="row" *ngIf="products1['data'] && products1['data'][0] ">
+      <div class="row" *ngIf="products1['data'] && products1['data'][0] && is_show_products">
       <div *ngFor="let entry of (products1['data'][0]['info'] | keys)">
       <article class="col-sm-3" *ngIf="entry.value.value[0]">
         <sa-widget  [editbutton]="false" [deletebutton]="false" color="darken">
@@ -163,7 +163,7 @@
     <!--<h3>正在努力加载中...</h3>-->
   <!--</div>-->
   <!--加载-->
-  <div class="modal-backdrop modal-dialog-head fade in" *ngIf="! (products['data'] && products['data'][0] && products1['data'] && products1['data'][0] )">
+  <div class="modal-backdrop modal-dialog-head fade in" *ngIf="! (products['data'] && products['data'][0] && products1['data'] && products1['data'][0] && is_show_products)">
     <div class="modal-dialog modal-dialog-loading">
       <div class="row">
         <img  src="assets/img/loading3.gif" >

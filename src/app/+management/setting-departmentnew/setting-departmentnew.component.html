@@ -40,7 +40,7 @@
                                       <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" name="keyword" placeholder="请输入搜索内容" type="text">
                                     </div>
                                     <button class="btn btn-default" type="submit">
-                                      <i  class="glyphicon glyphicon-search"></i>
+                                      <i class="glyphicon glyphicon-search"></i>
                                       搜索
                                     </button>
                                   </form>
@@ -53,96 +53,45 @@
                               <thead>
                               <tr>
                                 <th>部门名称</th>
-                                <th>部门编码</th>
+                                <th>部门编号</th>
                                 <th>上级部门</th>
                                 <th>部门负责人</th>
-                                <th>启用日期</th>
-                                <th>启用人</th>
-                                <th>停用日期</th>
-                                <th>停用人</th>
                                 <th>创建日期</th>
                                 <th>部门属性 </th>
-                                <th>传真 </th>
-                                <th>状态 </th>
-                                <th>备注 </th>
+                                <th>部门电话 </th>
+                                <th>部门传真 </th>
+                                <th>部门状态 </th>
                                 <th>操作</th>
                               </tr>
                               </thead>
                               <tbody>
-                              <tr>
-                                <td class="details-control"><span class="padding-10"><i class="fa-fw fa  fa-folder-open"></i>家福</span></td>
-                                <td>001</td>
-                                <td>地方</td>
-                                <td>环境</td>
-                                <td>2017-12 02:24:24</td>
-                                <td>2542</td>
-                                <td>2017-12 02:24:24</td>
-                                <td>大贵</td>
-                                <td>2017-12 02:24:24</td>
-                                <td>单事</td>
-                                <td>4132636</td>
-                                <td>正常</td>
-                                <td>梵蒂冈的非官方鼓捣鼓捣个</td>
+                              <tr *ngFor="let d of departmentList.result?.data">
+                                <td class="details-control">{{d.department_name}}</td>
+                                <!--<td class="details-control"><span class="padding-10"><i class="fa-fw fa  fa-folder-open"></i>{{d.department_name}}</span></td>-->
+                                <!--<td class=""><span class="padding-10"><i class="fa-fw fa   fa-file-o"></i>互换</span></td>-->
+                                <td>{{d.department_number}}</td>
                                 <td>
-                                  <div >
-                                    <a class="btn btn-warning btn-xs"  ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                    <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                  </div>
-                                  <!--<div >无权操作</div>-->
+                                  <span [ngSwitch]="d.upper_department_id">
+                                    <span *ngSwitchCase="0">一级部门</span>
+                                    <span *ngSwitchDefault>{{d.parent_department}}</span>
+                                  </span>
                                 </td>
-                              </tr>
-
-                              <!-- <tr>
-                                 <td colspan="14">
-                                 <table border="0" class="table table-hover table-bordered dataTable">
-                                 <tbody>
-                                 <tr>
-                                   <td><span class="padding-left-10"><i class="fa-fw fa   fa-file-o"></i>家福</span></td>
-                                   <td>001</td>
-                                   <td>地方</td>
-                                   <td>环境</td>
-                                   <td>2017-12 02:24:24</td>
-                                   <td>2542</td>
-                                   <td>2017-12 02:24:24</td>
-                                   <td>大贵</td>
-                                   <td>2017-12 02:24:24</td>
-                                   <td>单事</td>
-                                   <td>4132636</td>
-                                   <td>正常</td>
-                                   <td>梵蒂冈的非官方鼓捣鼓捣个</td>
-                                   <td>
-                                     <div >
-                                       <a class="btn btn-warning btn-xs"  ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                       <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                     </div>
-                                     &lt;!&ndash;<div >无权操作</div>&ndash;&gt;
-                                   </td>
-                                 </tr>
-                               </tbody>
-                               </table></td>
-                               </tr>-->
-
-
-
-                              <tr>
-
-                                <td class=""><span class="padding-10"><i class="fa-fw fa   fa-file-o"></i>互换</span></td>
-                                <td>001</td>
-                                <td>地方</td>
-                                <td>环境</td>
-                                <td>2017-12 02:24:24</td>
-                                <td>2542</td>
-                                <td>2017-12 02:24:24</td>
-                                <td>大贵</td>
-                                <td>2017-12 02:24:24</td>
-                                <td>单事</td>
-                                <td>4132636</td>
-                                <td>正常</td>
-                                <td>梵蒂冈的非官方鼓捣鼓捣个</td>
+                                <td>{{d.department_incharge}}</td>
+                                <td>{{d.created_at}}</td>
+                                <td>{{d.department_attribute}}</td>
+                                <td>{{d.department_phone}}</td>
+                                <td>{{d.department_fax}}</td>
                                 <td>
-                                  <div >
-                                    <a class="btn btn-warning btn-xs"  ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                    <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                  <span [ngSwitch]="d.department_status">
+                                    <span *ngSwitchCase="1">正常</span>
+                                    <span *ngSwitchCase="2">无效</span>
+                                    <span *ngSwitchDefault>未知</span>
+                                  </span>
+                                </td>
+                                <td>
+                                  <div>
+                                    <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myModal" (click)="editDepartment(d.department_id)"><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                    <a class="btn btn-danger btn-xs" (click)="deleteDepartment(d.department_id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
                                   </div>
                                   <!--<div >无权操作</div>-->
                                 </td>
@@ -153,7 +102,7 @@
                             <div class="dt-toolbar">
                               <div class="hidden-xs right">
                                 <ul class="pagination pagination-sm">
-                                  <li *ngFor="let p of categoryList?.page" class="{{p.class}}">
+                                  <li *ngFor="let p of departmentList?.page" class="{{p.class}}">
                                     <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
                                     <a *ngIf="p.method==''">{{p.text}}</a>
                                   </li>
@@ -187,6 +136,7 @@
           <!-- 标题 -->
           <h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>添加部门</h3>
           <!-- <h3 class="modal-title  glyphicon glyphicon-pencil txt-color-red" data-ng-bind='results.title'>修改部门</h3>-->
+
         </div>
         <div class="modal-body">
           <sa-widget [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
@@ -207,13 +157,14 @@
                     <tabset >
                       <tab [active]="state.tabs.demo3 == 'hr1'">
                         <div class="row">
-                          <form   class="smart-form ">
+                          <form class="smart-form " [formGroup]="formModel">
+                            <input type="hidden" name="department_id" formControlName="department_id">
                             <fieldset>
                               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <section>
                                   <label class="label">助记码</label>
                                   <label class="input">
-                                    <input type="text"   placeholder="手工录入或自动生成"  >
+                                    <input type="text" name="department_shortcode" formControlName="department_shortcode" placeholder="手工录入或自动生成"  >
                                   </label>
                                 </section>
                               </div>
@@ -221,22 +172,18 @@
                                 <section>
                                   <label class="label">上级部门</label>
                                   <label class="select">
-                                    <select class="input-sm">
-                                      <option value="" disabled="disabled" >选择上级部门</option>
-                                      <option value="" >1010</option>
-                                      <option value="" >--1010-10</option>
-                                      <option value="" >1010</option>
-                                      <option value="" >--1010-10</option>
-                                      <option value="" >1010</option>
-                                      <option value="" >--1010-10</option>
-                                    </select> <i></i> </label>
+                                      <select name="upper_department_id" formControlName="upper_department_id" [(ngModel)]="upper_department_id_default">
+                                        <option [selected]="department_id == 0" value="0">--请选择--</option>
+                                        <option *ngFor="let dd of departmentDefault.result?.department" [selected]="departmentInfo.result?.upper_department_id == dd.department_id" value="{{ dd.department_id }}">{{dd.department_name}}</option>
+                                      </select><i></i>
+                                  </label>
                                 </section>
                               </div>
                               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <section>
                                   <label class="label">部门属性</label>
                                   <label class="input">
-                                    <input type="text" placeholder="" >
+                                    <input type="text" placeholder="" name="department_attribute" formControlName="department_attribute">
                                   </label>
                                 </section>
                               </div>
@@ -244,7 +191,7 @@
                                 <section>
                                   <label class="label txt-color-blue">部门名称</label>
                                   <label class="input">
-                                    <input type="text" placeholder="" >
+                                    <input type="text" placeholder="" name="department_name" formControlName="department_name">
                                   </label>
                                 </section>
                               </div>
@@ -252,30 +199,26 @@
                                 <section>
                                   <label class="label ">负责人</label>
                                   <label class="select">
-                                    <select class="input-sm">
-                                      <option value=""  disabled="disabled">请选择负责人</option>
-                                      <option value="" >发给</option>
-                                      <option value="" >给对方</option>
-                                      <option value="" >股份</option>
-                                      <option value="" >官方</option>
-                                      <option value="" >冻干粉</option>
-                                      <option value="" >苟富贵</option>
-                                    </select> <i></i> </label>
+                                      <select name="department_incharge" formControlName="department_incharge" [(ngModel)]="department_incharge_default">
+                                        <option [selected]="department_id == 0" value="0">--请选择--</option>
+                                        <option *ngFor="let du of departmentDefault.result?.user" [selected]="departmentInfo.result?.department_incharge == du.id" value="{{ du.id }}">{{du.u_username}}</option>
+                                      </select><i></i>
+                                  </label>
                                 </section>
                               </div>
                               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <section >
                                   <label class="label  ">电话</label>
                                   <label class="input"> <i class="icon-append fa fa-phone"></i>
-                                    <input name=""  placeholder="请输入电话号码" maxlength="12">
+                                    <input name="department_phone" formControlName="department_phone" placeholder="请输入电话号码" maxlength="12">
                                   </label>
                                 </section>
                               </div>
                               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <section>
-                                  <label class="label txt-color-blue">部门编码</label>
+                                  <label class="label txt-color-blue">部门编号</label>
                                   <label class="input">
-                                    <input type="text"  disabled="disabled" placeholder="自动编码" >
+                                    <input type="text" name="department_number" formControlName="department_number" placeholder="自动编码" >
                                   </label>
                                 </section>
                               </div>
@@ -283,7 +226,7 @@
                                 <section>
                                   <label class="label txt-color-blue">传真</label>
                                   <label class="input">
-                                    <input type="text" placeholder="" >
+                                    <input type="text" placeholder="" name="department_fax" formControlName="department_fax">
                                   </label>
                                 </section>
                               </div>
@@ -291,15 +234,13 @@
                                 <section>
                                   <label class="label">备注</label>
                                   <label class="textarea textarea-resizable">
-                                    <textarea class="custom-scroll" rows="2" name="" ></textarea>
+                                    <textarea class="custom-scroll" rows="2" name="department_remark" formControlName="department_remark"></textarea>
                                   </label>
                                 </section>
                               </div>
 
-
                             </fieldset>
                           </form>
-
                         </div>
                       </tab>
                     </tabset>
@@ -312,103 +253,25 @@
                             <fieldset>
                               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <section >
-                                  <label class="label ">创建时间</label>
-                                  <label class="input">
-                                    <input  name=''  disabled="disabled"  type="text" placeholder="2017-12-13 00:00:30">
-                                  </label>
-                                </section>
-
-                              </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section >
-                                  <label class="label ">修改人</label>
-                                  <label class="input">
-                                    <input  name=''  disabled="disabled"  type="text" >
-                                  </label>
-                                </section>
-
-                              </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section >
-                                  <label class="label ">修改时间</label>
-                                  <label class="input">
-                                    <input  name=''  disabled="disabled"  type="text" >
-                                  </label>
-                                </section>
-
-                              </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section >
-                                  <label class="label ">启用时间</label>
-                                  <label class="input">
-                                    <input  name=''  disabled="disabled"  type="text" >
-                                  </label>
-                                </section>
-
-                              </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section >
-                                  <label class="label ">启用人</label>
-                                  <label class="input">
-                                    <input  name=''  disabled="disabled"  type="text" >
-                                  </label>
-                                </section>
-
-                              </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section >
-                                  <label class="label ">停用时间</label>
-                                  <label class="input">
-                                    <input  name=''  disabled="disabled"  type="text" >
-                                  </label>
-                                </section>
-
-                              </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section >
-                                  <label class="label ">停用人</label>
-                                  <label class="input">
-                                    <input  name=''  disabled="disabled"  type="text" >
-                                  </label>
-                                </section>
-
-                              </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section >
-                                  <label class="label ">自定义项—</label>
-                                  <label class="input">
-                                    <input  name=''    type="text" >
-                                  </label>
-                                </section>
-
-                              </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section >
                                   <label class="label ">创建人</label>
                                   <label class="input">
-                                    <input  name=''  disabled="disabled"  type="text" placeholder="用户名">
+                                    <!--<input name="department_id" formControlName="department_id" disabled="disabled"  type="text" placeholder="用户名">-->
                                   </label>
                                 </section>
-
                               </div>
-
-
                             </fieldset>
                           </form>
-
                         </div>
                       </tab>
                     </tabset>
                   </tab>
-
                 </tabset>
               </div>
             </div>
           </sa-widget>
-
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-ng-click="ok()">保存</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onSubmit()">保存</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
         </div>
       </div>

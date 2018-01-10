@@ -20,21 +20,21 @@
 
                       <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
                         <div class="form-group">
-                          <a class="btn btn-primary btn-sm"  routerLink="/procurement-management/add-receipt">
+                          <a class="btn btn-primary btn-sm"  routerLink="/procurement-management/add-receipt/0">
                             <span class="glyphicon glyphicon-plus"></span>添加进货单</a>
                         </div>
                         <div class="form-group">
-                          <a class="btn btn-warning btn-sm"  data-toggle="modal" data-target="#myModal">
+                          <a class="btn btn-warning btn-sm" (click)="editPurchase()"><!-- data-toggle="modal" data-target="#myModal" -->
                             <span class="glyphicon glyphicon-pencil margin-right-5"></span>修改</a>
                         </div>
                         <div class="form-group">
-                          <a class="btn btn-success btn-sm"  >
+                          <a class="btn btn-success btn-sm" (click)="detailPurchase()">
                             <span class="glyphicon glyphicon-zoom-in margin-right-5"></span>详情</a>
                         </div>
                         <div class="form-group padding-left-10">
-                          <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" name="keyword" placeholder="请输入搜索内容" type="text">
+                          <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" name="keyword" [(ngModel)]="keyword" placeholder="请输入搜索内容" type="text">
                         </div>
-                        <button class="btn btn-default" type="submit">
+                        <button class="btn btn-default" type="button" (click)="getPurchaseList(1)">
                           <i  class="glyphicon glyphicon-search"></i>
                           搜索
                         </button>
@@ -50,7 +50,7 @@
                     <thead>
                     <tr >
                       <td><label class="checkbox">
-                        <input type="checkbox" name="checkbox-inline" >
+                        <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)" >
                         <i></i>
                       </label>
                       </td>
@@ -61,42 +61,19 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="table-color">
+                    <tr class="table-color" *ngFor="let p of purchaseList.result?.data">
                       <td>
                         <label class="checkbox">
-                          <input type="checkbox" >
+                          <input type="checkbox" value="{{p.pr_id}}" [checked]="selects[p.pr_id]" (change)="handle($event)">
                           <i></i>
                         </label>
                       </td>
-                      <td>20145552111</td>
-                      <td>正常</td>
-                      <td>进货</td>
-                      <td>2017-09-26</td>
+                      <td>{{p.pr_order}}</td>
+                      <td></td>
+                      <td>{{(p.pr_type == 1) ? '进货':'退货'}}</td>
+                      <td>{{p.pr_date}}</td>
                     </tr>
-                    <tr>
-                      <td>
-                        <label class="checkbox">
-                          <input type="checkbox" >
-                          <i></i>
-                        </label>
-                      </td>
-                      <td>20145552111</td>
-                      <td>正常</td>
-                      <td>进货</td>
-                      <td>2017-09-26</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <label class="checkbox">
-                          <input type="checkbox" >
-                          <i></i>
-                        </label>
-                      </td>
-                      <td>20145552111</td>
-                      <td>正常</td>
-                      <td>进货</td>
-                      <td>2017-09-26</td>
-                    </tr>
+
                     </tbody>
                   </table>
 
@@ -118,42 +95,18 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="table-color">
-                      <td>矿矿业</td>
-                      <td>15952788795</td>
-                      <td>121544785421</td>
-                      <td><span>成绩欧安李凤娟我废旧塑料快递费科技科技看空水电费闻风丧胆范文芳间看</span></td>
-                      <td><span>中高级撒旦法而非热风特然个特点刚发的鬼地方个十大歌手如果是规范化都是</span></td>
-                      <td>政策</td>
-                      <td>政策</td>
+                    <tr class="table-color" *ngFor="let p1 of purchaseList.result?.data">
+                      <td>{{p1.supplier}}</td>
+                      <td>{{p1.category_desc}}</td>
+                      <td>{{p1.employee}}</td>
+                      <td>___</td>
+                      <td>{{p1.pr_discount}}</td>
+                      <td>{{p1.u_username}}</td>
+                      <td>{{p1.created_at}}</td>
                       <td>政策</td>
                       <td>政策</td>
                       <td>政策</td>
 
-                    </tr>
-                    <tr>
-                      <td>矿矿业</td>
-                      <td>15952788795</td>
-                      <td>121544785421</td>
-                      <td><span>成绩欧安李凤娟我废旧塑料快递费科技科技看空水电费闻风丧胆范文芳间看</span></td>
-                      <td><span>中高级撒旦法而非热风特然个特点刚发的鬼地方个十大歌手如果是规范化都是</span></td>
-                      <td>政策</td>
-                      <td>政策</td>
-                      <td>政策</td>
-                      <td>政策</td>
-                      <td>政策</td>
-                    </tr>
-                    <tr>
-                      <td>矿矿业</td>
-                      <td>15952788795</td>
-                      <td>121544785421</td>
-                      <td><span>成绩欧安李凤娟我废旧塑料快递费科技科技看空水电费闻风丧胆范文芳间看</span></td>
-                      <td><span>中高级撒旦法而非热风特然个特点刚发的鬼地方个十大歌手如果是规范化都是</span></td>
-                      <td>政策</td>
-                      <td>政策</td>
-                      <td>政策</td>
-                      <td>政策</td>
-                      <td>政策</td>
                     </tr>
                     </tbody>
                   </table>
@@ -164,14 +117,14 @@
               <!-- 底部-（分页部分）-->
               <div class="dt-toolbar">
                 <div class="col-xs-12 col-sm-6">
-                  <button class="btn btn-default">
+                  <button class="btn btn-default" (click)="deletePurchase()">
                     <i class="fa fa-trash-o fa-lg"></i>
                     删除所选
                   </button>
                 </div>
                 <div class="hidden-xs right">
                   <ul class="pagination pagination-sm">
-                    <li *ngFor="let p of categoryList?.page" class="{{p.class}}">
+                    <li *ngFor="let p of purchaseList?.page" class="{{p.class}}">
                       <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
                       <a *ngIf="p.method==''">{{p.text}}</a>
                     </li>

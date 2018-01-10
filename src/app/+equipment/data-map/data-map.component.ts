@@ -18,6 +18,7 @@ export class DataMapComponent implements OnInit {
     dataSource1: Observable<any>;
     products1: Array<any> = [];
 
+    is_show_products : number = 0;
     customerDefault : Array<any> = [];
     company:string = 'all';
 
@@ -249,6 +250,8 @@ export class DataMapComponent implements OnInit {
                     c++;
                 }
             }
+            //是否隐藏加载滚动
+           this.is_show_products = 1;
         }, 5*1000);
     }
 
