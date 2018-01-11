@@ -6,29 +6,31 @@
     <div class="row" *ngIf="products['data'] && products1['data'] && products['data'][0] && is_show_products">
       <div *ngFor="let entry of (products['data'][0]['info'] | keys)" >
       <article class="col-sm-3" *ngIf="entry.value.value[0]">
-        <sa-widget [editbutton]="false" [deletebutton]="false" color="darken">
+        <sa-widget [editbutton]="false" [deletebutton]="false" color="darken" >
           <header>
-            <h2 *ngIf="entry.key == 'ch4'">甲烷</h2>
-            <h2 *ngIf="entry.key == 'co'">一氧化碳</h2>
-            <h2 *ngIf="entry.key == 'co2'">二氧化碳</h2>
-            <h2 *ngIf="entry.key == 'o2'">氧气</h2>
-            <h2 *ngIf="entry.key == 'temp'">温度</h2>
-            <h2 *ngIf="entry.key == 'humi'">湿度</h2>
-            <h2 *ngIf="entry.key == 'eeg'">脑电</h2>
-            <h2 *ngIf="entry.key == 'ecg'">心率</h2>
-            <h2 *ngIf="entry.key == 'spo2h'">血氧</h2>
+            <h2 *ngIf="entry.key == 'ch4'">甲烷(ch4)</h2>
+            <h2 *ngIf="entry.key == 'co'">一氧化碳(co)</h2>
+            <h2 *ngIf="entry.key == 'co2'">二氧化碳(co2)</h2>
+            <h2 *ngIf="entry.key == 'o2'">氧气(o2)</h2>
+            <h2 *ngIf="entry.key == 'temp'">温度(temp)</h2>
+            <h2 *ngIf="entry.key == 'humi'">湿度(humi)</h2>
+            <h2 *ngIf="entry.key == 'eeg'">脑电(eeg)</h2>
+            <h2 *ngIf="entry.key == 'ecg'">心率(ecg)</h2>
+            <h2 *ngIf="entry.key == 'spo2h'">血氧(spo2h)</h2>
           </header>
           <div>
             <div class="widget-body no-padding">
               <div class="the-price pricing-big">
                 <div class="panel-heading">
                   <h1 class="panel-title font-headline">
-                    {{entry.key}}
-                    <small class="subscript" ><span>{{entry.value.value[0]}}</span></small>
+                    <span class="txt-color-greenbrigh">20</span>
+                    <small class="subscript" ><sub>kkk</sub></small>
+                    <!-- {{entry.key}}
+                     <small class="subscript" ><span>{{entry.value.value[0]}}</span></small>-->
                   </h1>
                 </div>
               </div>
-              <table class="table table-hover " style="margin: -5px 0;">
+              <table class="table table-hover table-striped " style="margin: -5px 0;">
                 <thead>
                 <tr>
                   <th >时间</th>
@@ -43,7 +45,7 @@
                 </tbody>
               </table>
               <div class="panel-footer no-padding">
-                <a (click)="showPic(entry.key);lgModal.show()" class="btn bg-color-teal txt-color-white btn-block" role="button">
+                <a (click)="showPic(entry.key);lgModal.show()" class="btn bg-color-greenbrigh txt-color-white btn-block" role="button">
                   查看更多数据
                 </a>
               </div>
@@ -58,23 +60,27 @@
       <article class="col-sm-3" *ngIf="entry.value.value[0]">
         <sa-widget  [editbutton]="false" [deletebutton]="false" color="darken">
           <header>
-            <h2 *ngIf="entry.key == 'ch4'">甲烷</h2>
-            <h2 *ngIf="entry.key == 'co'">一氧化碳</h2>
-            <h2 *ngIf="entry.key == 'co2'">二氧化碳</h2>
-            <h2 *ngIf="entry.key == 'o2'">氧气</h2>
-            <h2 *ngIf="entry.key == 'temp'">温度</h2>
-            <h2 *ngIf="entry.key == 'humi'">湿度</h2>
-            <h2 *ngIf="entry.key == 'eeg'">脑电</h2>
-            <h2 *ngIf="entry.key == 'ecg'">心率</h2>
-            <h2 *ngIf="entry.key == 'spo2h'">血氧</h2>
+            <h2 *ngIf="entry.key == 'ch4'">甲烷(ch4)</h2>
+            <h2 *ngIf="entry.key == 'co'">一氧化碳(co)</h2>
+            <h2 *ngIf="entry.key == 'co2'">二氧化碳(co2)</h2>
+            <h2 *ngIf="entry.key == 'o2'">氧气(o2)</h2>
+            <h2 *ngIf="entry.key == 'temp'">温度(temp)</h2>
+            <h2 *ngIf="entry.key == 'humi'">湿度(humi)</h2>
+            <h2 *ngIf="entry.key == 'eeg'">脑电(eeg)</h2>
+            <h2 *ngIf="entry.key == 'ecg'">心率(ecg)</h2>
+            <h2 *ngIf="entry.key == 'spo2h'">血氧(spo2h)</h2>
           </header>
           <div>
             <div class="widget-body no-padding">
               <div class="the-price pricing-big">
                 <div class="panel-heading">
                   <h1 class="panel-title font-headline">
-                    {{entry.key}}
-                    <small class="subscript" ><span>{{entry.value.value[0]}}</span></small>
+                    20
+                    <small class="subscript" ><sub>kkk</sub></small>
+                    <!-- {{entry.key}}
+                     <small class="subscript" ><span>{{entry.value.value[0]}}</span></small>-->
+                    <!--{{entry.key}}
+                    <small class="subscript" ><span>{{entry.value.value[0]}}</span></small>-->
                   </h1>
                 </div>
               </div>
@@ -93,7 +99,7 @@
                 </tbody>
               </table>
               <div class="panel-footer no-padding">
-                <a (click)="showPic(entry.key);lgModal.show()" class="btn bg-color-teal txt-color-white btn-block" role="button">
+                <a (click)="showPic(entry.key);lgModal.show()" class="btn bg-color-greenbrigh txt-color-white btn-block" role="button">
                   查看更多数据
                 </a>
               </div>

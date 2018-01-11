@@ -338,6 +338,9 @@ div.dataTables_paginate ul.pagination {
 .txt-color-green {
     color: #356e35!important
 }
+.txt-color-greenbrigh{
+    color:  #40ac2b!important
+}
 
 .txt-color-greenLight {
     color: #739e73!important
@@ -493,6 +496,9 @@ div.dataTables_paginate ul.pagination {
 .bg-color-teal {
     background-color: #568a89!important
 }
+.bg-color-greenbrigh{
+    background-color:  #40ac2b!important
+}
 
 .bg-color-redLight {
     background-color: #a65858!important
@@ -501,6 +507,9 @@ div.dataTables_paginate ul.pagination {
 /*百分比*/
 .percent-6{
     width:6%!important
+}
+.percent-10{
+    width:10%!important
 }
 .percent-12{
     width:12%!important
@@ -511,8 +520,17 @@ div.dataTables_paginate ul.pagination {
 .percent-30{
     width:30%!important
 }
+.percent-34{
+    width:34%!important
+}
+.percent-40{
+    width:40%!important
+}
 .percent-50{
     width:50%!important
+}
+.percent-60{
+    width:60%!important
 }
 .percent-100{
     width:100%!important

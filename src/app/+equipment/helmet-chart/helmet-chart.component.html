@@ -47,14 +47,13 @@
                     <th class="percent-12">
                       设备
                     </th>
-                    <th class="percent-30">
+                    <th class="percent-34">
                       检测数据
                     </th>
-                    <th class="percent-12">
+                    <th class="percent-10">
                       状态
                     </th>
-                    <th class="percent-12">
-                      <i class="fa fa-fw fa-calendar text-muted hidden-md hidden-sm hidden-xs"></i>
+                    <th class="percent-10">
                       采集数据时间
                     </th>
                     <th class="percent-16" >操作</th>
@@ -67,7 +66,7 @@
                   <tr role="row" *ngIf="status.indexOf(','+ind+',') === -1"  [ngClass]="{ 'odd' : (ind%2 == 0), 'even': (ind%2 != 0) }">
                     <td class=" details-control percent-6" (click)="changeStatus(ind,'+')" *ngIf="ll.i3otp_attribute1.length!=0 "><!--|| ll.i3otp_attribute2.length!=0 || ll.i3otp_attribute3.length!=0--->
                     </td>
-                    <td *ngIf="ll.i3otp_attribute1.length==0 "><!--&& ll.i3otp_attribute2.length==0 && ll.i3otp_attribute3.length==0-->
+                    <td class="percent-6" *ngIf="ll.i3otp_attribute1.length==0 "><!--&& ll.i3otp_attribute2.length==0 && ll.i3otp_attribute3.length==0-->
                     </td>
                     <td class="percent-12">
                       {{ll.u_username}}
@@ -83,29 +82,29 @@
                         <i>ID: {{ll.i3otp_pid}}</i>
                       </small>
                     </td>
-                    <td class="percent-30">
+                    <td class="percent-34">
                       <a (click)="showLine(ind,i1)" class="btn btn-success btn-xs" *ngFor="let i1 of ll.i3otp_attribute1">{{i1}}</a>
                       <!--<a (click)="showLine(ind,i2)" class="btn btn-success btn-xs" *ngFor="let i2 of ll.i3otp_attribute2">{{i2}}</a>-->
                       <!--<a (click)="showLine(ind,i3)" class="btn btn-success btn-xs" *ngFor="let i3 of ll.i3otp_attribute3">{{i3}}</a>-->
                     </td>
-                    <td class="percent-12">
+                    <td class="percent-10">
                       <i *ngIf="ll.i3otp_status == 0" class="fa fa-circle txt-color-darken font-xs">未激活</i>
                       <i *ngIf="ll.i3otp_status == 1" class="fa fa-circle text-danger font-xs">使用中</i>
                       <i *ngIf="ll.i3otp_status == 2" class="fa fa-circle txt-color-darken font-xs">返厂维修</i>
                       <i *ngIf="ll.i3otp_status == 3" class="fa fa-circle txt-color-darken font-xs">报废</i>
                     </td>
-                    <td class="percent-12">{{ll.i3otp_sensor_intervan}}</td>
-                    <td *ngIf="ll.i3otp_attribute1.length!=0"><!-- || ll.i3otp_attribute2.length!=0 || ll.i3otp_attribute3.length!=0--->
-                      <a (click)="notificationExample2(ll.i3otp_pid,ll.i3otp_str)" class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-plus"></span>添加对比</a>
-                      <a (click)="showJoinPic();lgModal.show()" class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-adjust"></span>查看对比图</a>
+                    <td class="percent-10">{{ll.i3otp_sensor_intervan}}</td>
+                    <td class="percent-16" *ngIf="ll.i3otp_attribute1.length!=0"><!-- || ll.i3otp_attribute2.length!=0 || ll.i3otp_attribute3.length!=0--->
+                      <a (click)="notificationExample2(ll.i3otp_pid,ll.i3otp_str)" class="btn btn-primary" ><i class="glyphicon glyphicon-plus"></i>添加对比</a>
+                      <!--<a (click)="showJoinPic();lgModal.show()" class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-adjust"></span>查看对比图</a>-->
                     </td>
                     <td class="percent-16" *ngIf="ll.i3otp_attribute1.length==0"><!-- && ll.i3otp_attribute2.length==0 && ll.i3otp_attribute3.length==0--->
                     </td>
                   </tr>
                   <tr role="row" *ngIf="status.indexOf(','+ind+',') != -1" [ngClass]="{ 'odd' : (ind%2 == 0), 'even': (ind%2 != 0) ,'shown':true} ">
-                    <td class=" details-control percent-6" (click)="changeStatus(ind,'-')" *ngIf="ll.i3otp_attribute1.length!=0">
+                    <td class="details-control percent-6" (click)="changeStatus(ind,'-')" *ngIf="ll.i3otp_attribute1.length!=0">
                     </td>
-                    <td *ngIf="ll.i3otp_attribute1.length==0">
+                    <td class="percent-6" *ngIf="ll.i3otp_attribute1.length==0">
                     </td>
                     <td class="percent-12">
                       {{ll.u_username}}
@@ -121,21 +120,20 @@
                         <i>ID: {{ll.i3otp_pid}}</i>
                       </small>
                     </td>
-                    <td class="percent-30">
+                    <td class="percent-34">
                       <a (click)="showLine(ind,i1)" class="btn btn-success btn-xs" *ngFor="let i1 of ll.i3otp_attribute1">{{i1}}</a>
                       <!--<a (click)="showLine(ind,i2)" class="btn btn-success btn-xs" *ngFor="let i2 of ll.i3otp_attribute2">{{i2}}</a>-->
                       <!--<a (click)="showLine(ind,i3)" class="btn btn-success btn-xs" *ngFor="let i3 of ll.i3otp_attribute3">{{i3}}</a>-->
                     </td>
-                    <td class="percent-12">
+                    <td class="percent-10">
                       <i *ngIf="ll.i3otp_status == 0" class="fa fa-circle txt-color-darken font-xs">未激活</i>
                       <i *ngIf="ll.i3otp_status == 1" class="fa fa-circle text-danger font-xs">使用中</i>
                       <i *ngIf="ll.i3otp_status == 2" class="fa fa-circle txt-color-darken font-xs">返厂维修</i>
                       <i *ngIf="ll.i3otp_status == 3" class="fa fa-circle txt-color-darken font-xs">报废</i>
                     </td>
-                    <td class="percent-12">{{ll.i3otp_sensor_intervan}}</td>
-                    <td class="percent-12" *ngIf="ll.i3otp_attribute1.length!=0">
-                      <a (click)="notificationExample2(ll.i3otp_pid,ll.i3otp_str)" class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-plus"></span>添加对比</a>
-                      <a (click)="showJoinPic();lgModal.show()" class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-adjust"></span>查看对比图</a>
+                    <td class="percent-10">{{ll.i3otp_sensor_intervan}}</td>
+                    <td class="percent-16" *ngIf="ll.i3otp_attribute1.length!=0">
+                      <a (click)="notificationExample2(ll.i3otp_pid,ll.i3otp_str)" class="btn btn-primary " ><i class="glyphicon glyphicon-plus"></i>添加对比</a>
                     </td>
                     <td class="percent-16" *ngIf="ll.i3otp_attribute1.length==0">
                     </td>
@@ -157,16 +155,16 @@
                           </td>
                         </tr>
                         <tr >
-                          <td class="percent-50" style="border-right:1px solid #ccc; ">
+                          <td class="percent-60" style="border-right:1px solid #ccc; ">
                             <div echarts [options]="chartOption1[ind]" class="demo-chart" *ngIf="chartOption1[ind].legend.data.length != 0" ></div>
                           </td>
-                          <td  class="percent-50">
+                          <td  class="percent-40">
                             <div class="row" *ngIf="chartOption1[ind].legend.data.length != 0">
                               <div class="col-md-12">
                                 <p class="alert alert-info">
                                   <strong>最新数据</strong>
                                 </p>
-                                <table class="table table-hover table-bordered">
+                                <table class="table table-hover table-striped table-bordered table-newdata">
                                   <thead>
                                   <tr>
                                     <th>名称</th>
