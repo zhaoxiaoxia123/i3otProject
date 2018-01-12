@@ -28,6 +28,7 @@ export class SettingAffiliationComponent implements OnInit {
     categoryInfo : Array<any> = [];
     category_id:number = 0;
     category_desc:string = '';
+    category_number:string = '';
 
     cid : any = 0;//当前登录用户的所属公司id
     super_admin_id : any = 0;//超级管理员所属公司id
@@ -72,6 +73,10 @@ export class SettingAffiliationComponent implements OnInit {
      * 添加项目下任务标签信息
      */
     addCategory(){
+        if(this.category_number.trim() == ''){
+            alert('请输入项目编号！');
+            return false;
+        }
         if(this.category_desc.trim() == ''){
             alert('请输入项目标题！');
             return false;
@@ -79,6 +84,7 @@ export class SettingAffiliationComponent implements OnInit {
         this.http.post(this.globalService.getDomain()+'/api/v1/addCategory',{
             'category_id' : this.category_id,
             'category_type' : this.category_type,
+            'category_number' : this.category_number,
             'category_desc' : this.category_desc,
             'sid':this.cookieStoreService.getCookie('sid')
         }).subscribe(
@@ -87,6 +93,7 @@ export class SettingAffiliationComponent implements OnInit {
                 if(info['status'] == 200) {
                     this.category_id = 0;
                     this.category_desc = '';
+                    this.category_number = '';
                 }else if(info['status'] == 202){
                     alert(info['msg']);
                     this.cookieStoreService.removeAll(this.rollback_url);
@@ -110,6 +117,7 @@ export class SettingAffiliationComponent implements OnInit {
         setTimeout(() => {
             this.category_id = this.categoryInfo['result']['parent']['category_id'];
             this.category_desc = this.categoryInfo['result']['parent']['category_desc'];
+            this.category_number = this.categoryInfo['result']['parent']['category_number'];
             console.log(this.categoryInfo);
         }, 500);
     }

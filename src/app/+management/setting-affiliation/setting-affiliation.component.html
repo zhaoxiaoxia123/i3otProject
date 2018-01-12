@@ -41,6 +41,12 @@
                       <form   class="smart-form ">
                         <fieldset>
                           <section>
+                            <label class="label txt-color-blue">职称编号<span class="asterisk-color">*</span></label>
+                            <label class="input">
+                              <input type="text" placeholder="职称编号" name="category_number" [(ngModel)]="category_number">
+                            </label>
+                          </section>
+                          <section>
                             <label class="label txt-color-blue">项目所属名称<span class="asterisk-color">*</span></label>
                             <label class="input">
                               <input type="text" placeholder="请输项目所属名称" name="category_desc" [(ngModel)]="category_desc">
@@ -70,14 +76,14 @@
                         <table class="table table-hover table-bordered dataTable">
                           <thead>
                           <tr>
-                            <th>项目所属编码</th>
+                            <th>项目所属编号</th>
                             <th>项目所属名称</th>
                             <th>操作</th>
                           </tr>
                           </thead>
                           <tbody>
                           <tr *ngFor="let c of categoryList?.result">
-                            <td>{{c.category_id}}</td>
+                            <td>{{c.category_number}}</td>
                             <td>{{c.category_desc}}</td><!--yellow-label-->
                             <td>
                               <div *ngIf="cid == super_admin_id || c.c_id == cid" >

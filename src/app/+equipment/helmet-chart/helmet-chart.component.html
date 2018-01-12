@@ -62,7 +62,7 @@
                 </table>
                 <table *ngFor="let ll of i3otpList.result?.i3otpList?.data;let ind = index;" class="dataTable responsive table table-striped table-bordered table-hover">
 
-                  <tbody >
+                  <tbody *ngIf="ll.i3otp_attribute1.length!=0 && newList.length != 0" >
                   <tr role="row" *ngIf="status.indexOf(','+ind+',') === -1"  [ngClass]="{ 'odd' : (ind%2 == 0), 'even': (ind%2 != 0) }">
                     <td class=" details-control percent-6" (click)="changeStatus(ind,'+')" *ngIf="ll.i3otp_attribute1.length!=0 "><!--|| ll.i3otp_attribute2.length!=0 || ll.i3otp_attribute3.length!=0--->
                     </td>
@@ -83,9 +83,11 @@
                       </small>
                     </td>
                     <td class="percent-34">
-                      <a (click)="showLine(ind,i1)" class="btn btn-success btn-xs" *ngFor="let i1 of ll.i3otp_attribute1">{{i1}}</a>
-                      <!--<a (click)="showLine(ind,i2)" class="btn btn-success btn-xs" *ngFor="let i2 of ll.i3otp_attribute2">{{i2}}</a>-->
-                      <!--<a (click)="showLine(ind,i3)" class="btn btn-success btn-xs" *ngFor="let i3 of ll.i3otp_attribute3">{{i3}}</a>-->
+                      <a (click)="showLine(ind,i1)" class="btn btn-success btn-xs" *ngFor="let i1 of ll.i3otp_attribute1;let in1 = index;">
+                      {{i1}}({{newList[ind][in1].value}}
+                      <sub *ngIf="newList[ind][in1].name == 'ch4' || newList[ind][in1].name == 'co2' || newList[ind][in1].name == 'o2' || newList[ind][in1].name == 'humi'">%</sub>
+                      <sub *ngIf="newList[ind][in1].name == 'co'">PPM</sub>
+                      <sub *ngIf="newList[ind][in1].name == 'tem'">°C</sub>)</a>
                     </td>
                     <td class="percent-10">
                       <i *ngIf="ll.i3otp_status == 0" class="fa fa-circle txt-color-darken font-xs">未激活</i>
@@ -93,7 +95,7 @@
                       <i *ngIf="ll.i3otp_status == 2" class="fa fa-circle txt-color-darken font-xs">返厂维修</i>
                       <i *ngIf="ll.i3otp_status == 3" class="fa fa-circle txt-color-darken font-xs">报废</i>
                     </td>
-                    <td class="percent-10">{{ll.i3otp_sensor_intervan}}</td>
+                    <td class="percent-10">{{newList[ind][(newList[ind].length-1)].time}}</td>
                     <td class="percent-16" *ngIf="ll.i3otp_attribute1.length!=0"><!-- || ll.i3otp_attribute2.length!=0 || ll.i3otp_attribute3.length!=0--->
                       <a (click)="notificationExample2(ll.i3otp_pid,ll.i3otp_str)" class="btn btn-primary" ><i class="glyphicon glyphicon-plus"></i>添加对比</a>
                       <!--<a (click)="showJoinPic();lgModal.show()" class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-adjust"></span>查看对比图</a>-->
@@ -121,9 +123,11 @@
                       </small>
                     </td>
                     <td class="percent-34">
-                      <a (click)="showLine(ind,i1)" class="btn btn-success btn-xs" *ngFor="let i1 of ll.i3otp_attribute1">{{i1}}</a>
-                      <!--<a (click)="showLine(ind,i2)" class="btn btn-success btn-xs" *ngFor="let i2 of ll.i3otp_attribute2">{{i2}}</a>-->
-                      <!--<a (click)="showLine(ind,i3)" class="btn btn-success btn-xs" *ngFor="let i3 of ll.i3otp_attribute3">{{i3}}</a>-->
+                      <a (click)="showLine(ind,i1)" class="btn btn-success btn-xs" *ngFor="let i1 of ll.i3otp_attribute1;let in1 = index;">
+                        {{i1}}({{newList[ind][in1].value}}
+                        <sub *ngIf="newList[ind][in1].name == 'ch4' || newList[ind][in1].name == 'co2' || newList[ind][in1].name == 'o2' || newList[ind][in1].name == 'humi'">%</sub>
+                        <sub *ngIf="newList[ind][in1].name == 'co'">PPM</sub>
+                        <sub *ngIf="newList[ind][in1].name == 'tem'">°C</sub>)</a>
                     </td>
                     <td class="percent-10">
                       <i *ngIf="ll.i3otp_status == 0" class="fa fa-circle txt-color-darken font-xs">未激活</i>
@@ -147,45 +151,25 @@
                           <td  colspan="2" class="text-align-center" ><img  src="assets/img/select2-spinner.gif" >
                             <h4 class="txt-color-darken" >加载中</h4></td>
                         </tr>
-                        <tr *ngIf="chartOption1[ind].legend.data.length == 0">
-                          <td colspan="2">
-                            <h4 class="text-align-center" >
-                              无检测信息
+                        <!--<tr *ngIf="chartOption1[ind].legend.data.length == 0">-->
+                          <!--<td colspan="2">-->
+                            <!--<h4 class="text-align-center" >-->
+                              <!--无检测信息-->
+                            <!--</h4>-->
+                          <!--</td>-->
+                        <!--</tr>-->
+                        <tr *ngFor="let pc1 of chartOption1[ind];let pic1 = index;">
+                          <td class="percent-50" style="border-right:1px solid #ccc;" *ngIf="pic1%2==0">
+                            <h4 class="text-align-center" *ngIf="chartOption1[ind]['l'+pic1]== 0">
+                              {{chartOption1[ind][pic1].legend.data[0]}}无检测信息
                             </h4>
+                            <div *ngIf="chartOption1[ind]['l'+pic1] > 0" echarts [options]="chartOption1[ind][pic1]" class="demo-chart" ></div>
                           </td>
-                        </tr>
-                        <tr >
-                          <td class="percent-60" style="border-right:1px solid #ccc; ">
-                            <div echarts [options]="chartOption1[ind]" class="demo-chart" *ngIf="chartOption1[ind].legend.data.length != 0" ></div>
-                          </td>
-                          <td  class="percent-40">
-                            <div class="row" *ngIf="chartOption1[ind].legend.data.length != 0">
-                              <div class="col-md-12">
-                                <p class="alert alert-info">
-                                  <strong>最新数据</strong>
-                                </p>
-                                <table class="table table-hover table-striped table-bordered table-newdata">
-                                  <thead>
-                                  <tr>
-                                    <th>名称</th>
-                                    <th>数据</th>
-                                    <th>时间</th>
-                                    <th>位置</th>
-                                  </tr>
-                                  </thead>
-                                  <tbody>
-                                  <tr *ngFor="let ll1 of newList[ind];" [ngStyle]="{'background-color': ll1.color}">
-                                    <td>
-                                      <strong>{{ll1.name}}</strong>
-                                    </td>
-                                    <td>{{ll1.value}}%</td>
-                                    <td>{{ll1.time}}</td>
-                                    <td>{{ll.i3otp_address}}</td>
-                                  </tr>
-                                  </tbody>
-                                </table>
-                              </div>
-                            </div>
+                          <td  class="percent-50" *ngIf="pic1%2==0 && ((pic1+1) < chartOption1[ind].length)">
+                            <h4 class="text-align-center" *ngIf="chartOption1[ind]['l'+pic1] == 0">
+                              {{chartOption1[ind][pic1+1].legend.data[0]}}无检测信息
+                            </h4>
+                            <div *ngIf="chartOption1[ind]['l'+pic1] > 0" echarts [options]="chartOption1[ind][pic1+1]" class="demo-chart" ></div>
                           </td>
                         </tr>
                         <tr>
@@ -203,12 +187,18 @@
                 </table>
               </div>
               <!-- 底部-（分页部分）-->
+              <div class="dt-toolbar-footer" *ngIf="newList.length == 0">
+                <div class="row text-align-center">
+                  <img  src="assets/img/select2-spinner.gif" >
+                  <h4 class="txt-color-darken" >加载中</h4>
+                </div>
+              </div>
               <div class="dt-toolbar-footer">
                 <div class="col-sm-6 col-xs-12 hidden-xs">
                   <div class="dataTables_info"  role="status" aria-live="polite">
                   </div>
                 </div>
-                <div class="col-sm-6 col-xs-12 hidden-xs text-right">
+                <div class="col-sm-6 col-xs-12 hidden-xs text-right" *ngIf="newList.length != 0">
                   <ul class="pagination pagination-sm">
                     <li *ngFor="let p of i3otpList?.page" class="{{p.class}}">
                       <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>

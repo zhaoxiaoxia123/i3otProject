@@ -19,12 +19,8 @@
         </li>
       </ul>
     </header>
-
-
     <div class="no-padding">
-
       <div class="widget-body">
-
         <div id="myTabContent" class="tab-content">
           <div class="tab-pane fade active in padding-10 no-padding-bottom" id="s3" >
             <div class="row">
@@ -43,6 +39,12 @@
                       </alert>
                       <form   class="smart-form ">
                         <fieldset>
+                          <section>
+                            <label class="label txt-color-blue">职称编号<span class="asterisk-color">*</span></label>
+                            <label class="input">
+                              <input type="text" placeholder="职称编号" name="category_number" [(ngModel)]="category_number">
+                            </label>
+                          </section>
                           <section>
                             <label class="label txt-color-blue">项目模板名称<span class="asterisk-color">*</span></label>
                             <label class="input">
@@ -80,7 +82,7 @@
                         <table class="table table-hover table-bordered dataTable">
                           <thead>
                           <tr>
-                            <th>项目模板编码</th>
+                            <th>项目模板编号</th>
                             <th>项目模板名称</th>
                             <th>项目模板分类</th>
                             <th>操作</th>
@@ -88,7 +90,7 @@
                           </thead>
                           <tbody>
                           <tr *ngFor="let c of categoryList?.result">
-                            <td>{{c.category_id}}</td>
+                            <td>{{c.category_number}}</td>
                             <td>{{c.category_desc}}</td>
                             <td>{{c.category_tab}}<br/>
                             </td>

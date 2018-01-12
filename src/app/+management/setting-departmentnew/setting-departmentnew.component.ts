@@ -130,17 +130,27 @@ export class SettingDepartmentnewComponent implements OnInit {
 
         this.department_id = department_id;
 
-        this.http.get(this.globalService.getDomain()+'/api/v1/getDepartmentInfo?department_id=sid='+this.cookieStore.getCookie('sid'))
+        this.http.get(this.globalService.getDomain()+'/api/v1/getDepartmentInfo?department_id='+department_id+'&sid='+this.cookieStore.getCookie('sid'))
             .map((res)=>res.json())
             .subscribe((data)=>{
-                this.departmentDefault = data;
+                this.departmentInfo = data;
             });
         setTimeout(() => {
-            console.log(this.departmentDefault);
+            console.log(this.departmentInfo);
             if(this.departmentInfo['status'] == 200){
                 this.formModel.patchValue({
-                    department_id: department_id
+                    department_id: department_id,
+                    department_name:this.departmentInfo['result']['department_name'],
+                    department_number:this.departmentInfo['result']['department_number'],
+                    department_shortcode:this.departmentInfo['result']['department_shortcode'],
+                    upper_department_id:this.departmentInfo['result']['upper_department_id'],
+                    department_attribute:this.departmentInfo['result']['department_attribute'],
+                    department_incharge:this.departmentInfo['result']['department_incharge'],
+                    department_phone:this.departmentInfo['result']['department_phone'],
+                    department_fax:this.departmentInfo['result']['department_fax'],
+                    department_remark:this.departmentInfo['result']['department_remark'],
                 });
+                this.upper_department_id_default = this.departmentInfo['result']['upper_department_id'];
             }else if(this.departmentDefault['status'] == 202){
                 alert(this.departmentDefault['msg']);
                 this.cookieStore.removeAll(this.rollback_url);

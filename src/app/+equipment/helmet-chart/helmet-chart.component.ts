@@ -32,7 +32,7 @@ export class HelmetChartComponent implements OnInit {
 
     private interval;
     //颜色设置列表信息
-    colorShow  : Array<any> = [];
+    // colorShow  : Array<any> = [];
 
     //加入以进行对比的数据
     join_pid : Array<any> = [];
@@ -81,10 +81,11 @@ export class HelmetChartComponent implements OnInit {
             keyword:[''],
         });
         this.getI3otpList('1');
+        window.scrollTo(0,0);
     }
 
     ngOnInit() {
-        this.getColorShow();
+        // this.getColorShow();
 
         this.interval = setInterval(() => {
             this.search_datapoint();
@@ -92,25 +93,25 @@ export class HelmetChartComponent implements OnInit {
     }
 
 
-    /**
-     * 阶段颜色显示
-     */
-    getColorShow(){
-        let url = this.globalService.getDomain()+'/api/v1/getSettingsInfo?sid='+this.cookieStore.getCookie('sid');
-        this.http.get(url)
-            .map((res)=>res.json())
-            .subscribe((data)=>{
-                this.colorShow = data;
-            });
-        setTimeout(() => {
-            console.log('this.colorShow:--');
-            console.log(this.colorShow);
-            if(this.colorShow['status'] == 202){
-                this.cookieStore.removeAll(this.rollback_url);
-                this.router.navigate(['/auth/login']);
-            }
-        }, 500);
-    }
+    // /**
+    //  * 阶段颜色显示
+    //  */
+    // getColorShow(){
+    //     let url = this.globalService.getDomain()+'/api/v1/getSettingsInfo?sid='+this.cookieStore.getCookie('sid');
+    //     this.http.get(url)
+    //         .map((res)=>res.json())
+    //         .subscribe((data)=>{
+    //             this.colorShow = data;
+    //         });
+    //     setTimeout(() => {
+    //         console.log('this.colorShow:--');
+    //         console.log(this.colorShow);
+    //         if(this.colorShow['status'] == 202){
+    //             this.cookieStore.removeAll(this.rollback_url);
+    //             this.router.navigate(['/auth/login']);
+    //         }
+    //     }, 500);
+    // }
 
     /**
      * 离开页面的时候移除定时器
@@ -177,33 +178,35 @@ export class HelmetChartComponent implements OnInit {
             console.log('this.products1:-----');
             console.log(this.products1);
             this.chartOption1 = this.getValue(1);
+            console.log('this.chartOption1:-----');
+            console.log(this.chartOption1);
         }, 5*1000);
     }
 
 
-    /**
-     * 获取颜色
-     * @param pro
-     */
-    getColor(pro:Array<any>,entry:string){
-        let color_ = {
-            'color':'',
-            // 'up_color':'#ebcccc'
-        };
-        if(this.colorShow['result'][entry]) {
-            //将颜色便利进（最新数据）显示数组
-            for (var s = 0; s < this.colorShow['result'][entry].length; s++) {
-                let min = parseInt(this.colorShow['result'][entry][s]['s_interval_1']);
-                let max = parseInt(this.colorShow['result'][entry][s]['s_interval_2']);
-                let val = parseInt(pro[entry]['value'][this.size - 1]);
-                if (val >= min && val <= max) {
-                    color_.color = this.colorShow['result'][entry][s]['s_color'];
-                    // color_.up_color = this.colorShow['result'][entry][s]['s_up_color'] == '' ? color_.up_color : this.colorShow['result'][entry][s]['s_up_color'];
-                }
-            }
-        }
-        return color_;
-    }
+    // /**
+    //  * 获取颜色
+    //  * @param pro
+    //  */
+    // getColor(pro:Array<any>,entry:string){
+    //     let color_ = {
+    //         'color':'',
+    //         // 'up_color':'#ebcccc'
+    //     };
+    //     if(this.colorShow['result'][entry]) {
+    //         //将颜色便利进（最新数据）显示数组
+    //         for (var s = 0; s < this.colorShow['result'][entry].length; s++) {
+    //             let min = parseInt(this.colorShow['result'][entry][s]['s_interval_1']);
+    //             let max = parseInt(this.colorShow['result'][entry][s]['s_interval_2']);
+    //             let val = parseInt(pro[entry]['value'][this.size - 1]);
+    //             if (val >= min && val <= max) {
+    //                 color_.color = this.colorShow['result'][entry][s]['s_color'];
+    //                 // color_.up_color = this.colorShow['result'][entry][s]['s_up_color'] == '' ? color_.up_color : this.colorShow['result'][entry][s]['s_up_color'];
+    //             }
+    //         }
+    //     }
+    //     return color_;
+    // }
 
 
     /**
@@ -225,29 +228,41 @@ export class HelmetChartComponent implements OnInit {
             let result: Array<any> = [];
             let i: number = 0;
             for (let dataInfo of this.products1['data']) {
-                this.seriesInfo1 = [];
                 this.lastList1 = [];
+                let pic_i: number = 0;
+                let pic: Array<any> = [];
                 for (let entry of dataInfo['name']) {
+                    this.seriesInfo1 = [];
                     this.seriesInfo1.push({
                         name: entry,
                         type: 'line', stack: '总量',
                         data: this.products1['data'][i]['info'][entry]['value']
                     });
-                    //获取区间值的颜色信息
-                    let color_ = this.getColor(this.products1['data'][i]['info'], entry);
+                    let value_n = this.products1['data'][i]['info'][entry]['value'][this.size - 1];
+                    let time_n = dataInfo['time'][this.size - 1];
                     this.lastList1.push({
                         name: entry,
-                        time: dataInfo['time'][this.size - 1],
-                        color: color_.color,
+                        time: (time_n?time_n:'无'),//this.size - 1
+                        // color: color_.color,
                         // up_color: color_.up_color,
-                        value: this.products1['data'][i]['info'][entry]['value'][this.size - 1]
+                        value: (value_n?value_n:0)
                     });
+                    if (this.lastList1 == []) {
+                        pic[pic_i] =  [];
+                        pic['l'+pic_i] = 0;
+                    } else {
+                        pic[pic_i]= this.commonOne(this.seriesInfo1,  entry, dataInfo['time']);
+                        pic['l'+pic_i] = this.products1['data'][i]['info'][entry]['value'].length;
+                    }
+                    pic_i ++;
                 }
-                if (this.lastList1 == []) {
-                    result[i] = [];
-                } else {
-                    result[i] = this.common(this.seriesInfo1, dataInfo['name'], dataInfo['selected'], dataInfo['time']);
-                }
+                // if (this.lastList1 == []) {
+                //     result[i] = [];
+                // } else {
+                //     result[i] = this.common(this.seriesInfo1, dataInfo['name'], dataInfo['selected'], dataInfo['time']);
+                // }
+
+                result[i] = pic;
                 this.newList[i] = this.lastList1;
                 i++;
             }
@@ -344,6 +359,52 @@ export class HelmetChartComponent implements OnInit {
         return chartOption;
     }
 
+
+    /**
+     * 返回列表的单个画图
+     */
+    commonOne(seriesInfo:Array<any>,name:Array<any>,time:Array<any>){
+        let chartOption = {
+            title: {
+                text: '设备检测数据'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: [name],
+                // selected:selected
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    dataView: {readOnly: false},
+                    magicType: {type: ['line', 'bar']},
+                    restore: {},
+                    saveAsImage: {}
+                }
+            },
+            // grid: {
+            //     left: '3%',
+            //     right: '4%',
+            //     bottom: '3%',
+            //     containLabel: true
+            // },
+            xAxis: [{
+                type: 'category',
+                boundaryGap: false,
+                data:  time
+            }],
+            yAxis: [{
+                type: 'value'
+            }],
+            series: seriesInfo
+        };
+
+        return chartOption;
+    }
+
+
     /**
      * 分页
      * @param url
@@ -357,6 +418,10 @@ export class HelmetChartComponent implements OnInit {
 
     pagination(page : any) {
         this.page = page;
+        this.status = '';
+        this.newList = [];
+        this.products1 = [];
+        this.chartOption1 = [];
         this.getI3otpList(this.page);
     }
 

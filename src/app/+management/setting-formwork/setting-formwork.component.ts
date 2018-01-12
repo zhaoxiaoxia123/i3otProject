@@ -28,6 +28,7 @@ export class SettingFormworkComponent implements OnInit {
     categoryList : Array<any> = [];
     categoryInfo : Array<any> = [];
     category_id:number = 0;
+    category_number:string = '';
     category_desc:string = '';
     category_tab:string = '';
 
@@ -74,6 +75,10 @@ export class SettingFormworkComponent implements OnInit {
      * 添加项目下任务模版信息
      */
     addCategory(){
+        if(this.category_number.trim() == ''){
+            alert('请输入项目编号！');
+            return false;
+        }
         if(this.category_desc.trim() == ''){
             alert('请输入模版标题！');
             return false;
@@ -81,6 +86,7 @@ export class SettingFormworkComponent implements OnInit {
         this.http.post(this.globalService.getDomain()+'/api/v1/addCategory',{
             'category_id' : this.category_id,
             'category_type' : this.category_type,
+            'category_number' : this.category_number,
             'category_desc' : this.category_desc,
             'category_tab':this.category_tab,
             'sid':this.cookieStoreService.getCookie('sid')
@@ -89,6 +95,7 @@ export class SettingFormworkComponent implements OnInit {
                 let info = JSON.parse(data['_body']);
                 if(info['status'] == 200) {
                     this.category_id = 0;
+                    this.category_number = '';
                     this.category_desc = '';
                     this.category_tab = '';
                 }else if(info['status'] == 202){
@@ -113,6 +120,7 @@ export class SettingFormworkComponent implements OnInit {
             });
         setTimeout(() => {
             this.category_id = this.categoryInfo['result']['parent']['category_id'];
+            this.category_number = this.categoryInfo['result']['parent']['category_number'];
             this.category_desc = this.categoryInfo['result']['parent']['category_desc'];
             this.category_tab = this.categoryInfo['result']['parent']['category_tab'];
             console.log(this.categoryInfo);

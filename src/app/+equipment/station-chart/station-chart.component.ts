@@ -3,13 +3,12 @@ import {FadeInTop} from '../../shared/animations/fade-in-top.decorator';
 import {Observable} from "rxjs/Observable";
 import {Http} from "@angular/http";
 import "rxjs/Rx";  // 用于map方法是用
-import {NotificationService} from '../../shared/utils/notification.service';
+// import {NotificationService} from '../../shared/utils/notification.service';
 import {ModalDirective} from 'ngx-bootstrap';
 import {GlobalService} from "../../core/global.service";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {Router} from "@angular/router";
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {isNullOrUndefined} from "util";
 
 @FadeInTop()
 @Component({
@@ -50,9 +49,8 @@ export class StationChartComponent implements OnInit {
     size : number = 20;
 
     private interval;
-    //颜色设置列表信息
-    colorShow  : Array<any> = [];
-
+    // //颜色设置列表信息
+    // colorShow  : Array<any> = [];
     formModel : FormGroup;
 
     //加入以进行对比的数据
@@ -66,22 +64,27 @@ export class StationChartComponent implements OnInit {
     selectedStr : Object = {};
     isShowJoin : boolean = false;
     rollback_url : string = '/equipment/station-chart';
+    //全屏走势图
+    full_screen : Array<any> = [];
+    isFull : string = 'none';
+    f_width : string = '500px';
     constructor(
         fb:FormBuilder,
         private http: Http,
         private router:Router,
         private cookieStore:CookieStoreService,
         private globalService:GlobalService,
-        private notificationService: NotificationService
+        // private notificationService: NotificationService
     ) {
         this.formModel = fb.group({
             keyword:[''],
         });
         this.getI3otpList('1');
+        window.scrollTo(0,0);
     }
 
     ngOnInit() {
-        this.getColorShow();
+        // this.getColorShow();
 
         this.interval = setInterval(() => {
             this.search_datapoint();
@@ -133,25 +136,25 @@ export class StationChartComponent implements OnInit {
             this.getI3otpList('1');
         }
     }
-    /**
-     * 阶段颜色显示
-     */
-    getColorShow(){
-        let url = this.globalService.getDomain()+'/api/v1/getSettingsInfo?sid='+this.cookieStore.getCookie('sid');
-        this.http.get(url)
-            .map((res)=>res.json())
-            .subscribe((data)=>{
-                this.colorShow = data;
-            });
-        setTimeout(() => {
-            console.log('this.colorShow:--');
-            console.log(this.colorShow);
-            if(this.colorShow['status'] == 202){
-                this.cookieStore.removeAll(this.rollback_url);
-                this.router.navigate(['/auth/login']);
-            }
-        }, 500);
-    }
+    // /**
+    //  * 阶段颜色显示
+    //  */
+    // getColorShow(){
+    //     let url = this.globalService.getDomain()+'/api/v1/getSettingsInfo?sid='+this.cookieStore.getCookie('sid');
+    //     this.http.get(url)
+    //         .map((res)=>res.json())
+    //         .subscribe((data)=>{
+    //             this.colorShow = data;
+    //         });
+    //     setTimeout(() => {
+    //         console.log('this.colorShow:--');
+    //         console.log(this.colorShow);
+    //         if(this.colorShow['status'] == 202){
+    //             this.cookieStore.removeAll(this.rollback_url);
+    //             this.router.navigate(['/auth/login']);
+    //         }
+    //     }, 500);
+    // }
 
     search_datapoint(){
         this.size = 20;
@@ -164,6 +167,8 @@ export class StationChartComponent implements OnInit {
             console.log('this.products1:-----');
             console.log(this.products1);
             this.chartOption1 = this.getValue(1);
+            console.log('this.chartOption1:-----');
+            console.log(this.chartOption1);
         }, 5*1000);
     }
 
@@ -175,31 +180,29 @@ export class StationChartComponent implements OnInit {
         this.interval &&  clearInterval(this.interval);
         this.isClear &&  clearInterval(this.isClear);
     }
-
-
-    /**
-     * 获取颜色
-     * @param pro
-     */
-    getColor(pro:Array<any>,entry:string){
-        let color_ = {
-            'color':'',
-            // 'up_color':'#ebcccc'
-        };
-        if(this.colorShow['result'][entry]) {
-            //将颜色便利进（最新数据）显示数组
-            for (var s = 0; s < this.colorShow['result'][entry].length; s++) {
-                let min = parseInt(this.colorShow['result'][entry][s]['s_interval_1']);
-                let max = parseInt(this.colorShow['result'][entry][s]['s_interval_2']);
-                let val = parseInt(pro[entry]['value'][this.size - 1]);//this.size - 1
-                if (val >= min && val <= max) {
-                    color_.color = this.colorShow['result'][entry][s]['s_color'];
-                    // color_.up_color = this.colorShow['result'][entry][s]['s_up_color'] == '' ? color_.up_color : this.colorShow['result'][entry][s]['s_up_color'];
-                }
-            }
-        }
-        return color_;
-    }
+    // /**
+    //  * 获取颜色
+    //  * @param pro
+    //  */
+    // getColor(pro:Array<any>,entry:string){
+    //     let color_ = {
+    //         'color':'',
+    //         // 'up_color':'#ebcccc'
+    //     };
+    //     if(this.colorShow['result'][entry]) {
+    //         //将颜色便利进（最新数据）显示数组
+    //         for (var s = 0; s < this.colorShow['result'][entry].length; s++) {
+    //             let min = parseInt(this.colorShow['result'][entry][s]['s_interval_1']);
+    //             let max = parseInt(this.colorShow['result'][entry][s]['s_interval_2']);
+    //             let val = parseInt(pro[entry]['value'][this.size - 1]);//this.size - 1
+    //             if (val >= min && val <= max) {
+    //                 color_.color = this.colorShow['result'][entry][s]['s_color'];
+    //                 // color_.up_color = this.colorShow['result'][entry][s]['s_up_color'] == '' ? color_.up_color : this.colorShow['result'][entry][s]['s_up_color'];
+    //             }
+    //         }
+    //     }
+    //     return color_;
+    // }
 
     /**
      * 1:列表图  2：对比图
@@ -218,34 +221,44 @@ export class StationChartComponent implements OnInit {
             let result: Array<any> = [];
             let i: number = 0;
             for (let dataInfo of this.products1['data']) {
-                this.seriesInfo1 = [];
                 this.lastList1 = [];
+                let pic_i: number = 0;
+                let pic: Array<any> = [];
                 for (let entry of dataInfo['name']) {
+                    this.seriesInfo1 = [];
                     this.seriesInfo1.push({
                         name: entry,
                         type: 'line', stack: '总量',
                         data: this.products1['data'][i]['info'][entry]['value']
                     });
                     //获取区间值的颜色信息
-                    let color_ = this.getColor(this.products1['data'][i]['info'], entry);
+                    // let color_ = this.getColor(this.products1['data'][i]['info'], entry);
+                    let value_n = this.products1['data'][i]['info'][entry]['value'][this.size - 1];
+                    let time_n = dataInfo['time'][this.size - 1];
                     this.lastList1.push({
                         name: entry,
-                        time: dataInfo['time'][this.size - 1],//this.size - 1
-                        color: color_.color,
+                        time: (time_n?time_n:'无'),//this.size - 1
+                        // color: color_.color,
                         // up_color: color_.up_color,
-                        value: this.products1['data'][i]['info'][entry]['value'][this.size - 1]//this.size - 1
+                        value: (value_n?value_n:0)
                     });
+                    if (this.lastList1 == []) {
+                        pic[pic_i] =  [];
+                        pic['l'+pic_i] = 0;
+                    } else {
+                        pic[pic_i]= this.commonOne(this.seriesInfo1,  entry, dataInfo['time'],i,pic_i);
+                        pic['l'+pic_i] = this.products1['data'][i]['info'][entry]['value'].length;
+                    }
+                    pic_i ++;
                 }
                 // console.log('this.lastList1');
                 // console.log(this.lastList1);
-                if (this.lastList1 == []) {
-                    result[i] = [];
-                } else {
-                    result[i] = this.common(this.seriesInfo1,  dataInfo['name'], dataInfo['selected'], dataInfo['time']);
-                }
+                result[i] = pic;
                 this.newList[i] = this.lastList1;
                 i++;
             }
+            // console.log('this.newList');
+            // console.log(this.newList);
             return result;
         }else if(num == 2){
             if (this.products2.length == 0 && this.join_str != [] && this.join_pid != []) {
@@ -353,6 +366,70 @@ export class StationChartComponent implements OnInit {
         return chartOption;
     }
 
+
+    /**
+     * 返回列表的单个画图
+     */
+    commonOne(seriesInfo:Array<any>,name:Array<any>,time:Array<any>,i:number,pic_i:number){
+        let that = this;
+        let chartOption = {
+            title: {
+                text: '设备检测数据'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: [name],
+                // selected:selected
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    dataView: {show: true, readOnly: false},
+                    magicType: {show: true, type: ['line', 'bar']},
+                    restore: {show: true},
+                    myTool1: {//自定义按钮
+                        show: true,//是否显示
+                        title: '全屏',
+                        icon: 'image://http://echarts.baidu.com/images/favicon.png',
+                        option: {'i': i, 'pic_i': pic_i},
+                        onclick: function (option1) {
+                            that.f_width = '500px';
+                            that.isFull = 'block';
+                            let index1 = option1.option.toolbox[0].feature.myTool1.option.i;
+                            let index2 = option1.option.toolbox[0].feature.myTool1.option.pic_i;
+                            that.full_screen = that.chartOption1[index1][index2];
+
+                            that.lgModal.show();
+                            console.log(that.full_screen);
+                            setTimeout(function ( ){
+                                that.f_width = '100%';
+                            },2000);
+                        }
+                    },
+                    saveAsImage: {show: true}
+                }
+            },
+            // grid: {
+            //     left: '3%',
+            //     right: '4%',
+            //     bottom: '3%',
+            //     containLabel: true
+            // },
+            xAxis: [{
+                type: 'category',
+                boundaryGap: false,
+                data: time
+            }],
+            yAxis: [{
+                type: 'value'
+            }],
+            series: seriesInfo
+        };
+        return chartOption;
+    }
+
     /**
      * 分页
      * @param url
@@ -366,6 +443,10 @@ export class StationChartComponent implements OnInit {
 
     pagination(page : any) {
         this.page = page;
+        this.status = '';
+        this.newList = [];
+        this.products1 = [];
+        this.chartOption1 = [];
         this.getI3otpList(this.page);
     }
 
@@ -435,6 +516,8 @@ export class StationChartComponent implements OnInit {
     ngOnClose(){
         this.seriesInfo2 = [];
         this.products2 = [];
+        this.isFull = 'none';
+        this.full_screen = [];
         this.isClear &&  clearInterval(this.isClear);
     }
 

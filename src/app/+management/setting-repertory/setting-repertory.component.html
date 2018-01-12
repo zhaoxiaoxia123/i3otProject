@@ -24,21 +24,21 @@
                                                    [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
                                             <div>
                                                 <div class="widget-body no-padding">
-                                                    <alert type="info" class="no-margin"  >
+                                                    <alert type="info" class="no-margin"  *ngIf="category_id == 0">
                                                         <i class="fa-fw fa fa-plus"></i>
                                                         添加出入库类别
                                                     </alert>
-                                                    <!--<alert type="info" class="no-margin">
+                                                    <alert type="info" class="no-margin" *ngIf="category_id != 0">
                                                       <i class="glyphicon glyphicon-pencil"></i>
                                                       修改出入库类别
-                                                    </alert>-->
+                                                    </alert>
                                                     <form   class="smart-form ">
                                                         <fieldset>
                                                             <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                                 <section>
-                                                                    <label class="label txt-color-blue">类别编码</label>
+                                                                    <label class="label txt-color-blue">类别编号</label>
                                                                     <label class="input">
-                                                                        <input type="text"  placeholder=""  >
+                                                                        <input type="text" placeholder="类别编号" name="category_number" [(ngModel)]="category_number">
                                                                     </label>
                                                                 </section>
                                                             </div>
@@ -46,7 +46,7 @@
                                                                 <section>
                                                                     <label class="label txt-color-blue">类别名称</label>
                                                                     <label class="input">
-                                                                        <input type="text" placeholder="" >
+                                                                        <input type="text" placeholder="类别名称"  name="category_desc" [(ngModel)]="category_desc">
                                                                     </label>
                                                                 </section>
                                                             </div>
@@ -55,26 +55,17 @@
                                                                     <label class="label">出入库标志</label>
                                                                     <div class="inline-group">
                                                                         <label class="radio">
-                                                                            <input checked="checked" name="radio-inline" type="radio">
-                                                                            <i></i>入库</label>
-                                                                        <label class="radio">
-                                                                            <input name="radio-inline" type="radio">
+                                                                            <input type="radio" [checked]="category_tab == 1 || this.category_id == 0" [value]="1" (click)="checkTab(1)">
                                                                             <i></i>出库</label>
+                                                                        <label class="radio">
+                                                                            <input type="radio" [checked]="category_tab == 2" [value]="2" (click)="checkTab(2)">
+                                                                            <i></i>入库</label>
                                                                     </div>
                                                                 </section>
                                                             </div>
-                                                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                                <section>
-                                                                    <label class="label">系统预置</label>
-                                                                    <label class="input">
-                                                                        <input type="text" disabled="disabled" placeholder="否" >
-                                                                    </label>
-                                                                </section>
-                                                            </div>
-
                                                         </fieldset>
                                                         <footer>
-                                                            <button  type="submit" class="btn btn-primary">
+                                                            <button type="button" class="btn btn-primary" (click)="addCategory()">
                                                                 保存
                                                             </button>
                                                         </footer>
@@ -92,7 +83,6 @@
                                                         <i class="fa-fw fa fa-spoon"></i>
                                                         出入库类别
                                                     </alert>
-
                                                     <div  class="row">
                                                         <article  class="col-sm-12">
                                                             <div class="navbar navbar-default">
@@ -100,100 +90,75 @@
 
                                                                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
                                                                         <div class="form-group">
-                                                                            <a class="btn btn-warning btn-sm" >
+                                                                            <a class="btn btn-warning btn-sm"  (click)="editCategory()">
                                                                                 <span class="glyphicon glyphicon-pencil margin-right-5"></span>修改</a>
                                                                         </div>
-                                                                        <div class="form-group">
-                                                                            <a class="btn btn-success btn-sm"  >
-                                                                                <span class="glyphicon glyphicon-zoom-in margin-right-5"></span>详情</a>
-                                                                        </div>
+                                                                        <!--<div class="form-group">-->
+                                                                            <!--<a class="btn btn-success btn-sm"  >-->
+                                                                                <!--<span class="glyphicon glyphicon-zoom-in margin-right-5"></span>详情</a>-->
+                                                                        <!--</div>-->
                                                                     </form>
                                                                 </div>
                                                             </div>
                                                         </article>
                                                     </div>
-
                                                     <div style="padding:0;">
                                                         <div style="padding: 0;z-index: 2;" class="table-responsive">
                                                             <table class="table table-striped  table-hover smart-form">
                                                                 <thead>
                                                                 <tr >
                                                                     <td><label class="checkbox">
-                                                                        <input type="checkbox" name="checkbox-inline" >
+                                                                        <input type="checkbox" name="checkbox-inline"  [checked]="check" (change)="changeCheckAll($event)">
                                                                         <i></i>
                                                                     </label>
                                                                     </td>
+                                                                    <th>编号</th>
                                                                     <th>名称</th>
                                                                     <th>出入库类别 </th>
-                                                                    <th>系统预置 </th>
-                                                                    <th>排序</th>
                                                                 </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                <tr class="">
+                                                                <tr *ngFor="let c of categoryList?.result">
                                                                     <td>
-                                                                        <label class="checkbox">
-                                                                            <input type="checkbox" >
+                                                                        <label class="checkbox" *ngIf="cid != super_admin_id && cid != c.c_id" >
+                                                                            <input type="checkbox" name="checkbox-inline" disabled="disabled">
+                                                                            <i></i>
+                                                                        </label>
+                                                                        <label class="checkbox" *ngIf="cid == super_admin_id || cid == c.c_id" >
+                                                                            <input type="checkbox" name="checkbox-inline" value="{{ c.category_id }}" [checked]="selects[c.category_id]" (change)="handle($event)">
                                                                             <i></i>
                                                                         </label>
                                                                     </td>
-                                                                    <td>1</td>
-                                                                    <td>四川矿业有限公司</td>
-                                                                    <td>否</td>
-                                                                    <td>587</td>
-                                                                </tr>
-                                                                <tr class="">
-                                                                    <td>
-                                                                        <label class="checkbox">
-                                                                            <input type="checkbox" >
-                                                                            <i></i>
-                                                                        </label>
+                                                                    <td>{{c.category_number}}</td>
+                                                                    <td>{{c.category_desc}}</td>
+                                                                    <td><span [ngSwitch]="c.category_tab">
+                                                                        <span *ngSwitchCase="1">出库</span>
+                                                                        <span *ngSwitchCase="2">入库</span>
+                                                                        <span *ngSwitchDefault>未知</span>
+                                                                      </span>
                                                                     </td>
-                                                                    <td>1</td>
-                                                                    <td>四川矿业有限公司</td>
-                                                                    <td>否</td>
-                                                                    <td>587</td>
-
                                                                 </tr>
-                                                                <tr class="table-color">
-                                                                    <td>
-                                                                        <label class="checkbox">
-                                                                            <input type="checkbox" >
-                                                                            <i></i>
-                                                                        </label>
-                                                                    </td>
-                                                                    <td>1</td>
-                                                                    <td>四川矿业有限公司</td>
-                                                                    <td>否</td>
-                                                                    <td>587</td>
-                                                                </tr>
-
-
                                                                 </tbody>
                                                             </table>
-
                                                         </div>
                                                     </div>
-
-
                                                     <!-- 底部-（分页部分）-->
                                                     <div class="dt-toolbar">
                                                         <div class="col-xs-12 col-sm-6">
-                                                            <button class="btn btn-default">
+                                                            <button class="btn btn-default" (click)="deleteCategory()">
                                                                 <i class="fa fa-trash-o fa-lg"></i>
                                                                 删除所选
                                                             </button>
                                                         </div>
-                                                        <div class="hidden-xs right">
-                                                            <ul class="pagination pagination-sm">
-                                                                <li *ngFor="let p of categoryList?.page" class="{{p.class}}">
-                                                                    <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
-                                                                    <a *ngIf="p.method==''">{{p.text}}</a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
+                                                        <!--<div class="hidden-xs right">-->
+                                                            <!--<ul class="pagination pagination-sm">-->
+                                                                <!--<li *ngFor="let p of categoryList?.page" class="{{p.class}}">-->
+                                                                    <!--<a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>-->
+                                                                    <!--<a *ngIf="p.method==''">{{p.text}}</a>-->
+                                                                <!--</li>-->
+                                                            <!--</ul>-->
+                                                        <!--</div>-->
                                                     </div>
-
                                                 </div>
                                             </div>
                                         </sa-widget>
@@ -203,16 +168,10 @@
                             </tab>
                         </tabset>
                     </tab>
-
                 </tabset>
             </div>
         </div>
     </sa-widget>
-
-
-
-
-
 </div>
 
 

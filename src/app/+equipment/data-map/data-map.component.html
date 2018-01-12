@@ -12,7 +12,7 @@
             <h2 *ngIf="entry.key == 'co'">一氧化碳(co)</h2>
             <h2 *ngIf="entry.key == 'co2'">二氧化碳(co2)</h2>
             <h2 *ngIf="entry.key == 'o2'">氧气(o2)</h2>
-            <h2 *ngIf="entry.key == 'temp'">温度(temp)</h2>
+            <h2 *ngIf="entry.key == 'tem'">温度(tem)</h2>
             <h2 *ngIf="entry.key == 'humi'">湿度(humi)</h2>
             <h2 *ngIf="entry.key == 'eeg'">脑电(eeg)</h2>
             <h2 *ngIf="entry.key == 'ecg'">心率(ecg)</h2>
@@ -23,8 +23,12 @@
               <div class="the-price pricing-big">
                 <div class="panel-heading">
                   <h1 class="panel-title font-headline">
-                    <span class="txt-color-greenbrigh">20</span>
-                    <small class="subscript" ><sub>kkk</sub></small>
+                    <span class="txt-color-greenbrigh">{{entry.value.value[0]}}</span>
+                    <small class="subscript" >
+                      <sub *ngIf="entry.key == 'ch4' || entry.key == 'co2' || entry.key == 'o2' || entry.key == 'humi'">%</sub>
+                      <sub *ngIf="entry.key == 'co'">PPM</sub>
+                      <sub *ngIf="entry.key == 'tem'">°C</sub>
+                    </small>
                     <!-- {{entry.key}}
                      <small class="subscript" ><span>{{entry.value.value[0]}}</span></small>-->
                   </h1>
@@ -64,7 +68,7 @@
             <h2 *ngIf="entry.key == 'co'">一氧化碳(co)</h2>
             <h2 *ngIf="entry.key == 'co2'">二氧化碳(co2)</h2>
             <h2 *ngIf="entry.key == 'o2'">氧气(o2)</h2>
-            <h2 *ngIf="entry.key == 'temp'">温度(temp)</h2>
+            <h2 *ngIf="entry.key == 'tem'">温度(tem)</h2>
             <h2 *ngIf="entry.key == 'humi'">湿度(humi)</h2>
             <h2 *ngIf="entry.key == 'eeg'">脑电(eeg)</h2>
             <h2 *ngIf="entry.key == 'ecg'">心率(ecg)</h2>
@@ -75,12 +79,12 @@
               <div class="the-price pricing-big">
                 <div class="panel-heading">
                   <h1 class="panel-title font-headline">
-                    20
-                    <small class="subscript" ><sub>kkk</sub></small>
-                    <!-- {{entry.key}}
-                     <small class="subscript" ><span>{{entry.value.value[0]}}</span></small>-->
-                    <!--{{entry.key}}
-                    <small class="subscript" ><span>{{entry.value.value[0]}}</span></small>-->
+                    {{entry.value.value[0]}}
+                    <small class="subscript" >
+                      <sub *ngIf="entry.key == 'ch4' || entry.key == 'co2' || entry.key == 'o2' || entry.key == 'humi'">%</sub>
+                      <sub *ngIf="entry.key == 'co'">PPM</sub>
+                      <sub *ngIf="entry.key == 'tem'">°C</sub>
+                    </small>
                   </h1>
                 </div>
               </div>
