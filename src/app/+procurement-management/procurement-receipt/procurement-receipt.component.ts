@@ -21,7 +21,7 @@ export class ProcurementReceiptComponent implements OnInit {
   check : boolean = false;
 
   keyword:string = '';
-
+  type : number = 1;
   rollback_url : string = '/procurement-management/procurement-receipt';
   constructor(
       fb:FormBuilder,
@@ -42,7 +42,7 @@ export class ProcurementReceiptComponent implements OnInit {
    * @param number
    */
   getPurchaseList(number:string) {
-    let url = this.globalService.getDomain()+'/api/v1/getPurchaseList?type=1&page='+number+'&sid='+this.cookiestore.getCookie('sid');
+    let url = this.globalService.getDomain()+'/api/v1/getPurchaseList?pr_type='+this.type+'&page='+number+'&sid='+this.cookiestore.getCookie('sid');
     if(this.keyword.trim() != '') {
       url += '&keyword='+this.keyword.trim();
     }

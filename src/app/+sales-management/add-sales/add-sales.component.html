@@ -13,58 +13,59 @@
         <sa-widget [editbutton]="false" [deletebutton]="false" >
           <header>
             <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
-            <h2>添加销售单</h2>
+            <h2 *ngIf="pr_id == 0">添加销售单</h2>
+            <h2 *ngIf="pr_id != 0">修改销售单</h2>
           </header>
 
           <div>
             <!--小部件内容-->
             <div class="widget-body no-padding">
 
-              <form id="smart-form-register" class="smart-form" >
+              <form id="smart-form-register" class="smart-form" [formGroup]="formModel" (ngSubmit)="onSubmit()">
                 <fieldset>
                   <legend>基本信息</legend>
-
-
+                  <input type="hidden" name="pr_id" formControlName="pr_id">
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
                     <section>
                       <label class="label ">销货方式</label>
                       <div class="inline-group">
                         <label class="radio">
-                          <input checked="" name="radio-inline" type="radio">
+                          <input [checked]="purchaseInfo.result?.pr_type == 4 || this.pr_id == 0" [value]="4" type="radio" name="pr_type" formControlName="pr_type">
                           <i></i>销货单</label>
                         <label class="radio">
-                          <input name="radio-inline" type="radio">
+                          <input type="radio" [checked]="purchaseInfo.result?.pr_type == 5" [value]="5" name="pr_type" formControlName="pr_type">
                           <i></i>退货单</label>
                       </div>
                     </section>
-
-
                   </div>
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
                     <section >
                       <label class="label txt-color-blue">单据日期<span class="asterisk-color">*</span></label>
                       <label  class="input">
-                        <input  type="date">
+                        <input  type="date" name="pr_date" formControlName="pr_date">
                       </label>
                     </section>
-
                   </div>
-
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
                     <section>
                       <label class="label txt-color-blue">单据号<span class="asterisk-color">*</span></label>
                       <label class="input">
-                        <input type="text"   placeholder="自动编码"  >
+                        <input type="text" placeholder="单据号" name="pr_order" formControlName="pr_order" >
                       </label>
                     </section>
                   </div>
-
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
                     <section>
                       <label class="label ">客户</label>
-                      <label class="input">
-                        <i class="icon-append glyphicon glyphicon-search cursor-pointer" data-toggle="modal" data-target="#myModal"></i>
-                        <input type="text" placeholder="" >
+                      <!--<label class="input">-->
+                        <!--<i class="icon-append glyphicon glyphicon-search cursor-pointer" data-toggle="modal" data-target="#myModal"></i>-->
+                        <!--<input type="text" placeholder="" name="pr_order" formControlName="pr_order" >-->
+                      <!--</label>-->
+                      <label class="select">
+                        <select name="pr_supplier" formControlName="pr_supplier" [(ngModel)]="pr_supplier_default">
+                          <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                          <option *ngFor="let cus of purchaseList.result?.supplier" [selected]="purchaseInfo.result?.pr_supplier == cus.c_id" value="{{ cus.c_id }}">{{cus.c_name}}</option>
+                        </select><i></i>
                       </label>
                     </section>
 
@@ -74,12 +75,9 @@
                     <section>
                       <label  class="label ">销售部门</label>
                       <label class="select">
-                        <select name="">
-                          <option></option>
-                          <option>dfd</option>
-                          <option>dgr</option>
-                          <option>drtyy</option>
-                          <option></option>
+                        <select name="pr_department" formControlName="pr_department" [(ngModel)]="pr_department_default" (change)="getUserList($event,1)">
+                          <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                          <option *ngFor="let d of purchaseList.result?.department" [selected]="purchaseInfo.result?.pr_department == d.category_id" value="{{ d.category_id}}">{{d.category_desc}}</option>
                         </select><i></i>
                       </label>
                     </section>
@@ -89,12 +87,9 @@
                     <section>
                       <label  class="label">销售员</label>
                       <label class="select">
-                        <select name="">
-                          <option></option>
-                          <option>fgf</option>
-                          <option>dfe</option>
-                          <option>dfhy</option>
-                          <option></option>
+                        <select  name="pr_employee" formControlName="pr_employee" [(ngModel)]="pr_employee_default">
+                          <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                          <option *ngFor="let u of userList.result" [selected]="purchaseInfo.result?.pr_employee == u.id" value="{{ u.id }}">{{u.u_username}}</option>
                         </select><i></i>
                       </label>
                     </section>
@@ -105,12 +100,9 @@
                     <section>
                       <label  class="label">默认仓库</label>
                       <label class="select">
-                        <select name="">
-                          <option>dfer</option>
-                          <option>fgf</option>
-                          <option>fgg</option>
-                          <option>drty</option>
-                          <option></option>
+                        <select name="storehouse_id" formControlName="storehouse_id" [(ngModel)]="storehouse_id_default">
+                          <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                          <option *ngFor="let s of purchaseList.result?.storehouse" [selected]="purchaseInfo.result?.storehouse_id == s.storehouse_id" value="{{s.storehouse_id }}">{{s.storehouse_name}}</option>
                         </select><i></i>
                       </label>
                     </section>
@@ -121,12 +113,9 @@
                     <section>
                       <label  class="label">销售类型</label>
                       <label class="select">
-                        <select name="">
-                          <option>trtert</option>
-                          <option>ertret</option>
-                          <option>fgg</option>
-                          <option>drty</option>
-                          <option></option>
+                        <select name="pr_category" formControlName="pr_category" [(ngModel)]="pr_category_default">
+                          <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                          <option *ngFor="let ca of purchaseList.result?.category" [selected]="purchaseInfo.result?.pr_category == ca.category_id" value="{{ca.category_id }}">{{ca.category_desc}}</option>
                         </select><i></i>
                       </label>
                     </section>
@@ -136,12 +125,9 @@
                     <section>
                       <label  class="label">发运方式</label>
                       <label class="select">
-                        <select name="">
-                          <option>dtrt</option>
-                          <option>ertret</option>
-                          <option>fgg</option>
-                          <option>drty</option>
-                          <option></option>
+                        <select name="pr_transport" formControlName="pr_transport" [(ngModel)]="pr_transport_default">
+                          <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                          <option *ngFor="let tr of purchaseList.result?.transport" [selected]="purchaseInfo.result?.pr_transport == tr.category_id" value="{{tr.category_id }}">{{tr.category_desc}}</option>
                         </select><i></i>
                       </label>
                     </section>
@@ -153,15 +139,13 @@
                     <section>
                       <label class="label">扫码</label>
                       <label class="textarea textarea-resizable">
-                        <textarea class="custom-scroll" rows="1" name="" ></textarea>
+                        <textarea class="custom-scroll" rows="1" name="pr_qrcode" formControlName="pr_qrcode"></textarea>
                       </label>
                     </section>
                   </div>
 
                   <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 padding20">
                     <div class="widget-body no-padding">
-
-
                       <div  class="padding0">
                         <div style="z-index: 2;width:20%;float:left;" class="table-responsive padding0 table-minheight">
                           <table style="margin-top: 0!important;" class="table table-border table-hover table-bordered dataTable table-height-70">
@@ -169,11 +153,10 @@
                             <tr>
                               <th></th>
                               <th>操作</th>
-                              <th class="txt-color-blue">存货名称 </th>
+                              <th class="txt-color-blue">商品名称 </th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
                             <tr>
                               <td>1</td>
                               <td style=" width: 112px;"><a class="btn btn-warning btn-xs"  ><span class="glyphicon glyphicon-plus"></span>添加</a>
@@ -202,15 +185,6 @@
                                 </div>
                               </td>
                             </tr>
-                            <tr>
-                              <td>2</td>
-                              <td>
-                                <a class="btn btn-warning btn-xs"  ><span class="glyphicon glyphicon-plus"></span>添加</a>
-                                <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                              </td>
-                              <td></td>
-                            </tr>
-
                             </tbody>
                             <tfoot>
                             <tr >
@@ -218,7 +192,6 @@
                               <th></th>
                               <th>合计</th>
                             </tr>
-
                             </tfoot>
                           </table>
                         </div>
@@ -226,299 +199,45 @@
                           <table style="margin-top: 0!important;" class="table table-hover table-border table-bordered dataTable table-height-70">
                             <thead>
                             <tr>
-                              <th>存货编码  </th>
+                              <th>商品编码  </th>
                               <th>条码 </th>
-                              <th>存货分类  </th>
-                              <th class="txt-color-blue">规格型号</th>
-                              <th class="txt-color-blue">单位 </th>
-                              <th class="txt-color-blue">仓库</th>
+                              <th>商品分类  </th>
+                              <th>单位 </th>
+                              <th>仓库</th>
                               <th class="txt-color-blue">数量</th>
                               <th class="txt-color-blue">单价 </th>
                               <th class="txt-color-blue">销售金额 </th>
                               <th class="txt-color-blue">备注 </th>
                               <th class="txt-color-blue">是否赠品 </th>
                               <th class="txt-color-blue">购物劵 </th>
-                              <th class="txt-color-blue">自定义1  </th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
                               <td></td>
                               <td></td>
-                              <td></td>
+                              <td> </td>
+                              <td> </td>
+                              <td> </td>
                               <td>
-                                <div >
-                                  <span class="txt-color-red">请先选择存货</span>
-                                  <table border="0" cellspacing="0" cellpadding="1">
-                                    <tbody>
-                                    <tr>
-                                      <td>
-                                        <form class="smart-form">
-                                          <section>
-                                            <label class="select">
-                                              <select name="">
-                                                <option></option>
-                                                <option>fgf</option>
-                                                <option>fgg</option>
-                                                <option>dfgfg</option>
-                                                <option></option>
-                                              </select><i></i>
-                                            </label>
-                                          </section>
-
-                                        </form>
-
-                                      </td>
-                                    </tr>
-                                    </tbody>
-                                  </table>
-                                </div>
+                                <input  name="" type="number">
                               </td>
                               <td>
-                                <div >
-                                  <span class="txt-color-red">请先选择存货</span>
-                                  <table border="0" cellspacing="0" cellpadding="1">
-                                    <tbody>
-                                    <tr>
-                                      <td>
-                                        <form class="smart-form">
-                                          <section>
-                                            <label class="select">
-                                              <select name="">
-                                                <option></option>
-                                                <option>fgf</option>
-                                                <option>fgg</option>
-                                                <option>dfgfg</option>
-                                                <option></option>
-                                              </select><i></i>
-                                            </label>
-                                          </section>
-
-                                        </form>
-
-                                      </td>
-                                    </tr>
-                                    </tbody>
-                                  </table>
-                                </div>
+                                <input  name="" type="number">
                               </td>
                               <td>
-                                <div >
-                                  <span class="txt-color-red">请先选择存货</span>
-                                  <table border="0" cellspacing="0" cellpadding="1">
-                                    <tbody>
-                                    <tr>
-                                      <td>
-                                        <form class="smart-form">
-                                          <section>
-                                            <label class="select">
-                                              <select name="">
-                                                <option></option>
-                                                <option>fgf</option>
-                                                <option>fgg</option>
-                                                <option>dfgfg</option>
-                                                <option></option>
-                                              </select><i></i>
-                                            </label>
-                                          </section>
-
-                                        </form>
-
-                                      </td>
-                                    </tr>
-                                    </tbody>
-                                  </table>
-                                </div>
+                                <input  name="" type="number">
                               </td>
                               <td>
-                                <div >
-                                  <span class="txt-color-red">请先选择存货</span>
-                                  <table border="0" cellspacing="0" cellpadding="1">
-                                    <tbody>
-                                    <tr>
-                                      <td>
-                                        <form class="smart-form">
-                                          <section>
-                                            <form class="smart-form">
-                                              <section>
-                                                <label class="input">
-                                                  <input  name="" type="number">
-                                                </label>
-                                              </section>
-
-                                            </form>
-                                          </section>
-
-                                        </form>
-
-                                      </td>
-                                    </tr>
-                                    </tbody>
-                                  </table>
-                                </div>
+                                <input  name="" type="number">
                               </td>
                               <td>
-                                <div >
-                                  <span class="txt-color-red">请先选择存货</span>
-                                  <table border="0" cellspacing="0" cellpadding="1">
-                                    <tbody>
-                                    <tr>
-                                      <td>
-                                        <form class="smart-form">
-                                          <section>
-                                            <form class="smart-form">
-                                              <section>
-                                                <label class="input">
-                                                  <input  name="" type="number">
-                                                </label>
-                                              </section>
-
-                                            </form>
-                                          </section>
-
-                                        </form>
-
-                                      </td>
-                                    </tr>
-                                    </tbody>
-                                  </table>
-                                </div>
-
+                                <input  name="" type="number">
                               </td>
                               <td>
-                                <div >
-                                  <span class="txt-color-red">请先选择存货</span>
-                                  <table border="0" cellspacing="0" cellpadding="1">
-                                    <tbody>
-                                    <tr>
-                                      <td>
-                                        <form class="smart-form">
-                                          <section>
-                                            <form class="smart-form">
-                                              <section>
-                                                <label class="input">
-                                                  <input  name="" type="number">
-                                                </label>
-                                              </section>
-
-                                            </form>
-                                          </section>
-
-                                        </form>
-
-                                      </td>
-                                    </tr>
-                                    </tbody>
-                                  </table>
-                                </div>
-                              </td>
-                              <td>
-                                <div >
-                                  <span class="txt-color-red">请先选择存货</span>
-                                  <table border="0" cellspacing="0" cellpadding="1">
-                                    <tbody>
-                                    <tr>
-                                      <td>
-                                        <form class="smart-form">
-                                          <section>
-                                            <label class="input">
-                                              <input  name="" type="number">
-                                            </label>
-                                          </section>
-
-                                        </form>
-
-                                      </td>
-                                    </tr>
-                                    </tbody>
-                                  </table>
-                                </div>
-                              </td>
-                              <td>
-                                <div >
-                                  <span class="txt-color-red">请先选择存货</span>
-                                  <table border="0" cellspacing="0" cellpadding="1">
-                                    <tbody>
-                                    <tr>
-                                      <td>
-                                        <form class="smart-form">
-                                          <section>
-                                            <label class="input">
-                                              <input  name="" type="number">
-                                            </label>
-                                          </section>
-
-                                        </form>
-
-                                      </td>
-                                    </tr>
-                                    </tbody>
-                                  </table>
-                                </div>
-                              </td>
-                              <td>
-                                <div >
-                                  <span class="txt-color-red">请先选择存货</span>
-                                  <table border="0" cellspacing="0" cellpadding="1">
-                                    <tbody>
-                                    <tr>
-                                      <td>
-                                        <form class="smart-form">
-                                          <section>
-                                            <label class="input">
-                                              <input  name="" type="number">
-                                            </label>
-                                          </section>
-
-                                        </form>
-
-                                      </td>
-                                    </tr>
-                                    </tbody>
-                                  </table>
-                                </div>
-                              </td>
-                              <td>
-                                <div >
-                                  <span class="txt-color-red">请先选择存货</span>
-                                  <table border="0" cellspacing="0" cellpadding="1">
-                                    <tbody>
-                                    <tr>
-                                      <td>
-                                        <form class="smart-form">
-                                          <section>
-                                            <label class="input">
-                                              <input  name="" type="number">
-                                            </label>
-                                          </section>
-
-                                        </form>
-
-                                      </td>
-                                    </tr>
-                                    </tbody>
-                                  </table>
-                                </div>
+                                <input  name="" type="number">
                               </td>
                             </tr>
-
-                            <tr>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-
-                            </tr>
-
                             </tbody>
                             <tfoot>
                             <tr >
@@ -528,54 +247,41 @@
                               <th></th>
                               <th></th>
                               <th></th>
-                              <th>1</th>
-                              <th></th>
-                              <th>455</th>
                               <th></th>
                               <th></th>
-                              <th>0.00</th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
                               <th></th>
                             </tr>
-
                             </tfoot>
                           </table>
                         </div>
                       </div>
-
-
                     </div>
                   </div>
-
-
-
-
                   <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
                     <section>
                       <label class="label">备注</label>
                       <label class="textarea textarea-resizable">
-                        <textarea class="custom-scroll" rows="2" name="" ></textarea>
+                        <textarea class="custom-scroll" rows="2" name="pr_note" formControlName="pr_note" ></textarea>
                       </label>
                     </section>
                   </div>
-
                   <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
                     <section>
                       <label class="label">购物劵</label>
                       <label class="textarea textarea-resizable">
-                        <textarea class="custom-scroll" rows="1" name="" ></textarea>
+                        <textarea class="custom-scroll" rows="1" name="pr_voucher" formControlName="pr_voucher"></textarea>
                       </label>
                     </section>
-
                   </div>
-
-
                 </fieldset>
                 <footer>
                   <button type="button" class="btn btn-default" >
                     返回
                   </button>
-                  <button type="button" class="btn btn-success btn-sm" ><span class="glyphicon glyphicon-plus"></span>保存并新增</button>
-
+                  <!--<button type="button" class="btn btn-success btn-sm" ><span class="glyphicon glyphicon-plus"></span>保存并新增</button>-->
                   <button type="submit" class="btn btn-primary">
                     保存
                   </button>

@@ -12,7 +12,7 @@ export const routes: Routes = [
         data: {pageTitle: 'InventoryRequisition'}
     },
     {
-        path: 'add-requisition',
+        path: 'add-requisition/:stock_allot_id',
         loadChildren: 'app/+inventory-management/add-requisition/add-requisition.module#AddRequisitionModule',
         data: {pageTitle: 'AddRequisition'}
     },

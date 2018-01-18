@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 export const routes: Routes = [
     {
-        path: 'add-sales',
+        path: 'add-sales/:pr_id',
         loadChildren: 'app/+sales-management/add-sales/add-sales.module#AddSalesModule',
         data: {pageTitle: 'AddSales'}
     },

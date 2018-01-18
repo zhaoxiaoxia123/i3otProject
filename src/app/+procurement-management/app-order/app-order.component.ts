@@ -25,7 +25,8 @@ export class AppOrderComponent implements OnInit {
   pr_category_default: number = 0; //采购类型
   pr_transport_default: number = 0; //运输方式
   pr_payment_method_default: number = 0; //运输方式
-
+  category_type : number = 17; //采购类型
+  role : number = 3; //供应商角色
   rollback_url : string = '/procurement-management/app-order';
   constructor( fb:FormBuilder,
                private http:Http,
@@ -155,7 +156,7 @@ export class AppOrderComponent implements OnInit {
    * 获取默认参数
    */
   getPurchaseDefault() {
-    this.http.get(this.globalService.getDomain()+'/api/v1/getPurchaseDefault?type=3&sid='+this.cookieStore.getCookie('sid'))
+    this.http.get(this.globalService.getDomain()+'/api/v1/getPurchaseDefault?type=3&role='+this.role+'&category_type='+this.category_type+'&sid='+this.cookieStore.getCookie('sid'))
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.purchaseList = data;
