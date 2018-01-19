@@ -28,7 +28,7 @@
                             <span class="glyphicon glyphicon-pencil margin-right-5"></span>修改</a>
                         </div>
                         <div class="form-group">
-                          <a class="btn btn-success btn-sm" (click)="detailProduct()" >
+                          <a class="btn btn-success btn-sm" (click)="getProductInfo()" >
                             <span class="glyphicon glyphicon-zoom-in margin-right-5"></span>详情</a>
                         </div>
                         <div class="form-group padding-left-10">
@@ -90,11 +90,11 @@
                     </thead>
                     <tbody>
                     <tr *ngFor="let p1 of productList.result?.data"><!-- class="table-color"-->
-                      <td>{{p1.p_property}}</td>
+                      <td>{{(p1.p_property == 1) ? '销售':'外购'}}</td>
                       <td>{{p1.p_name}}</td>
-                      <td>{{p1.p_category_id}}</td>
-                      <td>{{p1.p_name}}</td>
-                      <td>{{p1.p_name}}</td>
+                      <td>{{p1.category}}</td>
+                      <td>{{p1.c_name}}</td>
+                      <td>{{p1.p_purchase_price}}</td>
                       <td>
                         <div style="text-align:center;height:auto;" >
                           <img alt=""  height="22" width="22" style="cursor: pointer;border: 1px solid #AAA;padding: 2px;background-color: #FFF;margin-right: 2px;" src="assets/img/news/news4.jpg">
@@ -104,7 +104,7 @@
                           <img alt=""  height="22" width="22" style="cursor: pointer;border: 1px solid #AAA;padding: 2px;background-color: #FFF;margin-right: 2px;" src="assets/img/news/news4.jpg">
                         </div>
                       </td>
-                      <td>正常</td>
+                      <td>{{(p1.p_status == 1) ? '正常':'无效'}}</td>
                     </tr>
                     </tbody>
                   </table>
@@ -180,7 +180,7 @@
                                 <section>
                                   <label class="label txt-color-blue">商品编号<span class="asterisk-color">*</span></label>
                                   <label class="input">
-                                    <input type="text"   placeholder="商品编号"  >
+                                    <input type="text" name="p_product_id" [(ngModel)]="p_product_id" placeholder="商品编号"  >
                                   </label>
                                 </section>
                               </div>
@@ -188,7 +188,7 @@
                                 <section>
                                   <label class="label txt-color-blue">商品名称<span class="asterisk-color">*</span></label>
                                   <label class="input">
-                                    <input type="text" placeholder="商品名称" >
+                                    <input type="text" placeholder="商品名称"  name="p_name" [(ngModel)]="p_name">
                                   </label>
                                 </section>
                               </div>
@@ -197,16 +197,21 @@
                                 <section>
                                   <label class="label">规格型号</label>
                                   <label class="input">
-                                    <input type="text" placeholder="" >
+                                    <input type="text" placeholder=""  name="p_specification" [(ngModel)]="p_specification">
                                   </label>
                                 </section>
                               </div>
                               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <section>
                                   <label class="label txt-color-blue">商品分类<span class="asterisk-color">*</span></label>
-                                  <label class="input">
-                                    <i class="icon-append glyphicon glyphicon-search cursor-pointer"></i>
-                                    <input type="text" placeholder="" >
+                                  <label class="select">
+                                    <select class="input-sm" name="p_category_id" [(ngModel)]="p_category_id">
+                                      <option [selected]="p_id == 0" value="0">--请选择--</option>
+                                      <option *ngFor="let c of productDefault.result?.categoryIdList" [selected]="productInfo.result?.p_category_id == c.child_category_id" value="{{ c.child_category_id }}">
+                                        <b *ngIf="c.category_depth == 0">{{c.category_desc}}</b>
+                                        <b *ngIf="c.category_depth != 0">--{{c.category_desc}}</b>
+                                      </option>
+                                    </select><i></i>
                                   </label>
                                 </section>
                               </div>
@@ -214,7 +219,7 @@
                                 <section>
                                   <label class="label">助记码</label>
                                   <label class="input">
-                                    <input type="text" placeholder="助记码" >
+                                    <input type="text" placeholder="助记码" name="p_shortcode" [(ngModel)]="p_shortcode">
                                   </label>
                                 </section>
                               </div>
@@ -222,7 +227,7 @@
                                 <section>
                                   <label class="label">商品属性</label>
                                   <label class="select">
-                                    <select class="input-sm">
+                                    <select class="input-sm" name="p_property" [(ngModel)]="p_property" (change)="changePoperty($event)">
                                       <option value="0">--请选择--</option>
                                       <option value="1">销售</option>
                                       <option value="2">外购</option>
@@ -234,27 +239,27 @@
                                 <section>
                                   <label class="label">计量单位</label>
                                   <label class="select">
-                                    <select class="input-sm">
-                                      <option value="" disabled="disabled" >选择计量单位</option>
-                                      <option value="" >件</option>
-                                      <option value="" >颗</option>
-                                      <option value="" >kg</option>
+                                    <select class="input-sm" name="p_unit" [(ngModel)]="p_unit">
+                                      <option value="0" disabled="disabled" >选择计量单位</option>
+                                      <option value="1" >件</option>
+                                      <option value="2" >颗</option>
+                                      <option value="3" >kg</option>
                                     </select> <i></i> </label>
                                 </section>
                               </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12" *ngIf="p_property_id == 2">
                                 <section>
                                   <label class="label ">参考进价</label>
                                   <label class="input">
-                                    <input type="number" placeholder="" >
+                                    <input type="number" placeholder="参考进价"  name="p_purchase_price" [(ngModel)]="p_purchase_price">
                                   </label>
                                 </section>
                               </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12" *ngIf="p_property_id == 1">
                                 <section>
                                   <label class="label ">参考售价</label>
                                   <label class="input">
-                                    <input type="number" placeholder="" >
+                                    <input type="number" placeholder="参考售价"  name="p_purchase_price" [(ngModel)]="p_purchase_price">
                                   </label>
                                 </section>
                               </div>
@@ -263,16 +268,15 @@
                                 <section>
                                   <label class="label">备注</label>
                                   <label class="textarea textarea-resizable">
-                                    <textarea class="custom-scroll" rows="2" name="" ></textarea>
+                                    <textarea class="custom-scroll" rows="2" name="p_notes" [(ngModel)]="p_notes"></textarea>
                                   </label>
                                 </section>
                               </div>
-
                               <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <section>
                                   <label class="label ">条码</label>
                                   <label class="input">
-                                    <input type="text" placeholder="" >
+                                    <input type="text" placeholder="" name="p_qrcode" [(ngModel)]="p_qrcode">
                                   </label>
                                 </section>
                               </div>
@@ -288,19 +292,19 @@
                         <div class="row">
                           <form   class="smart-form ">
                             <fieldset>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section >
-                                  <label class="label ">厂家</label>
-                                  <label class="input">
-                                    <input  name=""    type="text" >
-                                  </label>
-                                </section>
-                              </div>
+                              <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">-->
+                                <!--<section >-->
+                                  <!--<label class="label ">厂家</label>-->
+                                  <!--<label class="input">-->
+                                    <!--<input name="c_id" [(ngModel)]="c_id" type="text" >-->
+                                  <!--</label>-->
+                                <!--</section>-->
+                              <!--</div>-->
                               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <section >
                                   <label class="label ">最高库存</label>
                                   <label class="input">
-                                    <input  name=""    type="text" >
+                                    <input name="p_max_stock" [(ngModel)]="p_max_stock" type="text" >
                                   </label>
                                 </section>
                               </div>
@@ -308,7 +312,7 @@
                                 <section >
                                   <label class="label ">最低库存</label>
                                   <label class="input">
-                                    <input  name=""    type="text" >
+                                    <input name="p_min_stock" [(ngModel)]="p_min_stock" type="text" >
                                   </label>
                                 </section>
                               </div>
@@ -316,7 +320,7 @@
                                 <section >
                                   <label class="label ">参考成本</label>
                                   <label class="input">
-                                    <input  name=""    type="text" >
+                                    <input name="p_cost" [(ngModel)]="p_cost" type="text" >
                                   </label>
                                 </section>
                               </div>
@@ -324,11 +328,10 @@
                                 <section>
                                   <label class="label">销售提成方式</label>
                                   <label class="select">
-                                    <select class="input-sm">
-                                      <option value="" disabled="disabled" >选择销售提成方式</option>
-                                      <option value="" >不设置</option>
-                                      <option value="" >按金额</option>
-                                      <option value="" >按比例</option>
+                                    <select class="input-sm" name="p_retail_method" [(ngModel)]="p_retail_method" >
+                                      <option value="1" >不设置</option>
+                                      <option value="2" >按金额</option>
+                                      <option value="3" >按比例</option>
                                     </select> <i></i> </label>
                                 </section>
                               </div>
@@ -336,7 +339,7 @@
                                 <section >
                                   <label class="label ">销售提成设置</label>
                                   <label class="input">
-                                    <input  name=""    type="text" >
+                                    <input name="p_retail_amout" [(ngModel)]="p_retail_amout" type="text" >
                                   </label>
                                 </section>
                               </div>
@@ -344,25 +347,20 @@
                                 <section >
                                   <label class="label ">停用时间</label>
                                   <label class="input">
-                                    <input  name=""  disabled="disabled"  type="text" >
+                                    <input name="p_stop_time" [(ngModel)]="p_stop_time" disabled="disabled"  type="text" >
                                   </label>
                                 </section>
-
                               </div>
                               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <section >
                                   <label class="label ">停用人</label>
                                   <label class="input">
-                                    <input  name=""  disabled="disabled"  type="text" >
+                                    <input name="p_stop_use" [(ngModel)]="p_stop_use" disabled="disabled" type="text" >
                                   </label>
                                 </section>
-
                               </div>
-
-
                             </fieldset>
                           </form>
-
                         </div>
                       </tab>
                     </tabset>
@@ -376,7 +374,6 @@
                             主计量单位数量=辅计量单位数量*换算率。<br/>
                             例如：一箱有100包，主单位为"包"，辅单位为"箱"，换算率为100（包装数）, 或者 主单位为"箱"，辅单位为"包"，换算率为0.01（1/100）
                           </div>
-
                           <div class="table-responsive padding0 table-minheight">
                             <table class="table table-striped  table-hover smart-form">
                               <thead>
@@ -435,9 +432,7 @@
                                                   <i></i>否</label>
                                               </div>
                                             </section>
-
                                           </form>
-
                                         </td>
                                       </tr>
                                       </tbody>
@@ -463,9 +458,7 @@
                                                   <i></i>否</label>
                                               </div>
                                             </section>
-
                                           </form>
-
                                         </td>
                                       </tr>
                                       </tbody>
@@ -485,9 +478,7 @@
                                                 <input  name="" type="text">
                                               </label>
                                             </section>
-
                                           </form>
-
                                         </td>
                                       </tr>
                                       </tbody>
@@ -507,9 +498,7 @@
                                                 <input  name="" type="text">
                                               </label>
                                             </section>
-
                                           </form>
-
                                         </td>
                                       </tr>
                                       </tbody>
@@ -517,12 +506,9 @@
                                   </div>
                                 </td>
                               </tr>
-
                               </tbody>
                             </table>
                           </div>
-
-
                         </div>
                       </tab>
                     </tabset>
@@ -540,7 +526,6 @@
                                     <input  name=""    type="text" >
                                   </label>
                                 </section>
-
                               </div>
                               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <section >
@@ -549,7 +534,6 @@
                                     <input  name=""    type="text" >
                                   </label>
                                 </section>
-
                               </div>
                               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <section >
@@ -558,7 +542,6 @@
                                     <input  name=""    type="text" >
                                   </label>
                                 </section>
-
                               </div>
                               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <section >
@@ -567,7 +550,6 @@
                                     <input  name=""    type="text" >
                                   </label>
                                 </section>
-
                               </div>
                               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <section >
@@ -576,7 +558,6 @@
                                     <input  name=""    type="text" >
                                   </label>
                                 </section>
-
                               </div>
                               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <section >
@@ -585,7 +566,6 @@
                                     <input  name=""    type="text" >
                                   </label>
                                 </section>
-
                               </div>
                               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <section >
@@ -594,7 +574,6 @@
                                     <input  name=""    type="text" >
                                   </label>
                                 </section>
-
                               </div>
                               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <section >
@@ -603,7 +582,6 @@
                                     <input  name=""    type="text" >
                                   </label>
                                 </section>
-
                               </div>
                               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <section >
@@ -612,7 +590,6 @@
                                     <input  name=""    type="text" >
                                   </label>
                                 </section>
-
                               </div>
                               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <section >
@@ -621,16 +598,9 @@
                                     <input  name=""    type="text" >
                                   </label>
                                 </section>
-
                               </div>
-
-
-
                             </fieldset>
                           </form>
-
-
-
                         </div>
                       </tab>
                     </tabset>
@@ -661,19 +631,14 @@
                               </ul>
                             </div>
                           </div>
-
-
-
                         </div>
                       </tab>
                     </tabset>
                   </tab>
-
                 </tabset>
               </div>
             </div>
           </sa-widget>
-
         </div>
         <div class="modal-footer">
           <!--<button type="button" class="btn btn-success btn-sm" ><span class="glyphicon glyphicon-plus"></span>保存并新增</button>-->
