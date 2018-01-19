@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {LayoutService} from "../layout.service";
+import {FadeInTop} from "../../animations/fade-in-top.decorator";
 
+@FadeInTop()
 @Component({
   selector: 'sa-ribbon',
   templateUrl: './ribbon.component.html'

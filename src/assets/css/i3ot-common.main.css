@@ -390,6 +390,9 @@ a,button,input {
 }
 
 
+
+
+
 /*结束 sa-activities*/
 
 /*sa-recent-projects*/
@@ -2690,11 +2693,52 @@ label input[type=checkbox][disabled].checkbox+span:before,label input[type=check
 
 /*sa-ribbon     */
 #ribbon {
-    min-height: 40px;
-    background: #474544;
-    padding: 0 13px;
+    /*min-height: 40px;*/
+    height: 40px;
     position: relative;
+    padding: 6px 12px;
+    border: 1px solid #C2C2C2;
+    background: #f0f1f1;
 }
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+    color: #fff;
+    background-color: #3782e7;
+}
+.nav-pills>li {
+    padding-left: 6px;
+    padding-bottom: 4px;
+}
+.nav-pills>span {
+    padding-left: 6px;
+    padding-bottom: 4px;
+}
+.nav-pills>li>a {
+    border-radius: 2px;
+    color: #3a3633;
+     padding: 5px;
+}
+.nav-pills>span>a {
+    border-radius: 2px;
+    color: #3a3633;
+    padding: 5px;
+    display: block;
+}
+.nav-pills>li>a:hover{
+    border:1px solid #3782e7;
+    color:#3782e7;
+    background:#FFF;
+}
+.nav-pills>span>a:hover{
+    border:1px solid #3782e7;
+    color:#3782e7;
+    background:#FFF;
+}
+.nav-pills>li>a>span{
+    padding-left:4px;
+}
+
+
 .ribbon-button-alignment {
     padding-top: 10px;
     display: inline-block;
@@ -2736,6 +2780,8 @@ label input[type=checkbox][disabled].checkbox+span:before,label input[type=check
     color: #BBB!important;
     text-decoration: none!Important;
 }
+
+
 
 
 /*sa-footer-----------------------------------------------------------------*/
