@@ -131,10 +131,27 @@
                       </label>
                     </section>
                   </div>
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section>
+                      <label  class="label">搜索的商品名称</label>
+                      <label class="input">
+                        <!--<form class="smart-form">-->
+                          <!--<section>-->
+                            <!--<label class="input">-->
+                              <i class="icon-append glyphicon glyphicon-search cursor-pointer" (click)="searchKey()"></i><!-- data-toggle="modal" data-target="#myModal"-->
+                              <input type="text" placeholder="" name="keyword" [(ngModel)]="keyword">
+                            <!--</label>-->
+                          <!--</section>-->
+                        <!--</form>-->
+                      </label>
+                    </section>
+                  </div>
                   <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 padding20">
+
                     <div class="widget-body no-padding">
                       <div  class="padding0">
                         <div style="z-index: 2;width:20%;float:left;" class="table-responsive padding0 table-minheight">
+
                           <table style="margin-top: 0!important;" class="table table-border table-hover table-bordered dataTable table-height-70">
                             <thead>
                             <tr>
