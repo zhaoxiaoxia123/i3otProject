@@ -37,6 +37,13 @@
 .asterisk-color{
     color: red;
 }
+.img-picture{
+    cursor: pointer;
+    border: 1px solid #AAA;
+    padding: 2px;
+    background-color: #FFF;
+    margin-right: 2px;
+}
 
     /*头像状态*/
 img.away,img.busy,img.offline,img.online {

@@ -88,6 +88,11 @@ export const routes:Routes = [
         data: {pageTitle: 'Setting Labellinga'}
     },
     {
+        path: 'setting-price',
+        loadChildren: 'app/+management/setting-price/setting-price.module#SettingPriceModule',
+        data: {pageTitle: 'SettingPrice'}
+    },
+    {
         path: 'total-project',
         loadChildren: 'app/+management/total-project/total-project.module#TotalProjectModule',
         data: {pageTitle: 'Total Project'}

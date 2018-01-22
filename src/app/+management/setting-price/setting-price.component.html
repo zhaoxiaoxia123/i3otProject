@@ -1,6 +1,6 @@
 <div id="content">
   <div class="row">
-    <sa-big-breadcrumbs [items]="['产品管理', '单位换算']" icon="pencil-square-o" ></sa-big-breadcrumbs>
+    <sa-big-breadcrumbs [items]="['产品管理', '商品价格级别']" icon="pencil-square-o" ></sa-big-breadcrumbs>
   </div>
 
 
@@ -8,7 +8,7 @@
     <header>
       <ul class="nav nav-tabs pull-left in">
         <li [class.active]="state.tabs.demo3=='hr1'" class="active">
-          <a (click)="state.tabs.demo3 = 'hr1'">单位换算</a>
+          <a (click)="state.tabs.demo3 = 'hr1'">商品价格级别</a>
         </li>
       </ul>
     </header>
@@ -26,43 +26,19 @@
                         <div class="widget-body no-padding">
                           <alert type="info" class="no-margin"  >
                             <i class="fa-fw fa fa-plus"></i>
-                            添加单位换算
+                            添加商品价格级别
                           </alert>
                           <!--<alert type="info" class="no-margin">
                             <i class="glyphicon glyphicon-pencil"></i>
-                            修改单位换算
+                            修改商品价格级别
                           </alert>-->
                           <form   class="smart-form ">
                             <fieldset>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                              <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <section>
-                                  <label class="label txt-color-blue">主计量单位<span class="asterisk-color">*</span></label>
+                                  <label class="label txt-color-blue">价格级别<span class="asterisk-color">*</span></label>
                                   <label class="input">
                                     <input type="text"  placeholder=""  >
-                                  </label>
-                                </section>
-                              </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section>
-                                  <label class="label txt-color-blue">辅计量单位<span class="asterisk-color">*</span></label>
-                                  <label class="input">
-                                    <input type="text" placeholder="" >
-                                  </label>
-                                </section>
-                              </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section>
-                                  <label class="label txt-color-blue">换算组名称<span class="asterisk-color">*</span></label>
-                                  <label class="input">
-                                    <input type="text" placeholder="" >
-                                  </label>
-                                </section>
-                              </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section>
-                                  <label class="label txt-color-blue">换算率<span class="asterisk-color">*</span></label>
-                                  <label class="input">
-                                    <input type="text" placeholder="" >
                                   </label>
                                 </section>
                               </div>
@@ -85,7 +61,7 @@
                         <div class="widget-body no-padding">
                           <alert type="info" class="no-margin" >
                             <i class="fa-fw fa fa-spoon"></i>
-                            单位换算
+                            商品价格级别
                           </alert>
 
                           <div  class="row">
@@ -114,10 +90,8 @@
                                     <i></i>
                                   </label>
                                   </td>
-                                  <th>换算组名称</th>
-                                  <th>主计量单位</th>
-                                  <th>辅计量单位</th>
-                                  <th>换算率</th>
+                                  <th>级别编码</th>
+                                  <th>商品价格级别</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -130,8 +104,6 @@
                                   </td>
                                   <td>001</td>
                                   <td>1242</td>
-                                  <td>421</td>
-                                  <td>21425</td>
                                 </tr>
                                 <tr class="">
                                   <td>
@@ -142,9 +114,6 @@
                                   </td>
                                   <td>001</td>
                                   <td>1242</td>
-                                  <td>421</td>
-                                  <td>21425</td>
-
                                 </tr>
                                 <tr class="table-color">
                                   <td>
@@ -155,8 +124,6 @@
                                   </td>
                                   <td>001</td>
                                   <td>1242</td>
-                                  <td>421</td>
-                                  <td>21425</td>
                                 </tr>
 
 
