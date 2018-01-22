@@ -126,6 +126,21 @@
                     </section>
                   </div>
 
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section>
+                      <label  class="label">搜索的商品名称</label>
+                      <label class="input">
+                        <!--<form class="smart-form">-->
+                        <!--<section>-->
+                        <!--<label class="input">-->
+                        <i class="icon-append glyphicon glyphicon-search cursor-pointer" (click)="searchKey()"></i><!-- data-toggle="modal" data-target="#myModal"-->
+                        <input type="text" placeholder="" name="keyword" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">
+                        <!--</label>-->
+                        <!--</section>-->
+                        <!--</form>-->
+                      </label>
+                    </section>
+                  </div>
                   <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 padding20">
                     <div class="widget-body no-padding">
                       <div  class="padding0">
@@ -133,23 +148,23 @@
                           <table class="table table-hover table-border  table-bordered dataTable table-height-70">
                             <thead>
                             <tr>
-                              <th></th>
+                              <!--<th></th>-->
                               <th>操作</th>
                               <th class="txt-color-blue">商品名称</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                              <td>1</td>
+                            <tr *ngFor="let p of selectProductList;let ind = index;">
+                              <!--<td>1</td>-->
                               <td ><a class="btn btn-warning btn-xs"  ><span class="glyphicon glyphicon-plus"></span></a>
-                                <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span></a>
+                                <a class="btn btn-danger btn-xs" (click)="removeInput(ind)"><span class="glyphicon glyphicon-remove"></span></a>
                               </td>
                               <td>
                                 <form class="smart-form">
                                   <section>
                                     <label class="input">
-                                      <i class="icon-append glyphicon glyphicon-search cursor-pointer" data-toggle="modal" data-target="#myModal"></i>
-                                      <input type="text" placeholder="" >
+                                      <i class="icon-append glyphicon glyphicon-search cursor-pointer" (click)="searchKey()"></i><!-- data-toggle="modal" data-target="#myModal"-->
+                                      <input type="text" placeholder="" name="keyword" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">
                                     </label>
                                   </section>
                                 </form>
@@ -158,11 +173,10 @@
                             </tbody>
                             <tfoot>
                             <tr >
-                              <th></th>
+                              <!--<th></th>-->
                               <th></th>
                               <th>合计</th>
                             </tr>
-
                             </tfoot>
                           </table>
                         </div>
@@ -174,7 +188,7 @@
                               <th>条码</th>
                               <th>商品分类</th>
                               <th>单位</th>
-                              <th>仓库</th>
+                              <!--<th>仓库</th>-->
                               <th class="txt-color-blue">数量</th>
                               <th class="txt-color-blue">单价</th>
                               <th class="txt-color-blue">折扣率%</th>
@@ -184,26 +198,48 @@
                               <th class="txt-color-blue">税率% </th>
                               <th>税前金额 </th>
                               <th>无税单价 </th>
+                              <th>税后金额 </th>
                               <th class="txt-color-blue">备注 </th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td> <input name="number" type="number"> </td>
-                              <td> <input name="price" type="text"> </td>
-                              <td> <input name="discount" type="text"> </td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td><input name="rate" type="text"></td>
-                              <td></td>
-                              <td></td>
-                              <td><input name="note" type="text"></td>
+                            <tr *ngFor="let p of selectProductList">
+                              <td>{{p.p_product_id}}</td>
+                              <td>{{p.p_qrcode}}</td>
+                              <td>{{p.category}}</td>
+                              <td>{{p.p_unit}}</td>
+                              <!--<td></td>-->
+                              <td>
+                                <label  class="input">
+                                  <input [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_count" value="{{p.p_count}}" type="number">
+                                </label>
+                              </td>
+                              <td>
+                                <label  class="input">
+                                  <input [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_price" value="{{p.p_price}}" type="number">
+                                </label>
+                              </td>
+                              <td>
+                                <label  class="input">
+                                  <input [ngModelOptions]="{standalone: true}" [(ngModel)]="p.discount" value="{{p.discount}}" type="number">
+                                </label>
+                              </td>
+                              <td>{{p.p_count * p.p_price}}</td>
+                              <td>{{p.p_price * p.discount}}</td>
+                              <td>{{(p.p_count * p.p_price * p.discount)}}</td>
+                              <td>
+                                <label  class="input">
+                                  <input [ngModelOptions]="{standalone: true}" [(ngModel)]="p.rate" value="{{p.rate}}" type="number">
+                                </label>
+                              </td>
+                              <td>{{p.p_count * p.p_price * p.discount}}</td>
+                              <td>{{p.p_price * p.discount}}</td>
+                              <td>{{p.p_count * p.p_price * p.discount * p.rate}}</td>
+                              <td>
+                                <label  class="input">
+                                  <input [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_note" value="{{p.p_note}}" type="text">
+                                </label>
+                              </td>
                             </tr>
                             </tbody>
                             <tfoot>
@@ -213,18 +249,17 @@
                               <th></th>
                               <th></th>
                               <th></th>
-                              <th>0</th>
                               <th></th>
                               <th></th>
-                              <th>0.00</th>
-                              <th>0.00</th>
-                              <th>0.00</th>
                               <th></th>
-                              <th>0.00</th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
                               <th></th>
                               <th></th>
                             </tr>
-
                             </tfoot>
                           </table>
                         </div>
@@ -244,7 +279,7 @@
                     <section>
                       <label class="label">本次欠款</label>
                       <label class="input">
-                        <input type="number" disabled="disabled" placeholder="" name="pr_arrears" formControlName="pr_arrears">
+                        <input type="number" placeholder="" name="pr_arrears" formControlName="pr_arrears">
                       </label>
                     </section>
                   </div>
@@ -259,14 +294,8 @@
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
                     <section>
                       <label  class="label">结算账户</label>
-                      <label class="select">
-                        <select name="pr_account" formControlName="pr_account">
-                          <option>dtrt</option>
-                          <option>ertret</option>
-                          <option>fgg</option>
-                          <option>drty</option>
-                          <option></option>
-                        </select><i></i>
+                      <label class="input">
+                        <input type="text" placeholder="" name="pr_account" formControlName="pr_account">
                       </label>
                     </section>
                   </div>
@@ -305,6 +334,11 @@
   </sa-widgets-grid>
 </div>
 
+<div>
+  <span *ngFor="let p of searchProductList?.result?.data;let ind = index;">
+   <a (click)="addInput(ind)"> {{p.p_id}}:{{p.p_name}}</a>
+  </span>
+</div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

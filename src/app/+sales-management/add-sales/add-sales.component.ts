@@ -3,8 +3,7 @@ import {Http} from "@angular/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {stringify} from "querystring";
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-add-sales',

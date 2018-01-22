@@ -25,7 +25,12 @@ export class AddReceiptComponent implements OnInit {
   pr_category_default: number = 0; //采购类型
   pr_transport_default: number = 0; //运输方式
 
+  selectProductList :Array<any> = [];//[{"p_product_id": "0","p_qrcode": "0","category": "0","p_unit": "0","p_count": "0","p_price": "0","p_pur_price": "0","p_note": "","p_is": "1"}]; //选中后的商品列表
+  searchProductList : Array<any> = [];//搜索出的商品列表信息
+
+  keyword : string = '';
   category_type : number = 17; //采购类型
+  p_type : number = 2;//商品
   role : number = 3; //供应商角色
   rollback_url : string = '/procurement-management/add-receipt';
   constructor(
@@ -98,6 +103,8 @@ export class AddReceiptComponent implements OnInit {
       if(this.purchaseInfo['result']['pr_department'] != 0){
         this.getUserList(this.purchaseInfo['result']['pr_department'],2);
       }
+
+      this.selectProductList = this.purchaseInfo['result']['detail'];
     }, 500);
   }
 
@@ -172,7 +179,8 @@ export class AddReceiptComponent implements OnInit {
       'pr_category':this.formModel.value['pr_category'],
       'pr_transport':this.formModel.value['pr_transport'],
       'pr_qrcode':this.formModel.value['pr_qrcode'],
-      'pr_detail':this.formModel.value['pr_detail'],
+      // 'pr_detail':this.formModel.value['pr_detail'],
+      'pr_detail' :JSON.stringify(this.selectProductList),
       'pr_note':this.formModel.value['pr_note'],
       'u_id':this.cookieStore.getCookie('uid'),
       'sid':this.cookieStore.getCookie('sid')
@@ -190,4 +198,38 @@ export class AddReceiptComponent implements OnInit {
     );
   }
 
+
+  //添加商品
+  addInput(ind:number) {
+    console.log('点击了：'+ind);
+    this.selectProductList.push(this.searchProductList['result']['data'][ind]);
+    // console.log(this.selectProductList);
+    // console.log(JSON.stringify(this.selectProductList));
+  }
+  //移除商品
+  removeInput(ind) {
+    // let i = this.selectProductList.indexOf(item);
+    this.selectProductList.splice(ind, 1);
+  }
+
+
+  /**
+   * 搜索商品
+   */
+  searchKey(){
+    this.http.get(this.globalService.getDomain()+'/api/v1/getProductList?keyword='+this.keyword+'&p_type='+this.p_type+'&sid='+this.cookieStore.getCookie('sid'))
+        .map((res)=>res.json())
+        .subscribe((data)=>{
+          this.searchProductList = data;
+        });
+    setTimeout(() => {
+      // console.log('this.searchProductList:----');
+      // console.log(this.searchProductList);
+      if(this.searchProductList['status'] == 202){
+        alert(this.searchProductList['msg']);
+        this.cookieStore.removeAll(this.rollback_url);
+        this.router.navigate(['/auth/login']);
+      }
+    }, 600);
+  }
 }

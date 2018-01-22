@@ -62,7 +62,6 @@
                       </label>
                     </section>
                   </div>
-                  
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
                     <section>
                       <label class="label ">采购部门</label>
@@ -73,7 +72,6 @@
                         </select><i></i>
                       </label>
                     </section>
-
                   </div>
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
                     <section>
@@ -85,9 +83,7 @@
                           </select><i></i>
                       </label>
                     </section>
-
                   </div>
-
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
                     <section>
                       <label class="label">默认仓库</label>
@@ -98,9 +94,7 @@
                           </select><i></i>
                       </label>
                     </section>
-
                   </div>
-
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
                     <section>
                       <label  class="label">采购类型</label>
@@ -111,7 +105,6 @@
                           </select><i></i>
                       </label>
                     </section>
-
                   </div>
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
                     <section>
@@ -124,7 +117,6 @@
                       </label>
                     </section>
                   </div>
-
                   <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
                     <section>
                       <label class="label">扫码</label>
@@ -133,7 +125,19 @@
                       </label>
                     </section>
                   </div>
-
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section>
+                      <label  class="label">搜索的商品名称</label>
+                        <!--<form class="smart-form">-->
+                        <!--<section>-->
+                        <label class="input">
+                        <i class="icon-append glyphicon glyphicon-search cursor-pointer" (click)="searchKey()"></i><!-- data-toggle="modal" data-target="#myModal"-->
+                        <input type="text" placeholder="" name="keyword" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">
+                        </label>
+                        <!--</section>-->
+                        <!--</form>-->
+                    </section>
+                  </div>
                   <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 padding20">
                     <div class="widget-body no-padding">
                       <div  class="padding0">
@@ -141,38 +145,35 @@
                           <table class="table table-hover table-border  table-bordered dataTable table-height-70">
                             <thead>
                             <tr>
-                              <th></th>
+                              <!--<th></th>-->
                               <th>操作</th><!--pr_detail-->
                               <th class="txt-color-blue">商品名称</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                            <tr>
-                              <td>1</td>
+                            <tr *ngFor="let p of selectProductList;let ind = index;">
+                              <!--<td>1</td>-->
                               <td style=" width: 112px;"><a class="btn btn-warning btn-xs"  ><span class="glyphicon glyphicon-plus"></span>添加</a>
-                                <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                <a class="btn btn-danger btn-xs" (click)="removeInput(ind)"><span class="glyphicon glyphicon-remove"></span>删除</a>
                               </td>
                               <td>
                                 <form class="smart-form">
                                   <section>
                                     <label class="input">
-                                      <i class="icon-append glyphicon glyphicon-search cursor-pointer" data-toggle="modal" data-target="#myModal"></i>
-                                      <input type="text" placeholder="" >
+                                      <i class="icon-append glyphicon glyphicon-search cursor-pointer" (click)="searchKey()"></i><!-- data-toggle="modal" data-target="#myModal"-->
+                                      <input type="text" placeholder="" name="keyword" [ngModelOptions]="{standalone: true}" [(ngModel)]="keyword">
                                     </label>
                                   </section>
                                 </form>
                               </td>
                             </tr>
-
                             </tbody>
                             <tfoot>
                             <tr >
-                              <th></th>
+                              <!--<th></th>-->
                               <th></th>
                               <th>合计</th>
                             </tr>
-
                             </tfoot>
                           </table>
                         </div>
@@ -184,131 +185,53 @@
                               <th>商品分类</th>
                               <th>规格型号</th>
                               <th>单位 </th>
-                              <th>仓库</th>
+                              <th>辅助属性 </th>
+                              <!--<th>仓库</th>-->
                               <th class="txt-color-blue">数量</th>
                               <th class="txt-color-blue">单价 </th>
-                              <th class="txt-color-blue">辅助属性 </th>
                               <th class="txt-color-blue">备注 </th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                              <td></td>
-                              <td></td>
-                              <td> </td>
-                              <td></td>
+                            <tr *ngFor="let p of selectProductList">
+                              <td>{{p.p_product_id}}</td>
+                              <td>{{p.category}}</td>
+                              <td>{{p.p_specification}}</td>
+                              <td>{{p.p_unit}}</td>
+                              <td>{{(p.p_property == 1)? '销售':'外购'}} </td>
                               <td>
+                                <label  class="input">
+                                  <input [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_count" value="{{p.p_count}}" type="number">
+                                </label>
                               </td>
                               <td>
-                                <div >
-                                  <span class="txt-color-red">请先选择存货</span>
-                                  <table border="0" cellspacing="0" cellpadding="1">
-                                    <tbody>
-                                    <tr>
-                                      <td>
-                                        <form class="smart-form">
-                                          <section>
-                                            <form class="smart-form">
-                                              <section>
-                                                <label class="input">
-                                                  <input  name="" type="number">
-                                                </label>
-                                              </section>
-
-                                            </form>
-                                          </section>
-
-                                        </form>
-
-                                      </td>
-                                    </tr>
-                                    </tbody>
-                                  </table>
-                                </div>
+                                <label  class="input">
+                                  <input [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_price" value="{{p.p_price}}" type="number">
+                                </label>
                               </td>
+                              <!--<td>-->
+                                <!--<label  class="input">-->
+                                  <!--<input [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_pur_price" value="{{p.p_pur_price}}" type="number">-->
+                                <!--</label>-->
+                              <!--</td>-->
                               <td>
-                                <div >
-                                  <span class="txt-color-red">请先选择存货</span>
-                                  <table border="0" cellspacing="0" cellpadding="1">
-                                    <tbody>
-                                    <tr>
-                                      <td>
-                                        <form class="smart-form">
-                                          <section>
-                                            <form class="smart-form">
-                                              <section>
-                                                <label class="input">
-                                                  <input  name="" type="number">
-                                                </label>
-                                              </section>
-                                            </form>
-                                          </section>
-                                        </form>
-                                      </td>
-                                    </tr>
-                                    </tbody>
-                                  </table>
-                                </div>
-                              </td>
-                              <td>
-                                <div >
-                                  <span class="txt-color-red">请先选择存货</span>
-                                  <table border="0" cellspacing="0" cellpadding="1">
-                                    <tbody>
-                                    <tr>
-                                      <td>
-                                        <form class="smart-form">
-                                          <section>
-                                            <form class="smart-form">
-                                              <section>
-                                                <label class="input">
-                                                  <input  name="" type="text">
-                                                </label>
-                                              </section>
-
-                                            </form>
-                                          </section>
-                                        </form>
-                                      </td>
-                                    </tr>
-                                    </tbody>
-                                  </table>
-                                </div>
-                              </td>
-                              <td>
-                                <div >
-                                  <span class="txt-color-red">请先选择存货</span>
-                                  <table border="0" cellspacing="0" cellpadding="1">
-                                    <tbody>
-                                    <tr>
-                                      <td>
-                                        <form class="smart-form">
-                                          <section>
-                                            <label class="input">
-                                              <input  name="" type="text">
-                                            </label>
-                                          </section>
-                                        </form>
-                                      </td>
-                                    </tr>
-                                    </tbody>
-                                  </table>
-                                </div>
+                                <label  class="input">
+                                  <input [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_note" value="{{p.p_note}}" type="text">
+                                </label>
                               </td>
                             </tr>
-
                             </tbody>
                             <tfoot>
-                            <tr >
+                            <tr>
                               <th></th>
                               <th></th>
                               <th></th>
                               <th></th>
                               <th></th>
-                              <th>0</th>
                               <th></th>
                               <th></th>
                               <th></th>
+                              <!--<th></th>-->
                             </tr>
                             </tfoot>
                           </table>
@@ -347,6 +270,11 @@
   </sa-widgets-grid>
 </div>
 
+<div>
+  <span *ngFor="let p of searchProductList?.result?.data;let ind = index;">
+   <a (click)="addInput(ind)"> {{p.p_id}}:{{p.p_name}}</a>
+  </span>
+</div>
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">

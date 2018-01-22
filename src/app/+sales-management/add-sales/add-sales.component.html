@@ -139,7 +139,7 @@
                           <!--<section>-->
                             <!--<label class="input">-->
                               <i class="icon-append glyphicon glyphicon-search cursor-pointer" (click)="searchKey()"></i><!-- data-toggle="modal" data-target="#myModal"-->
-                              <input type="text" placeholder="" name="keyword" [(ngModel)]="keyword">
+                              <input type="text" placeholder="" name="keyword" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">
                             <!--</label>-->
                           <!--</section>-->
                         <!--</form>-->
@@ -175,7 +175,7 @@
                                           <section>
                                             <label class="input">
                                               <i class="icon-append glyphicon glyphicon-search cursor-pointer" (click)="searchKey()"></i><!-- data-toggle="modal" data-target="#myModal"-->
-                                              <input type="text" placeholder="" name="keyword" [(ngModel)]="keyword">
+                                              <input type="text" placeholder="" name="keyword" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">
                                             </label>
                                           </section>
                                         </form>
