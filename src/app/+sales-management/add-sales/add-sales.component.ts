@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {stringify} from "querystring";
 
 @Component({
   selector: 'app-add-sales',
@@ -17,6 +18,9 @@ export class AddSalesComponent implements OnInit {
   userList : Array<any> = [];
   purchaseInfo : Array<any> = [];
 
+  selectProductList :Array<any> = [];//[{"p_product_id": "0","p_qrcode": "0","category": "0","p_unit": "0","p_count": "0","p_price": "0","p_pur_price": "0","p_note": "","p_is": "1"}]; //选中后的商品列表
+  searchProductList : Array<any> = [];//搜索出的商品列表信息
+
   //默认选中值
   pr_supplier_default : number = 0; //供应商
   pr_department_default : number = 0; //采购部门
@@ -25,7 +29,9 @@ export class AddSalesComponent implements OnInit {
   pr_category_default: number = 0; //采购类型
   pr_transport_default: number = 0; //运输方式
 
+  keyword : string = '';
   category_type : number = 22; //销售类型
+  p_type : number = 2;//商品
   role : number = 4; //客户角色
   rollback_url : string = '/sales-management/add-sales';
   constructor(
@@ -50,7 +56,7 @@ export class AddSalesComponent implements OnInit {
       pr_qrcode:[''],
       pr_detail:[''],
       pr_note:[''],
-      pr_voucher:['']
+      // pr_voucher:['']
     });
   }
 
@@ -85,22 +91,23 @@ export class AddSalesComponent implements OnInit {
         pr_category:this.purchaseInfo['result']['pr_category'],
         pr_transport:this.purchaseInfo['result']['pr_transport'],
         pr_qrcode:this.purchaseInfo['result']['pr_qrcode'],
-        pr_detail:this.purchaseInfo['result']['pr_detail'],
+        // pr_detail:this.purchaseInfo['result']['pr_detail'],
         pr_note:this.purchaseInfo['result']['pr_note'],
-        pr_voucher:this.purchaseInfo['result']['pr_voucher']
-
+        // pr_voucher:this.purchaseInfo['result']['pr_voucher']
       });
-
       this.pr_supplier_default = this.purchaseInfo['result']['pr_supplier']; //供应商
       this.pr_department_default = this.purchaseInfo['result']['pr_department']; //采购部门
       this.pr_employee_default = this.purchaseInfo['result']['pr_employee']; //采购员
       this.storehouse_id_default =this.purchaseInfo['result']['storehouse_id']; //仓库
       this.pr_category_default =this.purchaseInfo['result']['pr_category']; //采购类型
       this.pr_transport_default = this.purchaseInfo['result']['pr_transport']; //运输方式
-
       if(this.purchaseInfo['result']['pr_department'] != 0){
         this.getUserList(this.purchaseInfo['result']['pr_department'],2);
       }
+
+      this.selectProductList = this.purchaseInfo['result']['detail'];
+      // console.log('this.selectProductList :-----');
+      // console.log(this.selectProductList );
     }, 500);
   }
 
@@ -141,7 +148,6 @@ export class AddSalesComponent implements OnInit {
         .subscribe((data)=>{
           this.purchaseList = data;
         });
-
     setTimeout(() => {
       console.log('this.purchaseList:----');
       console.log(this.purchaseList);
@@ -162,7 +168,6 @@ export class AddSalesComponent implements OnInit {
       alert('请填写单据号！');
       return false;
     }
-    // console.log(this.formModel.value['name']);
     this.http.post(this.globalService.getDomain()+'/api/v1/addPurchase',{
       'pr_id':this.formModel.value['pr_id'],
       'pr_order':this.formModel.value['pr_order'],
@@ -175,9 +180,9 @@ export class AddSalesComponent implements OnInit {
       'pr_category':this.formModel.value['pr_category'],
       'pr_transport':this.formModel.value['pr_transport'],
       'pr_qrcode':this.formModel.value['pr_qrcode'],
-      'pr_detail':this.formModel.value['pr_detail'],
       'pr_note':this.formModel.value['pr_note'],
-      'pr_voucher':this.formModel.value['pr_voucher'],
+      // 'pr_voucher':this.formModel.value['pr_voucher'],
+      'pr_detail' :JSON.stringify(this.selectProductList),
       'u_id':this.cookieStore.getCookie('uid'),
       'sid':this.cookieStore.getCookie('sid')
     }).subscribe(
@@ -194,5 +199,37 @@ export class AddSalesComponent implements OnInit {
     );
   }
 
+  //添加商品
+  addInput(ind:number) {
+    console.log('点击了：'+ind);
+    this.selectProductList.push(this.searchProductList['result']['data'][ind]);
+    // console.log(this.selectProductList);
+    // console.log(JSON.stringify(this.selectProductList));
+  }
+  //移除商品
+  removeInput(ind) {
+    // let i = this.selectProductList.indexOf(item);
+    this.selectProductList.splice(ind, 1);
+  }
+
+  /**
+   * 搜索商品
+   */
+  searchKey(){
+    this.http.get(this.globalService.getDomain()+'/api/v1/getProductList?keyword='+this.keyword+'&p_type='+this.p_type+'&sid='+this.cookieStore.getCookie('sid'))
+        .map((res)=>res.json())
+        .subscribe((data)=>{
+          this.searchProductList = data;
+        });
+    setTimeout(() => {
+      // console.log('this.searchProductList:----');
+      // console.log(this.searchProductList);
+      if(this.searchProductList['status'] == 202){
+        alert(this.searchProductList['msg']);
+        this.cookieStore.removeAll(this.rollback_url);
+        this.router.navigate(['/auth/login']);
+      }
+    }, 600);
+  }
 }
 
