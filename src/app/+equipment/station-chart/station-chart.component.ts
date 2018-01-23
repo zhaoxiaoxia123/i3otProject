@@ -85,7 +85,6 @@ export class StationChartComponent implements OnInit {
 
     ngOnInit() {
         // this.getColorShow();
-
         this.interval = setInterval(() => {
             this.search_datapoint();
         }, 3*60*1000);
@@ -103,27 +102,23 @@ export class StationChartComponent implements OnInit {
             .map((res)=>res.json())
             .subscribe((data)=>{
                 this.i3otpList = data;
-            });
-        setTimeout(() => {
-            console.log('this.i3otpList:--');
-            console.log(this.i3otpList);
-            if(this.i3otpList['status'] == 202){
-                this.cookieStore.removeAll(this.rollback_url);
-                this.router.navigate(['/auth/login']);
-            }
-            if(this.i3otpList.length == 0){
-                alert("没有数据，请确认已添加数据后再次刷新此页面！");
-                return false;
-            }
-            this.pid = this.i3otpList['result']['pid'];
-            this.cid = this.i3otpList['result']['cid'];
-            this.metric = this.i3otpList['result']['metric'];
+                console.log('this.i3otpList:--');
+                console.log(this.i3otpList);
+                if(this.i3otpList['status'] == 202){
+                    this.cookieStore.removeAll(this.rollback_url);
+                    this.router.navigate(['/auth/login']);
+                }
+                if(this.i3otpList.length == 0){
+                    alert("没有数据，请确认已添加数据后再次刷新此页面！");
+                    return false;
+                }
+                this.pid = this.i3otpList['result']['pid'];
+                this.cid = this.i3otpList['result']['cid'];
+                this.metric = this.i3otpList['result']['metric'];
 
-            // this.i3otpList = this.i3otpList['result'];
-            // console.log('this.i3otpList111:--');
-            // console.log(this.i3otpList);
-            this.search_datapoint();
-        }, 500);
+                this.search_datapoint();
+
+            });
     }
     /**
      * 提交搜索
@@ -162,14 +157,15 @@ export class StationChartComponent implements OnInit {
         let url = this.globalService.getTsdbDomain()+'/tsdb/api/getDatapoint.php?size='+this.size+'&cid='+this.cid+'&metric='+this.metric+'&pid='+this.pid+'&selectedStr='+str;
         this.dataSource1 = this.http.get(url)
             .map((res)=>res.json());
-        this.dataSource1.subscribe((data)=>this.products1=data);
-        setTimeout(() => {
-            console.log('this.products1:-----');
-            console.log(this.products1);
+        this.dataSource1.subscribe(data=>{
+            this.products1=data;
+
             this.chartOption1 = this.getValue(1);
             console.log('this.chartOption1:-----');
             console.log(this.chartOption1);
-        }, 5*1000);
+        });
+        // setTimeout(() => {
+        // }, 5*1000);
     }
 
     /**
@@ -475,15 +471,13 @@ export class StationChartComponent implements OnInit {
         let url = this.globalService.getTsdbDomain()+'/tsdb/api/getDatapoint.php?size='+this.size+'&cid='+this.cid+'&metric='+join_metric+'&pid='+this.join_pid+'&type=join';
         this.dataSource2 = this.http.get(url)
             .map((res)=>res.json());
-        this.dataSource2.subscribe((data)=>this.products2=data);
-        setTimeout(() => {
-            // console.log('this.products2:-----');
-            // console.log(this.products2);
+        this.dataSource2.subscribe((data)=>{
+            this.products2=data;
+
             this.chartOption2 = this.getValue(2);
             this.loading = '';
-            // console.log(' this.loading ');
-            // console.log( this.loading );
-        }, 5*1000);
+        });
+
     }
 
     @ViewChild('lgModal') public lgModal:ModalDirective;
