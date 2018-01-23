@@ -125,23 +125,20 @@ export class DataMapComponent implements OnInit {
             .map((res)=>res.json())
             .subscribe((data)=>{
                 this.customerDefault = data;
+                console.log('this.customerDefault:-----');
+                console.log(this.customerDefault);
+                if(this.customerDefault['status'] == 202){
+                    this.cookiestore.removeAll(this.rollback_url);
+                    this.router.navigate(['/auth/login']);
+                }
+                this.company = this.customerDefault['result']['c_number'];
+
+                if(this.customerDefault.length == 0){
+                    alert('页面初始化错误，请刷新页面重试！');
+                    return ;
+                }
+                this.search_datapoint();
             });
-        setTimeout(() => {
-            console.log('this.customerDefault:-----');
-            console.log(this.customerDefault);
-
-            if(this.customerDefault['status'] == 202){
-                this.cookiestore.removeAll(this.rollback_url);
-                this.router.navigate(['/auth/login']);
-            }
-            this.company = this.customerDefault['result']['c_number'];
-
-            if(this.customerDefault.length == 0){
-                alert('页面初始化错误，请刷新页面重试！');
-                return ;
-            }
-            this.search_datapoint();
-        },500);
     }
 
     search_datapoint(){
@@ -157,18 +154,18 @@ export class DataMapComponent implements OnInit {
         that.size = 5;
         that.dataSource = that.http.get(that.globalService.getTsdbDomain()+'/tsdb/api/getDatapoint.php?size='+that.size+'&cid='+that.company+'&index=1')
             .map((res)=>res.json());
-        that.dataSource.subscribe(
-            (data)=>that.products=data
-        );
-        setTimeout(() => {
-            console.log('this.products:-----');
+        that.dataSource.subscribe(data=>{
+            console.log('this.products  data:-----');
+            console.log(data);
+                that.products=data;
+            console.log('this.products  subscribe:-----');
             console.log(this.products);
             if (this.products.length == 0) {
                 this.count++;
+                alert('没有请求到数据，请刷新页面重新加载实时数据！');
                 //     this.search_datapoint();
                 return false;
             }
-
             for (let dataInfo of this.products['data']) {
                 let c: number = 0;
                 for (let entry of dataInfo['name']) {
@@ -197,11 +194,12 @@ export class DataMapComponent implements OnInit {
                     c++;
                 }
             }
-        }, 5*1000);
+        }
+        );
 
         setTimeout(() => {
             that.search_datapoint1(color_);
-        },1000);
+        },5*1000);
     }
 
     search_datapoint1(color_){
@@ -209,16 +207,14 @@ export class DataMapComponent implements OnInit {
         that.size = 5;
         that.dataSource1 = that.http.get(that.globalService.getTsdbDomain()+'/tsdb/api/getDatapoint.php?size='+that.size+'&cid='+that.company+'&index=2')
             .map((res)=>res.json());
-        that.dataSource1.subscribe(
-            (data)=>that.products1=data
-        );
-
-        setTimeout(() => {
+        that.dataSource1.subscribe(data=>{
+            that.products1=data;
             console.log('this.products1:-----');
             console.log(this.products1);
             if (this.products1.length == 0) {
                 this.count++;
-                this.search_datapoint1(color_);
+                alert('没有请求到数据，请刷新页面重新加载实时数据！');
+                // this.search_datapoint1(color_);
                 return false;
             }
 
@@ -251,8 +247,9 @@ export class DataMapComponent implements OnInit {
                 }
             }
             //是否隐藏加载滚动
-           this.is_show_products = 1;
-        }, 5*1000);
+            this.is_show_products = 1;
+        }
+        )
     }
 
     /**
