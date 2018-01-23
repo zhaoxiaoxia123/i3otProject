@@ -13,7 +13,7 @@ export const config: any = {
     {
       name: "smart-style-0",
       logo: "assets/img/logo.png",
-      skinBtnClass: "btn btn-block btn-xs txt-color-white margin-right-5",
+      skinBtnClass: "btn btn-block btn-xs txt-color-white mr-5",
       style: {
         backgroundColor: '#4E463F'
       },

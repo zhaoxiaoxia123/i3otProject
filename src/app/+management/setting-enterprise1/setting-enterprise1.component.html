@@ -74,8 +74,8 @@
                           <tbody>
                           <tr *ngFor="let cl of userCategoryList.result?.data">
                             <td>{{ cl.category_desc }}</td>
-                            <td><a class="btn btn-warning btn-xs" (click)="editUserCategory(4,cl.category_id, cl.category_desc)" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                              <a class="btn btn-danger btn-xs" (click)="deleteUserCategory(4,cl.category_id,userCategoryList.result?.current_page)"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                            <td><a class="btn btn-warning btn-xs" (click)="editUserCategory(4,cl.category_id, cl.category_desc)" ><span class="glyphicon glyphicon-pencil mr-5"></span>修改</a>
+                              <a class="btn btn-danger btn-xs" (click)="deleteUserCategory(4,cl.category_id,userCategoryList.result?.current_page)"><span class="glyphicon glyphicon-remove mr-5"></span>删除</a>
                             </td>
                           </tr>
                           </tbody>
@@ -157,8 +157,8 @@
                           <tbody>
                           <tr *ngFor="let cl of sourceList.result?.data">
                             <td>{{ cl.category_desc }}</td>
-                            <td><a class="btn btn-warning btn-xs" (click)="editUserCategory(5,cl.category_id, cl.category_desc)" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                              <a class="btn btn-danger btn-xs" (click)="deleteUserCategory(5,cl.category_id,sourceList.result?.current_page)"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                            <td><a class="btn btn-warning btn-xs" (click)="editUserCategory(5,cl.category_id, cl.category_desc)" ><span class="glyphicon glyphicon-pencil mr-5"></span>修改</a>
+                              <a class="btn btn-danger btn-xs" (click)="deleteUserCategory(5,cl.category_id,sourceList.result?.current_page)"><span class="glyphicon glyphicon-remove mr-5"></span>删除</a>
                             </td>
                           </tr>
                           </tbody>

@@ -108,13 +108,13 @@
                   <td>{{ pl.storehouse_name }}</td>
                   <td>
                     <a class="btn btn-warning btn-xs" (click)="isDemo('/forms/product1',pl.p_id)">
-                      <span class="glyphicon glyphicon-pencil"></span>修改
+                      <span class="glyphicon glyphicon-pencil mr-5"></span>修改
                     </a>
                     <a class="btn btn-danger btn-xs" (click)="deleteProduct( pl.p_id ,productList.result?.current_page)">
-                      <span class="glyphicon glyphicon-remove"></span>删除
+                      <span class="glyphicon glyphicon-remove mr-5"></span>删除
                     </a>
                     <a class="btn btn-success btn-xs" (click)="getProductInfo( pl.p_id );lgModal.show();">
-                      <span class="glyphicon glyphicon-zoom-in"></span>详情
+                      <span class="glyphicon glyphicon-zoom-in mr-5"></span>详情
                     </a>
                   </td>
                 </tr>

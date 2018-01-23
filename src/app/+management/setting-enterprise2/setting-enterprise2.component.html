@@ -87,8 +87,8 @@
                           <tbody>
                           <tr *ngFor="let cl of orderCategoryList.result?.data">
                             <td>{{ cl.category_desc }}</td>
-                            <td><a class="btn btn-warning btn-xs" (click)="editOrderCategory(8,cl.category_id, cl.category_desc)" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                              <a class="btn btn-danger btn-xs" (click)="deleteOrderCategory(8,cl.category_id,orderCategoryList.result?.current_page)"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                            <td><a class="btn btn-warning btn-xs" (click)="editOrderCategory(8,cl.category_id, cl.category_desc)" ><span class="glyphicon glyphicon-pencil mr-5"></span>修改</a>
+                              <a class="btn btn-danger btn-xs" (click)="deleteOrderCategory(8,cl.category_id,orderCategoryList.result?.current_page)"><span class="glyphicon glyphicon-remove mr-5"></span>删除</a>
                             </td>
                           </tr>
 
