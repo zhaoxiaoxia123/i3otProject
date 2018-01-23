@@ -20,17 +20,41 @@
                     <div class="collapse navbar-collapse">
 
                       <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-                        <div class="form-group">
+                        <div class="form-group pdlr-4">
                           <a class="btn btn-success btn-sm"  data-toggle="modal" data-target="#myModal">
-                            <span class="glyphicon glyphicon-plus"></span>添加</a>
+                            <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
                         </div>
-                        <div class="form-group">
-                          <a class="btn btn-warning btn-sm"  data-toggle="modal" data-target="#myModal">
-                            <span class="glyphicon glyphicon-pencil"></span>修改</a>
+                        <div class="form-group pdlr-4">
+                          <a class="btn default-btn btn-sm"  data-toggle="modal" data-target="#myModal">
+                            <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
                         </div>
-                        <div class="form-group">
-                          <a class="btn btn-success btn-sm"  >
-                            <span class="glyphicon glyphicon-zoom-in"></span>详情</a>
+                        <div class="form-group pdlr-4">
+                          <a class="btn default-btn btn-sm" >
+                            <span class="glyphicon glyphicon-remove mr-5 color-red"></span>删除</a>
+                        </div>
+                        <div class="form-group pdlr-4">
+                          <a class="btn default-btn btn-sm"  >
+                            <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
+                        </div>
+                        <div class="form-group btn-group pdlr-4">
+                          <a class="btn default-btn btn-sm dropdown-toggle"  data-toggle="dropdown">
+                            <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
+
+                          <ul class="dropdown-menu" role="menu">
+                            <li><a ><span class="fa-fw fa fa-play mr-5 color-green"></span>批量设为启动</a></li>
+                            <li><a ><span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>批量设为无效</a></li>
+                            <li class="divider"></li>
+                            <li><a ><span class="glyphicon glyphicon-remove color-red mr-5"></span>批量删除</a></li>
+                          </ul>
+
+                        </div>
+                        <div class="form-group pdlr-4">
+                          <a class="btn default-btn btn-sm"  >
+                            <span class="fa-fw fa fa-play mr-5 color-green"></span>启用</a>
+                        </div>
+                        <div class="form-group pdlr-4">
+                          <a class="btn default-btn btn-sm"  >
+                            <span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>无效</a>
                         </div>
                         <div class="form-group padding-left-10">
                           <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" name="keyword" placeholder="请输入搜索内容" type="text">
@@ -55,6 +79,145 @@
                           <i class="fa-fw fa fa-th-large"></i>
                           部门分类
                         </alert>
+                        <div class="pd-10">
+                          <div class="widget-body">
+                            <div class="tree smart-form">
+                              <ul class="">
+                                <li class=" parent_li">
+                                <span><i class="fa fa-lg fa-folder-open"></i>矿业公司（机构）<i class="sa-icon fa fa-lg fa-minus-circle"></i>
+                                </span>
+                                  <ul class="">
+                                    <li class=" parent_li">
+                                    <span>
+                                      <label class="checkbox inline-block tree-label ">
+                                            <input type="checkbox" checked="checked" name="checkbox-inline"><i>
+                                          </i>云南分公司（机构）
+                                          </label>
+                                      <i class="sa-icon fa fa-lg fa-minus-circle"></i>
+                                      <i class="sa-icon fa fa-lg fa-plus-circle"></i>
+                                    </span>
+                                      <ul class="">
+                                        <li>
+                                        <span>
+                                          <label class="checkbox inline-block tree-label">
+                                            <input type="checkbox" name="checkbox-inline">
+                                            <i></i>采购部（部门）
+                                          </label>
+                                        </span>
+                                        </li>
+                                        <li>
+                                        <span>
+                                          <label class="checkbox inline-block tree-label">
+                                            <input type="checkbox" checked="checked" name="checkbox-inline"><i>
+                                          </i>财务部（部门）
+                                          </label>
+                                        </span>
+                                        </li>
+                                        <li>
+                                        <span>
+                                          <label class="checkbox inline-block tree-label">
+                                            <input type="checkbox" checked="checked" name="checkbox-inline">
+                                            <i></i>人事部（部门）
+                                          </label>
+                                        </span>
+                                        </li>
+                                      </ul>
+                                    </li>
+
+                                    <li class=" parent_li">
+                                    <span>
+                                      <label class="checkbox inline-block tree-label ">
+                                            <input type="checkbox" checked="checked" name="checkbox-inline"><i>
+                                          </i>云南分公司（机构）
+                                          </label>
+                                      <i class="sa-icon fa fa-lg fa-minus-circle"></i>
+                                      <i class="sa-icon fa fa-lg fa-plus-circle"></i>
+                                    </span>
+                                      <ul class="">
+                                        <li class=" parent_li">
+                                        <span>
+                                          <label class="checkbox inline-block tree-label">
+                                            <input type="checkbox" name="checkbox-inline">
+                                            <i></i>采购部（部门）
+                                          </label>
+                                          <i class="sa-icon fa fa-lg fa-minus-circle"></i>
+                                          <i class="sa-icon fa fa-lg fa-plus-circle"></i>
+                                        </span>
+                                          <ul class="">
+                                            <li>
+                                        <span>
+                                          <label class="checkbox inline-block tree-label">
+                                            <input type="checkbox" name="checkbox-inline">
+                                            <i></i>采购部（部门）
+                                          </label>
+                                        </span>
+                                            </li>
+                                            <li>
+                                        <span>
+                                          <label class="checkbox inline-block tree-label">
+                                            <input type="checkbox" checked="checked" name="checkbox-inline"><i>
+                                          </i>财务部（部门）
+                                          </label>
+                                        </span>
+                                            </li>
+                                            <li>
+                                        <span>
+                                          <label class="checkbox inline-block tree-label">
+                                            <input type="checkbox" checked="checked" name="checkbox-inline">
+                                            <i></i>人事部（部门）
+                                          </label>
+                                        </span>
+                                            </li>
+                                          </ul>
+                                        </li>
+                                        <li>
+                                        <span>
+                                          <label class="checkbox inline-block tree-label">
+                                            <input type="checkbox" checked="checked" name="checkbox-inline"><i>
+                                          </i>财务部（部门）
+                                          </label>
+                                        </span>
+                                        </li>
+                                        <li>
+                                        <span>
+                                          <label class="checkbox inline-block tree-label">
+                                            <input type="checkbox" checked="checked" name="checkbox-inline">
+                                            <i></i>人事部（部门）
+                                          </label>
+                                        </span>
+                                        </li>
+                                      </ul>
+                                    </li>
+
+                                    <li>
+                                    <span>
+                                      <label class="checkbox inline-block tree-label">
+                                        <input type="checkbox" name="checkbox-inline"><i></i>矿易帮（机构）
+                                      </label>
+                                    </span>
+                                    </li>
+                                    <li>
+                                    <span>
+                                      <label class="checkbox inline-block tree-label">
+                                        <input type="checkbox" name="checkbox-inline"><i></i>财务部（部门）
+                                      </label>
+                                    </span>
+                                    </li>
+                                    <li>
+                                    <span>
+                                      <label class="checkbox inline-block tree-label">
+                                        <input type="checkbox" name="checkbox-inline"><i></i>人事部（部门）
+                                      </label>
+                                    </span>
+                                    </li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+
+
 
 
 
@@ -73,7 +236,7 @@
                         </alert>
 
                         <div style="padding:0;">
-                          <div style="padding: 0;z-index: 2;" class="table-responsive">
+                          <div style="padding: 0;z-index: 2;width:20%;float:left;" class="table-responsive">
                             <table class="table table-striped  table-hover smart-form">
                               <thead>
                               <tr >
@@ -82,52 +245,23 @@
                                   <i></i>
                                 </label>
                                 </td>
-                                <th>序号</th>
-                                <th>名称</th>
-                                <th>类别代码</th>
-                                <th>类别名称</th>
-                                <th>说明</th>
+                                <th>部门名称</th>
+                                <th>部门编号</th>
                               </tr>
                               </thead>
                               <tbody>
-                              <tr class="">
+
+                              <tr *ngFor="let d of departmentList.result?.data">
                                 <td>
                                   <label class="checkbox">
                                     <input type="checkbox" >
                                     <i></i>
                                   </label>
                                 </td>
-                                <td>1</td>
-                                <td>四川矿业有限公司</td>
-                                <td>2155</td>
-                                <td>分隔符</td>
-                                <td>囧囧飞洒街坊邻居撒娇给付对价会计法看见过复健科该矿该矿</td>
-                              </tr>
-                              <tr class="">
-                                <td>
-                                  <label class="checkbox">
-                                    <input type="checkbox" >
-                                    <i></i>
-                                  </label>
-                                </td>
-                                <td>1</td>
-                                <td>四川矿业有限公司</td>
-                                <td>2155</td>
-                                <td>分隔符</td>
-                                <td>囧囧飞洒街坊邻居撒娇给付对价会计法看见过复健科该矿该矿</td>
-                              </tr>
-                              <tr class="table-color">
-                                <td>
-                                  <label class="checkbox">
-                                    <input type="checkbox" >
-                                    <i></i>
-                                  </label>
-                                </td>
-                                <td>1</td>
-                                <td>四川矿业有限公司</td>
-                                <td>2155</td>
-                                <td>分隔符</td>
-                                <td>囧囧飞洒街坊邻居撒娇给付对价会计法看见过复健科该矿该矿</td>
+                                <td class="details-control">{{d.department_name}}</td>
+                                <!--<td class="details-control"><span class="padding-10"><i class="fa-fw fa  fa-folder-open"></i>{{d.department_name}}</span></td>-->
+                                <!--<td class=""><span class="padding-10"><i class="fa-fw fa   fa-file-o"></i>互换</span></td>-->
+                                <td>{{d.department_number}}</td>
                               </tr>
 
 
@@ -135,9 +269,49 @@
                             </table>
 
                           </div>
+
+                          <div style="padding: 0;z-index: 1;width:80%;float:left;" class="table-responsive">
+                            <table class="table table-striped  table-hover smart-form">
+                              <thead>
+                              <tr>
+                                <th>上级部门</th>
+                                <th>部门负责人</th>
+                                <th>创建日期</th>
+                                <th>部门属性 </th>
+                                <th>部门电话 </th>
+                                <th>部门传真 </th>
+                                <th>部门状态 </th>
+                              </tr>
+                              </thead>
+                              <tbody>
+
+                              <tr *ngFor="let d of departmentList.result?.data">
+                                <td>
+                                  <span [ngSwitch]="d.upper_department_id">
+                                    <span *ngSwitchCase="0">一级部门</span>
+                                    <span *ngSwitchDefault>{{d.parent_department}}</span>
+                                  </span>
+                                </td>
+                                <td>{{d.department_incharge}}</td>
+                                <td>{{d.created_at}}</td>
+                                <td>{{d.department_attribute}}</td>
+                                <td>{{d.department_phone}}</td>
+                                <td>{{d.department_fax}}</td>
+                                <td>
+                                  <span [ngSwitch]="d.department_status">
+                                    <span *ngSwitchCase="1">正常</span>
+                                    <span *ngSwitchCase="2">无效</span>
+                                    <span *ngSwitchDefault>未知</span>
+                                  </span>
+                                </td>
+
+                              </tr>
+
+                              </tbody>
+                            </table>
+
+                          </div>
                         </div>
-
-
 
 
                         <!-- 底部-（分页部分）-->
@@ -182,7 +356,7 @@
 
 
 
-  <sa-widget [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+  <!--<sa-widget [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
     <header>
       <ul class="nav nav-tabs pull-left in">
         <li [class.active]="state.tabs.demo4=='AA'" class="active">
@@ -194,7 +368,7 @@
       <div class="widget-body">
         <tabset>
           <tab [active]="state.tabs.demo4 == 'AA'">
-            <tabset class="padding-10">
+            <tabset class="pd-10">
               <tab [active]="state.tabs.demo4 == 'AA'">
                 <div class="row">
                   <article class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -247,8 +421,8 @@
                               <tbody>
                               <tr *ngFor="let d of departmentList.result?.data">
                                 <td class="details-control">{{d.department_name}}</td>
-                                <!--<td class="details-control"><span class="padding-10"><i class="fa-fw fa  fa-folder-open"></i>{{d.department_name}}</span></td>-->
-                                <!--<td class=""><span class="padding-10"><i class="fa-fw fa   fa-file-o"></i>互换</span></td>-->
+                                &lt;!&ndash;<td class="details-control"><span class="padding-10"><i class="fa-fw fa  fa-folder-open"></i>{{d.department_name}}</span></td>&ndash;&gt;
+                                &lt;!&ndash;<td class=""><span class="padding-10"><i class="fa-fw fa   fa-file-o"></i>互换</span></td>&ndash;&gt;
                                 <td>{{d.department_number}}</td>
                                 <td>
                                   <span [ngSwitch]="d.upper_department_id">
@@ -273,12 +447,12 @@
                                     <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myModal" (click)="editDepartment(d.department_id)"><span class="glyphicon glyphicon-pencil"></span>修改</a>
                                     <a class="btn btn-danger btn-xs" (click)="deleteDepartment(d.department_id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
                                   </div>
-                                  <!--<div >无权操作</div>-->
+                                  &lt;!&ndash;<div >无权操作</div>&ndash;&gt;
                                 </td>
                               </tr>
                               </tbody>
                             </table>
-                            <!-- 底部-（分页部分）-->
+                            &lt;!&ndash; 底部-（分页部分）&ndash;&gt;
                             <div class="dt-toolbar">
                               <div class="hidden-xs right">
                                 <ul class="pagination pagination-sm">
@@ -293,7 +467,7 @@
                         </div>
                       </div>
                     </sa-widget>
-                    <!-- end widget -->
+                    &lt;!&ndash; end widget &ndash;&gt;
                   </article>
                 </div>
               </tab>
@@ -303,7 +477,7 @@
       </div>
     </div>
   </sa-widget>
-
+-->
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">

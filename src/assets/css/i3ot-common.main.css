@@ -2703,11 +2703,21 @@ label input[type=checkbox][disabled].checkbox+span:before,label input[type=check
     color: #fff;
     background-color: #3782e7;
 }
+
 .nav-pills>li {
     padding-left: 6px;
     padding-bottom: 4px;
 }
+.pills-under>li{
+    padding-left: 6px;
+    padding-bottom: 4px;
+}
+
 .nav-pills>span {
+    padding-left: 6px;
+    padding-bottom: 4px;
+}
+.pills-under>span {
     padding-left: 6px;
     padding-bottom: 4px;
 }
@@ -2716,7 +2726,18 @@ label input[type=checkbox][disabled].checkbox+span:before,label input[type=check
     color: #c0bbb7;
      padding: 5px;
 }
+.pills-under>li>a {
+    border-radius: 2px;
+    color: #c0bbb7;
+    padding: 5px;
+}
 .nav-pills>span>a {
+    border-radius: 2px;
+    color: #c0bbb7;
+    padding: 5px;
+    display: block;
+}
+.pills-under>span>a {
     border-radius: 2px;
     color: #c0bbb7;
     padding: 5px;
@@ -2727,7 +2748,17 @@ label input[type=checkbox][disabled].checkbox+span:before,label input[type=check
     color:#3782e7;
     background:#FFF;
 }
+.pills-under>li>a:hover{
+    border:1px solid #3782e7;
+    color:#3782e7;
+    background:#FFF;
+}
 .nav-pills>span>a:hover{
+    border:1px solid #3782e7;
+    color:#3782e7;
+    background:#FFF;
+}
+.pills-under>span>a:hover{
     border:1px solid #3782e7;
     color:#3782e7;
     background:#FFF;
@@ -2735,7 +2766,10 @@ label input[type=checkbox][disabled].checkbox+span:before,label input[type=check
 .nav-pills>li>a>span{
     padding-left:4px;
 }
-
+.beyond-pills{
+    height: 40px;
+    overflow: hidden;
+}
 
 .ribbon-button-alignment {
     padding-top: 10px;
