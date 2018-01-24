@@ -29,6 +29,8 @@ export class PhonicsListComponent implements OnInit {
       private globalService:GlobalService
   ) {
 
+    let nav = '{"title":"广播信息列表","url":"/equipment/phonics-list","class_":"active"}';
+    this.globalService.navEventEmitter.emit(nav);
     this.formModel = fb.group({
       keyword:[''],
     });

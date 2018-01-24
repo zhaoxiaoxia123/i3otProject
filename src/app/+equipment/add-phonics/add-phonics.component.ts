@@ -38,6 +38,8 @@ export class AddPhonicsComponent implements OnInit {
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
 
+    let nav = '{"title":"添加广播信息","url":"/equipment/phonics","class_":"active"}';
+    this.globalService.navEventEmitter.emit(nav);
     this.formModel = fb.group({
       b_id:[''],
       i3otp_pid:[''],

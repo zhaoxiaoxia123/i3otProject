@@ -28,6 +28,9 @@ export class AddRequisitionComponent implements OnInit {
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
 
+    let nav = '{"title":"添加调拨单","url":"/inventory-management/add-requisition","class_":"active"}';
+    this.globalService.navEventEmitter.emit(nav);
+
     this.formModel = fb.group({
       stock_allot_id:[''],
       stock_allot_type:[''],

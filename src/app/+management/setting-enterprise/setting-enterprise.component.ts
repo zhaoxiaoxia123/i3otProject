@@ -53,6 +53,9 @@ export class SettingEnterpriseComponent implements OnInit {
         private cookieStore:CookieStoreService,
         private globalService:GlobalService
     ) {
+
+        let nav = '{"title":"客户设置","url":"/management/enterprise","class_":"active"}';
+        this.globalService.navEventEmitter.emit(nav);
         this.formModel = fb.group({
             category_desc:[''],
             category_type:['1'],

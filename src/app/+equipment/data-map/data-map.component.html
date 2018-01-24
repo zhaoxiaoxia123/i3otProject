@@ -37,14 +37,16 @@
               <table class="table table-hover table-striped " style="margin: -5px 0;">
                 <thead>
                 <tr>
+                  <th>产品ID</th>
                   <th >时间</th>
-                  <th >数据</th>
+                  <th class="text-align-center">数据</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr *ngFor="let val of entry.value.value;let idx0=index" [ngStyle]="{'background-color': entry.value.color[idx0]}">
+                  <td>p10017</td>
                   <td>{{ products['data'][0]['time'][idx0] }}</td>
-                  <td>{{ val }}</td>
+                  <td class="text-align-center">{{ val }}</td>
                 </tr>
                 </tbody>
               </table>
@@ -79,7 +81,7 @@
               <div class="the-price pricing-big">
                 <div class="panel-heading">
                   <h1 class="panel-title font-headline">
-                    {{entry.value.value[0]}}
+                    <span class="txt-color-greenbrigh">{{entry.value.value[0]}}</span>
                     <small class="subscript" >
                       <sub *ngIf="entry.key == 'ch4' || entry.key == 'co2' || entry.key == 'o2' || entry.key == 'humi'">%</sub>
                       <sub *ngIf="entry.key == 'co'">PPM</sub>
@@ -88,17 +90,19 @@
                   </h1>
                 </div>
               </div>
-              <table class="table table-hover " style="margin: -5px 0;">
+              <table class="table table-hover table-striped  " style="margin: -5px 0;">
                 <thead>
                 <tr>
+                  <th>产品ID</th>
                   <th >时间</th>
-                  <th >数据</th>
+                  <th class="text-align-center">数据</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr *ngFor="let val of entry.value.value;let idx1=index" [ngStyle]="{'background-color': entry.value.color[idx1]}">
+                  <td>p10017</td>
                   <td>{{ products1['data'][0]['time'][idx1] }}</td>
-                  <td>{{ val }}</td>
+                  <td class="text-align-center">{{ val }}</td>
                 </tr>
                 </tbody>
               </table>

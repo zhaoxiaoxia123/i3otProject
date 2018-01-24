@@ -28,6 +28,8 @@ export class EquipmentListComponent implements OnInit {
       private cookiestore:CookieStoreService,
       private globalService:GlobalService
   ) {
+    let nav = '{"title":"设备列表","url":"/equipment/equipment-list","class_":"active"}';
+    this.globalService.navEventEmitter.emit(nav);
     this.formModel = fb.group({
       keyword:[''],
     });

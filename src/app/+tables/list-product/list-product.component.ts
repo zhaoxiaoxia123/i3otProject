@@ -36,9 +36,7 @@ export class ListProductComponent implements OnInit {
       keyword:[''],
     });
     this.getProductList('1');
-
     window.scrollTo(0,0);
-
   }
 
   ngOnInit() {

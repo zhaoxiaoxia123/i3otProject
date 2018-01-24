@@ -42,6 +42,8 @@ export class AppOrderComponent implements OnInit {
                private cookieStore:CookieStoreService,
                private globalService:GlobalService) {
 
+    let nav = '{"title":"添加采购订单","url":"/procurement-management/app-order/0","class_":"active"}';
+    this.globalService.navEventEmitter.emit(nav);
     this.formModel = fb.group({
       pr_id:[''],
       pr_order:[''],

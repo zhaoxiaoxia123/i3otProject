@@ -48,6 +48,8 @@ export class SettingProduct4parametersComponent implements OnInit {
       private cookieStore:CookieStoreService,
       private globalService:GlobalService
   ) {
+      let nav = '{"title":"产品规格/参数设置","url":"/management/product4parameters","class_":"active"}';
+      this.globalService.navEventEmitter.emit(nav);
       this.getCategory();
       this.getSpecification();
       this.cid = this.cookieStore.getCookie('cid');

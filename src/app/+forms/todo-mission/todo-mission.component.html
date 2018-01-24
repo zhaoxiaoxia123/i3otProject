@@ -138,7 +138,7 @@
               <a  class="ng-binding entry-add" *ngIf="!is_show_publish_template" (click)="showPublishTemplate(todoList?.result?.project_id,1)">
                 <i class="fa fa-plus-circle"></i> 新建任务列表
               </a>
-              <div  class="padding-10 " *ngIf="is_show_publish_template"><!-- ng-hide-->
+              <div  class="pd-10 " *ngIf="is_show_publish_template"><!-- ng-hide-->
                 <div class="form-group">
                   <input name="template_name" [(ngModel)]="template_name" placeholder="列表名" type="text" class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" required="" >
                 </div>

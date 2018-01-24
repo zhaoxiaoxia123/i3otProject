@@ -38,13 +38,15 @@ export class SettingRepertoryComponent implements OnInit {
     cid : any = 0;//当前登录用户的所属公司id
     super_admin_id : any = 0;//超级管理员所属公司id
     category_type : number = 20;//出库入库类型
-    rollback_url : string = '/procurement-management/procurement-type';
+    rollback_url : string = '/management/setting-repertory';
     constructor(
         private http:Http,
         private router : Router,
         private cookieStoreService:CookieStoreService,
         private globalService:GlobalService) {
 
+        let nav = '{"title":"出入库类别","url":"/management/setting-repertory","class_":"active"}';
+        this.globalService.navEventEmitter.emit(nav);
         this.getCategoryList('1');
         window.scrollTo(0,0);
         this.super_admin_id = this.globalService.getAdminID();

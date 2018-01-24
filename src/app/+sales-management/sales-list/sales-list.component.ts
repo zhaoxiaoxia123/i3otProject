@@ -27,6 +27,8 @@ export class SalesListComponent implements OnInit {
       private cookiestore:CookieStoreService,
       private globalService:GlobalService) {
 
+    let nav = '{"title":"销售单","url":"/sales-management/sales-list","class_":"active"}';
+    this.globalService.navEventEmitter.emit(nav);
     this.getPurchaseList('1');
     window.scrollTo(0,0);
   }

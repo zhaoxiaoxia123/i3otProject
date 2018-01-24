@@ -1,29 +1,47 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {FadeInTop} from "../../shared/animations/fade-in-top.decorator";
+import {JsonApiService} from "../../core/api/json-api.service";
 
+@FadeInTop()
 @Component({
   selector: 'app-total-project',
   templateUrl: './total-project.component.html'
 })
 export class TotalProjectComponent implements OnInit {
-    public states: Array<any>;
-    public state: any = {
-        tabs: {
-            demo1: 0,
-            demo2: 'tab-r1',
-            demo3: 'hr1',
-            demo4: 'AA',
-            demo5: 'iss1',
-            demo6: 'l1',
-            demo7: 'tab1',
-            demo8: 'hb1',
-            demo9: 'A1',
-            demo10: 'is1'
-        },
-    };
+    @Input() task:string
+    @Input() week:string
+    @Input() day:string
 
-  constructor() { }
+    public days = [
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+        'Sunday'];
 
-  ngOnInit() {
-  }
+
+    public demo1:any;
+    public demo2:any;
+
+    constructor(private jsonApiService:JsonApiService) {
+    }
+
+    add() {
+        console.log(this.task, this.day)
+    }
+
+    ngOnInit() {
+        this.jsonApiService.fetch('/ui-examples/tree-view.json').subscribe(data=> {
+            this.demo1 = data.demo1;
+            this.demo2 = data.demo2;
+        })
+    }
+
+    changeLstener(payload) {
+        console.log('change payload', payload)
+    }
+
 
 }
