@@ -45,6 +45,13 @@
     margin-right: 2px;
 }
 
+#not-click{
+    color: #fff !important;
+    background-color: #ccc;
+    border: #ccc;
+    pointer-events: none;
+}
+
     /*头像状态*/
 img.away,img.busy,img.offline,img.online {
     border-left: 3px solid #fff
