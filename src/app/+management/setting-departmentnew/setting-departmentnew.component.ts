@@ -46,6 +46,9 @@ export class SettingDepartmentnewComponent implements OnInit {
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
+      let nav = '{"title":"部门设置","url":"/management/setting-departmentnew","class_":"active"}';
+      this.globalService.navEventEmitter.emit(nav);
+
       this.getDepartmentList('1');
       window.scrollTo(0,0);
       this.getDepartmentDefault();

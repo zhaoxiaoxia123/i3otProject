@@ -70,6 +70,9 @@ export class SettingArchivesComponent implements OnInit {
         private router : Router,
         private cookieStoreService:CookieStoreService,
         private globalService:GlobalService) {
+
+        let nav = '{"title":"商品档案","url":"/management/setting-archives","class_":"active"}';
+        this.globalService.navEventEmitter.emit(nav);
         this.getProductList('1');
         window.scrollTo(0,0);
         this.super_admin_id = this.globalService.getAdminID();

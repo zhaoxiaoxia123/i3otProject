@@ -37,6 +37,9 @@ export class UnitClassifyComponent implements OnInit {
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
 
+    let nav = '{"title":"单位分类","url":"/customer-management/unit-classify","class_":"active"}';
+    this.globalService.navEventEmitter.emit(nav);
+
     this.getCategoryList('1');
     window.scrollTo(0,0);
     this.super_admin_id = this.globalService.getAdminID();

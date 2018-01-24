@@ -76,6 +76,8 @@ export class StationChartComponent implements OnInit {
         private globalService:GlobalService,
         // private notificationService: NotificationService
     ) {
+        let nav = '{"title":"基站传感数据","url":"/equipment/station-chart","class_":"active"}';
+        this.globalService.navEventEmitter.emit(nav);
         this.formModel = fb.group({
             keyword:[''],
         });

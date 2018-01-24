@@ -52,6 +52,8 @@ export class DataMapComponent implements OnInit {
         private globalService : GlobalService,
         private cookiestore : CookieStoreService
     ) {
+        let nav = '{"title":"全部实时数据","url":"/equipment/data-map","class_":"active"}';
+        this.globalService.navEventEmitter.emit(nav);
         this.getDefault();
         window.scrollTo(0,0);
     }

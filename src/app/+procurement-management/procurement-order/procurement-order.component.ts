@@ -22,7 +22,7 @@ export class ProcurementOrderComponent implements OnInit {
 
   keyword:string = '';
   type : number = 3;
-  rollback_url : string = '/procurement-management/procurement-receipt';
+  rollback_url : string = '/procurement-management/procurement-order';
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -30,6 +30,8 @@ export class ProcurementOrderComponent implements OnInit {
       private cookiestore:CookieStoreService,
       private globalService:GlobalService) {
 
+    let nav = '{"title":"采购订单","url":"/procurement-management/procurement-order","class_":"active"}';
+    this.globalService.navEventEmitter.emit(nav);
     this.getPurchaseList('1');
     window.scrollTo(0,0);
   }

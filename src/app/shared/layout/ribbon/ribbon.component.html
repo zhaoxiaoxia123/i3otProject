@@ -3,40 +3,26 @@
   <div class="row">
     <div class="form-group col col-xs-9">
       <ul class="nav nav-pills beyond-pills">
-
-        <li class="active"><a href="#"><i class="fa fa-lg fa-fw fa-home"></i> 动态面板<span class="glyphicon glyphicon-remove"></span></a></li>
-        <li><a href="#"><i class="fa fa-lg fa-fw fa-home"></i>员工列表<span class="glyphicon glyphicon-remove"></span></a></li>
-        <li><a href="#"><i class="fa fa-lg fa-fw fa-home"></i>待办事项<span class="glyphicon glyphicon-remove"></span></a></li>
-        <li><a href="#"><i class="fa fa-lg fa-fw fa-home"></i>职位设置<span class="glyphicon glyphicon-remove"></span></a></li>
-        <li><a href="#"><i class="fa fa-lg fa-fw fa-home"></i>标签设置<span class="glyphicon glyphicon-remove"></span></a></li>
-        <li><a href="#"><i class="fa fa-lg fa-fw fa-home"></i>仓库列表<span class="glyphicon glyphicon-remove"></span></a></li>
+        <li *ngFor="let n of navList;let ind = index;" class="{{n.class_}}">
+          <a routerLink="{{n.url}}"><i class="fa fa-lg fa-fw fa-home"></i> {{n.title}}
+            <span class="glyphicon glyphicon-remove" (click)="removeTopTab($event,ind,1)"></span>
+          </a>
+        </li>
       </ul>
     </div>
-    <div class="form-group col col-xs-3">
-      <div class="nav nav-pills  ">
+    <div class="form-group col col-xs-3" *ngIf="navListMore.length != 0">
+      <div class="nav nav-pills" >
         <span  id="dropdownMenu1" data-toggle="dropdown" style="float:right;padding-right:30px;" class=""><a href="#">更多<span class="fa fa-caret-down padding-left-5"></span></a></span>
-        <ul class="dropdown-menu dropdown-menu-right nav-pills" role="menu" aria-labelledby="dropdownMenu1" style="width: 160px;">
-          <li role="presentation">
-            <a role="menuitem" tabindex="-1" href="#"><i class="fa fa-lg fa-fw fa-home"></i>员工列表<span class="glyphicon glyphicon-remove"></span></a>
-          </li>
-          <li role="presentation">
-            <a role="menuitem" tabindex="-1" href="#"><i class="fa fa-lg fa-fw fa-home"></i>部门设置<span class="glyphicon glyphicon-remove"></span></a>
-          </li>
-          <li role="presentation">
-            <a role="menuitem" tabindex="-1" href="#"><i class="fa fa-lg fa-fw fa-home"></i>待办事项<span class="glyphicon glyphicon-remove"></span></a>
+        <ul class="dropdown-menu dropdown-menu-right nav-pills" role="menu" aria-labelledby="dropdownMenu1">
+          <li role="presentation" *ngFor="let nm of navListMore;let indm = index;" class="{{nm.class_}}">
+            <a role="menuitem" tabindex="-1" routerLink="{{nm.url}}">
+              <i class="fa fa-lg fa-fw fa-home"></i>{{nm.title}}
+              <span class="glyphicon glyphicon-remove" (click)="removeTopTab($event,indm,2)"></span>
+            </a>
           </li>
         </ul>
-
       </div>
-
     </div>
   </div>
-
-
-
-
-
-
-
 
 </div>

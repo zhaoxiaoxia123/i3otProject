@@ -28,6 +28,9 @@ export class TodoProjectsComponent implements OnInit {
       private cookiestore:CookieStoreService,
       private globalService:GlobalService) {
 
+    let nav = '{"title":"项目","url":"/forms/todo-projects/0","class_":"active"}';
+    this.globalService.navEventEmitter.emit(nav);
+
     this.getProjectList('1');
     this.getProjectDefault();
     window.scrollTo(0,0);

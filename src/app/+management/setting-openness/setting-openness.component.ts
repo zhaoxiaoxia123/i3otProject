@@ -40,6 +40,8 @@ export class SettingOpennessComponent implements OnInit {
         private cookieStoreService:CookieStoreService,
         private globalService:GlobalService) {
 
+        let nav = '{"title":"项目设置","url":"/management/setting-openness","class_":"active"}';
+        this.globalService.navEventEmitter.emit(nav);
         this.getCategoryList('1');
         window.scrollTo(0,0);
         this.super_admin_id = this.globalService.getAdminID();

@@ -51,6 +51,8 @@ export class SettingEquipmentComponent implements OnInit {
       private cookieStore:CookieStoreService,
       private globalService:GlobalService
   ) {
+      let nav = '{"title":"设备设置","url":"/management/setting-equipment","class_":"active"}';
+      this.globalService.navEventEmitter.emit(nav);
       this.formModel = fb.group({
           category_desc:[''],
           category_type:['10'],

@@ -41,6 +41,8 @@ export class AddSalesComponent implements OnInit {
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
 
+    let nav = '{"title":"添加销售单","url":"/sales-management/add-sales/0","class_":"active"}';
+    this.globalService.navEventEmitter.emit(nav);
     this.formModel = fb.group({
       pr_id:[''],
       pr_order:[''],

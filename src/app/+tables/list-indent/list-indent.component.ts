@@ -31,6 +31,9 @@ export class ListIndentComponent implements OnInit {
       private globalService:GlobalService
   ) {
 
+    let nav = '{"title":"订单列表","url":"/tables/client","class_":"active"}';
+    this.globalService.navEventEmitter.emit(nav);
+
     this.formModel = fb.group({
       keyword:[''],
     });

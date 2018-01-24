@@ -48,6 +48,9 @@ export class AddEquipmentComponent implements OnInit {
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
 
+    let nav = '{"title":"添加设备","url":"/equipment/add-equipment","class_":"active"}';
+    this.globalService.navEventEmitter.emit(nav);
+
     this.formModel = fb.group({
       i3otp_id:[''],
       i3otp_pid:[''],

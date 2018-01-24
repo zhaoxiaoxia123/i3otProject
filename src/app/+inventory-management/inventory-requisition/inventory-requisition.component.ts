@@ -19,13 +19,15 @@ export class InventoryRequisitionComponent implements OnInit {
   selects : Array<any> = [];
   check : boolean = false;
   keyword:string = '';
-  rollback_url : string = '/inventory-management/add-requisition/0';
+  rollback_url : string = '/inventory-management/inventory-requisition';
   constructor(
       private http:Http,
       private router : Router,
       private cookiestore:CookieStoreService,
       private globalService:GlobalService) {
 
+    let nav = '{"title":"调拨单","url":"/inventory-management/inventory-requisition","class_":"active"}';
+    this.globalService.navEventEmitter.emit(nav);
     this.getStockallotList('1');
     window.scrollTo(0,0);
   }

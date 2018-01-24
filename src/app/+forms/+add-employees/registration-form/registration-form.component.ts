@@ -72,6 +72,8 @@ export class RegistrationFormComponent implements OnInit {
       private globalService:GlobalService
       // private uploader:FileUploaderOptions
   ) {
+    let nav = '{"title":"添加用户","url":"/forms/employees/0","class_":"active"}';
+    this.globalService.navEventEmitter.emit(nav);
     this.formModel = fb.group({
       u_id:[''],
       employee_id:['',[Validators.required,Validators.minLength(1)]],

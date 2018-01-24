@@ -30,6 +30,8 @@ export class ProcurementReceiptComponent implements OnInit {
       private cookiestore:CookieStoreService,
       private globalService:GlobalService) {
 
+    let nav = '{"title":"进货单","url":"/procurement-management/procurement-receipt","class_":"active"}';
+    this.globalService.navEventEmitter.emit(nav);
     this.getPurchaseList('1');
     window.scrollTo(0,0);
   }

@@ -29,6 +29,8 @@ export class ProcurementTypeComponent implements OnInit {
       private cookieStoreService:CookieStoreService,
       private globalService:GlobalService) {
 
+    let nav = '{"title":"采购类型","url":"/procurement-management/procurement-type","class_":"active"}';
+    this.globalService.navEventEmitter.emit(nav);
     this.getCategoryList('1');
     window.scrollTo(0,0);
     this.super_admin_id = this.globalService.getAdminID();

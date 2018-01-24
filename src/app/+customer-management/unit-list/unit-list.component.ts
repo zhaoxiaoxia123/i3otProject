@@ -66,7 +66,6 @@ export class UnitListComponent implements OnInit {
     c_discount_rate: string = '';
     c_credit_amount: string = '';
 
-
     keyword : string = '';
     cid : any = 0;//当前登录用户的所属公司id
     super_admin_id : any = 0;//超级管理员所属公司id
@@ -78,6 +77,9 @@ export class UnitListComponent implements OnInit {
         private router : Router,
         private cookieStoreService:CookieStoreService,
         private globalService:GlobalService) {
+
+        let nav = '{"title":"往来客户或单位","url":"/customer-management/unit-list","class_":"active"}';
+        this.globalService.navEventEmitter.emit(nav);
 
         this.getCustomerList('1');
         window.scrollTo(0,0);
