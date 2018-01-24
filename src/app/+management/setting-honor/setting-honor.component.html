@@ -30,27 +30,30 @@
                             <i class="fa-fw fa fa-plus"></i>
                             修改职称
                           </alert>
-                          <form class="smart-form ">
-                            <fieldset>
-                              <section>
-                                <label class="label txt-color-blue">职称编号<span class="asterisk-color">*</span></label>
-                                <label class="input">
-                                  <input type="text" placeholder="职称编号" name="category_number" [(ngModel)]="category_number">
-                                </label>
-                              </section>
-                              <section>
-                                <label class="label txt-color-blue">职称名称<span class="asterisk-color">*</span></label>
-                                <label class="input">
-                                  <input type="text" placeholder="请输职称" name="category_desc" [(ngModel)]="category_desc">
-                                </label>
-                              </section>
-                            </fieldset>
-                            <footer>
-                              <button (click)="addCategory()" type="button" class="btn btn-primary">
-                                保存
-                              </button>
-                            </footer>
-                          </form>
+                          <div  class="mt-10">
+                            <form class="smart-form ">
+                              <fieldset>
+                                <section>
+                                  <label class="label txt-color-blue">职称编号<span class="asterisk-color">*</span></label>
+                                  <label class="input">
+                                    <input type="text" placeholder="职称编号" name="category_number" [(ngModel)]="category_number">
+                                  </label>
+                                </section>
+                                <section>
+                                  <label class="label txt-color-blue">职称名称<span class="asterisk-color">*</span></label>
+                                  <label class="input">
+                                    <input type="text" placeholder="请输职称" name="category_desc" [(ngModel)]="category_desc">
+                                  </label>
+                                </section>
+                              </fieldset>
+                              <footer>
+                                <button (click)="addCategory()" type="button" class="btn btn-primary">
+                                  保存
+                                </button>
+                              </footer>
+                            </form>
+                          </div>
+
                         </div>
                       </div>
                     </sa-widget>
@@ -65,14 +68,14 @@
                             职称
                           </alert>
 
-                          <div  class="row">
+                          <div  class="row mt-10">
                             <article  class="col-sm-12">
                               <div class="navbar navbar-default">
                                 <div class="collapse navbar-collapse">
 
                                   <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
                                     <div class="form-group pdlr-4">
-                                      <a class="btn default-btn btn-sm"  data-toggle="modal" data-target="#myModal">
+                                      <a class="btn default-btn btn-sm">
                                         <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
                                     </div>
                                     <div class="form-group pdlr-4">
@@ -132,12 +135,12 @@
                               </div>
                             </div>
                             <div class="hidden-xs right">
-                              <ul class="pagination pagination-sm">
+                             <!-- <ul class="pagination pagination-sm">
                                 <li *ngFor="let p of categoryList?.page" class="{{p.class}}">
                                   <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
                                   <a *ngIf="p.method==''">{{p.text}}</a>
                                 </li>
-                              </ul>
+                              </ul>-->
                             </div>
                           </div>
                          <!-- <div class="table-responsive">

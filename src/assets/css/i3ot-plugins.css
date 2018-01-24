@@ -556,6 +556,9 @@ div.dataTables_paginate ul.pagination {
 .pdlr-4{
    padding:4px;
 }
+.pdl-13{
+    padding-left:13px;
+}
 .no-content-padding {
     margin: -10px -14px 0 -14px
 }
@@ -640,6 +643,9 @@ div.dataTables_paginate ul.pagination {
 .margin-padding{
     margin:0;
     padding:0;
+}
+.mt-10{
+    margin-top:-10px;
 }
 .margin-top-5 {
     margin-top: 5px!important
