@@ -23,19 +23,20 @@ export class ListProductComponent implements OnInit {
   selects : Array<any> = [];
   check : boolean = false;
   product_info : Array<any> = [];
-  rollback_url : string = '/tables/client';
+  rollback_url : string = '/tables/product';
   constructor(private http:Http,
               fb:FormBuilder,
               private router : Router,
               private cookiestore:CookieStoreService,
               private globalService:GlobalService
   ) {
+    let nav = '{"title":"产品列表","url":"/tables/product","class_":"active"}';
+    this.globalService.navEventEmitter.emit(nav);
     this.formModel = fb.group({
       keyword:[''],
     });
     this.getProductList('1');
 
-    console.log('window.scrollTo(0,0)');
     window.scrollTo(0,0);
 
   }

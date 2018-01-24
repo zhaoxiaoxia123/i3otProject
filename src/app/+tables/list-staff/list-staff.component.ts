@@ -24,7 +24,7 @@ export class ListStaffComponent implements OnInit {
   user_info : Array<any> = [];
   uRole : string = '';
   // pageHtml:SafeHtml;
-  rollback_url : string = '/tables/client';
+  rollback_url : string = '/tables/staff';
   constructor(
       private http:Http,
       fb:FormBuilder,
@@ -34,6 +34,8 @@ export class ListStaffComponent implements OnInit {
       // private sanitizer: DomSanitizer
   ) {
 
+    let nav = '{"title":"员工列表","url":"/tables/staff","class_":"active"}';
+    this.globalService.navEventEmitter.emit(nav);
     this.formModel = fb.group({
       keyword:[''],
     });

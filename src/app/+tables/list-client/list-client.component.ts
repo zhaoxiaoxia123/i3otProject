@@ -28,6 +28,9 @@ export class ListClientComponent implements OnInit {
       private cookiestore:CookieStoreService,
       private globalService:GlobalService
   ) {
+    let nav = '{"title":"客户列表","url":"/tables/client","class_":"active"}';
+    this.globalService.navEventEmitter.emit(nav);
+
     this.formModel = fb.group({
       keyword:[''],
     });

@@ -22,7 +22,7 @@ export class ListInventoryComponent implements OnInit {
   check : boolean = false;
 
   storehouse_info : Array<any> = [];
-  rollback_url : string = '/tables/client';
+  rollback_url : string = '/tables/inventory';
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -30,6 +30,8 @@ export class ListInventoryComponent implements OnInit {
       private cookiestore:CookieStoreService,
       private globalService:GlobalService
   ) {
+    let nav = '{"title":"仓库列表","url":"/tables/inventory","class_":"active"}';
+    this.globalService.navEventEmitter.emit(nav);
     this.formModel = fb.group({
       keyword:[''],
     });

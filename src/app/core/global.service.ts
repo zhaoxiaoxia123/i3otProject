@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import {Router} from "@angular/router";
+import {EventEmitter, Injectable} from '@angular/core';
+import { Router} from "@angular/router";
 import {CookieStoreService} from "../shared/cookies/cookie-store.service";
 
 @Injectable()
@@ -9,10 +9,16 @@ export class GlobalService {
   station1 = '155';//安全帽
   station2 = '156';//基站
   adminID = 1;//超级管理员c_id
+
+  //顶部导航
+  navEventEmitter:EventEmitter<any>;
   constructor(
       private router : Router,
-      private cookieStoreService : CookieStoreService,
-  ) {
+      private cookieStoreService : CookieStoreService){
+
+    console.log('global EventEmitter');
+    this.navEventEmitter = new EventEmitter();
+
   }
 
   setDomain(value:string){
@@ -60,5 +66,9 @@ export class GlobalService {
       this.router.navigate([path]);
     }
     return false;
+  }
+
+  insertToArray(arr : Array<any>, item, index:number) {
+    return arr.slice(0,index).concat(item, arr.slice(index));
   }
 }

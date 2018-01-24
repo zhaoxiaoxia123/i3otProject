@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FadeInTop} from "../../shared/animations/fade-in-top.decorator";
+import {GlobalService} from "../../core/global.service";
 
 @FadeInTop()
 @Component({
@@ -8,7 +9,11 @@ import {FadeInTop} from "../../shared/animations/fade-in-top.decorator";
 })
 export class DynamicWallComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+      private globalService:GlobalService) {
+    let nav = '{"title":"动态面板","url":"/dashboard/dynamic-wall","class_":"active"}';
+    this.globalService.navEventEmitter.emit(nav);
+  }
 
   ngOnInit() {
   }
