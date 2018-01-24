@@ -554,7 +554,7 @@ div.dataTables_paginate ul.pagination {
 /*内边距 padding*/
 
 .pdlr-4{
-   padding:0 4px;
+   padding:4px;
 }
 .no-content-padding {
     margin: -10px -14px 0 -14px
@@ -1089,10 +1089,11 @@ time.icon span {
 .select-hidden{
     display:none!important;
 }
-.height-overflow-320{
+.height-overflow-380{
     overflow: auto!important;
-    height: 320px;
+    height: 380px;
 }
+
 .text-overflow{
     display: -webkit-box;
     -webkit-box-orient: vertical;
