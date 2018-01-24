@@ -51,6 +51,12 @@
     border: #ccc;
     pointer-events: none;
 }
+#not-click>span{
+    color: #fff !important;
+}
+#not-click>i{
+    color: #fff !important;
+}
 
     /*头像状态*/
 img.away,img.busy,img.offline,img.online {
