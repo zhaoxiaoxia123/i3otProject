@@ -36,8 +36,6 @@ export class ListClientComponent implements OnInit {
     });
     this.getCustomerList('1');
     window.scrollTo(0,0);
-
-
   }
 
   ngOnInit() {

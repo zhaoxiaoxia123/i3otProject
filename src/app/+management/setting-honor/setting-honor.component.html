@@ -53,7 +53,6 @@
                               </footer>
                             </form>
                           </div>
-
                         </div>
                       </div>
                     </sa-widget>
@@ -73,13 +72,13 @@
                               <div class="navbar navbar-default">
                                 <div class="collapse navbar-collapse">
 
-                                  <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
+                                  <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" *ngIf="cid == super_admin_id || c.c_id == cid"  >
                                     <div class="form-group pdlr-4">
-                                      <a class="btn default-btn btn-sm">
+                                      <a class="btn default-btn btn-sm" (click)="editCategory()">
                                         <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
                                     </div>
                                     <div class="form-group pdlr-4">
-                                      <a class="btn default-btn btn-sm" >
+                                      <a class="btn default-btn btn-sm" (click)="deleteCategory('id')">
                                         <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
                                     </div>
                                     <div class="form-group btn-group pdlr-4">
@@ -87,7 +86,7 @@
                                         <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
 
                                       <ul class="dropdown-menu" role="menu">
-                                        <li><a ><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
+                                        <li><a (click)="deleteCategory('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
                                       </ul>
                                     </div>
                                   </form>
@@ -95,14 +94,13 @@
                               </div>
                             </article>
                           </div>
-
                           <div style="padding:0;">
                             <div style="padding: 0;z-index: 2;" class="table-responsive">
                               <table class="table table-striped  table-hover smart-form">
                                 <thead>
                                 <tr >
                                   <td><label class="checkbox">
-                                    <input type="checkbox" name="checkbox-inline" >
+                                    <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)">
                                     <i></i>
                                   </label>
                                   </td>
@@ -113,7 +111,7 @@
                                 <tbody>
                                 <tr *ngFor="let c of categoryList?.result">
                                   <td><label class="checkbox">
-                                    <input type="checkbox" name="checkbox-inline" >
+                                    <input type="checkbox" name="checkbox-inline" value="{{ c.category_id }}" [checked]="selects[c.category_id]" (change)="handle($event)" >
                                     <i></i>
                                   </label>
                                   </td>
@@ -122,16 +120,13 @@
                                 </tr>
                                 </tbody>
                               </table>
-
                             </div>
                           </div>
-
-
                           <!-- 底部-（分页部分）-->
                           <div class="dt-toolbar">
                             <div class="col-xs-12 col-sm-6">
                               <div class="col-xs-12 col-sm-6">
-                                <span>共2条</span>
+                                <span>共{{categoryList?.result?.total}}条</span>
                               </div>
                             </div>
                             <div class="hidden-xs right">

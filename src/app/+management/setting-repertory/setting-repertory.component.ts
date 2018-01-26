@@ -211,7 +211,6 @@ export class SettingRepertoryComponent implements OnInit {
             return false;
         }
         let msg = '';
-
         let is_select = 0;
         let ids : string = '';
         this.selects.forEach((val, idx, array) => {
@@ -233,19 +232,17 @@ export class SettingRepertoryComponent implements OnInit {
                 .map((res) => res.json())
                 .subscribe((data) => {
                     this.categoryList = data;
-                });
-            setTimeout(() => {
-                if(this.categoryList['status'] == 202){
-                    this.cookieStoreService.removeAll(this.rollback_url);
-                    this.router.navigate(['/auth/login']);
-                }
+                    if(this.categoryList['status'] == 202){
+                        this.cookieStoreService.removeAll(this.rollback_url);
+                        this.router.navigate(['/auth/login']);
+                    }
 
-                this.selects = [];
-                for (let entry of this.categoryList['result']) {
-                    this.selects[entry['category_id']] = false;
-                }
-                this.check = false;
-            }, 300);
+                    this.selects = [];
+                    for (let entry of this.categoryList['result']) {
+                        this.selects[entry['category_id']] = false;
+                    }
+                    this.check = false;
+                });
         }
     }
 }

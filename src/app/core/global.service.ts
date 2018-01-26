@@ -15,10 +15,8 @@ export class GlobalService {
   constructor(
       private router : Router,
       private cookieStoreService : CookieStoreService){
-
     console.log('global EventEmitter');
     this.navEventEmitter = new EventEmitter();
-
   }
 
   setDomain(value:string){
@@ -43,13 +41,11 @@ export class GlobalService {
     }else{
       return this.station2;
     }
-
   }
 
   getAdminID() : number{
     return this.adminID;
   }
-
 
   /**
    * 是演示账号
@@ -71,4 +67,5 @@ export class GlobalService {
   insertToArray(arr : Array<any>, item, index:number) {
     return arr.slice(0,index).concat(item, arr.slice(index));
   }
+
 }
