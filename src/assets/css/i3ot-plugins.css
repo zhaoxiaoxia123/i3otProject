@@ -1245,3 +1245,31 @@ span.input-icon {
 .table-minheight{
     min-height: 0!important;
 }
+
+
+/*标签*/
+.label-normal{
+    background-color: #474544!important;
+    color: #fff;
+    padding: 2px 10px;
+}
+.label-invalid{
+    background-color: #F44336!important;
+    color: #fff;
+    padding: 2px 10px;
+}
+.label-full{
+    background-color: #54d09f!important;
+    color: #fff;
+    padding: 2px 10px;
+}
+.label-blue{
+    background-color: #3782e7!important;
+    color: #fff;
+    padding: 2px 10px;
+}
+.label-gray{
+    background-color: #646464!important;
+    color: #fff;
+    padding: 2px 10px;
+}
