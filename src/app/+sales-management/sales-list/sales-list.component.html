@@ -16,27 +16,56 @@
                 <article  class="col-sm-12">
                   <div class="navbar navbar-default">
                     <div class="collapse navbar-collapse">
-
                       <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-                        <div class="form-group">
-                          <a class="btn btn-primary btn-sm"  routerLink="/sales-management/add-sales/0">
-                            <span class="glyphicon glyphicon-plus"></span>添加销售单</a>
+                        <div class="form-group pdlr-4">
+                          <a class="btn btn-success btn-sm"  routerLink="/sales-management/add-sales/0">
+                            <span class="glyphicon glyphicon-plus mr-5"></span>添加销售单</a>
                         </div>
-                        <div class="form-group">
-                          <a class="btn btn-warning btn-sm" (click)="editPurchase()">
-                            <span class="glyphicon glyphicon-pencil"></span>修改</a>
+                        <div class="form-group pdlr-4">
+                          <a class="btn default-btn btn-sm"   (click)="editPurchase()">
+                            <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group pdlr-4">
+                          <a class="btn default-btn btn-sm" >
+                            <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
+                        </div>
+                       <!-- <div class="form-group">
                           <a class="btn btn-success btn-sm" (click)="detailPurchase()" >
                             <span class="glyphicon glyphicon-zoom-in"></span>详情</a>
+                        </div>-->
+                        <div class="form-group pdlr-4">
+                          <a class="btn default-btn btn-sm"  data-toggle="modal" data-target="#particulars" >
+                            <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
                         </div>
-                        <div class="form-group padding-left-10">
-                          <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" [(ngModel)]="keyword" name="keyword" placeholder="请输入搜索内容" type="text">
+                        <div class="form-group btn-group pdlr-4">
+                          <a class="btn default-btn btn-sm dropdown-toggle"  data-toggle="dropdown">
+                            <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
+
+                          <ul class="dropdown-menu" role="menu">
+                            <li><a ><span class="fa-fw fa fa-play mr-5 color-green"></span>批量设为启动</a></li>
+                            <li><a ><span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>批量设为无效</a></li>
+                            <li class="divider"></li>
+                            <li><a ><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
+                          </ul>
                         </div>
-                        <button class="btn btn-default" type="button" (click)="getPurchaseList(1)">
-                          <i  class="glyphicon glyphicon-search"></i>
-                          搜索
-                        </button>
+                        <div class="form-group pdlr-4">
+                          <a class="btn default-btn btn-sm"  >
+                            <span class="fa-fw fa fa-play mr-5 color-green"></span>启用</a>
+                        </div>
+                        <div class="form-group pdlr-4">
+                          <a class="btn default-btn btn-sm"  >
+                            <span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>无效</a>
+                        </div>
+                        <div class="form-group pdlr-4">
+                          <div class="form-group padding-left-10">
+                            <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" [(ngModel)]="keyword" name="keyword" placeholder="请输入搜索内容" type="text">
+                          </div>
+                          <button class="btn btn-default" type="button" (click)="getPurchaseList(1)">
+                            <i  class="glyphicon glyphicon-search"></i>
+                            搜索
+                          </button>
+                        </div>
+
                       </form>
                     </div>
                   </div>
@@ -103,10 +132,11 @@
               <!-- 底部-（分页部分）-->
               <div class="dt-toolbar">
                 <div class="col-xs-12 col-sm-6">
-                  <button class="btn btn-default" (click)="deletePurchase()">
+                  <span>共5条</span>
+                 <!-- <button class="btn btn-default" (click)="deletePurchase()">
                     <i class="fa fa-trash-o fa-lg"></i>
                     删除所选
-                  </button>
+                  </button>-->
                 </div>
                 <div class="hidden-xs right">
                   <ul class="pagination pagination-sm">

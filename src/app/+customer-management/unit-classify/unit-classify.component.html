@@ -37,51 +37,54 @@
                                <i class="glyphicon glyphicon-pencil"></i>
                                修改单位分类
                              </alert>
-                            <form class="smart-form " [formGroup]="formModel" (ngSubmit)="onSubmit()">
+                            <div  class="mt-10">
+                              <form class="smart-form " [formGroup]="formModel" (ngSubmit)="onSubmit()">
                                 <input type="hidden" name="category_id" formControlName="category_id">
-                              <fieldset>
-                                <section>
-                                  <label class="label txt-color-blue">分类编号</label>
-                                  <label class="input">
-                                    <input type="text"  placeholder="分类编号" name="category_number" formControlName="category_number" >
-                                  </label>
-                                </section>
-                                <section>
-                                  <label class="label txt-color-blue">分类名称</label>
-                                  <label class="input">
-                                    <input type="text" placeholder="请输分类名称"  name="category_desc" formControlName="category_desc" >
-                                  </label>
-                                </section>
-                                <section>
-                                  <label class="label txt-color-blue">单位类别</label>
-                                  <label class="select">
-                                    <select name="category_tab" formControlName="category_tab" [(ngModel)]="category_tab_default">
-                                      <option disabled="" selected="" value="0" >请选择单位类别</option>
-                                      <option value="供应商" >供应商</option>
-                                      <option value="客户" >客户</option>
-                                    </select> <i></i> </label>
-                                </section>
-                                <section>
-                                  <label class="label ">上级分类</label>
-                                  <!--<label class="input">-->
+                                <fieldset>
+                                  <section>
+                                    <label class="label txt-color-blue">分类编号<span class="asterisk-color">*</span></label>
+                                    <label class="input">
+                                      <input type="text"  placeholder="分类编号" name="category_number" formControlName="category_number" >
+                                    </label>
+                                  </section>
+                                  <section>
+                                    <label class="label txt-color-blue">分类名称<span class="asterisk-color">*</span></label>
+                                    <label class="input">
+                                      <input type="text" placeholder="请输分类名称"  name="category_desc" formControlName="category_desc" >
+                                    </label>
+                                  </section>
+                                  <section>
+                                    <label class="label txt-color-blue">单位类别<span class="asterisk-color">*</span></label>
+                                    <label class="select">
+                                      <select name="category_tab" formControlName="category_tab" [(ngModel)]="category_tab_default">
+                                        <option disabled="" selected="" value="0" >请选择单位类别</option>
+                                        <option value="供应商" >供应商</option>
+                                        <option value="客户" >客户</option>
+                                      </select> <i></i> </label>
+                                  </section>
+                                  <section>
+                                    <label class="label ">上级分类</label>
+                                    <!--<label class="input">-->
                                     <!--<i class="icon-append glyphicon glyphicon-search cursor-pointer" data-toggle="modal" data-target="#myModal"></i>-->
                                     <!--<input type="text" placeholder="请输分类名称" >-->
-                                  <!--</label>-->
+                                    <!--</label>-->
 
-                                  <label class="select">
-                                    <select name="category_depth" formControlName="category_depth" [(ngModel)]="category_depth_default">
-                                      <option [selected]="category_id == 0" value="0">一级分类</option>
-                                      <option *ngFor="let c of categoryDefault?.result" [selected]="categoryInfo.result?.category_depth == c.category_id" value="{{ c.category_id }}">{{c.category_desc}}</option>
-                                    </select><i></i>
-                                  </label>
-                                </section>
-                              </fieldset>
-                              <footer>
-                                <button type="submit" class="btn btn-primary">
-                                  保存
-                                </button>
-                              </footer>
-                            </form>
+                                    <label class="select">
+                                      <select name="category_depth" formControlName="category_depth" [(ngModel)]="category_depth_default">
+                                        <option [selected]="category_id == 0" value="0">一级分类</option>
+                                        <option *ngFor="let c of categoryDefault?.result" [selected]="categoryInfo.result?.category_depth == c.category_id" value="{{ c.category_id }}">{{c.category_desc}}</option>
+                                      </select><i></i>
+                                    </label>
+                                  </section>
+                                </fieldset>
+                                <footer>
+                                  <button type="submit" class="btn btn-primary">
+                                    保存
+                                  </button>
+                                </footer>
+                              </form>
+                            </div>
+
                           </div>
                         </div>
                       </sa-widget>
@@ -93,7 +96,7 @@
                           <div class="widget-body no-padding">
                             <alert type="info" class="no-margin" >
                               <i class="fa-fw fa fa-spoon"></i>
-                              商品分类
+                              单位分类
                             </alert>
                             <div class="widget-body">
                               <div class="row text-center" style="padding:10px 40px;">

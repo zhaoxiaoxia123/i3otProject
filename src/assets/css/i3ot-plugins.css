@@ -45,16 +45,16 @@
     margin-right: 2px;
 }
 
-#not-click{
+.not-click{
     color: #fff !important;
     background-color: #ccc;
     border: #ccc;
     pointer-events: none;
 }
-#not-click>span{
+.not-click>span{
     color: #fff !important;
 }
-#not-click>i{
+.not-click>i{
     color: #fff !important;
 }
 
