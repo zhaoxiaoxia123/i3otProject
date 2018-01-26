@@ -19,25 +19,53 @@
                     <div class="collapse navbar-collapse">
 
                       <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-                        <div class="form-group">
-                          <a class="btn btn-success btn-sm" (click)="lgModal.show();" ><!---data-toggle="modal" data-target="#myModal"-->
-                            <span class="glyphicon glyphicon-plus"></span>添加</a>
+
+                        <div class="form-group pdlr-4">
+                          <a class="btn btn-success btn-sm"  (click)="lgModal.show();">
+                            <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
                         </div>
-                        <div class="form-group">
-                          <a class="btn btn-warning btn-sm" (click)="editCustomer()"><!-- data-toggle="modal" data-target="#myModal"  -->
-                            <span class="glyphicon glyphicon-pencil"></span>修改</a>
+                        <div class="form-group pdlr-4">
+                          <a class="btn default-btn btn-sm"  (click)="editCustomer()">
+                            <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
                         </div>
-                        <!--<div class="form-group">-->
-                          <!--<a class="btn btn-success btn-sm"  data-toggle="modal" data-target="#myModal" (click)="getCustomerInfo()">-->
-                            <!--<span class="glyphicon glyphicon-zoom-in"></span>详情</a>-->
-                        <!--</div>-->
-                        <div class="form-group padding-left-10">
-                          <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" name="keyword" [(ngModel)]="keyword" placeholder="请输入搜索内容" type="text">
+                        <div class="form-group pdlr-4">
+                          <a class="btn default-btn btn-sm" >
+                            <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
                         </div>
-                        <button class="btn btn-default" type="button" (click)="getCustomerList(1)">
-                          <i  class="glyphicon glyphicon-search"></i>
-                          搜索
-                        </button>
+                        <div class="form-group pdlr-4">
+                          <a class="btn default-btn btn-sm"  data-toggle="modal" data-target="#particulars" >
+                            <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
+                        </div>
+                        <div class="form-group btn-group pdlr-4">
+                          <a class="btn default-btn btn-sm dropdown-toggle"  data-toggle="dropdown">
+                            <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
+
+                          <ul class="dropdown-menu" role="menu">
+                            <li><a ><span class="fa-fw fa fa-play mr-5 color-green"></span>批量设为启动</a></li>
+                            <li><a ><span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>批量设为无效</a></li>
+                            <li class="divider"></li>
+                            <li><a ><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
+                          </ul>
+
+                        </div>
+                        <div class="form-group pdlr-4">
+                          <a class="btn default-btn btn-sm"  >
+                            <span class="fa-fw fa fa-play mr-5 color-green"></span>启用</a>
+                        </div>
+                        <div class="form-group pdlr-4">
+                          <a class="btn default-btn btn-sm"  >
+                            <span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>无效</a>
+                        </div>
+                        <div class="form-group pdlr-4">
+                          <div class="form-group padding-left-10">
+                            <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" name="keyword" [(ngModel)]="keyword" placeholder="请输入搜索内容" type="text">
+                          </div>
+                          <button class="btn btn-default" type="button" (click)="getCustomerList(1)">
+                            <i  class="glyphicon glyphicon-search"></i>
+                            搜索
+                          </button>
+                        </div>
+
                       </form>
                     </div>
                   </div>
@@ -112,10 +140,11 @@
               <!-- 底部-（分页部分）-->
               <div class="dt-toolbar">
                 <div class="col-xs-12 col-sm-6">
-                  <button class="btn btn-default" (click)="deleteCustomer()">
+                  <span>共2条</span>
+                  <!--<button class="btn btn-default" (click)="deleteCustomer()">
                     <i class="fa fa-trash-o fa-lg"></i>
                     删除所选
-                  </button>
+                  </button>-->
                 </div>
                 <div class="hidden-xs right">
                   <ul class="pagination pagination-sm">
@@ -145,7 +174,7 @@
         </button>
         <!-- 标题 -->
         <h3 class="modal-title txt-color-blue" data-ng-bind='results.title' *ngIf="c_id == 0"><i class="fa-fw fa fa-plus"></i>添加往来单位</h3>
-         <h3 class="modal-title  glyphicon glyphicon-pencil txt-color-red" data-ng-bind='results.title' *ngIf="c_id != 0">修改往来单位</h3>
+        <h3 class="modal-title  glyphicon glyphicon-pencil txt-color-red" data-ng-bind='results.title' *ngIf="c_id != 0">修改往来单位</h3>
       </div>
       <div class="modal-body">
         <sa-widget [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
@@ -435,87 +464,144 @@
 </div>
 
 
-<!--<div class="modal fade" id="myModalname" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
-  <!--<div class="modal-dialog">-->
-    <!--<div class="modal-content">-->
-      <!--<div class="modal-header">-->
-        <!--&lt;!&ndash; 关闭按钮 &ndash;&gt;-->
-        <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">-->
-          <!--×-->
-        <!--</button>-->
-        <!--&lt;!&ndash; 标题 &ndash;&gt;-->
-        <!--<h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>选择上级分类</h3>-->
-      <!--</div>-->
-      <!--<div class="modal-body height-overflow-380">-->
-        <!--<div class="row text-center" style="padding:10px 40px;">-->
-          <!--<div class="dd" >-->
-            <!--<ol class="dd-list">-->
-              <!--<li class="dd-item " >-->
-                <!--<button data-action="expand" type="button" style="display: none;">收起</button>-->
-                <!--<button data-action="collapse" type="button"  style="display: block;">展开</button>-->
-                <!--<div class="dd-handle dd-handle-color">-->
-                  <!--矿-->
-                  <!--<small  class="text-muted">-->
-                    <!--<i >(202500)</i>-->
-                  <!--</small>-->
-                  <!--<span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>-->
-                  <!--<div>-->
-                  <!--</div>-->
-                <!--</div>-->
-                <!--<ol class="dd-list"  style="display: block;">-->
-                  <!--<li class="dd-item" >-->
-                    <!--<div class="dd-handle">-->
-                      <!--矿-->
-                      <!--<small  class="text-muted">-->
-                        <!--<i >(202500)</i>-->
-                      <!--</small>-->
-                      <!--<span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>-->
-                      <!--<div>-->
-                      <!--</div>-->
-                    <!--</div>-->
-                  <!--</li>-->
-                <!--</ol>-->
-              <!--</li>-->
-              <!--<li class="dd-item" >-->
-                <!--<button  type="button"  style="display: block;">收起</button>-->
-                <!--<button  type="button" style="display: none;">展开</button>-->
-                <!--<div class="dd-handle">-->
-                  <!--矿-->
-                  <!--<small  class="text-muted">-->
-                    <!--<i >(202500)</i>-->
-                  <!--</small>-->
-                  <!--<span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>-->
-                  <!--<div>-->
-                  <!--</div>-->
 
-                <!--</div>-->
-                <!--<ol class="dd-list"  style="display: none;">-->
-                  <!--<li class="dd-item" id="186">-->
-                    <!--<div class="dd-handle">-->
-                      <!--矿-->
-                      <!--<small  class="text-muted">-->
-                        <!--<i >(202500)</i>-->
-                      <!--</small>-->
-                      <!--<span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>-->
-                      <!--<div>-->
-                      <!--</div>-->
-                    <!--</div>-->
-                  <!--</li>-->
-                <!--</ol>-->
-              <!--</li>-->
+<div class="modal fade" id="particulars" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- 关闭按钮 -->
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          ×
+        </button>
+        <!-- 标题 -->
+        <h3 class="modal-title" data-ng-bind='results.title'></h3>
+        <h4 class="modal-title">单位名称-编号</h4>
+      </div>
+      <div class="modal-body height-overflow-380">
+        <div class="row ">
+          <div class="col-sm-12">
+            <div class="" >
+              <P class="alert alert-info">基本信息</P>
+              <table class="table table-striped table-forum">
+                <tbody>
+                <tr>
+                  <td class="width-120">单位编号:</td>
+                  <td class=""></td>
+                </tr>
+                <tr>
+                  <td class="width-120">单位名称:</td>
+                  <td >
+                    <span ></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="width-120">商户类型:</td>
+                  <td class=""></td>
+                </tr>
+                <tr>
+                  <td class="width-120">上级分类：</td>
+                  <td class=""></td>
+                </tr>
+                <tr>
+                  <td class="width-120">单位电话：</td>
+                  <td class=""></td>
+                </tr>
+                <tr>
+                  <td class="width-120">单位地址:</td>
+                  <td class=""></td>
+                </tr>
+                <tr>
+                  <td class="width-120">助记码：</td>
+                  <td class=""></td>
+                </tr>
+                <tr>
+                  <td class="width-120">价格级别：</td>
+                  <td class=""></td>
+                </tr>
+                <tr>
+                  <td class="width-120">备注：</td>
+                  <td class=""></td>
+                </tr>
+                </tbody>
+              </table>
+              <P class="alert alert-info">联系人信息</P>
+              <table class="table table-striped table-forum">
+                <tbody>
+                <tr>
+                  <td class="width-120">联系人:</td>
+                  <td class=""></td>
+                </tr>
+                <tr>
+                  <td class="width-120">职务:</td>
+                  <td class=""></td>
+                </tr>
+                <tr>
+                  <td class="width-120">电话:</td>
+                  <td class=""></td>
+                </tr>
+                <tr>
+                  <td class="width-120">手机:</td>
+                  <td class=""></td>
+                </tr>
+                <tr>
+                  <td class="width-120">Email:</td>
+                  <td class=""></td>
+                </tr>
+                <tr>
+                  <td class="width-120">QQ:</td>
+                  <td class=""></td>
+                </tr>
+                <tr>
+                  <td class="width-120">地址:</td>
+                  <td class=""></td>
+                </tr>
+                </tbody>
+              </table>
 
-
-            <!--</ol>-->
-          <!--</div>-->
-        <!--</div>-->
-      <!--</div>-->
-      <!--<div class="modal-footer">-->
-        <!--<button type="button" class="btn btn-success btn-sm" ><span class="glyphicon glyphicon-plus"></span>选入</button>-->
-        <!--&lt;!&ndash;    <button type="button" class="btn btn-primary" data-ng-click="ok()">保存</button>&ndash;&gt;-->
-        <!--<button type="button" class="btn btn-default" data-dismiss="modal">返回</button>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
-<!--</div>-->
-
-
+              <P class="alert alert-info">其他信息</P>
+              <table class="table table-striped table-forum">
+                <tbody>
+                <tr>
+                  <td class="width-120">业务员:</td>
+                  <td class=""></td>
+                </tr>
+                <tr>
+                  <td class="width-120">分管部门:</td>
+                  <td class=""></td>
+                </tr>
+                <tr>
+                  <td class="width-120">税率%:</td>
+                  <td class=""></td>
+                </tr>
+                <tr>
+                  <td class="width-120">税号:</td>
+                  <td class=""></td>
+                </tr>
+                <tr>
+                  <td class="width-120">开户行:</td>
+                  <td class=""></td>
+                </tr>
+                <tr>
+                  <td class="width-120">银行帐号:</td>
+                  <td class=""></td>
+                </tr>
+                <tr>
+                  <td class="width-120">折扣率%:</td>
+                  <td class=""></td>
+                </tr>
+                <tr>
+                  <td class="width-120">信用额度:</td>
+                  <td class=""></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+      </div>
+    </div>
+  </div>
+</div>

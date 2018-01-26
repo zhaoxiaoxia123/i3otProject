@@ -3,18 +3,13 @@
     <sa-big-breadcrumbs [items]="['仓库管理', '仓库列表']" icon="table"></sa-big-breadcrumbs>
   </div>
 
-  <div class="box-header with-border" >
-    <a class="btn btn-success btn-sm"  (click)="isDemo('/forms/inventory1','0')"><!-- (click)="lgModal.show()"-->
-      <span class="glyphicon glyphicon-plus"></span>添加仓库</a>
-  </div>
-
   <sa-widgets-grid>
     <div class="row">
       <article class="col-sm-12 ">
         <sa-widget [editbutton]="false" [deletebutton]="false" color="blueDark">
           <header>
             <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-            <h2>库存列表 </h2>
+            <h2>仓库列表 </h2>
           </header>
           <div>
 
@@ -36,14 +31,45 @@
                             <option value=""></option>
                           </select>
                         </div>-->
-                        <div class="form-group">
-                          <input type="text" name="keyword" maxlength="15" formControlName="keyword" class="form-control" placeholder="请输入搜索内容">
+
+                        <div class="form-group pdlr-4">
+                          <a class="btn btn-success btn-sm"  (click)="isDemo('/forms/inventory1','0')">
+                            <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
+                        </div>
+                        <div class="form-group pdlr-4">
+                          <a class="btn default-btn btn-sm"  >
+                            <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
+                        </div>
+                        <div class="form-group pdlr-4">
+                          <a class="btn default-btn btn-sm" >
+                            <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
+                        </div>
+                        <div class="form-group pdlr-4">
+                          <a class="btn default-btn btn-sm"   >
+                            <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
+                        </div>
+                        <div class="form-group btn-group pdlr-4">
+                          <a class="btn default-btn btn-sm dropdown-toggle"  data-toggle="dropdown">
+                            <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
+
+                          <ul class="dropdown-menu" role="menu">
+                            <li><a ><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
+                          </ul>
+
                         </div>
 
-                        <button type="submit" class="btn btn-default">
-                          <i class="glyphicon glyphicon-search"></i>
-                          搜索
-                        </button>
+
+                        <div class="form-group pdlr-4">
+                          <div class="form-group">
+                            <input type="text" name="keyword" maxlength="15" formControlName="keyword" class="form-control" placeholder="请输入搜索内容">
+                          </div>
+
+                          <button type="submit" class="btn btn-default">
+                            <i class="glyphicon glyphicon-search"></i>
+                            搜索
+                          </button>
+                        </div>
+
                       </form>
                       <!--<ul class="nav navbar-nav navbar-right">
                         <li dropdown class="dropdown">
@@ -76,81 +102,82 @@
                 </article>
               </div>
 
-              <sa-datatable tableClass="table table-striped table-bordered table-hover smart-form">
-                <thead>
-                <tr>
-                  <td>
-                    <label class="checkbox">
-                      <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)">
-                      <i></i>
-                    </label>
-                  </td>
-                  <th>仓库名称</th>
-                  <th>保管员 </th>
-                  <th>固定电话 </th>
-                  <th>仓库状态 </th>
-                  <th>最后更新日期 </th>
-                  <th>操作</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr style="display: none;">
-                  <td></td><td></td><td></td><td></td>
-                  <td></td><td></td><td></td>
-                </tr>
-                <tr *ngFor="let sl of storehouseList.result?.data">
-                  <td>
-                    <label class="checkbox">
-                      <input type="checkbox" value="{{ sl.storehouse_id }}" [checked]="selects[sl.storehouse_id]" (change)="handle($event)">
-                      <i></i>
-                    </label>
-                  </td>
-                  <td>{{ sl.storehouse_name }}</td>
-                  <td>{{ sl.u_username }}</td>
-                  <td>{{ sl.storehouse_phone }}</td>
-                  <td>
-              <span [ngSwitch]="sl.storehouse_status">
-                <span *ngSwitchCase="1">正常</span>
-                <span *ngSwitchCase="2">维修</span>
-                <span *ngSwitchCase="3">满仓</span>
-                <span *ngSwitchDefault>未知</span>
-              </span>
-                  </td>
-                  <td>{{ sl.updated_at }}</td>
-                  <!--(click)="editStorehouse(sl.storehouse_id)"   [routerLink]="['/forms/inventory1',sl.storehouse_id]" -->
-                  <td><a class="btn btn-warning btn-xs" (click)="isDemo('/forms/inventory1',sl.storehouse_id)"><span class="glyphicon glyphicon-pencil mr-5"></span>修改</a>
-                    <a class="btn btn-danger btn-xs" (click)="deleteStorehouse(sl.storehouse_id ,storehouseList.result?.current_page)"><span class="glyphicon glyphicon-remove mr-5"></span>删除</a>
-                    <a class="btn btn-success btn-xs" (click)="getStorehouseInfo(sl.storehouse_id);lgModal.show();"><span class="glyphicon glyphicon-zoom-in mr-5"></span>详情</a>
-                  </td>
-                </tr>
-                </tbody>
 
-              </sa-datatable>
+              <div style="padding:0;">
+                <div style="padding: 0;z-index: 2;" class="table-responsive">
+                  <table class="table table-striped  table-hover smart-form">
+                    <thead>
+                    <tr >
+                      <td>
+                        <label class="checkbox">
+                          <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)">
+                          <i></i>
+                        </label>
+                      </td>
+                      <th>仓库名称</th>
+                      <th>保管员 </th>
+                      <th>固定电话 </th>
+                      <th>仓库状态 </th>
+                      <th>最后更新日期 </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr style="display: none;">
+                      <td></td><td></td><td></td><td></td>
+                      <td></td><td></td>
+                    </tr>
+                    <tr *ngFor="let sl of storehouseList.result?.data">
+                      <td>
+                        <label class="checkbox">
+                          <input type="checkbox" value="{{ sl.storehouse_id }}" [checked]="selects[sl.storehouse_id]" (change)="handle($event)">
+                          <i></i>
+                        </label>
+                      </td>
+                      <td>{{ sl.storehouse_name }}</td>
+                      <td>{{ sl.u_username }}</td>
+                      <td>{{ sl.storehouse_phone }}</td>
+                      <td>
+              <span [ngSwitch]="sl.storehouse_status">
+                <span class="label-normal" *ngSwitchCase="1">正常</span>
+                <span class="label-blue" *ngSwitchCase="2">维修</span>
+                <span class="label-full" *ngSwitchCase="3">满仓</span>
+                <span class="label-invalid" *ngSwitchDefault>未知</span>
+              </span>
+                      </td>
+                      <td>{{ sl.updated_at }}</td>
+                      <!--(click)="editStorehouse(sl.storehouse_id)"   [routerLink]="['/forms/inventory1',sl.storehouse_id]" -->
+                      <!--<td><a class="btn btn-warning btn-xs" (click)="isDemo('/forms/inventory1',sl.storehouse_id)"><span class="glyphicon glyphicon-pencil mr-5"></span>修改</a>
+                        <a class="btn btn-danger btn-xs" (click)="deleteStorehouse(sl.storehouse_id ,storehouseList.result?.current_page)"><span class="glyphicon glyphicon-remove mr-5"></span>删除</a>
+                        <a class="btn btn-success btn-xs" (click)="getStorehouseInfo(sl.storehouse_id);lgModal.show();"><span class="glyphicon glyphicon-zoom-in mr-5"></span>详情</a>
+                      </td>-->
+                    </tr>
+
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+
+
               <!-- 底部-（分页部分）-->
               <div class="dt-toolbar">
                 <div class="col-xs-12 col-sm-6">
-                  <button  class="btn btn-default" (click)="deleteStorehouseAll(storehouseList.result?.current_page)">
-                    <i class="fa fa-trash-o fa-lg"></i>
-                    删除所选
-                  </button>
-                </div>
-                <div class="col-sm-6 col-xs-12 hidden-xs text-right">
-                  <div class="dataTables_paginate">
-                    <ul class="pagination pagination-sm">
-                      <li *ngFor="let p of storehouseList?.page" class="{{p.class}}">
-                        <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
-                        <a *ngIf="p.method==''">{{p.text}}</a>
-                      </li>
-                    </ul>
-                    <!--<ul class="pagination">-->
-                      <!--<li>-->
-                        <!--<a (click)="pagination(storehouseList.result?.prev_page_url)"><i class="fa fa-arrow-left"></i></a>-->
-                      <!--</li>-->
-                      <!--<li>-->
-                        <!--<a (click)="pagination(storehouseList.result?.next_page_url)"><i class="fa fa-arrow-right"></i></a>-->
-                      <!--</li>-->
-                    <!--</ul>-->
+                  <div class="col-xs-12 col-sm-6">
+                    <span>共7条</span>
+                   <!-- <button  class="btn btn-default" (click)="deleteStorehouseAll(storehouseList.result?.current_page)">
+                      <i class="fa fa-trash-o fa-lg"></i>
+                      删除所选
+                    </button>-->
                   </div>
+                </div>
+                <div class="hidden-xs right">
+                  <ul class="pagination pagination-sm">
+                    <li *ngFor="let p of storehouseList?.page" class="{{p.class}}">
+                      <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+                      <a *ngIf="p.method==''">{{p.text}}</a>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>

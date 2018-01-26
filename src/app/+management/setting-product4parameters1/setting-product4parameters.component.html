@@ -33,55 +33,64 @@
                             <i class="fa-fw fa fa-plus"></i>
                             添加规格/参数
                           </alert>
+
+                          <alert type="info" class="no-margin">
+                            <i class="glyphicon glyphicon-pencil"></i>
+                            修改规格/参数
+                          </alert>
+
                           <!--[formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate-->
-                          <form class="smart-form ">
-                            <input  type="hidden" name="edit_key"  [(ngModel)]="edit_key">
+                          <div  class="mt-10">
+                            <form class="smart-form ">
+                              <input  type="hidden" name="edit_key"  [(ngModel)]="edit_key">
 
-                            <fieldset>
+                              <fieldset>
 
-                              <div >
-                                <label class="label">类型</label>
-                                <section class="col col-8">
-                                  <label class="select">
-                                    <!--formControlName="category_id"-->
-                                    <select name="category_id" [(ngModel)]="category_id">
-                                      <option *ngFor="let cl of parentCategoryList" value="{{cl.category_id}}" [selected]="cl.category_id == select_id">
-                                        <b *ngIf="cl.category_depth == 0">{{cl.category_desc}}</b>
-                                        <b *ngIf="cl.category_depth != 0">--{{cl.category_desc}}</b>
-                                      </option>
-                                    </select>
+                                <div >
+                                  <label class="label">类型</label>
+                                  <section class="col col-8">
+                                    <label class="select">
+                                      <!--formControlName="category_id"-->
+                                      <select name="category_id" [(ngModel)]="category_id">
+                                        <option *ngFor="let cl of parentCategoryList" value="{{cl.category_id}}" [selected]="cl.category_id == select_id">
+                                          <b *ngIf="cl.category_depth == 0">{{cl.category_desc}}</b>
+                                          <b *ngIf="cl.category_depth != 0">--{{cl.category_desc}}</b>
+                                        </option>
+                                      </select>
+                                    </label>
+                                  </section>
+                                  <section class="col-lg-4">
+                                    <button type="button" class="btn btn-info btn-sm" [routerLink]="['/management/product3type']">
+                                      添加类型
+                                    </button>
+                                  </section>
+                                </div>
+
+                              </fieldset>
+                              <fieldset>
+                                <section >
+                                  <label class="label ">参数名称</label>
+                                  <label class="input">
+                                    <input  type="text" name="category_tab_name"  [(ngModel)]="category_tab_name" placeholder="请输入参数名称">
                                   </label>
                                 </section>
-                                <section class="col-lg-4">
-                                  <button type="button" class="btn btn-info btn-sm" [routerLink]="['/management/product3type']">
-                                    添加类型
-                                  </button>
+                                <section>
+                                  <label class="label">参数内容</label>
+                                  <label class="textarea textarea-resizable">
+                                    <textarea class="custom-scroll" rows="5" name="category_tab_value"  [(ngModel)]="category_tab_value"></textarea>
+                                  </label>
                                 </section>
-                              </div>
 
-                            </fieldset>
-                            <fieldset>
-                              <section >
-                                <label class="label ">参数名称</label>
-                                <label class="input">
-                                  <input  type="text" name="category_tab_name"  [(ngModel)]="category_tab_name" placeholder="请输入参数名称">
-                                </label>
-                              </section>
-                              <section>
-                                <label class="label">参数内容</label>
-                                <label class="textarea textarea-resizable">
-                                  <textarea class="custom-scroll" rows="5" name="category_tab_value"  [(ngModel)]="category_tab_value"></textarea>
-                                </label>
-                              </section>
+                              </fieldset>
+                              <footer>
+                                <button (click)="onSubmit()"  type="button" class="btn btn-primary">
+                                  保存
+                                </button>
 
-                            </fieldset>
-                            <footer>
-                              <button (click)="onSubmit()"  type="button" class="btn btn-primary">
-                                保存
-                              </button>
+                              </footer>
+                            </form>
 
-                            </footer>
-                          </form>
+                          </div>
 
                         </div>
                       </div>
@@ -171,7 +180,102 @@
                               </div>
                             </fieldset>
                           </form>
-                          <div class="table-responsive">
+
+                          <div  class="row mt-10">
+                            <article  class="col-sm-12">
+                              <div class="navbar navbar-default">
+                                <div class="collapse navbar-collapse">
+
+                                  <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
+                                    <div class="form-group pdlr-4">
+                                      <a class="btn default-btn btn-sm" >
+                                        <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
+                                    </div>
+                                    <div class="form-group pdlr-4">
+                                      <a class="btn default-btn btn-sm" >
+                                        <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
+                                    </div>
+                                    <div class="form-group pdlr-4">
+                                      <a class="btn default-btn btn-sm"  data-toggle="modal" data-target="#particulars" >
+                                        <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
+                                    </div>
+                                    <div class="form-group btn-group pdlr-4">
+                                      <a class="btn default-btn btn-sm dropdown-toggle"  data-toggle="dropdown">
+                                        <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
+
+                                      <ul class="dropdown-menu" role="menu">
+                                        <li><a ><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
+                                      </ul>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                            </article>
+                          </div>
+
+                          <div style="padding:0;">
+                            <div style="padding: 0;z-index: 2;" class="table-responsive">
+                              <table class="table table-striped  table-hover smart-form">
+                                <thead>
+                                <tr >
+                                  <td><label class="checkbox">
+                                    <input type="checkbox" name="checkbox-inline" >
+                                    <i></i>
+                                  </label>
+                                  </td>
+                                  <th>类型</th>
+                                  <th>规格/参数名称</th>
+                                  <th>参数内容</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr *ngFor="let cl of (specification.result | keys)">
+                                  <td>
+                                    <label class="checkbox">
+                                      <input type="checkbox" >
+                                      <i></i>
+                                    </label>
+                                  </td>
+                                  <td>{{cl.value.specification_name}}</td>
+                                  <td>{{cl.value.specification_name}}</td>
+                                  <td>{{cl.value.specification_value}}</td>
+                                  <!--<td>
+                                    <div *ngIf="cid == super_admin_id || select_cid == cid">
+                                      <a class="btn btn-warning btn-xs" (click)="editSpecification(cl.key,cl.value.specification_name,cl.value.specification_value)"><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                      <a class="btn btn-danger btn-xs" (click)="deleteSpecification(cl.key)"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                    </div>
+                                    <div *ngIf="cid != super_admin_id && select_cid != cid"><a class="btn btn-danger btn-xs">无权操作</a></div>
+                                  </td>-->
+                                </tr>
+
+
+                                </tbody>
+                              </table>
+
+                            </div>
+                          </div>
+
+
+                          <!-- 底部-（分页部分）-->
+                          <div class="dt-toolbar">
+                            <div class="col-xs-12 col-sm-6">
+                              <span>共5条</span>
+                            </div>
+                            <div class="hidden-xs right">
+                              <ul class="pagination pagination-sm">
+                                <li *ngFor="let p of categoryList?.page" class="{{p.class}}">
+                                  <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+                                  <a *ngIf="p.method==''">{{p.text}}</a>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+
+
+
+
+                         <!-- <div class="table-responsive">
                             <table class="table table-hover table-bordered dataTable">
                               <thead>
                               <tr>
@@ -194,35 +298,35 @@
                               </tr>
                               </tbody>
                             </table>
-                             <!--底部-（分页部分）-->
+                             &lt;!&ndash;底部-（分页部分）&ndash;&gt;
                             <div class="dt-toolbar">
                               <div class="hidden-xs right">
-                                <!--<ul class="pagination pagination-sm">-->
-                                  <!--<li class="disabled">-->
-                                    <!--<a href="">上一页</a>-->
-                                  <!--</li>-->
-                                  <!--<li class="active">-->
-                                    <!--<a href="">1</a>-->
-                                  <!--</li>-->
-                                  <!--<li>-->
-                                    <!--<a href="">2</a>-->
-                                  <!--</li>-->
-                                  <!--<li>-->
-                                    <!--<a href="">3</a>-->
-                                  <!--</li>-->
-                                  <!--<li>-->
-                                    <!--<a href="">...</a>-->
-                                  <!--</li>-->
-                                  <!--<li>-->
-                                    <!--<a href="">99</a>-->
-                                  <!--</li>-->
-                                  <!--<li>-->
-                                    <!--<a href="">下一页</a>-->
-                                  <!--</li>-->
-                                <!--</ul>-->
+                                &lt;!&ndash;<ul class="pagination pagination-sm">&ndash;&gt;
+                                  &lt;!&ndash;<li class="disabled">&ndash;&gt;
+                                    &lt;!&ndash;<a href="">上一页</a>&ndash;&gt;
+                                  &lt;!&ndash;</li>&ndash;&gt;
+                                  &lt;!&ndash;<li class="active">&ndash;&gt;
+                                    &lt;!&ndash;<a href="">1</a>&ndash;&gt;
+                                  &lt;!&ndash;</li>&ndash;&gt;
+                                  &lt;!&ndash;<li>&ndash;&gt;
+                                    &lt;!&ndash;<a href="">2</a>&ndash;&gt;
+                                  &lt;!&ndash;</li>&ndash;&gt;
+                                  &lt;!&ndash;<li>&ndash;&gt;
+                                    &lt;!&ndash;<a href="">3</a>&ndash;&gt;
+                                  &lt;!&ndash;</li>&ndash;&gt;
+                                  &lt;!&ndash;<li>&ndash;&gt;
+                                    &lt;!&ndash;<a href="">...</a>&ndash;&gt;
+                                  &lt;!&ndash;</li>&ndash;&gt;
+                                  &lt;!&ndash;<li>&ndash;&gt;
+                                    &lt;!&ndash;<a href="">99</a>&ndash;&gt;
+                                  &lt;!&ndash;</li>&ndash;&gt;
+                                  &lt;!&ndash;<li>&ndash;&gt;
+                                    &lt;!&ndash;<a href="">下一页</a>&ndash;&gt;
+                                  &lt;!&ndash;</li>&ndash;&gt;
+                                &lt;!&ndash;</ul>&ndash;&gt;
                               </div>
                             </div>
-                          </div>
+                          </div>-->
                         </div>
                       </div>
                     </sa-widget>
@@ -236,3 +340,52 @@
     </div>
   </sa-widget>
 </div>
+
+
+
+<div class="modal fade" id="particulars" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- 关闭按钮 -->
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          ×
+        </button>
+        <!-- 标题 -->
+        <h3 class="modal-title" data-ng-bind='results.title'></h3>
+        <h4 class="modal-title">类型</h4>
+      </div>
+      <div class="modal-body height-overflow-380">
+        <div class="row ">
+          <div class="col-sm-12">
+            <div class="" >
+              <P class="alert alert-info">基本信息</P>
+              <table class="table table-striped table-forum">
+                <tbody>
+                <tr>
+                  <td class="width-120">类型:</td>
+                  <td class=""></td>
+                </tr>
+                <tr>
+                  <td class="width-120">规格/参数名称:</td>
+                  <td class=""></td>
+                </tr>
+                <tr>
+                  <td class="width-120">参数内容:</td>
+                  <td >
+                    <span ></span>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+      </div>
+    </div>
+  </div>
+</div>
+

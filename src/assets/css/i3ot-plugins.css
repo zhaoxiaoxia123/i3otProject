@@ -58,20 +58,6 @@
     color: #fff !important;
 }
 
-
-#not-click{
-    color: #fff !important;
-    background-color: #ccc;
-    border: #ccc;
-    pointer-events: none;
-}
-#not-click>span{
-    color: #fff !important;
-}
-#not-click>i{
-    color: #fff !important;
-}
-
     /*头像状态*/
 img.away,img.busy,img.offline,img.online {
     border-left: 3px solid #fff
@@ -1258,4 +1244,32 @@ span.input-icon {
 }
 .table-minheight{
     min-height: 0!important;
+}
+
+
+/*标签*/
+.label-normal{
+    background-color: #909090!important;
+    color: #fff;
+    padding: 2px 10px;
+}
+.label-invalid{
+    background-color: #a90329!important;
+    color: #fff;
+    padding: 2px 10px;
+}
+.label-full{
+    background-color: #54d09f!important;
+    color: #fff;
+    padding: 2px 10px;
+}
+.label-blue{
+    background-color: #3782e7!important;
+    color: #fff;
+    padding: 2px 10px;
+}
+.label-unknown{
+    background-color: #646464!important;
+    color: #fff;
+    padding: 2px 10px;
 }

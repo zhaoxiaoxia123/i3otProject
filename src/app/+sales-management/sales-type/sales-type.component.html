@@ -32,27 +32,30 @@
                               <i class="glyphicon glyphicon-pencil"></i>
                               修改销售类型
                             </alert>
-                            <form class="smart-form ">
-                              <fieldset>
-                                <section>
-                                  <label class="label txt-color-blue">类型编码<span class="asterisk-color">*</span></label>
-                                  <label class="input">
-                                    <input type="text" placeholder="类别编号" name="category_number" [(ngModel)]="category_number">
-                                  </label>
-                                </section>
-                                <section>
-                                  <label class="label txt-color-blue">类型名称<span class="asterisk-color">*</span></label>
-                                  <label class="input">
-                                    <input type="text" placeholder="请输分类名称" name="category_desc" [(ngModel)]="category_desc">
-                                  </label>
-                                </section>
-                              </fieldset>
-                              <footer>
-                                <button type="button" class="btn btn-primary" (click)="addCategory()">
-                                  保存
-                                </button>
-                              </footer>
-                            </form>
+                            <div  class="mt-10">
+                              <form class="smart-form ">
+                                <fieldset>
+                                  <section>
+                                    <label class="label txt-color-blue">类型编码<span class="asterisk-color">*</span></label>
+                                    <label class="input">
+                                      <input type="text" placeholder="类别编号" name="category_number" [(ngModel)]="category_number">
+                                    </label>
+                                  </section>
+                                  <section>
+                                    <label class="label txt-color-blue">类型名称<span class="asterisk-color">*</span></label>
+                                    <label class="input">
+                                      <input type="text" placeholder="请输分类名称" name="category_desc" [(ngModel)]="category_desc">
+                                    </label>
+                                  </section>
+                                </fieldset>
+                                <footer>
+                                  <button type="button" class="btn btn-primary" (click)="addCategory()">
+                                    保存
+                                  </button>
+                                </footer>
+                              </form>
+                            </div>
+
                           </div>
                         </div>
                       </sa-widget>
@@ -67,20 +70,29 @@
                               销售类型
                             </alert>
 
-                            <div  class="row">
+                            <div  class="row mt-10">
                               <article  class="col-sm-12">
                                 <div class="navbar navbar-default">
                                   <div class="collapse navbar-collapse">
 
                                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-                                      <div class="form-group">
-                                        <a class="btn btn-warning btn-sm"  (click)="editCategory()">
-                                          <span class="glyphicon glyphicon-pencil mr-5"></span>修改</a>
+                                      <div class="form-group pdlr-4">
+                                        <a class="btn default-btn btn-sm" (click)="editCategory()">
+                                          <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
                                       </div>
-                                      <!--<div class="form-group">-->
-                                        <!--<a class="btn btn-success btn-sm"  >-->
-                                          <!--<span class="glyphicon glyphicon-zoom-in mr-5"></span>详情</a>-->
-                                      <!--</div>-->
+                                      <div class="form-group pdlr-4">
+                                        <a class="btn default-btn btn-sm" >
+                                          <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
+                                      </div>
+                                      <div class="form-group btn-group pdlr-4">
+                                        <a class="btn default-btn btn-sm dropdown-toggle"  data-toggle="dropdown">
+                                          <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
+
+                                        <ul class="dropdown-menu" role="menu">
+                                          <li><a ><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
+                                        </ul>
+                                      </div>
+
                                     </form>
                                   </div>
                                 </div>
