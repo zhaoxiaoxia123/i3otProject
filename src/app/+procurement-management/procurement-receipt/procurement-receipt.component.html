@@ -1,7 +1,7 @@
 <div id="content">
-  <div class="row">
+<!--  <div class="row">
     <sa-big-breadcrumbs [items]="['采购管理', '进货单']" icon="table"></sa-big-breadcrumbs>
-  </div>
+  </div>-->
   <sa-widgets-grid>
     <div class="row">
       <article class="col-sm-12 ">
@@ -103,7 +103,10 @@
                         </label>
                       </td>
                       <td>{{p.pr_order}}</td>
-                      <td></td>
+                      <td>
+                        <span class="label-full">进货</span>
+                        <span class="label-invalid" >退货</span>
+                      </td>
                       <td>{{(p.pr_type == 1) ? '进货':'退货'}}</td>
                       <td>{{p.pr_date}}</td>
                     </tr>
@@ -142,10 +145,11 @@
               <!-- 底部-（分页部分）-->
               <div class="dt-toolbar">
                 <div class="col-xs-12 col-sm-6">
-                  <button class="btn btn-default" (click)="deletePurchase()">
+                  <span>共12条</span>
+                 <!-- <button class="btn btn-default" (click)="deletePurchase()">
                     <i class="fa fa-trash-o fa-lg"></i>
                     删除所选
-                  </button>
+                  </button>-->
                 </div>
                 <div class="hidden-xs right">
                   <ul class="pagination pagination-sm">

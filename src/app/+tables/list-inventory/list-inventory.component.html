@@ -1,12 +1,12 @@
 <div id="content">
-  <div class="row">
+  <!--<div class="row">
     <sa-big-breadcrumbs [items]="['仓库管理', '仓库列表']" icon="table"></sa-big-breadcrumbs>
   </div>
-
+-->
   <sa-widgets-grid>
     <div class="row">
       <article class="col-sm-12 ">
-        <sa-widget [editbutton]="false" [deletebutton]="false" color="blueDark">
+        <sa-widget [editbutton]="false" [deletebutton]="false" [colorbutton]="false">
           <header>
             <span class="widget-icon"> <i class="fa fa-table"></i> </span>
             <h2>仓库列表 </h2>
@@ -142,7 +142,7 @@
                 <span class="label-normal" *ngSwitchCase="1">正常</span>
                 <span class="label-blue" *ngSwitchCase="2">维修</span>
                 <span class="label-full" *ngSwitchCase="3">满仓</span>
-                <span class="label-invalid" *ngSwitchDefault>未知</span>
+                <span class="label-unknown" *ngSwitchDefault>未知</span>
               </span>
                       </td>
                       <td>{{ sl.updated_at }}</td>

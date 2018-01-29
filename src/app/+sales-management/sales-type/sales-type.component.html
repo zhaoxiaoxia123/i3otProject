@@ -1,7 +1,7 @@
 <div id="content">
-  <div class="row">
+  <!--<div class="row">
     <sa-big-breadcrumbs [items]="['销售管理', '销售类型']" icon="pencil-square-o"></sa-big-breadcrumbs>
-  </div>
+  </div>-->
   <sa-widgets-grid>
     <div class="row">
       <article class="col-sm-12 ">
@@ -135,19 +135,20 @@
                             <!-- 底部-（分页部分）-->
                             <div class="dt-toolbar">
                               <div class="col-xs-12 col-sm-6">
-                                <button class="btn btn-default" (click)="deleteCategory()">
+                                <span>共2条</span>
+                                <!--<button class="btn btn-default" (click)="deleteCategory()">
                                   <i class="fa fa-trash-o fa-lg"></i>
                                   删除所选
-                                </button>
+                                </button>-->
                               </div>
-                              <!--<div class="hidden-xs right">-->
-                                <!--<ul class="pagination pagination-sm">-->
-                                  <!--<li *ngFor="let p of categoryList?.page" class="{{p.class}}">-->
-                                    <!--<a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>-->
-                                    <!--<a *ngIf="p.method==''">{{p.text}}</a>-->
-                                  <!--</li>-->
-                                <!--</ul>-->
-                              <!--</div>-->
+                              <div class="hidden-xs right">
+                                <ul class="pagination pagination-sm">
+                                  <li *ngFor="let p of categoryList?.page" class="{{p.class}}">
+                                    <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+                                    <a *ngIf="p.method==''">{{p.text}}</a>
+                                  </li>
+                                </ul>
+                              </div>
                             </div>
                           </div>
                         </div>

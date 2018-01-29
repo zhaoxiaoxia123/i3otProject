@@ -826,6 +826,14 @@ h1,h2,h3,h4 {
     overflow-y: scroll;
 }
 
+.border-overflow-400{
+    box-shadow: none;
+    border: 1px solid #CCC;
+    overflow: auto;
+    height: 400px;
+    padding: 10px;
+}
+
 /*按钮*/
 
 .btn, a:link, button {
@@ -1249,12 +1257,12 @@ span.input-icon {
 
 /*标签*/
 .label-normal{
-    background-color: #474544!important;
+    background-color: #909090!important;
     color: #fff;
     padding: 2px 10px;
 }
 .label-invalid{
-    background-color: #F44336!important;
+    background-color: #a90329!important;
     color: #fff;
     padding: 2px 10px;
 }
@@ -1268,7 +1276,7 @@ span.input-icon {
     color: #fff;
     padding: 2px 10px;
 }
-.label-gray{
+.label-unknown{
     background-color: #646464!important;
     color: #fff;
     padding: 2px 10px;

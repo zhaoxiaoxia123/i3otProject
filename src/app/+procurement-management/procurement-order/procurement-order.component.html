@@ -1,7 +1,7 @@
 <div id="content">
-  <div class="row">
+<!--  <div class="row">
     <sa-big-breadcrumbs [items]="['采购管理', '采购订单']" icon="table"></sa-big-breadcrumbs>
-  </div>
+  </div>-->
   <sa-widgets-grid>
     <div class="row">
       <article class="col-sm-12 ">
@@ -100,7 +100,11 @@
                         </label>
                       </td>
                       <td>{{p.pr_order}}</td>
-                      <td>正常</td>
+                      <td>
+                        <span class="label-normal">正常</span>
+                        <span class="label-invalid" >失效</span>
+                        <span class="label-unknown" >未知</span>
+                      </td>
                       <td>{{p.pr_date}}</td>
                     </tr>
                     </tbody>

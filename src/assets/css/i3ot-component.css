@@ -783,6 +783,9 @@ body.nooverflow {
     -webkit-border-radius: 0;
     border-radius: 0;
     padding: 0;
+    clear: both;
+    content: " ";
+    display: block;
 }
 .jarviswidget header:first-child .nav-tabs {
     float: left;
@@ -4494,7 +4497,6 @@ ul.checkable.checkable--popboxmenu li a .label-name {
     margin-bottom:10px;
 
 }
-
 .show-tag{
     display:block !important;
 }
@@ -4531,10 +4533,10 @@ ul.checkable.checkable--popboxmenu li a .label-name {
     height: 100%;
     top: -11px;
     width: 1px;
-    -webkit-transition: "border-color 0.1s ease 0.1s";
+   /* -webkit-transition: "border-color 0.1s ease 0.1s";
     -moz-transition: "border-color 0.1s ease 0.1s";
     -o-transition: "border-color 0.1s ease 0.1s";
-    transition: "border-color 0.1s ease 0.1s"
+    transition: "border-color 0.1s ease 0.1s"*/
 }
 
 .tree li:after {

@@ -1,18 +1,28 @@
 
 <!--主要内容-->
 <div id="content">
-  <div class="row">
-    <sa-big-breadcrumbs [items]="['仓库管理', '添加调拨单']" icon="pencil-square-o" ></sa-big-breadcrumbs>
-  </div>
+  <!--<div class="row">
+    <sa-big-breadcrumbs [items]="['仓库管理', '调拨单']" icon="pencil-square-o" ></sa-big-breadcrumbs>
+  </div>-->
   <sa-widgets-grid>
     <div class="row">
       <article class="col-sm-12 ">
         <sa-widget [editbutton]="false" [deletebutton]="false" >
-          <header>
+          <header *ngIf="stock_allot_id == 0">
             <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
-            <h2 *ngIf="stock_allot_id == 0">添加调拨单</h2>
-            <h2 *ngIf="stock_allot_id != 0">修改调拨单</h2>
+            <h2 >添加调拨单</h2>
           </header>
+
+          <header *ngIf="stock_allot_id != 0">
+            <span class="widget-icon"> <i class="glyphicon glyphicon-pencil"></i> </span>
+            <h2 >修改调拨单 </h2>
+          </header>
+
+          <header >
+            <span class="widget-icon"> <i class="glyphicon glyphicon-zoom-in"></i> </span>
+            <h2 >读取单据号 </h2>
+          </header>
+
           <div>
             <!--小部件内容-->
             <div class="widget-body no-padding">
@@ -329,8 +339,10 @@
           ×
         </button>
         <!-- 标题 -->
-        <h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>选择资产类别</h3>
+        <h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>选择商品</h3>
       </div>
+
+
       <div class="modal-body ">
         <div  class="row">
           <article  class="col-sm-12">
@@ -338,159 +350,250 @@
               <div class="collapse navbar-collapse">
 
                 <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-                  <div class="form-group padding-left-10">
-                    <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" name="keyword" placeholder="请输入搜索内容" type="text">
+                  <div class="form-group pdlr-4">
+                    <div class="form-group padding-left-10">
+                      <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" [(ngModel)]="keyword"  name="keyword" placeholder="请输入搜索内容" type="text">
+                    </div>
+                    <button class="btn btn-default" type="button" (click)="getProductList(1)">
+                      <i  class="glyphicon glyphicon-search"></i>
+                      搜索
+                    </button>
                   </div>
-                  <button class="btn btn-default" type="submit">
-                    <i  class="glyphicon glyphicon-search"></i>
-                    搜索
-                  </button>
+
                 </form>
               </div>
             </div>
           </article>
         </div>
 
-        <div style="padding:0;" class="height-overflow-380">
-          <div style="padding: 0;z-index: 2;width:20%;float:left;" class="table-responsive  ">
-            <table class="table table-striped  table-hover smart-form table-height-32">
-              <thead>
-              <tr >
-                <td><label class="checkbox">
-                  <input type="checkbox" name="checkbox-inline"  >
-                  <i></i>
-                </label>
-                </td>
-                <th>商品编号</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr>
-                <td>
-                  <label class="checkbox padding-top-10"  >
-                    <input type="checkbox" name="checkbox-inline" >
-                    <i></i>
-                  </label>
+        <div class="pt">
+          <div class="row" style="padding:0 10px;">
+            <article class="pd-10 form-group col col-xs-6">
 
-                </td>
-                <td>ghg</td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="checkbox padding-top-10"  >
-                    <input type="checkbox" name="checkbox-inline" >
-                    <i></i>
-                  </label>
+              <div class="widget-body border-overflow-400">
+                <div class="tree smart-form">
+                  <ul class="">
+                    <li class=" parent_li">
+                                <span><i class="fa fa-lg fa-folder-open"></i>全部<i class="sa-icon fa fa-lg fa-minus-circle"></i>
+                                </span>
+                      <ul class="">
+                        <li class=" parent_li">
+                                    <span>
+                                      <label class="checkbox inline-block tree-label ">
+                                            <input type="checkbox" checked="checked" name="checkbox-inline"><i>
+                                          </i>设备<em class="txt-color-blue">(10)</em>
+                                          </label>
+                                      <i class="sa-icon fa fa-lg fa-minus-circle"></i>
+                                      <i class="sa-icon fa fa-lg fa-plus-circle"></i>
+                                    </span>
+                          <ul class="">
+                            <li>
+                                        <span>
+                                          <label class="checkbox inline-block tree-label">
+                                            <input type="checkbox" name="checkbox-inline">
+                                            <i></i>基站<em class="txt-color-blue">(4)</em>
+                                          </label>
 
-                </td>
-                <td>ghg</td>
-              </tr>
-              </tbody>
-            </table>
+                                        </span>
+                            </li>
+                            <li>
+                                        <span>
+                                          <label class="checkbox inline-block tree-label">
+                                            <input type="checkbox" checked="checked" name="checkbox-inline"><i>
+                                          </i>安全帽<em class="txt-color-blue">(0)</em>
+                                          </label>
+                                        </span>
+                            </li>
+                            <li>
+                                        <span>
+                                          <label class="checkbox inline-block tree-label">
+                                            <input type="checkbox" checked="checked" name="checkbox-inline">
+                                            <i></i>网管<em class="txt-color-blue">(2)</em>
+                                          </label>
+                                        </span>
+                            </li>
+                          </ul>
+                        </li>
+
+                        <li class=" parent_li">
+                                    <span>
+                                      <label class="checkbox inline-block tree-label ">
+                                            <input type="checkbox" checked="checked" name="checkbox-inline"><i>
+                                          </i>智慧城市<em class="txt-color-blue">(1)</em>
+                                          </label>
+                                      <i class="sa-icon fa fa-lg fa-minus-circle"></i>
+                                      <i class="sa-icon fa fa-lg fa-plus-circle"></i>
+                                    </span>
+                          <ul class="">
+                            <li class=" parent_li">
+                                        <span>
+                                          <label class="checkbox inline-block tree-label">
+                                            <input type="checkbox" name="checkbox-inline">
+                                            <i></i>智慧农业<em class="txt-color-blue">(1)</em>
+                                          </label>
+                                          <i class="sa-icon fa fa-lg fa-minus-circle"></i>
+                                          <i class="sa-icon fa fa-lg fa-plus-circle"></i>
+                                        </span>
+                            </li>
+                            <li>
+                                        <span>
+                                          <label class="checkbox inline-block tree-label">
+                                            <input type="checkbox" checked="checked" name="checkbox-inline"><i>
+                                          </i>安全帽<em class="txt-color-blue">(0)</em>
+                                          </label>
+                                        </span>
+                            </li>
+                            <li>
+                                        <span>
+                                          <label class="checkbox inline-block tree-label">
+                                            <input type="checkbox" checked="checked" name="checkbox-inline">
+                                            <i></i>基站<em class="txt-color-blue">(4)</em>
+                                          </label>
+                                        </span>
+                            </li>
+                          </ul>
+                        </li>
+
+                        <li>
+                                    <span>
+                                      <label class="checkbox inline-block tree-label">
+                                        <input type="checkbox" name="checkbox-inline"><i></i>智慧农业<em class="txt-color-blue">(0)</em>
+                                      </label>
+                                    </span>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+            </article>
+
+            <article  class="pd-10 form-group col col-xs-6">
+              <div class="widget-body border-overflow-400">
+                <div class="mt-10"  style="padding:0;">
+                  <div style="padding: 0;z-index: 2;width:20%;float:left;" class="table-responsive">
+                    <table class="table table-striped  table-hover smart-form table-height-32">
+                      <thead>
+                      <tr >
+                        <td><label class="checkbox">
+                          <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)" >
+                          <i></i>
+                        </label>
+                        </td>
+                        <th>商品编号</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr ><!--class="table-color"-->
+                        <td>
+                          <label class="checkbox padding-top-10" >
+                            <input type="checkbox" name="checkbox-inline">
+                            <i></i>
+                          </label>
+
+                        </td>
+                        <td>475</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div style="padding: 0;z-index: 1;width:80%;float:left;" class="table-responsive">
+                    <table class="table table-striped  table-hover smart-form table-height-32">
+                      <thead>
+                      <tr>
+                        <th>商品属性</th>
+                        <th>商品名称</th>
+                        <th>商品分类</th>
+                        <th>生产厂家</th>
+                        <th>参考售价</th>
+                        <th>图片</th>
+                        <th>状态</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr ><!-- class="table-color"-->
+                        <td>销售</td>
+                        <td>ggfhg</td>
+                        <td>tyr</td>
+                        <td>yt</td>
+                        <td>ty</td>
+                        <td>
+                          <div style="height:auto;" >
+                            <img alt=""  height="22" width="22" class="img-picture"  src="assets/img/news/news4.jpg">
+                            <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                            <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                            <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                            <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                          </div>
+                        </td>
+                        <td>正常</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <!-- 底部-（分页部分）-->
+                <div class="dt-toolbar">
+                  <div class="col-xs-12 col-sm-6">
+                    <span>共11条</span>
+                    <!--<button class="btn btn-default" (click)="deleteProduct()">
+                      <i class="fa fa-trash-o fa-lg"></i>
+                      删除所选
+                    </button>-->
+                  </div>
+                  <div class="hidden-xs right">
+                    <ul class="pagination pagination-sm">
+                      <li *ngFor="let p of productList?.page" class="{{p.class}}">
+                        <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+                        <a *ngIf="p.method==''">{{p.text}}</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+              </div>
+
+
+            </article>
+
+
+
+
+
+
+            <!--<article class="form-group col col-xs-6">
+              <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                         [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+                <div>
+                  <div class="widget-body no-padding">
+                    <alert type="info" class="no-margin"  >
+                      <i class="fa-fw fa fa-sitemap"></i>
+                      商品分类
+                    </alert>
+
+
+
+
+
+
+                  </div>
+                </div>
+              </sa-widget>
+            </article>-->
+
+
           </div>
-          <div style="padding: 0;z-index: 1;width:80%;float:left;" class="table-responsive">
-            <table class="table table-striped  table-hover smart-form table-height-32">
-              <thead>
-              <tr>
-                <th>商品属性</th>
-                <th>商品名称</th>
-                <th>商品分类</th>
-                <th>生产厂家</th>
-                <th>参考售价</th>
-                <th>图片</th>
-                <th>状态</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr >
-                <td>销售</td>
-                <td>fghfg</td>
-                <td>fghgf</td>
-                <td>fgghf</td>
-                <td>fghgf</td>
-                <td>
-                  <div style="height:auto;" >
-                    <img alt=""  height="22" width="22" class="img-picture"  src="assets/img/news/news4.jpg">
-                    <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
-                    <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
-                    <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
-                    <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
-                  </div>
-                </td>
-                <td>正常</td>
-              </tr>
-              <tr >
-                <td>销售</td>
-                <td>fghfg</td>
-                <td>fghgf</td>
-                <td>fgghf</td>
-                <td>fghgf</td>
-                <td>
-                  <div style="height:auto;" >
-                    <img alt=""  height="22" width="22" class="img-picture"  src="assets/img/news/news4.jpg">
-                    <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
-                    <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
-                    <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
-                    <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
-                  </div>
-                </td>
-                <td>正常</td>
-              </tr>
-              <tr >
-                <td>销售</td>
-                <td>fghfg</td>
-                <td>fghgf</td>
-                <td>fgghf</td>
-                <td>fghgf</td>
-                <td>
-                  <div style="height:auto;" >
-                    <img alt=""  height="22" width="22" class="img-picture"  src="assets/img/news/news4.jpg">
-                    <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
-                    <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
-                    <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
-                    <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
-                  </div>
-                </td>
-                <td>正常</td>
-              </tr>
-              <tr >
-                <td>销售</td>
-                <td>fghfg</td>
-                <td>fghgf</td>
-                <td>fgghf</td>
-                <td>fghgf</td>
-                <td>
-                  <div style="height:auto;" >
-                    <img alt=""  height="22" width="22" class="img-picture"  src="assets/img/news/news4.jpg">
-                    <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
-                    <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
-                    <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
-                    <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
-                  </div>
-                </td>
-                <td>正常</td>
-              </tr>
-              <tr >
-                <td>销售</td>
-                <td>fghfg</td>
-                <td>fghgf</td>
-                <td>fgghf</td>
-                <td>fghgf</td>
-                <td>
-                  <div style="height:auto;" >
-                    <img alt=""  height="22" width="22" class="img-picture"  src="assets/img/news/news4.jpg">
-                    <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
-                    <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
-                    <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
-                    <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
-                  </div>
-                </td>
-                <td>正常</td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
+
+
+
+
+
+
         </div>
+
+
 
 
 

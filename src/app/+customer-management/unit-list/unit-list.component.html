@@ -1,7 +1,7 @@
 <div id="content" xmlns="http://www.w3.org/1999/html">
-  <div class="row">
+<!--  <div class="row">
     <sa-big-breadcrumbs [items]="['客户管理', '往来客户或单位']" icon="table"></sa-big-breadcrumbs>
-  </div>
+  </div>-->
   <sa-widgets-grid>
     <div class="row">
       <article class="col-sm-12 ">
@@ -127,9 +127,9 @@
                       <td>{{c.c_address}}</td>
                       <td>
                         <span [ngSwitch]="c.c_status">
-                          <span *ngSwitchCase=1>正常</span>
-                          <span *ngSwitchCase=2>无效</span>
-                          <span *ngSwitchDefault>未知</span>
+                          <span class="label-normal" *ngSwitchCase=1>正常</span>
+                          <span class="label-invalid" *ngSwitchCase=2>无效</span>
+                          <span class="label-unknown" *ngSwitchDefault>未知</span>
                         </span>
                       </td>
                     </tr>
@@ -174,7 +174,7 @@
         </button>
         <!-- 标题 -->
         <h3 class="modal-title txt-color-blue" data-ng-bind='results.title' *ngIf="c_id == 0"><i class="fa-fw fa fa-plus"></i>添加往来单位</h3>
-        <h3 class="modal-title  glyphicon glyphicon-pencil txt-color-red" data-ng-bind='results.title' *ngIf="c_id != 0">修改往来单位</h3>
+        <h3 class="modal-title  txt-color-red" data-ng-bind='results.title' *ngIf="c_id != 0"><i class="glyphicon glyphicon-pencil"></i>修改往来单位</h3>
       </div>
       <div class="modal-body">
         <sa-widget [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">

@@ -1,3 +1,23 @@
+
+
+
+
+@media (min-width: 992px) {
+    .modal-dialog {
+        width:900px;
+        margin: 30px auto
+    }
+
+    .modal-content {
+        -webkit-box-shadow: 0 5px 15px rgba(0,0,0,.5);
+        box-shadow: 0 5px 15px rgba(0,0,0,.5)
+    }
+
+    .modal-sm {
+        width: 300px
+    }
+}
+
 @media (min-width: 768px) and (max-width:880px) {
     .chat-body li.message .message-text .chat-file b {
         width:150px

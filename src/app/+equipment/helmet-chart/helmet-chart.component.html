@@ -1,13 +1,13 @@
 <div id="content">
-  <div class="row">
+  <!--<div class="row">
     <sa-big-breadcrumbs [items]="['设备管理', '员工传感数据']" icon="file-text-o"></sa-big-breadcrumbs>
-  </div>
+  </div>-->
   <sa-widgets-grid>
 
     <div class="row">
       <article class="col-sm-12">
-        <sa-widget  [editbutton]="false" [deletebutton]="false" color="darken">
-          <header><span class="widget-icon"> <i class="fa fa-comments"></i> </span>
+        <sa-widget  [editbutton]="false" [deletebutton]="false" [colorbutton]="false">
+          <header><span class="widget-icon"> <i class="fa fa-table"></i> </span>
             <h2>员工传感数据</h2>
             <div class="jarviswidget-ctrls" role="menu">
               <a routerLink="/equipment/chart-setting" href="javascript:void(0);" class="button-icon jarviswidget-edit-btn" rel="tooltip" title="Edit" data-placement="bottom">
