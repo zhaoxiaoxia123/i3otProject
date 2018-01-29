@@ -23,32 +23,32 @@
                             <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
                         </div>
                         <div class="form-group pdlr-4">
-                          <a [ngClass]="{'not-click':isStatus == 0,'btn default-btn btn-sm':true}" (click)="detailDepartment('edit')">
+                          <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailDepartment('edit')">
                             <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
                         </div>
                         <div class="form-group pdlr-4">
-                          <a class="btn default-btn btn-sm" id="not-click" (click)="deleteDepartment('id')">
+                          <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="deleteDepartment('id')">
                             <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
                         </div>
                         <div class="form-group pdlr-4">
-                          <a class="btn default-btn btn-sm" (click)="detailDepartment('detail')" >
+                          <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailDepartment('detail')" >
                             <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
                         </div>
                         <div class="form-group pdlr-4" *ngIf="isStatus == 2">
-                          <a class="btn default-btn btn-sm" (click)="editStatus(1)" >
+                          <a class="btn default-btn btn-sm" (click)="editStatus(1,'id')" >
                             <span class="fa-fw fa fa-play mr-5 color-green"></span>启用</a>
                         </div>
                         <div class="form-group pdlr-4" *ngIf="isStatus == 1">
-                          <a class="btn default-btn btn-sm" (click)="editStatus(2)" >
+                          <a class="btn default-btn btn-sm" (click)="editStatus(2,'id')" >
                             <span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>无效</a>
                         </div>
                         <div class="form-group btn-group pdlr-4">
-                          <a class="btn default-btn btn-sm dropdown-toggle"  data-toggle="dropdown">
+                          <a class="btn default-btn btn-sm dropdown-toggle"  data-toggle="dropdown" (click)="showAllCheck()">
                             <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
 
                           <ul class="dropdown-menu" role="menu">
-                            <li><a ><span class="fa-fw fa fa-play mr-5 color-green"></span>批量设为启动</a></li>
-                            <li><a ><span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>批量设为无效</a></li>
+                            <li><a (click)="editStatus(1,'all')" ><span class="fa-fw fa fa-play mr-5 color-green"></span>批量设为启动</a></li>
+                            <li><a (click)="editStatus(2,'all')" ><span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>批量设为无效</a></li>
                             <li class="divider"></li>
                             <li><a (click)="deleteDepartment('all')" ><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
                           </ul>
@@ -121,7 +121,7 @@
                             <table class="table table-striped  table-hover smart-form">
                               <thead>
                               <tr >
-                                <td><label class="checkbox">
+                                <td *ngIf="isAll != 0"><label class="checkbox">
                                   <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)" >
                                   <i></i>
                                 </label>
@@ -132,9 +132,9 @@
                               </thead>
                               <tbody>
                               <tr *ngFor="let d of departmentList.result?.departmentList?.data" (click)="isStatusShow(d.department_id,d.department_status)" [ngClass]="{'table-color':editStatusDepartmentId == d.department_id}">
-                                <td>
+                                <td *ngIf="isAll != 0">
                                   <label class="checkbox">
-                                    <input type="checkbox" value="{{ d.department_id }}" [checked]="selects[d.department_id]" (change)="handle($event)" >
+                                    <input type="checkbox" value="{{ d.department_id }}" [checked]="selects[d.department_id]" (change)="$event.preventDefault();$event.stopPropagation();handle($event)" >
                                     <i></i>
                                   </label>
                                 </td>
@@ -344,8 +344,8 @@
           <!-- 关闭按钮 -->
           <button type="button" class="close" (click)="closeSubmit();lgModal.hide();" aria-hidden="true"> × </button>
           <!-- 标题 -->
-          <h3 *ngIf="department_id == 0" class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>添加部门</h3>
-          <h3 *ngIf="department_id != 0" class="modal-title  glyphicon glyphicon-pencil txt-color-red" data-ng-bind='results.title'>修改部门</h3>
+          <h3 *ngIf="editStatusDepartmentId == 0" class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>添加部门</h3>
+          <h3 *ngIf="editStatusDepartmentId != 0" class="modal-title  glyphicon glyphicon-pencil txt-color-red" data-ng-bind='results.title'>修改部门</h3>
         </div>
         <div class="modal-body">
           <sa-widget [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
@@ -398,7 +398,7 @@
                                   <label class="label">上级部门</label>
                                   <label class="select">
                                       <select name="upper_department_id" formControlName="upper_department_id" [(ngModel)]="upper_department_id_default">
-                                        <option [selected]="department_id == 0" value="0">--请选择--</option>
+                                        <option [selected]="editStatusDepartmentId == 0" value="0">--请选择--</option>
                                         <option *ngFor="let dd of departmentDefault.result?.department" [selected]="departmentInfo.result?.upper_department_id == dd.department_id" value="{{ dd.department_id }}">{{dd.department_name}}</option>
                                       </select><i></i>
                                   </label>
@@ -417,7 +417,7 @@
                                   <label class="label ">负责人</label>
                                   <label class="select">
                                       <select name="department_incharge" formControlName="department_incharge" [(ngModel)]="department_incharge_default">
-                                        <option [selected]="department_id == 0" value="0">--请选择--</option>
+                                        <option [selected]="editStatusDepartmentId == 0" value="0">--请选择--</option>
                                         <option *ngFor="let du of departmentDefault.result?.user" [selected]="departmentInfo.result?.department_incharge == du.id" value="{{ du.id }}">{{du.u_username}}</option>
                                       </select><i></i>
                                   </label>
@@ -480,7 +480,7 @@
           </sa-widget>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onSubmit()">保存</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onSubmit();lgModal.hide()">保存</button>
           <button type="button" class="btn btn-default" (click)="closeSubmit();lgModal.hide()" >返回</button>
         </div>
       </div>
