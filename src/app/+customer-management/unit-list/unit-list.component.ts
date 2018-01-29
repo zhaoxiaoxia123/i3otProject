@@ -125,20 +125,18 @@ export class UnitListComponent implements OnInit {
             .map((res)=>res.json())
             .subscribe((data)=>{
                 this.customerList = data;
-            });
-        setTimeout(() => {
-            console.log(this.customerList);
-            if(this.customerList['status'] == 202){
-                this.cookieStoreService.removeAll(this.rollback_url);
-                this.router.navigate(['/auth/login']);
-            }
+                console.log(this.customerList);
+                if(this.customerList['status'] == 202){
+                    this.cookieStoreService.removeAll(this.rollback_url);
+                    this.router.navigate(['/auth/login']);
+                }
 
-            this.selects = [];
-            for (let entry of this.customerList['result']) {
-                this.selects[entry['c_id']] = false;
-            }
-            this.check = false;
-        }, 1000);
+                this.selects = [];
+                for (let entry of this.customerList['result']) {
+                    this.selects[entry['c_id']] = false;
+                }
+                this.check = false;
+            });
     }
 
 
