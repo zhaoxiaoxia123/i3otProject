@@ -103,8 +103,8 @@
                             <tr>
                             <tr>
                               <td>1</td>
-                              <td style=" width: 112px;"><a class="btn btn-warning btn-xs"  ><span class="glyphicon glyphicon-plus"></span>添加</a>
-                                <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                              <td style=" width: 112px;"><a class="btn btn-warning btn-xs"  ><span class="glyphicon glyphicon-plus"></span></a>
+                                <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span></a>
                               </td>
                               <td>
                                 <div  >
@@ -366,204 +366,10 @@
           </article>
         </div>
 
-        <div class="pt">
+        <div class="pt height-overflow-380">
           <div class="row" style="padding:0 10px;">
-            <article class="pd-10 form-group col col-xs-6">
 
-              <div class="widget-body border-overflow-400">
-                <div class="tree smart-form">
-                  <ul class="">
-                    <li class=" parent_li">
-                                <span><i class="fa fa-lg fa-folder-open"></i>全部<i class="sa-icon fa fa-lg fa-minus-circle"></i>
-                                </span>
-                      <ul class="">
-                        <li class=" parent_li">
-                                    <span>
-                                      <label class="checkbox inline-block tree-label ">
-                                            <input type="checkbox" checked="checked" name="checkbox-inline"><i>
-                                          </i>设备<em class="txt-color-blue">(10)</em>
-                                          </label>
-                                      <i class="sa-icon fa fa-lg fa-minus-circle"></i>
-                                      <i class="sa-icon fa fa-lg fa-plus-circle"></i>
-                                    </span>
-                          <ul class="">
-                            <li>
-                                        <span>
-                                          <label class="checkbox inline-block tree-label">
-                                            <input type="checkbox" name="checkbox-inline">
-                                            <i></i>基站<em class="txt-color-blue">(4)</em>
-                                          </label>
-
-                                        </span>
-                            </li>
-                            <li>
-                                        <span>
-                                          <label class="checkbox inline-block tree-label">
-                                            <input type="checkbox" checked="checked" name="checkbox-inline"><i>
-                                          </i>安全帽<em class="txt-color-blue">(0)</em>
-                                          </label>
-                                        </span>
-                            </li>
-                            <li>
-                                        <span>
-                                          <label class="checkbox inline-block tree-label">
-                                            <input type="checkbox" checked="checked" name="checkbox-inline">
-                                            <i></i>网管<em class="txt-color-blue">(2)</em>
-                                          </label>
-                                        </span>
-                            </li>
-                          </ul>
-                        </li>
-
-                        <li class=" parent_li">
-                                    <span>
-                                      <label class="checkbox inline-block tree-label ">
-                                            <input type="checkbox" checked="checked" name="checkbox-inline"><i>
-                                          </i>智慧城市<em class="txt-color-blue">(1)</em>
-                                          </label>
-                                      <i class="sa-icon fa fa-lg fa-minus-circle"></i>
-                                      <i class="sa-icon fa fa-lg fa-plus-circle"></i>
-                                    </span>
-                          <ul class="">
-                            <li class=" parent_li">
-                                        <span>
-                                          <label class="checkbox inline-block tree-label">
-                                            <input type="checkbox" name="checkbox-inline">
-                                            <i></i>智慧农业<em class="txt-color-blue">(1)</em>
-                                          </label>
-                                          <i class="sa-icon fa fa-lg fa-minus-circle"></i>
-                                          <i class="sa-icon fa fa-lg fa-plus-circle"></i>
-                                        </span>
-                            </li>
-                            <li>
-                                        <span>
-                                          <label class="checkbox inline-block tree-label">
-                                            <input type="checkbox" checked="checked" name="checkbox-inline"><i>
-                                          </i>安全帽<em class="txt-color-blue">(0)</em>
-                                          </label>
-                                        </span>
-                            </li>
-                            <li>
-                                        <span>
-                                          <label class="checkbox inline-block tree-label">
-                                            <input type="checkbox" checked="checked" name="checkbox-inline">
-                                            <i></i>基站<em class="txt-color-blue">(4)</em>
-                                          </label>
-                                        </span>
-                            </li>
-                          </ul>
-                        </li>
-
-                        <li>
-                                    <span>
-                                      <label class="checkbox inline-block tree-label">
-                                        <input type="checkbox" name="checkbox-inline"><i></i>智慧农业<em class="txt-color-blue">(0)</em>
-                                      </label>
-                                    </span>
-                        </li>
-                      </ul>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-            </article>
-
-            <article  class="pd-10 form-group col col-xs-6">
-              <div class="widget-body border-overflow-400">
-                <div class="mt-10"  style="padding:0;">
-                  <div style="padding: 0;z-index: 2;width:20%;float:left;" class="table-responsive">
-                    <table class="table table-striped  table-hover smart-form table-height-32">
-                      <thead>
-                      <tr >
-                        <td><label class="checkbox">
-                          <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)" >
-                          <i></i>
-                        </label>
-                        </td>
-                        <th>商品编号</th>
-                      </tr>
-                      </thead>
-                      <tbody>
-                      <tr ><!--class="table-color"-->
-                        <td>
-                          <label class="checkbox padding-top-10" >
-                            <input type="checkbox" name="checkbox-inline">
-                            <i></i>
-                          </label>
-
-                        </td>
-                        <td>475</td>
-                      </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <div style="padding: 0;z-index: 1;width:80%;float:left;" class="table-responsive">
-                    <table class="table table-striped  table-hover smart-form table-height-32">
-                      <thead>
-                      <tr>
-                        <th>商品属性</th>
-                        <th>商品名称</th>
-                        <th>商品分类</th>
-                        <th>生产厂家</th>
-                        <th>参考售价</th>
-                        <th>图片</th>
-                        <th>状态</th>
-                      </tr>
-                      </thead>
-                      <tbody>
-                      <tr ><!-- class="table-color"-->
-                        <td>销售</td>
-                        <td>ggfhg</td>
-                        <td>tyr</td>
-                        <td>yt</td>
-                        <td>ty</td>
-                        <td>
-                          <div style="height:auto;" >
-                            <img alt=""  height="22" width="22" class="img-picture"  src="assets/img/news/news4.jpg">
-                            <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
-                            <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
-                            <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
-                            <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
-                          </div>
-                        </td>
-                        <td>正常</td>
-                      </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-
-                <!-- 底部-（分页部分）-->
-                <div class="dt-toolbar">
-                  <div class="col-xs-12 col-sm-6">
-                    <span>共11条</span>
-                    <!--<button class="btn btn-default" (click)="deleteProduct()">
-                      <i class="fa fa-trash-o fa-lg"></i>
-                      删除所选
-                    </button>-->
-                  </div>
-                  <div class="hidden-xs right">
-                    <ul class="pagination pagination-sm">
-                      <li *ngFor="let p of productList?.page" class="{{p.class}}">
-                        <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
-                        <a *ngIf="p.method==''">{{p.text}}</a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-
-              </div>
-
-
-            </article>
-
-
-
-
-
-
-            <!--<article class="form-group col col-xs-6">
+            <article class="form-group col col-xs-4 ">
               <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
                          [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
                 <div>
@@ -572,7 +378,144 @@
                       <i class="fa-fw fa fa-sitemap"></i>
                       商品分类
                     </alert>
+                    <div class="pd-10 border-overflow-320" style="margin-top: -11px;">
+                      <div class="widget-body  ">
+                        <div class="tree smart-form">
+                          <ul class="">
+                            <li class=" parent_li">
+                                <span><i class="fa fa-lg fa-folder-open"></i>全部<i class="sa-icon fa fa-lg fa-minus-circle"></i>
+                                </span>
+                              <ul class="">
+                                <li class=" parent_li">
+                                    <span>
+                                      <label class="checkbox inline-block tree-label ">
+                                            <input type="checkbox" checked="checked" name="checkbox-inline"><i>
+                                          </i>设备<em class="txt-color-blue">(10)</em>
+                                          </label>
+                                      <i class="sa-icon fa fa-lg fa-minus-circle"></i>
+                                      <i class="sa-icon fa fa-lg fa-plus-circle"></i>
+                                    </span>
+                                  <ul class="">
+                                    <li>
+                                        <span>
+                                          <label class="checkbox inline-block tree-label">
+                                            <input type="checkbox" name="checkbox-inline">
+                                            <i></i>基站<em class="txt-color-blue">(4)</em>
+                                          </label>
 
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span>
+                                          <label class="checkbox inline-block tree-label">
+                                            <input type="checkbox" checked="checked" name="checkbox-inline"><i>
+                                          </i>安全帽<em class="txt-color-blue">(0)</em>
+                                          </label>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span>
+                                          <label class="checkbox inline-block tree-label">
+                                            <input type="checkbox" checked="checked" name="checkbox-inline">
+                                            <i></i>网管<em class="txt-color-blue">(2)</em>
+                                          </label>
+                                        </span>
+                                    </li>
+                                  </ul>
+                                </li>
+
+                                <li class=" parent_li">
+                                    <span>
+                                      <label class="checkbox inline-block tree-label ">
+                                            <input type="checkbox" checked="checked" name="checkbox-inline"><i>
+                                          </i>智慧城市<em class="txt-color-blue">(1)</em>
+                                          </label>
+                                      <i class="sa-icon fa fa-lg fa-minus-circle"></i>
+                                      <i class="sa-icon fa fa-lg fa-plus-circle"></i>
+                                    </span>
+                                  <ul class="">
+                                    <li class=" parent_li">
+                                        <span>
+                                          <label class="checkbox inline-block tree-label">
+                                            <input type="checkbox" name="checkbox-inline">
+                                            <i></i>智慧农业<em class="txt-color-blue">(1)</em>
+                                          </label>
+                                          <i class="sa-icon fa fa-lg fa-minus-circle"></i>
+                                          <i class="sa-icon fa fa-lg fa-plus-circle"></i>
+                                        </span>
+                                      <ul class="">
+                                        <li>
+                                        <span>
+                                          <label class="checkbox inline-block tree-label">
+                                            <input type="checkbox" name="checkbox-inline">
+                                            <i></i>智慧环保<em class="txt-color-blue">(1)</em>
+                                          </label>
+                                        </span>
+                                        </li>
+                                        <li>
+                                        <span>
+                                          <label class="checkbox inline-block tree-label">
+                                            <input type="checkbox" checked="checked" name="checkbox-inline"><i>
+                                          </i>基站<em class="txt-color-blue">(0)</em>
+                                          </label>
+                                        </span>
+                                        </li>
+                                        <li>
+                                        <span>
+                                          <label class="checkbox inline-block tree-label">
+                                            <input type="checkbox" checked="checked" name="checkbox-inline">
+                                            <i></i>基站<em class="txt-color-blue">(2)</em>
+                                          </label>
+                                        </span>
+                                        </li>
+                                      </ul>
+                                    </li>
+                                    <li>
+                                        <span>
+                                          <label class="checkbox inline-block tree-label">
+                                            <input type="checkbox" checked="checked" name="checkbox-inline"><i>
+                                          </i>安全帽<em class="txt-color-blue">(0)</em>
+                                          </label>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span>
+                                          <label class="checkbox inline-block tree-label">
+                                            <input type="checkbox" checked="checked" name="checkbox-inline">
+                                            <i></i>基站<em class="txt-color-blue">(4)</em>
+                                          </label>
+                                        </span>
+                                    </li>
+                                  </ul>
+                                </li>
+
+                                <li>
+                                    <span>
+                                      <label class="checkbox inline-block tree-label">
+                                        <input type="checkbox" name="checkbox-inline"><i></i>智慧矿山<em class="txt-color-blue">(2)</em>
+                                      </label>
+                                    </span>
+                                </li>
+                                <li>
+                                    <span>
+                                      <label class="checkbox inline-block tree-label">
+                                        <input type="checkbox" name="checkbox-inline"><i></i>智慧水务<em class="txt-color-blue">(2)</em>
+                                      </label>
+                                    </span>
+                                </li>
+                                <li>
+                                    <span>
+                                      <label class="checkbox inline-block tree-label">
+                                        <input type="checkbox" name="checkbox-inline"><i></i>智慧农业<em class="txt-color-blue">(0)</em>
+                                      </label>
+                                    </span>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
 
 
 
@@ -581,7 +524,654 @@
                   </div>
                 </div>
               </sa-widget>
-            </article>-->
+            </article>
+
+
+            <article class="form-group col col-xs-8 ">
+              <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                         [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+                <div>
+                  <div class="widget-body no-padding">
+                    <alert type="info" class="no-margin" >
+                      <i class="fa-fw fa fa-spoon"></i>
+                      商品列表
+                    </alert>
+
+                    <div class="mt-10 "  style="padding:0;">
+                      <div style="padding: 0;z-index: 1;" class="table-responsive border-overflow-320">
+                        <table class="table table-striped  table-hover smart-form table-height-32">
+                          <thead>
+                          <tr>
+                            <td><label class="checkbox">
+                              <input type="checkbox" name="checkbox-inline"  >
+                              <i></i>
+                            </label>
+                            </td>
+                            <th>商品编号</th>
+                            <th>商品属性</th>
+                            <th>商品名称</th>
+                            <th>商品分类</th>
+                            <th>生产厂家</th>
+                            <th>参考售价</th>
+                            <th>图片</th>
+                            <th>状态</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr ><!-- class="table-color"-->
+                            <td>
+                              <label class="checkbox padding-top-10" >
+                                <input type="checkbox" name="checkbox-inline">
+                                <i></i>
+                              </label>
+
+                            </td>
+                            <td>475</td>
+                            <td>销售</td>
+                            <td>ggfhg</td>
+                            <td>tyr</td>
+                            <td>yt</td>
+                            <td>ty</td>
+                            <td>
+                              <div style="height:auto;" >
+                                <img alt=""  height="22" width="22" class="img-picture"  src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                              </div>
+                            </td>
+                            <td>正常</td>
+                          </tr>
+                          <tr ><!-- class="table-color"-->
+                            <td>
+                              <label class="checkbox padding-top-10" >
+                                <input type="checkbox" name="checkbox-inline">
+                                <i></i>
+                              </label>
+
+                            </td>
+                            <td>475</td>
+                            <td>销售</td>
+                            <td>ggfhg</td>
+                            <td>tyr</td>
+                            <td>yt</td>
+                            <td>ty</td>
+                            <td>
+                              <div style="height:auto;" >
+                                <img alt=""  height="22" width="22" class="img-picture"  src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                              </div>
+                            </td>
+                            <td>正常</td>
+                          </tr>
+                          <tr ><!-- class="table-color"-->
+                            <td>
+                              <label class="checkbox padding-top-10" >
+                                <input type="checkbox" name="checkbox-inline">
+                                <i></i>
+                              </label>
+
+                            </td>
+                            <td>475</td>
+                            <td>销售</td>
+                            <td>ggfhg</td>
+                            <td>tyr</td>
+                            <td>yt</td>
+                            <td>ty</td>
+                            <td>
+                              <div style="height:auto;" >
+                                <img alt=""  height="22" width="22" class="img-picture"  src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                              </div>
+                            </td>
+                            <td>正常</td>
+                          </tr>
+                          <tr ><!-- class="table-color"-->
+                            <td>
+                              <label class="checkbox padding-top-10" >
+                                <input type="checkbox" name="checkbox-inline">
+                                <i></i>
+                              </label>
+
+                            </td>
+                            <td>475</td>
+                            <td>销售</td>
+                            <td>ggfhg</td>
+                            <td>tyr</td>
+                            <td>yt</td>
+                            <td>ty</td>
+                            <td>
+                              <div style="height:auto;" >
+                                <img alt=""  height="22" width="22" class="img-picture"  src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                              </div>
+                            </td>
+                            <td>正常</td>
+                          </tr><tr ><!-- class="table-color"-->
+                            <td>
+                              <label class="checkbox padding-top-10" >
+                                <input type="checkbox" name="checkbox-inline">
+                                <i></i>
+                              </label>
+
+                            </td>
+                            <td>475</td>
+                            <td>销售</td>
+                            <td>ggfhg</td>
+                            <td>tyr</td>
+                            <td>yt</td>
+                            <td>ty</td>
+                            <td>
+                              <div style="height:auto;" >
+                                <img alt=""  height="22" width="22" class="img-picture"  src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                              </div>
+                            </td>
+                            <td>正常</td>
+                          </tr><tr ><!-- class="table-color"-->
+                            <td>
+                              <label class="checkbox padding-top-10" >
+                                <input type="checkbox" name="checkbox-inline">
+                                <i></i>
+                              </label>
+
+                            </td>
+                            <td>475</td>
+                            <td>销售</td>
+                            <td>ggfhg</td>
+                            <td>tyr</td>
+                            <td>yt</td>
+                            <td>ty</td>
+                            <td>
+                              <div style="height:auto;" >
+                                <img alt=""  height="22" width="22" class="img-picture"  src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                              </div>
+                            </td>
+                            <td>正常</td>
+                          </tr>
+                          <tr ><!-- class="table-color"-->
+                            <td>
+                              <label class="checkbox padding-top-10" >
+                                <input type="checkbox" name="checkbox-inline">
+                                <i></i>
+                              </label>
+
+                            </td>
+                            <td>475</td>
+                            <td>销售</td>
+                            <td>ggfhg</td>
+                            <td>tyr</td>
+                            <td>yt</td>
+                            <td>ty</td>
+                            <td>
+                              <div style="height:auto;" >
+                                <img alt=""  height="22" width="22" class="img-picture"  src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                              </div>
+                            </td>
+                            <td>正常</td>
+                          </tr><tr ><!-- class="table-color"-->
+                            <td>
+                              <label class="checkbox padding-top-10" >
+                                <input type="checkbox" name="checkbox-inline">
+                                <i></i>
+                              </label>
+
+                            </td>
+                            <td>475</td>
+                            <td>销售</td>
+                            <td>ggfhg</td>
+                            <td>tyr</td>
+                            <td>yt</td>
+                            <td>ty</td>
+                            <td>
+                              <div style="height:auto;" >
+                                <img alt=""  height="22" width="22" class="img-picture"  src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                              </div>
+                            </td>
+                            <td>正常</td>
+                          </tr><tr ><!-- class="table-color"-->
+                            <td>
+                              <label class="checkbox padding-top-10" >
+                                <input type="checkbox" name="checkbox-inline">
+                                <i></i>
+                              </label>
+
+                            </td>
+                            <td>475</td>
+                            <td>销售</td>
+                            <td>ggfhg</td>
+                            <td>tyr</td>
+                            <td>yt</td>
+                            <td>ty</td>
+                            <td>
+                              <div style="height:auto;" >
+                                <img alt=""  height="22" width="22" class="img-picture"  src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                              </div>
+                            </td>
+                            <td>正常</td>
+                          </tr><tr ><!-- class="table-color"-->
+                            <td>
+                              <label class="checkbox padding-top-10" >
+                                <input type="checkbox" name="checkbox-inline">
+                                <i></i>
+                              </label>
+
+                            </td>
+                            <td>475</td>
+                            <td>销售</td>
+                            <td>ggfhg</td>
+                            <td>tyr</td>
+                            <td>yt</td>
+                            <td>ty</td>
+                            <td>
+                              <div style="height:auto;" >
+                                <img alt=""  height="22" width="22" class="img-picture"  src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                              </div>
+                            </td>
+                            <td>正常</td>
+                          </tr><tr ><!-- class="table-color"-->
+                            <td>
+                              <label class="checkbox padding-top-10" >
+                                <input type="checkbox" name="checkbox-inline">
+                                <i></i>
+                              </label>
+
+                            </td>
+                            <td>475</td>
+                            <td>销售</td>
+                            <td>ggfhg</td>
+                            <td>tyr</td>
+                            <td>yt</td>
+                            <td>ty</td>
+                            <td>
+                              <div style="height:auto;" >
+                                <img alt=""  height="22" width="22" class="img-picture"  src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                              </div>
+                            </td>
+                            <td>正常</td>
+                          </tr><tr ><!-- class="table-color"-->
+                            <td>
+                              <label class="checkbox padding-top-10" >
+                                <input type="checkbox" name="checkbox-inline">
+                                <i></i>
+                              </label>
+
+                            </td>
+                            <td>475</td>
+                            <td>销售</td>
+                            <td>ggfhg</td>
+                            <td>tyr</td>
+                            <td>yt</td>
+                            <td>ty</td>
+                            <td>
+                              <div style="height:auto;" >
+                                <img alt=""  height="22" width="22" class="img-picture"  src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                              </div>
+                            </td>
+                            <td>正常</td>
+                          </tr><tr ><!-- class="table-color"-->
+                            <td>
+                              <label class="checkbox padding-top-10" >
+                                <input type="checkbox" name="checkbox-inline">
+                                <i></i>
+                              </label>
+
+                            </td>
+                            <td>475</td>
+                            <td>销售</td>
+                            <td>ggfhg</td>
+                            <td>tyr</td>
+                            <td>yt</td>
+                            <td>ty</td>
+                            <td>
+                              <div style="height:auto;" >
+                                <img alt=""  height="22" width="22" class="img-picture"  src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                              </div>
+                            </td>
+                            <td>正常</td>
+                          </tr><tr ><!-- class="table-color"-->
+                            <td>
+                              <label class="checkbox padding-top-10" >
+                                <input type="checkbox" name="checkbox-inline">
+                                <i></i>
+                              </label>
+
+                            </td>
+                            <td>475</td>
+                            <td>销售</td>
+                            <td>ggfhg</td>
+                            <td>tyr</td>
+                            <td>yt</td>
+                            <td>ty</td>
+                            <td>
+                              <div style="height:auto;" >
+                                <img alt=""  height="22" width="22" class="img-picture"  src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                              </div>
+                            </td>
+                            <td>正常</td>
+                          </tr><tr ><!-- class="table-color"-->
+                            <td>
+                              <label class="checkbox padding-top-10" >
+                                <input type="checkbox" name="checkbox-inline">
+                                <i></i>
+                              </label>
+
+                            </td>
+                            <td>475</td>
+                            <td>销售</td>
+                            <td>ggfhg</td>
+                            <td>tyr</td>
+                            <td>yt</td>
+                            <td>ty</td>
+                            <td>
+                              <div style="height:auto;" >
+                                <img alt=""  height="22" width="22" class="img-picture"  src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                              </div>
+                            </td>
+                            <td>正常</td>
+                          </tr><tr ><!-- class="table-color"-->
+                            <td>
+                              <label class="checkbox padding-top-10" >
+                                <input type="checkbox" name="checkbox-inline">
+                                <i></i>
+                              </label>
+
+                            </td>
+                            <td>475</td>
+                            <td>销售</td>
+                            <td>ggfhg</td>
+                            <td>tyr</td>
+                            <td>yt</td>
+                            <td>ty</td>
+                            <td>
+                              <div style="height:auto;" >
+                                <img alt=""  height="22" width="22" class="img-picture"  src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                              </div>
+                            </td>
+                            <td>正常</td>
+                          </tr><tr ><!-- class="table-color"-->
+                            <td>
+                              <label class="checkbox padding-top-10" >
+                                <input type="checkbox" name="checkbox-inline">
+                                <i></i>
+                              </label>
+
+                            </td>
+                            <td>475</td>
+                            <td>销售</td>
+                            <td>ggfhg</td>
+                            <td>tyr</td>
+                            <td>yt</td>
+                            <td>ty</td>
+                            <td>
+                              <div style="height:auto;" >
+                                <img alt=""  height="22" width="22" class="img-picture"  src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                              </div>
+                            </td>
+                            <td>正常</td>
+                          </tr><tr ><!-- class="table-color"-->
+                            <td>
+                              <label class="checkbox padding-top-10" >
+                                <input type="checkbox" name="checkbox-inline">
+                                <i></i>
+                              </label>
+
+                            </td>
+                            <td>475</td>
+                            <td>销售</td>
+                            <td>ggfhg</td>
+                            <td>tyr</td>
+                            <td>yt</td>
+                            <td>ty</td>
+                            <td>
+                              <div style="height:auto;" >
+                                <img alt=""  height="22" width="22" class="img-picture"  src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                              </div>
+                            </td>
+                            <td>正常</td>
+                          </tr><tr ><!-- class="table-color"-->
+                            <td>
+                              <label class="checkbox padding-top-10" >
+                                <input type="checkbox" name="checkbox-inline">
+                                <i></i>
+                              </label>
+
+                            </td>
+                            <td>475</td>
+                            <td>销售</td>
+                            <td>ggfhg</td>
+                            <td>tyr</td>
+                            <td>yt</td>
+                            <td>ty</td>
+                            <td>
+                              <div style="height:auto;" >
+                                <img alt=""  height="22" width="22" class="img-picture"  src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                              </div>
+                            </td>
+                            <td>正常</td>
+                          </tr><tr ><!-- class="table-color"-->
+                            <td>
+                              <label class="checkbox padding-top-10" >
+                                <input type="checkbox" name="checkbox-inline">
+                                <i></i>
+                              </label>
+
+                            </td>
+                            <td>475</td>
+                            <td>销售</td>
+                            <td>ggfhg</td>
+                            <td>tyr</td>
+                            <td>yt</td>
+                            <td>ty</td>
+                            <td>
+                              <div style="height:auto;" >
+                                <img alt=""  height="22" width="22" class="img-picture"  src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                              </div>
+                            </td>
+                            <td>正常</td>
+                          </tr><tr ><!-- class="table-color"-->
+                            <td>
+                              <label class="checkbox padding-top-10" >
+                                <input type="checkbox" name="checkbox-inline">
+                                <i></i>
+                              </label>
+
+                            </td>
+                            <td>475</td>
+                            <td>销售</td>
+                            <td>ggfhg</td>
+                            <td>tyr</td>
+                            <td>yt</td>
+                            <td>ty</td>
+                            <td>
+                              <div style="height:auto;" >
+                                <img alt=""  height="22" width="22" class="img-picture"  src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                              </div>
+                            </td>
+                            <td>正常</td>
+                          </tr><tr ><!-- class="table-color"-->
+                            <td>
+                              <label class="checkbox padding-top-10" >
+                                <input type="checkbox" name="checkbox-inline">
+                                <i></i>
+                              </label>
+
+                            </td>
+                            <td>475</td>
+                            <td>销售</td>
+                            <td>ggfhg</td>
+                            <td>tyr</td>
+                            <td>yt</td>
+                            <td>ty</td>
+                            <td>
+                              <div style="height:auto;" >
+                                <img alt=""  height="22" width="22" class="img-picture"  src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                              </div>
+                            </td>
+                            <td>正常</td>
+                          </tr><tr ><!-- class="table-color"-->
+                            <td>
+                              <label class="checkbox padding-top-10" >
+                                <input type="checkbox" name="checkbox-inline">
+                                <i></i>
+                              </label>
+
+                            </td>
+                            <td>475</td>
+                            <td>销售</td>
+                            <td>ggfhg</td>
+                            <td>tyr</td>
+                            <td>yt</td>
+                            <td>ty</td>
+                            <td>
+                              <div style="height:auto;" >
+                                <img alt=""  height="22" width="22" class="img-picture"  src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                              </div>
+                            </td>
+                            <td>正常</td>
+                          </tr><tr ><!-- class="table-color"-->
+                            <td>
+                              <label class="checkbox padding-top-10" >
+                                <input type="checkbox" name="checkbox-inline">
+                                <i></i>
+                              </label>
+
+                            </td>
+                            <td>475</td>
+                            <td>销售</td>
+                            <td>ggfhg</td>
+                            <td>tyr</td>
+                            <td>yt</td>
+                            <td>ty</td>
+                            <td>
+                              <div style="height:auto;" >
+                                <img alt=""  height="22" width="22" class="img-picture"  src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                                <img alt=""  height="22" width="22" class="img-picture" src="assets/img/news/news4.jpg">
+                              </div>
+                            </td>
+                            <td>正常</td>
+                          </tr>
+
+
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                    <!-- 底部-（分页部分）-->
+                    <div class="dt-toolbar">
+                      <div class="col-xs-12 col-sm-6">
+                        <span>共11条</span>
+                        <!--<button class="btn btn-default" (click)="deleteProduct()">
+                          <i class="fa fa-trash-o fa-lg"></i>
+                          删除所选
+                        </button>-->
+                      </div>
+                      <div class="hidden-xs right">
+                        <ul class="pagination pagination-sm">
+                          <li *ngFor="let p of productList?.page" class="{{p.class}}">
+                            <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+                            <a *ngIf="p.method==''">{{p.text}}</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </sa-widget>
+              <!-- end widget -->
+            </article>
+
+
 
 
           </div>

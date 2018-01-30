@@ -97,7 +97,10 @@
                       </td>
                       <td>{{p.pr_order}}</td>
                       <td>{{p.pr_date}}</td>
-                      <td>{{(p.pr_status == 1) ? '正常':'无效'}}</td>
+                      <td>{{(p.pr_status == 1) ? '正常':'无效'}}
+                        <span class="label-normal">正常</span>
+                        <span class="label-invalid" >失效</span>
+                      </td>
                     </tr>
                     </tbody>
                   </table>

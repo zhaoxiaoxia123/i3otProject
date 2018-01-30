@@ -58,10 +58,16 @@
                 class="menu-item-parent">{{'产品管理' | i18n}}</span></a>
         <ul>
           <li routerLinkActive="active">
-            <a routerLink="/tables/product">{{'产品列表' | i18n}}</a>
+            <a routerLink="/management/setting-archives">{{'商品档案' | i18n}}</a>
           </li>
-          <li routerLinkActive="active" *ngIf="is_admin!='0'">
-            <a routerLink="/forms/product1/0">{{'添加产品' | i18n}}</a>
+          <li routerLinkActive="active">
+            <a routerLink="/inventory-management/inventory-classification">{{'商品分类' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/management/setting-conversion">{{'单位换算设置' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/management/setting-price">{{'商品价格级别' | i18n}}</a>
           </li>
           <li routerLinkActive="active" *ngIf="is_admin=='1' || is_admin=='2'">
             <a routerLink="/management/product3type">{{'产品类型设置' | i18n}}</a>
@@ -217,13 +223,6 @@
                 class="menu-item-parent">{{'收藏夹' | i18n}}</span></a>
         <ul>
           <li>
-            <a href="#">{{'人事管理新' | i18n}}</a>
-            <ul>
-
-
-            </ul>
-          </li>
-          <li>
             <a href="#">{{'矿易帮设置新' | i18n}}</a>
             <ul>
               <li routerLinkActive="active">
@@ -293,23 +292,6 @@
                 <a routerLink="/sales-management/add-sales/0">{{'添加销售单' | i18n}}</a>
               </li>
 
-            </ul>
-          </li>
-          <li>
-            <a href="#">{{'产品管理新' | i18n}}</a>
-            <ul>
-              <li routerLinkActive="active">
-                <a routerLink="/management/setting-archives">{{'商品档案' | i18n}}</a>
-              </li>
-              <li routerLinkActive="active">
-                <a routerLink="/inventory-management/inventory-classification">{{'商品分类' | i18n}}</a>
-              </li>
-              <li routerLinkActive="active">
-                <a routerLink="/management/setting-conversion">{{'单位换算设置' | i18n}}</a>
-              </li>
-              <li routerLinkActive="active">
-                <a routerLink="/management/setting-price">{{'商品价格级别' | i18n}}</a>
-              </li>
             </ul>
           </li>
           <li>
@@ -386,6 +368,34 @@
               </li>
 
 
+            </ul>
+          </li>
+
+
+
+        </ul>
+      </li>
+
+
+      <li>
+        <a href="#"><i class="fa fa-lg fa-fw fa-cubes"></i> <span
+                class="menu-item-parent">{{'V1' | i18n}}</span></a>
+        <ul>
+          <li>
+            <a href="#">{{'产品管理' | i18n}}</a>
+            <ul>
+              <li routerLinkActive="active">
+                <a routerLink="/tables/product">{{'产品列表' | i18n}}</a>
+              </li>
+              <li routerLinkActive="active" *ngIf="is_admin!='0'">
+                <a routerLink="/forms/product1/0">{{'添加产品' | i18n}}</a>
+              </li>
+              <li routerLinkActive="active" *ngIf="is_admin=='1' || is_admin=='2'">
+                <a routerLink="/management/product3type">{{'产品类型设置' | i18n}}</a>
+              </li>
+              <li routerLinkActive="active" *ngIf="is_admin=='1' || is_admin=='2'">
+                <a routerLink="/management/product4parameters">{{'产品规格/参数设置' | i18n}}</a>
+              </li>
             </ul>
           </li>
         </ul>

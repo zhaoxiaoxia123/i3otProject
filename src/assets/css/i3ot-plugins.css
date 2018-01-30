@@ -47,7 +47,7 @@
 
 .not-click{
     color: #fff !important;
-    background-color: #ccc;
+    background-color: #ccc!important;
     border: #ccc;
     pointer-events: none;
 }
@@ -660,6 +660,9 @@ div.dataTables_paginate ul.pagination {
 .mt-10{
     margin-top:-10px;
 }
+.mt-20{
+    margin-top:-20px;
+}
 .margin-top-5 {
     margin-top: 5px!important
 }
@@ -826,11 +829,11 @@ h1,h2,h3,h4 {
     overflow-y: scroll;
 }
 
-.border-overflow-400{
+.border-overflow-320{
     box-shadow: none;
     border: 1px solid #CCC;
     overflow: auto;
-    height: 400px;
+    height: 320px;
     padding: 10px;
 }
 

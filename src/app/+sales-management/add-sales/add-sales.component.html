@@ -1,9 +1,9 @@
 
 <!--主要内容-->
 <div id="content">
-  <div class="row">
+<!--  <div class="row">
     <sa-big-breadcrumbs [items]="['销售管理', '添加销售单']" icon="pencil-square-o" ></sa-big-breadcrumbs>
-  </div>
+  </div>-->
 
   <sa-widgets-grid>
     <div class="row">
@@ -11,11 +11,21 @@
       <article class="col-sm-12 ">
 
         <sa-widget [editbutton]="false" [deletebutton]="false" >
-          <header>
+          <header *ngIf="pr_id == 0">
             <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
-            <h2 *ngIf="pr_id == 0">添加销售单</h2>
-            <h2 *ngIf="pr_id != 0">修改销售单</h2>
+            <h2 >添加销售单</h2>
           </header>
+
+          <header *ngIf="pr_id != 0">
+            <span class="widget-icon"> <i class="glyphicon glyphicon-pencil"></i> </span>
+            <h2 >修改销售单 </h2>
+          </header>
+
+          <header >
+            <span class="widget-icon"> <i class="glyphicon glyphicon-zoom-in"></i> </span>
+            <h2 >读取单据号 </h2>
+          </header>
+
           <div>
             <!--小部件内容-->
             <div class="widget-body no-padding">
@@ -250,7 +260,7 @@
                               <th></th>
                               <th></th>
                               <th></th>
-                              <th></th>
+                              <th>0</th>
                               <th></th>
                               <th></th>
                               <th></th>
@@ -301,87 +311,4 @@
   <span *ngFor="let p of searchProductList?.result?.data;let ind = index;">
    <a (click)="addInput(ind)"> {{p.p_id}}:{{p.p_name}}</a>
   </span>
-</div>
-
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <!-- 关闭按钮 -->
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-          ×
-        </button>
-        <!-- 标题 -->
-        <h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>选择供应商</h3>
-      </div>
-      <div class="modal-body height-overflow-380">
-        <div class="row text-center" style="padding:10px 40px;">
-          <div class="dd" >
-            <ol class="dd-list">
-              <li class="dd-item " >
-                <button data-action="expand" type="button" style="display: none;">收起</button>
-                <button data-action="collapse" type="button"  style="display: block;">展开</button>
-                <div class="dd-handle dd-handle-color">
-                  矿
-                  <small  class="text-muted">
-                    <i >(202500)</i>
-                  </small>
-                  <span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>
-                  <div>
-                  </div>
-                </div>
-                <ol class="dd-list"  style="display: block;">
-                  <li class="dd-item" >
-                    <div class="dd-handle">
-                      矿
-                      <small  class="text-muted">
-                        <i >(202500)</i>
-                      </small>
-                      <span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>
-                      <div>
-                      </div>
-                    </div>
-                  </li>
-                </ol>
-              </li>
-              <li class="dd-item" >
-                <button  type="button"  style="display: block;">收起</button>
-                <button  type="button" style="display: none;">展开</button>
-                <div class="dd-handle">
-                  矿
-                  <small  class="text-muted">
-                    <i >(202500)</i>
-                  </small>
-                  <span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>
-                  <div>
-                  </div>
-
-                </div>
-                <ol class="dd-list"  style="display: none;">
-                  <li class="dd-item" id="186">
-                    <div class="dd-handle">
-                      矿
-                      <small  class="text-muted">
-                        <i >(202500)</i>
-                      </small>
-                      <span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>
-                      <div>
-                      </div>
-                    </div>
-                  </li>
-                </ol>
-              </li>
-
-
-            </ol>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success btn-sm" ><span class="glyphicon glyphicon-plus"></span>选入</button>
-        <!--    <button type="button" class="btn btn-primary" data-ng-click="ok()">保存</button>-->
-        <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
-      </div>
-    </div>
-  </div>
 </div>
