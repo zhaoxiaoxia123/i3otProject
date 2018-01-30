@@ -83,12 +83,11 @@
                 class="menu-item-parent">{{'CRM管理' | i18n}}</span></a>
         <ul>
           <li routerLinkActive="active">
-            <a routerLink="/tables/client1">{{'客户列表' | i18n}}</a>
+            <a routerLink="/customer-management/unit-classify">{{'单位分类' | i18n}}</a>
           </li>
-          <li routerLinkActive="active" *ngIf="is_admin!='0'">
-            <a routerLink="/forms/customer1/0">{{'添加客户' | i18n}}</a>
+          <li routerLinkActive="active">
+            <a routerLink="/customer-management/unit-list">{{'往来客户或单位' | i18n}}</a>
           </li>
-
         </ul>
       </li>
 
@@ -97,10 +96,13 @@
                 class="menu-item-parent">{{'销售管理' | i18n}}</span></a>
         <ul>
           <li routerLinkActive="active">
-            <a routerLink="/tables/indent">{{'订单列表' | i18n}}</a>
+            <a routerLink="/sales-management/sales-type">{{'销售类型' | i18n}}</a>
           </li>
-          <li routerLinkActive="active" *ngIf="is_admin!='0'">
-            <a routerLink="/forms/indent1/0">{{'添加订单' | i18n}}</a>
+          <li routerLinkActive="active">
+            <a routerLink="/sales-management/sales-list">{{'销售单' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/sales-management/add-sales/0">{{'添加销售单' | i18n}}</a>
           </li>
         </ul>
       </li>
@@ -115,12 +117,68 @@
           <li routerLinkActive="active" *ngIf="is_admin!='0'">
             <a routerLink="/forms/inventory1/0">{{'添加仓库' | i18n}}</a>
           </li>
+          <li routerLinkActive="active">
+            <a routerLink="/management/setting-repertory">{{'出入库类别' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/inventory-management/inventory-requisition">{{'调拨单' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/inventory-management/add-requisition/0">{{'添加调拨单' | i18n}}</a>
+          </li>
+
+        </ul>
+      </li>
+      <li>
+        <a href="#"><i class="fa fa-lg fa-fw  fa-shopping-cart"></i> <span
+                class="menu-item-parent">{{'采购管理' | i18n}}</span></a>
+        <ul>
+          <li routerLinkActive="active">
+            <a routerLink="/procurement-management/procurement-type">{{'采购类型' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/procurement-management/procurement-receipt">{{'进货单' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/procurement-management/add-receipt/0">{{'添加进货单' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/procurement-management/procurement-order">{{'采购订单' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/procurement-management/app-order/0">{{'添加采购订单' | i18n}}</a>
+          </li>
+
+        </ul>
+      </li>
+      <li>
+        <a href="#"><i class=" fa fa-lg fa-fw fa-cube"></i> <span
+                class="menu-item-parent">{{'资产管理' | i18n}}</span></a>
+        <ul>
+          <li routerLinkActive="active">
+            <a routerLink="/assets-management/assets-category">{{'资产类别' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/assets-management/assets-listing">{{'资产清单' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/assets-management/assets-issue">{{'资产发放' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/assets-management/assets-return">{{'资产归还' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/assets-management/assets-scrap">{{'资产报废' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/assets-management/assets-statistical">{{'资产分类统计' | i18n}}</a>
+          </li>
 
         </ul>
       </li>
 
       <li *ngIf="is_admin=='1'">
-        <a href="#"><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i> <span
+        <a href="#"><i class="fa fa-lg fa-fw fa-cog txt-color-blue"></i> <span
                 class="menu-item-parent">{{'矿易帮设置' | i18n}}</span></a>
         <ul>
           <li routerLinkActive="active">
@@ -137,6 +195,12 @@
           </li>
           <li routerLinkActive="active">
             <a routerLink="/management/setting-equipment">{{'设备设置' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/management/setting-affiliation">{{'项目设置' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/management/setting-personnel">{{'人员类别' | i18n}}</a>
           </li>
           <li *ngIf="is_admin=='1'">
             <a href="#"><i class="fa fa-lg fa-fw fa-suitcase"></i> <span
@@ -222,102 +286,10 @@
         <a href="#"><i class="fa fa-lg fa-fw  fa-th txt-color-blue"></i> <span
                 class="menu-item-parent">{{'收藏夹' | i18n}}</span></a>
         <ul>
-          <li>
-            <a href="#">{{'矿易帮设置新' | i18n}}</a>
-            <ul>
-              <li routerLinkActive="active">
-                <a routerLink="/management/setting-affiliation">{{'项目设置' | i18n}}</a>
-              </li>
-              <li routerLinkActive="active">
-                <a routerLink="/management/setting-personnel">{{'人员类别' | i18n}}</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href="#">{{'仓库设置新' | i18n}}</a>
-            <ul>
-              <li routerLinkActive="active">
-                <a routerLink="/management/setting-repertory">{{'出入库类别' | i18n}}</a>
-              </li>
-              <li routerLinkActive="active">
-                <a routerLink="/inventory-management/inventory-requisition">{{'调拨单' | i18n}}</a>
-              </li>
-              <li routerLinkActive="active">
-                <a routerLink="/inventory-management/add-requisition/0">{{'添加调拨单' | i18n}}</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href="#">{{'客户管理新' | i18n}}</a>
-            <ul>
-              <li routerLinkActive="active">
-                <a routerLink="/customer-management/unit-classify">{{'单位分类' | i18n}}</a>
-              </li>
-              <li routerLinkActive="active">
-                <a routerLink="/customer-management/unit-list">{{'往来客户或单位' | i18n}}</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href="#">{{'采购管理新' | i18n}}</a>
-            <ul>
-              <li routerLinkActive="active">
-                <a routerLink="/procurement-management/procurement-type">{{'采购类型' | i18n}}</a>
-              </li>
-              <li routerLinkActive="active">
-                <a routerLink="/procurement-management/procurement-receipt">{{'进货单' | i18n}}</a>
-              </li>
-              <li routerLinkActive="active">
-                <a routerLink="/procurement-management/add-receipt/0">{{'添加进货单' | i18n}}</a>
-              </li>
-              <li routerLinkActive="active">
-                <a routerLink="/procurement-management/procurement-order">{{'采购订单' | i18n}}</a>
-              </li>
-              <li routerLinkActive="active">
-                <a routerLink="/procurement-management/app-order/0">{{'添加采购订单' | i18n}}</a>
-              </li>
 
-            </ul>
-          </li>
-          <li>
-            <a href="#">{{'销售管理新' | i18n}}</a>
-            <ul>
-              <li routerLinkActive="active">
-                <a routerLink="/sales-management/sales-type">{{'销售类型' | i18n}}</a>
-              </li>
-              <li routerLinkActive="active">
-                <a routerLink="/sales-management/sales-list">{{'销售单' | i18n}}</a>
-              </li>
-              <li routerLinkActive="active">
-                <a routerLink="/sales-management/add-sales/0">{{'添加销售单' | i18n}}</a>
-              </li>
 
-            </ul>
-          </li>
-          <li>
-            <a href="#">{{'资产管理' | i18n}}</a>
-            <ul>
-              <li routerLinkActive="active">
-                <a routerLink="/assets-management/assets-category">{{'资产类别' | i18n}}</a>
-              </li>
-              <li routerLinkActive="active">
-                <a routerLink="/assets-management/assets-listing">{{'资产清单' | i18n}}</a>
-              </li>
-              <li routerLinkActive="active">
-                <a routerLink="/assets-management/assets-issue">{{'资产发放' | i18n}}</a>
-              </li>
-              <li routerLinkActive="active">
-                <a routerLink="/assets-management/assets-return">{{'资产归还' | i18n}}</a>
-              </li>
-              <li routerLinkActive="active">
-                <a routerLink="/assets-management/assets-scrap">{{'资产报废' | i18n}}</a>
-              </li>
-              <li routerLinkActive="active">
-                <a routerLink="/assets-management/assets-statistical">{{'资产分类统计' | i18n}}</a>
-              </li>
 
-            </ul>
-          </li>
+
 
           <li routerLinkActive="active">
             <a routerLink="/graphs/tree-views">{{'部门参考' | i18n}}</a>
@@ -382,7 +354,8 @@
                 class="menu-item-parent">{{'V1' | i18n}}</span></a>
         <ul>
           <li>
-            <a href="#">{{'产品管理' | i18n}}</a>
+            <a href="#"><i class="fa fa-lg fa-fw fa-cubes"></i> <span
+                    class="menu-item-parent">{{'产品管理' | i18n}}</span></a>
             <ul>
               <li routerLinkActive="active">
                 <a routerLink="/tables/product">{{'产品列表' | i18n}}</a>
@@ -395,6 +368,31 @@
               </li>
               <li routerLinkActive="active" *ngIf="is_admin=='1' || is_admin=='2'">
                 <a routerLink="/management/product4parameters">{{'产品规格/参数设置' | i18n}}</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#"><i class="fa fa-lg fa-fw fa-suitcase"></i> <span
+                    class="menu-item-parent">{{'CRM管理' | i18n}}</span></a>
+            <ul>
+              <li routerLinkActive="active">
+                <a routerLink="/tables/client1">{{'客户列表' | i18n}}</a>
+              </li>
+              <li routerLinkActive="active" *ngIf="is_admin!='0'">
+                <a routerLink="/forms/customer1/0">{{'添加客户' | i18n}}</a>
+              </li>
+
+            </ul>
+          </li>
+          <li>
+            <a href="#"><i class="fa fa-lg fa-fw fa-skype"></i> <span
+                    class="menu-item-parent">{{'销售管理' | i18n}}</span></a>
+            <ul>
+              <li routerLinkActive="active">
+                <a routerLink="/tables/indent">{{'订单列表' | i18n}}</a>
+              </li>
+              <li routerLinkActive="active" *ngIf="is_admin!='0'">
+                <a routerLink="/forms/indent1/0">{{'添加订单' | i18n}}</a>
               </li>
             </ul>
           </li>
