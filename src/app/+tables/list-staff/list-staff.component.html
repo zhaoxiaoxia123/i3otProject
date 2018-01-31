@@ -199,7 +199,7 @@
                                   </span>
                                 </td>
                                 <td>{{ ul.u_position}}</td>
-                                <td>{{ ul.category_desc}}</td>
+                                <td>{{ ul.department_name}}</td>
                                 <td>{{ ul.u_phone }}</td>
                                 <td>{{ (ul.u_status == 1)?'正常':'无效'}}</td>
                               </tr>
@@ -362,7 +362,7 @@
                   </tr>
                   <tr>
                     <td class="width-120">所属部门:</td>
-                    <td class="">{{user_info.result?.department}}</td>
+                    <td class="">{{user_info.result?.department_name}}</td>
                   </tr>
                   <tr><td class="width-120">备注说明:</td>
                     <td class="">{{user_info.result?.u_notes}}</td>

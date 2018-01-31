@@ -2,11 +2,11 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {FadeInTop} from '../../shared/animations/fade-in-top.decorator';
 import {Http} from '@angular/http';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
-import {arrayify} from 'tslint/lib/utils';
 import {Router} from '@angular/router';
 import {GlobalService} from '../../core/global.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ModalDirective} from "ngx-bootstrap";
+import {isUndefined} from "util";
 // import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 @FadeInTop()
 @Component({
@@ -74,7 +74,7 @@ export class ListStaffComponent implements OnInit {
    * 获取默认参数
    */
   getUserDefault() {
-    this.http.get(this.globalService.getDomain()+'/api/v1/getUserDefault?sid='+this.cookieStore.getCookie('sid'))
+    this.http.get(this.globalService.getDomain()+'/api/v1/getUserDefault?type=list&sid='+this.cookieStore.getCookie('sid'))
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.userDefault = data;
@@ -165,13 +165,13 @@ export class ListStaffComponent implements OnInit {
     let v = t.value;
     let c = t.checked;
     this.selects[v] = c;
-    let isAll = 0;
+    let isAlls = 0;
     for (let s of this.selects) {
       if(s == false) {
-        isAll += 1;
+        isAlls += 1;
       }
     }
-    if(isAll >= 1){
+    if(isAlls >= 1){
       this.check = false;
     }else{
       this.check = true;
@@ -326,7 +326,7 @@ export class ListStaffComponent implements OnInit {
         if(this.userDefault['result']['departmentList'][index]){
           if(this.userDefault['result']['departmentList'][index]['child_count'] >= 1){
             this.userDefault['result']['departmentList'][index]['child'].forEach((val, idx, array) => {
-              if(this.select_department_ids[val['department_id']] == false){
+              if(this.select_department_ids[val['department_id']] == false ||  isUndefined(this.select_department_ids[val['department_id']])){
                 count ++;
               }
             });

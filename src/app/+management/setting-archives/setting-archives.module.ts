@@ -7,19 +7,25 @@ import {I3otpEditorsModule} from "../../shared/forms/editors/i3otp-editors.modul
 import {I3otpModule} from "../../shared/i3otp.module";
 
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {CookieService} from "angular2-cookie/core";
+import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
+import {ImgCropperSelectModule} from "../../shared/img-cropper-select/img-cropper-select.module";
+import {ImageCropperComponent} from "ng2-img-cropper";
 
 @NgModule({
   imports: [
     CommonModule,
-      I3otpEditorsModule,
-      I3otpModule,
+    I3otpEditorsModule,
+    I3otpModule,
     FormsModule,
     ReactiveFormsModule,
-    SettingArchivesRoutingModule
+    SettingArchivesRoutingModule,
+    ImgCropperSelectModule
   ],
-  declarations: [SettingArchivesComponent],
+  declarations: [
+      SettingArchivesComponent,
+    ImageCropperComponent
+  ],
   providers:[ CookieService,CookieStoreService ]
 })
 export class SettingArchivesModule { }

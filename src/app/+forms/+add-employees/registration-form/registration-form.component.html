@@ -85,7 +85,7 @@
 
           <label class="select">
             <select name="department" formControlName="department" [(ngModel)]="department_default">
-              <option *ngFor="let c of userList.result?.departmentList" [selected]="user_info.result?.u_department == c.category_id" value="{{c.category_id}}">{{c.category_desc}}</option>
+              <option *ngFor="let d of userList.result?.departmentList" [selected]="user_info.result?.u_department == d.department_id" value="{{d.department_id}}">{{d.department_name}}</option>
             </select> <i></i> </label>
         </section>
         <section class="col col-4 col-sm-4 col-xs-4">
@@ -123,15 +123,11 @@
     <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
       <section>
         <label  class="label txt-color-red">职称</label>
+
         <label class="select">
-          <select name="">
-            <option></option>
-            <option>总经理</option>
-            <option>组长</option>
-            <option>财务经理</option>
-            <option></option>
-          </select><i></i>
-        </label>
+          <select name="title" formControlName="title" [(ngModel)]="title_default">
+            <option *ngFor="let c of userList.result?.titleList" [selected]="user_info.result?.u_title == c.category_id" value="{{c.category_id}}">{{c.category_desc}}</option>
+          </select> <i></i> </label>
       </section>
 
     </div>
