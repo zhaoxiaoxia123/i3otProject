@@ -1,7 +1,4 @@
 <div id="content">
-  <div class="row">
-    <sa-big-breadcrumbs [items]="['人事管理', '职称']" icon="pencil-square-o" ></sa-big-breadcrumbs>
-  </div>
   <sa-widget [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
     <header>
       <ul class="nav nav-tabs pull-left in">
@@ -27,7 +24,7 @@
                             添加职称
                           </alert>
                           <alert type="info" class="no-margin" *ngIf="category_id != 0">
-                            <i class="fa-fw fa fa-plus"></i>
+                            <i class="glyphicon glyphicon-pencil"></i>
                             修改职称
                           </alert>
                           <div  class="mt-10">
