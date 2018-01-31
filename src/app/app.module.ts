@@ -47,12 +47,10 @@ type StoreType = {
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-
     CoreModule,
     I3otpLayoutModule,
     AngularEchartsModule,
-    routing,
-
+    routing
   ],
   exports: [
   ],

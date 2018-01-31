@@ -40,6 +40,7 @@ export class RegistrationFormComponent implements OnInit {
   gender_default : number;
   c_id_default : number;
   department_default : number;
+  title_default: number = 0;
   contract_type_default : number;
   birthplace1_default : number;
   birthplace2_default : number;
@@ -88,6 +89,7 @@ export class RegistrationFormComponent implements OnInit {
       // },{validator:passwordValidator}),
       phone:['',mobileValidator,mobileAsyncValidator],
       department:[''],
+      title:[''],
       notes:[''],
       enrol_time:[''],
       position:[''],
@@ -177,61 +179,59 @@ export class RegistrationFormComponent implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.user_info = data;
+          console.log(this.user_info);
+          this.formModel.patchValue({
+            'u_id':this.user_info['result']['id'],
+            'employee_id':this.user_info['result']['name'],
+            'name':this.user_info['result']['u_username'],
+            'phone':this.user_info['result']['u_phone'],
+            // 'password':this.user_info['result']['passwords']['password'],
+            'role':this.user_info['result']['u_role'],
+            'gender':this.user_info['result']['u_gender'],
+            'age':this.user_info['result']['u_age'],
+            'department':this.user_info['result']['u_department'],
+            'title':this.user_info['result']['u_title'],
+            'notes':this.user_info['result']['u_notes'],
+            'enrol_time':this.user_info['result']['u_enrol_time'],
+            'position':this.user_info['result']['u_position'],
+            'contract_type':this.user_info['result']['u_contract_type'],
+            'birthplace1':this.user_info['result']['birthplace1'],
+            'birthplace2':this.user_info['result']['birthplace2'],
+            // 'birthplace':this.user_info['result']['birthplace1']+ ' '+this.user_info['result']['birthplace2'],
+            'id_card':this.user_info['result']['u_id_card'],
+            'nation':this.user_info['result']['u_nation'],
+            'marital_status':this.user_info['result']['u_marital_status'],
+            'graduate_institutions':this.user_info['result']['u_graduate_institutions'],
+            'study_major':this.user_info['result']['u_study_major'],
+            'study_diploma':this.user_info['result']['u_study_diploma'],
+            'study_category':this.user_info['result']['u_study_category'],
+            'email':this.user_info['result']['email'],
+            'emergency_contact':this.user_info['result']['u_emergency_contact'],
+            'emergency_phone':this.user_info['result']['u_emergency_phone'],
+            'address1':this.user_info['result']['address1'],
+            'address2':this.user_info['result']['address2'],
+            'address3':this.user_info['result']['address3'],
+            'address4':this.user_info['result']['address4']
+            // 'address':this.user_info['result']['address1']+' '+this.user_info['result']['address2'] +' '+ this.user_info['result']['address3']+' '+this.user_info['result']['address4'],
+          });
+          this.path = this.user_info['result']['u_avatar'];
+          if(this.user_info['result']['birthplace1'] != 0){
+            this.getBrithplaceCity();
+          }
+          if(this.user_info['result']['address1'] != 0){
+            this.getCity();
+          }
+          if(this.user_info['result']['address2'] != 0){
+            this.getArea();
+          }
+          this.super_admin_id = this.user_info['super_admin_id'];
+          if(this.cookieStoreService.getCookie('cid') == this.super_admin_id){
+            this.formModel.patchValue({
+              'c_id': this.user_info['result']['c_id']
+            });
+            this.is_show = true;
+          }
         });
-    setTimeout(() => {
-      console.log(this.user_info);
-      this.formModel.patchValue({
-        'u_id':this.user_info['result']['id'],
-        'employee_id':this.user_info['result']['name'],
-        'name':this.user_info['result']['u_username'],
-        'phone':this.user_info['result']['u_phone'],
-        // 'password':this.user_info['result']['passwords']['password'],
-        'role':this.user_info['result']['u_role'],
-        'gender':this.user_info['result']['u_gender'],
-        'age':this.user_info['result']['u_age'],
-        'department':this.user_info['result']['u_department'],
-        'notes':this.user_info['result']['u_notes'],
-        'enrol_time':this.user_info['result']['u_enrol_time'],
-        'position':this.user_info['result']['u_position'],
-        'contract_type':this.user_info['result']['u_contract_type'],
-        'birthplace1':this.user_info['result']['birthplace1'],
-        'birthplace2':this.user_info['result']['birthplace2'],
-        // 'birthplace':this.user_info['result']['birthplace1']+ ' '+this.user_info['result']['birthplace2'],
-        'id_card':this.user_info['result']['u_id_card'],
-        'nation':this.user_info['result']['u_nation'],
-        'marital_status':this.user_info['result']['u_marital_status'],
-        'graduate_institutions':this.user_info['result']['u_graduate_institutions'],
-        'study_major':this.user_info['result']['u_study_major'],
-        'study_diploma':this.user_info['result']['u_study_diploma'],
-        'study_category':this.user_info['result']['u_study_category'],
-        'email':this.user_info['result']['email'],
-        'emergency_contact':this.user_info['result']['u_emergency_contact'],
-        'emergency_phone':this.user_info['result']['u_emergency_phone'],
-        'address1':this.user_info['result']['address1'],
-        'address2':this.user_info['result']['address2'],
-        'address3':this.user_info['result']['address3'],
-        'address4':this.user_info['result']['address4']
-        // 'address':this.user_info['result']['address1']+' '+this.user_info['result']['address2'] +' '+ this.user_info['result']['address3']+' '+this.user_info['result']['address4'],
-      });
-      this.path = this.user_info['result']['u_avatar'];
-      if(this.user_info['result']['birthplace1'] != 0){
-        this.getBrithplaceCity();
-      }
-      if(this.user_info['result']['address1'] != 0){
-        this.getCity();
-      }
-      if(this.user_info['result']['address2'] != 0){
-        this.getArea();
-      }
-      this.super_admin_id = this.user_info['super_admin_id'];
-      if(this.cookieStoreService.getCookie('cid') == this.super_admin_id){
-        this.formModel.patchValue({
-          'c_id': this.user_info['result']['c_id']
-        });
-        this.is_show = true;
-      }
-
-    }, 500);
   }
 
   /**
@@ -249,40 +249,40 @@ export class RegistrationFormComponent implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.userList = data;
+          console.log('this.userList:----');
+          console.log(this.userList);
+          if(this.userList['status'] == 202) {
+            alert(this.userList['msg']);
+            this.cookieStoreService.removeAll(this.rollback_url);
+            this.router.navigate(['/auth/login']);
+          }
+          if(this.u_id == 0){
+            this.role_default = 2;
+            this.gender_default = 1;
+            this.c_id_default = this.userList['result']['customerList'].length >= 1 ? this.userList['result']['customerList'][0]['c_id'] : 0;
+            this.department_default = this.userList['result']['departmentList'].length >= 1 ? this.userList['result']['departmentList'][0]['department_id'] : 0;
+            this.title_default = this.userList['result']['titleList'].length >= 1 ? this.userList['result']['titleList'][0]['category_id'] : 0;
+
+            this.contract_type_default = this.userList['result']['contractTypeList'].length >= 1 ? this.userList['result']['contractTypeList'][0]['category_id'] : 0;
+            this.birthplace1_default = 0;
+            this.birthplace2_default = 0;
+            this.nation_default = '汉族';
+            this.marital_status_default = 1;
+            this.study_diploma_default = 1;
+            this.study_category_default = this.userList['result']['studyCategoryList'].length >= 1 ? this.userList['result']['studyCategoryList'][0]['category_id'] : 0;
+            this.address1_default = 0;
+            this.address2_default = 0;
+            this.address3_default = 0;
+            this.super_admin_id = this.userList['super_admin_id'];
+          }
+          if(this.cookieStoreService.getCookie('cid') == this.super_admin_id){
+            this.is_show = true;
+          }
+          if(num == 2){
+            this.lgModal.hide();
+          }
         });
 
-    setTimeout(() => {
-      console.log('this.userList:----');
-      console.log(this.userList);
-      if(this.userList['status'] == 202) {
-        alert(this.userList['msg']);
-        this.cookieStoreService.removeAll(this.rollback_url);
-        this.router.navigate(['/auth/login']);
-      }
-      if(this.u_id == 0){
-        this.role_default = 2;
-        this.gender_default = 1;
-        this.c_id_default = this.userList['result']['customerList'].length >= 1 ? this.userList['result']['customerList'][0]['c_id'] : 0;
-        this.department_default = this.userList['result']['departmentList'].length >= 1 ? this.userList['result']['departmentList'][0]['category_id'] : 0;
-        this.contract_type_default = this.userList['result']['contractTypeList'].length >= 1 ? this.userList['result']['contractTypeList'][0]['category_id'] : 0;
-        this.birthplace1_default = 0;
-        this.birthplace2_default = 0;
-        this.nation_default = '汉族';
-        this.marital_status_default = 1;
-        this.study_diploma_default = 1;
-        this.study_category_default = this.userList['result']['studyCategoryList'].length >= 1 ? this.userList['result']['studyCategoryList'][0]['category_id'] : 0;
-        this.address1_default = 0;
-        this.address2_default = 0;
-        this.address3_default = 0;
-        this.super_admin_id = this.userList['super_admin_id'];
-      }
-      if(this.cookieStoreService.getCookie('cid') == this.super_admin_id){
-        this.is_show = true;
-      }
-      if(num == 2){
-        this.lgModal.hide();
-      }
-    }, 500);
   }
 
   onSubmit(){
@@ -306,6 +306,7 @@ export class RegistrationFormComponent implements OnInit {
       'gender':this.formModel.value['gender'],
       'age':this.formModel.value['age'],
       'department':this.formModel.value['department'],
+      'title':this.formModel.value['title'],
       'notes':this.formModel.value['notes'],
       'enrol_time':this.formModel.value['enrol_time'],
       'position':this.formModel.value['position'],
@@ -390,22 +391,6 @@ export class RegistrationFormComponent implements OnInit {
   }
 
   /**
-   * 将base64编码转换为Blob
-   * @param urlData
-   * @returns {Blob}
-   */
-  convertBase64UrlToBlob(urlData){
-    var bytes=window.atob(urlData.split(',')[1]);        //去掉url的头，并转换为byte
-    //处理异常,将ascii码小于0的转换为大于0
-    var ab = new ArrayBuffer(bytes.length);
-    var ia = new Uint8Array(ab);
-    for (var i = 0; i < bytes.length; i++) {
-      ia[i] = bytes.charCodeAt(i);
-    }
-    return new Blob( [ab] , {type : 'image/png'});
-  }
-
-  /**
    * 上传文件
    */
   postFile(){
@@ -413,7 +398,7 @@ export class RegistrationFormComponent implements OnInit {
     var form=document.forms[0];
     var formData : FormData = new FormData(form);
     //convertBase64UrlToBlob函数是将base64编码转换为Blob
-    formData.append("uploadedfile",this.convertBase64UrlToBlob(this.data1.image),"head_"+ new Date().getTime() +".png");
+    formData.append("uploadedfile",this.globalService.convertBase64UrlToBlob(this.data1.image),"head_"+ new Date().getTime() +".png");
     console.log(this.data1);
     //组建XMLHttpRequest 上传文件
     var infos ;

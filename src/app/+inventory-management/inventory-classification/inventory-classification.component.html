@@ -95,7 +95,7 @@
                                       <div class="dd-handle">
                                         {{cl.category_desc}}
                                         <small  class="text-muted">
-                                          <i >(202500)</i>
+                                          <i >({{cl.child_count}})</i>
                                         </small>
                                         <div *ngIf="cid == super_admin_id || cl.c_id == cid">
                                           <a class="btn pull-right btn-warning btn-xs btn-20" (click)="editCategory(cl.category_id)"><span class="glyphicon glyphicon-pencil"></span>修改</a>
@@ -107,9 +107,6 @@
                                         <li class="dd-item" data-id="{{clc.category_id}}" *ngFor="let clc of cl.child">
                                           <div class="dd-handle">
                                             {{clc.category_desc}}
-                                            <small  class="text-muted">
-                                              <i >(202500)</i>
-                                            </small>
                                             <div *ngIf="cid == super_admin_id || clc.c_id == cid">
                                               <a class="btn pull-right btn-warning btn-xs btn-20" (click)="editCategory(clc.category_id)"><span class="glyphicon glyphicon-pencil"></span>修改</a>
                                               <a class="btn pull-right btn-danger btn-xs btn-20" (click)="deleteCategory(clc.category_id)"><span class="glyphicon glyphicon-remove"></span>删除</a>

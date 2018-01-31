@@ -4,25 +4,19 @@ import {Router} from "@angular/router";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
 import {ModalDirective} from "ngx-bootstrap";
-import {timestamp} from "rxjs/operator/timestamp";
+import {isUndefined} from "util";
+import {ImageCropperComponent, CropperSettings, Bounds} from 'ng2-img-cropper';
+
 @Component({
   selector: 'app-setting-archives',
-  templateUrl: './setting-archives.component.html'
+  templateUrl: './setting-archives.component.html',
+    styleUrls: ['./setting-archives.scss']
 })
 export class SettingArchivesComponent implements OnInit {
     public states: Array<any>;
     public state: any = {
         tabs: {
-            demo1: 0,
-            demo2: 'tab-r1',
             demo3: 'hr1',
-            demo4: 'AA',
-            demo5: 'iss1',
-            demo6: 'l1',
-            demo7: 'tab1',
-            demo8: 'hb1',
-            demo9: 'A1',
-            demo10: 'is1'
         },
     };
 
@@ -58,6 +52,19 @@ export class SettingArchivesComponent implements OnInit {
     p_retail_amout: string = '';
     p_stop_use : string = '';
     p_stop_time : string = '';
+    
+    //左侧选中商品分类的id
+    select_category_ids: Array<any> = [];
+    //左边展开和收起功能
+    showUl : number  = 1;//一级分类
+    showUlChild : number  = 0;//二级
+
+    //顶部启动 和无效是否启用显示
+    editStatusProductId : any = 0;
+    isStatus : any = 0;
+
+    //处理批量
+    isAll : number = 0;
 
     p_property_id : number = 1;
     keyword : string = '';
@@ -65,21 +72,54 @@ export class SettingArchivesComponent implements OnInit {
     super_admin_id : any = 0;//超级管理员所属公司id
     category_type : number = 6;
     rollback_url : string = '/management/setting-archives';
+
+    /**
+     * 图片
+     */
+    imgList : Array<any> = [];
+    url : string = this.globalService.getDomain();
+    path:string = '';
+    data1:any;
+    cropperSettings1:CropperSettings;
+    croppedWidth:number;
+    croppedHeight:number;
+    @ViewChild('cropper', undefined) cropper:ImageCropperComponent;
+
     constructor(
         private http:Http,
         private router : Router,
-        private cookieStoreService:CookieStoreService,
+        private cookieStore:CookieStoreService,
         private globalService:GlobalService) {
 
         let nav = '{"title":"商品档案","url":"/management/setting-archives","class_":"active"}';
         this.globalService.navEventEmitter.emit(nav);
-        this.getProductList('1');
+        this.getProductList('1',0);
         window.scrollTo(0,0);
         this.super_admin_id = this.globalService.getAdminID();
-        this.cid = this.cookieStoreService.getCookie('cid');
+        this.cid = this.cookieStore.getCookie('cid');
         this.getProductDefault();
+
+        this.cropperSettings1 = new CropperSettings();
+        this.cropperSettings1.width = 150;
+        this.cropperSettings1.height = 150;
+        this.cropperSettings1.croppedWidth = 150;
+        this.cropperSettings1.croppedHeight = 150;
+        this.cropperSettings1.canvasWidth = 200;
+        this.cropperSettings1.canvasHeight = 200;
+        this.cropperSettings1.minWidth = 10;
+        this.cropperSettings1.minHeight = 10;
+        this.cropperSettings1.rounded = false;
+        this.cropperSettings1.keepAspect = true;
+        this.cropperSettings1.cropperDrawSettings.strokeColor = 'rgba(255,255,255,1)';
+        this.cropperSettings1.cropperDrawSettings.strokeWidth = 2;
+        this.data1 = {};
     }
 
+    cropped(bounds:Bounds) {
+        this.croppedHeight =bounds.bottom-bounds.top;
+        this.croppedWidth = bounds.right-bounds.left;
+        // console.log(bounds);
+    }
     ngOnInit() {
     }
     
@@ -87,46 +127,53 @@ export class SettingArchivesComponent implements OnInit {
      * 获取默认参数
      */
     getProductDefault(){
-        this.http.get(this.globalService.getDomain()+'/api/v1/getProductDefault?p_type='+this.p_type+'&category_type='+this.category_type+'&sid='+this.cookieStoreService.getCookie('sid'))
+        this.http.get(this.globalService.getDomain()+'/api/v1/getProductDefault?p_type='+this.p_type+'&category_type='+this.category_type+'&sid='+this.cookieStore.getCookie('sid'))
             .map((res)=>res.json())
             .subscribe((data)=>{
                 this.productDefault = data;
+                console.log(this.productDefault);
+                if(this.productDefault['status'] == 202){
+                    alert(this.productDefault['msg']);
+                    this.cookieStore.removeAll(this.rollback_url);
+                    this.router.navigate(['/auth/login']);
+                }
             });
-        setTimeout(() => {
-            console.log(this.productDefault);
-            if(this.productDefault['status'] == 202){
-                alert(this.productDefault['msg']);
-                this.cookieStoreService.removeAll(this.rollback_url);
-                this.router.navigate(['/auth/login']);
-            }
-        }, 600);
     }
     /**
      * 获取客户列表
      * @param number
      */
-    getProductList(number:string) {
-        let url = this.globalService.getDomain()+'/api/v1/getProductList?p_type='+this.p_type+'&page='+number+'&sid='+this.cookieStoreService.getCookie('sid');
+    getProductList(number:string,category_id:any) {
+        let url = this.globalService.getDomain()+'/api/v1/getProductList?p_type='+this.p_type+'&page='+number+'&sid='+this.cookieStore.getCookie('sid');
         if(this.keyword.trim() != '') {
             url += '&keyword='+this.keyword.trim();
+        }
+        if(category_id != 0){
+            url += '&category_ids='+category_id;
+        }else{
+            let category_ids = '';
+            this.select_category_ids.forEach((val, idx, array) => {
+                if(val == true) {
+                    category_ids += idx + ',';
+                }
+            });
+            url += '&category_ids='+category_ids;
         }
         this.http.get(url)
             .map((res)=>res.json())
             .subscribe((data)=>{
                 this.productList = data;
+                console.log(this.productList);
+                if(this.productList['status'] == 202){
+                    this.cookieStore.removeAll(this.rollback_url);
+                    this.router.navigate(['/auth/login']);
+                }
+                this.selects = [];
+                for (let entry of this.productList['result']['productList']['data']) {
+                    this.selects[entry['p_id']] = false;
+                }
+                this.check = false;
             });
-        setTimeout(() => {
-            console.log(this.productList);
-            if(this.productList['status'] == 202){
-                this.cookieStoreService.removeAll(this.rollback_url);
-                this.router.navigate(['/auth/login']);
-            }
-            this.selects = [];
-            for (let entry of this.productList['result']) {
-                this.selects[entry['p_id']] = false;
-            }
-            this.check = false;
-        }, 1000);
     }
 
     //全选，反全选
@@ -167,40 +214,6 @@ export class SettingArchivesComponent implements OnInit {
     changePoperty($event){
         this.p_property_id = $event.target.value;
     }
-    /**
-     * 详情
-     * @returns {boolean}
-     */
-    getProductInfo(){
-        let isAll = 0;
-        let p_id = 0;
-        this.selects.forEach((val, idx, array) => {
-            if(val == true) {
-                isAll += 1;
-                p_id = idx;
-            }
-        });
-        let msg = '';
-        if(isAll <= 0){
-            msg = '请选中要查看的信息，再点击此“修改”按钮！';
-        }else if(isAll > 1){
-            msg = '仅支持选择一条要查看详情的信息！';
-        }
-        if(msg != ''){
-            alert(msg);
-            return false;
-        }
-        this.http.get(this.globalService.getDomain()+'/api/v1/getProductInfo?p_id='+p_id)
-            .map((res)=>res.json())
-            .subscribe((data)=>{
-                this.productInfo = data;
-            });
-        setTimeout(() => {
-            console.log(this.productInfo);
-
-        }, 500);
-    }
-
 
     /**
      * 添加信息
@@ -222,6 +235,7 @@ export class SettingArchivesComponent implements OnInit {
             'specification' : this.p_specification,
             'unit' : this.p_unit,
             'notes' : this.p_notes,
+            'p_img' : JSON.stringify(this.imgList),
             'p_type' : this.p_type,
             'p_purchase_price' : this.p_purchase_price,
             'p_shortcode' : this.p_shortcode,
@@ -234,23 +248,25 @@ export class SettingArchivesComponent implements OnInit {
             'p_retail_amout' : this.p_retail_amout,
             'p_stop_use' : this.p_stop_use,
             'p_stop_time' : this.p_stop_time,
-            'u_id' : this.cookieStoreService.getCookie('uid'),
-            'sid':this.cookieStoreService.getCookie('sid')
+            'u_id' : this.cookieStore.getCookie('uid'),
+            'sid':this.cookieStore.getCookie('sid')
         }).subscribe(
             (data)=>{
                 let info = JSON.parse(data['_body']);
-                alert(info['msg']);
-                if(info['status'] == 200) {
+                if(info['status'] == 201){
+                    alert(info['msg']);
+                    return false;
+                }else if(info['status'] == 200) {
+                    this.productList = info;
                     this.clear_();
                 }else if(info['status'] == 202){
-                    this.cookieStoreService.removeAll(this.rollback_url);
+                    this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
-                this.productList = info;
 
                 this.selects = [];
-                for (let entry of this.productList['result']) {
-                    this.selects[entry['c_id']] = false;
+                for (let entry of this.productList['result']['productList']['data']) {
+                    this.selects[entry['p_id']] = false;
                 }
                 this.check = false;
             }
@@ -307,87 +323,279 @@ export class SettingArchivesComponent implements OnInit {
         this.p_stop_time = info['result']['p_stop_time'];
     }
 
+
     /**
-     * 编辑信息
+     *  type ： （ edit ：修改  ；  detail  ： 详情）
      */
-    editProduct(){
-        let isAll = 0;
-        let p_id = 0;
-        this.selects.forEach((val, idx, array) => {
-            if(val == true) {
-                isAll += 1;
-                p_id = idx;
-            }
-        });
-        let msg = '';
-        if(isAll <= 0){
-            msg = '请选中要编辑的信息，再点击此“修改”按钮！';
-        }else if(isAll > 1){
-            msg = '仅支持选择一条要编辑的信息！';
-        }
-        if(msg != ''){
-            alert(msg);
+    detailProduct(type:string){
+        if(this.isStatus == 0){
             return false;
         }
-        this.lgModal.show();
-        this.http.get(this.globalService.getDomain()+'/api/v1/getProductInfo?p_id='+p_id+'&p_type='+this.p_type)
+        if(type == 'edit'){
+            this.lgModal.show();
+        }else{
+            // this.detailModal.show();
+        }
+        this.http.get(this.globalService.getDomain()+'/api/v1/getProductInfo?p_id='+this.editStatusProductId+'&p_type='+this.p_type+'&sid='+this.cookieStore.getCookie('sid'))
             .map((res)=>res.json())
             .subscribe((data)=>{
                 this.productInfo = data;
+                if(this.productInfo['status'] == 200 && type == 'edit') {
+                    this.setValue(this.productInfo);
+                }else if(this.productInfo['status'] == 202){
+                    alert(this.productInfo['msg']);
+                    this.cookieStore.removeAll(this.rollback_url);
+                    this.router.navigate(['/auth/login']);
+                }
             });
-        setTimeout(() => {
-            this.setValue(this.productInfo);
-
-        }, 500);
     }
+
 
     /**
      * 删除信息
+     * type id:单挑  all :多条
      */
-    deleteProduct(){
+    deleteProduct(type:any){
         if(this.globalService.demoAlert('','')){
             return false;
         }
         let msg = '';
+        let p_id : string = '';
+        if(type == 'id'){
+            p_id = this.editStatusProductId;
+        } else if(type == 'all') {
+            let is_select = 0;
+            this.selects.forEach((val, idx, array) => {
+                if (val == true) {
+                    p_id += idx + ',';
+                    is_select += 1;
+                }
+            });
 
-        let is_select = 0;
-        let ids : string = '';
-        this.selects.forEach((val, idx, array) => {
-            if(val == true){
-                ids += idx+',';
-                is_select += 1;
+            if (is_select < 1) {
+                msg = '请确认已选中需要删除的信息！';
+                alert(msg);
+                return false;
+            }
+        }
+        let category_ids = '';
+        this.select_category_ids.forEach((val, idx, array) => {
+            if(val == true) {
+                category_ids += idx + ',';
             }
         });
-
-        if(is_select < 1){
-            msg = '请确认已选中需要删除的信息！';
-            alert(msg);
-            return false;
-        }
         msg = '您确定要删除该信息吗？';
         if(confirm(msg)) {
-            let url = this.globalService.getDomain()+'/api/v1/deleteProductById?ids=' + ids + '&p_type='+this.p_type+'&type=all&sid=' + this.cookieStoreService.getCookie('sid');
+            let url = this.globalService.getDomain()+'/api/v1/deleteProductById?p_id=' + p_id + '&category_ids='+category_ids+'&p_type='+this.p_type+'&type='+type+'&sid=' + this.cookieStore.getCookie('sid');
             this.http.delete(url)
                 .map((res) => res.json())
                 .subscribe((data) => {
                     this.productList = data;
-                });
-            setTimeout(() => {
-                if(this.productList['status'] == 202){
-                    this.cookieStoreService.removeAll(this.rollback_url);
-                    this.router.navigate(['/auth/login']);
-                }
 
-                this.selects = [];
-                for (let entry of this.productList['result']['data']) {
-                    this.selects[entry['c_id']] = false;
-                }
-                this.check = false;
-            }, 300);
+                    if(this.productList['status'] == 202){
+                        this.cookieStore.removeAll(this.rollback_url);
+                        this.router.navigate(['/auth/login']);
+                    }
+
+                    this.selects = [];
+                    for (let entry of this.productList['result']['productList']['data']) {
+                        this.selects[entry['p_id']] = false;
+                    }
+                    this.check = false;
+                });
         }
     }
 
+
+    /**
+     * 左侧导航栏 选中显示列表
+     * @param department_id
+     * index 点击的父类 or子类 索引
+     * num  1：父类 2：子类
+     */
+    selectDepartment(department_id:any,index:number,indexChild:number,num:number){
+        if(num == 1){//点击父类
+            if(this.select_category_ids[department_id] == true){
+                if(this.productDefault['result']['categoryList'][index]){
+                    if(this.productDefault['result']['categoryList'][index]['child_count'] >= 1){
+                        this.productDefault['result']['categoryList'][index]['child'].forEach((val, idx, array) => {
+                            this.select_category_ids[val['category_id']] = false;
+                        });
+                    }
+                }
+                this.select_category_ids[department_id] = false;
+            }else{
+                this.select_category_ids[department_id] = true;
+
+                if(this.productDefault['result']['categoryList'][index]){
+                    console.log(this.productDefault['result']['categoryList'][index]['child_count']);
+                    if(this.productDefault['result']['categoryList'][index]['child_count'] >= 1){
+                        this.productDefault['result']['categoryList'][index]['child'].forEach((val, idx, array) => {
+                            console.log(val['category_id']);
+                            this.select_category_ids[val['category_id']] = true;
+                        });
+                    }
+                }
+            }
+        }else if(num != 1){//点击子类
+            if(this.select_category_ids[department_id] == true){
+                this.select_category_ids[num] = false;
+                this.select_category_ids[department_id] = false;
+            }else{
+                this.select_category_ids[department_id] = true;
+
+                let count = 0;
+                if(this.productDefault['result']['categoryList'][index]){
+                    if(this.productDefault['result']['categoryList'][index]['child_count'] >= 1){
+                        this.productDefault['result']['categoryList'][index]['child'].forEach((val, idx, array) => {
+                            if(this.select_category_ids[val['category_id']] == false ||  isUndefined(this.select_category_ids[val['category_id']])){
+                                count ++;
+                            }
+                        });
+                    }
+                }
+                if(count == 0){//若子类全是true则父类变为选中状态
+                    this.select_category_ids[num] = true;
+                }
+            }
+        }
+
+        let depart = '';
+        this.select_category_ids.forEach((val, idx, array) => {
+            if(val == true) {
+                depart += idx + ',';
+            }
+        });
+
+        this.editStatusProductId = 0;
+        this.isStatus = 0;
+        this.getProductList('1',depart);
+    }
+
+    /**
+     * 顶部  启用. 无效
+     */
+    isStatusShow(u_id:any,status:any){
+        this.editStatusProductId = u_id;
+        this.isStatus = status;
+    }
+
+    /**
+     * 修改状态
+     * @param status
+     * type   all 批量   id  单条操作
+     */
+    editStatus(status:any,type:any){
+        let p_id = '';
+        if(type == 'all'){
+            this.selects.forEach((val, idx, array) => {
+                if(val == true){
+                    p_id += idx+',';
+                }
+            });
+        }else{
+            p_id = this.editStatusProductId;
+        }
+        let category_ids = '';
+        this.select_category_ids.forEach((val, idx, array) => {
+            if(val == true) {
+                category_ids += idx + ',';
+            }
+        });
+
+        this.http.post(this.globalService.getDomain()+'/api/v1/addProduct',{
+            'p_id':p_id,
+            'p_status':status,
+            'type':type,
+            'p_type':this.p_type,
+            'category_ids':category_ids,
+            'keyword':this.keyword.trim(),
+            'sid':this.cookieStore.getCookie('sid')
+        }).subscribe(
+            (data)=>{
+                let info = JSON.parse(data['_body']);
+                alert(info['msg']);
+                if(info['status'] == 200) {
+                    this.productList = info;
+
+                    this.selects = [];
+                    for (let entry of this.productList['result']['productList']['data']) {
+                        this.selects[entry['p_id']] = false;
+                    }
+                    this.check = false;
+                }else if(info['status'] == 202){
+                    this.cookieStore.removeAll(this.rollback_url);
+                    this.router.navigate(['/auth/login']);
+                }
+                this.editStatusProductId = 0;
+                this.isStatus = 0;
+            }
+        );
+    }
+
+    /**
+     * 批量
+     */
+    showAllCheck() {
+        this.isAll = 1;
+        this.editStatusProductId = 0;
+        this.isStatus = 0;
+    }
+
+    /**
+     * 左边展示效果
+     * @param bool
+     */
+    showLeftUl(bool:any){
+        this.showUl = bool;
+    }
+    showLeftUlChild(department_id:any){
+        this.showUlChild = department_id;
+    }
+
+
+    /**
+     * 上传文件
+     */
+    postFile(){
+        var that = this;
+        var form=document.forms[0];
+        var formData : FormData = new FormData(form);
+        //convertBase64UrlToBlob函数是将base64编码转换为Blob
+        formData.append("uploadedfile",this.globalService.convertBase64UrlToBlob(this.data1.image),"product_"+ new Date().getTime() +".png");
+        // console.log(this.data1);
+        //组建XMLHttpRequest 上传文件
+        var infos ;
+        var request = new XMLHttpRequest();
+        //上传连接地址
+        request.open("POST", this.globalService.getDomain() + "/api/v1/uploadFile");
+        request.onreadystatechange=function()
+        {
+            // console.log(request);
+            if (request.readyState==4)
+            {
+                if(request.status==200){
+                    infos = JSON.parse(request.response);
+                    if(infos['status']==200){
+                        that.path = infos['result'];
+                        alert("上传成功");
+                    }else{
+                        alert("上传失败，无法获取图片上传地址");
+                    }
+                    that.imgList.push(that.path);
+                    console.log(that.imgList);
+                }else{
+                    alert("上传失败,检查上传地址是否正确");
+                }
+            }
+        }
+        request.send(formData);
+    }
+
+
+
     @ViewChild('lgModal') public lgModal:ModalDirective;
+
 
 
 }

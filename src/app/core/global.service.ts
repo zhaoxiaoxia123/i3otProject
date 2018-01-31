@@ -68,4 +68,21 @@ export class GlobalService {
     return arr.slice(0,index).concat(item, arr.slice(index));
   }
 
+
+  /**
+   * 将base64编码转换为Blob
+   * @param urlData
+   * @returns {Blob}
+   */
+  convertBase64UrlToBlob(urlData){
+    var bytes=window.atob(urlData.split(',')[1]);        //去掉url的头，并转换为byte
+    //处理异常,将ascii码小于0的转换为大于0
+    var ab = new ArrayBuffer(bytes.length);
+    var ia = new Uint8Array(ab);
+    for (var i = 0; i < bytes.length; i++) {
+      ia[i] = bytes.charCodeAt(i);
+    }
+    return new Blob( [ab] , {type : 'image/png'});
+  }
+
 }
