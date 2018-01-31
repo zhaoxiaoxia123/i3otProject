@@ -2743,7 +2743,7 @@ label input[type=checkbox][disabled].checkbox+span:before,label input[type=check
     padding-left:4px;
 }
 .beyond-pills{
-    height: 40px;
+    height: 30px;
     overflow: hidden;
 }
 
