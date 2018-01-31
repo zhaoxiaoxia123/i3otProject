@@ -44,12 +44,6 @@
             <a routerLink="/management/setting-honor">{{'职称设置' | i18n}}</a>
           </li>
 
-          <li routerLinkActive="active" *ngIf="is_admin=='1' || is_admin=='2'">
-            <a routerLink="/management/department">{{'部门设置' | i18n}}</a>
-          </li>
-          <!--<li routerLinkActive="active" >
-            <a routerLink="/app-views/profile">{{'员工详情' | i18n}}</a>
-          </li>-->
         </ul>
       </li>
 
@@ -202,18 +196,7 @@
           <li routerLinkActive="active">
             <a routerLink="/management/setting-personnel">{{'人员类别' | i18n}}</a>
           </li>
-          <li *ngIf="is_admin=='1'">
-            <a href="#"><i class="fa fa-lg fa-fw fa-suitcase"></i> <span
-                    class="menu-item-parent">{{'客户管理' | i18n}}</span></a>
-            <ul>
-              <li routerLinkActive="active">
-                <a routerLink="/tables/client">{{'客户列表' | i18n}}</a>
-              </li>
-              <li routerLinkActive="active">
-                <a routerLink="/forms/customer/0">{{'添加客户' | i18n}}</a>
-              </li>
-            </ul>
-          </li>
+
         </ul>
       </li>
       <li>
@@ -287,15 +270,9 @@
                 class="menu-item-parent">{{'收藏夹' | i18n}}</span></a>
         <ul>
 
-
-
-
-
           <li routerLinkActive="active">
             <a routerLink="/graphs/tree-views">{{'部门参考' | i18n}}</a>
           </li>
-
-
           <li>
             <a href="#">{{'暂时不需要' | i18n}}</a>
             <ul>
@@ -308,18 +285,6 @@
               <li routerLinkActive="active">
                 <a routerLink="/forms/todo-mission">{{'待办事项详情' | i18n}}</a>
               </li>
-              <!-- <li routerLinkActive="active">
-           <a routerLink="/management/setting-affiliation">{{'项目所属设置' | i18n}}</a>
-         </li>
-         <li routerLinkActive="active">
-           <a routerLink="/management/setting-openness">{{'项目公开性设置' | i18n}}</a>
-         </li>
-         <li routerLinkActive="active">
-           <a routerLink="/management/setting-formwork">{{'项目模板设置' | i18n}}</a>
-         </li>
-         <li routerLinkActive="active">
-           <a routerLink="/management/setting-labelling">{{'项目标签设置' | i18n}}</a>
-         </li>-->
               <li routerLinkActive="active">
                 <a routerLink="/equipment/full-tables">{{'全员查看' | i18n}}</a>
               </li>
@@ -350,9 +315,20 @@
 
 
       <li>
-        <a href="#"><i class="fa fa-lg fa-fw fa-cubes"></i> <span
+        <a href="#"><i class="fa fa-lg fa-fw fa-unlock-alt"></i> <span
                 class="menu-item-parent">{{'V1' | i18n}}</span></a>
         <ul>
+
+          <li>
+            <a href="#"><i class="fa fa-lg fa-fw fa-suitcase"></i> <span
+                    class="menu-item-parent">{{'人事管理' | i18n}}</span></a>
+            <ul>
+              <li routerLinkActive="active" *ngIf="is_admin=='1' || is_admin=='2'">
+                <a routerLink="/management/department">{{'部门设置' | i18n}}</a>
+              </li>
+            </ul>
+          </li>
+          <li>
           <li>
             <a href="#"><i class="fa fa-lg fa-fw fa-cubes"></i> <span
                     class="menu-item-parent">{{'产品管理' | i18n}}</span></a>
@@ -394,6 +370,25 @@
               <li routerLinkActive="active" *ngIf="is_admin!='0'">
                 <a routerLink="/forms/indent1/0">{{'添加订单' | i18n}}</a>
               </li>
+            </ul>
+          </li>
+          <li *ngIf="is_admin=='1'">
+            <a href="#"><i class="fa fa-lg fa-fw fa-cog txt-color-blue"></i> <span
+                    class="menu-item-parent">{{'矿易帮设置' | i18n}}</span></a>
+            <ul>
+              <li *ngIf="is_admin=='1'">
+                <a href="#"><i class="fa fa-lg fa-fw fa-suitcase"></i> <span
+                        class="menu-item-parent">{{'客户管理' | i18n}}</span></a>
+                <ul>
+                  <li routerLinkActive="active">
+                    <a routerLink="/tables/client">{{'客户列表' | i18n}}</a>
+                  </li>
+                  <li routerLinkActive="active">
+                    <a routerLink="/forms/customer/0">{{'添加客户' | i18n}}</a>
+                  </li>
+                </ul>
+              </li>
+
             </ul>
           </li>
         </ul>
