@@ -21,7 +21,7 @@
                       <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
 
                         <div class="form-group pdlr-4">
-                          <a class="btn btn-success btn-sm"  (click)="lgModal.show();">
+                          <a class="btn btn-success btn-sm" (click)="lgModal.show();">
                             <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
                         </div>
                         <div class="form-group pdlr-4">
@@ -32,11 +32,10 @@
                           <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}"  (click)="deleteProduct('id')">
                             <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
                         </div>
-                        <div class="form-group pdlr-4">
-                          <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}"  (click)="detailProduct('detail')"><!-- data-toggle="modal" data-target="#particulars" -->
-                            <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
-                        </div>
-
+                        <!--<div class="form-group pdlr-4">-->
+                          <!--<a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}"  (click)="detailProduct('detail')">&lt;!&ndash; data-toggle="modal" data-target="#particulars" &ndash;&gt;-->
+                            <!--<span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>-->
+                        <!--</div>-->
                         <div class="form-group pdlr-4" *ngIf="isStatus == 2">
                           <a class="btn default-btn btn-sm" (click)="editStatus(1,'id')">
                             <span class="fa-fw fa fa-play mr-5 color-green"></span>启用</a>
@@ -66,21 +65,6 @@
                             搜索
                           </button>
                         </div>
-
-
-                        <!--<div class="form-group">
-                          <a class="btn btn-primary btn-sm"  (click)="lgModal.show();">
-                            <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
-                        </div>
-                        <div class="form-group">
-                          <a class="btn btn-warning btn-sm" (click)="editProduct()" data-toggle="modal" data-target="#myModal3">
-                            <span class="glyphicon glyphicon-pencil mr-5"></span>修改</a>
-                        </div>
-                        <div class="form-group">
-                          <a class="btn btn-success btn-sm" (click)="getProductInfo()" >
-                            <span class="glyphicon glyphicon-zoom-in mr-5"></span>详情</a>
-                        </div>-->
-
                       </form>
                     </div>
                   </div>
@@ -728,11 +712,16 @@
                           <div class="col-xs-12">
                             <div>
                               <ul class="ace-thumbnails clearfix">
-                                <li class="canDel">
-                                  <a class="cboxElement" *ngFor="let img of imgList" href="{{url}}{{img}}" >
+                                <li class="canDel" *ngFor="let img of imgList;let ind = index;">
+                                  <a class="cboxElement" href="{{url}}{{img}}" >
                                     <img width="150" height="150" alt="150x150" src="{{url}}{{img}}">
                                   </a>
-
+                                  <div class="tools tools-top">
+                                    <a class="pull-right" (click)="removeImg(ind)">
+                                      <i class="ace-icon fa fa-times txt-color-red">
+                                      </i>
+                                    </a>
+                                  </div>
                                   <!--<div class="c-content-inner">-->
                                     <!--<div  class="c-file-upload">-->
                                       <!--<button class="btn btn-primary ">浏览图片</button>-->
@@ -740,19 +729,20 @@
                                     <!--</div>-->
                                   <!--</div>-->
 
-                                </li><img-cropper #cropper [image]="data1" [settings]="cropperSettings1" (onCrop)="cropped($event)"></img-cropper>
-
+                                </li>
+                                <li>
+                                  <img-cropper #cropper [image]="data1" [settings]="cropperSettings1" (onCrop)="cropped($event)"></img-cropper>
+                                </li>
                                 <li>
                                   <div  class="c-file-upload">
                                     <!--<button class="btn btn-primary ">浏览图片</button>-->
-
                                     <a class="btn btn-primary " style="width: 150px; height: 150px;" >
                                       <i class="fa fa-plus fa-2x" style="color: #ccc; padding-top: 7px; padding-left: 16px; font-size: 152px;"></i>
                                     </a>
                                     <input id="image-input" class="btn btn-primary " type="file" c-img-cropper-select [cropper]="cropper">
                                   </div>
                                 </li>
-                                <li><button type="button" class="btn btn-primary" (click)="postFile()">上传</button></li>
+                                <li><button type="button" class="btn btn-primary" (click)="postFile()">确认上传</button></li>
                               </ul>
                             </div>
                           </div>

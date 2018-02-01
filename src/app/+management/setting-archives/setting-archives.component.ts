@@ -321,6 +321,7 @@ export class SettingArchivesComponent implements OnInit {
         this.p_retail_amout = info['result']['p_retail_amout'];
         this.p_stop_use = info['result']['p_stop_use'];
         this.p_stop_time = info['result']['p_stop_time'];
+        this.imgList = info['result']['imgs'];
     }
 
 
@@ -592,7 +593,13 @@ export class SettingArchivesComponent implements OnInit {
         request.send(formData);
     }
 
-
+    /**
+     * remove img
+     * @param ind
+     */
+    removeImg(ind:number){
+        this.imgList.splice(ind,1);
+    }
 
     @ViewChild('lgModal') public lgModal:ModalDirective;
 

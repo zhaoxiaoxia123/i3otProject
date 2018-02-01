@@ -167,9 +167,8 @@
                                     <!--</li>-->
                                   <!--</ol>-->
 
-
                                   <ol class="dd-list">
-                                    <li class="dd-item" data-id="{{cl.category_id}}" *ngFor="let cl of categoryList.result">
+                                    <li class="dd-item" data-id="{{cl.category_id}}" *ngFor="let cl of categoryList?.result?.categoryList?.data">
                                       <button data-action="expand" type="button" *ngIf="cl.child_count > 0" [ngStyle]="{'display': ((button_contrl_id==cl.category_id && index == 1) || button_contrl_id!=cl.category_id) ? 'block':'none'}" (click)="show(2,cl.category_id)">收起</button>
                                       <button data-action="collapse" type="button" *ngIf="cl.child_count > 0" [ngStyle]="{'display': (button_contrl_id==cl.category_id && index == 2) ? 'block':'none'}" (click)="show(1,cl.category_id)">展开</button>
                                       <div class="dd-handle">

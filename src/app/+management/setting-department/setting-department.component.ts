@@ -70,15 +70,15 @@ export class SettingDepartmentComponent implements OnInit {
                 this.cookieStore.removeAll(this.rollback_url);
                 this.router.navigate(['/auth/login']);
             }
-            this.super_admin_id = this.categoryList['super_admin_id'];
+            this.super_admin_id = this.categoryList['result']['categoryList']['super_admin_id'];
             this.category_id1 = 0;
             if (this.categoryList) {
-                if (this.categoryList['result']['current_page'] == this.categoryList['result']['last_page']) {
+                if (this.categoryList['result']['categoryList']['current_page'] == this.categoryList['result']['categoryList']['last_page']) {
                     this.next = true;
                 } else {
                     this.next = false;
                 }
-                if (this.categoryList['result']['current_page'] == 1) {
+                if (this.categoryList['result']['categoryList']['current_page'] == 1) {
                     this.prev = true;
                 } else {
                     this.prev = false;
@@ -165,12 +165,12 @@ export class SettingDepartmentComponent implements OnInit {
                     this.router.navigate(['/auth/login']);
                 }
                 if (this.categoryList) {
-                    if (this.categoryList['result']['current_page'] == this.categoryList['result']['last_page']) {
+                    if (this.categoryList['result']['categoryList']['current_page'] == this.categoryList['result']['categoryList']['last_page']) {
                         this.next = true;
                     } else {
                         this.next = false;
                     }
-                    if (this.categoryList['result']['current_page'] == 1) {
+                    if (this.categoryList['result']['categoryList']['current_page'] == 1) {
                         this.prev = true;
                     } else {
                         this.prev = false;

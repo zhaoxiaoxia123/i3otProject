@@ -130,7 +130,7 @@
                                                                 </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                <tr *ngFor="let c of categoryList?.result">
+                                                                <tr *ngFor="let c of categoryList?.result?.categoryList?.data">
                                                                     <td>
                                                                         <label class="checkbox" *ngIf="cid != super_admin_id && cid != c.c_id" >
                                                                             <input type="checkbox" name="checkbox-inline" disabled="disabled">
@@ -157,7 +157,7 @@
                                                     <!-- 底部-（分页部分）-->
                                                     <div class="dt-toolbar">
                                                         <div class="col-xs-12 col-sm-6">
-                                                            <span>共7条</span>
+                                                            <span>共{{categoryList?.result?.categoryList?.total}}条</span>
                                                            <!-- <button class="btn btn-default" (click)="deleteCategory()">
                                                                 <i class="fa fa-trash-o fa-lg"></i>
                                                                 删除所选

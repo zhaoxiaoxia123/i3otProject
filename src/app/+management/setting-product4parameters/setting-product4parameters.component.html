@@ -119,7 +119,7 @@
                                 <section class="col col-10">
                                   <label class="select">
                                     <select name="select_category_id" [(ngModel)]="select_category_id" (change)="getSpecification()" >
-                                      <option *ngFor="let cl of categoryList.result" value="{{cl.category_id}}" [selected]="select_id == cl.category_id">
+                                      <option *ngFor="let cl of categoryList?.result?.categoryList?.data" value="{{cl.category_id}}" [selected]="select_id == cl.category_id">
                                         <b *ngIf="cl.category_depth == 0">{{cl.category_desc}}</b>
                                         <b *ngIf="cl.category_depth != 0">--{{cl.category_desc}}</b>
                                       </option>
@@ -224,7 +224,7 @@
                             </div>
                             <div class="hidden-xs right">
                               <ul class="pagination pagination-sm">
-                                <li *ngFor="let p of categoryList?.page" class="{{p.class}}">
+                                <li *ngFor="let p of categoryList?.result?.page" class="{{p.class}}">
                                   <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
                                   <a *ngIf="p.method==''">{{p.text}}</a>
                                 </li>

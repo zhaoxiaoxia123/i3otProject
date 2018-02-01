@@ -70,24 +70,21 @@ export class UnitClassifyComponent implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.categoryList = data;
+          console.log(this.categoryList);
+          if(this.categoryList['status'] == 202){
+            this.cookieStore.removeAll(this.rollback_url);
+            this.router.navigate(['/auth/login']);
+          }
+          this.super_admin_id = this.categoryList['result']['categoryList']['super_admin_id'];
+          //刷新父类修改下拉选择
+          let arr : Array<any> = this.categoryList['result']['categoryList']['data'];
+          arr.forEach((val, idx, array) => {
+            if(val.c_id == this.cid || this.cid == this.super_admin_id) {
+              this.parentCategoryList.push(val);
+            }
+          });
         });
 
-    setTimeout(() => {
-      console.log(this.categoryList);
-      if(this.categoryList['status'] == 202){
-        this.cookieStore.removeAll(this.rollback_url);
-        this.router.navigate(['/auth/login']);
-      }
-
-      this.super_admin_id = this.categoryList['super_admin_id'];
-      //刷新父类修改下拉选择
-      let arr : Array<any> = this.categoryList['result'];
-      arr.forEach((val, idx, array) => {
-        if(val.c_id == this.cid || this.cid == this.super_admin_id) {
-          this.parentCategoryList.push(val);
-        }
-      });
-    }, 300);
   }
 
   /**
@@ -98,15 +95,13 @@ export class UnitClassifyComponent implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.categoryDefault = data;
+          console.log(this.categoryDefault);
+          if(this.categoryDefault['status'] == 202){
+            alert(this.categoryDefault['msg']);
+            this.cookieStore.removeAll(this.rollback_url);
+            this.router.navigate(['/auth/login']);
+          }
         });
-    setTimeout(() => {
-      console.log(this.categoryDefault);
-      if(this.categoryDefault['status'] == 202){
-        alert(this.categoryDefault['msg']);
-        this.cookieStore.removeAll(this.rollback_url);
-        this.router.navigate(['/auth/login']);
-      }
-    }, 600);
   }
 
   /**
@@ -119,25 +114,23 @@ export class UnitClassifyComponent implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.categoryInfo = data;
+          console.log(this.categoryInfo);
+          if(this.categoryInfo['status'] == 200){
+            this.formModel.patchValue({
+              category_id: category_id,
+              category_desc:this.categoryInfo['result']['parent']['category_desc'],
+              category_number:this.categoryInfo['result']['parent']['category_number'],
+              category_tab:this.categoryInfo['result']['parent']['category_tab'],
+              category_depth:this.categoryInfo['result']['parent']['category_depth'],
+            });
+            this.category_tab_default = this.categoryInfo['result']['parent']['category_tab'];
+            this.category_depth_default = this.categoryInfo['result']['parent']['category_depth'];
+          }else if(this.categoryInfo['status'] == 202){
+            alert(this.categoryInfo['msg']);
+            this.cookieStore.removeAll(this.rollback_url);
+            this.router.navigate(['/auth/login']);
+          }
         });
-    setTimeout(() => {
-      console.log(this.categoryInfo);
-      if(this.categoryInfo['status'] == 200){
-        this.formModel.patchValue({
-          category_id: category_id,
-          category_desc:this.categoryInfo['result']['parent']['category_desc'],
-          category_number:this.categoryInfo['result']['parent']['category_number'],
-          category_tab:this.categoryInfo['result']['parent']['category_tab'],
-          category_depth:this.categoryInfo['result']['parent']['category_depth'],
-        });
-        this.category_tab_default = this.categoryInfo['result']['parent']['category_tab'];
-        this.category_depth_default = this.categoryInfo['result']['parent']['category_depth'];
-      }else if(this.categoryInfo['status'] == 202){
-        alert(this.categoryInfo['msg']);
-        this.cookieStore.removeAll(this.rollback_url);
-        this.router.navigate(['/auth/login']);
-      }
-    }, 600);
   }
 
 
@@ -166,14 +159,13 @@ export class UnitClassifyComponent implements OnInit {
       this.http.delete(url)
           .map((res) => res.json())
           .subscribe((data) => {
+            if(this.categoryList['status'] == 202){
+              this.cookieStore.removeAll(this.rollback_url);
+              this.router.navigate(['/auth/login']);
+            }
             this.categoryList = data;
+            this.getCategoryDefault();
           });
-      setTimeout(() => {
-        if(this.categoryList['status'] == 202){
-          this.cookieStore.removeAll(this.rollback_url);
-          this.router.navigate(['/auth/login']);
-        }
-      }, 300);
     }
   }
 
@@ -213,6 +205,8 @@ export class UnitClassifyComponent implements OnInit {
             });
             this.category_depth_default = 0;
             this.category_tab_default = '0';
+
+            this.getCategoryDefault();
           }else if(info['status'] == 202){
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);

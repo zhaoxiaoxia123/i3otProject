@@ -19,6 +19,12 @@ export class SalesTypeComponent implements OnInit {
   selects : Array<any> = [];
   check : boolean = false;
 
+  //顶部单条操作按钮 是否启用显示
+  editStatusCategoryId : any = 0;
+
+  //处理批量
+  isAll : number = 0;
+
   cid : any = 0;//当前登录用户的所属公司id
   super_admin_id : any = 0;//超级管理员所属公司id
   category_type : number = 22;//销售类型
@@ -35,8 +41,6 @@ export class SalesTypeComponent implements OnInit {
     window.scrollTo(0,0);
     this.super_admin_id = this.globalService.getAdminID();
     this.cid = this.cookieStoreService.getCookie('cid');
-    console.log(this.super_admin_id);
-    console.log(this.cid);
   }
 
   ngOnInit() {
@@ -52,20 +56,19 @@ export class SalesTypeComponent implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.categoryList = data;
-        });
-    setTimeout(() => {
-      console.log(this.categoryList);
-      if(this.categoryList['status'] == 202){
-        this.cookieStoreService.removeAll(this.rollback_url);
-        this.router.navigate(['/auth/login']);
-      }
 
-      this.selects = [];
-      for (let entry of this.categoryList['result']) {
-        this.selects[entry['category_id']] = false;
-      }
-      this.check = false;
-    }, 1000);
+          console.log(this.categoryList);
+          if(this.categoryList['status'] == 202){
+            this.cookieStoreService.removeAll(this.rollback_url);
+            this.router.navigate(['/auth/login']);
+          }
+
+          this.selects = [];
+          for (let entry of this.categoryList['result']['categoryList']['data']) {
+            this.selects[entry['category_id']] = false;
+          }
+          this.check = false;
+        });
   }
 
 
@@ -123,18 +126,19 @@ export class SalesTypeComponent implements OnInit {
             this.category_id = 0;
             this.category_desc = '';
             this.category_number = '';
+            this.categoryList = info;
+
+            this.selects = [];
+            for (let entry of this.categoryList['result']['categoryList']['data']) {
+              this.selects[entry['category_id']] = false;
+            }
+            this.check = false;
           }else if(info['status'] == 202){
             alert(info['msg']);
             this.cookieStoreService.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
-          this.categoryList = info;
 
-          this.selects = [];
-          for (let entry of this.categoryList['result']) {
-            this.selects[entry['category_id']] = false;
-          }
-          this.check = false;
         }
     );
   }
@@ -143,81 +147,99 @@ export class SalesTypeComponent implements OnInit {
    * 编辑销售类型信息
    */
   editCategory(){
-    let isAll = 0;
-    let category_id = 0;
-    this.selects.forEach((val, idx, array) => {
-      if(val == true) {
-        isAll += 1;
-        category_id = idx;
-      }
-    });
-    let msg = '';
-    if(isAll <= 0){
-      msg = '请选中要编辑的销售类型信息，再点击此“修改”按钮！';
-    }else if(isAll > 1){
-      msg = '仅支持选择一条要编辑的销售类型信息！';
-    }
-    if(msg != ''){
-      alert(msg);
+    // let isAll = 0;
+    // let category_id = 0;
+    // this.selects.forEach((val, idx, array) => {
+    //   if(val == true) {
+    //     isAll += 1;
+    //     category_id = idx;
+    //   }
+    // });
+    // let msg = '';
+    // if(isAll <= 0){
+    //   msg = '请选中要编辑的销售类型信息，再点击此“修改”按钮！';
+    // }else if(isAll > 1){
+    //   msg = '仅支持选择一条要编辑的销售类型信息！';
+    // }
+    // if(msg != ''){
+    //   alert(msg);
+    //   return false;
+    // }
+    if(this.editStatusCategoryId == 0){
       return false;
     }
-    this.http.get(this.globalService.getDomain()+'/api/v1/getCategoryById?category_id='+category_id+'&number=1')
+    this.http.get(this.globalService.getDomain()+'/api/v1/getCategoryById?category_id='+this.editStatusCategoryId+'&number=1')
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.categoryInfo = data;
+          this.category_id = this.categoryInfo['result']['parent']['category_id'];
+          this.category_desc = this.categoryInfo['result']['parent']['category_desc'];
+          this.category_number = this.categoryInfo['result']['parent']['category_number'];
+          console.log(this.categoryInfo);
+          this.editStatusCategoryId = 0;
         });
-    setTimeout(() => {
-      this.category_id = this.categoryInfo['result']['parent']['category_id'];
-      this.category_desc = this.categoryInfo['result']['parent']['category_desc'];
-      this.category_number = this.categoryInfo['result']['parent']['category_number'];
-      console.log(this.categoryInfo);
-    }, 500);
   }
 
   /**
    * 删除信息
+   * type id:单挑  all :多条
    */
-  deleteCategory(){
+  deleteCategory(type : string){
     if(this.globalService.demoAlert('','')){
       return false;
     }
     let msg = '';
-
-    let is_select = 0;
-    let ids : string = '';
-    this.selects.forEach((val, idx, array) => {
-      if(val == true){
-        ids += idx+',';
-        is_select += 1;
+    let category_id : string = '';
+    if(type == 'id'){
+      category_id = this.editStatusCategoryId;
+    } else if(type == 'all') {
+      let is_select = 0;
+      this.selects.forEach((val, idx, array) => {
+        if (val == true) {
+          category_id += idx + ',';
+          is_select += 1;
+        }
+      });
+      if (is_select < 1) {
+        msg = '请确认已选中需要删除的信息！';
+        alert(msg);
+        return false;
       }
-    });
-
-    if(is_select < 1){
-      msg = '请确认已选中需要删除的信息！';
-      alert(msg);
-      return false;
     }
     msg = '您确定要删除该信息吗？';
     if(confirm(msg)) {
-      let url = this.globalService.getDomain()+'/api/v1/deleteCategory?category_id=' + ids + '&type=all&category_type='+this.category_type+'&sid=' + this.cookieStoreService.getCookie('sid');
+      let url = this.globalService.getDomain()+'/api/v1/deleteCategory?category_id=' + category_id + '&type='+type+'&category_type='+this.category_type+'&sid=' + this.cookieStoreService.getCookie('sid');
       this.http.delete(url)
           .map((res) => res.json())
           .subscribe((data) => {
             this.categoryList = data;
+            if(this.categoryList['status'] == 202){
+              this.cookieStoreService.removeAll(this.rollback_url);
+              this.router.navigate(['/auth/login']);
+            }
+            this.selects = [];
+            for (let entry of this.categoryList['result']['categoryList']['data']) {
+              this.selects[entry['category_id']] = false;
+            }
+            this.check = false;
           });
-      setTimeout(() => {
-        if(this.categoryList['status'] == 202){
-          this.cookieStoreService.removeAll(this.rollback_url);
-          this.router.navigate(['/auth/login']);
-        }
-
-        this.selects = [];
-        for (let entry of this.categoryList['result']) {
-          this.selects[entry['category_id']] = false;
-        }
-        this.check = false;
-      }, 300);
     }
+  }
+
+
+  /**
+   * 批量
+   */
+  showAllCheck() {
+    this.isAll = 1;
+    this.editStatusCategoryId = 0;
+  }
+
+  /**
+   * 顶部单选按钮  启用. 无效
+   */
+  isStatusShow(category_id:any){
+    this.editStatusCategoryId = category_id;
   }
 }
 
