@@ -54,7 +54,7 @@
     </div>
     <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
       <section >
-        <label class="label txt-color-pink">年龄</label>
+        <label class="label">年龄</label>
         <label class="input">
           <input name="age" formControlName="age" placeholder="请输入年龄" type="number"  maxlength="3">
         </label>
@@ -70,7 +70,7 @@
     </div>
     <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
       <section  *ngIf="is_show">
-        <label class="label txt-color-pink">所属公司</label>
+        <label class="label ">所属公司</label>
         <label class="select">
           <select name="c_id" formControlName="c_id" [(ngModel)]="c_id_default">
             <option *ngFor="let clist of userList.result?.customerList" [selected]="user_info.result?.c_id == clist.c_id" value="{{clist.c_id}}">{{clist.c_name}}</option>
@@ -122,7 +122,7 @@
     </div>
     <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
       <section>
-        <label  class="label txt-color-red">职称</label>
+        <label  class="label ">职称</label>
 
         <label class="select">
           <select name="title" formControlName="title" [(ngModel)]="title_default">
@@ -141,7 +141,7 @@
     </div>
     <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
       <section >
-        <label class="label txt-color-red ">电话</label>
+        <label class="label ">电话</label>
         <label class="input"> <i class="icon-append fa fa-phone"></i>
           <input name=""  placeholder="请输入电话号码" maxlength="12">
         </label>
@@ -157,7 +157,7 @@
     </div>
     <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
       <section >
-        <label class="label txt-color-red">出生日期</label>
+        <label class="label ">出生日期</label>
         <label class="input">
           <input type="date" name="" saUiDatepicker date-format="dd/mm/yy"  />
         </label>
@@ -165,7 +165,7 @@
     </div>
     <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
       <section>
-        <label class="label txt-color-red">助记码</label>
+        <label class="label ">助记码</label>
         <label class="input">
           <input type="text" name="" placeholder="手工录入或自动生成 " maxlength="20" />
         </label>
@@ -218,7 +218,7 @@
     <fieldset>
       <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
         <section >
-          <label class="label txt-color-red">职业</label>
+          <label class="label ">职业</label>
           <label class="input">
             <input  name=''  placeholder="" size="18" maxlength="18" type="text">
           </label>
@@ -226,7 +226,7 @@
       </div>
       <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
         <section >
-          <label class="label txt-color-pink">入职时间</label>
+          <label class="label ">入职时间</label>
           <label class="input">
             <input type="date" name="enrol_time" placeholder="入职时间"
                    saUiDatepicker date-format="dd/mm/yy"  formControlName="enrol_time"/>
@@ -235,7 +235,7 @@
       </div>
       <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
         <section>
-          <label class="label txt-color-pink">选择合同类型</label>
+          <label class="label ">选择合同类型</label>
             <label class="select">
               <select name="contract_type" formControlName="contract_type" [(ngModel)]="contract_type_default">
                 <option *ngFor="let c of userList.result?.contractTypeList" [selected]="user_info.result?.u_contract_type == c.category_id" value="{{c.category_id}}">{{c.category_desc}}</option>
@@ -244,7 +244,7 @@
       </div>
       <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
         <section >
-          <label class="label txt-color-pink">民族</label>
+          <label class="label ">民族</label>
           <label class="select">
             <select name="nation" formControlName="nation" [(ngModel)]="nation_default">
               <option value="汉族" [selected]="user_info.result?.u_nation == '汉族'">汉族</option>
@@ -331,7 +331,7 @@
       </div>
       <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
         <section >
-          <label class="label txt-color-pink">婚姻状况</label>
+          <label class="label ">婚姻状况</label>
           <label class="select">
             <select name="marital_status"  formControlName="marital_status" [(ngModel)]="marital_status_default">
               <option value="1" [selected]="user_info.result?.u_marital_status == 1">未婚</option>
@@ -341,7 +341,7 @@
       </div>
       <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
         <section >
-          <label class="label txt-color-pink">毕业院校</label>
+          <label class="label ">毕业院校</label>
           <label class="input">
             <input  name='graduate_institutions' formControlName="graduate_institutions" placeholder="请输入毕业院校"  type="text" maxlength="25">
           </label>
@@ -349,7 +349,7 @@
       </div>
       <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
         <section>
-          <label class="label txt-color-pink">专业</label>
+          <label class="label ">专业</label>
           <label class="input">
             <input  name='study_major' formControlName="study_major" placeholder="请输入专业名称"  type="text" maxlength="20">
           </label>
@@ -373,7 +373,7 @@
       </div>
       <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
         <section >
-          <label class="label txt-color-pink">学历来源</label>
+          <label class="label ">学历来源</label>
           <div class="">
             <label class="select">
               <select name="study_category"  formControlName="study_category" [(ngModel)]="study_category_default">
@@ -384,7 +384,7 @@
 
       <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
         <section >
-          <label class="label txt-color-red">邮编</label>
+          <label class="label ">邮编</label>
           <label class="input">
             <input  name=''  placeholder="" size="18" maxlength="18" type="text">
           </label>
@@ -392,7 +392,7 @@
       </div>
       <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
         <section >
-          <label class="label txt-color-red ">家庭电话</label>
+          <label class="label  ">家庭电话</label>
           <label class="input"> <i class="icon-append fa fa-phone"></i>
             <input name=""  placeholder="请输入家庭号码" maxlength="12">
           </label>
@@ -418,7 +418,7 @@
       </div>
       <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
         <section >
-          <label class="label txt-color-red">通讯地址</label>
+          <label class="label ">通讯地址</label>
           <label class="input">
             <input  name=''  placeholder="请输入通讯地址"  type="text" >
           </label>
@@ -428,7 +428,7 @@
       <!--创建人、修改人、停用人、创建日期、修改时间、启用时间、停用时间：只读项，系统自动产生。-->
       <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
         <section >
-          <label class="label txt-color-red">创建人</label>
+          <label class="label ">创建人</label>
           <label class="input">
             <input  name=''  disabled="disabled"  type="text" >
           </label>
@@ -436,7 +436,7 @@
       </div>
       <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
         <section >
-          <label class="label txt-color-red">修改人</label>
+          <label class="label ">修改人</label>
           <label class="input">
             <input  name=''  disabled="disabled"  type="text" >
           </label>
@@ -444,7 +444,7 @@
       </div>
       <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
         <section >
-          <label class="label txt-color-red">停用人</label>
+          <label class="label ">停用人</label>
           <label class="input">
             <input  name=''  disabled="disabled"  type="text" >
           </label>
@@ -452,7 +452,7 @@
       </div>
       <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
         <section >
-          <label class="label txt-color-red">创建日期</label>
+          <label class="label ">创建日期</label>
           <label class="input">
             <input  name=''  disabled="disabled"  type="text" >
           </label>
@@ -460,7 +460,7 @@
       </div>
       <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
         <section >
-          <label class="label txt-color-red">修改时间</label>
+          <label class="label">修改时间</label>
           <label class="input">
             <input  name=''  disabled="disabled"  type="text" >
           </label>
@@ -468,7 +468,7 @@
       </div>
       <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
         <section >
-          <label class="label txt-color-red">启用时间</label>
+          <label class="label ">启用时间</label>
           <label class="input">
             <input  name=''  disabled="disabled"  type="text" >
           </label>
@@ -476,7 +476,7 @@
       </div>
       <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
         <section >
-          <label class="label txt-color-red">停用时间</label>
+          <label class="label ">停用时间</label>
           <label class="input">
             <input  name=''  disabled="disabled"  type="text" >
           </label>
@@ -487,7 +487,7 @@
       <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
         <div class="margin-left-15">
           <section class="col col-4">
-            <label class="label txt-color-pink">家庭住址</label>
+            <label class="label ">家庭住址</label>
             <label class="select ">
               <select name="address1"  formControlName="address1" [(ngModel)]="address1_default" (change)="getCity()">
                 <option value="0">--请选择省--</option>
@@ -514,7 +514,7 @@
       </div>
       <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
         <section >
-          <label class="label txt-color-pink">详细地址</label>
+          <label class="label ">详细地址</label>
           <label class="input">
             <input  name='address4' formControlName="address4" placeholder="请输入详细地址"  type="text" maxlength="20">
           </label>

@@ -15,6 +15,10 @@ export class SalesTypeComponent implements OnInit {
   category_desc:string = '';
   category_number:string = '';
 
+  page : any;
+  prev : boolean = false;
+  next : boolean = false;
+
   //用作全选和反选
   selects : Array<any> = [];
   check : boolean = false;
@@ -56,21 +60,37 @@ export class SalesTypeComponent implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.categoryList = data;
-
-          console.log(this.categoryList);
           if(this.categoryList['status'] == 202){
             this.cookieStoreService.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
-
-          this.selects = [];
-          for (let entry of this.categoryList['result']['categoryList']['data']) {
-            this.selects[entry['category_id']] = false;
+          if(this.categoryList) {
+            if (this.categoryList['result']['categoryList']['current_page'] == this.categoryList['result']['categoryList']['last_page']) {
+              this.next = true;
+            } else {
+              this.next = false;
+            }
+            if (this.categoryList['result']['categoryList']['current_page'] == 1) {
+              this.prev = true;
+            } else {
+              this.prev = false;
+            }
+            this.selects = [];
+            for (let entry of this.categoryList['result']['categoryList']['data']) {
+              this.selects[entry['category_id']] = false;
+            }
+            this.check = false;
           }
-          this.check = false;
         });
   }
-
+  /**
+   * 页码分页
+   * @param page
+   */
+  pagination(page : any) {
+    this.page = page;
+    this.getCategoryList(this.page);
+  }
 
   //全选，反全选
   changeCheckAll(e){
@@ -128,11 +148,23 @@ export class SalesTypeComponent implements OnInit {
             this.category_number = '';
             this.categoryList = info;
 
+            if (this.categoryList['result']['categoryList']['current_page'] == this.categoryList['result']['categoryList']['last_page']) {
+              this.next = true;
+            } else {
+              this.next = false;
+            }
+            if (this.categoryList['result']['categoryList']['current_page'] == 1) {
+              this.prev = true;
+            } else {
+              this.prev = false;
+            }
             this.selects = [];
             for (let entry of this.categoryList['result']['categoryList']['data']) {
               this.selects[entry['category_id']] = false;
             }
             this.check = false;
+            this.editStatusCategoryId = 0;
+
           }else if(info['status'] == 202){
             alert(info['msg']);
             this.cookieStoreService.removeAll(this.rollback_url);
@@ -217,11 +249,23 @@ export class SalesTypeComponent implements OnInit {
               this.cookieStoreService.removeAll(this.rollback_url);
               this.router.navigate(['/auth/login']);
             }
-            this.selects = [];
-            for (let entry of this.categoryList['result']['categoryList']['data']) {
-              this.selects[entry['category_id']] = false;
+            if(this.categoryList) {
+              if (this.categoryList['result']['categoryList']['current_page'] == this.categoryList['result']['categoryList']['last_page']) {
+                this.next = true;
+              } else {
+                this.next = false;
+              }
+              if (this.categoryList['result']['categoryList']['current_page'] == 1) {
+                this.prev = true;
+              } else {
+                this.prev = false;
+              }
+              this.selects = [];
+              for (let entry of this.categoryList['result']['categoryList']['data']) {
+                this.selects[entry['category_id']] = false;
+              }
+              this.check = false;
             }
-            this.check = false;
           });
     }
   }

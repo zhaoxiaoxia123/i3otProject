@@ -64,9 +64,6 @@
             <a routerLink="/management/setting-price">{{'商品价格级别' | i18n}}</a>
           </li>
           <li routerLinkActive="active" *ngIf="is_admin=='1' || is_admin=='2'">
-            <a routerLink="/management/product3type">{{'产品类型设置' | i18n}}</a>
-          </li>
-          <li routerLinkActive="active" *ngIf="is_admin=='1' || is_admin=='2'">
             <a routerLink="/management/product4parameters">{{'产品规格/参数设置' | i18n}}</a>
           </li>
         </ul>
@@ -196,6 +193,15 @@
           <li routerLinkActive="active">
             <a routerLink="/management/setting-personnel">{{'人员类别' | i18n}}</a>
           </li>
+          <li *ngIf="is_admin=='1'">
+            <a href="#"><i class="fa fa-lg fa-fw fa-suitcase"></i> <span
+                    class="menu-item-parent">{{'客户管理' | i18n}}</span></a>
+            <ul>
+              <li routerLinkActive="active">
+                <a routerLink="/customer-management/customer-unit">{{'往来客户或单位' | i18n}}</a>
+              </li>
+            </ul>
+          </li>
 
         </ul>
       </li>
@@ -269,6 +275,85 @@
         <a href="#"><i class="fa fa-lg fa-fw  fa-th txt-color-blue"></i> <span
                 class="menu-item-parent">{{'收藏夹' | i18n}}</span></a>
         <ul>
+          <li>
+            <a href="#"><i class="fa fa-lg fa-fw fa-unlock-alt"></i> <span
+                    class="menu-item-parent">{{'V1' | i18n}}</span></a>
+            <ul>
+
+              <li>
+                <a href="#"><i class="fa fa-lg fa-fw fa-suitcase"></i> <span
+                        class="menu-item-parent">{{'人事管理' | i18n}}</span></a>
+                <ul>
+                  <li routerLinkActive="active" *ngIf="is_admin=='1' || is_admin=='2'">
+                    <a routerLink="/management/department">{{'部门设置' | i18n}}</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+              <li>
+                <a href="#"><i class="fa fa-lg fa-fw fa-cubes"></i> <span
+                        class="menu-item-parent">{{'产品管理' | i18n}}</span></a>
+                <ul>
+                  <li routerLinkActive="active">
+                    <a routerLink="/tables/product">{{'产品列表' | i18n}}</a>
+                  </li>
+                  <li routerLinkActive="active" *ngIf="is_admin!='0'">
+                    <a routerLink="/forms/product1/0">{{'添加产品' | i18n}}</a>
+                  </li>
+                  <li routerLinkActive="active" *ngIf="is_admin=='1' || is_admin=='2'">
+                    <a routerLink="/management/product3type">{{'产品类型设置' | i18n}}</a>
+                  </li>
+                  <li routerLinkActive="active" *ngIf="is_admin=='1' || is_admin=='2'">
+                    <a routerLink="/management/product4parameters">{{'产品规格/参数设置' | i18n}}</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="#"><i class="fa fa-lg fa-fw fa-suitcase"></i> <span
+                        class="menu-item-parent">{{'CRM管理' | i18n}}</span></a>
+                <ul>
+                  <li routerLinkActive="active">
+                    <a routerLink="/tables/client1">{{'客户列表' | i18n}}</a>
+                  </li>
+                  <li routerLinkActive="active" *ngIf="is_admin!='0'">
+                    <a routerLink="/forms/customer1/0">{{'添加客户' | i18n}}</a>
+                  </li>
+
+                </ul>
+              </li>
+              <li>
+                <a href="#"><i class="fa fa-lg fa-fw fa-skype"></i> <span
+                        class="menu-item-parent">{{'销售管理' | i18n}}</span></a>
+                <ul>
+                  <li routerLinkActive="active">
+                    <a routerLink="/tables/indent">{{'订单列表' | i18n}}</a>
+                  </li>
+                  <li routerLinkActive="active" *ngIf="is_admin!='0'">
+                    <a routerLink="/forms/indent1/0">{{'添加订单' | i18n}}</a>
+                  </li>
+                </ul>
+              </li>
+              <li *ngIf="is_admin=='1'">
+                <a href="#"><i class="fa fa-lg fa-fw fa-cog txt-color-blue"></i> <span
+                        class="menu-item-parent">{{'矿易帮设置' | i18n}}</span></a>
+                <ul>
+                  <li *ngIf="is_admin=='1'">
+                    <a href="#"><i class="fa fa-lg fa-fw fa-suitcase"></i> <span
+                            class="menu-item-parent">{{'客户管理' | i18n}}</span></a>
+                    <ul>
+                      <li routerLinkActive="active">
+                        <a routerLink="/tables/client">{{'客户列表' | i18n}}</a>
+                      </li>
+                      <li routerLinkActive="active">
+                        <a routerLink="/forms/customer/0">{{'添加客户' | i18n}}</a>
+                      </li>
+                    </ul>
+                  </li>
+
+                </ul>
+              </li>
+            </ul>
+          </li>
 
           <li routerLinkActive="active">
             <a routerLink="/graphs/tree-views">{{'部门参考' | i18n}}</a>
@@ -314,85 +399,7 @@
       </li>
 
 
-      <li>
-        <a href="#"><i class="fa fa-lg fa-fw fa-unlock-alt"></i> <span
-                class="menu-item-parent">{{'V1' | i18n}}</span></a>
-        <ul>
 
-          <li>
-            <a href="#"><i class="fa fa-lg fa-fw fa-suitcase"></i> <span
-                    class="menu-item-parent">{{'人事管理' | i18n}}</span></a>
-            <ul>
-              <li routerLinkActive="active" *ngIf="is_admin=='1' || is_admin=='2'">
-                <a routerLink="/management/department">{{'部门设置' | i18n}}</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-          <li>
-            <a href="#"><i class="fa fa-lg fa-fw fa-cubes"></i> <span
-                    class="menu-item-parent">{{'产品管理' | i18n}}</span></a>
-            <ul>
-              <li routerLinkActive="active">
-                <a routerLink="/tables/product">{{'产品列表' | i18n}}</a>
-              </li>
-              <li routerLinkActive="active" *ngIf="is_admin!='0'">
-                <a routerLink="/forms/product1/0">{{'添加产品' | i18n}}</a>
-              </li>
-              <li routerLinkActive="active" *ngIf="is_admin=='1' || is_admin=='2'">
-                <a routerLink="/management/product3type">{{'产品类型设置' | i18n}}</a>
-              </li>
-              <li routerLinkActive="active" *ngIf="is_admin=='1' || is_admin=='2'">
-                <a routerLink="/management/product4parameters">{{'产品规格/参数设置' | i18n}}</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href="#"><i class="fa fa-lg fa-fw fa-suitcase"></i> <span
-                    class="menu-item-parent">{{'CRM管理' | i18n}}</span></a>
-            <ul>
-              <li routerLinkActive="active">
-                <a routerLink="/tables/client1">{{'客户列表' | i18n}}</a>
-              </li>
-              <li routerLinkActive="active" *ngIf="is_admin!='0'">
-                <a routerLink="/forms/customer1/0">{{'添加客户' | i18n}}</a>
-              </li>
-
-            </ul>
-          </li>
-          <li>
-            <a href="#"><i class="fa fa-lg fa-fw fa-skype"></i> <span
-                    class="menu-item-parent">{{'销售管理' | i18n}}</span></a>
-            <ul>
-              <li routerLinkActive="active">
-                <a routerLink="/tables/indent">{{'订单列表' | i18n}}</a>
-              </li>
-              <li routerLinkActive="active" *ngIf="is_admin!='0'">
-                <a routerLink="/forms/indent1/0">{{'添加订单' | i18n}}</a>
-              </li>
-            </ul>
-          </li>
-          <li *ngIf="is_admin=='1'">
-            <a href="#"><i class="fa fa-lg fa-fw fa-cog txt-color-blue"></i> <span
-                    class="menu-item-parent">{{'矿易帮设置' | i18n}}</span></a>
-            <ul>
-              <li *ngIf="is_admin=='1'">
-                <a href="#"><i class="fa fa-lg fa-fw fa-suitcase"></i> <span
-                        class="menu-item-parent">{{'客户管理' | i18n}}</span></a>
-                <ul>
-                  <li routerLinkActive="active">
-                    <a routerLink="/tables/client">{{'客户列表' | i18n}}</a>
-                  </li>
-                  <li routerLinkActive="active">
-                    <a routerLink="/forms/customer/0">{{'添加客户' | i18n}}</a>
-                  </li>
-                </ul>
-              </li>
-
-            </ul>
-          </li>
-        </ul>
-      </li>
     </ul>
 
   </nav>

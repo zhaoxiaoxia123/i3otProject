@@ -33,7 +33,7 @@
                               添加商品分类
                             </alert>
                             <alert type="info" class="no-margin" *ngIf="category_id != 0" >
-                              <i class="fa-fw fa fa-plus"></i>
+                              <i class="glyphicon glyphicon-pencil"></i>
                               修改商品分类
                             </alert>
                             <div  class="mt-10">
@@ -58,7 +58,7 @@
                                     <label class="select">
                                       <select name="category_depth" formControlName="category_depth" [(ngModel)]="category_depth_default">
                                         <option [selected]="category_id == 0" value="0">一级分类</option>
-                                        <option *ngFor="let c of categoryList?.result" [selected]="categoryInfo.result?.category_depth == c.category_id" value="{{ c.category_id }}">{{c.category_desc}}</option>
+                                        <option *ngFor="let c of categoryList?.result?.categoryList?.data" [selected]="categoryInfo.result?.category_depth == c.category_id" value="{{ c.category_id }}">{{c.category_desc}}</option>
                                       </select><i></i>
                                     </label>
                                   </section>
@@ -89,7 +89,7 @@
                                 <div class="dd" >
 
                                   <ol class="dd-list">
-                                    <li class="dd-item" data-id="{{cl.category_id}}" *ngFor="let cl of categoryList.result">
+                                    <li class="dd-item" data-id="{{cl.category_id}}" *ngFor="let cl of categoryList?.result?.categoryList?.data">
                                       <button data-action="expand" type="button" *ngIf="cl.child_count > 0" [ngStyle]="{'display': ((button_contrl_id==cl.category_id && index == 1) || button_contrl_id!=cl.category_id) ? 'block':'none'}" (click)="show(2,cl.category_id)">收起</button>
                                       <button data-action="collapse" type="button" *ngIf="cl.child_count > 0" [ngStyle]="{'display': (button_contrl_id==cl.category_id && index == 2) ? 'block':'none'}" (click)="show(1,cl.category_id)">展开</button>
                                       <div class="dd-handle">
@@ -101,7 +101,7 @@
                                           <a class="btn pull-right btn-warning btn-xs btn-20" (click)="editCategory(cl.category_id)"><span class="glyphicon glyphicon-pencil"></span>修改</a>
                                           <a class="btn pull-right btn-danger btn-xs btn-20" (click)="deleteCategory(cl.category_id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
                                         </div>
-                                        <div *ngIf="cid != super_admin_id && cl.c_id != cid"><a class="btn pull-right btn-danger btn-xs">无权操作</a></div>
+                                        <div *ngIf="cid != super_admin_id && cl.c_id != cid"><a class="btn pull-right btn-danger btn-xs btn-20">无权操作</a></div>
                                       </div>
                                       <ol class="dd-list" [ngStyle]="{'display': (button_contrl_id==cl.category_id && index == 2) ? 'block':'none'}">
                                         <li class="dd-item" data-id="{{clc.category_id}}" *ngFor="let clc of cl.child">
@@ -111,7 +111,8 @@
                                               <a class="btn pull-right btn-warning btn-xs btn-20" (click)="editCategory(clc.category_id)"><span class="glyphicon glyphicon-pencil"></span>修改</a>
                                               <a class="btn pull-right btn-danger btn-xs btn-20" (click)="deleteCategory(clc.category_id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
                                             </div>
-                                            <div *ngIf="cid != super_admin_id && clc.c_id != cid"><a class="btn pull-right btn-danger btn-xs">无权操作</a></div>
+                                            <div *ngIf="cid != super_admin_id && clc.c_id != cid">
+                                              <a class="btn pull-right btn-danger btn-xs btn-20">无权操作</a></div>
                                           </div>
                                         </li>
                                       </ol>

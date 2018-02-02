@@ -113,66 +113,6 @@ export class SalesListComponent implements OnInit {
   }
 
   /**
-   * 编辑
-   */
-  editPurchase(){
-    let isAll = 0;
-    let id = 0;
-    this.selects.forEach((val, idx, array) => {
-      if(val == true) {
-        isAll += 1;
-        id = idx;
-      }
-    });
-    let msg = '';
-    if(isAll <= 0){
-      msg = '请选中要编辑的信息，再点击此“修改”按钮！';
-    }else if(isAll > 1){
-      msg = '仅支持选中一条要编辑的信息！';
-    }
-    if(msg != ''){
-      alert(msg);
-      return false;
-    }
-    this.router.navigate(['/sales-management/add-sales/'+id]);
-  }
-
-  /**
-   * 详情
-   */
-  detailPurchase(){
-    let isAll = 0;
-    let id = 0;
-    this.selects.forEach((val, idx, array) => {
-      if(val == true) {
-        isAll += 1;
-        id = idx;
-      }
-    });
-    let msg = '';
-    if(isAll <= 0){
-      msg = '请选中要查看详情的行，再点击此“详情”按钮！';
-    }else if(isAll > 1){
-      msg = '仅支持选中并查看一行要查看的信息！';
-    }
-    if(msg != ''){
-      alert(msg);
-      return false;
-    }
-    let url = this.globalService.getDomain()+'/api/v1/getPurchaseInfo?pr_id='+id;
-    this.http.get(url)
-        .map((res)=>res.json())
-        .subscribe((data)=>{
-          this.purchaseInfo = data;
-          console.log(this.purchaseInfo);
-          if(this.purchaseInfo['status'] == 202){
-            this.cookieStore.removeAll(this.rollback_url);
-            this.router.navigate(['/auth/login']);
-          }
-        });
-  }
-
-  /**
    * 删除选中进货单
    * type   id:单选删除  all：复选删除
    * @returns {boolean}

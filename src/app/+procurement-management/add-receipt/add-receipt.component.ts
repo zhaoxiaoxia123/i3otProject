@@ -134,7 +134,6 @@ export class AddReceiptComponent implements OnInit {
         });
   }
 
-
   /**
    * 获取默认参数
    */
@@ -143,15 +142,12 @@ export class AddReceiptComponent implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.purchaseList = data;
-          console.log('this.purchaseList:----');
-          console.log(this.purchaseList);
           if(this.purchaseList['status'] == 202){
             alert(this.purchaseList['msg']);
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
         });
-
   }
 
   onSubmit(){
@@ -163,7 +159,6 @@ export class AddReceiptComponent implements OnInit {
       alert('请填写单据号！');
       return false;
     }
-    // console.log(this.formModel.value['name']);
     this.http.post(this.globalService.getDomain()+'/api/v1/addPurchase',{
       'pr_id':this.formModel.value['pr_id'],
       'pr_order':this.formModel.value['pr_order'],
@@ -179,6 +174,7 @@ export class AddReceiptComponent implements OnInit {
       // 'pr_detail':this.formModel.value['pr_detail'],
       'pr_detail' :JSON.stringify(this.selectProductList),
       'pr_note':this.formModel.value['pr_note'],
+        'pr_status':this.formModel.value['pr_id'] ? 0 : 1,
       'u_id':this.cookieStore.getCookie('uid'),
       'sid':this.cookieStore.getCookie('sid')
     }).subscribe(
