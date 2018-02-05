@@ -221,78 +221,6 @@
                 </article>
               </div>
 
-            <!--  <sa-datatable tableClass="table table-striped table-bordered table-hover smart-form">
-                <thead>
-                <tr>
-                  <td>
-                    <label class="checkbox">
-                      <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)">
-                      <i></i>
-                    </label>
-                  </td>
-                  <th>员工ID </th>
-                  <th>姓名</th>
-                  <th>角色</th>
-                  <th>职务</th>
-                  <th>所属部门 </th>
-                  <th>联系电话</th>
-                  <th>操作</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr style="display: none;">
-                  <td></td><td></td><td></td><td></td>
-                  <td></td><td></td><td></td><td></td>
-                </tr>
-                <tr *ngFor="let ul of userList.result?.data">
-                  <td>
-                    <label class="checkbox">
-                      <input type="checkbox" value="{{ul.id}}" [checked]="selects[ul.id]" (change)="handle($event)" />
-                      <i></i>
-                    </label>
-                  </td>
-                  <td>{{ ul.name }}</td>
-                  <td>{{ ul.u_username }}</td>
-                  <td>
-              <span [ngSwitch]="ul.u_role">
-                <span *ngSwitchCase="1">超级管理员</span>
-                <span *ngSwitchCase="2">管理员</span>
-                <span *ngSwitchCase="3">员工</span>
-                <span *ngSwitchDefault>未知</span>
-              </span>
-                  </td>
-                  <td>{{ ul.u_position}}</td>
-                  <td>{{ ul.category_desc}}</td>
-                  <td>{{ ul.u_phone }}</td>
-                  <td>
-                    <a *ngIf="uRole != 3" class="btn btn-warning btn-xs" (click)="isDemo('/forms/employees',ul.id)">
-                      <span class="glyphicon glyphicon-pencil"></span>修改
-                    </a>
-                    <a *ngIf="uRole != 3" class="btn btn-danger btn-xs" (click)="deleteUser( ul.id ,userList.result?.current_page)">
-                      <span class="glyphicon glyphicon-remove"></span>删除
-                    </a>
-                    <a class="btn btn-success btn-xs" (click)="getUserInfo(ul.id);lgModal.show();"><span class="glyphicon glyphicon-zoom-in"></span>详情</a>
-                  </td>
-                </tr>
-                </tbody>
-              </sa-datatable>
-              &lt;!&ndash; 底部-（分页部分）&ndash;&gt;
-              <div class="dt-toolbar">
-                <div class="col-xs-12 col-sm-6">
-                  <button  class="btn btn-default"  (click)="deleteUserAll(userList.result?.current_page)">
-                    <i class="fa fa-trash-o fa-lg"></i>
-                    删除所选
-                  </button>
-                </div>
-                <div class="col-sm-6 col-xs-12 hidden-xs text-right">
-                  <ul class="pagination pagination-sm">
-                    <li *ngFor="let p of userList?.page" class="{{p.class}}">
-                      <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
-                      <a *ngIf="p.method==''">{{p.text}}</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>-->
 
             </div>
           </div>
@@ -322,8 +250,7 @@
                   <tr>
                     <td class="width-120">员工ID:</td>
                     <td class="">{{user_info.result?.name}}</td>
-                  </tr>
-                  <tr><td class="width-120">姓名:</td>
+                    <td class="width-120">姓名:</td>
                     <td class="">{{user_info.result?.u_username}}</td>
                   </tr>
                   <tr>
@@ -334,31 +261,27 @@
                       <span *ngSwitchCase="3">员工</span>
                       <span *ngSwitchDefault>未知</span>
                     </td>
-                  </tr>
-                  <tr><td class="width-120">性别：</td>
+                    <td class="width-120">性别：</td>
                     <td class="" [ngSwitch]="user_info.result?.u_gender">
                       <span *ngSwitchCase="1">男</span>
                       <span *ngSwitchCase="2">女</span>
                       <span *ngSwitchDefault>未知</span>
                     </td>
                   </tr>
+
                   <tr>
                     <td class="width-120">年龄：</td>
                     <td class="">{{user_info.result?.u_age}}</td>
-                  </tr>
-                  <tr>
                     <td class="width-120">联系电话：</td>
                     <td class="">{{user_info.result?.u_phone}}</td>
                   </tr>
                   <tr><td class="width-120">所属公司：</td>
                     <td class="">{{user_info.result?.c_name}}</td>
-                  </tr>
-                  <tr>
                     <td class="width-120">所属部门:</td>
                     <td class="">{{user_info.result?.department_name}}</td>
                   </tr>
                   <tr><td class="width-120">备注说明:</td>
-                    <td class="">{{user_info.result?.u_notes}}</td>
+                    <td class="" colspan="3">{{user_info.result?.u_notes}}</td>
                   </tr>
 
                   </tbody>
@@ -368,28 +291,29 @@
                   <tbody>
                   <tr>
                     <td class="width-120">头像:</td>
-                    <td class="">读取头像预览图</td>
-                  </tr>
-                  <tr><td class="width-120">入职时间:</td>
+                    <td class="">
+                      <span class="user-image">
+                        <img  src="assets/img/default_user.png" style="width: 180px; height: 180px;">
+                      </span>
+                    </td>
+                    <td class="width-120">入职时间:</td>
                     <td class="">{{user_info.result?.u_enrol_time}}</td>
                   </tr>
+
                   <tr>
                     <td class="width-120">职务:</td>
                     <td class="">{{user_info.result?.u_position}}</td>
-                  </tr>
-                  <tr><td class="width-120">合同类型：</td>
+                    <td class="width-120">合同类型：</td>
                     <td class="">{{user_info.result?.contract_type}}</td>
                   </tr>
                   <tr><td class="width-120">籍贯：</td>
                     <td class="">{{user_info.result?.u_birthplace}}</td>
-                  </tr>
-                  <tr><td class="width-120">身份证号：</td>
+                    <td class="width-120">身份证号：</td>
                     <td class="">{{user_info.result?.u_id_card}}</td>
                   </tr>
                   <tr><td class="width-120">民族：</td>
                     <td class="">{{user_info.result?.u_nation}}</td>
-                  </tr>
-                  <tr><td class="width-120">婚姻状况：</td>
+                    <td class="width-120">婚姻状况：</td>
                     <td class="" [ngSwitch]="user_info.result?.u_marital_status">
                       <span *ngSwitchCase="1">未婚</span>
                       <span *ngSwitchCase="2">已婚</span>
@@ -398,8 +322,7 @@
                   </tr>
                   <tr><td class="width-120">毕业院校：</td>
                     <td class="">{{user_info.result?.u_graduate_institutions}}</td>
-                  </tr>
-                  <tr><td class="width-120">专业：</td>
+                    <td class="width-120">专业：</td>
                     <td class="">{{user_info.result?.u_study_major}}</td>
                   </tr>
                   <tr><td class="width-120">文凭：</td>
@@ -414,18 +337,17 @@
                       <span *ngSwitchCase="8">MBA/EMBA</span>
                       <span *ngSwitchDefault>未知</span>
                     </td>
-                  </tr>
-                  <tr><td class="width-120">学历来源：</td>
+                    <td class="width-120">学历来源：</td>
                     <td class="">{{user_info.result?.study_category}}</td>
                   </tr>
+
                   <tr><td class="width-120">个人邮箱：</td>
                     <td class="">{{user_info.result?.email}}</td>
-                  </tr>
-                  <tr><td class="width-120">紧急联系人：</td>
+                    <td class="width-120">紧急联系人：</td>
                     <td class="">{{user_info.result?.u_emergency_contact}}：{{user_info.result?.u_emergency_phone}}</td>
                   </tr>
                   <tr><td class="width-120">家庭住址：</td>
-                    <td class="">{{user_info.result?.u_address}}</td>
+                    <td class="" colspan="3" >{{user_info.result?.u_address}}</td>
                   </tr>
                   </tbody>
                 </table>
