@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {Http} from "@angular/http";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ModalDirective} from "ngx-bootstrap";
+import {isUndefined} from "util";
 
 @Component({
   selector: 'app-setting-departmentnew',
@@ -38,7 +39,8 @@ export class SettingDepartmentnewComponent implements OnInit {
     //左侧选中部门的id
     select_department_ids: Array<any> = [];
     //左边展开和收起功能
-    showUl : number  = 1;
+    showUl : number  = 1; //一级
+    showUlChild : number  = 0;//二级
 
     //顶部启动 和无效是否启用显示
     editStatusDepartmentId : any = 0;
@@ -46,6 +48,8 @@ export class SettingDepartmentnewComponent implements OnInit {
 
     //处理批量
     isAll : number = 0;
+    width : string = '0%';
+    width_1 : string = '80%';
 
     customer_name : string = '';
     keyword:string = '';
@@ -59,7 +63,7 @@ export class SettingDepartmentnewComponent implements OnInit {
       let nav = '{"title":"部门设置","url":"/management/setting-departmentnew","class_":"active"}';
       this.globalService.navEventEmitter.emit(nav);
 
-      this.getDepartmentList('1',0);
+      // this.getDepartmentList('1',0);
       window.scrollTo(0,0);
       this.getDepartmentDefault();
       this.formModel = fb.group({
@@ -169,7 +173,6 @@ export class SettingDepartmentnewComponent implements OnInit {
         this.editStatusDepartmentId = 0;
         this.isStatus = 0;
     }
-
     /**
      * 获取默认参数
      */
@@ -178,46 +181,53 @@ export class SettingDepartmentnewComponent implements OnInit {
             .map((res)=>res.json())
             .subscribe((data)=>{
                 this.departmentDefault = data;
+
                 if(this.departmentDefault['status'] == 202){
                     alert(this.departmentDefault['msg']);
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
+                this.select_department_ids[0] = true;
+                this.departmentDefault['result']['departmentList'].forEach((val, idx, array) => {
+                    this.select_department_ids[val['department_id']] = true;
+                    if(val['child_count'] >= 1){
+                        val['child'].forEach((val1, idx1, array1) => {
+                            this.select_department_ids[val1['department_id']] = true;
+                        });
+                    }
+                });
+                let depart = '';
+                this.select_department_ids.forEach((val, idx, array) => {
+                    if(val == true) {
+                        depart += idx + ',';
+                    }
+                });
+                this.getDepartmentList('1',depart);
             });
     }
 
     /**
      *  type ： （ edit ：修改部门  ；  detail  ： 部门详情）
      */
-    detailDepartment(type:string){
+    detailDepartment(type:string,id:any){
         if(this.isStatus == 0){
             return false;
         }
-        // let isAll = 0;
-        // let department_id = 0;
-        // this.selects.forEach((val, idx, array) => {
-        //     if(val == true) {
-        //         isAll += 1;
-        //         department_id = idx;
-        //     }
-        // });
-        // let msg = '';
-        // if(isAll <= 0){
-        //     msg = '请选中要操作的信息，再点击此按钮！';
-        // }else if(isAll > 1){
-        //     msg = '仅支持选择一条要操作的信息！';
-        // }
-        // if(msg != ''){
-        //     alert(msg);
-        //     return false;
-        // }
-        // this.department_id = department_id;
+        console.log(type);
         if(type == 'edit'){
+            this.lgModal.show();
+        }else if(type == 'add'){
+            this.editStatusDepartmentId = 0;
+            this.isStatus = 0;
             this.lgModal.show();
         }else{
             this.detailModal.show();
         }
-        this.http.get(this.globalService.getDomain()+'/api/v1/getDepartmentInfo?department_id='+this.editStatusDepartmentId+'&type='+type+'&sid='+this.cookieStore.getCookie('sid'))
+        let ids = this.editStatusDepartmentId;
+        if(id){
+            ids = id;
+        }
+        this.http.get(this.globalService.getDomain()+'/api/v1/getDepartmentInfo?department_id='+ids+'&type='+type+'&sid='+this.cookieStore.getCookie('sid'))
             .map((res)=>res.json())
             .subscribe((data)=>{
                 this.departmentInfo = data;
@@ -306,7 +316,6 @@ export class SettingDepartmentnewComponent implements OnInit {
                         this.cookieStore.removeAll(this.rollback_url);
                         this.router.navigate(['/auth/login']);
                     }
-
                     if (this.departmentList) {
                         if (this.departmentList['result']['departmentList']['current_page'] == this.departmentList['result']['departmentList']['last_page']) {
                             this.next = true;
@@ -323,6 +332,8 @@ export class SettingDepartmentnewComponent implements OnInit {
                             this.selects[entry['department_id']] = false;
                         }
                         this.check = false;
+
+                        this.getDepartmentDefault();
                     }
                 });
         }
@@ -353,7 +364,7 @@ export class SettingDepartmentnewComponent implements OnInit {
             'department_phone':this.formModel.value['department_phone'],
             'department_fax':this.formModel.value['department_fax'],
             'department_remark':this.formModel.value['department_remark'],
-            'department_status':1,
+            'department_status':this.formModel.value['department_id']?0:1,
             'keyword':this.keyword,
             'department_ids':depart,
             'u_id':this.cookieStore.getCookie('uid'),
@@ -364,8 +375,9 @@ export class SettingDepartmentnewComponent implements OnInit {
                 alert(info['msg']);
                 if(info['status'] == 200) {
                     this.departmentList = info;
-
                     if (this.departmentList) {
+
+                        this.getDepartmentDefault();
                         if (this.departmentList['result']['departmentList']['current_page'] == this.departmentList['result']['departmentList']['last_page']) {
                             this.next = true;
                         } else {
@@ -390,15 +402,32 @@ export class SettingDepartmentnewComponent implements OnInit {
         );
     }
 
+
+
     /**
-     * 左侧导航栏 选中显示列表
-     * @param department_id
+     * 左边选中所有
      */
-    selectDepartment(department_id:any){
-        if(this.select_department_ids[department_id] == true){
-            this.select_department_ids[department_id] = false;
-        }else{
-            this.select_department_ids[department_id] = true;
+    selectDepartmentAll(){
+        if(this.select_department_ids[0] == true){
+            this.select_department_ids[0] = false;
+            this.departmentDefault['result']['departmentList'].forEach((val, idx, array) => {
+                this.select_department_ids[val['department_id']] = false;
+                if (val['has_child'] >= 1) {
+                    val['child'].forEach((val1, idx1, array1) => {
+                        this.select_department_ids[val1['department_id']] = false;
+                    });
+                }
+            });
+        }else {
+            this.select_department_ids[0] = true;
+            this.departmentDefault['result']['departmentList'].forEach((val, idx, array) => {
+                this.select_department_ids[val['department_id']] = true;
+                if (val['has_child'] >= 1) {
+                    val['child'].forEach((val1, idx1, array1) => {
+                        this.select_department_ids[val1['department_id']] = true;
+                    });
+                }
+            });
         }
         let depart = '';
         this.select_department_ids.forEach((val, idx, array) => {
@@ -406,17 +435,88 @@ export class SettingDepartmentnewComponent implements OnInit {
                 depart += idx + ',';
             }
         });
+        this.getDepartmentList('1',depart);
+    }
+
+
+    /**
+     * 左侧导航栏 选中显示列表
+     * @param department_id
+     * index 点击的父类 or子类 索引
+     * num  1：父类 2：子类
+     */
+    selectDepartment(department_id:any,index:number,indexChild:number,num:number){
+        if(num == 1){//点击父类
+            if(this.select_department_ids[department_id] == true){
+                if(this.departmentDefault['result']['departmentList'][index]){
+                    if(this.departmentDefault['result']['departmentList'][index]['child_count'] >= 1){
+                        this.departmentDefault['result']['departmentList'][index]['child'].forEach((val, idx, array) => {
+                            this.select_department_ids[val['department_id']] = false;
+                        });
+                    }
+                }
+                this.select_department_ids[department_id] = false;
+            }else{
+                this.select_department_ids[department_id] = true;
+                if(this.departmentDefault['result']['departmentList'][index]){
+                    console.log(this.departmentDefault['result']['departmentList'][index]['child_count']);
+                    if(this.departmentDefault['result']['departmentList'][index]['child_count'] >= 1){
+                        this.departmentDefault['result']['departmentList'][index]['child'].forEach((val, idx, array) => {
+                            console.log(val['department_id']);
+                            this.select_department_ids[val['department_id']] = true;
+                        });
+                    }
+                }
+            }
+        }else if(num != 1){//点击子类
+            if(this.select_department_ids[department_id] == true){
+                this.select_department_ids[num] = false;
+                this.select_department_ids[department_id] = false;
+            }else{
+                this.select_department_ids[department_id] = true;
+                let count = 0;
+                if(this.departmentDefault['result']['departmentList'][index]){
+                    if(this.departmentDefault['result']['departmentList'][index]['child_count'] >= 1){
+                        this.departmentDefault['result']['departmentList'][index]['child'].forEach((val, idx, array) => {
+                            if(this.select_department_ids[val['department_id']] == false ||  isUndefined(this.select_department_ids[val['department_id']])){
+                                count ++;
+                            }
+                        });
+                    }
+                }
+                if(count == 0){//若子类全是true则父类变为选中状态
+                    this.select_department_ids[num] = true;
+                }
+            }
+            console.log(this.select_department_ids);
+        }
+        let depart = '';
+        this.select_department_ids.forEach((val, idx, array) => {
+            if(val == true) {
+                depart += idx + ',';
+            }
+        });
+        this.leftIsAll(); //左边是否全选
         this.editStatusDepartmentId = 0;
         this.isStatus = 0;
         this.getDepartmentList('1',depart);
     }
 
     /**
-     * 左边展示效果
-     * @param bool
+     * 左边是否被全选
      */
-    showLeftUl(bool:any){
-        this.showUl = bool;
+    leftIsAll(){
+        let isAll = 0;
+        this.departmentDefault['result']['departmentList'].forEach((val, idx, array) => {
+            if(this.select_department_ids[val['department_id']] == false){
+                isAll ++;
+            }
+        });
+        if(isAll == 0){
+            this.select_department_ids[0] = true;
+        }else{
+            this.select_department_ids[0] = false;
+        }
     }
 
     /**
@@ -425,6 +525,15 @@ export class SettingDepartmentnewComponent implements OnInit {
     isStatusShow(department_id:any,department_status:any){
         this.editStatusDepartmentId = department_id;
         this.isStatus = department_status;
+
+        this.isAll = 0;
+        this.width = '0%';
+        this.width_1 ='80%';
+        this.selects.forEach((val, idx, array) => {
+            if(val == true){
+                this.selects[idx] = false;
+            }
+        });
     }
 
     /**
@@ -494,11 +603,26 @@ export class SettingDepartmentnewComponent implements OnInit {
      * 批量
      */
     showAllCheck(){
-        this.isAll = 1;
-        this.editStatusDepartmentId = 0;
-        this.isStatus = 0;
+        if(this.isAll == 0) {
+            this.isAll = 1;
+            this.editStatusDepartmentId = 0;
+            this.isStatus = 0;
+            this.width = '10%';
+            this.width_1 = '70%';
+        }
     }
 
+
+    /**
+     * 左边展示效果
+     * @param bool
+     */
+    showLeftUl(bool:any){
+        this.showUl = bool;
+    }
+    showLeftUlChild(department_id:any){
+        this.showUlChild = department_id;
+    }
     @ViewChild('lgModal') public lgModal:ModalDirective;
     @ViewChild('detailModal') public detailModal:ModalDirective;
 

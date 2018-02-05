@@ -85,4 +85,7 @@ export class GlobalService {
     return new Blob( [ab] , {type : 'image/png'});
   }
 
+
+
+
 }

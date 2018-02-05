@@ -37,6 +37,8 @@ export class ListStaffComponent implements OnInit {
 
   //处理批量
   isAll : number = 0;
+  width : string = '0%';
+  width_1 : string = '70%';
 
   customer_name : string = '';
 
@@ -44,6 +46,7 @@ export class ListStaffComponent implements OnInit {
   uRole : string = '';
   // pageHtml:SafeHtml;
   rollback_url : string = '/tables/staff';
+  domain_url : string = '';
   constructor(
       private http:Http,
       fb:FormBuilder,
@@ -52,23 +55,21 @@ export class ListStaffComponent implements OnInit {
       private globalService:GlobalService,
       // private sanitizer: DomSanitizer
   ) {
-
     let nav = '{"title":"员工列表","url":"/tables/staff","class_":"active"}';
     this.globalService.navEventEmitter.emit(nav);
     this.formModel = fb.group({
       keyword:[''],
     });
 
-    this.getUserList('1',0);
     window.scrollTo(0,0);
     this.uRole = this.cookieStore.getCookie('urole');
+    this.domain_url = this.globalService.getDomain();
     this.getUserDefault();
   }
 
   ngOnInit() {
     this.customer_name = this.cookieStore.getCookie('c_name');
   }
-
 
   /**
    * 获取默认参数
@@ -84,6 +85,23 @@ export class ListStaffComponent implements OnInit {
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
+          this.select_department_ids[0] = true;
+          this.userDefault['result']['departmentList'].forEach((val, idx, array) => {
+              this.select_department_ids[val['department_id']] = true;
+            if(val['has_child'] >= 1){
+              val['child'].forEach((val1, idx1, array1) => {
+                this.select_department_ids[val1['department_id']] = true;
+              });
+            }
+          });
+
+          let depart = '';
+          this.select_department_ids.forEach((val, idx, array) => {
+            if(val == true) {
+              depart += idx + ',';
+            }
+          });
+          this.getUserList('1',depart);
         });
   }
 
@@ -160,6 +178,7 @@ export class ListStaffComponent implements OnInit {
     this.check = c;
   }
   //点击列表checkbox事件
+
   handle(e){
     let t = e.target;
     let v = t.value;
@@ -284,6 +303,39 @@ export class ListStaffComponent implements OnInit {
     this.globalService.demoAlert(url,param);
   }
 
+  /**
+   * 左边选中所有
+   */
+  selectDepartmentAll(){
+    if(this.select_department_ids[0] == true){
+      this.select_department_ids[0] = false;
+      this.userDefault['result']['departmentList'].forEach((val, idx, array) => {
+        this.select_department_ids[val['department_id']] = false;
+        if (val['has_child'] >= 1) {
+          val['child'].forEach((val1, idx1, array1) => {
+            this.select_department_ids[val1['department_id']] = false;
+          });
+        }
+      });
+    }else {
+      this.select_department_ids[0] = true;
+      this.userDefault['result']['departmentList'].forEach((val, idx, array) => {
+        this.select_department_ids[val['department_id']] = true;
+        if (val['has_child'] >= 1) {
+          val['child'].forEach((val1, idx1, array1) => {
+            this.select_department_ids[val1['department_id']] = true;
+          });
+        }
+      });
+    }
+    let depart = '';
+    this.select_department_ids.forEach((val, idx, array) => {
+      if(val == true) {
+        depart += idx + ',';
+      }
+    });
+    this.getUserList('1',depart);
+  }
 
   /**
    * 左侧导航栏 选中显示列表
@@ -295,7 +347,7 @@ export class ListStaffComponent implements OnInit {
     if(num == 1){//点击父类
       if(this.select_department_ids[department_id] == true){
         if(this.userDefault['result']['departmentList'][index]){
-          if(this.userDefault['result']['departmentList'][index]['child_count'] >= 1){
+          if(this.userDefault['result']['departmentList'][index]['has_child'] >= 1){
             this.userDefault['result']['departmentList'][index]['child'].forEach((val, idx, array) => {
               this.select_department_ids[val['department_id']] = false;
             });
@@ -306,8 +358,8 @@ export class ListStaffComponent implements OnInit {
         this.select_department_ids[department_id] = true;
 
         if(this.userDefault['result']['departmentList'][index]){
-          console.log(this.userDefault['result']['departmentList'][index]['child_count']);
-          if(this.userDefault['result']['departmentList'][index]['child_count'] >= 1){
+          console.log(this.userDefault['result']['departmentList'][index]['has_child']);
+          if(this.userDefault['result']['departmentList'][index]['has_child'] >= 1){
             this.userDefault['result']['departmentList'][index]['child'].forEach((val, idx, array) => {
               console.log(val['department_id']);
               this.select_department_ids[val['department_id']] = true;
@@ -324,7 +376,7 @@ export class ListStaffComponent implements OnInit {
 
         let count = 0;
         if(this.userDefault['result']['departmentList'][index]){
-          if(this.userDefault['result']['departmentList'][index]['child_count'] >= 1){
+          if(this.userDefault['result']['departmentList'][index]['has_child'] >= 1){
             this.userDefault['result']['departmentList'][index]['child'].forEach((val, idx, array) => {
               if(this.select_department_ids[val['department_id']] == false ||  isUndefined(this.select_department_ids[val['department_id']])){
                 count ++;
@@ -337,25 +389,51 @@ export class ListStaffComponent implements OnInit {
         }
       }
     }
-
     let depart = '';
     this.select_department_ids.forEach((val, idx, array) => {
       if(val == true) {
         depart += idx + ',';
       }
     });
-
+    this.leftIsAll(); //左边是否全选
     this.editStatusUserId = 0;
     this.isStatus = 0;
     this.getUserList('1',depart);
   }
 
   /**
+   * 左边是否被全选
+   */
+  leftIsAll(){
+    let isAll = 0;
+    this.userDefault['result']['departmentList'].forEach((val, idx, array) => {
+      if(this.select_department_ids[val['department_id']] == false){
+        isAll ++;
+      }
+    });
+    if(isAll == 0){
+      this.select_department_ids[0] = true;
+    }else{
+      this.select_department_ids[0] = false;
+    }
+  }
+
+
+  /**
    * 顶部  启用. 无效
    */
   isStatusShow(u_id:any,status:any){
-    this.editStatusUserId = u_id;
-    this.isStatus = status;
+      this.editStatusUserId = u_id;
+      this.isStatus = status;
+
+      this.isAll = 0;
+      this.width = '0%';
+      this.width_1 ='70%';
+      this.selects.forEach((val, idx, array) => {
+        if(val == true){
+          this.selects[idx] = false;
+        }
+      });
   }
 
   /**
@@ -373,6 +451,10 @@ export class ListStaffComponent implements OnInit {
       });
     }else{
       u_id = this.editStatusUserId;
+    }
+    if(!u_id || this.isAll == 0){
+      alert('请确认已选中批量操作的项！');
+      return false;
     }
 
     let depart = '';
@@ -415,9 +497,13 @@ export class ListStaffComponent implements OnInit {
    * 批量
    */
   showAllCheck() {
-    this.isAll = 1;
-    this.editStatusUserId = 0;
-    this.isStatus = 0;
+    if(this.isAll == 0) {
+      this.isAll = 1;
+      this.editStatusUserId = 0;
+      this.isStatus = 0;
+      this.width = '10%';
+      this.width_1 = '60%';
+    }
   }
 
   /**

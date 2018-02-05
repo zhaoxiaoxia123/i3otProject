@@ -26,7 +26,7 @@ export class RegistrationFormComponent implements OnInit {
   //籍贯
   birthplace_province : string[] = [];
   birthplace_city : string[] = [];
-
+  passwordPlaceholder:string = '请输入密码';
   userList : Array<any> = [];
 
   u_id : number = 0;
@@ -231,6 +231,7 @@ export class RegistrationFormComponent implements OnInit {
             });
             this.is_show = true;
           }
+          this.passwordPlaceholder = '******';
         });
   }
 
@@ -245,7 +246,7 @@ export class RegistrationFormComponent implements OnInit {
    * 获取添加员工的默认参数
    */
   getUserDefault(num:number) {
-    this.http.get(this.globalService.getDomain()+'/api/v1/getUserDefault?sid='+this.cookieStoreService.getCookie('sid'))
+    this.http.get(this.globalService.getDomain()+'/api/v1/getUserDefault?type=add&sid='+this.cookieStoreService.getCookie('sid'))
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.userList = data;
