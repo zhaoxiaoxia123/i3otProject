@@ -10,7 +10,7 @@
   <sa-widgets-grid>
     <div class="row">
       <article class="col-sm-12 ">
-        <sa-widget [editbutton]="false" [deletebutton]="false" color="blueDark">
+        <sa-widget [editbutton]="false" [deletebutton]="false" [colorbutton]="false">
           <header>
             <span class="widget-icon"> <i class="fa fa-table"></i> </span>
             <h2>广播信息列表 </h2>
@@ -20,9 +20,6 @@
               <div class="row">
                 <article class="col-sm-12">
                   <div class="navbar navbar-default">
-
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
                       <form class="navbar-form navbar-left" role="search"  [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate >
 
                         <div class="form-group pdlr-4">
@@ -61,20 +58,24 @@
                           <a class="btn default-btn btn-sm"  >
                             <span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>无效</a>
                         </div>-->
-                        <div class="form-group pdlr-4">
-                          <div class="form-group padding-left-10">
-                            <input type="text" name="keyword" maxlength="15" formControlName="keyword" class="form-control" placeholder="请输入搜索内容">
-                          </div>
-                          <button type="submit" class="btn btn-default">
-                            <i class="glyphicon glyphicon-search"></i>
-                            搜索
-                          </button>
-                        </div>
+
 
 
 
                       </form>
-                    </div>
+                    <form class="navbar-form navbar-left" role="search"  [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate >
+                      <div class="form-group pdlr-4">
+                          <input type="text" name="keyword" maxlength="15" formControlName="keyword" class="form-control" placeholder="请输入搜索内容">
+
+                      </div>
+                      <div class="form-group pdlr-4">
+                        <button type="submit" class="btn btn-default">
+                          <i class="glyphicon glyphicon-search"></i>
+                          搜索
+                        </button>
+                      </div>
+                    </form>
+
                   </div>
                 </article>
               </div>
@@ -83,7 +84,7 @@
 
               <div style="padding:0;">
                 <div style="padding: 0;z-index: 2;" class="table-responsive">
-                  <table class="table table-striped  table-hover smart-form">
+                  <table class="table table-striped   smart-form">
                     <thead>
                     <tr >
                       <td>
@@ -134,56 +135,6 @@
                 </div>
               </div>
 
-
-
-
-            <!--  <sa-datatable tableClass="table table-striped table-bordered table-hover smart-form">
-                <thead>
-                <tr>
-                  <td>
-                    <label class="checkbox">
-                      <input type="checkbox" [checked]="check" (change)="changeCheckAll($event)">
-                      <i></i>
-                    </label>
-                  </td>
-                  <th>设备ID</th>
-                  <th>警报类型 </th>
-                  <th>文字输入 </th>
-                  <th>闪烁 </th>
-                  <th>警报 </th>
-                  <th>操作</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr style="display: none;">
-                  <td></td><td></td><td></td><td></td>
-                  <td></td><td></td><td></td>
-                </tr>
-                <tr *ngFor="let bl of broadcastList.result?.data">
-                  <td>
-                    <label class="checkbox">
-                      <input type="checkbox" value="{{ bl.b_id }}" [checked]="selects[bl.b_id]" (change)="handle($event)">
-                      <i></i>
-                    </label>
-                  </td>
-                  <td>{{ bl.i3otp_pid }}</td>
-                  <td [ngSwitch]="bl.b_category">
-                    <span *ngSwitchCase="1">文字</span>
-                    <span *ngSwitchCase="2">语音</span>
-                    <span *ngSwitchCase="3">文字，语言</span>
-                    <span *ngSwitchDefault>未知</span>
-                  </td>
-                  <td>{{ bl.b_info }}</td>
-                  <td>{{ bl.b_led }}</td>
-                  <td>{{ bl.b_buzzer }}</td>
-                  <td><a class="btn btn-warning btn-xs" (click)="isDemo('/equipment/phonics',bl.b_id)"><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                    <a class="btn btn-danger btn-xs" (click)="deleteBroadcast(bl.b_id ,broadcastList.result?.current_page)"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                    <a class="btn btn-success btn-xs" (click)="getBroadcastInfo(bl.b_id);lgModal.show();" ><span class="glyphicon glyphicon-zoom-in"></span>详情</a>&lt;!&ndash;data-toggle="modal" data-target="#myModal" &ndash;&gt;
-                  </td>
-                </tr>
-                </tbody>
-
-              </sa-datatable>-->
               <!-- 底部-（分页部分）-->
               <div class="dt-toolbar">
                 <div class="col-xs-12 col-sm-6">

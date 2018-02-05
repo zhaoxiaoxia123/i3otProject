@@ -80,9 +80,7 @@
                       <div  class="row mt-10">
                         <article  class="col-sm-12">
                           <div class="navbar navbar-default">
-                            <div class="collapse navbar-collapse">
-
-                              <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
+                            <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
                                 <div class="form-group pdlr-4">
                                   <a class="btn default-btn btn-sm"  >
                                     <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
@@ -100,14 +98,13 @@
                                   </ul>
                                 </div>
                               </form>
-                            </div>
                           </div>
                         </article>
                       </div>
 
                       <div style="padding:0;">
                         <div style="padding: 0;z-index: 2;" class="table-responsive">
-                          <table class="table table-striped  table-hover smart-form">
+                          <table class="table table-striped  smart-form">
                             <thead>
                             <tr >
                               <td><label class="checkbox">
@@ -153,33 +150,6 @@
                         </div>
                       </div>
 
-
-
-                     <!-- <div class="table-responsive">
-                        <table class="table table-hover table-bordered dataTable">
-                          <thead>
-                          <tr>
-                            <th>项目所属编号</th>
-                            <th>项目所属名称</th>
-                            <th>操作</th>
-                          </tr>
-                          </thead>
-                          <tbody>
-                          <tr *ngFor="let c of categoryList?.result">
-                            <td>{{c.category_number}}</td>
-                            <td>{{c.category_desc}}</td>&lt;!&ndash;yellow-label&ndash;&gt;
-                            <td>
-                              <div *ngIf="cid == super_admin_id || c.c_id == cid" >
-                                <a class="btn btn-warning btn-xs" (click)="editCategory(c.category_id)"><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                <a class="btn btn-danger btn-xs" (click)="deleteCategory(c.category_id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                              </div>
-                              <div *ngIf="cid != super_admin_id && c.c_id != cid">无权操作</div>
-                            </td>
-                          </tr>
-                          </tbody>
-                        </table>
-
-                      </div>-->
 
                     </div>
                   </div>
