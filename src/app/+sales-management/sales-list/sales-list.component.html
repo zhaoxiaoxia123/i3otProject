@@ -15,62 +15,63 @@
               <div  class="row">
                 <article  class="col-sm-12">
                   <div class="navbar navbar-default">
-                    <div class="collapse navbar-collapse">
-                      <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-                        <div class="form-group pdlr-4">
-                          <a class="btn btn-success btn-sm" (click)="isDemo('/sales-management/add-sales','0')">
-                            <span class="glyphicon glyphicon-plus mr-5"></span>添加销售单</a>
-                        </div>
-                        <div class="form-group pdlr-4">
-                          <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="isDemo('/sales-management/add-sales','1')" >
-                            <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
-                        </div>
-                        <div class="form-group pdlr-4">
-                          <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="deletePurchase('id')">
-                            <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
-                        </div>
-                        <!--<div class="form-group pdlr-4">-->
-                          <!--<a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailPurchase()" >-->
-                            <!--<span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>-->
-                        <!--</div>-->
-                        <div class="form-group pdlr-4" *ngIf="isStatus == 2">
-                          <a class="btn default-btn btn-sm" (click)="editStatus(1,'id')">
-                            <span class="fa-fw fa fa-play mr-5 color-green"></span>启用</a>
-                        </div>
-                        <div class="form-group pdlr-4" *ngIf="isStatus == 1">
-                          <a class="btn default-btn btn-sm" (click)="editStatus(2,'id')" >
-                            <span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>无效</a>
-                        </div>
-                        <div class="form-group btn-group pdlr-4">
-                          <a class="btn default-btn btn-sm dropdown-toggle"  data-toggle="dropdown" (click)="showAllCheck()">
-                            <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
-                          <ul class="dropdown-menu" role="menu">
-                            <li><a (click)="editStatus(1,'all')"><span class="fa-fw fa fa-play mr-5 color-green"></span>批量设为启动</a></li>
-                            <li><a (click)="editStatus(2,'all')"><span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>批量设为无效</a></li>
-                            <li class="divider"></li>
-                            <li><a (click)="deletePurchase('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
-                          </ul>
-                        </div>
-                        <div class="form-group pdlr-4">
-                          <div class="form-group padding-left-10">
-                            <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" [(ngModel)]="keyword" name="keyword" placeholder="请输入搜索内容" type="text">
-                          </div>
-                          <button class="btn btn-default" type="button" (click)="getPurchaseList(1)">
-                            <i  class="glyphicon glyphicon-search"></i>
-                            搜索
-                          </button>
-                        </div>
-                      </form>
-                    </div>
+                    <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
+                      <div class="form-group pdlr-4">
+                        <a class="btn btn-success btn-sm" (click)="isDemo('/sales-management/add-sales','0')">
+                          <span class="glyphicon glyphicon-plus mr-5"></span>添加销售单</a>
+                      </div>
+                      <div class="form-group pdlr-4">
+                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="isDemo('/sales-management/add-sales','1')" >
+                          <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
+                      </div>
+                      <div class="form-group pdlr-4">
+                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="deletePurchase('id')">
+                          <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
+                      </div>
+                      <!--<div class="form-group pdlr-4">-->
+                      <!--<a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailPurchase()" >-->
+                      <!--<span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>-->
+                      <!--</div>-->
+                      <div class="form-group pdlr-4" *ngIf="isStatus == 2">
+                        <a class="btn default-btn btn-sm" (click)="editStatus(1,'id')">
+                          <span class="fa-fw fa fa-play mr-5 color-green"></span>启用</a>
+                      </div>
+                      <div class="form-group pdlr-4" *ngIf="isStatus == 1">
+                        <a class="btn default-btn btn-sm" (click)="editStatus(2,'id')" >
+                          <span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>无效</a>
+                      </div>
+                      <div class="form-group btn-group pdlr-4">
+                        <a class="btn default-btn btn-sm dropdown-toggle"  data-toggle="dropdown" (click)="showAllCheck()">
+                          <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a (click)="editStatus(1,'all')"><span class="fa-fw fa fa-play mr-5 color-green"></span>批量设为启动</a></li>
+                          <li><a (click)="editStatus(2,'all')"><span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>批量设为无效</a></li>
+                          <li class="divider"></li>
+                          <li><a (click)="deletePurchase('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
+                        </ul>
+                      </div>
+                    </form>
+                    <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
+                      <div class="form-group pdlr-4">
+                        <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" [(ngModel)]="keyword" name="keyword" placeholder="请输入搜索内容" type="text">
+                      </div>
+                      <div class="form-group pdlr-4">
+                        <button class="btn btn-default" type="button" (click)="getPurchaseList(1)">
+                          <i  class="glyphicon glyphicon-search"></i>
+                          搜索
+                        </button>
+                      </div>
+                    </form>
+
                   </div>
                 </article>
               </div>
               <div  class="padding0">
-                <div style="z-index: 2;width:30%;float:left;" class="table-responsive padding0">
-                  <table class="table table-striped  table-hover smart-form">
+                <div style="z-index: 2;width:30%;float:left;" class="table-scrolling padding0">
+                  <table class="table table-striped   smart-form table-height-20">
                     <thead>
                     <tr >
-                      <td *ngIf="isAll != 0"><label class="checkbox">
+                      <td *ngIf="isAll != 0"><label class="checkbox mt-8">
                         <input type="checkbox" name="checkbox-inline"  [checked]="check" (change)="changeCheckAll($event)" >
                         <i></i>
                       </label>
@@ -83,7 +84,7 @@
                     <tbody>
                     <tr *ngFor="let p of purchaseList.result?.purchaseList?.data" (click)="isStatusShow(p.pr_id,p.pr_status)" [ngClass]="{'table-color':editStatusPurchaseId == p.pr_id}"><!--class="table-color" --->
                       <td *ngIf="isAll != 0">
-                        <label class="checkbox">
+                        <label class="checkbox mt-8">
                           <input type="checkbox" value="{{p.pr_id}}" [checked]="selects[p.pr_id]" (change)="$event.preventDefault();$event.stopPropagation();handle($event)">
                           <i></i>
                         </label>
@@ -102,7 +103,7 @@
                   </table>
                 </div>
                 <div style="padding: 0;z-index:1;width:70%;float:left;" class="table-responsive">
-                  <table class="table table-striped  table-hover smart-form">
+                  <table class="table table-striped   smart-form table-height-20">
                     <thead>
                     <tr>
                       <th>客户</th>
