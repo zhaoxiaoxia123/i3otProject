@@ -17,9 +17,8 @@
                 <article  class="col-sm-12">
                   <div class="navbar navbar-default">
                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-
                       <div class="form-group pdlr-4">
-                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="lgModal.show();">
+                        <a [ngClass]="{'btn btn-success btn-sm':true,'not-click':isStatus == 0}" (click)="lgModal.show();">
                           <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
                       </div>
                       <div class="form-group pdlr-4">
@@ -51,15 +50,16 @@
                     </form>
                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
                       <div class="form-group pdlr-4">
-                        <div class="form-group ">
-                          <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" [(ngModel)]="keyword"  name="keyword" placeholder="请输入搜索内容" type="text">
-                        </div>
+                        <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" [(ngModel)]="keyword"  name="keyword" placeholder="请输入搜索内容" type="text">
+                      </div>
+                      <div class="form-group pdlr-4">
                         <button class="btn btn-default" type="button" (click)="getProductList(1,0)">
                           <i class="glyphicon glyphicon-search"></i>
                           搜索
                         </button>
                       </div>
                     </form>
+
                   </div>
                 </article>
               </div>

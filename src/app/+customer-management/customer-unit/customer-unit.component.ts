@@ -13,19 +13,9 @@ export class CustomerUnitComponent implements OnInit {
     public states: Array<any>;
     public state: any = {
         tabs: {
-            demo1: 0,
-            demo2: 'tab-r1',
             demo3: 'hr1',
-            demo4: 'AA',
-            demo5: 'iss1',
-            demo6: 'l1',
-            demo7: 'tab1',
-            demo8: 'hb1',
-            demo9: 'A1',
-            demo10: 'is1'
         },
     };
-
 
     page : any;
     prev : boolean = false;
@@ -66,6 +56,14 @@ export class CustomerUnitComponent implements OnInit {
     c_discount_rate: string = '';
     c_credit_amount: string = '';
 
+    //顶部启动 和无效是否启用显示
+    editStatusCustomerId : any = 0;
+    isStatus : any = 0;
+    //处理批量
+    isAll : number = 0;
+    width : string = '0%';
+    width_1 : string = '80%';
+
     keyword : string = '';
     cid : any = 0;//当前登录用户的所属公司id
     super_admin_id : any = 0;//超级管理员所属公司id
@@ -93,7 +91,6 @@ export class CustomerUnitComponent implements OnInit {
     ngOnInit() {
     }
 
-
     /**
      * 获取默认参数
      */
@@ -102,15 +99,13 @@ export class CustomerUnitComponent implements OnInit {
             .map((res)=>res.json())
             .subscribe((data)=>{
                 this.customerDefault = data;
+                console.log(this.customerDefault);
+                if(this.customerDefault['status'] == 202){
+                    alert(this.customerDefault['msg']);
+                    this.cookieStoreService.removeAll(this.rollback_url);
+                    this.router.navigate(['/auth/login']);
+                }
             });
-        setTimeout(() => {
-            console.log(this.customerDefault);
-            if(this.customerDefault['status'] == 202){
-                alert(this.customerDefault['msg']);
-                this.cookieStoreService.removeAll(this.rollback_url);
-                this.router.navigate(['/auth/login']);
-            }
-        }, 600);
     }
     /**
      * 获取客户列表
@@ -132,13 +127,12 @@ export class CustomerUnitComponent implements OnInit {
                 }
 
                 this.selects = [];
-                for (let entry of this.customerList['result']) {
+                for (let entry of this.customerList['result']['customerList']['data']) {
                     this.selects[entry['c_id']] = false;
                 }
                 this.check = false;
             });
     }
-
 
     //全选，反全选
     changeCheckAll(e){
@@ -194,14 +188,12 @@ export class CustomerUnitComponent implements OnInit {
             .map((res)=>res.json())
             .subscribe((data)=>{
                 this.customerInfo = data;
-            });
-        setTimeout(() => {
-            console.log(this.customerInfo);
+                console.log(this.customerInfo);
 
-            if(this.customerInfo['result']['c_follow_user_id'] != 0){
-                this.getDepartment(this.customerInfo['result']['c_follow_user_id'],2);
-            }
-        }, 500);
+                if(this.customerInfo['result']['c_follow_user_id'] != 0){
+                    this.getDepartment(this.customerInfo['result']['c_follow_user_id'],2);
+                }
+            });
     }
 
 
@@ -224,15 +216,14 @@ export class CustomerUnitComponent implements OnInit {
             .map((res)=>res.json())
             .subscribe((data)=>{
                 this.departmentInfo = data;
+
+                if(this.departmentInfo['status'] == 201){
+                    alert(this.departmentInfo['msg']);
+                }else if(this.departmentInfo['status'] == 200){
+                    this.department = this.departmentInfo['result']['category_desc'];
+                }
+                console.log(this.department);
             });
-        setTimeout(() => {
-            if(this.departmentInfo['status'] == 201){
-                alert(this.departmentInfo['msg']);
-            }else if(this.departmentInfo['status'] == 200){
-                this.department = this.departmentInfo['result']['category_desc'];
-            }
-            console.log(this.department);
-        }, 600);
     }
 
     /**
@@ -273,6 +264,7 @@ export class CustomerUnitComponent implements OnInit {
             'c_bank_account' : this.c_bank_account,
             'c_discount_rate' : this.c_discount_rate,
             'c_credit_amount' : this.c_credit_amount,
+            'c_status' : 1,
             'sid':this.cookieStoreService.getCookie('sid')
         }).subscribe(
             (data)=>{
@@ -280,17 +272,16 @@ export class CustomerUnitComponent implements OnInit {
                 alert(info['msg']);
                 if(info['status'] == 200) {
                     this.clear_();
+                    this.customerList = info;
+                    this.selects = [];
+                    for (let entry of this.customerList['result']['customerList']['data']) {
+                        this.selects[entry['c_id']] = false;
+                    }
+                    this.check = false;
                 }else if(info['status'] == 202){
                     this.cookieStoreService.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
-                this.customerList = info;
-
-                this.selects = [];
-                for (let entry of this.customerList['result']) {
-                    this.selects[entry['c_id']] = false;
-                }
-                this.check = false;
             }
         );
     }
@@ -359,89 +350,179 @@ export class CustomerUnitComponent implements OnInit {
     }
 
     /**
-     * 编辑信息
+     *  type ： （ edit ：修改  ；  detail  ： 详情）
      */
-    editCustomer(){
-        let isAll = 0;
-        let c_id = 0;
-        this.selects.forEach((val, idx, array) => {
-            if(val == true) {
-                isAll += 1;
-                c_id = idx;
-            }
-        });
-        let msg = '';
-        if(isAll <= 0){
-            msg = '请选中要编辑的信息，再点击此“修改”按钮！';
-        }else if(isAll > 1){
-            msg = '仅支持选择一条要编辑的信息！';
-        }
-        if(msg != ''){
-            alert(msg);
+    detailCustomer(type:string){
+        if(this.isStatus == 0){
             return false;
         }
-        this.lgModal.show();
-        this.http.get(this.globalService.getDomain()+'/api/v1/getCustomerInfo?c_id='+c_id+'&role='+this.role)
+        if(type == 'edit'){
+            this.lgModal.show();
+        }else{
+            this.detailModal.show();
+        }
+        // let isAll = 0;
+        // let c_id = 0;
+        // this.selects.forEach((val, idx, array) => {
+        //     if(val == true) {
+        //         isAll += 1;
+        //         c_id = idx;
+        //     }
+        // });
+        // let msg = '';
+        // if(isAll <= 0){
+        //     msg = '请选中要编辑的信息，再点击此“修改”按钮！';
+        // }else if(isAll > 1){
+        //     msg = '仅支持选择一条要编辑的信息！';
+        // }
+        // if(msg != ''){
+        //     alert(msg);
+        //     return false;
+        // }
+        // this.lgModal.show();
+        this.http.get(this.globalService.getDomain()+'/api/v1/getCustomerInfo?c_id='+this.editStatusCustomerId+'&type='+type+'&role='+this.role+'&sid='+this.cookieStoreService.getCookie('sid'))
             .map((res)=>res.json())
             .subscribe((data)=>{
                 this.customerInfo = data;
+                this.c_id = 0;
+                if(this.customerInfo['status'] == 200 && type == 'edit') {
+                    this.setValue(this.customerInfo);
+                }else if(this.customerInfo['status'] == 202){
+                    alert(this.customerInfo['msg']);
+                    this.cookieStoreService.removeAll(this.rollback_url);
+                    this.router.navigate(['/auth/login']);
+                }
+                if(this.customerInfo['result']['c_follow_user_id'] != 0){
+                    this.getDepartment(this.customerInfo['result']['c_follow_user_id'],2);
+                }
             });
-        setTimeout(() => {
-            this.setValue(this.customerInfo);
-            if(this.customerInfo['result']['c_follow_user_id'] != 0){
-                this.getDepartment(this.customerInfo['result']['c_follow_user_id'],2);
-            }
-        }, 500);
     }
 
     /**
      * 删除信息
+     * type id:单挑  all :多条
      */
-    deleteCustomer(){
+    deleteCustomer(type:any){
         if(this.globalService.demoAlert('','')){
             return false;
         }
         let msg = '';
-
-        let is_select = 0;
-        let ids : string = '';
-        this.selects.forEach((val, idx, array) => {
-            if(val == true){
-                ids += idx+',';
-                is_select += 1;
+        let c_id : string = '';
+        if(type == 'id'){
+            c_id = this.editStatusCustomerId;
+        } else if(type == 'all') {
+            let is_select = 0;
+            this.selects.forEach((val, idx, array) => {
+                if (val == true) {
+                    c_id += idx + ',';
+                    is_select += 1;
+                }
+            });
+            if (is_select < 1) {
+                msg = '请确认已选中需要删除的信息！';
+                alert(msg);
+                return false;
             }
-        });
-
-        if(is_select < 1){
-            msg = '请确认已选中需要删除的信息！';
-            alert(msg);
-            return false;
         }
         msg = '您确定要删除该信息吗？';
         if(confirm(msg)) {
-            let url = this.globalService.getDomain()+'/api/v1/deleteCustomerById?ids=' + ids + '&role='+this.role+'&type=all&sid=' + this.cookieStoreService.getCookie('sid');
+            let url = this.globalService.getDomain()+'/api/v1/deleteCustomerById?c_ids=' + c_id + '&role='+this.role+'&type='+type+'&sid=' + this.cookieStoreService.getCookie('sid');
             this.http.delete(url)
                 .map((res) => res.json())
                 .subscribe((data) => {
                     this.customerList = data;
-                });
-            setTimeout(() => {
-                if(this.customerList['status'] == 202){
-                    this.cookieStoreService.removeAll(this.rollback_url);
-                    this.router.navigate(['/auth/login']);
-                }
 
-                this.selects = [];
-                for (let entry of this.customerList['result']['data']) {
-                    this.selects[entry['c_id']] = false;
-                }
-                this.check = false;
-            }, 300);
+                    if(this.customerList['status'] == 202){
+                        this.cookieStoreService.removeAll(this.rollback_url);
+                        this.router.navigate(['/auth/login']);
+                    }
+                    this.selects = [];
+                    for (let entry of this.customerList['result']['customerList']['data']) {
+                        this.selects[entry['c_id']] = false;
+                    }
+                    this.check = false;
+                });
         }
     }
 
+    /**
+     * 顶部  启用. 无效
+     */
+    isStatusShow(c_id:any,status:any){
+        this.editStatusCustomerId = c_id;
+        this.isStatus = status;
+
+        this.isAll = 0;
+        this.width = '0%';
+        this.width_1 ='80%';
+        this.selects.forEach((val, idx, array) => {
+            if(val == true){
+                this.selects[idx] = false;
+            }
+        });
+    }
+
+    /**
+     * 修改状态
+     * @param status
+     * type   all 批量   id  单条操作
+     */
+    editStatus(status:any,type:any){
+        let c_id = '';
+        if(type == 'all'){
+            this.selects.forEach((val, idx, array) => {
+                if(val == true){
+                    c_id += idx+',';
+                }
+            });
+        }else{
+            c_id = this.editStatusCustomerId;
+        }
+        if(! c_id){
+            alert('请确保已选中需要批量操作的项！');
+            return false;
+        }
+        this.http.post(this.globalService.getDomain()+'/api/v1/addCustomer',{
+            'c_id':c_id,
+            'c_status':status,
+            'type':type,
+            'role':this.role,
+            'keyword':this.keyword.trim(),
+            'sid':this.cookieStoreService.getCookie('sid')
+        }).subscribe(
+            (data)=>{
+                let info = JSON.parse(data['_body']);
+                alert(info['msg']);
+                if(info['status'] == 200) {
+                    this.customerList = info;
+                    this.selects = [];
+                    for (let entry of this.customerList['result']['customerList']['data']) {
+                        this.selects[entry['c_id']] = false;
+                    }
+                    this.check = false;
+                }else if(info['status'] == 202){
+                    this.cookieStoreService.removeAll(this.rollback_url);
+                    this.router.navigate(['/auth/login']);
+                }
+                this.editStatusCustomerId = 0;
+                this.isStatus = 0;
+            }
+        );
+    }
+    /**
+     * 批量
+     */
+    showAllCheck() {
+        if(this.isAll == 0) {
+            this.isAll = 1;
+            this.editStatusCustomerId = 0;
+            this.isStatus = 0;
+            this.width = '10%';
+            this.width_1 = '70%';
+        }
+    }
 
     @ViewChild('lgModal') public lgModal:ModalDirective;
-
+    @ViewChild('detailModal') public detailModal:ModalDirective;
 
 }
