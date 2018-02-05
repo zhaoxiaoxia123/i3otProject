@@ -59,9 +59,10 @@ export class UnitListComponent implements OnInit {
     //顶部启动 和无效是否启用显示
     editStatusCustomerId : any = 0;
     isStatus : any = 0;
-
     //处理批量
     isAll : number = 0;
+    width : string = '0%';
+    width_1 : string = '80%';
 
     keyword : string = '';
     cid : any = 0;//当前登录用户的所属公司id
@@ -271,17 +272,16 @@ export class UnitListComponent implements OnInit {
                 alert(info['msg']);
                 if(info['status'] == 200) {
                     this.clear_();
+                    this.customerList = info;
+                    this.selects = [];
+                    for (let entry of this.customerList['result']['customerList']['data']) {
+                        this.selects[entry['c_id']] = false;
+                    }
+                    this.check = false;
                 }else if(info['status'] == 202){
                     this.cookieStoreService.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
-                this.customerList = info;
-
-                this.selects = [];
-                for (let entry of this.customerList['result']['customerList']['data']) {
-                    this.selects[entry['c_id']] = false;
-                }
-                this.check = false;
             }
         );
     }
@@ -384,6 +384,7 @@ export class UnitListComponent implements OnInit {
             .map((res)=>res.json())
             .subscribe((data)=>{
                 this.customerInfo = data;
+                this.c_id = 0;
                 if(this.customerInfo['status'] == 200 && type == 'edit') {
                     this.setValue(this.customerInfo);
                 }else if(this.customerInfo['status'] == 202){
@@ -450,6 +451,15 @@ export class UnitListComponent implements OnInit {
     isStatusShow(c_id:any,status:any){
         this.editStatusCustomerId = c_id;
         this.isStatus = status;
+
+        this.isAll = 0;
+        this.width = '0%';
+        this.width_1 ='80%';
+        this.selects.forEach((val, idx, array) => {
+            if(val == true){
+                this.selects[idx] = false;
+            }
+        });
     }
 
     /**
@@ -468,6 +478,10 @@ export class UnitListComponent implements OnInit {
         }else{
             c_id = this.editStatusCustomerId;
         }
+        if(! c_id){
+            alert('请确保已选中需要批量操作的项！');
+            return false;
+        }
         this.http.post(this.globalService.getDomain()+'/api/v1/addCustomer',{
             'c_id':c_id,
             'c_status':status,
@@ -481,7 +495,6 @@ export class UnitListComponent implements OnInit {
                 alert(info['msg']);
                 if(info['status'] == 200) {
                     this.customerList = info;
-
                     this.selects = [];
                     for (let entry of this.customerList['result']['customerList']['data']) {
                         this.selects[entry['c_id']] = false;
@@ -496,16 +509,18 @@ export class UnitListComponent implements OnInit {
             }
         );
     }
-
     /**
      * 批量
      */
     showAllCheck() {
-        this.isAll = 1;
-        this.editStatusCustomerId = 0;
-        this.isStatus = 0;
+        if(this.isAll == 0) {
+            this.isAll = 1;
+            this.editStatusCustomerId = 0;
+            this.isStatus = 0;
+            this.width = '10%';
+            this.width_1 = '70%';
+        }
     }
-
 
     @ViewChild('lgModal') public lgModal:ModalDirective;
     @ViewChild('detailModal') public detailModal:ModalDirective;

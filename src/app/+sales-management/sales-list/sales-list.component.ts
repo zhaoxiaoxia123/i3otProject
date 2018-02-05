@@ -214,6 +214,10 @@ export class SalesListComponent implements OnInit {
       pr_id = this.editStatusPurchaseId;
     }
 
+    if(! pr_id){
+      alert('请确保已选中需要操作的项！');
+      return false;
+    }
     this.http.post(this.globalService.getDomain()+'/api/v1/addPurchase',{
       'pr_id':pr_id,
       'pr_status':status,

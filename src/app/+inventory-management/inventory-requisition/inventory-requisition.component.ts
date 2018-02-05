@@ -274,6 +274,10 @@ export class InventoryRequisitionComponent implements OnInit {
     }else{
       stockallot_id = this.editStatusStockallotId;
     }
+    if(! stockallot_id){
+      alert('请确保已选中需要操作的项！');
+      return false;
+    }
     this.http.post(this.globalService.getDomain()+'/api/v1/addStockallot',{
       'stock_allot_id':stockallot_id,
       'stock_allot_status':status,
