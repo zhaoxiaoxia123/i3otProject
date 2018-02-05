@@ -186,7 +186,7 @@
                             <tr >
                               <!--<th></th>-->
                               <th></th>
-                              <th>合计</th>
+                              <th></th>
                             </tr>
                             </tfoot>
                           </table>
@@ -259,7 +259,7 @@
                               <th></th>
                               <th></th>
                               <th></th>
-                              <th>2</th>
+                              <th></th>
                               <th></th>
                               <th></th>
                               <th></th>
@@ -331,7 +331,7 @@
                   <button type="button" class="btn btn-default" >
                     返回
                   </button>
-                  <button type="button" class="btn btn-success btn-sm" ><span class="glyphicon glyphicon-plus"></span>保存并新增</button>
+                  <!--<button type="button" class="btn btn-success btn-sm" ><span class="glyphicon glyphicon-plus"></span>保存并新增</button>-->
                   <button type="submit" class="btn btn-primary">
                     保存
                   </button>
@@ -346,7 +346,7 @@
 </div>
 
 <div>
-  <span *ngFor="let p of searchProductList?.result?.data;let ind = index;">
+  <span *ngFor="let p of searchProductList?.result?.productList?.data;let ind = index;">
    <a (click)="addInput(ind)"> {{p.p_id}}:{{p.p_name}}</a>
   </span>
 </div>
@@ -623,7 +623,7 @@
                       </div>
                       <div class="hidden-xs right">
                         <ul class="pagination pagination-sm">
-                          <li *ngFor="let p of productList?.page" class="{{p.class}}">
+                          <li *ngFor="let p of productList?.result?.page" class="{{p.class}}">
                             <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
                             <a *ngIf="p.method==''">{{p.text}}</a>
                           </li>

@@ -12,24 +12,16 @@
 
         <sa-widget [editbutton]="false" [deletebutton]="false" >
           <header *ngIf="pr_id == 0">
-            <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+            <span class="widget-icon"> <i class="glyphicon glyphicon-zoom-in"></i> </span>
             <h2 >添加销售单</h2>
           </header>
-
           <header *ngIf="pr_id != 0">
             <span class="widget-icon"> <i class="glyphicon glyphicon-pencil"></i> </span>
             <h2 >修改销售单 </h2>
           </header>
-
-          <header >
-            <span class="widget-icon"> <i class="glyphicon glyphicon-zoom-in"></i> </span>
-            <h2 >读取单据号 </h2>
-          </header>
-
           <div>
             <!--小部件内容-->
             <div class="widget-body no-padding">
-
               <form id="smart-form-register" class="smart-form" [formGroup]="formModel" (ngSubmit)="onSubmit()">
                 <fieldset>
                   <legend>基本信息</legend>
@@ -308,7 +300,7 @@
 </div>
 
 <div>
-  <span *ngFor="let p of searchProductList?.result?.data;let ind = index;">
+  <span *ngFor="let p of searchProductList?.result?.productList?.data;let ind = index;">
    <a (click)="addInput(ind)"> {{p.p_id}}:{{p.p_name}}</a>
   </span>
 </div>

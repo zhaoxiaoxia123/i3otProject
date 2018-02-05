@@ -21,41 +21,41 @@
                       <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
 
                         <div class="form-group pdlr-4">
-                          <a class="btn btn-success btn-sm"  (click)="lgModal.show();">
+                          <a class="btn btn-success btn-sm" (click)="lgModal.show();">
                             <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
                         </div>
                         <div class="form-group pdlr-4">
-                          <a class="btn default-btn btn-sm"  (click)="editCustomer()">
+                          <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailCustomer('edit')">
                             <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
                         </div>
                         <div class="form-group pdlr-4">
-                          <a class="btn default-btn btn-sm" >
+                          <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="deleteCustomer('id')">
                             <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
                         </div>
                         <div class="form-group pdlr-4">
-                          <a class="btn default-btn btn-sm"  data-toggle="modal" data-target="#particulars" >
+                          <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailCustomer('detail')">
                             <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
                         </div>
-                        <div class="form-group btn-group pdlr-4">
-                          <a class="btn default-btn btn-sm dropdown-toggle"  data-toggle="dropdown">
-                            <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
 
-                          <ul class="dropdown-menu" role="menu">
-                            <li><a ><span class="fa-fw fa fa-play mr-5 color-green"></span>批量设为启动</a></li>
-                            <li><a ><span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>批量设为无效</a></li>
-                            <li class="divider"></li>
-                            <li><a ><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
-                          </ul>
-
-                        </div>
-                        <div class="form-group pdlr-4">
-                          <a class="btn default-btn btn-sm"  >
+                        <div class="form-group pdlr-4" *ngIf="isStatus == 2">
+                          <a class="btn default-btn btn-sm" (click)="editStatus(1,'id')">
                             <span class="fa-fw fa fa-play mr-5 color-green"></span>启用</a>
                         </div>
-                        <div class="form-group pdlr-4">
-                          <a class="btn default-btn btn-sm"  >
+                        <div class="form-group pdlr-4" *ngIf="isStatus == 1">
+                          <a class="btn default-btn btn-sm" (click)="editStatus(2,'id')" >
                             <span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>无效</a>
                         </div>
+                        <div class="form-group btn-group pdlr-4">
+                          <a class="btn default-btn btn-sm dropdown-toggle" (click)="showAllCheck()" data-toggle="dropdown">
+                            <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
+                          <ul class="dropdown-menu" role="menu">
+                            <li><a (click)="editStatus(1,'all')" ><span class="fa-fw fa fa-play mr-5 color-green"></span>批量设为启动</a></li>
+                            <li><a (click)="editStatus(2,'all')"><span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>批量设为无效</a></li>
+                            <li class="divider"></li>
+                            <li><a (click)="deleteCustomer('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
+                          </ul>
+                        </div>
+
                         <div class="form-group pdlr-4">
                           <div class="form-group padding-left-10">
                             <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" name="keyword" [(ngModel)]="keyword" placeholder="请输入搜索内容" type="text">
@@ -65,7 +65,6 @@
                             搜索
                           </button>
                         </div>
-
                       </form>
                     </div>
                   </div>
@@ -76,8 +75,8 @@
                 <div style="z-index: 2;width:20%;float:left;" class="table-responsive padding0">
                   <table class="table table-striped  table-hover smart-form">
                     <thead>
-                    <tr >
-                      <td><label class="checkbox">
+                    <tr>
+                      <td *ngIf="isAll != 0"><label class="checkbox">
                         <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)">
                         <i></i>
                       </label>
@@ -87,14 +86,14 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="table-color" *ngFor="let c of customerList?.result?.data">
-                      <td>
+                    <tr *ngFor="let c of customerList?.result?.customerList?.data" (click)="isStatusShow(c.c_id,c.c_status)" [ngClass]="{'table-color':editStatusCustomerId == c.c_id}">
+                      <td *ngIf="isAll != 0">
                         <label class="checkbox" *ngIf="cid != super_admin_id && cid != c.c_id" >
                           <input type="checkbox" name="checkbox-inline" disabled="disabled">
                           <i></i>
                         </label>
                         <label class="checkbox" *ngIf="cid == super_admin_id || cid == c.c_id" >
-                          <input type="checkbox" name="checkbox-inline" value="{{ c.c_id }}" [checked]="selects[c.c_id]" (change)="handle($event)">
+                          <input type="checkbox" name="checkbox-inline" value="{{ c.c_id }}" [checked]="selects[c.c_id]" (change)="$event.preventDefault();$event.stopPropagation();handle($event)">
                           <i></i>
                         </label>
                       </td>
@@ -118,7 +117,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="table-color" *ngFor="let c of customerList?.result?.data">
+                    <tr *ngFor="let c of customerList?.result?.customerList?.data" (click)="isStatusShow(c.c_id,c.c_status)" [ngClass]="{'table-color':editStatusCustomerId == c.c_id}">
                       <td>{{c.created_at}}</td>
                       <td>矿矿业</td>
                       <td>{{c.c_phone}}</td>
@@ -140,7 +139,7 @@
               <!-- 底部-（分页部分）-->
               <div class="dt-toolbar">
                 <div class="col-xs-12 col-sm-6">
-                  <span>共2条</span>
+                  <span>共{{customerList.result?.customerList?.total}}条</span>
                   <!--<button class="btn btn-default" (click)="deleteCustomer()">
                     <i class="fa fa-trash-o fa-lg"></i>
                     删除所选
@@ -148,7 +147,7 @@
                 </div>
                 <div class="hidden-xs right">
                   <ul class="pagination pagination-sm">
-                    <li *ngFor="let p of customerList?.page" class="{{p.class}}">
+                    <li *ngFor="let p of customerList?.result?.page" class="{{p.class}}">
                       <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
                       <a *ngIf="p.method==''">{{p.text}}</a>
                     </li>
@@ -163,7 +162,7 @@
   </sa-widgets-grid>
 </div>
 <!--id="myModal"-->
-<div  bsModal #lgModal="bs-modal" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div bsModal #lgModal="bs-modal" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <!--<form class="smart-form "  [formGroup]="formModel">-->
     <div class="modal-content">
@@ -463,16 +462,12 @@
   </div>
 </div>
 
-
-
-<div class="modal fade" id="particulars" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" bsModal #detailModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <!-- 关闭按钮 -->
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-          ×
-        </button>
+        <button type="button" class="close" (click)="detailModal.hide()"> × </button>
         <!-- 标题 -->
         <h3 class="modal-title" data-ng-bind='results.title'></h3>
         <h4 class="modal-title">单位名称-编号</h4>
@@ -486,33 +481,36 @@
                 <tbody>
                 <tr>
                   <td class="width-120">单位编号:</td>
-                  <td class=""></td>
+                  <td class="">{{customerInfo?.result?.c_number}}</td>
                   <td class="width-120">单位名称:</td>
                   <td >
-                    <span ></span>
+                    {{customerInfo?.result?.c_name}}
                   </td>
                 </tr>
                 <tr>
                   <td class="width-120">商户类型:</td>
-                  <td class=""></td>
-                  <td class="width-120">上级分类：</td>
-                  <td class=""></td>
+                  <td [ngSwitch]="customerInfo?.result?.c_role">
+                    <span *ngSwitchCase="3">供应商</span>
+                    <span *ngSwitchCase="4">供销商</span>
+                  </td>
+                  <td class="width-120">单位分类：</td>
+                  <td class="">{{customerInfo?.result?.unit_category}}</td>
                 </tr>
                 <tr>
                   <td class="width-120">单位电话：</td>
-                  <td class=""></td>
+                  <td class="">{{customerInfo?.result?.c_phone}}</td>
                   <td class="width-120">单位地址:</td>
-                  <td class=""></td>
+                  <td class="">{{customerInfo?.result?.c_address}}</td>
                 </tr>
                 <tr>
                   <td class="width-120">助记码：</td>
-                  <td class=""></td>
+                  <td class="">{{customerInfo?.result?.c_abbreviation}}</td>
                   <td class="width-120">价格级别：</td>
-                  <td class=""></td>
+                  <td class="">{{customerInfo?.result?.c_price_type}}</td>
                 </tr>
                 <tr>
                   <td class="width-120">备注：</td>
-                  <td class=""></td>
+                  <td class="">{{customerInfo?.result?.c_notes}}</td>
                   <td class="width-120"></td>
                   <td class=""></td>
                 </tr>
@@ -523,26 +521,25 @@
                 <tbody>
                 <tr>
                   <td class="width-120">联系人:</td>
-                  <td class=""></td>
+                  <td class="">{{customerInfo?.result?.user_info?.c_contacts}}</td>
                   <td class="width-120">职务:</td>
-                  <td class=""></td>
+                  <td class="">{{customerInfo?.result?.user_info?.user_title}}</td>
                 </tr>
                 <tr>
                   <td class="width-120">电话:</td>
-                  <td class=""></td>
+                  <td class="">{{customerInfo?.result?.user_info?.user_mobile}}</td>
                   <td class="width-120">手机:</td>
-                  <td class=""></td>
+                  <td class="">{{customerInfo?.result?.user_info?.user_phone}}</td>
                 </tr>
-
                 <tr>
                   <td class="width-120">Email:</td>
-                  <td class=""></td>
+                  <td class="">{{customerInfo?.result?.user_info?.user_email}}</td>
                   <td class="width-120">QQ:</td>
-                  <td class=""></td>
+                  <td class="">{{customerInfo?.result?.user_info?.user_qq}}</td>
                 </tr>
                 <tr>
                   <td class="width-120">地址:</td>
-                  <td class=""></td>
+                  <td class="">{{customerInfo?.result?.user_info?.user_addr}}</td>
                   <td class="width-120"></td>
                   <td class=""></td>
                 </tr>
@@ -554,28 +551,28 @@
                 <tbody>
                 <tr>
                   <td class="width-120">业务员:</td>
-                  <td class=""></td>
+                  <td class="">{{customerInfo?.result?.u_username}}</td>
                   <td class="width-120">分管部门:</td>
-                  <td class=""></td>
+                  <td class="">{{customerInfo?.result?.department_name}}</td>
                 </tr>
                 <tr>
                   <td class="width-120">税率%:</td>
-                  <td class=""></td>
+                  <td class="">{{customerInfo?.result?.c_tax}}</td>
                   <td class="width-120">税号:</td>
-                  <td class=""></td>
+                  <td class="">{{customerInfo?.result?.c_tax_number}}</td>
                 </tr>
 
                 <tr>
                   <td class="width-120">开户行:</td>
-                  <td class=""></td>
+                  <td class="">{{customerInfo?.result?.c_bank}}</td>
                   <td class="width-120">银行帐号:</td>
-                  <td class=""></td>
+                  <td class="">{{customerInfo?.result?.c_bank_account}}</td>
                 </tr>
                 <tr>
                   <td class="width-120">折扣率%:</td>
-                  <td class=""></td>
+                  <td class="">{{customerInfo?.result?.c_discount_rate}}</td>
                   <td class="width-120">信用额度:</td>
-                  <td class=""></td>
+                  <td class="">{{customerInfo?.result?.c_credit_amount}}</td>
                 </tr>
                 </tbody>
               </table>
@@ -584,7 +581,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+        <button type="button" class="btn btn-default" (click)="detailModal.hide()">返回</button>
       </div>
     </div>
   </div>

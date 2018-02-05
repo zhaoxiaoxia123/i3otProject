@@ -168,12 +168,33 @@ export class SettingArchivesComponent implements OnInit {
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
-                this.selects = [];
-                for (let entry of this.productList['result']['productList']['data']) {
-                    this.selects[entry['p_id']] = false;
+                if(this.productList){
+                    if (this.productList['result']['productList']['current_page'] == this.productList['result']['productList']['last_page']) {
+                        this.next = true;
+                    } else {
+                        this.next = false;
+                    }
+                    if (this.productList['result']['productList']['current_page'] == 1) {
+                        this.prev = true;
+                    } else {
+                        this.prev = false;
+                    }
+                    this.selects = [];
+                    for (let entry of this.productList['result']['productList']['data']) {
+                        this.selects[entry['p_id']] = false;
+                    }
+                    this.check = false;
                 }
-                this.check = false;
             });
+    }
+
+    /**
+     * 页码分页
+     * @param page
+     */
+    pagination(page : any) {
+        this.page = page;
+        this.getProductList(this.page,0);
     }
 
     //全选，反全选
@@ -258,17 +279,28 @@ export class SettingArchivesComponent implements OnInit {
                     return false;
                 }else if(info['status'] == 200) {
                     this.productList = info;
+                    if(this.productList){
+                        if (this.productList['result']['productList']['current_page'] == this.productList['result']['productList']['last_page']) {
+                            this.next = true;
+                        } else {
+                            this.next = false;
+                        }
+                        if (this.productList['result']['productList']['current_page'] == 1) {
+                            this.prev = true;
+                        } else {
+                            this.prev = false;
+                        }
+                        this.selects = [];
+                        for (let entry of this.productList['result']['productList']['data']) {
+                            this.selects[entry['p_id']] = false;
+                        }
+                        this.check = false;
+                    }
                     this.clear_();
                 }else if(info['status'] == 202){
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
-
-                this.selects = [];
-                for (let entry of this.productList['result']['productList']['data']) {
-                    this.selects[entry['p_id']] = false;
-                }
-                this.check = false;
             }
         );
     }
@@ -321,6 +353,7 @@ export class SettingArchivesComponent implements OnInit {
         this.p_retail_amout = info['result']['p_retail_amout'];
         this.p_stop_use = info['result']['p_stop_use'];
         this.p_stop_time = info['result']['p_stop_time'];
+        this.imgList = info['result']['imgs'];
     }
 
 
@@ -396,12 +429,23 @@ export class SettingArchivesComponent implements OnInit {
                         this.cookieStore.removeAll(this.rollback_url);
                         this.router.navigate(['/auth/login']);
                     }
-
-                    this.selects = [];
-                    for (let entry of this.productList['result']['productList']['data']) {
-                        this.selects[entry['p_id']] = false;
+                    if(this.productList){
+                        if (this.productList['result']['productList']['current_page'] == this.productList['result']['productList']['last_page']) {
+                            this.next = true;
+                        } else {
+                            this.next = false;
+                        }
+                        if (this.productList['result']['productList']['current_page'] == 1) {
+                            this.prev = true;
+                        } else {
+                            this.prev = false;
+                        }
+                        this.selects = [];
+                        for (let entry of this.productList['result']['productList']['data']) {
+                            this.selects[entry['p_id']] = false;
+                        }
+                        this.check = false;
                     }
-                    this.check = false;
                 });
         }
     }
@@ -517,12 +561,23 @@ export class SettingArchivesComponent implements OnInit {
                 alert(info['msg']);
                 if(info['status'] == 200) {
                     this.productList = info;
-
-                    this.selects = [];
-                    for (let entry of this.productList['result']['productList']['data']) {
-                        this.selects[entry['p_id']] = false;
+                    if(this.productList){
+                        if (this.productList['result']['productList']['current_page'] == this.productList['result']['productList']['last_page']) {
+                            this.next = true;
+                        } else {
+                            this.next = false;
+                        }
+                        if (this.productList['result']['productList']['current_page'] == 1) {
+                            this.prev = true;
+                        } else {
+                            this.prev = false;
+                        }
+                        this.selects = [];
+                        for (let entry of this.productList['result']['productList']['data']) {
+                            this.selects[entry['p_id']] = false;
+                        }
+                        this.check = false;
                     }
-                    this.check = false;
                 }else if(info['status'] == 202){
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
@@ -592,7 +647,13 @@ export class SettingArchivesComponent implements OnInit {
         request.send(formData);
     }
 
-
+    /**
+     * remove img
+     * @param ind
+     */
+    removeImg(ind:number){
+        this.imgList.splice(ind,1);
+    }
 
     @ViewChild('lgModal') public lgModal:ModalDirective;
 

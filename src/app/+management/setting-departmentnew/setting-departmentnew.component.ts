@@ -90,7 +90,7 @@ export class SettingDepartmentnewComponent implements OnInit {
             url += '&keyword='+this.keyword.trim();
         }
         if(department_id != 0){
-            url += '&ids='+department_id;
+            url += '&department_ids='+department_id;
         }else{
 
             let depart = '';
@@ -100,7 +100,7 @@ export class SettingDepartmentnewComponent implements OnInit {
                 }
             });
 
-            url += '&depart='+depart;
+            url += '&department_ids='+depart;
         }
         this.http.get(url)
             .map((res)=>res.json())
@@ -122,16 +122,23 @@ export class SettingDepartmentnewComponent implements OnInit {
                     } else {
                         this.prev = false;
                     }
+                    this.selects = [];
+                    for (let entry of this.departmentList['result']['departmentList']['data']) {
+                        this.selects[entry['department_id']] = false;
+                    }
+                    this.check = false;
                 }
-                this.selects = [];
-                for (let entry of this.departmentList['result']['departmentList']['data']) {
-                    this.selects[entry['department_id']] = false;
-                }
-                this.check = false;
             });
     }
 
-
+    /**
+     * 页码分页
+     * @param page
+     */
+    pagination(page : any) {
+        this.page = page;
+        this.getDepartmentList(this.page,0);
+    }
     //全选，反全选
     changeCheckAll(e){
         let t = e.target;
@@ -261,21 +268,18 @@ export class SettingDepartmentnewComponent implements OnInit {
         if(this.globalService.demoAlert('','')){
             return false;
         }
-
         let msg = '';
         let department_id : string = '';
         if(type == 'id'){
             department_id = this.editStatusDepartmentId;
         } else if(type == 'all'){
             let is_select = 0;
-
             this.selects.forEach((val, idx, array) => {
                 if(val == true){
                     department_id += idx+',';
                     is_select += 1;
                 }
             });
-
             if(is_select < 1){
                 msg = '请确认已选中需要删除的信息！';
                 alert(msg);
@@ -284,14 +288,13 @@ export class SettingDepartmentnewComponent implements OnInit {
         }
         msg = '您确定要删除该信息吗？';
         if(confirm(msg)) {
-
             let depart = '';
             this.select_department_ids.forEach((val, idx, array) => {
                 if(val == true) {
                     depart += idx + ',';
                 }
             });
-            let url = this.globalService.getDomain()+'/api/v1/deleteDepartmentById?department_id=' +department_id + '&ids='+depart+'&type='+type+'&sid=' + this.cookieStore.getCookie('sid');
+            let url = this.globalService.getDomain()+'/api/v1/deleteDepartmentById?department_id=' +department_id + '&department_ids='+depart+'&type='+type+'&sid=' + this.cookieStore.getCookie('sid');
             if(this.keyword.trim() != ''){
                 url += '&keyword='+this.keyword.trim();
             }
@@ -299,21 +302,31 @@ export class SettingDepartmentnewComponent implements OnInit {
                 .map((res) => res.json())
                 .subscribe((data) => {
                     this.departmentList = data;
-
                     if(this.departmentList['status'] == 202){
                         this.cookieStore.removeAll(this.rollback_url);
                         this.router.navigate(['/auth/login']);
                     }
 
-                    this.selects = [];
-                    for (let entry of this.departmentList['result']['departmentList']['data']) {
-                        this.selects[entry['department_id']] = false;
+                    if (this.departmentList) {
+                        if (this.departmentList['result']['departmentList']['current_page'] == this.departmentList['result']['departmentList']['last_page']) {
+                            this.next = true;
+                        } else {
+                            this.next = false;
+                        }
+                        if (this.departmentList['result']['departmentList']['current_page'] == 1) {
+                            this.prev = true;
+                        } else {
+                            this.prev = false;
+                        }
+                        this.selects = [];
+                        for (let entry of this.departmentList['result']['departmentList']['data']) {
+                            this.selects[entry['department_id']] = false;
+                        }
+                        this.check = false;
                     }
-                    this.check = false;
                 });
         }
     }
-
 
     /**
      * 提交部门
@@ -323,7 +336,6 @@ export class SettingDepartmentnewComponent implements OnInit {
             alert('请填写部门名称！');
             return false;
         }
-
         let depart = '';
         this.select_department_ids.forEach((val, idx, array) => {
             if(val == true) {
@@ -343,7 +355,7 @@ export class SettingDepartmentnewComponent implements OnInit {
             'department_remark':this.formModel.value['department_remark'],
             'department_status':1,
             'keyword':this.keyword,
-            'ids':depart,
+            'department_ids':depart,
             'u_id':this.cookieStore.getCookie('uid'),
             'sid':this.cookieStore.getCookie('sid')
         }).subscribe(
@@ -353,11 +365,23 @@ export class SettingDepartmentnewComponent implements OnInit {
                 if(info['status'] == 200) {
                     this.departmentList = info;
 
-                    this.selects = [];
-                    for (let entry of this.departmentList['result']['departmentList']['data']) {
-                        this.selects[entry['department_id']] = false;
+                    if (this.departmentList) {
+                        if (this.departmentList['result']['departmentList']['current_page'] == this.departmentList['result']['departmentList']['last_page']) {
+                            this.next = true;
+                        } else {
+                            this.next = false;
+                        }
+                        if (this.departmentList['result']['departmentList']['current_page'] == 1) {
+                            this.prev = true;
+                        } else {
+                            this.prev = false;
+                        }
+                        this.selects = [];
+                        for (let entry of this.departmentList['result']['departmentList']['data']) {
+                            this.selects[entry['department_id']] = false;
+                        }
+                        this.check = false;
                     }
-                    this.check = false;
                 }else if(info['status'] == 202){
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
@@ -382,7 +406,6 @@ export class SettingDepartmentnewComponent implements OnInit {
                 depart += idx + ',';
             }
         });
-
         this.editStatusDepartmentId = 0;
         this.isStatus = 0;
         this.getDepartmentList('1',depart);
@@ -402,8 +425,6 @@ export class SettingDepartmentnewComponent implements OnInit {
     isStatusShow(department_id:any,department_status:any){
         this.editStatusDepartmentId = department_id;
         this.isStatus = department_status;
-        console.log('this.editStatusDepartmentId');
-        console.log(this.editStatusDepartmentId);
     }
 
     /**
@@ -414,8 +435,6 @@ export class SettingDepartmentnewComponent implements OnInit {
     editStatus(status:any,type:any){
         let department_id = '';
         if(type == 'all'){
-            console.log('this.selects');
-            console.log(this.selects);
             this.selects.forEach((val, idx, array) => {
                 if(val == true){
                     department_id += idx+',';
@@ -424,9 +443,6 @@ export class SettingDepartmentnewComponent implements OnInit {
         }else{
             department_id = this.editStatusDepartmentId;
         }
-        console.log('epartment_id:-----');
-        console.log(department_id);
-
         let depart = '';
         this.select_department_ids.forEach((val, idx, array) => {
             if(val == true) {
@@ -447,11 +463,23 @@ export class SettingDepartmentnewComponent implements OnInit {
                 if(info['status'] == 200) {
                     this.departmentList = info;
 
-                    this.selects = [];
-                    for (let entry of this.departmentList['result']['departmentList']['data']) {
-                        this.selects[entry['department_id']] = false;
+                    if (this.departmentList) {
+                        if (this.departmentList['result']['departmentList']['current_page'] == this.departmentList['result']['departmentList']['last_page']) {
+                            this.next = true;
+                        } else {
+                            this.next = false;
+                        }
+                        if (this.departmentList['result']['departmentList']['current_page'] == 1) {
+                            this.prev = true;
+                        } else {
+                            this.prev = false;
+                        }
+                        this.selects = [];
+                        for (let entry of this.departmentList['result']['departmentList']['data']) {
+                            this.selects[entry['department_id']] = false;
+                        }
+                        this.check = false;
                     }
-                    this.check = false;
                 }else if(info['status'] == 202){
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
@@ -467,15 +495,11 @@ export class SettingDepartmentnewComponent implements OnInit {
      */
     showAllCheck(){
         this.isAll = 1;
-
         this.editStatusDepartmentId = 0;
         this.isStatus = 0;
     }
 
     @ViewChild('lgModal') public lgModal:ModalDirective;
     @ViewChild('detailModal') public detailModal:ModalDirective;
-
-
-
 
 }

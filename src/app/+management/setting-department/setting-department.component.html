@@ -69,12 +69,12 @@
                               </tr>
                               </thead>
                               <tbody>
-                              <tr *ngFor="let cl of categoryList.result?.data">
+                              <tr *ngFor="let cl of categoryList?.result?.categoryList?.data">
                                 <td>{{ cl.category_desc }}</td>
                                 <td>
                                   <div *ngIf="cid == super_admin_id || cl.c_id == cid">
                                   <a class="btn btn-warning btn-xs" (click)="editCategory(cl.category_id, cl.category_desc)" ><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                  <a class="btn btn-danger btn-xs" (click)="deleteCategory(cl.category_id,categoryList.result?.current_page)"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                  <a class="btn btn-danger btn-xs" (click)="deleteCategory(cl.category_id,categoryList.result?.categoryList?.current_page)"><span class="glyphicon glyphicon-remove"></span>删除</a>
                                   </div>
                                   <div *ngIf="cid != super_admin_id && cl.c_id != cid">无权操作</div>
                                 </td>
@@ -85,7 +85,7 @@
                             <div class="dt-toolbar">
                               <div class="hidden-xs right">
                                 <ul class="pagination pagination-sm">
-                                  <li *ngFor="let p of categoryList?.page" class="{{p.class}}">
+                                  <li *ngFor="let p of categoryList?.result?.page" class="{{p.class}}">
                                     <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
                                     <a *ngIf="p.method==''">{{p.text}}</a>
                                   </li>

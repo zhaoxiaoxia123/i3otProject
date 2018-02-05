@@ -75,10 +75,10 @@ export class SettingProduct4parametersComponent implements OnInit {
                 this.cookieStore.removeAll(this.rollback_url);
                 this.router.navigate(['/auth/login']);
             }
-            this.super_admin_id = this.categoryList['super_admin_id'];
+            this.super_admin_id = this.categoryList['result']['categoryList']['super_admin_id'];
             this.select_cid = this.categoryList['select_cid'];
             //刷新父类修改下拉选择
-            let arr : Array<any> = this.categoryList['result'];
+            let arr : Array<any> = this.categoryList['result']['categoryList']['data'];
             arr.forEach((val, idx, array) => {
                 if(val.c_id == this.cid || this.cid == this.super_admin_id) {
                     this.parentCategoryList.push(val);

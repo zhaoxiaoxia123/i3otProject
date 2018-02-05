@@ -17,98 +17,52 @@
               <div class="row">
                 <article class="col-sm-12">
                   <div class="navbar navbar-default">
-
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
                       <form class="navbar-form navbar-left" role="search" [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate>
-
-                        <!--筛选-->
-                        <!--<div class="form-group">
-                          <select class="form-control">
-                            <option value =""></option>
-                            <option value =""></option>
-                            <option value=""></option>
-                            <option value=""></option>
-                          </select>
-                        </div>-->
-
                         <div class="form-group pdlr-4">
-                          <a class="btn btn-success btn-sm"  (click)="isDemo('/forms/inventory1','0')">
+                          <a class="btn btn-success btn-sm" (click)="isDemo('/forms/inventory1','0')">
                             <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
                         </div>
                         <div class="form-group pdlr-4">
-                          <a class="btn default-btn btn-sm"  >
+                          <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusStorehouseId == 0}" (click)="detailStorehouse('edit')">
                             <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
                         </div>
                         <div class="form-group pdlr-4">
-                          <a class="btn default-btn btn-sm" >
+                          <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusStorehouseId == 0}" (click)="deleteStorehouse('id')">
                             <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
                         </div>
                         <div class="form-group pdlr-4">
-                          <a class="btn default-btn btn-sm"   >
-                            <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
+                          <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusStorehouseId == 0}" (click)="detailStorehouse('detail')">
+                            <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>详情</a>
                         </div>
+
                         <div class="form-group btn-group pdlr-4">
-                          <a class="btn default-btn btn-sm dropdown-toggle"  data-toggle="dropdown">
+                          <a class="btn default-btn btn-sm dropdown-toggle" (click)="showAllCheck()" data-toggle="dropdown">
                             <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
-
                           <ul class="dropdown-menu" role="menu">
-                            <li><a ><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
+                            <li><a (click)="deleteStorehouse('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
                           </ul>
-
                         </div>
-
-
                         <div class="form-group pdlr-4">
                           <div class="form-group">
                             <input type="text" name="keyword" maxlength="15" formControlName="keyword" class="form-control" placeholder="请输入搜索内容">
                           </div>
-
                           <button type="submit" class="btn btn-default">
                             <i class="glyphicon glyphicon-search"></i>
                             搜索
                           </button>
                         </div>
-
                       </form>
-                      <!--<ul class="nav navbar-nav navbar-right">
-                        <li dropdown class="dropdown">
-                          <a (click)="(null)" dropdownToggle>自定义显示内容 <span class="caret"></span></a>
-                          <ul *dropdownMenu  role="menu" class="dt-button-collection dropdown-menu" >
-                            <li class="dt-button  active"  >
-                              <a (click)="(null)">ID</a>
-                            </li>
-                            <li class="dt-button  active " >
-                              <a (click)="(null)" >订单号/合同号</a>
-                            </li>
-                            <li class="dt-button active " tabindex="0" >
-                              <a (click)="(null)">类型</a>
-                            </li>
-                            <li class="dt-button active " tabindex="0" >
-                              <a (click)="(null)">规格/参数</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li class="dt-button  ">
-                              <a (click)="(null)">购买公司</a>
-                            </li>
-                          </ul>
-                        </li>
-                      </ul>-->
-
                     </div>
-
-
                   </div>
                 </article>
               </div>
-
-
               <div style="padding:0;">
                 <div style="padding: 0;z-index: 2;" class="table-responsive">
                   <table class="table table-striped  table-hover smart-form">
                     <thead>
                     <tr >
-                      <td>
+                      <td *ngIf="isAll != 0">
                         <label class="checkbox">
                           <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)">
                           <i></i>
@@ -123,14 +77,10 @@
                     </thead>
                     <tbody>
 
-                    <tr style="display: none;">
-                      <td></td><td></td><td></td><td></td>
-                      <td></td><td></td>
-                    </tr>
-                    <tr *ngFor="let sl of storehouseList.result?.data">
-                      <td>
+                    <tr *ngFor="let sl of storehouseList?.result?.storehouseList?.data" (click)="isStatusShow(sl.storehouse_id)" [ngClass]="{'table-color':editStatusStorehouseId == sl.storehouse_id}">
+                      <td *ngIf="isAll != 0">
                         <label class="checkbox">
-                          <input type="checkbox" value="{{ sl.storehouse_id }}" [checked]="selects[sl.storehouse_id]" (change)="handle($event)">
+                          <input type="checkbox" value="{{ sl.storehouse_id }}" [checked]="selects[sl.storehouse_id]" (change)="$event.preventDefault();$event.stopPropagation();handle($event)">
                           <i></i>
                         </label>
                       </td>
@@ -155,7 +105,6 @@
 
                     </tbody>
                   </table>
-
                 </div>
               </div>
 
@@ -164,7 +113,7 @@
               <div class="dt-toolbar">
                 <div class="col-xs-12 col-sm-6">
                   <div class="col-xs-12 col-sm-6">
-                    <span>共7条</span>
+                    <span>共{{storehouseList.result?.storehouseList?.total}}条</span>
                    <!-- <button  class="btn btn-default" (click)="deleteStorehouseAll(storehouseList.result?.current_page)">
                       <i class="fa fa-trash-o fa-lg"></i>
                       删除所选
@@ -173,7 +122,7 @@
                 </div>
                 <div class="hidden-xs right">
                   <ul class="pagination pagination-sm">
-                    <li *ngFor="let p of storehouseList?.page" class="{{p.class}}">
+                    <li *ngFor="let p of storehouseList?.result?.page" class="{{p.class}}">
                       <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
                       <a *ngIf="p.method==''">{{p.text}}</a>
                     </li>

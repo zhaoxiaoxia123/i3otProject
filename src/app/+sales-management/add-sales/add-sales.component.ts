@@ -77,39 +77,36 @@ export class AddSalesComponent implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.purchaseInfo = data;
+          console.log(this.purchaseInfo);
+          this.formModel.patchValue({
+            pr_id:this.purchaseInfo['result']['pr_id'],
+            pr_order:this.purchaseInfo['result']['pr_order'],
+            pr_date:this.purchaseInfo['result']['pr_date'],
+            pr_type:this.purchaseInfo['result']['pr_type'],
+            pr_supplier:this.purchaseInfo['result']['pr_supplier'],
+            pr_department:this.purchaseInfo['result']['pr_department'],
+            pr_employee:this.purchaseInfo['result']['pr_employee'],
+            storehouse_id:this.purchaseInfo['result']['storehouse_id'],
+            pr_category:this.purchaseInfo['result']['pr_category'],
+            pr_transport:this.purchaseInfo['result']['pr_transport'],
+            pr_qrcode:this.purchaseInfo['result']['pr_qrcode'],
+            // pr_detail:this.purchaseInfo['result']['pr_detail'],
+            pr_note:this.purchaseInfo['result']['pr_note'],
+            // pr_voucher:this.purchaseInfo['result']['pr_voucher']
+          });
+          this.pr_supplier_default = this.purchaseInfo['result']['pr_supplier']; //供应商
+          this.pr_department_default = this.purchaseInfo['result']['pr_department']; //采购部门
+          this.pr_employee_default = this.purchaseInfo['result']['pr_employee']; //采购员
+          this.storehouse_id_default =this.purchaseInfo['result']['storehouse_id']; //仓库
+          this.pr_category_default =this.purchaseInfo['result']['pr_category']; //采购类型
+          this.pr_transport_default = this.purchaseInfo['result']['pr_transport']; //运输方式
+          if(this.purchaseInfo['result']['pr_department'] != 0){
+            this.getUserList(this.purchaseInfo['result']['pr_department'],2);
+          }
+          this.selectProductList = this.purchaseInfo['result']['detail'];
+            console.log('this.selectProductList:----');
+          console.log(this.selectProductList);
         });
-    setTimeout(() => {
-      console.log(this.purchaseInfo);
-      this.formModel.patchValue({
-        pr_id:this.purchaseInfo['result']['pr_id'],
-        pr_order:this.purchaseInfo['result']['pr_order'],
-        pr_date:this.purchaseInfo['result']['pr_date'],
-        pr_type:this.purchaseInfo['result']['pr_type'],
-        pr_supplier:this.purchaseInfo['result']['pr_supplier'],
-        pr_department:this.purchaseInfo['result']['pr_department'],
-        pr_employee:this.purchaseInfo['result']['pr_employee'],
-        storehouse_id:this.purchaseInfo['result']['storehouse_id'],
-        pr_category:this.purchaseInfo['result']['pr_category'],
-        pr_transport:this.purchaseInfo['result']['pr_transport'],
-        pr_qrcode:this.purchaseInfo['result']['pr_qrcode'],
-        // pr_detail:this.purchaseInfo['result']['pr_detail'],
-        pr_note:this.purchaseInfo['result']['pr_note'],
-        // pr_voucher:this.purchaseInfo['result']['pr_voucher']
-      });
-      this.pr_supplier_default = this.purchaseInfo['result']['pr_supplier']; //供应商
-      this.pr_department_default = this.purchaseInfo['result']['pr_department']; //采购部门
-      this.pr_employee_default = this.purchaseInfo['result']['pr_employee']; //采购员
-      this.storehouse_id_default =this.purchaseInfo['result']['storehouse_id']; //仓库
-      this.pr_category_default =this.purchaseInfo['result']['pr_category']; //采购类型
-      this.pr_transport_default = this.purchaseInfo['result']['pr_transport']; //运输方式
-      if(this.purchaseInfo['result']['pr_department'] != 0){
-        this.getUserList(this.purchaseInfo['result']['pr_department'],2);
-      }
-
-      this.selectProductList = this.purchaseInfo['result']['detail'];
-      // console.log('this.selectProductList :-----');
-      // console.log(this.selectProductList );
-    }, 500);
   }
 
   /**
@@ -131,12 +128,10 @@ export class AddSalesComponent implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.userList = data;
+          if(this.userList['status'] == 201){
+            alert(this.userList['msg']);
+          }
         });
-    setTimeout(() => {
-      if(this.userList['status'] == 201){
-        alert(this.userList['msg']);
-      }
-    }, 600);
   }
 
 
@@ -148,16 +143,14 @@ export class AddSalesComponent implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.purchaseList = data;
+          console.log('this.purchaseList:----');
+          console.log(this.purchaseList);
+          if(this.purchaseList['status'] == 202){
+            alert(this.purchaseList['msg']);
+            this.cookieStore.removeAll(this.rollback_url);
+            this.router.navigate(['/auth/login']);
+          }
         });
-    setTimeout(() => {
-      console.log('this.purchaseList:----');
-      console.log(this.purchaseList);
-      if(this.purchaseList['status'] == 202){
-        alert(this.purchaseList['msg']);
-        this.cookieStore.removeAll(this.rollback_url);
-        this.router.navigate(['/auth/login']);
-      }
-    }, 600);
   }
 
   onSubmit(){
@@ -182,6 +175,7 @@ export class AddSalesComponent implements OnInit {
       'pr_transport':this.formModel.value['pr_transport'],
       'pr_qrcode':this.formModel.value['pr_qrcode'],
       'pr_note':this.formModel.value['pr_note'],
+        'pr_status':1,
       // 'pr_voucher':this.formModel.value['pr_voucher'],
       'pr_detail' :JSON.stringify(this.selectProductList),
       'u_id':this.cookieStore.getCookie('uid'),
@@ -203,9 +197,8 @@ export class AddSalesComponent implements OnInit {
   //添加商品
   addInput(ind:number) {
     console.log('点击了：'+ind);
-    this.selectProductList.push(this.searchProductList['result']['data'][ind]);
-    // console.log(this.selectProductList);
-    // console.log(JSON.stringify(this.selectProductList));
+      console.log(this.searchProductList['result']['productList']['data'][ind]);
+    this.selectProductList.push(this.searchProductList['result']['productList']['data'][ind]);
   }
   //移除商品
   removeInput(ind) {
@@ -221,16 +214,12 @@ export class AddSalesComponent implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.searchProductList = data;
+          if(this.searchProductList['status'] == 202){
+            alert(this.searchProductList['msg']);
+            this.cookieStore.removeAll(this.rollback_url);
+            this.router.navigate(['/auth/login']);
+          }
         });
-    setTimeout(() => {
-      // console.log('this.searchProductList:----');
-      // console.log(this.searchProductList);
-      if(this.searchProductList['status'] == 202){
-        alert(this.searchProductList['msg']);
-        this.cookieStore.removeAll(this.rollback_url);
-        this.router.navigate(['/auth/login']);
-      }
-    }, 600);
   }
 }
 

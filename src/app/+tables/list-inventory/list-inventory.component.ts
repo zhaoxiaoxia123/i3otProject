@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Http} from '@angular/http';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 import {GlobalService} from '../../core/global.service';
+import {ModalDirective} from "ngx-bootstrap";
 
 @Component({
   selector: 'app-list-inventory',
@@ -21,13 +22,18 @@ export class ListInventoryComponent implements OnInit {
   selects : Array<any> = [];
   check : boolean = false;
 
+  //顶部按钮是否启用显示
+  editStatusStorehouseId : any = 0;
+  //处理批量
+  isAll : number = 0;
+
   storehouse_info : Array<any> = [];
   rollback_url : string = '/tables/inventory';
   constructor(
       fb:FormBuilder,
       private http:Http,
       private router:Router,
-      private cookiestore:CookieStoreService,
+      private cookieStore:CookieStoreService,
       private globalService:GlobalService
   ) {
     let nav = '{"title":"仓库列表","url":"/tables/inventory","class_":"active"}';
@@ -35,7 +41,6 @@ export class ListInventoryComponent implements OnInit {
     this.formModel = fb.group({
       keyword:[''],
     });
-
     this.getStorehouseList('1');
     window.scrollTo(0,0);
   }
@@ -47,7 +52,7 @@ export class ListInventoryComponent implements OnInit {
    * @param number
    */
   getStorehouseList(number:string) {
-    let url = this.globalService.getDomain()+'/api/v1/getStorehouseList?page='+number+'&sid='+this.cookiestore.getCookie('sid');
+    let url = this.globalService.getDomain()+'/api/v1/getStorehouseList?page='+number+'&sid='+this.cookieStore.getCookie('sid');
     if(this.formModel.value['keyword'].trim() != ''){
       url += '&keyword='+this.formModel.value['keyword'].trim();
     }
@@ -55,33 +60,29 @@ export class ListInventoryComponent implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.storehouseList = data;
+          console.log(this.storehouseList);
+          if(this.storehouseList['status'] == 202){
+            this.cookieStore.removeAll(this.rollback_url);
+            this.router.navigate(['/auth/login']);
+          }
+          if (this.storehouseList) {
+            if (this.storehouseList['result']['storehouseList']['current_page'] == this.storehouseList['result']['storehouseList']['last_page']) {
+              this.next = true;
+            } else {
+              this.next = false;
+            }
+            if (this.storehouseList['result']['storehouseList']['current_page'] == 1) {
+              this.prev = true;
+            } else {
+              this.prev = false;
+            }
+            this.selects = [];
+            for (let entry of this.storehouseList['result']['storehouseList']['data']) {
+              this.selects[entry['storehouse_id']] = false;
+            }
+            this.check = false;
+          }
         });
-
-    setTimeout(() => {
-      console.log(this.storehouseList);
-      if(this.storehouseList['status'] == 202){
-        this.cookiestore.removeAll(this.rollback_url);
-        this.router.navigate(['/auth/login']);
-      }
-      if (this.storehouseList) {
-        if (this.storehouseList['result']['current_page'] == this.storehouseList['result']['last_page']) {
-          this.next = true;
-        } else {
-          this.next = false;
-        }
-        if (this.storehouseList['result']['current_page'] == 1) {
-          this.prev = true;
-        } else {
-          this.prev = false;
-        }
-
-        this.selects = [];
-        for (let entry of this.storehouseList['result']['data']) {
-          this.selects[entry['storehouse_id']] = false;
-        }
-        this.check = false;
-      }
-    }, 300);
   }
 
   //全选，反全选
@@ -114,136 +115,109 @@ export class ListInventoryComponent implements OnInit {
 
   /**
    * 分页
-   * @param url
    */
-  // pagination(url : string) {
-  //   // console.log('url:'+url);
-  //   if(url) {
-  //     this.page = url.substring((url.lastIndexOf('=') + 1), url.length);
-  //     // console.log(this.page);
-  //     this.getStorehouseList(this.page);
-  //   }
-  // }
   pagination(page : string) {
       this.page = page;
       this.getStorehouseList(this.page);
   }
+
   /**
    * 删除信息
-   * @param cid
+   * @param type
+   * @returns {boolean}
    */
-  deleteStorehouse(storehouse_id:any,current_page:any){
+  deleteStorehouse(type : any){
     if(this.globalService.demoAlert('','')){
       return false;
     }
-    let url = this.globalService.getDomain()+'/api/v1/deleteStorehouseById?storehouse_id=' + storehouse_id + '&page=' + current_page+'&type=id&sid='+this.cookiestore.getCookie('sid');
-    if(this.formModel.value['keyword'].trim() != ''){
-      url += '&keyword='+this.formModel.value['keyword'].trim();
-    }
-
-    if(confirm('您确定要删除该条信息吗？')) {
-      this.http.delete(url)
-          .map((res) => res.json())
-          .subscribe((data) => {
-            this.storehouseList = data;
-          });
-      setTimeout(() => {
-        // console.log(this.userList);
-
-        if (this.storehouseList) {
-          if (this.storehouseList['result']['current_page'] == this.storehouseList['result']['last_page']) {
-            this.next = true;
-          } else {
-            this.next = false;
-          }
-          if (this.storehouseList['result']['current_page'] == 1) {
-            this.prev = true;
-          } else {
-            this.prev = false;
-          }
-        }
-      }, 300);
-    }
-  }
-
-  deleteStorehouseAll(current_page:any){
-    if(this.globalService.demoAlert('','')){
-      return false;
-    }
-    if(confirm('删除后将不可恢复，您确定要删除吗？')) {
-      let ids : string = '';
+    let msg = '';
+    let storehouse_id : string = '';
+    if(type == 'id'){
+      storehouse_id = this.editStatusStorehouseId;
+    } else if(type == 'all') {
+      let is_select = 0;
       this.selects.forEach((val, idx, array) => {
-        if(val == true){
-          ids += idx+',';
+        if (val == true) {
+          storehouse_id += idx + ',';
+          is_select += 1;
         }
       });
-      let url = this.globalService.getDomain()+'/api/v1/deleteStorehouseById?ids=' + ids + '&page=' + current_page+'&type=all&sid='+this.cookiestore.getCookie('sid');
+      if (is_select < 1) {
+        msg = '请确认已选中需要删除的信息！';
+        alert(msg);
+        return false;
+      }
+    }
+    msg = '删除后将不可恢复，您确定要删除吗？';
+    if(confirm(msg)) {
+      let url = this.globalService.getDomain()+'/api/v1/deleteStorehouseById?storehouse_id=' + storehouse_id + '&page=1&type='+type+'&sid='+this.cookieStore.getCookie('sid');
       if(this.formModel.value['keyword'].trim() != ''){
         url += '&keyword='+this.formModel.value['keyword'].trim();
       }
       this.http.delete(url)
           .map((res) => res.json())
           .subscribe((data) => {
-            this.storehouseList = data;
+            if(this.storehouseList['status'] == 200){
+              this.storehouseList = data;
+            }else if(this.storehouseList['status'] == 201 || this.storehouseList['status'] == 202){
+              alert(this.storehouseList['msg']);
+            }
+            if(this.storehouseList['status'] == 202){
+              this.cookieStore.removeAll(this.rollback_url);
+              this.router.navigate(['/auth/login']);
+            }
+            if (this.storehouseList) {
+              if (this.storehouseList['result']['storehouseList']['current_page'] == this.storehouseList['result']['storehouseList']['last_page']) {
+                this.next = true;
+              } else {
+                this.next = false;
+              }
+              if (this.storehouseList['result']['storehouseList']['current_page'] == 1) {
+                this.prev = true;
+              } else {
+                this.prev = false;
+              }
+
+              this.selects = [];
+              for (let entry of this.storehouseList['result']['storehouseList']['data']) {
+                this.selects[entry['storehouse_id']] = false;
+              }
+              this.check = false;
+            }
           });
-      setTimeout(() => {
-        // console.log(this.productList);
-        alert(this.storehouseList['msg']);
-        if(this.storehouseList['status'] == 202){
-          this.cookiestore.removeAll(this.rollback_url);
-          this.router.navigate(['/auth/login']);
-        }
-        if (this.storehouseList) {
-          if (this.storehouseList['result']['current_page'] == this.storehouseList['result']['last_page']) {
-            this.next = true;
-          } else {
-            this.next = false;
-          }
-          if (this.storehouseList['result']['current_page'] == 1) {
-            this.prev = true;
-          } else {
-            this.prev = false;
-          }
-        }
-      }, 300);
     }
   }
-
-  /**
-   * 编辑仓库信息
-   * @param storehouse_id
-   */
-  // editStorehouse(storehouse_id:number){
-  //   // this.router.navigateByUrl('/forms/inventory1');
-  //   this.router.navigate(['/forms/inventory1',storehouse_id]);
-  // }
 
   /**
    * 提交搜索
    */
   onSubmit(){
-    if( this.formModel.value['keyword'].trim() == ''){
-      alert('请输入需要搜索的关键字');
-      return false;
-    } else {
+    // if( this.formModel.value['keyword'].trim() == ''){
+    //   alert('请输入需要搜索的关键字');
+    //   return false;
+    // } else {
       this.getStorehouseList('1');
-    }
+    // }
   }
 
   /**
    * 获取仓库详情
    * @param storehouse_id
    */
-  getStorehouseInfo(storehouse_id:number){
-    this.http.get(this.globalService.getDomain()+'/api/v1/getStorehouseInfo?storehouse_id='+storehouse_id+'&type=detail')
+  detailStorehouse(type:string){
+    if(this.editStatusStorehouseId == 0){
+      return false;
+    }
+    if(type == 'detail'){
+      this.lgModal.show();
+    }else{
+      this.isDemo('/forms/inventory1','1');
+    }
+    this.http.get(this.globalService.getDomain()+'/api/v1/getStorehouseInfo?storehouse_id='+this.editStatusStorehouseId+'&type='+type)
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.storehouse_info = data;
         });
-    setTimeout(() => {
-      console.log('this.storehouse_info:-----');
-      console.log(this.storehouse_info);
-    },300);
   }
 
   /**
@@ -252,6 +226,27 @@ export class ListInventoryComponent implements OnInit {
    * @param param
    */
   isDemo(url:string,param:any){
+    if(param == '1'){
+      param = this.editStatusStorehouseId;
+    }
     this.globalService.demoAlert(url,param);
   }
+
+  /**
+   * 顶部
+   */
+  isStatusShow(storehouse_id:any){
+    this.editStatusStorehouseId = storehouse_id;
+  }
+
+  /**
+   * 批量
+   */
+  showAllCheck() {
+    this.isAll = 1;
+    this.editStatusStorehouseId = 0;
+  }
+
+
+  @ViewChild('lgModal') public lgModal:ModalDirective;
 }
