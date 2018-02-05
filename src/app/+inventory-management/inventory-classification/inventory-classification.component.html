@@ -94,9 +94,9 @@
                                       <button data-action="collapse" type="button" *ngIf="cl.child_count > 0" [ngStyle]="{'display': (button_contrl_id==cl.category_id && index == 2) ? 'block':'none'}" (click)="show(1,cl.category_id)">展开</button>
                                       <div class="dd-handle">
                                         {{cl.category_desc}}
-                                        <small  class="text-muted">
-                                          <i >({{cl.child_count}})</i>
-                                        </small>
+                                        <!--<small  class="text-muted">-->
+                                          <!--<i >({{cl.child_count}})</i>-->
+                                        <!--</small>-->
                                         <div *ngIf="cid == super_admin_id || cl.c_id == cid">
                                           <a class="btn pull-right btn-warning btn-xs btn-20" (click)="editCategory(cl.category_id)"><span class="glyphicon glyphicon-pencil"></span>修改</a>
                                           <a class="btn pull-right btn-danger btn-xs btn-20" (click)="deleteCategory(cl.category_id)"><span class="glyphicon glyphicon-remove"></span>删除</a>

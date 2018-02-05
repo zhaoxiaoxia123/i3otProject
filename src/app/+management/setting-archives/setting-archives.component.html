@@ -19,7 +19,7 @@
                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
 
                       <div class="form-group pdlr-4">
-                        <a class="btn btn-success btn-sm" (click)="lgModal.show();">
+                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="lgModal.show();">
                           <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
                       </div>
                       <div class="form-group pdlr-4">
@@ -30,10 +30,6 @@
                         <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}"  (click)="deleteProduct('id')">
                           <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
                       </div>
-                      <!--<div class="form-group pdlr-4">-->
-                      <!--<a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}"  (click)="detailProduct('detail')">&lt;!&ndash; data-toggle="modal" data-target="#particulars" &ndash;&gt;-->
-                      <!--<span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>-->
-                      <!--</div>-->
                       <div class="form-group pdlr-4" *ngIf="isStatus == 2">
                         <a class="btn default-btn btn-sm" (click)="editStatus(1,'id')">
                           <span class="fa-fw fa fa-play mr-5 color-green"></span>启用</a>
@@ -45,14 +41,12 @@
                       <div class="form-group btn-group pdlr-4">
                         <a class="btn default-btn btn-sm dropdown-toggle" (click)="showAllCheck()" data-toggle="dropdown">
                           <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
-
                         <ul class="dropdown-menu" role="menu">
                           <li><a  (click)="editStatus(1,'all')"><span class="fa-fw fa fa-play mr-5 color-green"></span>批量设为启动</a></li>
                           <li><a  (click)="editStatus(2,'all')"><span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>批量设为无效</a></li>
                           <li class="divider"></li>
                           <li><a (click)="deleteProduct('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
                         </ul>
-
                       </div>
                     </form>
                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
@@ -61,7 +55,7 @@
                           <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" [(ngModel)]="keyword"  name="keyword" placeholder="请输入搜索内容" type="text">
                         </div>
                         <button class="btn btn-default" type="button" (click)="getProductList(1,0)">
-                          <i  class="glyphicon glyphicon-search"></i>
+                          <i class="glyphicon glyphicon-search"></i>
                           搜索
                         </button>
                       </div>
@@ -86,7 +80,7 @@
                               <ul class="">
                                 <li class=" parent_li">
                                 <span><label class="checkbox inline-block tree-label pt-12 ">
-                                        <input type="checkbox" name="checkbox-inline"><i></i>
+                                        <input type="checkbox" name="checkbox-inline" [checked]="select_category_ids[0]" (click)="selectCategoryAll()"><i></i>
                                       </label>
                                   <i class="fa fa-lg fa-folder-open"></i>全部
                                   <i class="sa-icon fa fa-lg fa-plus-circle" *ngIf="showUl == 0" (click)="showLeftUl(1)"></i>
@@ -97,11 +91,12 @@
                                     <li class=" parent_li" *ngFor="let c of productDefault?.result?.categoryList;let ind = index;">
                                     <span>
                                       <label class="checkbox inline-block tree-label ">
-                                        <input type="checkbox" name="checkbox-inline" [checked]="select_category_ids[c.category_id]" (click)="selectDepartment(c.category_id,ind,0,1)"><i></i>{{c.category_desc}}
+                                        <input type="checkbox" name="checkbox-inline" [checked]="select_category_ids[c.category_id]" (click)="selectDepartment(c.category_id,ind,0,1)">
+                                        <i></i>{{c.category_desc}}
                                         <em class="txt-color-blue">({{c.child_count}})</em>
                                       </label>
-                                      <i class="sa-icon fa fa-lg fa-minus-circle" *ngIf="showUlChild == c.category_id" (click)="showLeftUlChild(0)"></i>
-                                      <i class="sa-icon fa fa-lg fa-plus-circle" *ngIf="showUlChild != c.category_id" (click)="showLeftUlChild(c.category_id)"></i>
+                                      <i class="sa-icon fa fa-lg fa-minus-circle" *ngIf="showUlChild == c.category_id && c.has_child != 0" (click)="showLeftUlChild(0)"></i>
+                                      <i class="sa-icon fa fa-lg fa-plus-circle" *ngIf="showUlChild != c.category_id && c.has_child != 0" (click)="showLeftUlChild(c.category_id)"></i>
                                     </span>
                                       <ul class="" *ngIf="showUlChild == c.category_id">
                                         <li *ngFor="let dc of c.child;let indChild = index;">
@@ -109,6 +104,7 @@
                                           <label class="checkbox inline-block tree-label">
                                             <input type="checkbox" name="checkbox-inline" [checked]="select_category_ids[c.category_id] || select_category_ids[dc.category_id]" (click)="selectDepartment(dc.category_id,ind,indChild,c.category_id)">
                                             <i></i>{{dc.category_desc}}
+                                            <em class="txt-color-blue">({{c.child_count}})</em>
                                           </label>
                                         </span>
                                         </li>
@@ -139,39 +135,50 @@
                         </alert>
 
                         <div class="mt-10"  style="padding:0;">
-                          <div style="padding: 0;z-index: 2;width:22%;float:left;" class="table-scrolling">
+                          <div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-scrolling">
                             <table class="table table-striped   smart-form table-height-32">
                               <thead>
-                              <tr >
-                                <td *ngIf="isAll != 0"><label class="checkbox " >
+                              <tr style="height: 37px;" >
+                                <td><label class="checkbox " >
                                   <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)" >
                                   <i></i>
                                 </label>
                                 </td>
-                                <th><span class="">商品编号</span></th>
                               </tr>
                               </thead>
                               <tbody>
-                              <tr *ngFor="let p of productList.result?.productList?.data" (click)="isStatusShow(p.p_id,p.p_status)" [ngClass]="{'table-color':editStatusProductId == p.p_id}"><!--class="table-color"-->
-                                <td  *ngIf="isAll != 0">
+                              <tr  style="height: 34.5px;" *ngFor="let p of productList.result?.productList?.data">
+                                <td >
                                   <div class="">
                                     <label class="checkbox padding-top-10" *ngIf="cid != super_admin_id && cid != p.c_id" >
                                       <input type="checkbox" name="checkbox-inline" disabled="disabled">
                                       <i></i>
                                     </label>
                                     <label class="checkbox padding-top-10" *ngIf="cid == super_admin_id || cid == p.c_id" >
-                                      <input type="checkbox" name="checkbox-inline" value="{{ p.p_id }}" [checked]="selects[p.p_id]" (change)="$event.preventDefault();$event.stopPropagation();handle($event)">
+                                      <input type="checkbox" name="checkbox-inline" value="{{ p.p_id }}" [checked]="selects[p.p_id]" (change)="handle($event)">
                                       <i></i>
                                     </label>
                                   </div>
-                                  
                                 </td>
+                              </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div style="padding: 0;z-index: 2;width:20%;float:left;" class="table-scrolling">
+                            <table class="table table-striped   smart-form table-height-32">
+                              <thead>
+                              <tr >
+                                <th><span class="">商品编号</span></th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr *ngFor="let p of productList.result?.productList?.data" (click)="isStatusShow(p.p_id,p.p_status)" [ngClass]="{'table-color':editStatusProductId == p.p_id}"><!--class="table-color"-->
                                 <td><span class="">{{p.p_product_id}}</span></td>
                               </tr>
                               </tbody>
                             </table>
                           </div>
-                          <div style="padding: 0;z-index: 1;width:78%;float:left;" class="table-responsive">
+                          <div [ngStyle]="{'padding': '0','z-index': '1','width':width_1,'float':'left'}" class="table-responsive">
                             <table class="table table-striped  smart-form table-height-32">
                               <thead>
                               <tr>
@@ -207,10 +214,6 @@
                         <div class="dt-toolbar">
                           <div class="col-xs-12 col-sm-6">
                             <span>共{{productList.result?.productList?.total}}条</span>
-                            <!--<button class="btn btn-default" (click)="deleteProduct()">
-                              <i class="fa fa-trash-o fa-lg"></i>
-                              删除所选
-                            </button>-->
                           </div>
                           <div class="hidden-xs right">
                             <ul class="pagination pagination-sm">

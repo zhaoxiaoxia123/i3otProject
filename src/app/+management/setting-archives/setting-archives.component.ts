@@ -58,14 +58,14 @@ export class SettingArchivesComponent implements OnInit {
     //左边展开和收起功能
     showUl : number  = 1;//一级分类
     showUlChild : number  = 0;//二级
-
     //顶部启动 和无效是否启用显示
     editStatusProductId : any = 0;
     isStatus : any = 0;
-
     //处理批量
     isAll : number = 0;
-
+    width : string = '0%';
+    width_1 : string = '80%';
+    
     p_property_id : number = 1;
     keyword : string = '';
     cid : any = 0;//当前登录用户的所属公司id
@@ -93,7 +93,7 @@ export class SettingArchivesComponent implements OnInit {
 
         let nav = '{"title":"商品档案","url":"/management/setting-archives","class_":"active"}';
         this.globalService.navEventEmitter.emit(nav);
-        this.getProductList('1',0);
+        // this.getProductList('1',0);
         window.scrollTo(0,0);
         this.super_admin_id = this.globalService.getAdminID();
         this.cid = this.cookieStore.getCookie('cid');
@@ -127,7 +127,7 @@ export class SettingArchivesComponent implements OnInit {
      * 获取默认参数
      */
     getProductDefault(){
-        this.http.get(this.globalService.getDomain()+'/api/v1/getProductDefault?p_type='+this.p_type+'&category_type='+this.category_type+'&sid='+this.cookieStore.getCookie('sid'))
+        this.http.get(this.globalService.getDomain()+'/api/v1/getProductDefault?type=list&p_type='+this.p_type+'&category_type='+this.category_type+'&sid='+this.cookieStore.getCookie('sid'))
             .map((res)=>res.json())
             .subscribe((data)=>{
                 this.productDefault = data;
@@ -137,10 +137,27 @@ export class SettingArchivesComponent implements OnInit {
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
+                this.select_category_ids[0] = true;
+                this.productDefault['result']['categoryList'].forEach((val, idx, array) => {
+                    this.select_category_ids[val['category_id']] = true;
+                    if(val['has_child'] >= 1){
+                        val['child'].forEach((val1, idx1, array1) => {
+                            this.select_category_ids[val1['category_id']] = true;
+                        });
+                    }
+                });
+
+                let depart = '';
+                this.select_category_ids.forEach((val, idx, array) => {
+                    if(val == true) {
+                        depart += idx + ',';
+                    }
+                });
+                this.getProductList('1',depart);
             });
     }
     /**
-     * 获取客户列表
+     * 获取产品列表
      * @param number
      */
     getProductList(number:string,category_id:any) {
@@ -168,7 +185,7 @@ export class SettingArchivesComponent implements OnInit {
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
-                if(this.productList){
+                if(this.productList.length > 0){
                     if (this.productList['result']['productList']['current_page'] == this.productList['result']['productList']['last_page']) {
                         this.next = true;
                     } else {
@@ -224,8 +241,6 @@ export class SettingArchivesComponent implements OnInit {
         }else{
             this.check = true;
         }
-        console.log(this.selects);
-        console.log(this.check);
     }
 
     /**
@@ -453,13 +468,13 @@ export class SettingArchivesComponent implements OnInit {
 
     /**
      * 左侧导航栏 选中显示列表
-     * @param department_id
+     * @param category_id
      * index 点击的父类 or子类 索引
      * num  1：父类 2：子类
      */
-    selectDepartment(department_id:any,index:number,indexChild:number,num:number){
+    selectDepartment(category_id:any,index:number,indexChild:number,num:number){
         if(num == 1){//点击父类
-            if(this.select_category_ids[department_id] == true){
+            if(this.select_category_ids[category_id] == true){
                 if(this.productDefault['result']['categoryList'][index]){
                     if(this.productDefault['result']['categoryList'][index]['child_count'] >= 1){
                         this.productDefault['result']['categoryList'][index]['child'].forEach((val, idx, array) => {
@@ -467,9 +482,9 @@ export class SettingArchivesComponent implements OnInit {
                         });
                     }
                 }
-                this.select_category_ids[department_id] = false;
+                this.select_category_ids[category_id] = false;
             }else{
-                this.select_category_ids[department_id] = true;
+                this.select_category_ids[category_id] = true;
 
                 if(this.productDefault['result']['categoryList'][index]){
                     console.log(this.productDefault['result']['categoryList'][index]['child_count']);
@@ -482,11 +497,11 @@ export class SettingArchivesComponent implements OnInit {
                 }
             }
         }else if(num != 1){//点击子类
-            if(this.select_category_ids[department_id] == true){
+            if(this.select_category_ids[category_id] == true){
                 this.select_category_ids[num] = false;
-                this.select_category_ids[department_id] = false;
+                this.select_category_ids[category_id] = false;
             }else{
-                this.select_category_ids[department_id] = true;
+                this.select_category_ids[category_id] = true;
 
                 let count = 0;
                 if(this.productDefault['result']['categoryList'][index]){
@@ -522,6 +537,15 @@ export class SettingArchivesComponent implements OnInit {
     isStatusShow(u_id:any,status:any){
         this.editStatusProductId = u_id;
         this.isStatus = status;
+
+        this.isAll = 0;
+        this.width = '0%';
+        this.width_1 ='80%';
+        this.selects.forEach((val, idx, array) => {
+            if(val == true){
+                this.selects[idx] = false;
+            }
+        });
     }
 
     /**
@@ -547,6 +571,10 @@ export class SettingArchivesComponent implements OnInit {
             }
         });
 
+        if(! p_id){
+            alert('请确保已选中需要操作的项！');
+            return false;
+        }
         this.http.post(this.globalService.getDomain()+'/api/v1/addProduct',{
             'p_id':p_id,
             'p_status':status,
@@ -592,11 +620,48 @@ export class SettingArchivesComponent implements OnInit {
      * 批量
      */
     showAllCheck() {
-        this.isAll = 1;
-        this.editStatusProductId = 0;
-        this.isStatus = 0;
+        if(this.isAll == 0) {
+            this.isAll = 1;
+            this.editStatusProductId = 0;
+            this.isStatus = 0;
+            this.width = '10%';
+            this.width_1 = '70%';
+        }
     }
 
+    /**
+     * 左边选中所有
+     */
+    selectCategoryAll(){
+        if(this.select_category_ids[0] == true){
+            this.select_category_ids[0] = false;
+            this.productDefault['result']['categoryList'].forEach((val, idx, array) => {
+                this.select_category_ids[val['category_id']] = false;
+                if (val['has_child'] >= 1) {
+                    val['child'].forEach((val1, idx1, array1) => {
+                        this.select_category_ids[val1['category_id']] = false;
+                    });
+                }
+            });
+        }else {
+            this.select_category_ids[0] = true;
+            this.productDefault['result']['categoryList'].forEach((val, idx, array) => {
+                this.select_category_ids[val['category_id']] = true;
+                if (val['has_child'] >= 1) {
+                    val['child'].forEach((val1, idx1, array1) => {
+                        this.select_category_ids[val1['category_id']] = true;
+                    });
+                }
+            });
+        }
+        let depart = '';
+        this.select_category_ids.forEach((val, idx, array) => {
+            if(val == true) {
+                depart += idx + ',';
+            }
+        });
+        this.getProductList('1',depart);
+    }
     /**
      * 左边展示效果
      * @param bool
@@ -604,8 +669,8 @@ export class SettingArchivesComponent implements OnInit {
     showLeftUl(bool:any){
         this.showUl = bool;
     }
-    showLeftUlChild(department_id:any){
-        this.showUlChild = department_id;
+    showLeftUlChild(category_id:any){
+        this.showUlChild = category_id;
     }
 
 
