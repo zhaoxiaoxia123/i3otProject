@@ -21,9 +21,10 @@ export class SalesListComponent implements OnInit {
   //顶部启动 和无效是否启用显示
   editStatusPurchaseId : any = 0;
   isStatus : any = 0;
-
   //处理批量
   isAll : number = 0;
+  width : string = '0%';
+  width_1 : string = '70%';
 
   type : number = 4;
   keyword:string = '';
@@ -56,8 +57,6 @@ export class SalesListComponent implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.purchaseList = data;
-
-          console.log(this.purchaseList);
           if(this.purchaseList['status'] == 202){
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
@@ -196,6 +195,15 @@ export class SalesListComponent implements OnInit {
   isStatusShow(u_id:any,status:any){
     this.editStatusPurchaseId = u_id;
     this.isStatus = status;
+
+    this.isAll = 0;
+    this.width = '0%';
+    this.width_1 ='70%';
+    this.selects.forEach((val, idx, array) => {
+      if(val == true){
+        this.selects[idx] = false;
+      }
+    });
   }
   /**
    * 修改状态
@@ -251,9 +259,14 @@ export class SalesListComponent implements OnInit {
    * 批量
    */
   showAllCheck() {
-    this.isAll = 1;
-    this.editStatusPurchaseId = 0;
-    this.isStatus = 0;
+
+    if(this.isAll == 0) {
+      this.isAll = 1;
+      this.editStatusPurchaseId = 0;
+      this.isStatus = 0;
+      this.width = '5%';
+      this.width_1 = '65%';
+    }
   }
 
 }
