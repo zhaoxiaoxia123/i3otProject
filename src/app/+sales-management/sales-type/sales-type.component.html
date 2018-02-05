@@ -96,31 +96,44 @@
                               </article>
                             </div>
                             <div style="padding:0;">
-                              <div style="padding: 0;z-index: 2;" class="table-responsive">
+                              <div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-scrolling">
+                                <table class="table table-striped   smart-form">
+                                  <thead>
+                                  <tr style="height: 37px;">
+                                    <td>
+                                      <label class="checkbox mt-8">
+                                        <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)">
+                                        <i></i>
+                                      </label>
+                                    </td>
+                                  </tr>
+                                  </thead>
+                                  <tbody>
+                                  <tr style="height: 35px;" *ngFor="let c of categoryList?.result?.categoryList?.data">
+                                    <td >
+                                      <label class="checkbox" *ngIf="cid != super_admin_id && cid != c.c_id" >
+                                        <input type="checkbox" name="checkbox-inline" disabled="disabled">
+                                        <i></i>
+                                      </label>
+                                      <label class="checkbox" *ngIf="cid == super_admin_id || cid == c.c_id" >
+                                        <input type="checkbox" name="checkbox-inline" value="{{ c.category_id }}" [checked]="selects[c.category_id]" (change)="handle($event)">
+                                        <i></i>
+                                      </label>
+                                    </td>
+                                  </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                              <div [ngStyle]="{'padding': '0','z-index': '1','width':width_1,'float':'left'}" class="table-responsive">
                                 <table class="table table-striped   smart-form">
                                   <thead>
                                   <tr >
-                                    <td *ngIf="isAll != 0"><label class="checkbox">
-                                      <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)">
-                                      <i></i>
-                                    </label>
-                                    </td>
                                     <th>类型编码</th>
                                     <th>类型名称</th>
                                   </tr>
                                   </thead>
                                   <tbody>
                                   <tr *ngFor="let c of categoryList?.result?.categoryList?.data" (click)="isStatusShow(c.category_id)" [ngClass]="{'table-color':editStatusCategoryId == c.category_id}">
-                                    <td *ngIf="isAll != 0">
-                                      <label class="checkbox" *ngIf="cid != super_admin_id && cid != c.c_id" >
-                                        <input type="checkbox" name="checkbox-inline" disabled="disabled">
-                                        <i></i>
-                                      </label>
-                                      <label class="checkbox" *ngIf="cid == super_admin_id || cid == c.c_id" >
-                                        <input type="checkbox" name="checkbox-inline" value="{{ c.category_id }}" [checked]="selects[c.category_id]" (change)="$event.preventDefault();$event.stopPropagation();handle($event)">
-                                        <i></i>
-                                      </label>
-                                    </td>
                                     <td>{{c.category_number}}</td>
                                     <td>{{c.category_desc}}</td>
                                   </tr>
