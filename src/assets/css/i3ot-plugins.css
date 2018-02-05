@@ -1247,6 +1247,14 @@ span.input-icon {
     height:32px;
     vertical-align: middle
 }
+.table-height-32>thead>tr>td{
+    height:32px;
+    vertical-align: middle
+}
+.table-height-32>thead>tr>th{
+    height:32px;
+    vertical-align: middle
+}
 .table-border>tbody>tr>td{
     border-bottom: 1px solid #ddd;
 }

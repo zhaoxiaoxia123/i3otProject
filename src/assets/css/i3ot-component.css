@@ -2634,8 +2634,9 @@ ul.ColVis_collection li label {
 }
 
 .table-color{
-    background: #FDDFB3!important;
+    background: #ffd85d!important;
     color: #000!important;
+    border-bottom: 2px solid #d4a50f;
 }
 /*员工详情*/
 
