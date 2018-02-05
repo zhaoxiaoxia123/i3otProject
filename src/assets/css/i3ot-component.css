@@ -2629,6 +2629,12 @@ ul.ColVis_collection li label {
     }
 }
 
+.table-scrolling{
+    min-height:400px;
+}
+
+
+
 .table>thead>tr>td {
     border-bottom: 2px solid #ddd;
 }
