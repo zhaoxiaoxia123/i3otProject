@@ -35,6 +35,8 @@ export class SettingRepertoryComponent implements OnInit {
     editStatusCategoryId : any = 0;
     //处理批量
     isAll : number = 0;
+    width : string = '0%';
+    width_1 : string = '100%';
 
     cid : any = 0;//当前登录用户的所属公司id
     super_admin_id : any = 0;//超级管理员所属公司id
@@ -290,8 +292,12 @@ export class SettingRepertoryComponent implements OnInit {
      * 批量
      */
     showAllCheck() {
-        this.isAll = 1;
-        this.editStatusCategoryId = 0;
+        if(this.isAll == 0) {
+            this.isAll = 1;
+            this.editStatusCategoryId = 0;
+            this.width = '10%';
+            this.width_1 = '90%';
+        }
     }
 
     /**
@@ -299,6 +305,15 @@ export class SettingRepertoryComponent implements OnInit {
      */
     isStatusShow(category_id:any){
         this.editStatusCategoryId = category_id;
+
+        this.isAll = 0;
+        this.width = '0%';
+        this.width_1 ='100%';
+        this.selects.forEach((val, idx, array) => {
+            if(val == true){
+                this.selects[idx] = false;
+            }
+        });
     }
 }
 

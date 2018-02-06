@@ -259,7 +259,6 @@ export class SalesListComponent implements OnInit {
    * 批量
    */
   showAllCheck() {
-
     if(this.isAll == 0) {
       this.isAll = 1;
       this.editStatusPurchaseId = 0;

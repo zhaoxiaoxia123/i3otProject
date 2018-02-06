@@ -25,6 +25,8 @@ export class InventoryRequisitionComponent implements OnInit {
 
   //处理批量
   isAll : number = 0;
+  width : string = '0%';
+  width_1 : string = '70%';
 
   keyword:string = '';
   rollback_url : string = '/inventory-management/inventory-requisition';
@@ -33,7 +35,6 @@ export class InventoryRequisitionComponent implements OnInit {
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
-
     let nav = '{"title":"调拨单","url":"/inventory-management/inventory-requisition","class_":"active"}';
     this.globalService.navEventEmitter.emit(nav);
     this.getStockallotList('1');
@@ -257,6 +258,15 @@ export class InventoryRequisitionComponent implements OnInit {
   isStatusShow(u_id:any,status:any){
     this.editStatusStockallotId = u_id;
     this.isStatus = status;
+
+    this.isAll = 0;
+    this.width = '0%';
+    this.width_1 ='70%';
+    this.selects.forEach((val, idx, array) => {
+      if(val == true){
+        this.selects[idx] = false;
+      }
+    });
   }
   /**
    * 修改状态
@@ -321,9 +331,13 @@ export class InventoryRequisitionComponent implements OnInit {
    * 批量
    */
   showAllCheck() {
-    this.isAll = 1;
-    this.editStatusStockallotId = 0;
-    this.isStatus = 0;
+    if(this.isAll == 0) {
+      this.isAll = 1;
+      this.editStatusStockallotId = 0;
+      this.isStatus = 0;
+      this.width = '6%';
+      this.width_1 = '64%';
+    }
   }
 
 

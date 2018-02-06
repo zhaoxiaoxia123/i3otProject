@@ -26,6 +26,8 @@ export class ListInventoryComponent implements OnInit {
   editStatusStorehouseId : any = 0;
   //处理批量
   isAll : number = 0;
+  width : string = '0%';
+  width_1 : string = '100%';
 
   storehouse_info : Array<any> = [];
   rollback_url : string = '/tables/inventory';
@@ -237,14 +239,27 @@ export class ListInventoryComponent implements OnInit {
    */
   isStatusShow(storehouse_id:any){
     this.editStatusStorehouseId = storehouse_id;
+
+    this.isAll = 0;
+    this.width = '0%';
+    this.width_1 ='100%';
+    this.selects.forEach((val, idx, array) => {
+      if(val == true){
+        this.selects[idx] = false;
+      }
+    });
   }
 
   /**
    * 批量
    */
   showAllCheck() {
-    this.isAll = 1;
-    this.editStatusStorehouseId = 0;
+    if(this.isAll == 0) {
+      this.isAll = 1;
+      this.editStatusStorehouseId = 0;
+      this.width = '10%';
+      this.width_1 = '90%';
+    }
   }
 
 

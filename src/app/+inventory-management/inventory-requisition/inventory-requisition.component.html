@@ -56,33 +56,56 @@
                         </button>
                       </div>
                     </form>
-
                   </div>
                 </article>
               </div>
-              <div  class="padding0">
-                <div style="z-index: 2;width:40%;float:left;" class="table-scrolling padding0">
+              <div class="padding0">
+                <div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-scrolling padding0">
                   <table class="table table-striped  smart-form table-height-20">
                     <thead>
-                    <tr >
-                      <td *ngIf="isAll != 0"><label class="checkbox mt-8">
+                    <tr>
+                      <td><label class="checkbox mt-8">
                         <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)" >
                         <i></i>
                       </label>
                       </td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let s of stockallotList?.result?.stockallotList?.data">
+                      <td>
+                        <label class="checkbox mt-8">
+                          <input type="checkbox" value="{{s.stock_allot_id}}" [checked]="selects[s.stock_allot_id]" (change)="handle($event)">
+                          <i></i>
+                        </label>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div style="z-index: 2;width:30%;float:left;" class="table-scrolling padding0">
+                  <table class="table table-striped  smart-form table-height-20">
+                    <thead>
+                    <tr >
+                      <!--<td *ngIf="isAll != 0"><label class="checkbox mt-8">-->
+                        <!--<input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)" >-->
+                        <!--<i></i>-->
+                      <!--</label>-->
+                      <!--</td>-->
                       <th>单据号</th>
                       <th>单据日期 </th>
                       <th>单据状态</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="table-color" *ngFor="let s of stockallotList?.result?.stockallotList?.data" (click)="isStatusShow(s.stock_allot_id,s.stock_allot_status)" [ngClass]="{'table-color':editStatusStockallotId == s.stock_allot_id}">
-                      <td *ngIf="isAll != 0">
-                        <label class="checkbox mt-8">
-                          <input type="checkbox" value="{{s.stock_allot_id}}" [checked]="selects[s.stock_allot_id]" (change)="$event.preventDefault();$event.stopPropagation();handle($event)">
-                          <i></i>
-                        </label>
-                      </td>
+                    <tr *ngFor="let s of stockallotList?.result?.stockallotList?.data" (click)="isStatusShow(s.stock_allot_id,s.stock_allot_status)" [ngClass]="{'table-color':editStatusStockallotId == s.stock_allot_id}">
+                      <!--<td *ngIf="isAll != 0">-->
+                        <!--<label class="checkbox mt-8">-->
+                          <!--<input type="checkbox" value="{{s.stock_allot_id}}" [checked]="selects[s.stock_allot_id]" (change)="$event.preventDefault();$event.stopPropagation();handle($event)">-->
+                          <!--<i></i>-->
+                        <!--</label>-->
+                      <!--</td>-->
                       <td>{{s.stock_allot_number}}</td>
                       <td>{{s.stock_allot_date}}</td>
                       <td>
@@ -96,7 +119,7 @@
                     </tbody>
                   </table>
                 </div>
-                <div style="padding: 0;z-index: 1;width:60%;float:left;" class="table-responsive">
+                <div  [ngStyle]="{'padding': '0','z-index': '1','width':width_1,'float':'left'}" class="table-responsive">
                   <table class="table table-striped   smart-form table-height-20">
                     <thead>
                     <tr>
@@ -107,7 +130,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="table-color" *ngFor="let s of stockallotList?.result?.stockallotList?.data" (click)="isStatusShow(s.stock_allot_id,s.stock_allot_status)" [ngClass]="{'table-color':editStatusStockallotId == s.stock_allot_id}">
+                    <tr *ngFor="let s of stockallotList?.result?.stockallotList?.data" (click)="isStatusShow(s.stock_allot_id,s.stock_allot_status)" [ngClass]="{'table-color':editStatusStockallotId == s.stock_allot_id}">
                       <td>{{s.user_name}}</td>
                       <td>{{s.stock_allot_date}}</td>
                       <td>{{s.u_username}}</td>

@@ -12,7 +12,6 @@
             <h2>仓库列表 </h2>
           </header>
           <div>
-
             <div class="widget-body no-padding">
               <div class="row">
                 <article class="col-sm-12">
@@ -54,21 +53,38 @@
                         </button>
                       </div>
                     </form>
-
                   </div>
                 </article>
               </div>
               <div style="padding:0;">
-                <div  class="table-scrolling padding0">
+                <div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-scrolling padding0">
                   <table class="table table-striped   smart-form table-height-20">
                     <thead>
-                    <tr >
-                      <td *ngIf="isAll != 0">
+                    <tr>
+                      <td>
                         <label class="checkbox mt-8">
                           <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)">
                           <i></i>
                         </label>
                       </td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let sl of storehouseList?.result?.storehouseList?.data">
+                      <td>
+                        <label class="checkbox mt-8">
+                          <input type="checkbox" value="{{ sl.storehouse_id }}" [checked]="selects[sl.storehouse_id]" (change)="handle($event)">
+                          <i></i>
+                        </label>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div [ngStyle]="{'padding': '0','z-index': '2','width':width_1,'float':'left'}" class="table-scrolling padding0">
+                  <table class="table table-striped smart-form table-height-20">
+                    <thead>
+                    <tr >
                       <th>仓库名称</th>
                       <th>保管员 </th>
                       <th>固定电话 </th>
@@ -77,24 +93,17 @@
                     </tr>
                     </thead>
                     <tbody>
-
                     <tr *ngFor="let sl of storehouseList?.result?.storehouseList?.data" (click)="isStatusShow(sl.storehouse_id)" [ngClass]="{'table-color':editStatusStorehouseId == sl.storehouse_id}">
-                      <td *ngIf="isAll != 0">
-                        <label class="checkbox mt-8">
-                          <input type="checkbox" value="{{ sl.storehouse_id }}" [checked]="selects[sl.storehouse_id]" (change)="$event.preventDefault();$event.stopPropagation();handle($event)">
-                          <i></i>
-                        </label>
-                      </td>
                       <td>{{ sl.storehouse_name }}</td>
                       <td>{{ sl.u_username }}</td>
                       <td>{{ sl.storehouse_phone }}</td>
                       <td>
-              <span [ngSwitch]="sl.storehouse_status">
-                <span class="label-normal" *ngSwitchCase="1">正常</span>
-                <span class="label-blue" *ngSwitchCase="2">维修</span>
-                <span class="label-full" *ngSwitchCase="3">满仓</span>
-                <span class="label-unknown" *ngSwitchDefault>未知</span>
-              </span>
+                        <span [ngSwitch]="sl.storehouse_status">
+                          <span class="label-normal" *ngSwitchCase="1">正常</span>
+                          <span class="label-blue" *ngSwitchCase="2">维修</span>
+                          <span class="label-full" *ngSwitchCase="3">满仓</span>
+                          <span class="label-unknown" *ngSwitchDefault>未知</span>
+                        </span>
                       </td>
                       <td>{{ sl.updated_at }}</td>
                       <!--(click)="editStorehouse(sl.storehouse_id)"   [routerLink]="['/forms/inventory1',sl.storehouse_id]" -->
@@ -103,22 +112,15 @@
                         <a class="btn btn-success btn-xs" (click)="getStorehouseInfo(sl.storehouse_id);lgModal.show();"><span class="glyphicon glyphicon-zoom-in mr-5"></span>详情</a>
                       </td>-->
                     </tr>
-
                     </tbody>
                   </table>
                 </div>
               </div>
-
-
               <!-- 底部-（分页部分）-->
               <div class="dt-toolbar">
                 <div class="col-xs-12 col-sm-6">
                   <div class="col-xs-12 col-sm-6">
                     <span>共{{storehouseList.result?.storehouseList?.total}}条</span>
-                   <!-- <button  class="btn btn-default" (click)="deleteStorehouseAll(storehouseList.result?.current_page)">
-                      <i class="fa fa-trash-o fa-lg"></i>
-                      删除所选
-                    </button>-->
                   </div>
                 </div>
                 <div class="hidden-xs right">
