@@ -211,9 +211,12 @@ export class ProcurementOrderComponent implements OnInit {
    * @param url
    * @param param
    */
-  isDemo(url:string,param:any){
+  isDemo(url:string,param:any,type:any){
     if(param == '1'){
       param = this.editStatusPurchaseId;
+      if(type == 'detail') {
+        param = param + '_' + type;
+      }
     }
     this.globalService.demoAlert(url,param);
   }
