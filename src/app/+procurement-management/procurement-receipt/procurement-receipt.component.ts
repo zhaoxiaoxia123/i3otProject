@@ -9,7 +9,6 @@ import {GlobalService} from "../../core/global.service";
   templateUrl: './procurement-receipt.component.html',
 })
 export class ProcurementReceiptComponent implements OnInit {
-
   purchaseList : Array<any> = [];
   purchaseInfo : Array<any> = [];
   page : any;
@@ -25,6 +24,8 @@ export class ProcurementReceiptComponent implements OnInit {
 
   //处理批量
   isAll : number = 0;
+  width : string = '0%';
+  width_1 : string = '60%';
   
   keyword:string = '';
   type : number = 1;
@@ -228,6 +229,15 @@ export class ProcurementReceiptComponent implements OnInit {
   isStatusShow(u_id:any,status:any){
     this.editStatusPurchaseId = u_id;
     this.isStatus = status;
+    this.isAll = 0;
+    this.width = '0%';
+    this.width_1 ='60%';
+    this.selects.forEach((val, idx, array) => {
+      if(val == true){
+        this.selects[idx] = false;
+      }
+    });
+
   }
   /**
    * 修改状态
@@ -262,7 +272,6 @@ export class ProcurementReceiptComponent implements OnInit {
           alert(info['msg']);
           if(info['status'] == 200) {
             this.purchaseList = info;
-
             if (this.purchaseList) {
               if (this.purchaseList['result']['purchaseList']['current_page'] == this.purchaseList['result']['purchaseList']['last_page']) {
                 this.next = true;
@@ -294,9 +303,13 @@ export class ProcurementReceiptComponent implements OnInit {
    * 批量
    */
   showAllCheck() {
-    this.isAll = 1;
-    this.editStatusPurchaseId = 0;
-    this.isStatus = 0;
+    if(this.isAll == 0) {
+      this.isAll = 1;
+      this.editStatusPurchaseId = 0;
+      this.isStatus = 0;
+      this.width = '10%';
+      this.width_1 = '50%';
+    }
   }
 
 

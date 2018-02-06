@@ -335,8 +335,8 @@ export class InventoryRequisitionComponent implements OnInit {
       this.isAll = 1;
       this.editStatusStockallotId = 0;
       this.isStatus = 0;
-      this.width = '6%';
-      this.width_1 = '64%';
+      this.width = '5%';
+      this.width_1 = '65%';
     }
   }
 

@@ -232,7 +232,7 @@ export class AppOrderComponent implements OnInit {
    * 搜索商品
    */
   searchKey(){
-    this.http.get(this.globalService.getDomain()+'/api/v1/getProductList?keyword='+this.keyword+'&p_type='+this.p_type+'&pr_type='+this.pr_type+'&sid='+this.cookieStore.getCookie('sid'))
+    this.http.get(this.globalService.getDomain()+'/api/v1/getProductList?keyword='+this.keyword+'&p_type='+this.p_type+'&pr_type='+this.pr_type+'&type=add&sid='+this.cookieStore.getCookie('sid'))
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.searchProductList = data;

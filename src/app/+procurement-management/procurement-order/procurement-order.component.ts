@@ -21,9 +21,10 @@ export class ProcurementOrderComponent implements OnInit {
   //顶部启动 和无效是否启用显示
   editStatusPurchaseId : any = 0;
   isStatus : any = 0;
-
   //处理批量
   isAll : number = 0;
+  width : string = '0%';
+  width_1 : string = '70%';
   
   keyword:string = '';
   type : number = 3;
@@ -231,6 +232,16 @@ export class ProcurementOrderComponent implements OnInit {
   isStatusShow(u_id:any,status:any){
     this.editStatusPurchaseId = u_id;
     this.isStatus = status;
+
+    this.isAll = 0;
+    this.width = '0%';
+    this.width_1 ='70%';
+    this.selects.forEach((val, idx, array) => {
+      if(val == true){
+        this.selects[idx] = false;
+      }
+    });
+
   }
   /**
    * 修改状态
@@ -298,9 +309,13 @@ export class ProcurementOrderComponent implements OnInit {
    * 批量
    */
   showAllCheck() {
-    this.isAll = 1;
-    this.editStatusPurchaseId = 0;
-    this.isStatus = 0;
+    if(this.isAll == 0) {
+      this.isAll = 1;
+      this.editStatusPurchaseId = 0;
+      this.isStatus = 0;
+      this.width = '10%';
+      this.width_1 = '60%';
+    }
   }
 
 }

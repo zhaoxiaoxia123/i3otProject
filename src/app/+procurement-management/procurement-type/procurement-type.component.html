@@ -36,6 +36,12 @@
                               <form class="smart-form ">
                                 <fieldset>
                                   <section>
+                                    <label class="label txt-color-blue">类型编号<span class="asterisk-color">*</span></label>
+                                    <label class="input">
+                                      <input type="text" placeholder="请输类型编号" name="category_number" [(ngModel)]="category_number">
+                                    </label>
+                                  </section>
+                                  <section>
                                     <label class="label txt-color-blue">类型名称<span class="asterisk-color">*</span></label>
                                     <label class="input">
                                       <input type="text" placeholder="请输分类名称" name="category_desc" [(ngModel)]="category_desc">
@@ -83,40 +89,49 @@
                                           <li><a (click)="deleteCategory('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
                                         </ul>
                                       </div>
-
                                     </form>
                                 </div>
                               </article>
                             </div>
-
                             <div style="padding:0;">
-                              <div style="padding: 0;z-index: 2;" class="table-responsive">
+                              <div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-responsive">
                                 <table class="table table-striped  smart-form">
                                   <thead>
-                                  <tr >
-                                    <td *ngIf="isAll != 0"><label class="checkbox">
+                                  <tr style="height: 37px;">
+                                    <td><label class="checkbox">
                                       <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)">
                                       <i></i>
                                     </label>
                                     </td>
-                                    <th>类型编码</th>
-                                    <th>类型名称</th>
                                   </tr>
                                   </thead>
                                   <tbody>
-
-                                  <tr *ngFor="let c of categoryList?.result?.categoryList?.data" (click)="isStatusShow(c.category_id)" [ngClass]="{'table-color':editStatusCategoryId == c.category_id}">
-                                    <td *ngIf="isAll != 0">
+                                  <tr style="height: 34.5px;" *ngFor="let c of categoryList?.result?.categoryList?.data">
+                                    <td>
                                       <label class="checkbox" *ngIf="cid != super_admin_id && cid != c.c_id" >
                                         <input type="checkbox" name="checkbox-inline" disabled="disabled">
                                         <i></i>
                                       </label>
                                       <label class="checkbox" *ngIf="cid == super_admin_id || cid == c.c_id" >
-                                        <input type="checkbox" name="checkbox-inline" value="{{ c.category_id }}" [checked]="selects[c.category_id]" (change)="$event.preventDefault();$event.stopPropagation();handle($event)">
+                                        <input type="checkbox" name="checkbox-inline" value="{{ c.category_id }}" [checked]="selects[c.category_id]" (change)="handle($event)">
                                         <i></i>
                                       </label>
                                     </td>
-                                    <td>{{c.category_id}}</td>
+                                  </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                              <div [ngStyle]="{'padding': '0','z-index': '1','width':width_1,'float':'left'}" class="table-responsive">
+                                <table class="table table-striped  smart-form">
+                                  <thead>
+                                  <tr >
+                                    <th>类型编码</th>
+                                    <th>类型名称</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody>
+                                  <tr *ngFor="let c of categoryList?.result?.categoryList?.data" (click)="isStatusShow(c.category_id)" [ngClass]="{'table-color':editStatusCategoryId == c.category_id}">
+                                    <td>{{c.category_number}}</td>
                                     <td>{{c.category_desc}}</td>
                                   </tr>
                                   </tbody>

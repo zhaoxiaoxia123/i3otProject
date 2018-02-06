@@ -3,7 +3,6 @@ import {Http} from "@angular/http";
 import {Router} from "@angular/router";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
-import {stringify} from "querystring";
 
 @Component({
   selector: 'app-procurement-type',
@@ -14,6 +13,7 @@ export class ProcurementTypeComponent implements OnInit {
   categoryInfo : Array<any> = [];
   category_id:number = 0;
   category_desc:string = '';
+  category_number:string = '';
 
   page : any;
   prev : boolean = false;
@@ -25,9 +25,10 @@ export class ProcurementTypeComponent implements OnInit {
 
   //顶部单条操作按钮 是否启用显示
   editStatusCategoryId : any = 0;
-
   //处理批量
   isAll : number = 0;
+  width : string = '0%';
+  width_1 : string = '100%';
 
   cid : any = 0;//当前登录用户的所属公司id
   super_admin_id : any = 0;//超级管理员所属公司id
@@ -38,7 +39,6 @@ export class ProcurementTypeComponent implements OnInit {
       private router : Router,
       private cookieStoreService:CookieStoreService,
       private globalService:GlobalService) {
-
     let nav = '{"title":"采购类型","url":"/procurement-management/procurement-type","class_":"active"}';
     this.globalService.navEventEmitter.emit(nav);
     this.getCategoryList('1');
@@ -60,7 +60,6 @@ export class ProcurementTypeComponent implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.categoryList = data;
-
           if(this.categoryList['status'] == 202){
             this.cookieStoreService.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
@@ -128,6 +127,10 @@ export class ProcurementTypeComponent implements OnInit {
    * 添加采购类型信息
    */
   addCategory(){
+    if(this.category_number.trim() == ''){
+      alert('请输入类型编号！');
+      return false;
+    }
     if(this.category_desc.trim() == ''){
       alert('请输入采购类型标题！');
       return false;
@@ -136,6 +139,7 @@ export class ProcurementTypeComponent implements OnInit {
       'category_id' : this.category_id,
       'category_type' : this.category_type,
       'category_desc' : this.category_desc,
+      'category_number' : this.category_number,
       'sid':this.cookieStoreService.getCookie('sid')
     }).subscribe(
         (data)=>{
@@ -143,8 +147,8 @@ export class ProcurementTypeComponent implements OnInit {
           if(info['status'] == 200) {
             this.category_id = 0;
             this.category_desc = '';
+            this.category_number = '';
             this.categoryList = info;
-
             if(this.categoryList) {
               if (this.categoryList['result']['categoryList']['current_page'] == this.categoryList['result']['categoryList']['last_page']) {
                 this.next = true;
@@ -167,7 +171,6 @@ export class ProcurementTypeComponent implements OnInit {
             this.cookieStoreService.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
-
         }
     );
   }
@@ -185,6 +188,7 @@ export class ProcurementTypeComponent implements OnInit {
           this.categoryInfo = data;
           this.category_id = this.categoryInfo['result']['parent']['category_id'];
           this.category_desc = this.categoryInfo['result']['parent']['category_desc'];
+          this.category_number = this.categoryInfo['result']['parent']['category_number'];
         });
   }
 
@@ -250,8 +254,12 @@ export class ProcurementTypeComponent implements OnInit {
    * 批量
    */
   showAllCheck() {
-    this.isAll = 1;
-    this.editStatusCategoryId = 0;
+    if(this.isAll == 0) {
+      this.isAll = 1;
+      this.editStatusCategoryId = 0;
+      this.width = '10%';
+      this.width_1 = '90%';
+    }
   }
 
   /**
@@ -259,6 +267,13 @@ export class ProcurementTypeComponent implements OnInit {
    */
   isStatusShow(category_id:any){
     this.editStatusCategoryId = category_id;
+    this.isAll = 0;
+    this.width = '0%';
+    this.width_1 ='100%';
+    this.selects.forEach((val, idx, array) => {
+      if(val == true){
+        this.selects[idx] = false;
+      }
+    });
   }
-
 }
