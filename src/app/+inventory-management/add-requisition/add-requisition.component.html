@@ -7,9 +7,13 @@
             <span class="widget-icon"> <i class="glyphicon glyphicon-zoom-in"></i> </span>
             <h2 >添加调拨单</h2>
           </header>
-          <header *ngIf="stock_allot_id != 0">
+          <header *ngIf="stock_allot_id != 0 && isDetail!='detail'">
             <span class="widget-icon"> <i class="glyphicon glyphicon-pencil"></i> </span>
             <h2 >修改调拨单 </h2>
+          </header>
+          <header *ngIf="isDetail=='detail'">
+            <span class="widget-icon"> <i class="glyphicon glyphicon-zoom-in"></i> </span>
+            <h2 >详情 </h2>
           </header>
           <div>
             <!--小部件内容-->
@@ -23,10 +27,12 @@
                       <label class="label ">调拨方式</label>
                       <div class="inline-group">
                         <label class="radio">
-                          <input [disabled]="isDetail=='detail'" type="radio" [checked]="stockallotInfo.result?.stock_allot_type == 1 || stock_allot_id == 0" [value]="1" name="stock_allot_type" formControlName="stock_allot_type">
+                          <input *ngIf="isDetail=='detail'" disabled="disabled" type="radio" [checked]="stockallotInfo.result?.stock_allot_type == 1 || stock_allot_id == 0" [value]="1" name="stock_allot_type" formControlName="stock_allot_type">
+                          <input *ngIf="isDetail!='detail'" type="radio" [checked]="stockallotInfo.result?.stock_allot_type == 1 || stock_allot_id == 0" [value]="1" name="stock_allot_type" formControlName="stock_allot_type">
                           <i></i>等价调拨</label>
                         <label class="radio">
-                          <input [disabled]="isDetail=='detail'" type="radio" [checked]="stockallotInfo.result?.stock_allot_type == 2" [value]="2" name="stock_allot_type" formControlName="stock_allot_type">
+                          <input *ngIf="isDetail=='detail'" disabled="disabled" type="radio" [checked]="stockallotInfo.result?.stock_allot_type == 2" [value]="2" name="stock_allot_type" formControlName="stock_allot_type">
+                          <input *ngIf="isDetail!='detail'" type="radio" [checked]="stockallotInfo.result?.stock_allot_type == 2" [value]="2" name="stock_allot_type" formControlName="stock_allot_type">
                           <i></i>差价调拨</label>
                       </div>
                     </section>
@@ -35,7 +41,8 @@
                     <section>
                       <label class="label txt-color-blue">单据号<span class="asterisk-color">*</span></label>
                       <label class="input">
-                        <input [disabled]="isDetail=='detail'" type="text" placeholder="单据号" name="stock_allot_number" formControlName="stock_allot_number">
+                        <input *ngIf="isDetail=='detail'" disabled="disabled" type="text" placeholder="单据号" name="stock_allot_number" formControlName="stock_allot_number">
+                        <input *ngIf="isDetail!='detail'" type="text" placeholder="单据号" name="stock_allot_number" formControlName="stock_allot_number">
                       </label>
                     </section>
                   </div>
@@ -43,7 +50,8 @@
                     <section >
                       <label class="label txt-color-blue">单据日期<span class="asterisk-color">*</span></label>
                       <label  class="input">
-                        <input [disabled]="isDetail=='detail'" type="date" name="stock_allot_date" formControlName="stock_allot_date">
+                        <input *ngIf="isDetail=='detail'" disabled="disabled" type="date" name="stock_allot_date" formControlName="stock_allot_date">
+                        <input *ngIf="isDetail!='detail'" type="date" name="stock_allot_date" formControlName="stock_allot_date">
                       </label>
                     </section>
                   </div>
@@ -51,10 +59,14 @@
                     <section>
                       <label class="label">经手人</label>
                       <label class="select">
-                          <select [disabled]="isDetail=='detail'" name="user_u_id" formControlName="user_u_id" [(ngModel)]="user_u_id_default" (change)="getDepartment($event,1)">
+                          <select *ngIf="isDetail=='detail'" disabled="disabled" name="user_u_id" formControlName="user_u_id" [(ngModel)]="user_u_id_default" (change)="getDepartment($event,1)">
                             <option [selected]="stock_allot_id == 0" value="0">--请选择--</option>
                             <option *ngFor="let u of stockallotList.result?.user" [selected]="stockallotInfo.result?.user_u_id == u.id" value="{{ u.id }}">{{u.u_username}}</option>
-                          </select><i></i>
+                          </select>
+                        <select *ngIf="isDetail!='detail'" name="user_u_id" formControlName="user_u_id" [(ngModel)]="user_u_id_default" (change)="getDepartment($event,1)">
+                          <option [selected]="stock_allot_id == 0" value="0">--请选择--</option>
+                          <option *ngFor="let u of stockallotList.result?.user" [selected]="stockallotInfo.result?.user_u_id == u.id" value="{{ u.id }}">{{u.u_username}}</option>
+                        </select><i></i>
                       </label>
                     </section>
                   </div>
@@ -63,7 +75,8 @@
                       <label class="label ">业务部门</label>
                       <label class="input">
                         <!--<i class="icon-append glyphicon glyphicon-search cursor-pointer" data-toggle="modal" data-target="#myModal"></i>-->
-                        <input [disabled]="isDetail=='detail'" type="text" placeholder="" disabled="disabled" name="department" formControlName="department" [(ngModel)]="department">
+                        <input *ngIf="isDetail=='detail'" disabled="disabled" type="text" placeholder="" disabled="disabled" name="department" formControlName="department" [(ngModel)]="department">
+                        <input *ngIf="isDetail!='detail'" type="text" placeholder="" disabled="disabled" name="department" formControlName="department" [(ngModel)]="department">
                       </label>
                     </section>
                   </div>
@@ -71,16 +84,18 @@
                     <section>
                       <label class="label">扫码</label>
                       <label class="textarea textarea-resizable">
-                        <textarea [disabled]="isDetail=='detail'" class="custom-scroll" rows="1" name="stock_allot_qrcode" formControlName="stock_allot_qrcode" ></textarea>
+                        <textarea *ngIf="isDetail=='detail'" disabled="disabled" class="custom-scroll" rows="1" name="stock_allot_qrcode" formControlName="stock_allot_qrcode" ></textarea>
+                        <textarea *ngIf="isDetail!='detail'" class="custom-scroll" rows="1" name="stock_allot_qrcode" formControlName="stock_allot_qrcode" ></textarea>
                       </label>
                     </section>
                   </div>
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
                     <section>
-                      <label  class="label">搜索的商品名称</label>
+                      <label class="label">搜索的商品名称</label>
                       <label class="input">
                         <i class="icon-append glyphicon glyphicon-search cursor-pointer" (click)="searchKey()"></i><!-- data-toggle="modal" data-target="#myModal"-->
-                        <input [disabled]="isDetail=='detail'" type="text" placeholder="" name="keyword" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">
+                        <input *ngIf="isDetail=='detail'" disabled="disabled" type="text" placeholder="" name="keyword" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">
+                        <input *ngIf="isDetail!='detail'" type="text" placeholder="" name="keyword" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">
                       </label>
                     </section>
                   </div>
@@ -97,8 +112,9 @@
                             </thead>
                             <tbody>
                             <tr *ngFor="let p of selectProductList;let ind = index;">
-                              <td style=" width: 112px;"><a class="btn btn-warning btn-xs"  ><span class="glyphicon glyphicon-plus"></span></a>
-                                <a class="btn btn-danger btn-xs" (click)="removeInput(ind)"><span class="glyphicon glyphicon-remove"></span></a>
+                              <td style=" width: 112px;">
+                                <a *ngIf="isDetail!='detail'" class="btn btn-warning btn-xs"  ><span class="glyphicon glyphicon-plus"></span></a>
+                                <a *ngIf="isDetail!='detail'" class="btn btn-danger btn-xs" (click)="removeInput(ind)"><span class="glyphicon glyphicon-remove"></span></a>
                               </td>
                               <td>
                                 <div  >
@@ -110,7 +126,8 @@
                                           <section>
                                             <label class="input">
                                               <i class="icon-append glyphicon glyphicon-search cursor-pointer" (click)="searchKey()"></i><!-- data-toggle="modal" data-target="#myModal"-->
-                                              <input [disabled]="isDetail=='detail'" type="text" placeholder="" name="keyword" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">
+                                              <input *ngIf="isDetail=='detail'" disabled="disabled" type="text" placeholder="" name="keyword" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">
+                                              <input *ngIf="isDetail!='detail'" type="text" placeholder="" name="keyword" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">
                                             </label>
                                           </section>
                                         </form>
@@ -166,18 +183,21 @@
                               <!--</td>-->
                               <td>
                                 <label class="input">
-                                  <input [disabled]="isDetail=='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_count" value="{{p.p_count}}" type="number">
+                                  <input *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_count" value="{{p.p_count}}" type="number">
+                                  <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_count" value="{{p.p_count}}" type="number">
                                 </label>
                               </td>
                               <td>
                                 <label class="input">
-                                  <input [disabled]="isDetail=='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_price" value="{{p.p_price}}" type="text">
+                                  <input *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_price" value="{{p.p_price}}" type="text">
+                                  <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_price" value="{{p.p_price}}" type="text">
                                 </label>
                               </td>
                               <td>{{p.p_count * p.p_price}}</td>
                               <td>
                                 <label class="input">
-                                  <input [disabled]="isDetail=='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_total_price" value="{{p.p_total_price}}" type="text">
+                                  <input *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_total_price" value="{{p.p_total_price}}" type="text">
+                                  <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_total_price" value="{{p.p_total_price}}" type="text">
                                 </label>
                               </td>
                             </tr>
@@ -205,7 +225,8 @@
                     <section>
                       <label class="label">备注</label>
                       <label class="textarea textarea-resizable">
-                        <textarea [disabled]="isDetail=='detail'" class="custom-scroll" rows="2" name="stock_allot_remark" formControlName="stock_allot_remark"></textarea>
+                        <textarea *ngIf="isDetail=='detail'" disabled="disabled" class="custom-scroll" rows="2" name="stock_allot_remark" formControlName="stock_allot_remark"></textarea>
+                        <textarea *ngIf="isDetail!='detail'" class="custom-scroll" rows="2" name="stock_allot_remark" formControlName="stock_allot_remark"></textarea>
                       </label>
                     </section>
                   </div>
