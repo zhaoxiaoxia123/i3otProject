@@ -57,7 +57,22 @@
 .not-click>i{
     color: #fff !important;
 }
-
+.click-a>a{
+    color:#3782e7;
+    text-decoration:none;
+}
+.click-a>a:link{
+    color:#3782e7;/* 未访问的链接 */
+}
+.click-a>a:visited{
+    color:#00FF00;/* 已访问的链接 */
+}
+.click-a>a:hover{
+    color:#0000ff;/* 当有鼠标悬停在链接上 */
+}
+.click-a>a:active{
+    color:#0000ff;/* 被选择的链接 */
+}
     /*头像状态*/
 img.away,img.busy,img.offline,img.online {
     border-left: 3px solid #fff
