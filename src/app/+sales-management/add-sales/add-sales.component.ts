@@ -12,7 +12,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 export class AddSalesComponent implements OnInit {
 
   formModel : FormGroup;
-  pr_id : number = 0;
+  pr_id : any = '';
   purchaseList : Array<any> = [];
   userList : Array<any> = [];
   purchaseInfo : Array<any> = [];
@@ -27,6 +27,8 @@ export class AddSalesComponent implements OnInit {
   storehouse_id_default : number = 0; //仓库
   pr_category_default: number = 0; //采购类型
   pr_transport_default: number = 0; //运输方式
+
+    isDetail : string = '';
 
   keyword : string = '';
   category_type : number = 22; //销售类型
@@ -43,6 +45,21 @@ export class AddSalesComponent implements OnInit {
 
     let nav = '{"title":"添加销售单","url":"/sales-management/add-sales/0","class_":"active"}';
     this.globalService.navEventEmitter.emit(nav);
+      this.pr_id = routInfo.snapshot.params['pr_id'];
+      if(this.pr_id != '' && this.pr_id != '0'){
+          let id = this.pr_id;
+          if(this.pr_id.indexOf('_') >= 0){
+              let pr_ids = this.pr_id.split('_');
+              id = pr_ids[0];
+              this.isDetail = pr_ids[1];
+          }
+          this.getPurchaseInfo(id);
+          this.rollback_url += '/' + id;
+      }else{
+          this.rollback_url += '/0';
+      }
+      console.log('this.isDetail');
+      console.log(this.isDetail);
     this.formModel = fb.group({
       pr_id:[''],
       pr_order:[''],
@@ -62,13 +79,7 @@ export class AddSalesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.pr_id = this.routInfo.snapshot.params['pr_id'];
-    if(this.pr_id != 0){
-      this.getPurchaseInfo(this.pr_id);
-      this.rollback_url += '/' + this.pr_id;
-    }else{
-      this.rollback_url += '/0';
-    }
+
     this.getPurchaseDefault();
   }
 

@@ -12,7 +12,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 export class AddRequisitionComponent implements OnInit {
 
   formModel : FormGroup;
-  stock_allot_id : number = 0;
+  stock_allot_id : any = 0;
   stockallotList : Array<any> = [];
   stockallotInfo : Array<any> = [];
   departmentInfo : Array<any> = [];//经手人所属部门信息
@@ -20,7 +20,7 @@ export class AddRequisitionComponent implements OnInit {
 
   selectProductList :Array<any> = [];//[{"p_product_id": "0","p_qrcode": "0","category": "0","p_unit": "0","p_count": "0","p_price": "0","p_pur_price": "0","p_note": "","p_is": "1"}]; //选中后的商品列表
   searchProductList : Array<any> = [];//搜索出的商品列表信息
-
+    isDetail : string = '';
   keyword : string = '';
   p_type : number = 2;//商品
 
@@ -34,10 +34,8 @@ export class AddRequisitionComponent implements OnInit {
       private routInfo : ActivatedRoute,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
-
     let nav = '{"title":"添加调拨单","url":"/inventory-management/add-requisition/0","class_":"active"}';
     this.globalService.navEventEmitter.emit(nav);
-
     this.formModel = fb.group({
       stock_allot_id:[''],
       stock_allot_type:[''],
@@ -52,9 +50,17 @@ export class AddRequisitionComponent implements OnInit {
 
   ngOnInit() {
     this.stock_allot_id = this.routInfo.snapshot.params['stock_allot_id'];
-    if(this.stock_allot_id != 0){
-      this.getStockallotInfo(this.stock_allot_id);
-      this.rollback_url += '/' + this.stock_allot_id;
+    if(this.stock_allot_id != '' && this.stock_allot_id != '0'){
+        let id = this.stock_allot_id;
+        if(this.stock_allot_id.indexOf('_') >= 0){
+            let stock_allot_ids = this.stock_allot_id.split('_');
+            id = stock_allot_ids[0];
+            this.isDetail = stock_allot_ids[1];
+        }
+        this.getStockallotInfo(id);
+        this.rollback_url += '/' + id;
+      // this.getStockallotInfo(this.stock_allot_id);
+      // this.rollback_url += '/' + this.stock_allot_id;
     }else{
       this.rollback_url += '/0';
     }

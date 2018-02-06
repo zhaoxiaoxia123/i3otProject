@@ -173,10 +173,14 @@ export class SalesListComponent implements OnInit {
    * 演示账号输出
    * @param url
    * @param param
+   * type   edit   detail
    */
-  isDemo(url:string,param:any){
+  isDemo(url:string,param:any,type:any){
     if(param == '1'){
       param = this.editStatusPurchaseId;
+      if(type == 'detail') {
+        param = param + '_' + type;
+      }
     }
     this.globalService.demoAlert(url,param);
   }
