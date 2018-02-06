@@ -15,9 +15,13 @@
             <span class="widget-icon"> <i class="glyphicon glyphicon-zoom-in"></i> </span>
             <h2 >添加销售单</h2>
           </header>
-          <header *ngIf="pr_id != 0">
+          <header *ngIf="pr_id != 0 && isDetail!='detail'">
             <span class="widget-icon"> <i class="glyphicon glyphicon-pencil"></i> </span>
             <h2 >修改销售单 </h2>
+          </header>
+          <header *ngIf="isDetail=='detail'">
+            <span class="widget-icon"> <i class="glyphicon glyphicon-zoom-in"></i> </span>
+            <h2>详情</h2>
           </header>
           <div>
             <!--小部件内容-->
@@ -188,8 +192,8 @@
                             <tbody>
                             <tr *ngFor="let p of selectProductList;let ind = index;">
                               <td style="width: 112px;">
-                                <a *ngIf="isDetail=='detail'" disabled="disabled" class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-plus"></span>添加</a>
-                                <a *ngIf="isDetail=='detail'" disabled="disabled" class="btn btn-danger btn-xs" (click)="removeInput(ind)"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                <a *ngIf="isDetail!='detail'" class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-plus"></span>添加</a>
+                                <a *ngIf="isDetail!='detail'" class="btn btn-danger btn-xs" (click)="removeInput(ind)"><span class="glyphicon glyphicon-remove"></span>删除</a>
                               </td>
                               <td>
                                 <div>
@@ -201,8 +205,8 @@
                                           <section>
                                             <label class="input">
                                               <i class="icon-append glyphicon glyphicon-search cursor-pointer" (click)="searchKey()"></i><!-- data-toggle="modal" data-target="#myModal"-->
-                                              <input *ngIf="isDetail=='detail'" disabled="disabled" type="text" placeholder="" name="keyword" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">
-                                              <input *ngIf="isDetail!='detail'" type="text" placeholder="" name="keyword" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">
+                                              <input *ngIf="isDetail=='detail'" disabled="disabled" type="text" placeholder="" name="keyword" value="{{p.p_name}}" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">
+                                              <input *ngIf="isDetail!='detail'" type="text" placeholder="" name="keyword" value="{{p.p_name}}" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">
                                             </label>
                                           </section>
                                         </form>

@@ -58,8 +58,6 @@ export class AddSalesComponent implements OnInit {
       }else{
           this.rollback_url += '/0';
       }
-      console.log('this.isDetail');
-      console.log(this.isDetail);
     this.formModel = fb.group({
       pr_id:[''],
       pr_order:[''],
