@@ -159,8 +159,7 @@
                   <tr>
                     <td class="width-120">仓库名称:</td>
                     <td class="">{{storehouse_info.result?.storehouse_name}}</td>
-                  </tr>
-                  <tr><td class="width-120">仓库状态:</td>
+                    <td class="width-120">仓库状态:</td>
                     <td class="" [ngSwitch]="storehouse_info.result?.storehouse_status">
                       <span *ngSwitchCase="1">正常</span>
                       <span *ngSwitchCase="2">维修</span>
@@ -171,13 +170,13 @@
                   <tr>
                     <td class="width-120">保管员:</td>
                     <td class="">{{storehouse_info.result?.u_username}}</td>
-                  </tr>
-                  <tr><td class="width-120">固定电话：</td>
+                    <td class="width-120">固定电话：</td>
                     <td class="">{{storehouse_info.result?.storehouse_phone}}</td>
                   </tr>
+
                   <tr>
                     <td class="width-120">备注说明：</td>
-                    <td class="">{{storehouse_info.result?.storehouse_notes}}</td>
+                    <td class="" colspan="3" >{{storehouse_info.result?.storehouse_notes}}</td>
                   </tr>
                   </tbody>
                 </table>

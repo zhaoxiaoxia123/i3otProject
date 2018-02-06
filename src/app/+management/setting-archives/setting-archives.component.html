@@ -242,7 +242,7 @@
           </button>
           <!-- 标题 -->
           <h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>添加商品档案</h3>
-          <!-- <h3 class="modal-title  glyphicon glyphicon-pencil txt-color-red" data-ng-bind='results.title'>修改商品档案</h3>-->
+           <h3 class="modal-title   txt-color-red" data-ng-bind='results.title'><i class="glyphicon glyphicon-pencil"></i>修改商品档案</h3>
         </div>
         <div class="modal-body">
           <sa-widget [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
@@ -486,8 +486,8 @@
                               </thead>
                               <tbody>
                               <tr>
-                                <td><a class="btn btn-warning btn-xs"  ><span class="glyphicon glyphicon-plus"></span>添加</a>
-                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                <td><a class="btn btn-warning btn-xs"  ><span class="glyphicon glyphicon-plus"></span></a>
+                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span></a>
                                 </td>
                                 <td>
                                   <div style="text-align: center; width: 100px;" >
@@ -498,8 +498,12 @@
                                           <form class="smart-form">
                                             <section>
                                               <label class="input">
-                                                <input  name="" type="text">
-                                                <i class="fa fa-search icon-append cursor-pointer"></i>
+                                                <select class="form-control">
+                                                  <option value="">选择辅助单位</option>
+                                                  <option value="">包</option>
+                                                  <option value="">箱</option>
+                                                  <option value="">条</option>
+                                                </select>
                                               </label>
                                             </section>
                                           </form>
