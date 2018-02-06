@@ -14,9 +14,9 @@
 
     <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
       <section >
-        <label class="label txt-color-blue">人员编码<span class="asterisk-color">*</span></label>
+        <label class="label txt-color-blue">员工ID<span class="asterisk-color">*</span></label>
         <label class="input"> <i class="icon-append fa fa-user"></i>
-          <input type="text" name="employee_id" placeholder="请输入人员编码 " maxlength="20" formControlName="employee_id"/>
+          <input type="text" name="employee_id" placeholder="请输入员工ID " maxlength="20" formControlName="employee_id"/>
          </label>
       </section>
     </div>
@@ -175,33 +175,6 @@
     </div>
 
   </fieldset>
-  <!--<fieldset>
-    <section class="col col-6">
-    <div class="form-group ">
-      <label class="col-md-2 control-label">上传头像</label>
-      <div class="col-md-10">
-        <input type="file" ng2FileSelect [uploader]="uploader" />
-        &lt;!&ndash;<input type="file" class="btn btn-default" disabled="disabled" id="exampleInputFile2">&ndash;&gt;
-        <p class="help-block">
-          说明文字
-        </p>
-      </div>
-    </div>
-  </section>
-    <section class="col col-4">
-      <button *ngFor="let item of uploader.queue" type="button" class="btn btn-success btn-xs"
-              (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
-        <span class="glyphicon glyphicon-upload"></span> Upload
-      </button>
-    </section>
-    <section class="col col-6">
-      <label class="label">预览图</label>
-      <label class="select">
-        <img class="" src="{{url}}{{path}}">
-      </label>
-    </section>
-  </fieldset>-->
-
 
 
   <fieldset>
@@ -302,10 +275,8 @@
       </div>
       <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
         <div class="margin-left-15" >
-
           <section class="col col-4">
             <label class="label">籍贯</label>
-
             <label class="select " >
               <select name="birthplace1" formControlName="birthplace1" [(ngModel)]="birthplace1_default" (change)="getBrithplaceCity()">
                 <option value="0">--请选择省--</option>
@@ -319,8 +290,6 @@
                 <option *ngFor="let c of birthplace_city" [selected]="user_info.result?.birthplace2 == c" value="{{c}}">{{c}}</option>
               </select> <i></i> </label>
           </section>
-
-
         </div>
       </div>
       <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
@@ -418,64 +387,6 @@
           </label>
         </section>
       </div>
-
-      <!--创建人、修改人、停用人、创建日期、修改时间、启用时间、停用时间：只读项，系统自动产生。-->
-      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-        <section >
-          <label class="label ">创建人</label>
-          <label class="input">
-            <input  name=''  disabled="disabled"  type="text" >
-          </label>
-        </section>
-      </div>
-      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-        <section >
-          <label class="label ">修改人</label>
-          <label class="input">
-            <input  name=''  disabled="disabled"  type="text" >
-          </label>
-        </section>
-      </div>
-      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-        <section >
-          <label class="label ">停用人</label>
-          <label class="input">
-            <input  name=''  disabled="disabled"  type="text" >
-          </label>
-        </section>
-      </div>
-      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-        <section >
-          <label class="label ">创建日期</label>
-          <label class="input">
-            <input  name=''  disabled="disabled"  type="text" >
-          </label>
-        </section>
-      </div>
-      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-        <section >
-          <label class="label">修改时间</label>
-          <label class="input">
-            <input  name=''  disabled="disabled"  type="text" >
-          </label>
-        </section>
-      </div>
-      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-        <section >
-          <label class="label ">启用时间</label>
-          <label class="input">
-            <input  name=''  disabled="disabled"  type="text" >
-          </label>
-        </section>
-      </div>
-      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-        <section >
-          <label class="label ">停用时间</label>
-          <label class="input">
-            <input  name=''  disabled="disabled"  type="text" >
-          </label>
-        </section>
-      </div>
     </fieldset>
     <fieldset>
       <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
@@ -503,7 +414,6 @@
               </select> <i></i> </label>
           </section>
 
-
         </div>
       </div>
       <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
@@ -511,6 +421,65 @@
           <label class="label ">详细地址</label>
           <label class="input">
             <input  name='address4' formControlName="address4" placeholder="请输入详细地址"  type="text" maxlength="20">
+          </label>
+        </section>
+      </div>
+    </fieldset>
+    <fieldset>
+      <!--创建人、修改人、停用人、创建日期、修改时间、启用时间、停用时间：只读项，系统自动产生。-->
+      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+        <section >
+          <label class="label ">创建人</label>
+          <label class="input">
+            <input  name=""  disabled="disabled"  type="text" >
+          </label>
+        </section>
+      </div>
+      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+        <section >
+          <label class="label ">修改人</label>
+          <label class="input">
+            <input  name=""  disabled="disabled"  type="text" >
+          </label>
+        </section>
+      </div>
+      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+        <section >
+          <label class="label ">停用人</label>
+          <label class="input">
+            <input  name=""  disabled="disabled"  type="text" >
+          </label>
+        </section>
+      </div>
+      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+        <section >
+          <label class="label ">创建日期</label>
+          <label class="input">
+            <input  name=""  disabled="disabled"  type="text" >
+          </label>
+        </section>
+      </div>
+      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+        <section >
+          <label class="label">修改时间</label>
+          <label class="input">
+            <input  name=""  disabled="disabled"  type="text" >
+          </label>
+        </section>
+      </div>
+      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+        <section >
+          <label class="label ">启用时间</label>
+          <label class="input">
+            <input  name=""  disabled="disabled"  type="text" >
+          </label>
+        </section>
+      </div>
+      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+        <section >
+          <label class="label ">停用时间</label>
+          <label class="input">
+            <input  name=""  disabled="disabled"  type="text" >
           </label>
         </section>
       </div>
