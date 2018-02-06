@@ -31,10 +31,12 @@
                       <label class="label ">销货方式</label>
                       <div class="inline-group">
                         <label class="radio">
-                          <input [checked]="purchaseInfo.result?.pr_type == 4 || this.pr_id == 0" [value]="4" type="radio" name="pr_type" formControlName="pr_type">
+                          <input *ngIf="isDetail=='detail'" disabled="disabled" [checked]="purchaseInfo.result?.pr_type == 4 || this.pr_id == 0" [value]="4" type="radio" name="pr_type" formControlName="pr_type">
+                          <input *ngIf="isDetail!='detail'" [checked]="purchaseInfo.result?.pr_type == 4 || this.pr_id == 0" [value]="4" type="radio" name="pr_type" formControlName="pr_type">
                           <i></i>销货单</label>
                         <label class="radio">
-                          <input type="radio" [checked]="purchaseInfo.result?.pr_type == 5" [value]="5" name="pr_type" formControlName="pr_type">
+                          <input *ngIf="isDetail=='detail'" disabled="disabled" type="radio" [checked]="purchaseInfo.result?.pr_type == 5" [value]="5" name="pr_type" formControlName="pr_type">
+                          <input *ngIf="isDetail!='detail'" type="radio" [checked]="purchaseInfo.result?.pr_type == 5" [value]="5" name="pr_type" formControlName="pr_type">
                           <i></i>退货单</label>
                       </div>
                     </section>
@@ -43,7 +45,8 @@
                     <section >
                       <label class="label txt-color-blue">单据日期<span class="asterisk-color">*</span></label>
                       <label  class="input">
-                        <input  type="date" name="pr_date" formControlName="pr_date">
+                        <input *ngIf="isDetail=='detail'" disabled="disabled" type="date" name="pr_date" formControlName="pr_date">
+                        <input *ngIf="isDetail!='detail'" type="date" name="pr_date" formControlName="pr_date">
                       </label>
                     </section>
                   </div>
@@ -51,7 +54,8 @@
                     <section>
                       <label class="label txt-color-blue">单据号<span class="asterisk-color">*</span></label>
                       <label class="input">
-                        <input type="text" placeholder="单据号" name="pr_order" formControlName="pr_order" >
+                        <input *ngIf="isDetail=='detail'" disabled="disabled" type="text" placeholder="单据号" name="pr_order" formControlName="pr_order" >
+                        <input *ngIf="isDetail!='detail'" type="text" placeholder="单据号" name="pr_order" formControlName="pr_order" >
                       </label>
                     </section>
                   </div>
@@ -63,7 +67,11 @@
                         <!--<input type="text" placeholder="" name="pr_order" formControlName="pr_order" >-->
                       <!--</label>-->
                       <label class="select">
-                        <select name="pr_supplier" formControlName="pr_supplier" [(ngModel)]="pr_supplier_default">
+                        <select *ngIf="isDetail=='detail'" disabled="disabled" name="pr_supplier" formControlName="pr_supplier" [(ngModel)]="pr_supplier_default">
+                          <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                          <option *ngFor="let cus of purchaseList.result?.supplier" [selected]="purchaseInfo.result?.pr_supplier == cus.c_id" value="{{ cus.c_id }}">{{cus.c_name}}</option>
+                        </select>
+                        <select *ngIf="isDetail!='detail'" name="pr_supplier" formControlName="pr_supplier" [(ngModel)]="pr_supplier_default">
                           <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
                           <option *ngFor="let cus of purchaseList.result?.supplier" [selected]="purchaseInfo.result?.pr_supplier == cus.c_id" value="{{ cus.c_id }}">{{cus.c_name}}</option>
                         </select><i></i>
@@ -74,7 +82,11 @@
                     <section>
                       <label  class="label ">销售部门</label>
                       <label class="select">
-                        <select name="pr_department" formControlName="pr_department" [(ngModel)]="pr_department_default" (change)="getUserList($event,1)">
+                        <select *ngIf="isDetail=='detail'" disabled="disabled" name="pr_department" formControlName="pr_department" [(ngModel)]="pr_department_default" (change)="getUserList($event,1)">
+                          <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                          <option *ngFor="let d of purchaseList.result?.department" [selected]="purchaseInfo.result?.pr_department == d.category_id" value="{{ d.category_id}}">{{d.category_desc}}</option>
+                        </select>
+                        <select *ngIf="isDetail!='detail'" name="pr_department" formControlName="pr_department" [(ngModel)]="pr_department_default" (change)="getUserList($event,1)">
                           <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
                           <option *ngFor="let d of purchaseList.result?.department" [selected]="purchaseInfo.result?.pr_department == d.category_id" value="{{ d.category_id}}">{{d.category_desc}}</option>
                         </select><i></i>
@@ -85,7 +97,11 @@
                     <section>
                       <label  class="label">销售员</label>
                       <label class="select">
-                        <select  name="pr_employee" formControlName="pr_employee" [(ngModel)]="pr_employee_default">
+                        <select *ngIf="isDetail=='detail'" disabled="disabled" name="pr_employee" formControlName="pr_employee" [(ngModel)]="pr_employee_default">
+                          <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                          <option *ngFor="let u of userList.result" [selected]="purchaseInfo.result?.pr_employee == u.id" value="{{ u.id }}">{{u.u_username}}</option>
+                        </select>
+                        <select *ngIf="isDetail!='detail'" name="pr_employee" formControlName="pr_employee" [(ngModel)]="pr_employee_default">
                           <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
                           <option *ngFor="let u of userList.result" [selected]="purchaseInfo.result?.pr_employee == u.id" value="{{ u.id }}">{{u.u_username}}</option>
                         </select><i></i>
@@ -94,9 +110,13 @@
                   </div>
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
                     <section>
-                      <label  class="label">默认仓库</label>
+                      <label class="label">默认仓库</label>
                       <label class="select">
-                        <select name="storehouse_id" formControlName="storehouse_id" [(ngModel)]="storehouse_id_default">
+                        <select *ngIf="isDetail=='detail'" disabled="disabled" name="storehouse_id" formControlName="storehouse_id" [(ngModel)]="storehouse_id_default">
+                          <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                          <option *ngFor="let s of purchaseList.result?.storehouse" [selected]="purchaseInfo.result?.storehouse_id == s.storehouse_id" value="{{s.storehouse_id }}">{{s.storehouse_name}}</option>
+                        </select>
+                        <select *ngIf="isDetail!='detail'" name="storehouse_id" formControlName="storehouse_id" [(ngModel)]="storehouse_id_default">
                           <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
                           <option *ngFor="let s of purchaseList.result?.storehouse" [selected]="purchaseInfo.result?.storehouse_id == s.storehouse_id" value="{{s.storehouse_id }}">{{s.storehouse_name}}</option>
                         </select><i></i>
@@ -105,12 +125,16 @@
                   </div>
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
                     <section>
-                      <label  class="label">销售类型</label>
+                      <label class="label">销售类型</label>
                       <label class="select">
-                        <select name="pr_category" formControlName="pr_category" [(ngModel)]="pr_category_default">
+                        <select *ngIf="isDetail=='detail'" disabled="disabled" name="pr_category" formControlName="pr_category" [(ngModel)]="pr_category_default">
                           <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
                           <option *ngFor="let ca of purchaseList.result?.category" [selected]="purchaseInfo.result?.pr_category == ca.category_id" value="{{ca.category_id }}">{{ca.category_desc}}</option>
-                        </select><i></i>
+                        </select>
+                        <select *ngIf="isDetail!='detail'" name="pr_category" formControlName="pr_category" [(ngModel)]="pr_category_default">
+                        <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                        <option *ngFor="let ca of purchaseList.result?.category" [selected]="purchaseInfo.result?.pr_category == ca.category_id" value="{{ca.category_id }}">{{ca.category_desc}}</option>
+                      </select><i></i>
                       </label>
                     </section>
                   </div>
@@ -118,7 +142,11 @@
                     <section>
                       <label  class="label">发运方式</label>
                       <label class="select">
-                        <select name="pr_transport" formControlName="pr_transport" [(ngModel)]="pr_transport_default">
+                        <select *ngIf="isDetail=='detail'" disabled="disabled" name="pr_transport" formControlName="pr_transport" [(ngModel)]="pr_transport_default">
+                          <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                          <option *ngFor="let tr of purchaseList.result?.transport" [selected]="purchaseInfo.result?.pr_transport == tr.category_id" value="{{tr.category_id }}">{{tr.category_desc}}</option>
+                        </select>
+                        <select *ngIf="isDetail!='detail'" name="pr_transport" formControlName="pr_transport" [(ngModel)]="pr_transport_default">
                           <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
                           <option *ngFor="let tr of purchaseList.result?.transport" [selected]="purchaseInfo.result?.pr_transport == tr.category_id" value="{{tr.category_id }}">{{tr.category_desc}}</option>
                         </select><i></i>
@@ -129,7 +157,8 @@
                     <section>
                       <label class="label">扫码</label>
                       <label class="textarea textarea-resizable">
-                        <textarea class="custom-scroll" rows="1" name="pr_qrcode" formControlName="pr_qrcode"></textarea>
+                        <textarea  *ngIf="isDetail=='detail'" disabled="disabled" class="custom-scroll" rows="1" name="pr_qrcode" formControlName="pr_qrcode"></textarea>
+                        <textarea  *ngIf="isDetail!='detail'" class="custom-scroll" rows="1" name="pr_qrcode" formControlName="pr_qrcode"></textarea>
                       </label>
                     </section>
                   </div>
@@ -137,14 +166,9 @@
                     <section>
                       <label  class="label">搜索的商品名称</label>
                       <label class="input">
-                        <!--<form class="smart-form">-->
-                          <!--<section>-->
-                            <!--<label class="input">-->
-                              <i class="icon-append glyphicon glyphicon-search cursor-pointer" (click)="searchKey()"></i><!-- data-toggle="modal" data-target="#myModal"-->
-                              <input type="text" placeholder="" name="keyword" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">
-                            <!--</label>-->
-                          <!--</section>-->
-                        <!--</form>-->
+                        <i class="icon-append glyphicon glyphicon-search cursor-pointer" (click)="searchKey()"></i><!-- data-toggle="modal" data-target="#myModal"-->
+                        <input *ngIf="isDetail=='detail'" disabled="disabled" type="text" placeholder="" name="keyword" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">
+                        <input *ngIf="isDetail!='detail'" type="text" placeholder="" name="keyword" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">
                       </label>
                     </section>
                   </div>
@@ -164,8 +188,8 @@
                             <tbody>
                             <tr *ngFor="let p of selectProductList;let ind = index;">
                               <td style="width: 112px;">
-                                <a class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-plus"></span>添加</a>
-                                <a class="btn btn-danger btn-xs" (click)="removeInput(ind)"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                <a *ngIf="isDetail=='detail'" disabled="disabled" class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-plus"></span>添加</a>
+                                <a *ngIf="isDetail=='detail'" disabled="disabled" class="btn btn-danger btn-xs" (click)="removeInput(ind)"><span class="glyphicon glyphicon-remove"></span>删除</a>
                               </td>
                               <td>
                                 <div>
@@ -177,7 +201,8 @@
                                           <section>
                                             <label class="input">
                                               <i class="icon-append glyphicon glyphicon-search cursor-pointer" (click)="searchKey()"></i><!-- data-toggle="modal" data-target="#myModal"-->
-                                              <input type="text" placeholder="" name="keyword" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">
+                                              <input *ngIf="isDetail=='detail'" disabled="disabled" type="text" placeholder="" name="keyword" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">
+                                              <input *ngIf="isDetail!='detail'" type="text" placeholder="" name="keyword" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">
                                             </label>
                                           </section>
                                         </form>
@@ -222,22 +247,26 @@
                               <td>{{p.p_unit}}</td>
                               <td>
                                 <label  class="input">
-                                  <input [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_count" value="{{p.p_count}}" type="number">
+                                  <input *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_count" value="{{p.p_count}}" type="number">
+                                  <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_count" value="{{p.p_count}}" type="number">
                                 </label>
                               </td>
                               <td>
                                 <label  class="input">
-                                <input [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_price" value="{{p.p_price}}" type="number">
+                                <input *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_price" value="{{p.p_price}}" type="number">
+                                  <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_price" value="{{p.p_price}}" type="number">
                                 </label>
                               </td>
                               <td>
                                 <label  class="input">
-                                <input [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_pur_price" value="{{p.p_pur_price}}" type="number">
+                                <input *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_pur_price" value="{{p.p_pur_price}}" type="number">
+                                  <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_pur_price" value="{{p.p_pur_price}}" type="number">
                                 </label>
                               </td>
                               <td>
                                 <label  class="input">
-                                <input [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_note" value="{{p.p_note}}" type="text">
+                                <input *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_note" value="{{p.p_note}}" type="text">
+                                  <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_note" value="{{p.p_note}}" type="text">
                                 </label>
                               </td>
                               <!--<td>-->
@@ -268,25 +297,21 @@
                     <section>
                       <label class="label">备注</label>
                       <label class="textarea textarea-resizable">
-                        <textarea class="custom-scroll" rows="2" name="pr_note" formControlName="pr_note" ></textarea>
+                        <textarea *ngIf="isDetail=='detail'" disabled="disabled" class="custom-scroll" rows="2" name="pr_note" formControlName="pr_note" ></textarea>
+                        <textarea *ngIf="isDetail!='detail'" class="custom-scroll" rows="2" name="pr_note" formControlName="pr_note" ></textarea>
                       </label>
                     </section>
                   </div>
-                  <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12 ">-->
-                    <!--<section>-->
-                      <!--<label class="label">购物劵</label>-->
-                      <!--<label class="textarea textarea-resizable">-->
-                        <!--<textarea class="custom-scroll" rows="1" name="pr_voucher" formControlName="pr_voucher"></textarea>-->
-                      <!--</label>-->
-                    <!--</section>-->
-                  <!--</div>-->
                 </fieldset>
                 <footer>
-                  <button type="button" class="btn btn-default" >
+                  <button type="button" class="btn btn-default" [routerLink]="['/sales-management/sales-list']">
                     返回
                   </button>
                   <!--<button type="button" class="btn btn-success btn-sm" ><span class="glyphicon glyphicon-plus"></span>保存并新增</button>-->
-                  <button type="submit" class="btn btn-primary">
+                  <button *ngIf="isDetail=='detail'" disabled="disabled" type="submit" class="btn btn-primary">
+                    保存
+                  </button>
+                  <button *ngIf="isDetail!='detail'" type="submit" class="btn btn-primary">
                     保存
                   </button>
                 </footer>

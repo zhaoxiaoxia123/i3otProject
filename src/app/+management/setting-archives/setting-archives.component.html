@@ -18,7 +18,7 @@
                   <div class="navbar navbar-default">
                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
                       <div class="form-group pdlr-4">
-                        <a [ngClass]="{'btn btn-success btn-sm':true,'not-click':isStatus == 0}" (click)="lgModal.show();">
+                        <a class="btn btn-success btn-sm" (click)="lgModal.show();">
                           <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
                       </div>
                       <div class="form-group pdlr-4">
@@ -28,6 +28,10 @@
                       <div class="form-group pdlr-4">
                         <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}"  (click)="deleteProduct('id')">
                           <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
+                      </div>
+                      <div class="form-group pdlr-4">
+                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailProduct('detail')">
+                          <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
                       </div>
                       <div class="form-group pdlr-4" *ngIf="isStatus == 2">
                         <a class="btn default-btn btn-sm" (click)="editStatus(1,'id')">
@@ -59,18 +63,16 @@
                         </button>
                       </div>
                     </form>
-
                   </div>
                 </article>
               </div>
-
               <div class="pt">
                 <article class="form-group col col-xs-4">
                   <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
                              [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
                     <div>
                       <div class="widget-body no-padding">
-                        <alert type="info" class="no-margin"  >
+                        <alert type="info" class="no-margin">
                           <i class="fa-fw fa fa-sitemap"></i>
                           商品分类
                         </alert>
@@ -85,7 +87,6 @@
                                   <i class="fa fa-lg fa-folder-open"></i>全部
                                   <i class="sa-icon fa fa-lg fa-plus-circle" *ngIf="showUl == 0" (click)="showLeftUl(1)"></i>
                                   <i class="sa-icon fa fa-lg fa-minus-circle" *ngIf="showUl == 1" (click)="showLeftUl(0)"></i>
-
                                 </span>
                                   <ul class="" *ngIf="showUl == 1">
                                     <li class=" parent_li" *ngFor="let c of productDefault?.result?.categoryList;let ind = index;">
@@ -108,22 +109,18 @@
                                           </label>
                                         </span>
                                         </li>
-
                                       </ul>
                                     </li>
-
                                   </ul>
                                 </li>
                               </ul>
                             </div>
                           </div>
                         </div>
-
                       </div>
                     </div>
                   </sa-widget>
                 </article>
-
                 <article class="form-group col col-xs-8">
                   <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
                              [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
@@ -133,7 +130,6 @@
                           <i class="fa-fw fa fa-spoon"></i>
                           商品列表
                         </alert>
-
                         <div class="mt-10"  style="padding:0;">
                           <div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-scrolling">
                             <table class="table table-striped   smart-form table-height-32">
@@ -209,7 +205,6 @@
                             </table>
                           </div>
                         </div>
-
                         <!-- 底部-（分页部分）-->
                         <div class="dt-toolbar">
                           <div class="col-xs-12 col-sm-6">
@@ -224,17 +219,12 @@
                             </ul>
                           </div>
                         </div>
-
                       </div>
                     </div>
                   </sa-widget>
                   <!-- end widget -->
                 </article>
-
-
-
               </div>
-
             </div>
           </div>
         </sa-widget>
@@ -288,7 +278,7 @@
                                 <section>
                                   <label class="label txt-color-blue">商品编号<span class="asterisk-color">*</span></label>
                                   <label class="input">
-                                    <input type="text" name="p_product_id" [(ngModel)]="p_product_id" placeholder="商品编号"  >
+                                    <input type="text" name="p_product_id" [(ngModel)]="p_product_id" placeholder="商品编号" [disabled]="isDetail=='detail'" >
                                   </label>
                                 </section>
                               </div>
@@ -296,7 +286,7 @@
                                 <section>
                                   <label class="label txt-color-blue">商品名称<span class="asterisk-color">*</span></label>
                                   <label class="input">
-                                    <input type="text" placeholder="商品名称"  name="p_name" [(ngModel)]="p_name">
+                                    <input type="text" placeholder="商品名称"  name="p_name" [(ngModel)]="p_name" [disabled]="isDetail=='detail'">
                                   </label>
                                 </section>
                               </div>
@@ -305,7 +295,7 @@
                                 <section>
                                   <label class="label">规格型号</label>
                                   <label class="input">
-                                    <input type="text" placeholder=""  name="p_specification" [(ngModel)]="p_specification">
+                                    <input type="text" placeholder=""  name="p_specification" [(ngModel)]="p_specification" [disabled]="isDetail=='detail'">
                                   </label>
                                 </section>
                               </div>
@@ -313,7 +303,7 @@
                                 <section>
                                   <label class="label txt-color-blue">商品分类<span class="asterisk-color">*</span></label>
                                   <label class="select">
-                                    <select class="input-sm" name="p_category_id" [(ngModel)]="p_category_id">
+                                    <select class="input-sm" name="p_category_id" [(ngModel)]="p_category_id" [disabled]="isDetail=='detail'">
                                       <option [selected]="p_id == 0" value="0">--请选择--</option>
                                       <option *ngFor="let c of productDefault.result?.categoryListForAdd" [selected]="productInfo.result?.p_category_id == c.category_id" value="{{ c.category_id }}">
                                         <b *ngIf="c.category_depth == 0">{{c.category_desc}}</b>
@@ -327,7 +317,7 @@
                                 <section>
                                   <label class="label">助记码</label>
                                   <label class="input">
-                                    <input type="text" placeholder="助记码" name="p_shortcode" [(ngModel)]="p_shortcode">
+                                    <input type="text" placeholder="助记码" name="p_shortcode" [(ngModel)]="p_shortcode" [disabled]="isDetail=='detail'">
                                   </label>
                                 </section>
                               </div>
@@ -335,7 +325,7 @@
                                 <section>
                                   <label class="label">商品属性</label>
                                   <label class="select">
-                                    <select class="input-sm" name="p_property" [(ngModel)]="p_property" (change)="changePoperty($event)">
+                                    <select class="input-sm" name="p_property" [(ngModel)]="p_property" (change)="changePoperty($event)" [disabled]="isDetail=='detail'">
                                       <option value="0">--请选择--</option>
                                       <option value="1">销售</option>
                                       <option value="2">外购</option>
@@ -347,7 +337,7 @@
                                 <section>
                                   <label class="label">计量单位</label>
                                   <label class="select">
-                                    <select class="input-sm" name="p_unit" [(ngModel)]="p_unit">
+                                    <select class="input-sm" name="p_unit" [(ngModel)]="p_unit" [disabled]="isDetail=='detail'">
                                       <option value="0" disabled="disabled" >选择计量单位</option>
                                       <option value="1" >件</option>
                                       <option value="2" >颗</option>
@@ -359,7 +349,7 @@
                                 <section>
                                   <label class="label ">参考进价</label>
                                   <label class="input">
-                                    <input type="number" placeholder="参考进价"  name="p_purchase_price" [(ngModel)]="p_purchase_price">
+                                    <input type="number" placeholder="参考进价"  name="p_purchase_price" [(ngModel)]="p_purchase_price" [disabled]="isDetail=='detail'">
                                   </label>
                                 </section>
                               </div>
@@ -367,7 +357,7 @@
                                 <section>
                                   <label class="label ">参考售价</label>
                                   <label class="input">
-                                    <input type="number" placeholder="参考售价"  name="p_purchase_price" [(ngModel)]="p_purchase_price">
+                                    <input type="number" placeholder="参考售价"  name="p_purchase_price" [(ngModel)]="p_purchase_price" [disabled]="isDetail=='detail'">
                                   </label>
                                 </section>
                               </div>
@@ -376,7 +366,7 @@
                                 <section>
                                   <label class="label">备注</label>
                                   <label class="textarea textarea-resizable">
-                                    <textarea class="custom-scroll" rows="2" name="p_notes" [(ngModel)]="p_notes"></textarea>
+                                    <textarea class="custom-scroll" rows="2" name="p_notes" [(ngModel)]="p_notes" [disabled]="isDetail=='detail'"></textarea>
                                   </label>
                                 </section>
                               </div>
@@ -384,7 +374,7 @@
                                 <section>
                                   <label class="label ">条码</label>
                                   <label class="input">
-                                    <input type="text" placeholder="" name="p_qrcode" [(ngModel)]="p_qrcode">
+                                    <input type="text" placeholder="" name="p_qrcode" [(ngModel)]="p_qrcode" [disabled]="isDetail=='detail'">
                                   </label>
                                 </section>
                               </div>
@@ -412,7 +402,7 @@
                                 <section >
                                   <label class="label ">最高库存</label>
                                   <label class="input">
-                                    <input name="p_max_stock" [(ngModel)]="p_max_stock" type="text" >
+                                    <input name="p_max_stock" [(ngModel)]="p_max_stock" type="text" [disabled]="isDetail=='detail'">
                                   </label>
                                 </section>
                               </div>
@@ -420,7 +410,7 @@
                                 <section >
                                   <label class="label ">最低库存</label>
                                   <label class="input">
-                                    <input name="p_min_stock" [(ngModel)]="p_min_stock" type="text" >
+                                    <input name="p_min_stock" [(ngModel)]="p_min_stock" type="text" [disabled]="isDetail=='detail'">
                                   </label>
                                 </section>
                               </div>
@@ -428,7 +418,7 @@
                                 <section >
                                   <label class="label ">参考成本</label>
                                   <label class="input">
-                                    <input name="p_cost" [(ngModel)]="p_cost" type="text" >
+                                    <input name="p_cost" [(ngModel)]="p_cost" type="text" [disabled]="isDetail=='detail'">
                                   </label>
                                 </section>
                               </div>
@@ -436,7 +426,7 @@
                                 <section>
                                   <label class="label">销售提成方式</label>
                                   <label class="select">
-                                    <select class="input-sm" name="p_retail_method" [(ngModel)]="p_retail_method" >
+                                    <select class="input-sm" name="p_retail_method" [(ngModel)]="p_retail_method" [disabled]="isDetail=='detail'">
                                       <option value="1" >不设置</option>
                                       <option value="2" >按金额</option>
                                       <option value="3" >按比例</option>
@@ -447,7 +437,7 @@
                                 <section >
                                   <label class="label ">销售提成设置</label>
                                   <label class="input">
-                                    <input name="p_retail_amout" [(ngModel)]="p_retail_amout" type="text" >
+                                    <input name="p_retail_amout" [(ngModel)]="p_retail_amout" type="text" [disabled]="isDetail=='detail'">
                                   </label>
                                 </section>
                               </div>
@@ -455,7 +445,7 @@
                                 <section >
                                   <label class="label ">停用时间</label>
                                   <label class="input">
-                                    <input name="p_stop_time" [(ngModel)]="p_stop_time" disabled="disabled"  type="text" >
+                                    <input name="p_stop_time" [(ngModel)]="p_stop_time" disabled="disabled" type="text" [disabled]="isDetail=='detail'">
                                   </label>
                                 </section>
                               </div>
@@ -463,7 +453,7 @@
                                 <section >
                                   <label class="label ">停用人</label>
                                   <label class="input">
-                                    <input name="p_stop_use" [(ngModel)]="p_stop_use" disabled="disabled" type="text" >
+                                    <input name="p_stop_use" [(ngModel)]="p_stop_use" disabled="disabled" type="text" [disabled]="isDetail=='detail'">
                                   </label>
                                 </section>
                               </div>
@@ -728,7 +718,7 @@
                                   <a class="cboxElement" href="{{url}}{{img}}" >
                                     <img width="150" height="150" alt="150x150" src="{{url}}{{img}}">
                                   </a>
-                                  <div class="tools tools-top">
+                                  <div class="tools tools-top" *ngIf="isDetail!='detail'">
                                     <a class="pull-right" (click)="removeImg(ind)">
                                       <i class="ace-icon fa fa-times txt-color-red">
                                       </i>
@@ -740,12 +730,11 @@
                                       <!--&lt;!&ndash;<input id="image-input" class="btn btn-primary " type="file" c-img-cropper-select [cropper]="cropper">&ndash;&gt;-->
                                     <!--</div>-->
                                   <!--</div>-->
-
                                 </li>
-                                <li>
+                                <li *ngIf="isDetail!='detail'">
                                   <img-cropper #cropper [image]="data1" [settings]="cropperSettings1" (onCrop)="cropped($event)"></img-cropper>
                                 </li>
-                                <li>
+                                <li *ngIf="isDetail!='detail'">
                                   <div  class="c-file-upload">
                                     <!--<button class="btn btn-primary ">浏览图片</button>-->
                                     <a class="btn btn-primary " style="width: 150px; height: 150px;" >
@@ -754,7 +743,7 @@
                                     <input id="image-input" class="btn btn-primary " type="file" c-img-cropper-select [cropper]="cropper">
                                   </div>
                                 </li>
-                                <li><button type="button" class="btn btn-primary" (click)="postFile()">确认上传</button></li>
+                                <li *ngIf="isDetail!='detail'"><button type="button" class="btn btn-primary" (click)="postFile()">确认上传</button></li>
                               </ul>
                             </div>
                           </div>
@@ -769,7 +758,7 @@
         </div>
         <div class="modal-footer">
           <!--<button type="button" class="btn btn-success btn-sm" ><span class="glyphicon glyphicon-plus"></span>保存并新增</button>-->
-          <button type="button" class="btn btn-primary"  (click)="onSubmit();lgModal.hide()">保存</button>
+          <button [disabled]="isDetail=='detail'" type="button" class="btn btn-primary"  (click)="onSubmit();lgModal.hide()">保存</button>
           <button type="button" class="btn btn-default"  (click)="clear_();lgModal.hide()">返回</button>
         </div>
       </div>

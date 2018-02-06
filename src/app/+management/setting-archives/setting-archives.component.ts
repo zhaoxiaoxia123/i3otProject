@@ -65,6 +65,7 @@ export class SettingArchivesComponent implements OnInit {
     isAll : number = 0;
     width : string = '0%';
     width_1 : string = '80%';
+    isDetail : string = '';
     
     p_property_id : number = 1;
     keyword : string = '';
@@ -379,16 +380,18 @@ export class SettingArchivesComponent implements OnInit {
         if(this.isStatus == 0){
             return false;
         }
-        if(type == 'edit'){
-            this.lgModal.show();
-        }else{
-            // this.detailModal.show();
-        }
+        this.isDetail = type;
+        this.lgModal.show();
+        // if(type == 'edit'){
+        //     this.lgModal.show();
+        // }else{
+        //     // this.detailModal.show();
+        // }
         this.http.get(this.globalService.getDomain()+'/api/v1/getProductInfo?p_id='+this.editStatusProductId+'&p_type='+this.p_type+'&sid='+this.cookieStore.getCookie('sid'))
             .map((res)=>res.json())
             .subscribe((data)=>{
                 this.productInfo = data;
-                if(this.productInfo['status'] == 200 && type == 'edit') {
+                if(this.productInfo['status'] == 200) {// && type == 'edit'
                     this.setValue(this.productInfo);
                 }else if(this.productInfo['status'] == 202){
                     alert(this.productInfo['msg']);
