@@ -4641,3 +4641,39 @@ ul.checkable.checkable--popboxmenu li a .label-name {
     margin-right: 30px;
     display: inline-block;
 }
+
+/*修改密码*/
+.cpwd, .fontc {
+    text-align: center;
+}
+.pwd {
+    display: inline-block;
+    text-align: left;
+    padding-top: 40px;
+    font-size: 18px;
+    color: #333;
+}
+.pwd div {
+    padding: 10px 0;
+}
+.pwd div input {
+    margin-left: 15px;
+    padding-left: 5px;
+    width: 416px;
+    height: 40px;
+    line-height: 40px;
+    border: 1px solid #999;
+}
+.pwdsave {
+    text-align: right;
+    margin-top: 20px;
+}
+.pwdsave button {
+    background-color: #169af6;
+    padding: 6px 50px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+}

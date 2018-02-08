@@ -33,7 +33,7 @@
     <!-- end notification content -->
 
     <!-- footer: refresh area -->
-    <span> Last updated on: {{lastUpdate | moment:"h:mm:ss a"}}
+    <span> 最后更新的时间: {{lastUpdate | moment:"h:mm:ss a"}}
     <button type="button" (click)="update()"
             class="btn btn-xs btn-default pull-right">
         <i class="fa fa-refresh" *ngIf="!loading"></i>
