@@ -1,6 +1,6 @@
 [
   {
-    "title": "Msgs",
+    "title": "通知",
     "name": "msgs",
     "data": [
       {
@@ -41,7 +41,7 @@
       },
       {
         "title": "Project approved! ",
-        "image": "assets/img/avatars/male.png",
+        "image": "assets/img/avatars/sunny.png",
         "time": "TSunday, June 14th",
         "subject": "Et harum quidem rerum facilis est et expedita distinctio",
         "message": "...",
@@ -51,7 +51,7 @@
     ]
   },
   {
-    "title": "Notify",
+    "title": "预警",
     "name": "notification",
     "data": [
       {
@@ -75,22 +75,22 @@
     ]
   },
   {
-    "title": "Tasks",
+    "title": "待办事项",
     "name": "tasks",
     "data": [
       {
-        "status": "URGENT",
+        "status": "标题",
         "type": "task",
         "size": "progress-md progress-striped",
-        "title": "Upgrade Infestructure",
+        "title": "内容内容",
         "width": 85,
         "last_update": "12/12/2015"
       },
       {
-        "status": "URGENT",
+        "status": "标题",
         "type": "task",
         "size": "progress-sm",
-        "title": "Code foundation",
+        "title": "内容",
         "width": 65,
         "last_update": "12/12/2015"
       },

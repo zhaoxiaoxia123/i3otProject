@@ -1,0 +1,265 @@
+<div id="content">
+  <div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+      <div class="well well-light well-sm no-margin no-padding">
+        <!--<div class="row margin-bottom-40">
+          <div class="col-sm-12">
+            <div class="air air-right pd-20 text-align-center">
+              &lt;!&ndash;<a href="" class="btn txt-color-white bg-color-teal btn-sm"><i class="fa fa-check"></i> 关注</a>&#xA0;&ndash;&gt;
+              <a  data-toggle="modal" data-target="#myModal" href="" class="btn txt-color-white bg-color-pinkDark btn-sm"><i class="fa fa-link"></i> 编辑公司信息</a>
+            </div>
+            <h1 class="title-h1">成都矿易帮科技有限公司</h1><hr />
+          </div>
+          <div class="col-xs-8">
+            <div class="editor" style="margin:100px 0" data-toggle="modal" data-target="#myModal">
+              <div class="padding-left-20 line-2 text-align-center">
+                <a  data-toggle="modal" data-target="#myModal" href="" class="btn txt-color-white bg-color-pinkDark btn-sm"><i class="fa fa-link"></i> 编辑公司信息</a>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-xs-4">
+            <div class="text-align-center " >
+                      <span class="user-image"  >
+                      <img  alt="" style="width: 160px; height: 160px;" src="assets/img/default_user.png"  >
+                      </span>
+              <p class="pd-10">*图片不能超过300k</p>
+            </div>
+          </div>
+        </div>-->
+        <div class="row margin-bottom-40">
+          <div class="col-sm-12">
+            <div class="air air-right pd-20 text-align-center">
+              <!--<a href="" class="btn txt-color-white bg-color-teal btn-sm"><i class="fa fa-check"></i> 关注</a>&#xA0;-->
+              <a  data-toggle="modal" data-target="#myModal" href="" class="btn txt-color-white bg-color-pinkDark btn-sm"><i class="fa fa-link"></i> 编辑公司信息</a>
+            </div>
+            <h1 class="title-h1">成都矿易帮科技有限公司</h1><hr />
+          </div>
+          <div class="col-xs-8">
+            <div class="editor" data-toggle="modal" data-target="#myModal">
+              <div class="padding-left-20 line-2">
+                <h4 class="no-margin size-bold">矿易帮<a class="padding-left-5" href="">(dffdfds)</a></h4>
+                <p>
+                  矿易帮旨在为所有矿业人打造一个了解最新时事资讯和进行互打造一个了解最新时事资讯和进行互打造一个了解最新时事资讯和进行互打造一个了解最新时事资讯和进行互打造一个了解最新时事资讯和进行互
+                </p>
+              </div>
+              <div class="padding-left-20 line-2 cml-c">
+                <span>地点：成都</span>
+                <span>领域：计算机/互联网</span>
+                <span>规模：50-150人</span>
+                <span>网址：www.kuangyibang.com</span>
+              </div>
+
+              <div class="padding-left-20 line-2 cml-c margin-top-40 ">
+                <h4 class="no-margin size-bold">联系方式</h4>
+                <hr/>
+                <span>联系电话：028-86121208</span>
+                <span>邮箱： info@kuangyibang.com</span>
+                <span>地址： 四川省成都市下南大街59号世代锦江国际酒店25楼</span>
+              </div>
+
+
+            </div>
+
+
+          </div>
+          <div class="col-xs-4">
+            <div class="text-align-center " >
+                      <span class="user-image"  >
+                      <img  alt="" style="width: 160px; height: 160px;" src="assets/img/default_user.png"  >
+                      </span>
+              <p class="pd-10">*图片不能超过300k</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+  <!-- end row -->
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- 关闭按钮 -->
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          ×
+        </button>
+        <!-- 标题 -->
+        <h3 class="modal-title" data-ng-bind='results.title'>公司信息</h3>
+        <!-- <h4 class="modal-title" id="myModalLabel">
+            模态框（Modal）标题
+        </h4> -->
+      </div>
+      <div class="modal-body">
+        <sa-widget [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+          <header>
+            <ul class="nav nav-tabs pull-left in">
+              <li [class.active]="state.tabs.demo3=='hr1'" class="active">
+                <a (click)="state.tabs.demo3 = 'hr1'">基本信息</a>
+              </li>
+              <li [class.active]="state.tabs.demo3=='hr2'" class="active">
+                <a (click)="state.tabs.demo3 = 'hr2'">联系方式</a>
+              </li>
+            </ul>
+          </header>
+          <div class="height-overflow-380">
+            <div class="widget-body mt-20">
+              <tabset>
+                <tab [active]="state.tabs.demo3 == 'hr1'">
+                  <tabset >
+                    <tab [active]="state.tabs.demo3 == 'hr1'">
+                      <div class="row">
+                        <form   class="smart-form ">
+                          <fieldset>
+                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                              <section>
+                                <label class="label">公司编码</label>
+                                <label class="input">
+                                  <input type="text" placeholder="自动生成"  disabled="disabled">
+                                </label>
+                              </section>
+                            </div>
+                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                              <section>
+                                <label class="label txt-color-blue">公司名称<span class="asterisk-color">*</span></label>
+                                <label class="input">
+                                  <input type="text"   placeholder=""  >
+                                </label>
+                              </section>
+                            </div>
+                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                              <section>
+                                <label class="label">识别码</label>
+                                <label class="input">
+                                  <input type="text" placeholder="公司简称" >
+                                </label>
+                              </section>
+                            </div>
+                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                              <section>
+                                <label class="label txt-color-blue">公司网址<span class="asterisk-color">*</span></label>
+                                <label class="input">
+                                  <input type="text" placeholder="" >
+                                </label>
+                              </section>
+                            </div>
+                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                              <section>
+                                <label class="label txt-color-blue">所在城市<span class="asterisk-color">*</span></label>
+                                <label class="select ">
+                                  <select  name="birthplace2" >
+                                    <option value="0">--请选择市--</option>
+                                    <option >四川</option>
+                                  </select> <i></i> </label>
+                              </section>
+                            </div>
+                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                              <section>
+                                <label class="label">详细地址</label>
+                                <label class="input">
+                                  <input type="text" placeholder="" >
+                                </label>
+                              </section>
+                            </div>
+                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                              <section>
+                                <label class="label ">行业领域</label>
+                                  <label class="select">
+                                    <select  name="birthplace2" >
+                                      <option value="0">--请选行业--</option>
+                                      <option >矿产</option>
+                                    </select> <i></i> </label>
+                              </section>
+                            </div>
+                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                              <section>
+                                <label class="label ">公司规模</label>
+                                <label class="select  ">
+                                  <select  name="birthplace2" >
+                                    <option value="0">--公司规模--</option>
+                                    <option >少于15人</option>
+                                    <option >15-50人</option>
+                                    <option >50-150人</option>
+                                    <option >150-500人</option>
+                                    <option >500-2000人</option>
+                                    <option >500-2000人以上</option>
+                                  </select> <i></i> </label>
+                              </section>
+                            </div>
+                            <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                              <section>
+                                <label class="label txt-color-blue">简短介绍<span class="asterisk-color">*</span></label>
+                                <label class="input">
+                                  <input type="text" placeholder="" >
+                                </label>
+                              </section>
+                            </div>-->
+                            <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                              <section>
+                                <label class="label">说明</label>
+                                <label class="textarea textarea-resizable">
+                                  <textarea class="custom-scroll" rows="2" name="" ></textarea>
+                                </label>
+                              </section>
+                            </div>
+                          </fieldset>
+                        </form>
+
+                      </div>
+                    </tab>
+                  </tabset>
+                </tab>
+                <tab [active]="state.tabs.demo3 == 'hr2'">
+                  <tabset >
+                    <tab [active]="state.tabs.demo3 == 'hr2'">
+                      <div class="row">
+                        <form   class="smart-form ">
+                          <fieldset>
+                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                              <section>
+                                <label class="label">联系电话</label>
+                                <label class="input">
+                                  <input type="text"   placeholder=""  >
+                                </label>
+                              </section>
+                            </div>
+                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                              <section>
+                                <label class="label">Email</label>
+                                <label class="input">
+                                  <input type="text"   placeholder=""  >
+                                </label>
+                              </section>
+                            </div>
+                            <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                              <section>
+                                <label class="label">详细地址</label>
+                                <label class="input">
+                                  <input type="text"   placeholder=""  >
+                                </label>
+                              </section>
+                            </div>
+                          </fieldset>
+                        </form>
+
+                      </div>
+                    </tab>
+                  </tabset>
+                </tab>
+              </tabset>
+            </div>
+          </div>
+        </sa-widget>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-ng-click="ok()">确定</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+</div>

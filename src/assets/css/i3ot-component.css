@@ -3516,6 +3516,11 @@ div.dataTables_editor{
 .btn-group>.btn:first-child {
     margin-left: 0;
 }
+.btn-group-justified>.btn, .btn-group-justified>.btn-group {
+    float: none;
+    display: table-cell;
+    width: 1%;
+}
 .btn-group .btn.dropdown-toggle {
     margin-left: -1px;
     padding-left: 8px;
@@ -4626,3 +4631,13 @@ ul.checkable.checkable--popboxmenu li a .label-name {
     display: inline-block!important;
 }
 
+/*账号管理*/
+
+.title-h1{
+    padding:20px 0 0 20px;
+    color:#333;
+}
+.cml-c span {
+    margin-right: 30px;
+    display: inline-block;
+}
