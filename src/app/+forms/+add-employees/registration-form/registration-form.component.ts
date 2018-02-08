@@ -58,12 +58,11 @@ export class RegistrationFormComponent implements OnInit {
 
   name:string;
   data1:any;
-  cropperSettings1:CropperSettings;
+  avatarSettings:CropperSettings;
   croppedWidth:number;
   croppedHeight:number;
   rollback_url :string = '/forms/employees';
-  @ViewChild('cropper', undefined) cropper:ImageCropperComponent;
-
+  @ViewChild('avatarCropper', undefined) avatarCropper:ImageCropperComponent;
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -121,19 +120,19 @@ export class RegistrationFormComponent implements OnInit {
     this.birthplace_province = getProvince();  //籍贯
 
     this.name = 'Angular2';
-    this.cropperSettings1 = new CropperSettings();
-    this.cropperSettings1.width = 200;
-    this.cropperSettings1.height = 200;
-    this.cropperSettings1.croppedWidth = 200;
-    this.cropperSettings1.croppedHeight = 200;
-    this.cropperSettings1.canvasWidth = 300;
-    this.cropperSettings1.canvasHeight = 300;
-    this.cropperSettings1.minWidth = 10;
-    this.cropperSettings1.minHeight = 10;
-    this.cropperSettings1.rounded = false;
-    this.cropperSettings1.keepAspect = true;
-    this.cropperSettings1.cropperDrawSettings.strokeColor = 'rgba(255,255,255,1)';
-    this.cropperSettings1.cropperDrawSettings.strokeWidth = 2;
+    this.avatarSettings = new CropperSettings();
+    this.avatarSettings.width = 200;
+    this.avatarSettings.height = 200;
+    this.avatarSettings.croppedWidth = 200;
+    this.avatarSettings.croppedHeight = 200;
+    this.avatarSettings.canvasWidth = 300;
+    this.avatarSettings.canvasHeight = 300;
+    this.avatarSettings.minWidth = 10;
+    this.avatarSettings.minHeight = 10;
+    this.avatarSettings.rounded = false;
+    this.avatarSettings.keepAspect = true;
+    this.avatarSettings.cropperDrawSettings.strokeColor = 'rgba(255,255,255,1)';
+    this.avatarSettings.cropperDrawSettings.strokeWidth = 2;
     this.data1 = {};
   }
 

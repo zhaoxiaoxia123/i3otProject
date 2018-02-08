@@ -49,7 +49,7 @@ export class SettingDepartmentnewComponent implements OnInit {
     //处理批量
     isAll : number = 0;
     width : string = '0%';
-    width_1 : string = '80%';
+    width_1 : string = '70%';
 
     customer_name : string = '';
     keyword:string = '';
@@ -78,6 +78,7 @@ export class SettingDepartmentnewComponent implements OnInit {
           department_fax:[''],
           department_remark:[''],
           department_status:[''],
+          u_username:['']
       });
   }
 
@@ -96,14 +97,12 @@ export class SettingDepartmentnewComponent implements OnInit {
         if(department_id != 0){
             url += '&department_ids='+department_id;
         }else{
-
             let depart = '';
             this.select_department_ids.forEach((val, idx, array) => {
                 if(val == true) {
                     depart += idx + ',';
                 }
             });
-
             url += '&department_ids='+depart;
         }
         this.http.get(url)
@@ -181,7 +180,6 @@ export class SettingDepartmentnewComponent implements OnInit {
             .map((res)=>res.json())
             .subscribe((data)=>{
                 this.departmentDefault = data;
-
                 if(this.departmentDefault['status'] == 202){
                     alert(this.departmentDefault['msg']);
                     this.cookieStore.removeAll(this.rollback_url);
@@ -243,6 +241,7 @@ export class SettingDepartmentnewComponent implements OnInit {
                         department_phone:this.departmentInfo['result']['department_phone'],
                         department_fax:this.departmentInfo['result']['department_fax'],
                         department_remark:this.departmentInfo['result']['department_remark'],
+                        u_username:this.departmentInfo['result']['u_username'],
                     });
                     this.upper_department_id_default = this.departmentInfo['result']['upper_department_id'];
                 }else if(this.departmentDefault['status'] == 202){
@@ -265,6 +264,7 @@ export class SettingDepartmentnewComponent implements OnInit {
             department_phone:'',
             department_fax:'',
             department_remark:'',
+            u_username:'',
         });
     }
     /**
@@ -375,9 +375,8 @@ export class SettingDepartmentnewComponent implements OnInit {
                 alert(info['msg']);
                 if(info['status'] == 200) {
                     this.departmentList = info;
-                    if (this.departmentList) {
-
-                        this.getDepartmentDefault();
+                    this.lgModal.hide();
+                    if (this.departmentList && this.departmentList['result']['departmentList'].length > 0) {
                         if (this.departmentList['result']['departmentList']['current_page'] == this.departmentList['result']['departmentList']['last_page']) {
                             this.next = true;
                         } else {
@@ -394,10 +393,13 @@ export class SettingDepartmentnewComponent implements OnInit {
                         }
                         this.check = false;
                     }
+                    console.log('----getDepartmentDefault-----');
+                    this.getDepartmentDefault();
                 }else if(info['status'] == 202){
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
+                this.closeSubmit();
             }
         );
     }
@@ -528,7 +530,7 @@ export class SettingDepartmentnewComponent implements OnInit {
 
         this.isAll = 0;
         this.width = '0%';
-        this.width_1 ='80%';
+        this.width_1 ='70%';
         this.selects.forEach((val, idx, array) => {
             if(val == true){
                 this.selects[idx] = false;
@@ -563,7 +565,7 @@ export class SettingDepartmentnewComponent implements OnInit {
             'department_status':status,
             'type':type,
             'keyword':this.keyword.trim(),
-            'ids':depart,
+            'department_ids':depart,
             'sid':this.cookieStore.getCookie('sid')
         }).subscribe(
             (data)=>{
@@ -608,7 +610,7 @@ export class SettingDepartmentnewComponent implements OnInit {
             this.editStatusDepartmentId = 0;
             this.isStatus = 0;
             this.width = '10%';
-            this.width_1 = '70%';
+            this.width_1 = '60%';
         }
     }
 

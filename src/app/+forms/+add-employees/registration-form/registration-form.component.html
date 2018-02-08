@@ -85,7 +85,7 @@
             <select name="department" formControlName="department" [(ngModel)]="department_default">
               <option *ngFor="let d of userList.result?.departmentList" [selected]="user_info.result?.u_department == d.department_id" value="{{d.department_id}}">
                 <span *ngIf="d.upper_department_id == 0">{{d.department_name}}</span>
-                <span *ngIf="d.upper_department_id != 0">--{{d.department_name}}--</span>
+                <span *ngIf="d.upper_department_id != 0">--{{d.department_name}}</span>
               </option>
             </select> <i></i> </label>
         </section>
@@ -558,12 +558,11 @@
                 <div class="form-group ">
                   <label class="col-md-2 control-label">上传头像</label>
                   <div class="col-md-10">
-
                     <div class="c-content-inner">
-                      <img-cropper #cropper [image]="data1" [settings]="cropperSettings1" (onCrop)="cropped($event)"></img-cropper>
+                      <img-cropper #avatarCropper [image]="data1" [settings]="avatarSettings" (onCrop)="cropped($event)"></img-cropper>
                       <div  class="c-file-upload">
                         <button class="btn btn-primary ">浏览图片</button>
-                        <input id="image-input" class="btn btn-primary " type="file" c-img-cropper-select [cropper]="cropper">
+                        <input id="image-input" class="btn btn-primary " type="file" c-img-cropper-select [cropper]="avatarCropper">
                       </div>
                     </div>
 
