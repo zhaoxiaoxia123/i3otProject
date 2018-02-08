@@ -62,7 +62,7 @@ export class ProcurementOrderComponent implements OnInit {
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
-          if (this.purchaseList) {
+          if (this.purchaseList && this.purchaseList['result']['purchaseList'].length > 0) {
             if (this.purchaseList['result']['purchaseList']['current_page'] == this.purchaseList['result']['purchaseList']['last_page']) {
               this.next = true;
             } else {
@@ -184,7 +184,7 @@ export class ProcurementOrderComponent implements OnInit {
               this.cookieStore.removeAll(this.rollback_url);
               this.router.navigate(['/auth/login']);
             }
-            if (this.purchaseList) {
+            if (this.purchaseList && this.purchaseList['result']['purchaseList'].length > 0) {
               if (this.purchaseList['result']['purchaseList']['current_page'] == this.purchaseList['result']['purchaseList']['last_page']) {
                 this.next = true;
               } else {
@@ -281,7 +281,7 @@ export class ProcurementOrderComponent implements OnInit {
           if(info['status'] == 200) {
             this.purchaseList = info;
 
-            if (this.purchaseList) {
+            if (this.purchaseList && this.purchaseList['result']['purchaseList'].length > 0) {
               if (this.purchaseList['result']['purchaseList']['current_page'] == this.purchaseList['result']['purchaseList']['last_page']) {
                 this.next = true;
               } else {

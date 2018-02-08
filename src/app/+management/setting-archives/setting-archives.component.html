@@ -81,13 +81,13 @@
                             <div class="tree smart-form">
                               <ul class="">
                                 <li class=" parent_li">
-                                <span><label class="checkbox inline-block tree-label pt-12 ">
-                                        <input type="checkbox" name="checkbox-inline" [checked]="select_category_ids[0]" (click)="selectCategoryAll()"><i></i>
-                                      </label>
-                                  <i class="fa fa-lg fa-folder-open"></i>全部
-                                  <i class="sa-icon fa fa-lg fa-plus-circle" *ngIf="showUl == 0" (click)="showLeftUl(1)"></i>
-                                  <i class="sa-icon fa fa-lg fa-minus-circle" *ngIf="showUl == 1" (click)="showLeftUl(0)"></i>
-                                </span>
+                                  <span><label class="checkbox inline-block tree-label pt-12 ">
+                                          <input type="checkbox" name="checkbox-inline" [checked]="select_category_ids[0]" (click)="selectCategoryAll()"><i></i>
+                                        </label>
+                                    <i class="fa fa-lg fa-folder-open"></i>全部
+                                    <i class="sa-icon fa fa-lg fa-plus-circle" *ngIf="showUl == 0" (click)="showLeftUl(1)"></i>
+                                    <i class="sa-icon fa fa-lg fa-minus-circle" *ngIf="showUl == 1" (click)="showLeftUl(0)"></i>
+                                  </span>
                                   <ul class="" *ngIf="showUl == 1">
                                     <li class=" parent_li" *ngFor="let c of productDefault?.result?.categoryList;let ind = index;">
                                     <span>
