@@ -9,7 +9,9 @@ import {I3otpModule} from "../../shared/i3otp.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CookieService} from "angular2-cookie/core";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
+// import {UserSharedModule} from "../../core/user-shared.module";
 import {ImgCropperSelectModule} from "../../shared/img-cropper-select/img-cropper-select.module";
+// import {ImageCropperModule} from "ng2-img-cropper";
 import {ImageCropperComponent} from "ng2-img-cropper";
 
 @NgModule({
@@ -20,6 +22,8 @@ import {ImageCropperComponent} from "ng2-img-cropper";
     FormsModule,
     ReactiveFormsModule,
     SettingArchivesRoutingModule,
+    // UserSharedModule,
+    // ImageCropperModule,
     ImgCropperSelectModule
   ],
   declarations: [

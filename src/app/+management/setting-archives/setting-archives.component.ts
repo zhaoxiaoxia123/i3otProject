@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {Http} from "@angular/http";
 import {Router} from "@angular/router";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
@@ -10,6 +10,7 @@ import {ImageCropperComponent, CropperSettings, Bounds} from 'ng2-img-cropper';
 @Component({
   selector: 'app-setting-archives',
   templateUrl: './setting-archives.component.html',
+    // encapsulation: ViewEncapsulation.None, //在于不让angular4样式生效
     styleUrls: ['./setting-archives.scss']
 })
 export class SettingArchivesComponent implements OnInit {

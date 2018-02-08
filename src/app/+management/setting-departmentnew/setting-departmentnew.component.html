@@ -154,7 +154,7 @@
                               </tbody>
                             </table>
                           </div>
-                          <div style="padding: 0;z-index: 2;width:20%;float:left;" class="table-scrolling">
+                          <div style="padding: 0;z-index: 2;width:30%;float:left;" class="table-scrolling">
                             <table class="table table-striped  smart-form table-height-20">
                               <thead>
                               <tr >
@@ -380,13 +380,13 @@
                     <tabset >
                       <tab [active]="state.tabs.demo3 == 'hr2'">
                         <div class="row">
-                          <form   class="smart-form ">
+                          <form  [formGroup]="formModel" class="smart-form ">
                             <fieldset>
                               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <section >
                                   <label class="label ">创建人</label>
                                   <label class="input">
-                                    <input name="department_id" formControlName="department_id" disabled="disabled"  type="text" placeholder="用户名">
+                                    <input disabled="disabled" name="u_username" formControlName="u_username" type="text" placeholder="用户名">
                                   </label>
                                 </section>
                               </div>
@@ -402,7 +402,7 @@
           </sa-widget>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onSubmit();lgModal.hide()">保存</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onSubmit();">保存</button>
           <button type="button" class="btn btn-default" (click)="closeSubmit();lgModal.hide()" >返回</button>
         </div>
       </div>

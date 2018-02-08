@@ -452,11 +452,6 @@ export class ListStaffComponent implements OnInit {
     }else{
       u_id = this.editStatusUserId;
     }
-    if(!u_id || this.isAll == 0){
-      alert('请确认已选中批量操作的项！');
-      return false;
-    }
-
     let depart = '';
     this.select_department_ids.forEach((val, idx, array) => {
       if(val == true) {
@@ -464,6 +459,10 @@ export class ListStaffComponent implements OnInit {
       }
     });
 
+    if(! u_id){
+      alert('请确保已选中需要操作的项！');
+      return false;
+    }
     this.http.post(this.globalService.getDomain()+'/api/v1/addUser',{
       'u_id':u_id,
       'u_status':status,
