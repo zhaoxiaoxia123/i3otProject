@@ -30,19 +30,19 @@
         </a>
         <ul class="dropdown-menu pull-right">
           <li>
-            <a (click)="(null)" class="pd-10 padding-top-0 padding-bottom-0"><i
-              class="fa fa-cog"></i> 设置</a>
+            <a routerLink="/account/account-company" (click)="(null)" class="pd-10 padding-top-0 padding-bottom-0"><i
+              class="fa fa-cog"></i> 公司信息</a>
           </li>
           <li class="divider"></li>
           <li>
-            <a routerLink="/app-views/profile" class="pd-10 padding-top-0 padding-bottom-0"> <i
+            <a routerLink="/account/account-personal" class="pd-10 padding-top-0 padding-bottom-0"> <i
               class="fa fa-user"></i>
-              配置文件</a>
+              个人信息</a>
           </li>
           <li class="divider"></li>
           <li>
-            <a (click)="(null)" class="pd-10 padding-top-0 padding-bottom-0"
-               data-action="toggleShortcut"><i class="fa fa-arrow-down"></i> <u>S</u>快捷方式</a>
+            <a routerLink="/account/account-password" class="pd-10 padding-top-0 padding-bottom-0"
+               data-action="toggleShortcut"><i class="fa fa-arrow-down"></i> 修改密码</a>
           </li>
           <li class="divider"></li>
           <li>
