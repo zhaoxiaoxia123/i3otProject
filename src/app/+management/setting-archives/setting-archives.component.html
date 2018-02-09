@@ -199,7 +199,12 @@
                                     <img *ngFor="let i of p1.imgs" alt=""  height="22" width="22" class="img-picture"  src="{{url}}{{i}}">
                                   </div>
                                 </td>
-                                <td><span class="">{{(p1.p_status == 1) ? '正常':'无效'}}</span></td>
+                                <td>
+                                   <span [ngSwitch]="p1.p_status">
+                                      <span class="label-normal" *ngSwitchCase="1">正常</span>
+                                      <span class="label-invalid" *ngSwitchCase="2">无效</span>
+                                   </span>
+                                </td>
                               </tr>
                               </tbody>
                             </table>

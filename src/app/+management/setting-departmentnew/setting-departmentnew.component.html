@@ -218,9 +218,9 @@
                                 <td>{{d.department_fax}}</td>
                                 <td>
                                   <span [ngSwitch]="d.department_status">
-                                    <span *ngSwitchCase="1">正常</span>
-                                    <span *ngSwitchCase="2">无效</span>
-                                    <span *ngSwitchDefault>未知</span>
+                                    <span class="label-normal" *ngSwitchCase="1">正常</span>
+                                    <span class="label-invalid" *ngSwitchCase="2">无效</span>
+                                    <span class=" label-unknown" *ngSwitchDefault>未知</span>
                                   </span>
                                 </td>
                               </tr>

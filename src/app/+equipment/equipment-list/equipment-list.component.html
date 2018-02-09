@@ -117,11 +117,11 @@
                       <td>{{ il.i3otp_address }}</td>
                       <td>{{ il.i3otp_production_date }}</td>
                       <td [ngSwitch]="il.i3otp_status">
-                        <span *ngSwitchCase="0">未激活</span>
-                        <span *ngSwitchCase="1">使用中</span>
-                        <span *ngSwitchCase="2">返厂维修</span>
-                        <span *ngSwitchCase="3">报废</span>
-                        <span *ngSwitchDefault>未激活</span>
+                        <span class="label-unknown " *ngSwitchCase="0">未激活</span>
+                        <span class="label-normal" *ngSwitchCase="1">使用中</span>
+                        <span class="label-maintain" *ngSwitchCase="2">返厂维修</span>
+                        <span class="label-invalid" *ngSwitchCase="3">报废</span>
+                        <span class="label-unknown" *ngSwitchDefault>未激活</span>
                       </td>
 
                       <!--<td >

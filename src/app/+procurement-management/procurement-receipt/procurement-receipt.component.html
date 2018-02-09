@@ -104,14 +104,14 @@
                         <span [ngSwitch]="p.pr_status">
                           <span class="label-normal" *ngSwitchCase="1">正常</span>
                           <span class="label-invalid" *ngSwitchCase="2">无效</span>
-                          <span *ngSwitchDefault>未知</span>
+                          <span class="label-unknown" *ngSwitchDefault>未知</span>
                         </span>
                       </td>
                       <td>
                         <span [ngSwitch]="p.pr_type">
-                          <span class="label-full" *ngSwitchCase="1">进货</span>
+                          <span class="label-normal" *ngSwitchCase="1">进货</span>
                           <span class="label-invalid" *ngSwitchCase="2">退货</span>
-                          <span *ngSwitchDefault>未知</span>
+                          <span class="label-unknown" *ngSwitchDefault>未知</span>
                         </span>
                       </td>
                       <td>{{p.pr_date}}</td>

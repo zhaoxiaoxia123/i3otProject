@@ -1326,17 +1326,17 @@ span.input-icon {
 
 /*标签*/
 .label-normal{
-    background-color: #909090!important;
+    background-color: #54d09f!important;
     color: #fff;
     padding: 2px 10px;
 }
 .label-invalid{
-    background-color: #a90329!important;
+    background-color: #a00000!important;
     color: #fff;
     padding: 2px 10px;
 }
 .label-full{
-    background-color: #54d09f!important;
+    background-color: #F44336!important;
     color: #fff;
     padding: 2px 10px;
 }
@@ -1346,11 +1346,15 @@ span.input-icon {
     padding: 2px 10px;
 }
 .label-unknown{
-    background-color: #646464!important;
+    background-color: #909090!important;
     color: #fff;
     padding: 2px 10px;
 }
-
+.label-maintain{
+    background-color: #f2b415!important;
+    color: #fff;
+    padding: 2px 10px;
+}
 .navbar-form{
     margin-left: 0;
     margin-right: 0;

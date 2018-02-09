@@ -4,7 +4,7 @@
     <header>
       <ul class="nav nav-tabs pull-left in">
         <li [class.active]="state.tabs.demo4=='AA'" class="active">
-          <a (click)="state.tabs.demo4 = 'AA'">人员类别</a>
+          <a (click)="state.tabs.demo4 = 'AA'">角色</a>
         </li>
       </ul>
     </header>
@@ -22,11 +22,11 @@
                         <div class="widget-body no-padding">
                           <alert type="info" class="no-margin" *ngIf="category_id == 0">
                             <i class="fa-fw fa fa-plus"></i>
-                            添加人员类别
+                            添加角色
                           </alert>
                           <alert type="info" class="no-margin"  *ngIf="category_id != 0">
                             <i class="glyphicon glyphicon-pencil"></i>
-                            修改人员类别
+                            修改角色
                           </alert>
                           <div  class="mt-10">
                             <form   class="smart-form ">
@@ -38,9 +38,9 @@
                                   </label>
                                 </section>
                                 <section>
-                                  <label class="label txt-color-blue">人员类别<span class="asterisk-color">*</span></label>
+                                  <label class="label txt-color-blue">角色<span class="asterisk-color">*</span></label>
                                   <label class="input">
-                                    <input type="text" placeholder="请输人员类别" minlength="1" maxlength="20"  name="category_desc" [(ngModel)]="category_desc">
+                                    <input type="text" placeholder="请输角色" minlength="1" maxlength="20"  name="category_desc" [(ngModel)]="category_desc">
                                   </label>
                                 </section>
                               </fieldset>
@@ -63,7 +63,7 @@
                         <div class="widget-body no-padding">
                           <alert type="info" class="no-margin" >
                             <i class="fa-fw fa fa-spoon"></i>
-                            人员类别
+                            角色
                           </alert>
 
                           <div  class="row mt-10">
