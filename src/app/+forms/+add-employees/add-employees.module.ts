@@ -9,8 +9,7 @@ import {I3otpModule} from '../../shared/i3otp.module';
 import {CookieService} from 'angular2-cookie/core';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 import {ReactiveFormsModule} from '@angular/forms';
-// import {UserSharedModule} from "../../core/user-shared.module";
-import { ImageCropperComponent} from "ng2-img-cropper";
+import { ImageCropperModule} from "ng2-img-cropper";
 import {ImgCropperSelectModule} from "../../shared/img-cropper-select/img-cropper-select.module";
 @NgModule({
   imports: [
@@ -18,15 +17,13 @@ import {ImgCropperSelectModule} from "../../shared/img-cropper-select/img-croppe
     I3otpModule,
     ReactiveFormsModule,
     addEmployeesRouting,
-    // UserSharedModule,
+    ImageCropperModule,
     ImgCropperSelectModule,
-    // ImageCropperModule,
     // FileUploadModule,
   ],
   declarations: [
     AddEmployeesComponent,
-    RegistrationFormComponent,
-      ImageCropperComponent
+    RegistrationFormComponent
     // KeysPipe
   ],
   providers:[ CookieService,CookieStoreService ]

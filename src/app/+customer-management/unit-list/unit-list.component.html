@@ -129,7 +129,7 @@
                     <tbody>
                     <tr *ngFor="let c of customerList?.result?.customerList?.data" (click)="isStatusShow(c.c_id,c.c_status)" [ngClass]="{'table-color':editStatusCustomerId == c.c_id}">
                       <td>{{c.created_at}}</td>
-                      <td>矿矿业</td>
+                      <td>{{c.unit_category}}</td>
                       <td>{{c.c_phone}}</td>
                       <td>{{c.c_contacts}}</td>
                       <td>{{c.c_phone}}</td>
@@ -225,10 +225,10 @@
                               <section>
                                 <label class="label">商户类型</label>
                                 <label class="select">
-                                  <select class="input-sm" name="c_role" [(ngModel)]="c_role">
+                                  <select class="input-sm" name="c_role" [(ngModel)]="c_role" (change)="getUnitCategoryList($event,1)">
                                     <option value="0" disabled="disabled">--请选择--</option>
                                     <option value="3" >供应商</option>
-                                    <option value="4" >被供应商</option>
+                                    <option value="4" >客户</option>
                                   </select> <i></i>
                                 </label>
                               </section>
@@ -239,9 +239,13 @@
                                 <label class="select">
                                     <select class="input-sm" name="c_category_id" [(ngModel)]="c_category_id">
                                       <option [selected]="c_id == 0" value="0">--请选择--</option>
-                                      <option *ngFor="let c of customerDefault.result?.categoryList" [selected]="customerInfo.result?.c_category_id == c.category_id" value="{{ c.category_id }}">
-                                        <b *ngIf="c.category_depth == 0">{{c.category_desc}}</b>
-                                        <b *ngIf="c.category_depth != 0">--{{c.category_desc}}</b>
+                                      <!--<option *ngFor="let c of customerDefault.result?.categoryList" [selected]="customerInfo.result?.c_category_id == c.category_id" value="{{ c.category_id }}">-->
+                                        <!--<b *ngIf="c.category_depth == 0">{{c.category_desc}}</b>-->
+                                        <!--<b *ngIf="c.category_depth != 0">&#45;&#45;{{c.category_desc}}</b>-->
+                                      <!--</option>-->
+                                      <option *ngFor="let c of unitCategoryList?.result?.categoryList" value="{{ c.category_id }}" [disabled]="(c.category_depth == 0 && c.child_count > 0) ? 'disabled' : false" [ngStyle]="{'font-weight':((c.category_depth == 0) ? 'bold' : 'normal'),'color':((c.category_depth == 0 && c.child_count > 0) ? 'black' : '#404040')}">
+                                      <strong *ngIf="c.category_depth == 0">{{c.category_desc}}</strong>
+                                      <span *ngIf="c.category_depth != 0">--{{c.category_desc}}</span>
                                       </option>
                                     </select><i></i>
                                 </label>

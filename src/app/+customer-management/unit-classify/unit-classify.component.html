@@ -58,8 +58,8 @@
                                     <label class="select">
                                       <select name="category_tab" formControlName="category_tab" [(ngModel)]="category_tab_default">
                                         <option disabled="" selected="" value="0" >请选择单位类别</option>
-                                        <option value="供应商" >供应商</option>
-                                        <option value="客户" >客户</option>
+                                        <option value="3" >供应商</option>
+                                        <option value="4" >客户</option>
                                       </select> <i></i> </label>
                                   </section>
                                   <section>
@@ -101,72 +101,6 @@
                             <div class="widget-body">
                               <div class="row text-center" style="padding:10px 40px;">
                                 <div class="dd" >
-
-
-                                  <!--<ol class="dd-list">-->
-                                    <!--<li class="dd-item" >-->
-                                      <!--<button data-action="expand" type="button" style="display: none;">收起</button>-->
-                                      <!--<button data-action="collapse" type="button"  style="display: block;">展开</button>-->
-                                      <!--<div class="dd-handle">-->
-                                        <!--矿-->
-                                        <!--<small  class="text-muted">-->
-                                          <!--<i >(202500)</i>-->
-                                        <!--</small>-->
-                                        <!--<span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>-->
-                                        <!--<div>-->
-                                        <!--<a class="btn pull-right btn-warning btn-xs btn-20"><span class="glyphicon glyphicon-pencil"></span>修改</a>-->
-                                        <!--<a class="btn pull-right btn-danger btn-xs btn-20"><span class="glyphicon glyphicon-remove"></span>删除</a>-->
-                                      <!--</div>-->
-                                      <!--</div>-->
-                                      <!--<ol class="dd-list"  style="display: block;">-->
-                                        <!--<li class="dd-item" >-->
-                                          <!--<div class="dd-handle">-->
-                                            <!--矿-->
-                                            <!--<small  class="text-muted">-->
-                                              <!--<i >(202500)</i>-->
-                                            <!--</small>-->
-                                            <!--<span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>-->
-                                            <!--<div>-->
-                                              <!--<a class="btn pull-right btn-warning btn-xs btn-20"><span class="glyphicon glyphicon-pencil"></span>修改</a>-->
-                                              <!--<a class="btn pull-right btn-danger btn-xs btn-20"><span class="glyphicon glyphicon-remove"></span>删除</a>-->
-                                            <!--</div>-->
-                                          <!--</div>-->
-                                        <!--</li>-->
-                                      <!--</ol>-->
-                                    <!--</li>-->
-                                    <!--<li class="dd-item" id="185">-->
-                                      <!--<button  type="button"  style="display: block;">收起</button>-->
-                                      <!--<button  type="button" style="display: none;">展开</button>-->
-                                      <!--<div class="dd-handle">-->
-                                        <!--矿-->
-                                        <!--<small  class="text-muted">-->
-                                          <!--<i >(202500)</i>-->
-                                        <!--</small>-->
-                                        <!--<span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>-->
-                                        <!--<div>-->
-                                          <!--<a class="btn pull-right btn-warning btn-xs btn-20"><span class="glyphicon glyphicon-pencil"></span>修改</a>-->
-                                          <!--<a class="btn pull-right btn-danger btn-xs btn-20"><span class="glyphicon glyphicon-remove"></span>删除</a>-->
-                                        <!--</div>-->
-
-                                      <!--</div>-->
-                                      <!--<ol class="dd-list"  style="display: none;">-->
-                                        <!--<li class="dd-item" >-->
-                                          <!--<div class="dd-handle">-->
-                                            <!--矿-->
-                                            <!--<small  class="text-muted">-->
-                                              <!--<i >(202500)</i>-->
-                                            <!--</small>-->
-                                            <!--<span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>-->
-                                            <!--<div>-->
-                                              <!--<a class="btn pull-right btn-warning btn-xs btn-20"><span class="glyphicon glyphicon-pencil"></span>修改</a>-->
-                                              <!--<a class="btn pull-right btn-danger btn-xs btn-20"><span class="glyphicon glyphicon-remove"></span>删除</a>-->
-                                            <!--</div>-->
-                                          <!--</div>-->
-                                        <!--</li>-->
-                                      <!--</ol>-->
-                                    <!--</li>-->
-                                  <!--</ol>-->
-
                                   <ol class="dd-list">
                                     <li class="dd-item" data-id="{{cl.category_id}}" *ngFor="let cl of categoryList?.result?.categoryList?.data">
                                       <button data-action="expand" type="button" *ngIf="cl.child_count > 0" [ngStyle]="{'display': ((button_contrl_id==cl.category_id && index == 1) || button_contrl_id!=cl.category_id) ? 'block':'none'}" (click)="show(2,cl.category_id)">收起</button>
@@ -194,127 +128,24 @@
                                         </li>
                                       </ol>
                                     </li>
-
                                   </ol>
-
-
                                 </div>
                               </div>
-
-                              <div class="dt-toolbar">
-
-                              </div>
                             </div>
-
                           </div>
-
                         </div>
-
                       </sa-widget>
                     </article>
-
                   </div>
-
                 </div>
-
               </div>
-
             </div>
-
           </div>
-
-
         </sa-widget>
       </article>
     </div>
   </sa-widgets-grid>
-
-  <!--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
-    <!--<div class="modal-dialog">-->
-      <!--<div class="modal-content">-->
-        <!--<div class="modal-header">-->
-          <!--&lt;!&ndash; 关闭按钮 &ndash;&gt;-->
-          <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">-->
-            <!--×-->
-          <!--</button>-->
-          <!--&lt;!&ndash; 标题 &ndash;&gt;-->
-          <!--<h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>添加上级分类</h3>-->
-          <!--&lt;!&ndash; <h3 class="modal-title  glyphicon glyphicon-pencil txt-color-red" data-ng-bind='results.title'>修改部门</h3>&ndash;&gt;-->
-        <!--</div>-->
-        <!--<div class="modal-body height-overflow-380">-->
-          <!--<div class="row text-center" style="padding:10px 40px;">-->
-            <!--<div class="dd" >-->
-              <!--<ol class="dd-list">-->
-                <!--<li class="dd-item " >-->
-                  <!--<button data-action="expand" type="button" style="display: none;">收起</button>-->
-                  <!--<button data-action="collapse" type="button"  style="display: block;">展开</button>-->
-                  <!--<div class="dd-handle dd-handle-color">-->
-                    <!--矿-->
-                    <!--<small  class="text-muted">-->
-                      <!--<i >(202500)</i>-->
-                    <!--</small>-->
-                    <!--<span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>-->
-                    <!--<div>-->
-                    <!--</div>-->
-                  <!--</div>-->
-                  <!--<ol class="dd-list"  style="display: block;">-->
-                    <!--<li class="dd-item" >-->
-                      <!--<div class="dd-handle">-->
-                        <!--矿-->
-                        <!--<small  class="text-muted">-->
-                          <!--<i >(202500)</i>-->
-                        <!--</small>-->
-                        <!--<span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>-->
-                        <!--<div>-->
-                        <!--</div>-->
-                      <!--</div>-->
-                    <!--</li>-->
-                  <!--</ol>-->
-                <!--</li>-->
-                <!--<li class="dd-item" >-->
-                  <!--<button  type="button"  style="display: block;">收起</button>-->
-                  <!--<button  type="button" style="display: none;">展开</button>-->
-                  <!--<div class="dd-handle">-->
-                    <!--矿-->
-                    <!--<small  class="text-muted">-->
-                      <!--<i >(202500)</i>-->
-                    <!--</small>-->
-                    <!--<span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>-->
-                    <!--<div>-->
-                    <!--</div>-->
-
-                  <!--</div>-->
-                  <!--<ol class="dd-list"  style="display: none;">-->
-                    <!--<li class="dd-item" id="186">-->
-                      <!--<div class="dd-handle">-->
-                        <!--矿-->
-                        <!--<small  class="text-muted">-->
-                          <!--<i >(202500)</i>-->
-                        <!--</small>-->
-                        <!--<span>&nbsp;&nbsp;参考价&nbsp;&nbsp;供应商</span>-->
-                        <!--<div>-->
-                        <!--</div>-->
-                      <!--</div>-->
-                    <!--</li>-->
-                  <!--</ol>-->
-                <!--</li>-->
-
-
-              <!--</ol>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-        <!--<div class="modal-footer">-->
-          <!--<button type="button" class="btn btn-success btn-sm" ><span class="glyphicon glyphicon-plus"></span>选入</button>-->
-          <!--&lt;!&ndash;    <button type="button" class="btn btn-primary" data-ng-click="ok()">保存</button>&ndash;&gt;-->
-          <!--<button type="button" class="btn btn-default" data-dismiss="modal">返回</button>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
-
-
-</div>
+ </div>
 
 
 

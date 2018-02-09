@@ -47,6 +47,7 @@ export class UnitListComponent implements OnInit {
     user_qq: string = '';
     user_addr: string = '';
     departmentInfo : Array<any> = [];//业务员所属部门信息
+    unitCategoryList : Array<any> = [];// 选中客户类型的单位分类列表
     department : string = '';
     c_follow_user_id: number = 0;
     c_tax: string = '';
@@ -164,38 +165,6 @@ export class UnitListComponent implements OnInit {
         console.log(this.selects);
         console.log(this.check);
     }
-
-    getCustomerInfo(){
-        let isAll = 0;
-        let c_id = 0;
-        this.selects.forEach((val, idx, array) => {
-            if(val == true) {
-                isAll += 1;
-                c_id = idx;
-            }
-        });
-        let msg = '';
-        if(isAll <= 0){
-            msg = '请选中要查看的信息，再点击此“修改”按钮！';
-        }else if(isAll > 1){
-            msg = '仅支持选择一条要查看详情的信息！';
-        }
-        if(msg != ''){
-            alert(msg);
-            return false;
-        }
-        this.http.get(this.globalService.getDomain()+'/api/v1/getCustomerInfo?c_id='+c_id)
-            .map((res)=>res.json())
-            .subscribe((data)=>{
-                this.customerInfo = data;
-                console.log(this.customerInfo);
-
-                if(this.customerInfo['result']['c_follow_user_id'] != 0){
-                    this.getDepartment(this.customerInfo['result']['c_follow_user_id'],2);
-                }
-            });
-    }
-
 
     /**
      * 获取业务员所属部门
@@ -316,6 +285,7 @@ export class UnitListComponent implements OnInit {
         this.c_bank_account = '';
         this.c_discount_rate = '';
         this.c_credit_amount = '';
+        this.unitCategoryList = [];
     }
 
 
@@ -326,8 +296,6 @@ export class UnitListComponent implements OnInit {
         this.c_id = info['result']['c_id'];
         this.c_number = info['result']['c_number'];
         this.c_name = info['result']['c_name'];
-        this.c_role = info['result']['c_role'];
-        this.c_category_id = info['result']['c_category_id'];
         this.c_phone = info['result']['c_phone'];
         this.c_address = info['result']['c_address'];
         this.c_abbreviation = info['result']['c_abbreviation'];
@@ -347,6 +315,11 @@ export class UnitListComponent implements OnInit {
         this.c_bank_account = info['result']['c_bank_account'];
         this.c_discount_rate = info['result']['c_discount_rate'];
         this.c_credit_amount = info['result']['c_credit_amount'];
+        this.c_role = info['result']['c_role'];
+        if(this.c_role != 0){
+            this.getUnitCategoryList(this.c_role,2);
+        }
+        this.c_category_id = info['result']['c_category_id'];
     }
 
     /**
@@ -361,31 +334,12 @@ export class UnitListComponent implements OnInit {
         }else{
             this.detailModal.show();
         }
-        // let isAll = 0;
-        // let c_id = 0;
-        // this.selects.forEach((val, idx, array) => {
-        //     if(val == true) {
-        //         isAll += 1;
-        //         c_id = idx;
-        //     }
-        // });
-        // let msg = '';
-        // if(isAll <= 0){
-        //     msg = '请选中要编辑的信息，再点击此“修改”按钮！';
-        // }else if(isAll > 1){
-        //     msg = '仅支持选择一条要编辑的信息！';
-        // }
-        // if(msg != ''){
-        //     alert(msg);
-        //     return false;
-        // }
-        // this.lgModal.show();
         this.http.get(this.globalService.getDomain()+'/api/v1/getCustomerInfo?c_id='+this.editStatusCustomerId+'&type='+type+'&role='+this.role+'&sid='+this.cookieStoreService.getCookie('sid'))
             .map((res)=>res.json())
             .subscribe((data)=>{
                 this.customerInfo = data;
                 this.c_id = 0;
-                if(this.customerInfo['status'] == 200 && type == 'edit') {
+                if(this.customerInfo['status'] == 200 && (type == 'edit' || type == 'detail')) {
                     this.setValue(this.customerInfo);
                 }else if(this.customerInfo['status'] == 202){
                     alert(this.customerInfo['msg']);
@@ -524,6 +478,36 @@ export class UnitListComponent implements OnInit {
 
     @ViewChild('lgModal') public lgModal:ModalDirective;
     @ViewChild('detailModal') public detailModal:ModalDirective;
+
+
+
+    /**
+     * 获取单位分类信息
+     */
+    getUnitCategoryList(obj,num:number){
+        let id = 0;
+        if(num == 1){
+            id = obj.target.value;
+        }else{
+            id = obj;
+        }
+        let url = this.globalService.getDomain()+'/api/v1/getUnitCategoryList?category_type='+this.category_type+'&sid='+this.cookieStoreService.getCookie('sid');
+        console.log(id);
+        if(id != 0){
+            url += '&category_tab='+id;
+        }
+        this.http.get(url)
+            .map((res)=>res.json())
+            .subscribe((data)=>{
+                this.unitCategoryList = data;
+                if(this.unitCategoryList['status'] == 201){
+                    alert(this.unitCategoryList['msg']);
+                }else if(this.unitCategoryList['status'] == 202){
+                    this.cookieStoreService.removeAll(this.rollback_url);
+                    this.router.navigate(['/auth/login']);
+                }
+            });
+    }
 
 }
 
