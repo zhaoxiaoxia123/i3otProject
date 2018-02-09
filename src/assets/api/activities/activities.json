@@ -1,49 +1,49 @@
 [
   {
-    "title": "Msgs",
+    "title": "通知",
     "name": "msgs",
     "data": [
       {
-        "title": "John Doe",
-        "image": "assets/img/avatars/4.png",
-        "time": "2 minutes ago",
-        "subject": "Msed quia non numquam eius modi tempora",
-        "message": "Hello again and thanks for being a part of the newsletter.",
+        "title": "小黄",
+        "image": "assets/img/avatars/female.png",
+        "time": "10:47 2017-11-22",
+        "subject": "标题",
+        "message": "内容内容内容",
         "status": "unread",
         "type": "message"
       },
       {
         "title": "Sonya Birthday",
         "image": "assets/img/avatars/female.png",
-        "time": "Thursday, September 19th",
-        "subject": "Incidunt ut labor",
-        "message": "sed quia non numquam eius modi tempora incidunt ut labor",
+        "time": "10:47 2017-11-22",
+        "subject": "标题",
+        "message": "内容内容内容",
         "status": "read",
         "type": "message"
       },
       {
         "title": "Cristina Algera",
-        "image": "assets/img/avatars/1.png",
-        "time": "TSunday, September 15th",
-        "subject": "Best-Selling Teethers",
-        "message": "ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?",
+        "image": "assets/img/avatars/female.png",
+        "time": "10:47 2017-11-22",
+        "subject": "标题",
+        "message": "内容内容内容",
         "status": "read",
         "type": "message"
       },
       {
         "title": "Lam Tampora",
         "image": "assets/img/avatars/male.png",
-        "time": "TSunday, September 14th",
-        "subject": "Deadline due date",
-        "message": "mus qui blanditiis praesentium voluptatum deleniti atque corrup",
+        "time": "10:47 2017-11-22",
+        "subject": "标题",
+        "message": "内容内容内容",
         "status": "read",
         "type": "message"
       },
       {
         "title": "Project approved! ",
         "image": "assets/img/avatars/male.png",
-        "time": "TSunday, June 14th",
-        "subject": "Et harum quidem rerum facilis est et expedita distinctio",
+        "time": "10:47 2017-11-22",
+        "subject": "标题",
         "message": "...",
         "status": "read",
         "type": "message"
@@ -51,46 +51,46 @@
     ]
   },
   {
-    "title": "Notify",
+    "title": "预警",
     "name": "notification",
     "data": [
       {
         "icon": "fa-user",
-        "message": "2 new users just signed up! martin.luther and kevin.reliey",
-        "time": "1 min ago...",
+        "message": "预警内容内容内容内容内容内容内容内容内容",
+        "time": "10:47 2017-11-22",
         "type": "notification"
       },
       {
         "icon": "fa-facebook",
-        "message": "Facebook recived +33 unique likes",
-        "time": "4 hrs ago...",
+        "message": "预警内容内容内容内容内容内容内容内容",
+        "time": "10:47 2017-11-22",
         "type": "notification"
       },
       {
         "icon": "fa-check",
-        "message": "2 projects were completed on time! Submitted for your approval - Click here",
-        "time": "1 day ago...",
+        "message": "预警内容内容内容内容内容内容内容内容",
+        "time": "10:47 2017-11-22",
         "type": "notification"
       }
     ]
   },
   {
-    "title": "Tasks",
+    "title": "待办事项",
     "name": "tasks",
     "data": [
       {
-        "status": "URGENT",
+        "status": "标题",
         "type": "task",
         "size": "progress-md progress-striped",
-        "title": "Upgrade Infestructure",
+        "title": "内容内容",
         "width": 85,
         "last_update": "12/12/2015"
       },
       {
-        "status": "URGENT",
+        "status": "标题",
         "type": "task",
         "size": "progress-sm",
-        "title": "Code foundation",
+        "title": "内容",
         "width": 65,
         "last_update": "12/12/2015"
       },

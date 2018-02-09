@@ -204,7 +204,12 @@
                                 <td>{{ ul.u_position}}</td>
                                 <td>{{ ul.department_name}}</td>
                                 <td>{{ ul.u_phone }}</td>
-                                <td>{{ (ul.u_status == 1)?'正常':'无效'}}</td>
+                                <td>
+                                   <span [ngSwitch]="ul.u_status">
+                                      <span class="label-normal" *ngSwitchCase="1">正常</span>
+                                      <span class="label-invalid" *ngSwitchCase="2">无效</span>
+                                   </span>
+                                </td>
                               </tr>
                               </tbody>
                             </table>
@@ -292,7 +297,7 @@
                     <td class="">{{user_info.result?.u_position}}</td>
                   </tr>
                   <tr>
-                    <td class="width-120">人员类别:</td>
+                    <td class="width-120">角色:</td>
                     <td class="" [ngSwitch]="user_info.result?.u_role">
                       <span *ngSwitchCase="1">超级管理员</span>
                       <span *ngSwitchCase="2">管理员</span>

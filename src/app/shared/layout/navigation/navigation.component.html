@@ -30,10 +30,7 @@
           <li routerLinkActive="active">
             <a routerLink="/tables/staff">{{'员工档案' | i18n}}</a>
           </li>
-          <!--<li routerLinkActive="active">-->
-            <!--<a routerLink="/app-views/profile"><i class="fa fa-group"></i>-->
-              <!--{{'员工详情页' | i18n}}</a>-->
-          <!--</li>-->
+
           <li routerLinkActive="active" *ngIf="is_admin!='0'">
             <a routerLink="/forms/employees/0">{{'添加员工' | i18n}}</a>
           </li>
@@ -49,7 +46,7 @@
 
       <li>
         <a href="#"><i class="fa fa-lg fa-fw fa-cubes"></i> <span
-                class="menu-item-parent">{{'产品管理' | i18n}}</span></a>
+                class="menu-item-parent">{{'商品管理' | i18n}}</span></a>
         <ul>
           <li routerLinkActive="active">
             <a routerLink="/management/setting-archives">{{'商品档案' | i18n}}</a>
@@ -191,7 +188,7 @@
             <a routerLink="/management/setting-affiliation">{{'项目设置' | i18n}}</a>
           </li>
           <li routerLinkActive="active">
-            <a routerLink="/management/setting-personnel">{{'人员类别' | i18n}}</a>
+            <a routerLink="/management/setting-personnel">{{'角色设置' | i18n}}</a>
           </li>
           <li *ngIf="is_admin=='1'">
             <a href="#"><i class="fa fa-lg fa-fw fa-suitcase"></i> <span
@@ -261,16 +258,33 @@
 
         </ul>
       </li>
+
       <li>
-        <a href="#"><i class="fa fa-lg fa-fw  fa-cog"></i> <span
-                class="menu-item-parent">{{'设置' | i18n}}</span></a>
+        <a href="#"><i class="fa fa-lg fa-fw  fa-credit-card"></i> <span
+                class="account">{{'账户管理' | i18n}}</span></a>
         <ul>
           <li routerLinkActive="active">
-            <a routerLink="/tables/normal">{{'公司信息' | i18n}}</a>
+            <a routerLink="/account/account-company">{{'公司信息' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/account/account-personal">{{'个人信息' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/account/account-password">{{'修改密码' | i18n}}</a>
           </li>
 
         </ul>
       </li>
+      <!--<li>
+      <a href="#"><i class="fa fa-lg fa-fw  fa-cog"></i> <span
+              class="menu-item-parent">{{'设置' | i18n}}</span></a>
+      <ul>
+        <li routerLinkActive="active">
+          <a routerLink="/tables/normal">{{'公司信息' | i18n}}</a>
+        </li>
+
+      </ul>
+    </li>-->
       <li *ngIf="is_admin=='1'">
         <a href="#"><i class="fa fa-lg fa-fw  fa-th txt-color-blue"></i> <span
                 class="menu-item-parent">{{'收藏夹' | i18n}}</span></a>
@@ -354,7 +368,10 @@
               </li>
             </ul>
           </li>
-
+          <li routerLinkActive="active">
+          <a routerLink="/app-views/profile"><i class="fa fa-group"></i>
+          {{'员工详情页' | i18n}}</a>
+          </li>
           <li routerLinkActive="active">
             <a routerLink="/graphs/tree-views">{{'部门参考' | i18n}}</a>
           </li>

@@ -173,10 +173,11 @@
                   <tr>
                     <td class="width-120">仓库状态:</td>
                     <td class="" [ngSwitch]="storehouse_info.result?.storehouse_status">
-                      <span *ngSwitchCase="1">正常</span>
-                      <span *ngSwitchCase="2">维修</span>
-                      <span *ngSwitchCase="3">满仓</span>
-                      <span *ngSwitchDefault>未知</span>
+                      <span class="label-normal " *ngSwitchCase="1">正常</span>
+                      <span class="label-maintain" *ngSwitchCase="2">维修</span>
+                      <span class="label-full" *ngSwitchCase="3">满仓</span>
+                      <span class="label-invalid">无效</span>
+                      <span class="label-unknown" *ngSwitchDefault>未知</span>
                     </td>
                     <td class="width-120">负责人:</td>
                     <td class="">{{storehouse_info.result?.u_username}}</td>

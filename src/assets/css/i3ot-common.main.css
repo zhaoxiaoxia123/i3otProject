@@ -335,6 +335,9 @@ a,button,input {
     bottom: 0;
     right: 0
 }
+.air-right{
+    right:2px;
+}
 .notification-body>li:hover .text-muted {
     color: #333
 }

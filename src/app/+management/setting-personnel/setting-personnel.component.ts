@@ -41,7 +41,7 @@ export class SettingPersonnelComponent implements OnInit {
         private cookieStoreService:CookieStoreService,
         private globalService:GlobalService) {
 
-        let nav = '{"title":"人员类别","url":"/management/setting-affiliation","class_":"active"}';
+        let nav = '{"title":"角色","url":"/management/setting-affiliation","class_":"active"}';
         this.globalService.navEventEmitter.emit(nav);
         this.getCategoryList('1');
         window.scrollTo(0,0);
@@ -53,7 +53,7 @@ export class SettingPersonnelComponent implements OnInit {
     }
 
     /**
-     * 获取人员类别列表  19
+     * 获取角色列表  19
      * @param number
      */
     getCategoryList(number:string) {
@@ -73,15 +73,15 @@ export class SettingPersonnelComponent implements OnInit {
     }
 
     /**
-     * 添加人员类别信息
+     * 添加角色信息
      */
     addCategory(){
         if(this.category_number.trim() == ''){
-            alert('请输入人员类别编号！');
+            alert('请输入角色编号！');
             return false;
         }
         if(this.category_desc.trim() == ''){
-            alert('请输入人员类别标题！');
+            alert('请输入角色标题！');
             return false;
         }
         this.http.post(this.globalService.getDomain()+'/api/v1/addCategory',{
@@ -108,7 +108,7 @@ export class SettingPersonnelComponent implements OnInit {
     }
 
     /**
-     * 编辑人员类别信息
+     * 编辑角色信息
      * @param category_id
      */
     editCategory(category_id:number){
@@ -126,11 +126,11 @@ export class SettingPersonnelComponent implements OnInit {
     }
 
     /**
-     * 删除人员类别信息
+     * 删除角色信息
      * @param category_id
      */
     deleteCategory(category_id:number){
-        let msg = '您确定要删除该人员类别信息吗？';
+        let msg = '您确定要删除该角色信息吗？';
         if(confirm(msg)) {
             let url = this.globalService.getDomain()+'/api/v1/deleteCategory?category_id=' + category_id + '&number=1&category_type='+this.category_type+'&sid=' + this.cookieStoreService.getCookie('sid');
             this.http.delete(url)

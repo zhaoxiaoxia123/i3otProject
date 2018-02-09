@@ -8,7 +8,7 @@
         },
         {
             "username": "Jessica Dolof",
-            "picture": "assets/img/avatars/1.png",
+            "picture": "assets/img/avatars/female.png",
             "status": "online",
             "role": "Sales Administrator"
         },
@@ -20,7 +20,7 @@
         },
         {
             "username": "Barley Krazurkth",
-            "picture": "assets/img/avatars/4.png",
+            "picture": "assets/img/avatars/female.png",
             "status": "away",
             "role": "Sales Director"
         },

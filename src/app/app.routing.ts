@@ -80,6 +80,11 @@ export const routes: Routes = [
             path: 'assets-management',
             loadChildren: 'app/+assets-management/assets-management.module#AssetsManagementModule',
             data: {pageTitle: 'AssetsManagement'}
+        },
+        {
+            path: 'account',
+            loadChildren: 'app/+account/account.module#AccountModule',
+            data: {pageTitle: 'Account'}
         }
     ]
   },

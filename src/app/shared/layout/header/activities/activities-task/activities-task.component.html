@@ -19,6 +19,6 @@
     <div class="progress" [class]="item.size">
       <div [ngClass]="setProgressClasses()" [style.width]="item.width + '%'"></div>
     </div>
-    <em class="note no-margin">last updated on {{lastUpdate | moment: "MMMM Do, h:mm a"}}</em>
+    <em class="note no-margin">最后更新的时间 {{lastUpdate | moment: "MMMM Do, h:mm a"}}</em>
   </div>
 </span>
