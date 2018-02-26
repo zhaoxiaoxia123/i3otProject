@@ -1,7 +1,253 @@
 <div id="content">
-  <!--<div class="row">
-    <sa-big-breadcrumbs [items]="['客户管理', '单位分类']" icon="pencil-square-o" ></sa-big-breadcrumbs>
-  </div>-->
+
+
+
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-sm-12 ">
+        <sa-widget [editbutton]="false" [deletebutton]="false" [colorbutton]="false">
+          <header>
+            <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+            <h2>单位分类</h2>
+          </header>
+
+          <div>
+            <div class="widget-body no-padding" >
+              <div  class="row">
+                <article  class="col-sm-12">
+                  <div class="navbar navbar-default">
+                    <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
+
+                      <div class="form-group pdlr-4">
+                        <a class="btn btn-success btn-sm"  data-toggle="modal" data-target="#myModal">
+                          <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
+                      </div>
+                      <div class="form-group pdlr-4">
+                        <a class="btn default-btn btn-sm"   data-toggle="modal" data-target="#myModal">
+                          <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
+                      </div>
+                      <div class="form-group pdlr-4">
+                        <a class="btn default-btn btn-sm" >
+                          <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
+                      </div>
+                      <div class="form-group btn-group pdlr-4">
+                        <a class="btn default-btn btn-sm dropdown-toggle"  data-toggle="dropdown">
+                          <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
+
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a ><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
+                        </ul>
+                      </div>
+                    </form>
+                    <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
+                      <div class="form-group pdlr-4">
+                        <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" name="" placeholder="请输入搜索内容" type="text">
+                      </div>
+                      <div class="form-group pdlr-4">
+                        <button class="btn btn-default" type="submit">
+                          <i  class="glyphicon glyphicon-search"></i>
+                          搜索
+                        </button>
+                      </div>
+                    </form>
+
+                  </div>
+                </article>
+              </div>
+
+
+              <div class="pt">
+                <article class="form-group col col-xs-4">
+                  <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                             [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+                    <div>
+                      <div class="widget-body no-padding">
+                        <alert type="info" class="no-margin">
+                          <i class="fa-fw fa fa-sitemap"></i>
+                          单位分类
+                        </alert>
+                        <div class="pd-10">
+                          <div class="widget-body">
+                            <div class="tree smart-form">
+                              <ul class="">
+                                <li class=" parent_li">
+                                  <span>
+                                    <label class="checkbox inline-block tree-label pt-12 ">
+                                          <input name="checkbox-inline" type="checkbox"><i></i>
+                                   </label>
+                                    <i class="fa fa-lg fa-folder-open"></i>全部
+                                    <i class="sa-icon fa fa-lg fa-minus-circle"></i>
+                                  </span>
+                                  <ul class="">
+                                    <li class=" parent_li">
+                                        <span>
+                                          <label class="checkbox inline-block tree-label ">
+                                            <input name="checkbox-inline" type="checkbox">
+                                            <i></i>智慧环保
+                                            <em class="txt-color-blue">(0)</em>
+                                          </label>
+
+                                        </span>
+                                    </li>
+                                    <li class=" parent_li">
+                                        <span>
+                                          <label class="checkbox inline-block tree-label ">
+                                            <input name="checkbox-inline" type="checkbox">
+                                            <i></i>智慧城市
+                                            <em class="txt-color-blue">(0)</em>
+                                          </label>
+
+                                        </span>
+                                    </li>
+                                    <li class=" parent_li">
+                                        <span>
+                                          <label class="checkbox inline-block tree-label ">
+                                            <input name="checkbox-inline" type="checkbox">
+                                            <i></i>电子元器件
+                                            <em class="txt-color-blue">(1)</em>
+                                          </label>
+                                           <i class="sa-icon fa fa-lg fa-plus-circle"></i>
+                                        </span>
+                                      <ul class="">
+                                        <li>
+                                            <span>
+                                              <label class="checkbox inline-block tree-label">
+                                                <input name="checkbox-inline" type="checkbox">
+                                                <i></i>寄存器供应商
+                                                <em class="txt-color-blue">(0)</em>
+                                              </label>
+                                            </span>
+                                        </li>
+                                      </ul>
+
+                                    </li>
+                                    <li class=" parent_li">
+                                        <span>
+                                          <label class="checkbox inline-block tree-label ">
+                                            <input name="checkbox-inline" type="checkbox">
+                                            <i></i>智慧农业
+                                            <em class="txt-color-blue">(2)</em>
+                                          </label>
+                                        </span>
+                                    </li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </sa-widget>
+                </article>
+                <article class="form-group col col-xs-8">
+                  <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                             [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+                    <div>
+                      <div class="widget-body no-padding">
+                        <alert type="info" class="no-margin" >
+                          <i class="fa-fw fa fa-spoon"></i>
+                          商品分类列表
+                        </alert>
+                        <div class="mt-10" style="padding:0;">
+                          <div style="padding: 0;z-index: 2;" class="table-responsive">
+                            <table class="table table-striped  smart-form">
+                              <thead>
+                              <tr >
+                                <td><label class="checkbox">
+                                  <input type="checkbox" name="checkbox-inline" >
+                                  <i></i>
+                                </label>
+                                </td>
+                                <th>分类编码</th>
+                                <th>分类名称</th>
+                                <th>单位类别</th>
+                                <th>上级分类</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr class="">
+                                <td>
+                                  <label class="checkbox">
+                                    <input type="checkbox" >
+                                    <i></i>
+                                  </label>
+                                </td>
+                                <td>1</td>
+                                <td>四川矿业有限公司</td>
+                                <td>四川</td>
+                                <td>2155</td>
+                              </tr>
+                              <tr class="">
+                                <td>
+                                  <label class="checkbox">
+                                    <input type="checkbox" >
+                                    <i></i>
+                                  </label>
+                                </td>
+                                <td>1</td>
+                                <td>四川矿业有限公司</td>
+                                <td>四川</td>
+                                <td>2155</td>
+                              </tr>
+                              <tr class="table-color">
+                                <td>
+                                  <label class="checkbox">
+                                    <input type="checkbox" >
+                                    <i></i>
+                                  </label>
+                                </td>
+                                <td>1</td>
+                                <td>四川</td>
+                                <td>四川矿业有限公司</td>
+                                <td>2155</td>
+                              </tr>
+
+
+                              </tbody>
+                            </table>
+
+                          </div>
+                        </div>
+                        <!-- 底部-（分页部分）-->
+                        <div class="dt-toolbar">
+                          <div class="col-xs-12 col-sm-6">
+                            <span>共5条</span>
+                          </div>
+                          <div class="hidden-xs right">
+                            <ul class="pagination pagination-sm">
+                              <li *ngFor="let p of categoryList?.page" class="{{p.class}}">
+                                <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+                                <a *ngIf="p.method==''">{{p.text}}</a>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </sa-widget>
+                  <!-- end widget -->
+                </article>
+              </div>
+
+
+
+
+            </div>
+
+
+
+
+
+          </div>
+
+        </sa-widget>
+      </article>
+    </div>
+  </sa-widgets-grid>
+
+
+
 
   <sa-widgets-grid>
     <div class="row">
@@ -148,4 +394,71 @@
  </div>
 
 
+
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- 关闭按钮 -->
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          ×
+        </button>
+        <!-- 标题 -->
+        <h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>添加单位分类</h3>
+        <h3 class="modal-title  color-yellow" data-ng-bind='results.title'><i class="glyphicon glyphicon-pencil"></i>修改单位分类</h3>
+      </div>
+      <div class="modal-body">
+        <div class="row mt-20">
+          <form class="smart-form " [formGroup]="formModel" (ngSubmit)="onSubmit()">
+            <input type="hidden" name="category_id" formControlName="category_id">
+            <fieldset>
+              <section>
+                <label class="label txt-color-blue">分类编号<span class="asterisk-color">*</span></label>
+                <label class="input">
+                  <input type="text"  placeholder="分类编号" name="category_number" formControlName="category_number" >
+                </label>
+              </section>
+              <section>
+                <label class="label txt-color-blue">分类名称<span class="asterisk-color">*</span></label>
+                <label class="input">
+                  <input type="text" placeholder="请输分类名称"  name="category_desc" formControlName="category_desc" >
+                </label>
+              </section>
+              <section>
+                <label class="label txt-color-blue">单位类别<span class="asterisk-color">*</span></label>
+                <label class="select">
+                  <select name="category_tab" formControlName="category_tab" [(ngModel)]="category_tab_default">
+                    <option disabled="" selected="" value="0" >请选择单位类别</option>
+                    <option value="3" >供应商</option>
+                    <option value="4" >客户</option>
+                  </select> <i></i> </label>
+              </section>
+              <section>
+                <label class="label ">上级分类</label>
+                <!--<label class="input">-->
+                <!--<i class="icon-append glyphicon glyphicon-search cursor-pointer" data-toggle="modal" data-target="#myModal"></i>-->
+                <!--<input type="text" placeholder="请输分类名称" >-->
+                <!--</label>-->
+
+                <label class="select">
+                  <select name="category_depth" formControlName="category_depth" [(ngModel)]="category_depth_default">
+                    <option [selected]="category_id == 0" value="0">一级分类</option>
+                    <option *ngFor="let c of categoryDefault?.result" [selected]="categoryInfo.result?.category_depth == c.category_id" value="{{ c.category_id }}">{{c.category_desc}}</option>
+                  </select><i></i>
+                </label>
+              </section>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-success btn-sm" type="button"><span class="glyphicon glyphicon-plus"></span>保存并新增</button>
+        <button type="button" class="btn btn-primary" data-ng-click="ok()">保存</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+      </div>
+    </div>
+  </div>
+</div>
 

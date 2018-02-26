@@ -16,6 +16,11 @@ export const routes: Routes = [
         loadChildren: 'app/+inventory-management/add-requisition/add-requisition.module#AddRequisitionModule',
         data: {pageTitle: 'AddRequisition'}
     },
+    {
+        path: 'commodity-classify',
+        loadChildren: 'app/+inventory-management/commodity-classify/commodity-classify.module#CommodityClassifyModule',
+        data: {pageTitle: 'CommodityClassify'}
+    },
 ];
 
 export const routing = RouterModule.forChild(routes);
