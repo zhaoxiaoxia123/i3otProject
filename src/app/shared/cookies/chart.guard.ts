@@ -5,11 +5,11 @@ import {StationChartComponent} from "../../+equipment/station-chart/station-char
  */
 export class ChartGuard implements CanDeactivate<StationChartComponent>{
     canDeactivate ( chartComponent:StationChartComponent ){
-        if(window.confirm( '离开此页面将停止对最新数据的显示，您确定要离开此页面吗？')) {
+        // if(window.confirm( '离开此页面将停止对最新数据的显示，您确定要离开此页面吗？')) {
             chartComponent.ngOnDestroy();
             return true;
-        }else{
-            return false;
-        }
+        // }else{
+        //     return false;
+        // }
     }
 }

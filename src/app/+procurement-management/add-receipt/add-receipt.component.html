@@ -103,11 +103,8 @@
                           <a class="btn btn-default btn-sm pb-6" type="button"><i class="fa fa-link"></i>
                             刷新
                           </a>
-
                         </div>
                       </div>
-
-
                     </section>
                   </div>
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
@@ -131,11 +128,8 @@
                           <a class="btn btn-default btn-sm pb-6" type="button"><i class="fa fa-link"></i>
                             刷新
                           </a>
-
                         </div>
                       </div>
-
-
                     </section>
                   </div>
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
@@ -161,8 +155,6 @@
                           </a>
                         </div>
                       </div>
-
-
                     </section>
                   </div>
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
@@ -241,19 +233,20 @@
                             <tbody>
                             <tr *ngFor="let p of selectProductList;let ind = index;">
                               <td style=" width: 112px;">
-                                <a *ngIf="isDetail!='detail'" class="btn btn-warning btn-xs"  ><span class="glyphicon glyphicon-plus"></span>添加</a>
+                                <!--<a *ngIf="isDetail!='detail'" class="btn btn-warning btn-xs"  ><span class="glyphicon glyphicon-plus"></span>添加</a>-->
                                 <a *ngIf="isDetail!='detail'" class="btn btn-danger btn-xs" (click)="removeInput(ind)"><span class="glyphicon glyphicon-remove"></span>删除</a>
                               </td>
                               <td>
-                                <form class="smart-form">
-                                  <section>
-                                    <label class="input">
-                                      <i *ngIf="isDetail!='detail'" class="icon-append glyphicon glyphicon-search cursor-pointer" (click)="searchKey(1)"></i><!-- data-toggle="modal" data-target="#myModal"-->
-                                      <input *ngIf="isDetail=='detail'" disabled="disabled" type="text" placeholder="" name="keyword" [ngModelOptions]="{standalone: true}" [(ngModel)]="keyword">
-                                      <input *ngIf="isDetail!='detail'" type="text" placeholder="" name="keyword" [ngModelOptions]="{standalone: true}" [(ngModel)]="keyword">
-                                    </label>
-                                  </section>
-                                </form>
+                                {{p.p_name}}
+                                <!--<form class="smart-form">-->
+                                  <!--<section>-->
+                                    <!--<label class="input">-->
+                                      <!--<i *ngIf="isDetail!='detail'" class="icon-append glyphicon glyphicon-search cursor-pointer" (click)="searchKey(1)"></i>&lt;!&ndash; data-toggle="modal" data-target="#myModal"&ndash;&gt;-->
+                                      <!--<input *ngIf="isDetail=='detail'" disabled="disabled" type="text" placeholder="" name="keyword" [ngModelOptions]="{standalone: true}" [(ngModel)]="keyword">-->
+                                      <!--<input *ngIf="isDetail!='detail'" type="text" placeholder="" name="keyword" [ngModelOptions]="{standalone: true}" [(ngModel)]="keyword">-->
+                                    <!--</label>-->
+                                  <!--</section>-->
+                                <!--</form>-->
                               </td>
                             </tr>
                             </tbody>

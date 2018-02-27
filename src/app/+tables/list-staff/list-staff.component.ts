@@ -160,8 +160,10 @@ export class ListStaffComponent implements OnInit {
             } else {
               this.prev = false;
             }
-            for (let entry of this.userList['result']['userList']['data']) {
-              this.selects[entry['id']] = false;
+            if(this.userList['result']['userList']) {
+              for (let entry of this.userList['result']['userList']['data']) {
+                this.selects[entry['id']] = false;
+              }
             }
             this.check = false;
             console.log(this.selects);

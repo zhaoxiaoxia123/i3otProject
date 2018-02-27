@@ -256,7 +256,8 @@ export class AddSalesComponent implements OnInit {
           if(!this.lgModal.isShown){
               this.lgModal.show();
           }
-          if (this.searchProductList && this.searchProductList['result']['productList'].length > 0) {
+
+          if (this.searchProductList && this.searchProductList['result']['productList']['data'].length > 0) {
             if (this.searchProductList['result']['productList']['current_page'] == this.searchProductList['result']['productList']['last_page']) {
                 this.next = true;
             } else {
@@ -267,12 +268,13 @@ export class AddSalesComponent implements OnInit {
             } else {
                 this.prev = false;
             }
-
-          for (let entry of this.searchProductList['result']['productList']['data']) {
-              this.selects[entry['p_id']] = false;
-          }
+              for (let entry of this.selectProductList) {
+                  this.selects[entry['p_id']] = true;
+              }
           this.check = false;
         }
+        console.log('this.selects:----');
+        console.log(this.selects);
     });
   }
 
