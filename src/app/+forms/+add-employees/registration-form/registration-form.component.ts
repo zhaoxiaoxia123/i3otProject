@@ -39,7 +39,7 @@ export class RegistrationFormComponent implements OnInit {
   role_default : number;
   gender_default : number;
   c_id_default : number;
-  department_default : number;
+  department_default : any = '0';
   title_default: number = 0;
   contract_type_default : number;
   birthplace1_default : number;
@@ -260,7 +260,7 @@ export class RegistrationFormComponent implements OnInit {
             this.role_default = 2;
             this.gender_default = 1;
             this.c_id_default = this.userList['result']['customerList'].length >= 1 ? this.userList['result']['customerList'][0]['c_id'] : 0;
-            this.department_default = this.userList['result']['departmentList'].length >= 1 ? this.userList['result']['departmentList'][0]['department_id'] : 0;
+            this.department_default = '0';//this.userList['result']['departmentList'].length >= 1 ? this.userList['result']['departmentList'][0]['department_id'] : 0;
             this.title_default = this.userList['result']['titleList'].length >= 1 ? this.userList['result']['titleList'][0]['category_id'] : 0;
 
             this.contract_type_default = this.userList['result']['contractTypeList'].length >= 1 ? this.userList['result']['contractTypeList'][0]['category_id'] : 0;

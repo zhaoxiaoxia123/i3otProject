@@ -14,11 +14,11 @@
                   <div class="navbar navbar-default">
                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
                       <div class="form-group pdlr-4">
-                        <a class="btn btn-success btn-sm" (click)="detailDepartment('add')" >
+                        <a class="btn btn-success btn-sm" (click)="detailDepartment('add',0)" >
                           <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
                       </div>
                       <div class="form-group pdlr-4">
-                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailDepartment('edit')">
+                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailDepartment('edit',0)">
                           <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
                       </div>
                       <div class="form-group pdlr-4">
@@ -26,7 +26,7 @@
                           <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
                       </div>
                       <div class="form-group pdlr-4">
-                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailDepartment('detail')" >
+                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailDepartment('detail',0)" >
                           <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
                       </div>
                       <div class="form-group pdlr-4" *ngIf="isStatus == 2">

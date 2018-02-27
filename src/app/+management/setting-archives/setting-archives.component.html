@@ -18,7 +18,7 @@
                   <div class="navbar navbar-default">
                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
                       <div class="form-group pdlr-4">
-                        <a class="btn btn-success btn-sm" (click)="lgModal.show();">
+                        <a class="btn btn-success btn-sm" (click)="getAddProductDefault();">
                           <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
                       </div>
                       <div class="form-group pdlr-4">
@@ -310,9 +310,9 @@
                                   <label class="select">
                                     <select class="input-sm" name="p_category_id" [(ngModel)]="p_category_id" [disabled]="isDetail=='detail'">
                                       <option [selected]="p_id == 0" value="0">--请选择--</option>
-                                      <option *ngFor="let c of productDefault.result?.categoryListForAdd" [selected]="productInfo.result?.p_category_id == c.category_id" value="{{ c.category_id }}">
-                                        <b *ngIf="c.category_depth == 0">{{c.category_desc}}</b>
-                                        <b *ngIf="c.category_depth != 0">--{{c.category_desc}}</b>
+                                      <option *ngFor="let c of addProductDefault?.result?.categoryListForAdd" [selected]="productInfo?.result?.p_category_id == c.category_id" value="{{ c.category_id }}" [disabled]="(c.category_depth == 0 && c.child_count > 0) ? 'disabled' : false" [ngStyle]="{'font-weight':((c.category_depth == 0) ? 'bold' : 'normal'),'color':((c.category_depth == 0 && c.child_count > 0) ? 'black' : '#404040')}">
+                                        <strong *ngIf="c.category_depth == 0">{{c.category_desc}}</strong>
+                                        <span *ngIf="c.category_depth != 0">--{{c.category_desc}}</span>
                                       </option>
                                     </select><i></i>
                                   </label>
