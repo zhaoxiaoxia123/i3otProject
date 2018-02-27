@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
 import {ModalDirective} from "ngx-bootstrap";
+import {NotificationService} from "../../shared/utils/notification.service";
 
 @Component({
   selector: 'app-unit-list',
@@ -75,7 +76,8 @@ export class UnitListComponent implements OnInit {
         private http:Http,
         private router : Router,
         private cookieStoreService:CookieStoreService,
-        private globalService:GlobalService) {
+        private globalService:GlobalService,
+        private notificationService: NotificationService) {
 
         let nav = '{"title":"往来客户或单位","url":"/customer-management/unit-list","class_":"active"}';
         this.globalService.navEventEmitter.emit(nav);
@@ -507,6 +509,19 @@ export class UnitListComponent implements OnInit {
                     this.router.navigate(['/auth/login']);
                 }
             });
+    }
+
+
+    //添加按钮
+    smartModEg1() {
+        this.notificationService.smartMessageBox({
+            title: "添加",
+            content: "请在新页面添加选项，添加完成后在当前页面点击<i class='fa fa-link'></i>刷新按钮继续选择（注：刷新按钮只是局部刷新）",
+            buttons: '[取消][确定]'
+        }, (ButtonPressed) => {
+            if (ButtonPressed === "Yes") {
+            }
+        });
     }
 
 }
