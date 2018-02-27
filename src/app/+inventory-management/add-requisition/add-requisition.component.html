@@ -4,7 +4,7 @@
       <article class="col-sm-12 ">
         <sa-widget [editbutton]="false" [deletebutton]="false" >
           <header *ngIf="stock_allot_id == 0">
-            <span class="widget-icon"> <i class="glyphicon glyphicon-zoom-in"></i> </span>
+            <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
             <h2 >添加调拨单</h2>
           </header>
           <header *ngIf="stock_allot_id != 0 && isDetail!='detail'">
@@ -56,18 +56,30 @@
                     </section>
                   </div>
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <label class="label">经手人</label>
                     <section>
-                      <label class="label">经手人</label>
-                      <label class="select">
+                      <div class="input-group">
+                        <label   class="select form-control border-0">
                           <select *ngIf="isDetail=='detail'" disabled="disabled" name="user_u_id" formControlName="user_u_id" [(ngModel)]="user_u_id_default" (change)="getDepartment($event,1)">
                             <option [selected]="stock_allot_id == 0" value="0">--请选择--</option>
                             <option *ngFor="let u of stockallotList.result?.user" [selected]="stockallotInfo.result?.user_u_id == u.id" value="{{ u.id }}">{{u.u_username}}</option>
                           </select>
-                        <select *ngIf="isDetail!='detail'" name="user_u_id" formControlName="user_u_id" [(ngModel)]="user_u_id_default" (change)="getDepartment($event,1)">
-                          <option [selected]="stock_allot_id == 0" value="0">--请选择--</option>
-                          <option *ngFor="let u of stockallotList.result?.user" [selected]="stockallotInfo.result?.user_u_id == u.id" value="{{ u.id }}">{{u.u_username}}</option>
-                        </select><i></i>
-                      </label>
+                          <select *ngIf="isDetail!='detail'" name="user_u_id" formControlName="user_u_id" [(ngModel)]="user_u_id_default" (change)="getDepartment($event,1)">
+                            <option [selected]="stock_allot_id == 0" value="0">--请选择--</option>
+                            <option *ngFor="let u of stockallotList.result?.user" [selected]="stockallotInfo.result?.user_u_id == u.id" value="{{ u.id }}">{{u.u_username}}</option>
+                          </select><i></i>
+                        </label>
+                        <div class="input-group-btn">
+                          <a  href="http://cn.i3ot.com/#/forms/employees/0" target="_blank" (click)="smartModEg1()" class="btn btn-default btn-sm pb-6" type="button">
+                            <!-- <i class="fa fa-plus "></i>--> 添加
+                          </a>
+                          <a class="btn btn-default btn-sm pb-6" type="button"><i class="fa fa-link"></i>
+                            刷新
+                          </a>
+
+                        </div>
+                      </div>
+
                     </section>
                   </div>
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">

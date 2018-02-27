@@ -60,12 +60,25 @@
                     </section>
                   </div>-->
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <label class="label "> 负责人</label>
                     <section >
-                      <label class="label "> 负责人</label>
-                      <label class="select">
-                        <select name="u_id" formControlName="u_id" [(ngModel)]="u_id_default">
-                          <option *ngFor="let u of storehouseList.result?.userList" [selected]="storehouse_info.result?.u_id == u.id || this.storehouse_id == 0" value="{{u.id}}">{{u.u_username}}</option>
-                        </select> <i></i> </label>
+                      <div class="input-group">
+                        <label   class="select form-control border-0">
+                          <select name="u_id" formControlName="u_id" [(ngModel)]="u_id_default">
+                            <option *ngFor="let u of storehouseList.result?.userList" [selected]="storehouse_info.result?.u_id == u.id || this.storehouse_id == 0" value="{{u.id}}">{{u.u_username}}</option>
+                          </select> <i></i> </label>
+                        <div class="input-group-btn">
+                          <a  href="http://cn.i3ot.com/#/forms/employees/0" target="_blank" (click)="smartModEg1()" class="btn btn-default btn-sm pb-6" type="button">
+                            <!-- <i class="fa fa-plus "></i>--> 添加
+                          </a>
+                          <a class="btn btn-default btn-sm pb-6" type="button"><i class="fa fa-link"></i>
+                            刷新
+                          </a>
+
+                        </div>
+                      </div>
+
+
                     </section>
                   </div>
                  <!-- <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">

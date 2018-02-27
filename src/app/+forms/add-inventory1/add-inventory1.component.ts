@@ -5,6 +5,7 @@ import {Http} from '@angular/http';
 import {ActivatedRoute,Router} from '@angular/router';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 import {GlobalService} from '../../core/global.service';
+import {NotificationService} from "../../shared/utils/notification.service";
 
 // @FadeInTop()
 @Component({
@@ -28,7 +29,8 @@ export class AddInventory1Component implements OnInit {
       private router : Router,
       private routInfo : ActivatedRoute,
       private cookieStore:CookieStoreService,
-      private globalService:GlobalService
+      private globalService:GlobalService,
+      private notificationService: NotificationService
   ) {
     let nav = '{"title":"添加仓库","url":"/forms/inventory1/0","class_":"active"}';
     this.globalService.navEventEmitter.emit(nav);
@@ -136,4 +138,15 @@ export class AddInventory1Component implements OnInit {
     );
   }
 
+    //添加按钮
+    smartModEg1() {
+        this.notificationService.smartMessageBox({
+            title: "添加",
+            content: "请在新页面添加选项，添加完成后在当前页面点击<i class='fa fa-link'></i>刷新按钮继续选择（注：刷新按钮只是局部刷新）",
+            buttons: '[取消][确定]'
+        }, (ButtonPressed) => {
+            if (ButtonPressed === "Yes") {
+            }
+        });
+    }
 }

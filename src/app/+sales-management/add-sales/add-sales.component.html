@@ -12,7 +12,7 @@
 
         <sa-widget [editbutton]="false" [deletebutton]="false" >
           <header *ngIf="pr_id == 0">
-            <span class="widget-icon"> <i class="glyphicon glyphicon-zoom-in"></i> </span>
+            <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
             <h2 >添加销售单</h2>
           </header>
           <header *ngIf="pr_id != 0 && isDetail!='detail'">
@@ -64,87 +64,150 @@
                     </section>
                   </div>
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <label class="label ">客户</label>
                     <section>
-                      <label class="label ">客户</label>
-                      <!--<label class="input">-->
+                      <div class="input-group">
+                        <!--<label class="input">-->
                         <!--<i class="icon-append glyphicon glyphicon-search cursor-pointer" data-toggle="modal" data-target="#myModal"></i>-->
                         <!--<input type="text" placeholder="" name="pr_order" formControlName="pr_order" >-->
-                      <!--</label>-->
-                      <label class="select">
-                        <select *ngIf="isDetail=='detail'" disabled="disabled" name="pr_supplier" formControlName="pr_supplier" [(ngModel)]="pr_supplier_default">
-                          <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
-                          <option *ngFor="let cus of purchaseList.result?.supplier" [selected]="purchaseInfo.result?.pr_supplier == cus.c_id" value="{{ cus.c_id }}">{{cus.c_name}}</option>
-                        </select>
-                        <select *ngIf="isDetail!='detail'" name="pr_supplier" formControlName="pr_supplier" [(ngModel)]="pr_supplier_default">
-                          <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
-                          <option *ngFor="let cus of purchaseList.result?.supplier" [selected]="purchaseInfo.result?.pr_supplier == cus.c_id" value="{{ cus.c_id }}">{{cus.c_name}}</option>
-                        </select><i></i>
-                      </label>
+                        <!--</label>-->
+                        <label   class="select form-control border-0">
+                          <select *ngIf="isDetail=='detail'" disabled="disabled" name="pr_supplier" formControlName="pr_supplier" [(ngModel)]="pr_supplier_default">
+                            <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                            <option *ngFor="let cus of purchaseList.result?.supplier" [selected]="purchaseInfo.result?.pr_supplier == cus.c_id" value="{{ cus.c_id }}">{{cus.c_name}}</option>
+                          </select>
+                          <select *ngIf="isDetail!='detail'" name="pr_supplier" formControlName="pr_supplier" [(ngModel)]="pr_supplier_default">
+                            <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                            <option *ngFor="let cus of purchaseList.result?.supplier" [selected]="purchaseInfo.result?.pr_supplier == cus.c_id" value="{{ cus.c_id }}">{{cus.c_name}}</option>
+                          </select><i></i>
+                        </label>
+                        <div class="input-group-btn">
+                          <a  href="http://cn.i3ot.com/#/customer-management/unit-list" target="_blank" (click)="smartModEg1()" class="btn btn-default btn-sm pb-6" type="button">
+                            <!-- <i class="fa fa-plus "></i>--> 添加
+                          </a>
+                          <a class="btn btn-default btn-sm pb-6" type="button"><i class="fa fa-link"></i>
+                            刷新
+                          </a>
+
+                        </div>
+
+                      </div>
+
+                    </section>
+                  </div>
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <label  class="label ">销售部门</label>
+                    <section>
+                      <div class="input-group">
+                        <label   class="select form-control border-0">
+                          <select *ngIf="isDetail=='detail'" disabled="disabled" name="pr_department" formControlName="pr_department" [(ngModel)]="pr_department_default" (change)="getUserList($event,1)">
+                            <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                            <option *ngFor="let d of purchaseList.result?.department" [selected]="purchaseInfo.result?.pr_department == d.category_id" value="{{ d.category_id}}">{{d.category_desc}}</option>
+                          </select>
+                          <select *ngIf="isDetail!='detail'" name="pr_department" formControlName="pr_department" [(ngModel)]="pr_department_default" (change)="getUserList($event,1)">
+                            <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                            <option *ngFor="let d of purchaseList.result?.department" [selected]="purchaseInfo.result?.pr_department == d.category_id" value="{{ d.category_id}}">{{d.category_desc}}</option>
+                          </select><i></i>
+                        </label>
+                        <div class="input-group-btn">
+                          <a  href="http://cn.i3ot.com/#/management/setting-departmentnew" target="_blank" (click)="smartModEg1()" class="btn btn-default btn-sm pb-6" type="button">
+                            <!-- <i class="fa fa-plus "></i>--> 添加
+                          </a>
+                          <a class="btn btn-default btn-sm pb-6" type="button"><i class="fa fa-link"></i>
+                            刷新
+                          </a>
+
+                        </div>
+                      </div>
+
+
+                    </section>
+                  </div>
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <label  class="label">销售员</label>
+                    <section>
+                      <div class="input-group">
+                        <label   class="select form-control border-0">
+                          <select *ngIf="isDetail=='detail'" disabled="disabled" name="pr_employee" formControlName="pr_employee" [(ngModel)]="pr_employee_default">
+                            <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                            <option *ngFor="let u of userList.result" [selected]="purchaseInfo.result?.pr_employee == u.id" value="{{ u.id }}">{{u.u_username}}</option>
+                          </select>
+                          <select *ngIf="isDetail!='detail'" name="pr_employee" formControlName="pr_employee" [(ngModel)]="pr_employee_default">
+                            <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                            <option *ngFor="let u of userList.result" [selected]="purchaseInfo.result?.pr_employee == u.id" value="{{ u.id }}">{{u.u_username}}</option>
+                          </select><i></i>
+                        </label>
+                        <div class="input-group-btn">
+                          <a  href="http://cn.i3ot.com/#/forms/employees/0" target="_blank" (click)="smartModEg1()" class="btn btn-default btn-sm pb-6" type="button">
+                            <!-- <i class="fa fa-plus "></i>--> 添加
+                          </a>
+                          <a class="btn btn-default btn-sm pb-6" type="button"><i class="fa fa-link"></i>
+                            刷新
+                          </a>
+
+                        </div>
+                      </div>
+
+
+                    </section>
+                  </div>
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <label class="label">默认仓库</label>
+                    <section>
+                      <div class="input-group">
+                        <label   class="select form-control border-0">
+                          <select *ngIf="isDetail=='detail'" disabled="disabled" name="storehouse_id" formControlName="storehouse_id" [(ngModel)]="storehouse_id_default">
+                            <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                            <option *ngFor="let s of purchaseList.result?.storehouse" [selected]="purchaseInfo.result?.storehouse_id == s.storehouse_id" value="{{s.storehouse_id }}">{{s.storehouse_name}}</option>
+                          </select>
+                          <select *ngIf="isDetail!='detail'" name="storehouse_id" formControlName="storehouse_id" [(ngModel)]="storehouse_id_default">
+                            <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                            <option *ngFor="let s of purchaseList.result?.storehouse" [selected]="purchaseInfo.result?.storehouse_id == s.storehouse_id" value="{{s.storehouse_id }}">{{s.storehouse_name}}</option>
+                          </select><i></i>
+                        </label>
+                        <div class="input-group-btn">
+                          <a  href="http://cn.i3ot.com/#/forms/inventory1/0" target="_blank" (click)="smartModEg1()" class="btn btn-default btn-sm pb-6" type="button">
+                            <!-- <i class="fa fa-plus "></i>--> 添加
+                          </a>
+                          <a class="btn btn-default btn-sm pb-6" type="button"><i class="fa fa-link"></i>
+                            刷新
+                          </a>
+                        </div>
+                      </div>
+
+
+                    </section>
+                  </div>
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <label class="label">销售类型</label>
+                    <section>
+                      <div class="input-group">
+                        <label   class="select form-control border-0">
+                          <select *ngIf="isDetail=='detail'" disabled="disabled" name="pr_category" formControlName="pr_category" [(ngModel)]="pr_category_default">
+                            <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                            <option *ngFor="let ca of purchaseList.result?.category" [selected]="purchaseInfo.result?.pr_category == ca.category_id" value="{{ca.category_id }}">{{ca.category_desc}}</option>
+                          </select>
+                          <select *ngIf="isDetail!='detail'" name="pr_category" formControlName="pr_category" [(ngModel)]="pr_category_default">
+                            <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                            <option *ngFor="let ca of purchaseList.result?.category" [selected]="purchaseInfo.result?.pr_category == ca.category_id" value="{{ca.category_id }}">{{ca.category_desc}}</option>
+                          </select><i></i>
+                        </label>
+                        <div class="input-group-btn">
+                          <a  href="http://cn.i3ot.com/#/sales-management/sales-type" target="_blank" (click)="smartModEg1()" class="btn btn-default btn-sm pb-6" type="button">
+                            <!-- <i class="fa fa-plus "></i>--> 添加
+                          </a>
+                          <a class="btn btn-default btn-sm pb-6" type="button"><i class="fa fa-link"></i>
+                            刷新
+                          </a>
+                        </div>
+                      </div>
+
+
                     </section>
                   </div>
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
                     <section>
-                      <label  class="label ">销售部门</label>
-                      <label class="select">
-                        <select *ngIf="isDetail=='detail'" disabled="disabled" name="pr_department" formControlName="pr_department" [(ngModel)]="pr_department_default" (change)="getUserList($event,1)">
-                          <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
-                          <option *ngFor="let d of purchaseList.result?.department" [selected]="purchaseInfo.result?.pr_department == d.category_id" value="{{ d.category_id}}">{{d.category_desc}}</option>
-                        </select>
-                        <select *ngIf="isDetail!='detail'" name="pr_department" formControlName="pr_department" [(ngModel)]="pr_department_default" (change)="getUserList($event,1)">
-                          <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
-                          <option *ngFor="let d of purchaseList.result?.department" [selected]="purchaseInfo.result?.pr_department == d.category_id" value="{{ d.category_id}}">{{d.category_desc}}</option>
-                        </select><i></i>
-                      </label>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <section>
-                      <label  class="label">销售员</label>
-                      <label class="select">
-                        <select *ngIf="isDetail=='detail'" disabled="disabled" name="pr_employee" formControlName="pr_employee" [(ngModel)]="pr_employee_default">
-                          <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
-                          <option *ngFor="let u of userList.result" [selected]="purchaseInfo.result?.pr_employee == u.id" value="{{ u.id }}">{{u.u_username}}</option>
-                        </select>
-                        <select *ngIf="isDetail!='detail'" name="pr_employee" formControlName="pr_employee" [(ngModel)]="pr_employee_default">
-                          <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
-                          <option *ngFor="let u of userList.result" [selected]="purchaseInfo.result?.pr_employee == u.id" value="{{ u.id }}">{{u.u_username}}</option>
-                        </select><i></i>
-                      </label>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <section>
-                      <label class="label">默认仓库</label>
-                      <label class="select">
-                        <select *ngIf="isDetail=='detail'" disabled="disabled" name="storehouse_id" formControlName="storehouse_id" [(ngModel)]="storehouse_id_default">
-                          <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
-                          <option *ngFor="let s of purchaseList.result?.storehouse" [selected]="purchaseInfo.result?.storehouse_id == s.storehouse_id" value="{{s.storehouse_id }}">{{s.storehouse_name}}</option>
-                        </select>
-                        <select *ngIf="isDetail!='detail'" name="storehouse_id" formControlName="storehouse_id" [(ngModel)]="storehouse_id_default">
-                          <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
-                          <option *ngFor="let s of purchaseList.result?.storehouse" [selected]="purchaseInfo.result?.storehouse_id == s.storehouse_id" value="{{s.storehouse_id }}">{{s.storehouse_name}}</option>
-                        </select><i></i>
-                      </label>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <section>
-                      <label class="label">销售类型</label>
-                      <label class="select">
-                        <select *ngIf="isDetail=='detail'" disabled="disabled" name="pr_category" formControlName="pr_category" [(ngModel)]="pr_category_default">
-                          <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
-                          <option *ngFor="let ca of purchaseList.result?.category" [selected]="purchaseInfo.result?.pr_category == ca.category_id" value="{{ca.category_id }}">{{ca.category_desc}}</option>
-                        </select>
-                        <select *ngIf="isDetail!='detail'" name="pr_category" formControlName="pr_category" [(ngModel)]="pr_category_default">
-                        <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
-                        <option *ngFor="let ca of purchaseList.result?.category" [selected]="purchaseInfo.result?.pr_category == ca.category_id" value="{{ca.category_id }}">{{ca.category_desc}}</option>
-                      </select><i></i>
-                      </label>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <section>
-                      <label  class="label">发运方式</label>
+                      <label  class="label">运输方式</label>
                       <label class="select">
                         <select *ngIf="isDetail=='detail'" disabled="disabled" name="pr_transport" formControlName="pr_transport" [(ngModel)]="pr_transport_default">
                           <option [selected]="this.pr_id == 0" value="0">--请选择--</option>

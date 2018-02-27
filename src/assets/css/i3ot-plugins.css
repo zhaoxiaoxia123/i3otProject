@@ -25,7 +25,9 @@
 .cursor-pointer {
     cursor: pointer
 }
-
+.border-0{
+    border: 0;
+}
 .hover-transparent {
     opacity: .5
 }
@@ -671,6 +673,9 @@ div.dataTables_paginate ul.pagination {
 
 .padding-bottom-10 {
     padding-bottom: 10px!important
+}
+.pb-6 {
+    padding-bottom: 6px!important
 }
 
 .padding-bottom-0 {
