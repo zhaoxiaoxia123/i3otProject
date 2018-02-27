@@ -234,21 +234,33 @@
                               </section>
                             </div>
                             <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                              <label class="label txt-color-blue">上级分类<span class="asterisk-color">*</span></label>
                               <section>
-                                <label class="label txt-color-blue">上级分类<span class="asterisk-color">*</span></label>
-                                <label class="select">
+                                <div class="input-group">
+                                  <label   class="select form-control border-0">
                                     <select class="input-sm" name="c_category_id" [(ngModel)]="c_category_id">
                                       <option [selected]="c_id == 0" value="0">--请选择--</option>
                                       <!--<option *ngFor="let c of customerDefault.result?.categoryList" [selected]="customerInfo.result?.c_category_id == c.category_id" value="{{ c.category_id }}">-->
-                                        <!--<b *ngIf="c.category_depth == 0">{{c.category_desc}}</b>-->
-                                        <!--<b *ngIf="c.category_depth != 0">&#45;&#45;{{c.category_desc}}</b>-->
+                                      <!--<b *ngIf="c.category_depth == 0">{{c.category_desc}}</b>-->
+                                      <!--<b *ngIf="c.category_depth != 0">&#45;&#45;{{c.category_desc}}</b>-->
                                       <!--</option>-->
                                       <option *ngFor="let c of unitCategoryList?.result?.categoryList" value="{{ c.category_id }}" [disabled]="(c.category_depth == 0 && c.child_count > 0) ? 'disabled' : false" [ngStyle]="{'font-weight':((c.category_depth == 0) ? 'bold' : 'normal'),'color':((c.category_depth == 0 && c.child_count > 0) ? 'black' : '#404040')}">
-                                      <strong *ngIf="c.category_depth == 0">{{c.category_desc}}</strong>
-                                      <span *ngIf="c.category_depth != 0">--{{c.category_desc}}</span>
+                                        <strong *ngIf="c.category_depth == 0">{{c.category_desc}}</strong>
+                                        <span *ngIf="c.category_depth != 0">--{{c.category_desc}}</span>
                                       </option>
                                     </select><i></i>
-                                </label>
+                                  </label>
+
+                                  <div class="input-group-btn">
+                                    <a  href="http://cn.i3ot.com/#/customer-management/unit-classify" target="_blank" (click)="smartModEg1()" class="btn btn-default btn-sm pb-6" type="button">
+                                      <!-- <i class="fa fa-plus "></i>--> 添加
+                                    </a>
+                                    <a class="btn btn-default btn-sm pb-6" type="button"><i class="fa fa-link"></i>
+                                      刷新
+                                    </a>
+                                  </div>
+                                </div>
+
                               </section>
                             </div>
                             <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -384,14 +396,28 @@
                         <form class="smart-form ">
                           <fieldset>
                             <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                              <label class="label txt-color-blue">业务员<span class="asterisk-color">*</span></label>
                               <section>
-                                <label class="label txt-color-blue">业务员<span class="asterisk-color">*</span></label>
-                                <label class="select">
-                                  <select name="c_follow_user_id" [(ngModel)]="c_follow_user_id" (change)="getDepartment($event,1)">
-                                    <option [selected]="c_id == 0" value="0">--请选择业务员--</option>
-                                    <option *ngFor="let u of customerDefault.result?.userList" [selected]="customerInfo.result?.c_follow_user_id == u.id" value="{{ u.id }}">{{u.u_username}}</option>
-                                  </select><i></i>
-                                </label>
+                                <div class="input-group">
+                                  <label   class="select form-control border-0">
+                                    <select name="c_follow_user_id" [(ngModel)]="c_follow_user_id" (change)="getDepartment($event,1)">
+                                      <option [selected]="c_id == 0" value="0">--请选择业务员--</option>
+                                      <option *ngFor="let u of customerDefault.result?.userList" [selected]="customerInfo.result?.c_follow_user_id == u.id" value="{{ u.id }}">{{u.u_username}}</option>
+                                    </select><i></i>
+                                  </label>
+
+                                  <div class="input-group-btn">
+                                    <a  href="http://cn.i3ot.com/#/forms/employees/0" target="_blank" (click)="smartModEg1()" class="btn btn-default btn-sm pb-6" type="button">
+                                      <!-- <i class="fa fa-plus "></i>--> 添加
+                                    </a>
+                                    <a class="btn btn-default btn-sm pb-6" type="button"><i class="fa fa-link"></i>
+                                      刷新
+                                    </a>
+
+                                  </div>
+                                </div>
+
+
                               </section>
                             </div>
                             <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
