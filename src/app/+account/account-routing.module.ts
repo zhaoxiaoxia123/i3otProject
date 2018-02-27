@@ -17,6 +17,16 @@ export const routes: Routes = [
         loadChildren: 'app/+account/account-personal/account-personal.module#AccountPersonalModule',
         data: {pageTitle: 'AccountPersonal'}
     },
+    {
+        path: 'account-binding',
+        loadChildren: 'app/+account/account-binding/account-binding.module#AccountBindingModule',
+        data: {pageTitle: 'AccountBinding'}
+    },
+    {
+        path: 'account-permissions',
+        loadChildren: 'app/+account/account-permissions/account-permissions.module#AccountPermissionsModule',
+        data: {pageTitle: 'AccountPermissions'}
+    },
 ];
 
 export const routing = RouterModule.forChild(routes);

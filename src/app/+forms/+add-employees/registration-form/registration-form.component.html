@@ -79,17 +79,29 @@
       </section>
     </div>
     <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+      <label class="label txt-color-blue">所属部门<span class="asterisk-color">*</span></label>
         <section >
-          <label class="label txt-color-blue">所属部门<span class="asterisk-color">*</span></label>
-          <label class="select">
-            <select name="department" formControlName="department" [(ngModel)]="department_default">
-              <option [selected]="u_id == 0" value="0">--请选择--</option>
-              <option *ngFor="let d of userList.result?.departmentListForAdd" [selected]="user_info?.result?.u_department == d.department_id" value="{{ d.department_id }}" [disabled]="(d.upper_department_id == 0 && d.child_count > 0) ? 'disabled' : false" [ngStyle]="{'font-weight':((d.upper_department_id == 0) ? 'bold' : 'normal'),'color':((d.upper_department_id == 0 && d.child_count > 0) ? 'black' : '#404040')}">
-                <strong *ngIf="d.upper_department_id == 0">{{d.department_name}}</strong>
-                <span *ngIf="d.upper_department_id != 0">--{{d.department_name}}</span>
-              </option>
-            </select> <i></i>
-          </label>
+          <div class="input-group">
+            <label   class="select form-control border-0">
+              <select name="department" formControlName="department" [(ngModel)]="department_default">
+                <option [selected]="u_id == 0" value="0">--请选择--</option>
+                <option *ngFor="let d of userList.result?.departmentListForAdd" [selected]="user_info?.result?.u_department == d.department_id" value="{{ d.department_id }}" [disabled]="(d.upper_department_id == 0 && d.child_count > 0) ? 'disabled' : false" [ngStyle]="{'font-weight':((d.upper_department_id == 0) ? 'bold' : 'normal'),'color':((d.upper_department_id == 0 && d.child_count > 0) ? 'black' : '#404040')}">
+                  <strong *ngIf="d.upper_department_id == 0">{{d.department_name}}</strong>
+                  <span *ngIf="d.upper_department_id != 0">--{{d.department_name}}</span>
+                </option>
+              </select> <i></i>
+            </label>
+            <div class="input-group-btn">
+              <a  href="http://cn.i3ot.com/#/management/setting-departmentnew" target="_blank" (click)="smartModEg1()" class="btn btn-default btn-sm pb-6" type="button">
+                <!-- <i class="fa fa-plus "></i>--> 添加
+              </a>
+              <a class="btn btn-default btn-sm pb-6" type="button"><i class="fa fa-link"></i>
+                刷新
+              </a>
+
+            </div>
+          </div>
+
         </section>
 
     </div>
@@ -117,13 +129,25 @@
       </section>
     </div>
     <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+      <label  class="label ">职称</label>
       <section>
-        <label  class="label ">职称</label>
+        <div class="input-group">
+          <label   class="select form-control border-0">
+            <select name="title" formControlName="title" [(ngModel)]="title_default">
+              <option *ngFor="let c of userList.result?.titleList" [selected]="user_info.result?.u_title == c.category_id" value="{{c.category_id}}">{{c.category_desc}}</option>
+            </select> <i></i> </label>
+          <div class="input-group-btn">
+            <a  href="http://cn.i3ot.com/#/management/setting-honor" target="_blank" (click)="smartModEg1()" class="btn btn-default btn-sm pb-6" type="button">
+              <!-- <i class="fa fa-plus "></i>--> 添加
+            </a>
+            <a class="btn btn-default btn-sm pb-6" type="button"><i class="fa fa-link"></i>
+              刷新
+            </a>
 
-        <label class="select">
-          <select name="title" formControlName="title" [(ngModel)]="title_default">
-            <option *ngFor="let c of userList.result?.titleList" [selected]="user_info.result?.u_title == c.category_id" value="{{c.category_id}}">{{c.category_desc}}</option>
-          </select> <i></i> </label>
+          </div>
+        </div>
+
+
       </section>
 
     </div>

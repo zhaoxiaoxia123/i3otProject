@@ -3089,6 +3089,7 @@ div.dataTables_editor{
     border-right: none
 }
 
+/*账号绑定*/
 
 .icon-set_wechat{
     background: rgba(0, 0, 0, 0) url(../img/login.png) no-repeat scroll 2px -4px;
@@ -3101,6 +3102,27 @@ div.dataTables_editor{
     background: rgba(0, 0, 0, 0) url(../img/login.png) no-repeat scroll -43px -4px;
     padding-left: 45px;
 }
+.icon-set_phone{
+    background: rgba(0, 0, 0, 0) url(../img/login.png) no-repeat scroll -82px -4px;
+    padding-left: 45px;
+}
+.icon-set_email{
+    background: rgba(0, 0, 0, 0) url(../img/login.png) no-repeat scroll -124px -4px;
+    padding-left: 45px;
+}
+.icon-account{
+    font-size: 14px;
+    color: #333;
+    padding: 0px 6px;
+}
+.icon-click{
+    margin-right: 10px;
+    cursor: pointer;
+    color: #0068b7;
+    text-decoration: underline;
+
+}
+
 
 /*代办事项*/
 

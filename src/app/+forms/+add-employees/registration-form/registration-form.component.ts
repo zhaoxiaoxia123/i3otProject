@@ -9,6 +9,7 @@ import {GlobalService} from '../../../core/global.service';
 import {FadeInTop} from '../../../shared/animations/fade-in-top.decorator';
 import {ModalDirective} from "ngx-bootstrap";
 import {ImageCropperComponent, CropperSettings, Bounds} from 'ng2-img-cropper';
+import {NotificationService} from "../../../shared/utils/notification.service";
 // import {FileItem, FileUploader, ParsedResponseHeaders} from "ng2-file-upload";
 
 @FadeInTop()
@@ -69,7 +70,8 @@ export class RegistrationFormComponent implements OnInit {
       private router : Router,
       private cookieStoreService:CookieStoreService,
       private routInfo : ActivatedRoute,
-      private globalService:GlobalService
+      private globalService:GlobalService,
+      private notificationService: NotificationService
       // private uploader:FileUploaderOptions
   ) {
     let nav = '{"title":"添加用户","url":"/forms/employees/0","class_":"active"}';
@@ -428,6 +430,18 @@ export class RegistrationFormComponent implements OnInit {
   }
 
   @ViewChild('lgModal') public lgModal:ModalDirective;
+
+    //添加按钮
+    smartModEg1() {
+        this.notificationService.smartMessageBox({
+            title: "添加",
+            content: "请在新页面添加选项，添加完成后在当前页面点击<i class='fa fa-link'></i>刷新按钮继续选择（注：刷新按钮只是局部刷新）",
+            buttons: '[取消][确定]'
+        }, (ButtonPressed) => {
+            if (ButtonPressed === "Yes") {
+            }
+        });
+    }
 
 }
 

@@ -6,6 +6,7 @@ import {GlobalService} from "../../core/global.service";
 import {ModalDirective} from "ngx-bootstrap";
 import {isUndefined} from "util";
 import {ImageCropperComponent, CropperSettings, Bounds} from 'ng2-img-cropper';
+import {NotificationService} from "../../shared/utils/notification.service";
 
 @Component({
   selector: 'app-setting-archives',
@@ -92,7 +93,8 @@ export class SettingArchivesComponent implements OnInit {
         private http:Http,
         private router : Router,
         private cookieStore:CookieStoreService,
-        private globalService:GlobalService) {
+        private globalService:GlobalService,
+        private notificationService: NotificationService) {
 
         let nav = '{"title":"商品档案","url":"/management/setting-archives","class_":"active"}';
         this.globalService.navEventEmitter.emit(nav);
@@ -762,6 +764,18 @@ export class SettingArchivesComponent implements OnInit {
     }
 
     @ViewChild('lgModal') public lgModal:ModalDirective;
+
+    //添加按钮
+    smartModEg1() {
+        this.notificationService.smartMessageBox({
+            title: "添加",
+            content: "请在新页面添加选项，添加完成后在当前页面点击<i class='fa fa-link'></i>刷新按钮继续选择（注：刷新按钮只是局部刷新）",
+            buttons: '[取消][确定]'
+        }, (ButtonPressed) => {
+            if (ButtonPressed === "Yes") {
+            }
+        });
+    }
 
 }
 
