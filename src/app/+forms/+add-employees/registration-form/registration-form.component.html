@@ -84,14 +84,13 @@
           <label class="select">
             <select name="department" formControlName="department" [(ngModel)]="department_default">
               <option [selected]="u_id == 0" value="0">--请选择--</option>
-              <option *ngFor="let d of userList.result?.departmentListForAdd" [selected]="user_info?.result?.u_department == d.department_id" value="{{ d.department_id }}" [disabled]="(d.upper_department_id == 0 && d.child_count > 0) ? 'disabled' : false" [ngStyle]="{'font-weight':((d.upper_department_id == 0) ? 'bold' : 'normal'),'color':((d.upper_department_id == 0 && d.child_count > 0) ? 'black' : '#404040')}">
+              <option *ngFor="let d of userList?.result?.departmentList" [selected]="user_info?.result?.u_department == d.department_id" value="{{ d.department_id }}" [disabled]="(d.upper_department_id == 0 && d.child_count > 0) ? 'disabled' : false" [ngStyle]="{'font-weight':((d.upper_department_id == 0) ? 'bold' : 'normal'),'color':((d.upper_department_id == 0 && d.child_count > 0) ? 'black' : '#404040')}">
                 <strong *ngIf="d.upper_department_id == 0">{{d.department_name}}</strong>
                 <span *ngIf="d.upper_department_id != 0">--{{d.department_name}}</span>
               </option>
             </select> <i></i>
           </label>
         </section>
-
     </div>
     <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
       <section >
@@ -119,13 +118,11 @@
     <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
       <section>
         <label  class="label ">职称</label>
-
         <label class="select">
           <select name="title" formControlName="title" [(ngModel)]="title_default">
             <option *ngFor="let c of userList.result?.titleList" [selected]="user_info.result?.u_title == c.category_id" value="{{c.category_id}}">{{c.category_desc}}</option>
           </select> <i></i> </label>
       </section>
-
     </div>
     <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
       <section >

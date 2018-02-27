@@ -419,8 +419,8 @@ export class DataMapComponent implements OnInit {
             series: this.seriesInfo_day
         };
 
-        console.log('chartOption_day');
-        console.log(this.chartOption_day);
+        // console.log('chartOption_day');
+        // console.log(this.chartOption_day);
     }
 
     /**

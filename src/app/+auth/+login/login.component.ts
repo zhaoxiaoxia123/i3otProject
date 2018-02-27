@@ -42,9 +42,10 @@ export class LoginComponent implements OnInit {
       'password':value['password']
     }).subscribe(
         (data)=>{
-          // console.log(data);
           let info = JSON.parse(data['_body']);
-          alert(info['msg']);
+          if(info['status'] != 200){
+            alert(info['msg']);
+          }
           if(info['status'] == 200){
             this.cookieStoreService.setCookie('urole', info['result']['u_role']);
             this.cookieStoreService.setCookie('username', info['result']['u_username']);
@@ -57,8 +58,6 @@ export class LoginComponent implements OnInit {
             this.uid = info['result']['id'];
             this.cid = info['result']['c_id'];
             if (this.cookieStoreService.getCookie('rollback')) {
-              console.log('rollback:------');
-              console.log(this.cookieStoreService.getCookie('rollback'));
               this.router.navigate([this.cookieStoreService.getCookie('rollback')]);
             }else {
               this.router.navigate(['/dashboard/dynamic-wall']);
@@ -72,8 +71,6 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(value:any,valid:boolean) {
-    console.log(valid);
-    console.log(value);
     this.login(value);
   }
 
@@ -81,6 +78,4 @@ export class LoginComponent implements OnInit {
   //   event.preventDefault();
   //   this.router.navigate(['/dashboard/+social'])
   // }
-
-
 }

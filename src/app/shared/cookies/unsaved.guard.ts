@@ -5,11 +5,11 @@ import {DataMapComponent} from "../../+equipment/data-map/data-map.component";
  */
 export class UnsavedGuard implements CanDeactivate<DataMapComponent>{
     canDeactivate ( component:DataMapComponent ){
-        if(window.confirm( '离开此页面将停止对最新数据的显示，您确定要离开此页面吗？')) {
+        // if(window.confirm( '离开此页面将停止对最新数据的显示，您确定要离开此页面吗？')) {
             component.ngOnDestroy();
             return true;
-        }else{
-            return false;
-        }
+        // }else{
+        //     return false;
+        // }
     }
 }
