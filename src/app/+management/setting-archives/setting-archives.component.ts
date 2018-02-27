@@ -26,6 +26,7 @@ export class SettingArchivesComponent implements OnInit {
     next : boolean = false;
 
     productDefault : Array<any> = [];
+    addProductDefault : Array<any> = [];
     productList : Array<any> = [];
     productInfo : Array<any> = [];
     //用作全选和反选
@@ -245,6 +246,32 @@ export class SettingArchivesComponent implements OnInit {
         }
     }
 
+
+    /**
+     * 获取添加页面的默认参数
+     */
+    getAddProductDefault(){
+        console.log('this.addProductDefault.length:----');
+        console.log(this.addProductDefault.length);
+
+        if( this.addProductDefault.length <= 0) {
+            this.http.get(this.globalService.getDomain() + '/api/v1/getProductDefault?type=add&p_type=' + this.p_type + '&category_type=' + this.category_type + '&sid=' + this.cookieStore.getCookie('sid'))
+                .map((res) => res.json())
+                .subscribe((data) => {
+                    this.addProductDefault = data;
+                    console.log(this.addProductDefault);
+                    if (this.addProductDefault['status'] == 202) {
+                        alert(this.addProductDefault['msg']);
+                        this.cookieStore.removeAll(this.rollback_url);
+                        this.router.navigate(['/auth/login']);
+                    }
+                    this.lgModal.show();
+                });
+        }else{
+            this.lgModal.show();
+        }
+    }
+
     /**
      * 选中类型是 销售或外购
      * @param $event
@@ -265,6 +292,13 @@ export class SettingArchivesComponent implements OnInit {
             alert('请输入名称！');
             return false;
         }
+
+        let category_ids = '';
+        this.select_category_ids.forEach((val, idx, array) => {
+            if(val == true) {
+                category_ids += idx + ',';
+            }
+        });
         this.http.post(this.globalService.getDomain()+'/api/v1/addProduct',{
             'p_id' : this.p_id,
             'product_id' : this.p_product_id,
@@ -286,11 +320,13 @@ export class SettingArchivesComponent implements OnInit {
             'p_retail_amout' : this.p_retail_amout,
             'p_stop_use' : this.p_stop_use,
             'p_stop_time' : this.p_stop_time,
+            'category_ids':category_ids,
             'u_id' : this.cookieStore.getCookie('uid'),
             'sid':this.cookieStore.getCookie('sid')
         }).subscribe(
             (data)=>{
                 let info = JSON.parse(data['_body']);
+                console.log(info['status']);
                 if(info['status'] == 201){
                     alert(info['msg']);
                     return false;
@@ -726,8 +762,6 @@ export class SettingArchivesComponent implements OnInit {
     }
 
     @ViewChild('lgModal') public lgModal:ModalDirective;
-
-
 
 }
 

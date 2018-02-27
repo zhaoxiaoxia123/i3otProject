@@ -208,21 +208,20 @@ export class SettingDepartmentnewComponent implements OnInit {
      *  type ： （ edit ：修改部门  ；  detail  ： 部门详情）
      */
     detailDepartment(type:string,id:any){
-        if(this.isStatus == 0){
+        if(this.isStatus == 0 && type != 'add'){
             return false;
         }
-        console.log(type);
         if(type == 'edit'){
             this.lgModal.show();
         }else if(type == 'add'){
+            this.lgModal.show();
             this.editStatusDepartmentId = 0;
             this.isStatus = 0;
-            this.lgModal.show();
         }else{
             this.detailModal.show();
         }
         let ids = this.editStatusDepartmentId;
-        if(id){
+        if(id != 0){
             ids = id;
         }
         this.http.get(this.globalService.getDomain()+'/api/v1/getDepartmentInfo?department_id='+ids+'&type='+type+'&sid='+this.cookieStore.getCookie('sid'))
@@ -393,13 +392,12 @@ export class SettingDepartmentnewComponent implements OnInit {
                         }
                         this.check = false;
                     }
-                    console.log('----getDepartmentDefault-----');
                     this.getDepartmentDefault();
+                    this.closeSubmit();
                 }else if(info['status'] == 202){
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
-                this.closeSubmit();
             }
         );
     }
