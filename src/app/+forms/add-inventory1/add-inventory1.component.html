@@ -13,7 +13,6 @@
             <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
             <h2>添加仓库</h2>
           </header>
-
           <header *ngIf="storehouse_id != 0">
             <span class="widget-icon"> <i class="glyphicon glyphicon-pencil"></i> </span>
             <h2 >修改仓库 </h2>
@@ -51,14 +50,6 @@
                       </label>
                     </section>
                   </div>
-                  <!--<div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <section>
-                      <label class="label ">所属地区</label>
-                      <label class="input">
-                        <input type="text" name="" placeholder=" " maxlength="20" />
-                      </label>
-                    </section>
-                  </div>-->
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
                     <label class="label "> 负责人</label>
                     <section >
@@ -71,7 +62,7 @@
                           <a  href="http://cn.i3ot.com/#/forms/employees/0" target="_blank" (click)="smartModEg1()" class="btn btn-default btn-sm pb-6" type="button">
                             <!-- <i class="fa fa-plus "></i>--> 添加
                           </a>
-                          <a class="btn btn-default btn-sm pb-6" type="button"><i class="fa fa-link"></i>
+                          <a class="btn btn-default btn-sm pb-6" type="button" (click)="getStorehouseDefault()"><i class="fa fa-link"></i>
                             刷新
                           </a>
 

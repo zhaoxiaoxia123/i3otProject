@@ -85,7 +85,7 @@ export class AddRequisitionComponent implements OnInit {
     }else{
       this.rollback_url += '/0';
     }
-    this.getStockallotDefault();
+    this.getStockallotDefault('');
   }
 
   getStockallotInfo(stock_allot_id:number){
@@ -142,8 +142,9 @@ export class AddRequisitionComponent implements OnInit {
 
   /**
    * 获取默认参数
+   * type ：  refresh  局部刷新
    */
-  getStockallotDefault() {
+  getStockallotDefault(type:any) {
     this.http.get(this.globalService.getDomain()+'/api/v1/getStockallotDefault?sid='+this.cookieStore.getCookie('sid'))
         .map((res)=>res.json())
         .subscribe((data)=>{
@@ -154,8 +155,9 @@ export class AddRequisitionComponent implements OnInit {
             this.router.navigate(['/auth/login']);
           }
         });
-
-      this.getProductDefault();
+        if(type == ''){
+            this.getProductDefault();
+        }
   }
 
   onSubmit(){

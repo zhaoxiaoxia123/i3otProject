@@ -256,6 +256,7 @@ export class UnitClassifyComponent implements OnInit {
             'category_desc':this.category_desc,
             'category_number':this.category_number,
             'category_depth':this.category_depth,
+            'category_tab':this.category_tab,
             'category_type' : this.category_type,
             'u_id':this.cookieStore.getCookie('uid'),
             'sid':this.cookieStore.getCookie('sid')

@@ -99,7 +99,7 @@ export class AddSalesComponent implements OnInit {
 
   ngOnInit() {
 
-    this.getPurchaseDefault();
+    this.getPurchaseDefault('');
   }
 
   getPurchaseInfo(pr_id:number){
@@ -167,21 +167,25 @@ export class AddSalesComponent implements OnInit {
 
   /**
    * 获取默认参数
+   *  type  : refresh 局部刷新  ‘’ 默认调用
    */
-  getPurchaseDefault() {
-    this.http.get(this.globalService.getDomain()+'/api/v1/getPurchaseDefault?role='+this.role+'&category_type='+this.category_type+'&sid='+this.cookieStore.getCookie('sid'))
-        .map((res)=>res.json())
-        .subscribe((data)=>{
-          this.purchaseList = data;
-          console.log('this.purchaseList:----');
-          console.log(this.purchaseList);
-          if(this.purchaseList['status'] == 202){
-            alert(this.purchaseList['msg']);
-            this.cookieStore.removeAll(this.rollback_url);
-            this.router.navigate(['/auth/login']);
-          }
-        });
-      this.getProductDefault();
+  getPurchaseDefault(type:any) {
+    let url = this.globalService.getDomain()+'/api/v1/getPurchaseDefault?role='+this.role+'&category_type='+this.category_type+'&sid='+this.cookieStore.getCookie('sid');
+    this.http.get(url)
+    .map((res)=>res.json())
+    .subscribe((data)=>{
+      this.purchaseList = data;
+      console.log('this.purchaseList:----');
+      console.log(this.purchaseList);
+      if(this.purchaseList['status'] == 202){
+        alert(this.purchaseList['msg']);
+        this.cookieStore.removeAll(this.rollback_url);
+        this.router.navigate(['/auth/login']);
+      }
+    });
+    if(type == ''){
+        this.getProductDefault();
+    }
   }
 
   onSubmit(){

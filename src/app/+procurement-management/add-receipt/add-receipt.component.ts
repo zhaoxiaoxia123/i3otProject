@@ -97,7 +97,7 @@ export class AddReceiptComponent implements OnInit {
     }else{
       this.rollback_url += '/0';
     }
-    this.getPurchaseDefault();
+    this.getPurchaseDefault('');
   }
 
   getPurchaseInfo(pr_id:number){
@@ -165,8 +165,9 @@ export class AddReceiptComponent implements OnInit {
 
   /**
    * 获取默认参数
+   * type ： refresh 局部刷新
    */
-  getPurchaseDefault() {
+  getPurchaseDefault(type:any) {
     this.http.get(this.globalService.getDomain()+'/api/v1/getPurchaseDefault?role='+this.role+'&category_type='+this.category_type+'&sid='+this.cookieStore.getCookie('sid'))
         .map((res)=>res.json())
         .subscribe((data)=>{
@@ -177,7 +178,9 @@ export class AddReceiptComponent implements OnInit {
             this.router.navigate(['/auth/login']);
           }
         });
-    this.getProductDefault();
+      if(type == ''){
+        this.getProductDefault();
+      }
   }
 
   onSubmit(){
