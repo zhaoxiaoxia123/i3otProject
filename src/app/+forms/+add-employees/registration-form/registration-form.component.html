@@ -85,7 +85,7 @@
             <label   class="select form-control border-0">
               <select name="department" formControlName="department" [(ngModel)]="department_default">
                 <option [selected]="u_id == 0" value="0">--请选择--</option>
-                <option *ngFor="let d of userList.result?.departmentListForAdd" [selected]="user_info?.result?.u_department == d.department_id" value="{{ d.department_id }}" [disabled]="(d.upper_department_id == 0 && d.child_count > 0) ? 'disabled' : false" [ngStyle]="{'font-weight':((d.upper_department_id == 0) ? 'bold' : 'normal'),'color':((d.upper_department_id == 0 && d.child_count > 0) ? 'black' : '#404040')}">
+                <option *ngFor="let d of userList.result?.departmentList" [selected]="user_info?.result?.u_department == d.department_id" value="{{ d.department_id }}" [disabled]="(d.upper_department_id == 0 && d.child_count > 0) ? 'disabled' : false" [ngStyle]="{'font-weight':((d.upper_department_id == 0) ? 'bold' : 'normal'),'color':((d.upper_department_id == 0 && d.child_count > 0) ? 'black' : '#404040')}">
                   <strong *ngIf="d.upper_department_id == 0">{{d.department_name}}</strong>
                   <span *ngIf="d.upper_department_id != 0">--{{d.department_name}}</span>
                 </option>
