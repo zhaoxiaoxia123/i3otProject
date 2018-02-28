@@ -85,7 +85,7 @@
                           <a  href="http://cn.i3ot.com/#/customer-management/unit-list" target="_blank" (click)="smartModEg1()" class="btn btn-default btn-sm pb-6" type="button">
                             <!-- <i class="fa fa-plus "></i>--> 添加
                           </a>
-                          <a class="btn btn-default btn-sm pb-6" type="button"><i class="fa fa-link"></i>
+                          <a class="btn btn-default btn-sm pb-6" type="button" (click)="getPurchaseDefault('refresh')"><i class="fa fa-link"></i>
                             刷新
                           </a>
                         </div>
@@ -110,14 +110,12 @@
                           <a  href="http://cn.i3ot.com/#/management/setting-departmentnew" target="_blank" (click)="smartModEg1()" class="btn btn-default btn-sm pb-6" type="button">
                             <!-- <i class="fa fa-plus "></i>--> 添加
                           </a>
-                          <a class="btn btn-default btn-sm pb-6" type="button"><i class="fa fa-link"></i>
+                          <a class="btn btn-default btn-sm pb-6" type="button" (click)="getPurchaseDefault('refresh')"><i class="fa fa-link"></i>
                             刷新
                           </a>
 
                         </div>
                       </div>
-
-
                     </section>
                   </div>
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
@@ -138,7 +136,7 @@
                           <a  href="http://cn.i3ot.com/#/forms/employees/0" target="_blank" (click)="smartModEg1()" class="btn btn-default btn-sm pb-6" type="button">
                             <!-- <i class="fa fa-plus "></i>--> 添加
                           </a>
-                          <a class="btn btn-default btn-sm pb-6" type="button"><i class="fa fa-link"></i>
+                          <a class="btn btn-default btn-sm pb-6" type="button" (click)="getUserList(pr_department_default,2)"><i class="fa fa-link"></i>
                             刷新
                           </a>
 
@@ -164,13 +162,11 @@
                           <a  href="http://cn.i3ot.com/#/forms/inventory1/0" target="_blank" (click)="smartModEg1()" class="btn btn-default btn-sm pb-6" type="button">
                             <!-- <i class="fa fa-plus "></i>--> 添加
                           </a>
-                          <a class="btn btn-default btn-sm pb-6" type="button"><i class="fa fa-link"></i>
+                          <a class="btn btn-default btn-sm pb-6" type="button" (click)="getPurchaseDefault('refresh')"><i class="fa fa-link"></i>
                             刷新
                           </a>
                         </div>
                       </div>
-
-
                     </section>
                   </div>
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
@@ -191,13 +187,11 @@
                           <a  href="http://cn.i3ot.com/#/sales-management/sales-type" target="_blank" (click)="smartModEg1()" class="btn btn-default btn-sm pb-6" type="button">
                             <!-- <i class="fa fa-plus "></i>--> 添加
                           </a>
-                          <a class="btn btn-default btn-sm pb-6" type="button"><i class="fa fa-link"></i>
+                          <a class="btn btn-default btn-sm pb-6" type="button" (click)="getPurchaseDefault('refresh')"><i class="fa fa-link"></i>
                             刷新
                           </a>
                         </div>
                       </div>
-
-
                     </section>
                   </div>
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
@@ -255,27 +249,6 @@
                               </td>
                               <td>
                                 {{p.p_name}}
-                                <!--<div>-->
-                                  <!--<table border="0" cellspacing="0" cellpadding="1">-->
-                                    <!--<tbody>-->
-                                    <!--<tr>-->
-                                      <!--<td>-->
-                                        <!--<form class="smart-form">-->
-                                          <!--<section>-->
-                                            <!--<label class="input">-->
-                                              <!--&lt;!&ndash;<i *ngIf="isDetail!='detail'" class="icon-append glyphicon glyphicon-search cursor-pointer" (click)="searchKey()"></i>&lt;!&ndash; data-toggle="modal" data-target="#myModal"&ndash;&gt;&ndash;&gt;-->
-                                              <!--&lt;!&ndash;<input *ngIf="isDetail=='detail'" disabled="disabled" type="text" placeholder="" name="keyword" value="{{p.p_name}}" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">&ndash;&gt;-->
-                                              <!--&lt;!&ndash;<input *ngIf="isDetail!='detail'" type="text" placeholder="" name="keyword" value="{{p.p_name}}" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">&ndash;&gt;-->
-                                            <!--</label>-->
-                                          <!--</section>-->
-                                        <!--</form>-->
-                                      <!--</td>-->
-                                      <!--<td>-->
-                                      <!--</td>-->
-                                    <!--</tr>-->
-                                    <!--</tbody>-->
-                                  <!--</table>-->
-                                <!--</div>-->
                               </td>
                             </tr>
                             </tbody>

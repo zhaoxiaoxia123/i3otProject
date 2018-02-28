@@ -59,7 +59,7 @@
                           <a  href="http://cn.i3ot.com/#/customer-management/unit-list" target="_blank" (click)="smartModEg1()" class="btn btn-default btn-sm pb-6" type="button">
                            <!-- <i class="fa fa-plus "></i>--> 添加
                           </a>
-                          <a class="btn btn-default btn-sm pb-6" type="button"><i class="fa fa-link"></i>
+                          <a class="btn btn-default btn-sm pb-6" type="button" (click)="getPurchaseDefault('refresh')"><i class="fa fa-link"></i>
                             刷新
                           </a>
                         </div>
@@ -87,17 +87,13 @@
                         <a  href="http://cn.i3ot.com/#/procurement-management/procurement-type" target="_blank" (click)="smartModEg1()" class="btn btn-default btn-sm pb-6" type="button">
                          <!-- <i class="fa fa-plus "></i> -->添加
                         </a>
-                        <a class="btn btn-default btn-sm pb-6" type="button"><i class="fa fa-link"></i>
+                        <a class="btn btn-default btn-sm pb-6" type="button" (click)="getPurchaseDefault('refresh')"><i class="fa fa-link"></i>
                           刷新
                         </a>
-
                       </div>
-
                     </div>
                     </section>
-
                   </div>
-
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
                     <label class="label">采购员</label>
                     <section>
@@ -116,13 +112,11 @@
                           <a  href="http://cn.i3ot.com/#/forms/employees/0" target="_blank" (click)="smartModEg1()" class="btn btn-default btn-sm pb-6" type="button">
                            <!-- <i class="fa fa-plus "></i>--> 添加
                           </a>
-                          <a class="btn btn-default btn-sm pb-6" type="button"><i class="fa fa-link"></i>
+                          <a class="btn btn-default btn-sm pb-6" type="button" (click)="getPurchaseDefault('refresh')"><i class="fa fa-link"></i>
                             刷新
                           </a>
-
                         </div>
                       </div>
-
                     </section>
                   </div>
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
@@ -143,12 +137,11 @@
                           <a  href="http://cn.i3ot.com/#/forms/inventory1/0" target="_blank" (click)="smartModEg1()" class="btn btn-default btn-sm pb-6" type="button">
                            <!-- <i class="fa fa-plus "></i>--> 添加
                           </a>
-                          <a class="btn btn-default btn-sm pb-6" type="button"><i class="fa fa-link"></i>
+                          <a class="btn btn-default btn-sm pb-6" type="button" (click)="getPurchaseDefault('refresh')"><i class="fa fa-link"></i>
                             刷新
                           </a>
                         </div>
                       </div>
-
                     </section>
                   </div>
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
@@ -208,7 +201,6 @@
                           <table class="table table-hover table-border  table-bordered dataTable table-height-70">
                             <thead>
                             <tr>
-                              <!--<th></th>-->
                               <th>操作</th>
                               <th class="txt-color-blue">商品名称</th>
                             </tr>
@@ -222,15 +214,6 @@
                               </td>
                               <td>
                                 {{p.p_name}}
-                                <!--<form class="smart-form">-->
-                                  <!--<section>-->
-                                    <!--<label class="input">-->
-                                      <!--<i *ngIf="isDetail!='detail'" class="icon-append glyphicon glyphicon-search cursor-pointer" (click)="searchKey(1)"></i>&lt;!&ndash; data-toggle="modal" data-target="#myModal"&ndash;&gt;-->
-                                      <!--<input *ngIf="isDetail=='detail'" disabled="disabled" type="text" placeholder="" name="keyword" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">-->
-                                      <!--<input *ngIf="isDetail!='detail'" type="text" placeholder="" name="keyword" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">-->
-                                    <!--</label>-->
-                                  <!--</section>-->
-                                <!--</form>-->
                               </td>
                             </tr>
                             </tbody>

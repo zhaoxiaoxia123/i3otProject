@@ -253,25 +253,22 @@ export class SettingArchivesComponent implements OnInit {
      * 获取添加页面的默认参数
      */
     getAddProductDefault(){
-        console.log('this.addProductDefault.length:----');
-        console.log(this.addProductDefault.length);
-
-        if( this.addProductDefault.length <= 0) {
-            this.http.get(this.globalService.getDomain() + '/api/v1/getProductDefault?type=add&p_type=' + this.p_type + '&category_type=' + this.category_type + '&sid=' + this.cookieStore.getCookie('sid'))
-                .map((res) => res.json())
-                .subscribe((data) => {
-                    this.addProductDefault = data;
-                    console.log(this.addProductDefault);
-                    if (this.addProductDefault['status'] == 202) {
-                        alert(this.addProductDefault['msg']);
-                        this.cookieStore.removeAll(this.rollback_url);
-                        this.router.navigate(['/auth/login']);
-                    }
-                    this.lgModal.show();
-                });
-        }else{
-            this.lgModal.show();
-        }
+        // if( this.addProductDefault.length <= 0) {
+        this.http.get(this.globalService.getDomain() + '/api/v1/getProductDefault?type=add&p_type=' + this.p_type + '&category_type=' + this.category_type + '&sid=' + this.cookieStore.getCookie('sid'))
+            .map((res) => res.json())
+            .subscribe((data) => {
+                this.addProductDefault = data;
+                console.log(this.addProductDefault);
+                if (this.addProductDefault['status'] == 202) {
+                    alert(this.addProductDefault['msg']);
+                    this.cookieStore.removeAll(this.rollback_url);
+                    this.router.navigate(['/auth/login']);
+                }
+                this.lgModal.show();
+            });
+        // }else{
+        //     this.lgModal.show();
+        // }
     }
 
     /**
