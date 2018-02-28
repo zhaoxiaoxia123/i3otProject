@@ -11,7 +11,114 @@
             </div>-->
             <h1 class="no-margin  title-h1">权限管理</h1><hr />
           </div>
-          <div class="col-sm-12 margin-top-40">
+          <div class="col-sm-12">
+            <form class="smart-form">
+              <div class="rightM rightW pd-20">
+                <div class="row-rt ">
+                  <p class="caption">账号</p>
+                  <div class="inputWrap">
+                    <div class="formItem">
+                      <div class="form-group">
+                        <div class="bootstrap-tagsinput">
+                          <span class="tag label label-info" >Washington<span data-role="remove"></span></span>
+                          <span class="tag label label-info" >Sydney<span data-role="remove"></span></span>
+                          <span class="tag label label-info" >Beijing<span data-role="remove"></span></span>
+
+
+                          <input type="text" data-toggle="modal" data-target="#myModal"   placeholder="">
+                        </div>
+                        <input class="form-control tagsinput" data-role="tagsinput"  value="Amsterdam,Washington,Sydney,Beijing,Cairo" style="display: none;">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="node">请选择您要设置权限的账号 (可多选),只可以对您的下一级账号进行权限设置</div>
+                </div>
+                <div class="row-rt" style="margin-top:60px;">
+                  <p class="caption">角色</p>
+                  <div class="inputWrap">
+                    <div class="formItem">
+                      <div class="form-group ">
+                        <section >
+                          <!--<label class="label" style="font-size: 16px;">角色</label>-->
+                          <label class="select">
+                            <select name="role" >
+                              <option disabled>请选择角色</option>
+                              <option [value]="2">管理员</option>
+                              <option [value]="3" >客户部</option>
+                              <option [value]="4">人事部</option>
+                              <option [value]="5" >产品部</option>
+                              <option [value]="6" >库管部</option>
+                              <option [value]="7" >销售部</option>
+                              <option [value]="8" >自定义</option>
+                            </select> <i></i> </label>
+                        </section>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="row-rt clear">
+                  <p class="caption">权限</p>
+                  <div class="inputWrap smart-form">
+                    <ul class="rightList">
+                      <li class="clear margin-top-10">
+                        <label class="checkbox">
+                          <input type="checkbox" name="" />
+                          <i></i>人事管理<span>勾选该项即允许您的子账号发布、查看、修改、删除员工信息</span></label>
+                      </li>
+                      <li class="clear margin-top-10">
+                        <label class="checkbox">
+                          <input type="checkbox" name="" />
+                          <i></i>商品管理<span>勾选该项即允许您的子账号添加、查看、修改、删除商品信息</span></label>
+                      </li>
+                      <li class="clear margin-top-10">
+                        <label class="checkbox">
+                          <input type="checkbox" name="" />
+                          <i></i>CRM管理<span>勾选该项即允许您的子账号添加、查看、修改、删除往来客户或单位信息</span></label>
+                      </li>
+                      <li class="clear margin-top-10">
+                        <label class="checkbox">
+                          <input type="checkbox" name="" />
+                          <i></i>仓库管理<span>勾选该项即允许您的子账号添加、查看、修改、删除仓库信息</span></label>
+                      </li>
+                      <li class="clear margin-top-10">
+                        <label class="checkbox">
+                          <input type="checkbox" name="" />
+                          <i></i>采购管理<span>勾选该项即允许您的子账号添加、查看、修改、删除采购信息</span></label>
+                      </li>
+                      <li class="clear margin-top-10">
+                        <label class="checkbox">
+                          <input type="checkbox" name="" />
+                          <i></i>设备管理<span>勾选该项即允许您的子账号查看、修改设备信息</span></label>
+                      </li>
+                      <li class="clear margin-top-10">
+                        <label class="checkbox">
+                          <input type="checkbox" name="" />
+                          <i></i>待办事项<span>勾选该项即允许您的子账号添加、查看、修改、删除待办信息</span></label>
+                      </li>
+                      <li class="clear margin-top-10">
+                        <label class="checkbox">
+                          <input type="checkbox" name="" />
+                          <i></i>广播预警预防系统<span>勾选该项即允许您的子账号添加、查看、修改、删除相关信息</span></label>
+                      </li>
+                      <li class="clear margin-top-10">
+                        <label class="checkbox">
+                          <input type="checkbox" name="" />
+                          <i></i>账号管理<span>勾选该项即允许您的个人信息、公司信息、设置权限、管理下级账号、修改账号信息</span></label>
+                      </li>
+                    </ul>
+                      <button class="btn btn-primary pd-10 margin-top-26" type="submit">
+                        保存
+                      </button>
+
+                  </div>
+
+                </div>
+              </div>
+
+            </form>
+
 
           </div>
         </div>
@@ -21,6 +128,7 @@
     </div>
 
   </div>
+
   <!-- end row -->
 </div>
 
@@ -33,129 +141,13 @@
           ×
         </button>
         <!-- 标题 -->
-        <h3 class="modal-title" data-ng-bind='results.title'>个人信息</h3>
+        <h3 class="modal-title" data-ng-bind='results.title'>账号</h3>
         <!-- <h4 class="modal-title" id="myModalLabel">
             模态框（Modal）标题
         </h4> -->
       </div>
       <div class="modal-body">
-        <sa-widget [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
-          <header>
-            <ul class="nav nav-tabs pull-left in">
-              <li [class.active]="state.tabs.demo3=='hr1'" class="active">
-                <a (click)="state.tabs.demo3 = 'hr1'">基本信息</a>
-              </li>
-              <li [class.active]="state.tabs.demo3=='hr2'" class="active">
-                <a (click)="state.tabs.demo3 = 'hr2'">其他信息</a>
-              </li>
-            </ul>
-          </header>
-          <div class="height-overflow-380">
-            <div class="widget-body mt-20">
-              <tabset>
-                <tab [active]="state.tabs.demo3 == 'hr1'">
-                  <tabset >
-                    <tab [active]="state.tabs.demo3 == 'hr1'">
-                      <div class="row">
-                        <form   class="smart-form ">
-                          <fieldset>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section>
-                                <label class="label">单位编码</label>
-                                <label class="input">
-                                  <input type="text" placeholder="自动生成"  disabled="disabled">
-                                </label>
-                              </section>
-                            </div>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section>
-                                <label class="label">姓名</label>
-                                <label class="input">
-                                  <input type="text" placeholder="自动生成"  disabled="disabled">
-                                </label>
-                              </section>
-                            </div>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section>
-                                <label class="label">助记码</label>
-                                <label class="input">
-                                  <input type="text"   placeholder=""  >
-                                </label>
-                              </section>
-                            </div>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section>
-                                <label class="label">所属部门</label>
-                                <label class="input">
-                                  <input type="text" placeholder="自动生成"  disabled="disabled">
-                                </label>
-                              </section>
-                            </div>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section>
-                                <label class="label">职称</label>
-                                <label class="input">
-                                  <input type="text" placeholder="自动生成"  disabled="disabled">
-                                </label>
-                              </section>
-                            </div>
-
-                          </fieldset>
-                        </form>
-
-                      </div>
-                    </tab>
-                  </tabset>
-                </tab>
-                <tab [active]="state.tabs.demo3 == 'hr2'">
-                  <tabset >
-                    <tab [active]="state.tabs.demo3 == 'hr2'">
-                      <div class="row">
-                        <form   class="smart-form ">
-                          <fieldset>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section>
-                                <label class="label">联系电话</label>
-                                <label class="input">
-                                  <input type="text"   placeholder=""  >
-                                </label>
-                              </section>
-                            </div>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section>
-                                <label class="label">Email</label>
-                                <label class="input">
-                                  <input type="text"   placeholder=""  >
-                                </label>
-                              </section>
-                            </div>
-                            <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                              <section>
-                                <label class="label">联系地址</label>
-                                <label class="input">
-                                  <input type="text"   placeholder=""  >
-                                </label>
-                              </section>
-                            </div>
-                            <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                              <section>
-                                <label class="label">备注</label>
-                                <label class="textarea textarea-resizable">
-                                  <textarea class="custom-scroll" rows="2" name="" ></textarea>
-                                </label>
-                              </section>
-                            </div>
-                          </fieldset>
-                        </form>
-
-                      </div>
-                    </tab>
-                  </tabset>
-                </tab>
-              </tabset>
-            </div>
-          </div>
-        </sa-widget>
+       <span>暂无子账号</span>
 
       </div>
       <div class="modal-footer">

@@ -262,12 +262,20 @@
         </ul>
       </li>
 
+
+
+
+
+
       <li>
         <a href="#"><i class="fa fa-lg fa-fw  fa-credit-card"></i> <span
                 class="account">{{'账户管理' | i18n}}</span></a>
         <ul>
           <li routerLinkActive="active">
             <a routerLink="/account/account-company">{{'公司信息' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/account/personal-settings">{{'个人设置' | i18n}}</a>
           </li>
           <li routerLinkActive="active">
             <a routerLink="/account/account-personal">{{'个人信息' | i18n}}</a>
@@ -298,6 +306,11 @@
         <a href="#"><i class="fa fa-lg fa-fw  fa-th txt-color-blue"></i> <span
                 class="menu-item-parent">{{'收藏夹' | i18n}}</span></a>
         <ul>
+          <li routerLinkActive="active">
+            <a routerLink="/outlook" title="Outlook">
+              <i class="fa fa-lg fa-fw fa-inbox"></i> <span class="menu-item-parent">{{'Outlook' | i18n}}</span><span
+                    class="badge pull-right inbox-badge margin-right-13">14</span></a>
+          </li>
           <li>
             <a href="#"><i class="fa fa-lg fa-fw fa-unlock-alt"></i> <span
                     class="menu-item-parent">{{'V1' | i18n}}</span></a>
