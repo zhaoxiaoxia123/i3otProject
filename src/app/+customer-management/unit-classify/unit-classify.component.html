@@ -16,32 +16,32 @@
                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
 
                       <div class="form-group pdlr-4">
-                        <a class="btn btn-success btn-sm"  data-toggle="modal" data-target="#myModal">
+                        <a class="btn btn-success btn-sm" (click)="lgModal.show()">
                           <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
                       </div>
                       <div class="form-group pdlr-4">
-                        <a class="btn default-btn btn-sm"   data-toggle="modal" data-target="#myModal">
+                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusCategoryId == 0}" (click)="detailCategory('edit',0)">
                           <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
                       </div>
                       <div class="form-group pdlr-4">
-                        <a class="btn default-btn btn-sm" >
+                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusCategoryId == 0}" (click)="deleteCategory('id')">
                           <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
                       </div>
                       <div class="form-group btn-group pdlr-4">
-                        <a class="btn default-btn btn-sm dropdown-toggle"  data-toggle="dropdown">
+                        <a class="btn default-btn btn-sm dropdown-toggle" (click)="showAllCheck()" data-toggle="dropdown">
                           <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
 
                         <ul class="dropdown-menu" role="menu">
-                          <li><a ><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
+                          <li><a (click)="deleteCategory('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
                         </ul>
                       </div>
                     </form>
                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
                       <div class="form-group pdlr-4">
-                        <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" name="" placeholder="请输入搜索内容" type="text">
+                        <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" name="keyword" [(ngModel)]="keyword" placeholder="请输入搜索内容" type="text">
                       </div>
                       <div class="form-group pdlr-4">
-                        <button class="btn btn-default" type="submit">
+                        <button class="btn btn-default" type="button" (click)="getCategoryList(1,'0')">
                           <i  class="glyphicon glyphicon-search"></i>
                           搜索
                         </button>
@@ -70,62 +70,32 @@
                                 <li class=" parent_li">
                                   <span>
                                     <label class="checkbox inline-block tree-label pt-12 ">
-                                          <input name="checkbox-inline" type="checkbox"><i></i>
+                                          <input name="checkbox-inline" type="checkbox" [checked]="select_category_ids[0]" (click)="selectCategoryAll()"><i></i>
                                    </label>
                                     <i class="fa fa-lg fa-folder-open"></i>全部
-                                    <i class="sa-icon fa fa-lg fa-minus-circle"></i>
+                                    <i class="sa-icon fa fa-lg fa-plus-circle" *ngIf="showUl == 0" (click)="showLeftUl(1)"></i>
+                                    <i class="sa-icon fa fa-lg fa-minus-circle" *ngIf="showUl == 1" (click)="showLeftUl(0)"></i>
                                   </span>
-                                  <ul class="">
-                                    <li class=" parent_li">
+                                  <ul class="" *ngIf="showUl == 1">
+                                    <li class=" parent_li" *ngFor="let cl of categoryDefault?.result?.categoryList?.data;let ind = index;">
                                         <span>
                                           <label class="checkbox inline-block tree-label ">
-                                            <input name="checkbox-inline" type="checkbox">
-                                            <i></i>智慧环保
-                                            <em class="txt-color-blue">(0)</em>
+                                            <input type="checkbox" name="checkbox-inline" [checked]="select_category_ids[cl.category_id]" (click)="selectCategory(cl.category_id,ind,0,1)"><i></i>{{cl.category_desc}}
+                                            <em class="txt-color-blue">({{cl.child_count}})</em>
                                           </label>
-
-                                        </span>
-                                    </li>
-                                    <li class=" parent_li">
+                                        <i class="sa-icon fa fa-lg fa-minus-circle" *ngIf="showUlChild == cl.category_id && cl.child_count != 0" (click)="showLeftUlChild(0)"></i>
+                                        <i class="sa-icon fa fa-lg fa-plus-circle" *ngIf="showUlChild != cl.category_id && cl.child_count != 0" (click)="showLeftUlChild(cl.category_id)"></i>
+                                      </span>
+                                      <ul class="" *ngIf="showUlChild == cl.category_id">
+                                        <li *ngFor="let dc of cl.child;let indChild = index;">
                                         <span>
-                                          <label class="checkbox inline-block tree-label ">
-                                            <input name="checkbox-inline" type="checkbox">
-                                            <i></i>智慧城市
-                                            <em class="txt-color-blue">(0)</em>
+                                          <label class="checkbox inline-block tree-label">
+                                            <input type="checkbox" name="checkbox-inline" [checked]="select_category_ids[cl.category_id] || select_category_ids[dc.category_id]" (click)="selectCategory(dc.category_id,ind,indChild,cl.category_id)">
+                                            <i></i>{{dc.category_desc}}
                                           </label>
-
                                         </span>
-                                    </li>
-                                    <li class=" parent_li">
-                                        <span>
-                                          <label class="checkbox inline-block tree-label ">
-                                            <input name="checkbox-inline" type="checkbox">
-                                            <i></i>电子元器件
-                                            <em class="txt-color-blue">(1)</em>
-                                          </label>
-                                           <i class="sa-icon fa fa-lg fa-plus-circle"></i>
-                                        </span>
-                                      <ul class="">
-                                        <li>
-                                            <span>
-                                              <label class="checkbox inline-block tree-label">
-                                                <input name="checkbox-inline" type="checkbox">
-                                                <i></i>寄存器供应商
-                                                <em class="txt-color-blue">(0)</em>
-                                              </label>
-                                            </span>
                                         </li>
                                       </ul>
-
-                                    </li>
-                                    <li class=" parent_li">
-                                        <span>
-                                          <label class="checkbox inline-block tree-label ">
-                                            <input name="checkbox-inline" type="checkbox">
-                                            <i></i>智慧农业
-                                            <em class="txt-color-blue">(2)</em>
-                                          </label>
-                                        </span>
                                     </li>
                                   </ul>
                                 </li>
@@ -147,15 +117,36 @@
                           商品分类列表
                         </alert>
                         <div class="mt-10" style="padding:0;">
-                          <div style="padding: 0;z-index: 2;" class="table-responsive">
-                            <table class="table table-striped  smart-form">
+                          <div *ngIf="isAll != 0"  [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-scrolling">
+                            <table class="table table-striped  smart-form table-height-20">
                               <thead>
-                              <tr >
-                                <td><label class="checkbox">
-                                  <input type="checkbox" name="checkbox-inline" >
+                              <tr style="height: 37px;">
+                                <td><label class="checkbox mt-8">
+                                  <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)" >
                                   <i></i>
                                 </label>
                                 </td>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr style="height: 34.5px;" *ngFor="let c of categoryList?.result?.categoryList?.data">
+                                <td>
+                                  <label class="checkbox mt-8">
+                                    <input type="checkbox" value="{{ c.category_id }}" [checked]="selects[c.category_id]" (change)="handle($event)" >
+                                    <i></i>
+                                  </label>
+                                </td>
+                              </tr>
+                              </tbody>
+                            </table>
+                          </div>
+
+
+
+                          <div [ngStyle]="{'padding': '0','z-index': '1','width':width_1,'float':'left'}" class="table-responsive">
+                            <table class="table table-striped  smart-form">
+                              <thead>
+                              <tr>
                                 <th>分类编码</th>
                                 <th>分类名称</th>
                                 <th>商户类型</th>
@@ -163,57 +154,30 @@
                               </tr>
                               </thead>
                               <tbody>
-                              <tr class="">
+                              <tr *ngFor="let cl of categoryList?.result?.categoryList?.data" (click)="isStatusShow(cl.category_id)" [ngClass]="{'table-color':editStatusCategoryId == cl.category_id}">
+                                <td>{{ cl.category_number }}</td>
+                                <td>{{ cl.category_desc }}</td>
                                 <td>
-                                  <label class="checkbox">
-                                    <input type="checkbox" >
-                                    <i></i>
-                                  </label>
+                                  <span [ngSwitch]="cl.category_tab">
+                                    <span *ngSwitchCase="3">供应商</span>
+                                    <span *ngSwitchCase="4">客户</span>
+                                    <span *ngSwitchDefault>未知</span>
+                                  </span>
                                 </td>
-                                <td>1</td>
-                                <td>四川矿业有限公司</td>
-                                <td>四川</td>
-                                <td>2155</td>
+                                <td>{{ cl.parent_category }}</td>
                               </tr>
-                              <tr class="">
-                                <td>
-                                  <label class="checkbox">
-                                    <input type="checkbox" >
-                                    <i></i>
-                                  </label>
-                                </td>
-                                <td>1</td>
-                                <td>四川矿业有限公司</td>
-                                <td>四川</td>
-                                <td>2155</td>
-                              </tr>
-                              <tr class="table-color">
-                                <td>
-                                  <label class="checkbox">
-                                    <input type="checkbox" >
-                                    <i></i>
-                                  </label>
-                                </td>
-                                <td>1</td>
-                                <td>四川</td>
-                                <td>四川矿业有限公司</td>
-                                <td>2155</td>
-                              </tr>
-
-
                               </tbody>
                             </table>
-
                           </div>
                         </div>
                         <!-- 底部-（分页部分）-->
                         <div class="dt-toolbar">
                           <div class="col-xs-12 col-sm-6">
-                            <span>共5条</span>
+                            <span>共{{categoryList?.result?.categoryList?.total}}条</span>
                           </div>
                           <div class="hidden-xs right">
                             <ul class="pagination pagination-sm">
-                              <li *ngFor="let p of categoryList?.page" class="{{p.class}}">
+                              <li *ngFor="let p of categoryList?.result?.page" class="{{p.class}}">
                                 <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
                                 <a *ngIf="p.method==''">{{p.text}}</a>
                               </li>
@@ -226,162 +190,6 @@
                   <!-- end widget -->
                 </article>
               </div>
-
-
-
-
-            </div>
-
-
-
-
-
-          </div>
-
-        </sa-widget>
-      </article>
-    </div>
-  </sa-widgets-grid>
-
-
-
-
-  <sa-widgets-grid>
-    <div class="row">
-      <article class="col-sm-12 ">
-        <sa-widget [editbutton]="false" [deletebutton]="false" [colorbutton]="false">
-          <header>
-            <ul class="nav nav-tabs pull-left in"  id="myTab">
-              <li class="active" >
-                <a data-toggle="tab" href="#AA" > <span
-                        class="hidden-mobile hidden-tablet">单位分类</span></a>
-              </li>
-            </ul>
-          </header>
-
-          <div >
-
-            <div class="widget-body">
-
-              <div id="myTabContent" class="tab-content">
-
-                <div class="tab-pane fade active in  padding-left-10 no-padding-bottom" id="AA">
-                  <div class="row">
-                    <article class="col-lg-6">
-                      <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
-                                 [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
-                        <div>
-                          <div class="widget-body no-padding">
-                            <alert type="info" class="no-margin" *ngIf="category_id == 0">
-                              <i class="fa-fw fa fa-plus"></i>
-                              添加单位分类
-                            </alert>
-                            <alert type="info" class="no-margin" *ngIf="category_id != 0" >
-                               <i class="glyphicon glyphicon-pencil"></i>
-                               修改单位分类
-                             </alert>
-                            <div  class="mt-10">
-                              <form class="smart-form " [formGroup]="formModel" (ngSubmit)="onSubmit()">
-                                <input type="hidden" name="category_id" formControlName="category_id">
-                                <fieldset>
-                                  <section>
-                                    <label class="label txt-color-blue">分类编号<span class="asterisk-color">*</span></label>
-                                    <label class="input">
-                                      <input type="text"  placeholder="分类编号" name="category_number" formControlName="category_number" >
-                                    </label>
-                                  </section>
-                                  <section>
-                                    <label class="label txt-color-blue">分类名称<span class="asterisk-color">*</span></label>
-                                    <label class="input">
-                                      <input type="text" placeholder="请输分类名称"  name="category_desc" formControlName="category_desc" >
-                                    </label>
-                                  </section>
-                                  <section>
-                                    <label class="label txt-color-blue">商户类型<span class="asterisk-color">*</span></label>
-                                    <label class="select">
-                                      <select name="category_tab" formControlName="category_tab" [(ngModel)]="category_tab_default">
-                                        <option disabled="" selected="" value="0" >请选择商户类型</option>
-                                        <option value="3" >供应商</option>
-                                        <option value="4" >客户</option>
-                                      </select> <i></i> </label>
-                                  </section>
-                                  <section>
-                                    <label class="label ">上级分类</label>
-                                    <!--<label class="input">-->
-                                    <!--<i class="icon-append glyphicon glyphicon-search cursor-pointer" data-toggle="modal" data-target="#myModal"></i>-->
-                                    <!--<input type="text" placeholder="请输分类名称" >-->
-                                    <!--</label>-->
-
-                                    <label class="select">
-                                      <select name="category_depth" formControlName="category_depth" [(ngModel)]="category_depth_default">
-                                        <option [selected]="category_id == 0" value="0">一级分类</option>
-                                        <option *ngFor="let c of categoryDefault?.result" [selected]="categoryInfo.result?.category_depth == c.category_id" value="{{ c.category_id }}">{{c.category_desc}}</option>
-                                      </select><i></i>
-                                    </label>
-                                  </section>
-                                </fieldset>
-                                <footer>
-                                  <button type="submit" class="btn btn-primary">
-                                    保存
-                                  </button>
-                                </footer>
-                              </form>
-                            </div>
-
-                          </div>
-                        </div>
-                      </sa-widget>
-                    </article>
-                    <article class="col-lg-6">
-                      <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
-                                 [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
-                        <div>
-                          <div class="widget-body no-padding">
-                            <alert type="info" class="no-margin" >
-                              <i class="fa-fw fa fa-spoon"></i>
-                              单位分类
-                            </alert>
-                            <div class="widget-body">
-                              <div class="row text-center" style="padding:10px 40px;">
-                                <div class="dd" >
-                                  <ol class="dd-list">
-                                    <li class="dd-item" data-id="{{cl.category_id}}" *ngFor="let cl of categoryList?.result?.categoryList?.data">
-                                      <button data-action="expand" type="button" *ngIf="cl.child_count > 0" [ngStyle]="{'display': ((button_contrl_id==cl.category_id && index == 1) || button_contrl_id!=cl.category_id) ? 'block':'none'}" (click)="show(2,cl.category_id)">收起</button>
-                                      <button data-action="collapse" type="button" *ngIf="cl.child_count > 0" [ngStyle]="{'display': (button_contrl_id==cl.category_id && index == 2) ? 'block':'none'}" (click)="show(1,cl.category_id)">展开</button>
-                                      <div class="dd-handle">
-                                        {{cl.category_desc}}
-                                        <div *ngIf="cid == super_admin_id || cl.c_id == cid">
-                                          <a class="btn pull-right btn-warning btn-xs btn-20" (click)="editCategory(cl.category_id)"><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                          <a class="btn pull-right btn-danger btn-xs btn-20" (click)="deleteCategory(cl.category_id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                        </div>
-                                        <div *ngIf="cid != super_admin_id && cl.c_id != cid"><a class="btn pull-right btn-danger btn-xs btn-20">无权操作</a></div>
-
-                                      </div>
-                                      <ol class="dd-list" [ngStyle]="{'display': (button_contrl_id==cl.category_id && index == 2) ? 'block':'none'}">
-                                        <li class="dd-item" data-id="{{clc.category_id}}" *ngFor="let clc of cl.child">
-                                          <div class="dd-handle">
-                                            {{clc.category_desc}}
-                                            <div *ngIf="cid == super_admin_id || clc.c_id == cid">
-                                              <a class="btn pull-right btn-warning btn-xs btn-20" (click)="editCategory(clc.category_id)"><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                              <a class="btn pull-right btn-danger btn-xs btn-20" (click)="deleteCategory(clc.category_id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                            </div>
-                                            <div *ngIf="cid != super_admin_id && clc.c_id != cid"><a class="btn pull-right btn-danger btn-xs btn-20">无权操作</a></div>
-
-                                          </div>
-                                        </li>
-                                      </ol>
-                                    </li>
-                                  </ol>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </sa-widget>
-                    </article>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </sa-widget>
@@ -390,59 +198,49 @@
   </sa-widgets-grid>
  </div>
 
-
-
-
-
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" bsModal #lgModal="bs-modal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <!-- 关闭按钮 -->
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+        <button type="button" class="close" (click)="clearSubmit();lgModal.hide()">
           ×
         </button>
         <!-- 标题 -->
-        <h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>添加单位分类</h3>
-        <h3 class="modal-title  color-yellow" data-ng-bind='results.title'><i class="glyphicon glyphicon-pencil"></i>修改单位分类</h3>
+        <h3 *ngIf="category_id == 0" class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>添加单位分类</h3>
+        <h3 *ngIf="category_id != 0" class="modal-title  color-yellow" data-ng-bind='results.title'><i class="glyphicon glyphicon-pencil"></i>修改单位分类</h3>
       </div>
       <div class="modal-body">
         <div class="row mt-20">
-          <form class="smart-form " [formGroup]="formModel" (ngSubmit)="onSubmit()">
-            <input type="hidden" name="category_id" formControlName="category_id">
+          <form class="smart-form">
             <fieldset>
               <section>
                 <label class="label txt-color-blue">分类编号<span class="asterisk-color">*</span></label>
                 <label class="input">
-                  <input type="text"  placeholder="分类编号" name="category_number" formControlName="category_number" >
+                  <input type="text"  placeholder="分类编号" name="category_number" [(ngModel)]="category_number">
                 </label>
               </section>
               <section>
                 <label class="label txt-color-blue">分类名称<span class="asterisk-color">*</span></label>
                 <label class="input">
-                  <input type="text" placeholder="请输分类名称"  name="category_desc" formControlName="category_desc" >
+                  <input type="text" placeholder="请输分类名称"  name="category_desc" [(ngModel)]="category_desc">
                 </label>
               </section>
               <section>
                 <label class="label txt-color-blue">商户类型<span class="asterisk-color">*</span></label>
                 <label class="select">
-                  <select name="category_tab" formControlName="category_tab" [(ngModel)]="category_tab_default">
-                    <option disabled="" selected="" value="0" >请选择商户类型</option>
+                  <select name="category_tab" [(ngModel)]="category_tab" (change)="getCategoryByTab($event,1)">
+                    <option [selected]="category_id == 0" value="0">请选择商户类型</option>
                     <option value="3" >供应商</option>
                     <option value="4" >客户</option>
                   </select> <i></i> </label>
               </section>
               <section>
                 <label class="label ">上级分类</label>
-                <!--<label class="input">-->
-                <!--<i class="icon-append glyphicon glyphicon-search cursor-pointer" data-toggle="modal" data-target="#myModal"></i>-->
-                <!--<input type="text" placeholder="请输分类名称" >-->
-                <!--</label>-->
-
                 <label class="select">
-                  <select name="category_depth" formControlName="category_depth" [(ngModel)]="category_depth_default">
+                  <select name="category_depth" [(ngModel)]="category_depth">
                     <option [selected]="category_id == 0" value="0">一级分类</option>
-                    <option *ngFor="let c of categoryDefault?.result" [selected]="categoryInfo.result?.category_depth == c.category_id" value="{{ c.category_id }}">{{c.category_desc}}</option>
+                    <option *ngFor="let c of categoryTabList?.result?.categoryList" [selected]="categoryInfo?.result?.parent?.category_depth == c.category_id" value="{{ c.category_id }}">{{c.category_desc}}</option>
                   </select><i></i>
                 </label>
               </section>
@@ -451,9 +249,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-success btn-sm" type="button"><span class="glyphicon glyphicon-plus"></span>保存并新增</button>
-        <button type="button" class="btn btn-primary" data-ng-click="ok()">保存</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+        <button type="button" class="btn btn-primary" (click)="onSubmit();lgModal.hide()">保存</button>
+        <button type="button" class="btn btn-default" (click)="clearSubmit();lgModal.hide()">返回</button>
       </div>
     </div>
   </div>
