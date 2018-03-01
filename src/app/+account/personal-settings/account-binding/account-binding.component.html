@@ -28,7 +28,7 @@
             <li class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 mb-20">
               <a (click)="(null)" ><i class="icon-set_email"></i></a>
               <span class="icon-account" title="">邮箱未绑定</span>
-              <span class="icon-click" >绑定</span>
+              <span class="icon-click"  data-toggle="modal" data-target="#bindingemil">绑定</span>
               <span class="icon-click" data-toggle="modal" data-target="#bindingremove">解除绑定</span>
 
             </li>
@@ -54,7 +54,6 @@
         </button>
         <!-- 标题 -->
         <h3 class="modal-title" data-ng-bind='results.title'>绑定手机</h3>
-        <h3 class="modal-title" data-ng-bind='results.title'>解绑手机</h3>
       </div>
       <div class="modal-body">
         <div class=" no-margin no-padding">
@@ -85,6 +84,44 @@
 </div>
 
 
+<div class="modal fade" id="bindingemil" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- 关闭按钮 -->
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          ×
+        </button>
+        <!-- 标题 -->
+        <h3 class="modal-title" data-ng-bind='results.title'>绑定邮箱</h3>
+      </div>
+      <div class="modal-body">
+        <div class=" no-margin no-padding">
+
+          <div class="row pd-80">
+            <div class="cpwd">
+
+              <div class="pwd">
+                <div><span>邮箱号：</span><input type="password" class="old" /></div>
+                <div>
+                  <span>验证码：</span>
+                  <input type="password" class="now" style="width:180px;" />
+                  <button class="binding-bt">获取验证码</button>
+                  <button class="binding-bt">重新获取(49s)</button>
+                </div>
+                <div class="text-align-center margin-top-24">
+                  <button class="btn-save" data-ng-click="ok()">保存</button>
+                  <button class="btn-cancel" data-dismiss="modal">取消</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+</div>
 
 
 <div class="modal fade" id="bindingwxdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -138,13 +175,9 @@
             <div class="cpwd">
 
               <div class="pwd">
-                <div><span>密码：</span><input type="password" class="old" /></div>
-                <div>
-                  <span>验证码：</span>
-                  <input type="password" class="now" style="width:180px;" />
-                  <button class="binding-bt">获取验证码</button>
-                  <button class="binding-bt">重新获取(49s)</button>
-                </div>
+                <div><span>输入密码：</span><input type="password" class="old" /></div>
+                <div><span>确认密码：</span><input type="password" class="old" /></div>
+
                 <div class="text-align-center margin-top-24">
                   <button class="btn-save" data-ng-click="ok()">保存</button>
                   <button class="btn-cancel" data-dismiss="modal">取消</button>
