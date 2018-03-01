@@ -9,6 +9,9 @@ import {I3otpEditorsModule} from "../../shared/forms/editors/i3otp-editors.modul
 import { MissionDetailsComponent } from './mission-details/mission-details.component';
 
 import { NgDragDropModule } from 'ng-drag-drop';
+import {DpDatePickerModule} from 'ng2-date-picker';
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -16,6 +19,7 @@ import { NgDragDropModule } from 'ng-drag-drop';
       I3otpEditorsModule,
       ReactiveFormsModule,
     TodoMissionRoutingModule,
+    DpDatePickerModule,
     NgDragDropModule.forRoot()
   ],
   declarations: [TodoMissionComponent, MissionDetailsComponent]

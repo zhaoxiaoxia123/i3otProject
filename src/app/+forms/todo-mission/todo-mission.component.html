@@ -97,15 +97,14 @@
                           <span class="task-badge fa fa-clock-o badge-expire-soon" title="任务即将截止">{{tl1.expired_at | date:'yyyy-MM-dd'}}</span>
                           <span class="task-badge fa fa-comment-o" title="任务有 {{tl1.comment_count}} 个评论">{{tl1.comment_count}}</span>
                           <span class="task-badge fa fa-align-left" title="任务有描述" *ngIf="tl1.todo_content"></span>
+                          <span class="task-badge fa fa-comment-o" title="分配人数"> {{tl1.assignCount}}</span>
                           <span class="task-badge task-label" title="{{tag}}" *ngFor="let tag of tl1.tags;let ti = index;"  [ngStyle]="{'background-color': tl1.tags_color[ti]}">{{tag}}</span>
                         </div>
-                        <div class="entry-task-members" *ngIf="tl1.todo_assign">
-                          <a class="js-popbox member avatar ng-scope avatar-28" title="{{h.u_username}}" *ngFor="let h of tl1.assignList">
-                            {{h.u_username}}
-                            <!--<img alt="{{h.u_username}}" class="online width-28" src="{{domain_url}}{{h.u_avatar}}" *ngIf="h.u_avatar">-->
-                            <!--<img alt="{{h.u_username}}" class="online width-28" src="assets/img/avatars/male.png" *ngIf="!h.u_avatar">-->
-                          </a>
-                        </div>
+                        <!--<div class="entry-task-members" *ngIf="tl1.todo_assign">-->
+                          <!--<a class="js-popbox member avatar ng-scope avatar-28" title="{{h.u_username}}" *ngFor="let h of tl1.assignList">-->
+                            <!--{{h.u_username}}-->
+                          <!--</a>-->
+                        <!--</div>-->
                       </div>
                     </div>
                     <!--新建任务发布框-->
@@ -237,7 +236,7 @@
                 <a (click)="editStatusInfo(2,todo_info?.result?.todo_id)">
                   <i class="fa fa-square-o" ></i>
                 </a>
-                <h2 (dblclick)="showPublishDetail(todo_info?.result?.todo_id,1)">
+                <h2 (click)="showPublishDetail(todo_info?.result?.todo_id,1)">
                   <span  class="ng-binding">{{todo_info?.result?.todo_title}}</span>
                   <span class="entity-title--entry ng-binding ng-scope">{{detail_template_name}}</span>
                 </h2>
@@ -358,7 +357,8 @@
                 </dt>
                 <dd class="js_popbox">
                   <a class="ng-binding expire-text-soon" *ngIf="!is_expired_at" (click)="editExpiredAt(todo_info?.result?.expired_at,1)">&nbsp;&nbsp;{{todo_info?.result?.expired_at | date:'yyyy-MM-dd'}}&nbsp;&nbsp;</a>
-                  <input type="date" name="expired_at" (blur)="editExpiredAt(todo_info?.result?.todo_id,2)" [(ngModel)]="expired_at" value="{{expired_at}}" class="ng-binding expire-text-soon" *ngIf="is_expired_at"/>
+                  <!--<input type="date" name="expired_at" (blur)="editExpiredAt(todo_info?.result?.todo_id,2)" [(ngModel)]="expired_at" value="{{expired_at}}" class="ng-binding expire-text-soon" *ngIf="is_expired_at"/>-->
+                  <input name="expired_at" [(ngModel)]="expired_at" [dpDayPicker]="datePickerConfig" [theme]="'dp-material'" [mode]="'day'"  class="form-control ng-binding expire-text-soon" placeholder="截止日期" value="{{expired_at}}" *ngIf="is_expired_at" (blur)="editExpiredAt(todo_info?.result?.todo_id,2)"/>
                 </dd>
               </dl>
               <dl class="module-label ng-scope">
@@ -381,7 +381,7 @@
             </div>
             <hr class="entity-hr">
             <div class="entity-content-footer">
-              <div  class="ng-binding ng-scope">{{todo_info?.result?.u_username}} {{todo_info?.result?.created_at}}，创建了任务</div>
+              <div  class="ng-binding ng-scope">{{todo_info?.result?.u_username}} {{todo_info?.result?.created_at | date:'yyyy-MM-dd HH:mm'}}，创建了任务</div>
             </div>
           </div>
           <div class="margin-10">
