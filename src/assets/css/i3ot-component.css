@@ -3407,8 +3407,15 @@ div.dataTables_editor{
     float: left;
 }
 
+/*个人设置*/
+.personal-l{
+    margin-left: 142px;
+}
+.personal-lb{
+    background: #eaf6ff;
+}
 
-/*代办事项*/
+/*待办事项*/
 
 .todo-group-title {
     margin: 0;

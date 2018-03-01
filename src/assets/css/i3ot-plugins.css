@@ -626,6 +626,10 @@ div.dataTables_paginate ul.pagination {
 .no-padding-bottom {
     padding-bottom: 0!important
 }
+
+.pd-20-10{
+    padding:20px 10px!important;
+}
 .padding0{
     padding:0 !important;
 }

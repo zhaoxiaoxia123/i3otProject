@@ -5,6 +5,7 @@ import { PersonalSettingsRoutingModule } from './personal-settings-routing.modul
 import { PersonalSettingsComponent } from './personal-settings.component';
 import {I3otpModule} from "../../shared/i3otp.module";
 import {I3otpEditorsModule} from "../../shared/forms/editors/i3otp-editors.module";
+import { AddAccountComponent } from './add-account/add-account.component';
 
 @NgModule({
   imports: [
@@ -13,6 +14,6 @@ import {I3otpEditorsModule} from "../../shared/forms/editors/i3otp-editors.modul
       I3otpEditorsModule,
     PersonalSettingsRoutingModule
   ],
-  declarations: [PersonalSettingsComponent]
+  declarations: [PersonalSettingsComponent, AddAccountComponent]
 })
 export class PersonalSettingsModule { }
