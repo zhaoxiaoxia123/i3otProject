@@ -504,7 +504,9 @@ div.dataTables_paginate ul.pagination {
 .bg-color-red {
     background-color: #a90329!important
 }
-
+.bg-color-lightBlue{
+    background-color: #cad8e5!important;
+}
 .bg-color-yellow {
     background-color: #b09b5b!important
 }

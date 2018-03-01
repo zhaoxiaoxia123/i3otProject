@@ -3322,7 +3322,7 @@ div.dataTables_editor{
 /*账号绑定*/
 
 .icon-set_wechat{
-    background: rgba(0, 0, 0, 0) url(../img/login.png) no-repeat scroll 2px -4px;
+    background: rgba(0, 0, 0, 0) url(../img/login.png) no-repeat scroll -2px -4px;
     padding-left: 45px;
 }
 .icon-set li a{
@@ -3413,6 +3413,7 @@ div.dataTables_editor{
 }
 .personal-lb{
     background: #eaf6ff;
+    width: 110px;
 }
 
 /*待办事项*/
@@ -4962,8 +4963,7 @@ ul.checkable.checkable--popboxmenu li a .label-name {
 .pwd {
     display: inline-block;
     text-align: left;
-    padding-top: 40px;
-    font-size: 18px;
+    font-size: 16px;
     color: #333;
 }
 .pwd div {
@@ -4972,7 +4972,7 @@ ul.checkable.checkable--popboxmenu li a .label-name {
 .pwd div input {
     margin-left: 15px;
     padding-left: 5px;
-    width: 416px;
+    width: 300px;
     height: 40px;
     line-height: 40px;
     border: 1px solid #999;

@@ -5,42 +5,19 @@
 
         <div class="row margin-bottom-40">
           <div class="col-sm-12">
-            <!--<div class="air air-right pd-20 text-align-center">
-              &lt;!&ndash;<a href="" class="btn txt-color-white bg-color-teal btn-sm"><i class="fa fa-check"></i> 关注</a>&#xA0;&ndash;&gt;
-              <a  data-toggle="modal" data-target="#myModal" href="" class="btn txt-color-white bg-color-pinkDark btn-sm"><i class="fa fa-link"></i> 编辑个人信息</a>
-            </div>-->
             <h1 class="no-margin  title-h1">权限管理</h1><hr />
           </div>
           <div class="col-sm-12">
             <form class="smart-form">
               <div class="rightM rightW pd-20">
-                <div class="row-rt ">
-                  <p class="caption">账号</p>
-                  <div class="inputWrap">
-                    <div class="formItem">
-                      <div class="form-group">
-                        <div class="bootstrap-tagsinput">
-                          <span class="tag label label-info" >Washington<span data-role="remove"></span></span>
-                          <span class="tag label label-info" >Sydney<span data-role="remove"></span></span>
-                          <span class="tag label label-info" >Beijing<span data-role="remove"></span></span>
-
-
-                          <input type="text" data-toggle="modal" data-target="#myModal"   placeholder="">
-                        </div>
-                        <input class="form-control tagsinput" data-role="tagsinput"  value="Amsterdam,Washington,Sydney,Beijing,Cairo" style="display: none;">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="node">请选择您要设置权限的账号 (可多选),只可以对您的下一级账号进行权限设置</div>
-                </div>
-                <div class="row-rt" style="margin-top:60px;">
+                <div class="row-rt">
                   <p class="caption">角色</p>
                   <div class="inputWrap">
                     <div class="formItem">
                       <div class="form-group ">
                         <section >
                           <!--<label class="label" style="font-size: 16px;">角色</label>-->
-                          <label class="select">
+                          <label class="select" style="width:300px;">
                             <select name="role" >
                               <option disabled>请选择角色</option>
                               <option [value]="2">管理员</option>
@@ -130,30 +107,4 @@
   </div>
 
   <!-- end row -->
-</div>
-
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <!-- 关闭按钮 -->
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-          ×
-        </button>
-        <!-- 标题 -->
-        <h3 class="modal-title" data-ng-bind='results.title'>账号</h3>
-        <!-- <h4 class="modal-title" id="myModalLabel">
-            模态框（Modal）标题
-        </h4> -->
-      </div>
-      <div class="modal-body">
-       <span>暂无子账号</span>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-ng-click="ok()">确定</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal -->
 </div>
