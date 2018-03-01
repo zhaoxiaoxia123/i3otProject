@@ -169,6 +169,7 @@ export class TodoProjectsComponent implements OnInit {
             this.project_title = '';
             this.project_content = '';
             this.project_publicity = 0;
+            this.router.navigate(['/forms/todo-mission/'+this.edit_project_id]);
           }else if(info['status'] == 202){
             alert(info['msg']);
             this.cookiestore.removeAll(this.rollback_url);
