@@ -139,10 +139,10 @@ export class TodoMissionComponent implements OnInit {
     // }
 
     ngOnInit() {
-      $script("https://cdn.ckeditor.com/4.5.11/standard/ckeditor.js", ()=> {
-          const CKEDITOR = window['CKEDITOR'];
-          CKEDITOR.replace('ckeditor-showcase');
-      });
+      // $script("https://cdn.ckeditor.com/4.5.11/standard/ckeditor.js", ()=> {
+      //     const CKEDITOR = window['CKEDITOR'];
+      //     CKEDITOR.replace('ckeditor-showcase');
+      // });
   }
 
     /**
