@@ -5,6 +5,11 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './account-binding.component.html',
 })
 export class AccountBindingComponent implements OnInit {
+    public state: any = {
+        tabs: {
+            demo3: 'hr1',
+        },
+    }
 
   constructor() { }
 
