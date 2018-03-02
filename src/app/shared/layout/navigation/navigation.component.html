@@ -52,10 +52,7 @@
             <a routerLink="/management/setting-archives">{{'商品档案' | i18n}}</a>
           </li>
           <li routerLinkActive="active">
-            <a routerLink="/inventory-management/commodity-classify">{{'商品分类' | i18n}}</a>
-          </li>
-          <li routerLinkActive="active">
-            <a routerLink="/inventory-management/inventory-classification">{{'商品分类旧' | i18n}}</a>
+            <a routerLink="/inventory-management/inventory-classification">{{'商品分类' | i18n}}</a>
           </li>
           <li routerLinkActive="active">
             <a routerLink="/management/setting-conversion">{{'单位换算设置' | i18n}}</a>
@@ -71,7 +68,7 @@
 
       <li>
         <a href="#"><i class="fa fa-lg fa-fw fa-suitcase"></i> <span
-                class="menu-item-parent">{{'CRM管理' | i18n}}</span></a>
+                class="menu-item-parent">{{'客户管理' | i18n}}</span></a>
         <ul>
           <li routerLinkActive="active">
             <a routerLink="/customer-management/unit-classify">{{'单位分类' | i18n}}</a>
@@ -249,7 +246,7 @@
       </li>
       <li>
         <a href="#"><i class="fa fa-lg fa-fw   fa-bell"></i> <span
-                class="menu-item-parent">{{'广播预警预防系统' | i18n}}</span></a>
+                class="menu-item-parent">{{'广播及通知' | i18n}}</span></a>
         <ul>
           <li routerLinkActive="active">
             <a routerLink="/equipment/phonics-list">{{'广播信息列表' | i18n}}</a>
@@ -277,15 +274,7 @@
           <li routerLinkActive="active">
             <a routerLink="/account/personal-settings">{{'个人设置' | i18n}}</a>
           </li>
-          <!--<li routerLinkActive="active">
-            <a routerLink="/account/account-personal">{{'个人信息' | i18n}}</a>
-          </li>
-          <li routerLinkActive="active">
-            <a routerLink="/account/account-password">{{'修改密码' | i18n}}</a>
-          </li>
-          <li routerLinkActive="active">
-            <a routerLink="/account/account-binding">{{'账号绑定' | i18n}}</a>
-          </li>-->
+
           <li routerLinkActive="active">
             <a routerLink="/account/account-permissions">{{'权限管理' | i18n}}</a>
           </li>
@@ -331,6 +320,9 @@
                         class="menu-item-parent">{{'产品管理' | i18n}}</span></a>
                 <ul>
                   <li routerLinkActive="active">
+                    <a routerLink="/inventory-management/commodity-classify">{{'商品分类' | i18n}}</a>
+                  </li>
+                  <li routerLinkActive="active">
                     <a routerLink="/tables/product">{{'产品列表' | i18n}}</a>
                   </li>
                   <li routerLinkActive="active" *ngIf="is_admin!='0'">
@@ -346,7 +338,7 @@
               </li>
               <li>
                 <a href="#"><i class="fa fa-lg fa-fw fa-suitcase"></i> <span
-                        class="menu-item-parent">{{'CRM管理' | i18n}}</span></a>
+                        class="menu-item-parent">{{'客户管理' | i18n}}</span></a>
                 <ul>
                   <li routerLinkActive="active">
                     <a routerLink="/tables/client1">{{'客户列表' | i18n}}</a>

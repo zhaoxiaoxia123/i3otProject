@@ -3254,7 +3254,8 @@ ul.ColVis_collection li label {
 }
 
 .chat-body li:first-child {
-    margin-top: 10px
+    margin-top: 4px;
+    margin-bottom: 10px;
 }
 
 .chat-body li.message img {
@@ -3333,7 +3334,6 @@ ul.ColVis_collection li label {
 
 .chat-body li.message .message-text a.username {
     display: block;
-    font-weight: 700;
     margin-bottom: 4px;
     vertical-align: top;
     line-height: 14px;
@@ -3694,6 +3694,10 @@ div.dataTables_editor{
     padding: 0;
     min-height: 5px;
     list-style: none
+}
+.todo-mh{
+    margin: 0;
+    height: 120px!important;
 }
 
 .well-todo-btn.btn-group{
@@ -4244,7 +4248,7 @@ div.dataTables_editor{
 }
 .task_style .entry-task-main a.entry-task-check i.fa-check-square {
     font-size: 17px;
-    color: #5cb76f;
+    color: #169af6;
 }
 .task_style:after, .task_style:before {
     content: " ";
@@ -4261,6 +4265,11 @@ div.dataTables_editor{
 }
 .task-badges {
     white-space: normal;
+}
+.task-height{
+    max-height: 70px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .task_style .task-badges {
     float: left;
@@ -4321,8 +4330,8 @@ div.dataTables_editor{
 }
 .task-badges .task-badge.task-label {
     color: #fff;
-    line-height: 18px;
-    height: 18px;
+    line-height: 20px;
+    height: 20px;
     width: auto;
     padding: 0 5px;
     font-size: 9px;
@@ -4571,7 +4580,7 @@ div.dataTables_editor{
     color: #b9b9b7;
 }
 .entity-well .entity-well-content .entity-title a:active, .entity-well .entity-well-content .entity-title a:hover {
-    color: #5cb76f;
+    color: #169af6;
 }
 .entity-well .entity-well-content .entity-title h2 {
     margin: 5px 24px 5px 5px;
@@ -4605,7 +4614,7 @@ div.dataTables_editor{
     position: relative;
 }
 .entity-well .entity-well-content .entity-title a i.fa-check-square {
-    color: #5cb76f;
+    color: #169af6;
 }
 .task-completed-style {
     color: #999;
@@ -4680,8 +4689,8 @@ ul.avatars li {
 .entity-well .entity-well-content .entity-members dd ul.avatars li a.fa-times-circle {
     position: absolute;
     display: none;
-    top: 0;
-    right: 0;
+    top: -6px;
+    right: 0px;
     color: #acaba7;
     z-index: 3;
     font-size: 15px;
@@ -4692,12 +4701,12 @@ ul.avatars li {
     zoom: 1;
 }
 .avatar-add .o {
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
+    width: 60px;
+    height: 30px;
+    line-height: 30px;
     color: #d9d7d3;
     border: solid 1px #d9d7d3;
-    /*border-radius: 50%;*/
+    border-radius: 4px;
     display: inline-block;
     font-size: 24px!important;
 }
@@ -4752,8 +4761,8 @@ ul.avatars li {
 }
 .entity-well .entity-well-content .entity-well-content-module>dl.module-label ul li.task-label {
     position: relative;
-    height: 21px;
-    line-height: 21px;
+    height: 30px;
+    line-height: 30px;
     font-size: 12px;
     color: #fff;
     padding: 0 24px 0 14px;
@@ -4769,13 +4778,31 @@ ul.avatars li {
     display: block;
     width: 24px;
     text-align: center;
-    line-height: 21px;
+    line-height: 30px;
     text-indent: 0;
     visibility: hidden;
 }
 .entity-well .entity-well-content .entity-well-content-module>dl.module-label ul li.task-label:hover .action-icon {
     visibility: visible;
     color: #fff;
+}
+.portrait-size{
+    width: 60px;
+    height: 30px;
+    color: #ffffff;
+    border: solid 1px #169af6;
+    display: inline-block;
+    font-size: 13px!important;
+    line-height: 30px;
+    padding: 0 4px;
+    text-align: center;
+    background: #169af6;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-radius: 4px;
+}
+.portrait-size:hover{
+    color:#fff;
 }
 .green-label {
     background-color: #5eac82;

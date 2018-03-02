@@ -370,7 +370,9 @@ div.dataTables_paginate ul.pagination {
 .txt-color-white{
     color: #fff!important;
 }
-
+.text-color-black{
+    color:#333;
+}
 .txt-color-blue {
     color: #3782e7!important
 }
@@ -474,9 +476,14 @@ div.dataTables_paginate ul.pagination {
 .text-info {
     color: #23c6c8;
 }
-.text-success {
-    color: #1c84c6;
+.text-blove {
+    color: #169af6;
 }
+
+.bg-color-blove {
+    background-color: #169af6!important;
+}
+
 .bg-color-blue {
     background-color: #57889c!important
 }
@@ -496,6 +503,7 @@ div.dataTables_paginate ul.pagination {
 .bg-color-greenLight {
     background-color: #71843f!important
 }
+
 
 .bg-color-greenDark {
     background-color: #496949!important
@@ -560,6 +568,12 @@ div.dataTables_paginate ul.pagination {
 
 .bg-color-redLight {
     background-color: #a65858!important
+}
+.bo-color-info{
+    border: 2px solid #23c6c8!important;
+}
+.bo-color-orange{
+    border: 2px solid #c79121!important;
 }
 
 /*百分比*/
@@ -720,6 +734,9 @@ div.dataTables_paginate ul.pagination {
 }
 .margin-top-10 {
     margin-top: 10px!important
+}
+.margin-top-20 {
+    margin-top: 20px!important
 }
 .margin-top-40 {
     margin-top: 40px!important
