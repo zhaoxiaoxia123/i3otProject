@@ -370,7 +370,9 @@ div.dataTables_paginate ul.pagination {
 .txt-color-white{
     color: #fff!important;
 }
-
+.text-color-black{
+    color:#333;
+}
 .txt-color-blue {
     color: #3782e7!important
 }
@@ -720,6 +722,9 @@ div.dataTables_paginate ul.pagination {
 }
 .margin-top-10 {
     margin-top: 10px!important
+}
+.margin-top-20 {
+    margin-top: 20px!important
 }
 .margin-top-40 {
     margin-top: 40px!important

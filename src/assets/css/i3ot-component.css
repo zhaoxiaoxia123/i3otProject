@@ -3254,7 +3254,8 @@ ul.ColVis_collection li label {
 }
 
 .chat-body li:first-child {
-    margin-top: 10px
+    margin-top: 4px;
+    margin-bottom: 10px;
 }
 
 .chat-body li.message img {
@@ -3333,7 +3334,6 @@ ul.ColVis_collection li label {
 
 .chat-body li.message .message-text a.username {
     display: block;
-    font-weight: 700;
     margin-bottom: 4px;
     vertical-align: top;
     line-height: 14px;
@@ -3694,6 +3694,10 @@ div.dataTables_editor{
     padding: 0;
     min-height: 5px;
     list-style: none
+}
+.todo-mh{
+    margin: 0;
+    height: 120px!important;
 }
 
 .well-todo-btn.btn-group{

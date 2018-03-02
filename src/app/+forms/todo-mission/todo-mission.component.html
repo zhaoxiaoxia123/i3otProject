@@ -95,9 +95,9 @@
                         </div>
                         <div class="task-badges">
                           <span class="task-badge fa fa-clock-o badge-expire-soon" title="任务即将截止">{{tl1.expired_at | date:'yyyy-MM-dd'}}</span>
+                          <span class="task-badge fa fa-long-arrow-right" title="任务有描述" *ngIf="tl1.todo_content"></span>
                           <span class="task-badge fa fa-comment-o" title="任务有 {{tl1.comment_count}} 个评论">{{tl1.comment_count}}</span>
-                          <span class="task-badge fa fa-align-left" title="任务有描述" *ngIf="tl1.todo_content"></span>
-                          <span class="task-badge fa fa-comment-o" title="分配人数"> {{tl1.assignCount}}</span>
+                          <span class="task-badge fa fa-user" title="分配人数"> {{tl1.assignCount}}</span>
                           <span class="task-badge task-label" title="{{tag}}" *ngFor="let tag of tl1.tags;let ti = index;"  [ngStyle]="{'background-color': tl1.tags_color[ti]}">{{tag}}</span>
                         </div>
                         <!--<div class="entry-task-members" *ngIf="tl1.todo_assign">-->
@@ -257,7 +257,7 @@
             </div>
             <div class="edit-section ng-scope well"  *ngIf="is_show_publish_detail">
               <div>
-                <input type="text" name="todo_name" [(ngModel)]="todo_name" class="form-control help-block ng-pristine ng-valid ng-not-empty ng-valid-required ng-touched" placeholder="任务名称" required="">
+                <input type="text" name="todo_name" [(ngModel)]="todo_name" class="form-control help-block ng-pristine ng-valid ng-not-empty ng-valid-required ng-touched text-color-black" placeholder="任务名称" required="">
                 <sa-widget [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [fullscreenbutton]="false" [sortable]="false">
                   <header>
                     <span class="widget-icon"> <i class="fa fa-pencil"></i> </span>
@@ -265,7 +265,7 @@
                   </header>
                   <div>
                     <div class="widget-body no-padding">
-                      <textarea class="form-control help-block" placeholder="请输入任务描述" name="todo_content" [(ngModel)]="todo_content"></textarea>
+                      <textarea class="form-control help-block todo-mh" placeholder="请输入任务描述" name="todo_content" [(ngModel)]="todo_content"></textarea>
                     </div>
                   </div>
                 </sa-widget>
@@ -406,7 +406,7 @@
                             <div class="comment-list">
 
                               <div *ngFor="let cl of comment_list?.result;let ind=index;">
-                              <div class="timeline-seperator text-center"><span>{{cl.created_at | date:"yyyy-MM-dd"}}</span>
+                              <div class="timeline-seperator text-center mb-20"><span>{{cl.created_at | date:"yyyy-MM-dd"}}</span>
                               </div>
                               <div class="chat-body no-padding profile-message">
                                 <ul>
@@ -414,19 +414,19 @@
                                     <img alt="{{cl.u_username}}" class="online" src="{{domain_url}}{{cl.u_avatar}}" *ngIf="cl.u_avatar">
                                     <img alt="{{cl.u_username}}" class="online" src="assets/img/avatars/male.png" *ngIf="!cl.u_avatar">
                                     <span class="message-text">
-                                      <a class="username">{{cl.u_username}}
+                                      <a class="username text-color-black">{{cl.u_username}}
                                           <small class="text-muted pull-right ultra-light"> {{cl.return_time}}</small>
                                       </a> {{cl.comment_content}}
                                     </span>
                                     <ul class="list-inline font-xs">
-                                      <li>
-                                        <a class="text-info" (click)="showComment(cl.comment_id,ind)"><i class="fa fa-reply"></i> 回复</a>
+                                      <li class="margin-top-20">
+                                        <a class="text-info " (click)="showComment(cl.comment_id,ind)"><i class="fa fa-reply"></i> 回复</a>
                                       </li>
-                                      <li>
+                                      <!--<li>
                                         <a class="text-danger"><i class="fa fa-thumbs-up"></i>赞</a>
-                                      </li>
+                                      </li>-->
                                       <li>
-                                        <a class="text-muted">显示所有的评论 ({{cl.replayCount}})</a>
+                                        <a class="text-muted">评论数 ({{cl.replayCount}})</a>
                                       </li>
                                       <li *ngIf="is_show_replay != ind && cl.replayCount > 0">
                                         <a class="text-primary" (click)="isShowReplayList(ind)">显示回复</a>
@@ -434,22 +434,28 @@
                                       <li *ngIf="is_show_replay == ind && cl.replayCount > 0">
                                         <a class="text-primary" (click)="isShowReplayList(99999)">隐藏回复</a>
                                       </li>
+                                      <li>
+                                        <a class="text-muted">删除</a>
+                                      </li>
                                     </ul>
                                   </li>
-                                  <div *ngIf="is_show_replay == ind">
-                                  <li class="message message-reply" *ngFor="let rl of cl.replayList">
+                                  <li class="message message-reply" *ngIf="is_show_replay == ind">
+                                  <div  *ngFor="let rl of cl.replayList">
                                     <img src="assets/img/avatars/female.png" class="online" alt="user">
-                                    <span class="message-text"> <a class="username">{{rl.u_username}} </a> {{rl.comment_content}} <i class="fa fa-smile-o txt-color-orange"></i> </span>
+                                    <span class="message-text"> <a class="username text-color-black">{{rl.u_username}} </a> {{rl.comment_content}} <i class="fa fa-smile-o txt-color-orange"></i> </span>
                                     <ul class="list-inline font-xs">
                                       <li>
                                         <a  class="text-muted"> {{rl.return_time}}</a>
                                       </li>
                                       <li>
-                                        <a class="text-danger"><i class="fa fa-thumbs-up"></i> 赞</a>
+                                        <a class="text-muted">删除</a>
                                       </li>
+                                      <!--<li>
+                                        <a class="text-danger"><i class="fa fa-thumbs-up"></i> 赞</a>
+                                      </li>-->
                                     </ul>
-                                  </li>
                                   </div>
+                                  </li>
                                   <li *ngIf="comment_parent_id == cl.comment_id">
                                     <div class="input-group wall-comment-reply">
                                       <input  type="text" class="form-control" placeholder="这里输入您回复的消息..." name="replay_content" [(ngModel)]="replay_content">
