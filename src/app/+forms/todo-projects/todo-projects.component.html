@@ -35,7 +35,7 @@
                       <a class="star" (click)="isCommon($event,ca.project_id,ca.project_status);">
                         <i class="fa fa-star txt-color-yellowMing"></i> </a>
                       <a class="center ">
-                        <i class="fa-fw fa fa-inbox txt-color-greenNormal"></i>
+                        <i class="fa-fw fa fa-inbox text-success"></i>
                         <h4 class="">{{ca.project_title}}</h4></a>
                       <a class="members">
                         <i class="fa fa-user"></i>
@@ -57,7 +57,7 @@
                   <div class="project-grid ">
                     <div class="project-item ">
                       <a class="center "  (click)="showAddProject($event,cl.category_id,0);lgModal.show();">
-                        <i class="fa-fw fa fa-inbox txt-color-greenNormal"></i>
+                        <i class="fa-fw fa fa-inbox text-success"></i>
                         <h4 class="">发起项目</h4></a>
                     </div>
                     <div class="project-item " [routerLink]="['/forms/todo-mission',pl.project_id]" *ngFor="let pl of cl.project_list">
@@ -65,7 +65,7 @@
                         <i class="fa fa-star-o" *ngIf="pl.project_status == 1"></i>
                         <i class="fa fa-star txt-color-yellowMing" *ngIf="pl.project_status == 2"></i></a>
                       <a class="center">
-                        <i class="fa-fw fa fa-inbox txt-color-greenNormal"></i>
+                        <i class="fa-fw fa fa-inbox text-success"></i>
                         <h4 class="">{{pl.project_title}}</h4></a>
                       <a class="members" (click)="showAddProject($event,cl.category_id,pl.project_id);lgModal.show();">
                         <i class="fa fa-plus-circle"></i>

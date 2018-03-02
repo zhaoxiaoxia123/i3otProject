@@ -477,7 +477,10 @@ div.dataTables_paginate ul.pagination {
     color: #23c6c8;
 }
 .text-success {
-    color: #1c84c6;
+    color: #169af6;
+}
+.bg-color-success {
+    background-color: #169af6!important;
 }
 .bg-color-blue {
     background-color: #57889c!important
@@ -498,6 +501,7 @@ div.dataTables_paginate ul.pagination {
 .bg-color-greenLight {
     background-color: #71843f!important
 }
+
 
 .bg-color-greenDark {
     background-color: #496949!important
