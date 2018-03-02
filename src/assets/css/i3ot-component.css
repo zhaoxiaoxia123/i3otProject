@@ -4248,7 +4248,7 @@ div.dataTables_editor{
 }
 .task_style .entry-task-main a.entry-task-check i.fa-check-square {
     font-size: 17px;
-    color: #5cb76f;
+    color: #169af6;
 }
 .task_style:after, .task_style:before {
     content: " ";
@@ -4580,7 +4580,7 @@ div.dataTables_editor{
     color: #b9b9b7;
 }
 .entity-well .entity-well-content .entity-title a:active, .entity-well .entity-well-content .entity-title a:hover {
-    color: #5cb76f;
+    color: #169af6;
 }
 .entity-well .entity-well-content .entity-title h2 {
     margin: 5px 24px 5px 5px;
@@ -4614,7 +4614,7 @@ div.dataTables_editor{
     position: relative;
 }
 .entity-well .entity-well-content .entity-title a i.fa-check-square {
-    color: #5cb76f;
+    color: #169af6;
 }
 .task-completed-style {
     color: #999;

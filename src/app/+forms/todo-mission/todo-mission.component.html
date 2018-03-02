@@ -29,7 +29,7 @@
                     </ul>
                   </div>
                   <h1 class="title-h1"><a  class="js-popbox prj_icon text-color-black" >
-                    <i class="fa-fw fa fa-inbox text-success" ></i>{{todoList?.result?.project_title}}
+                    <i class="fa-fw fa fa-inbox text-blove" ></i>{{todoList?.result?.project_title}}
                   </a>
                    <!-- <a class="js-popbox prj_name ng-binding" ></a>-->
                   </h1><hr />
@@ -72,9 +72,9 @@
                           删除 </a>
                       </div>
                       <div class="entry-task-panel wt-scroll"  style="overflow-x: hidden; overflow-y: auto;">
-                        <div class="entry-tasks js-sortable ui-sortable" >
+                        <div class="entry-tasks js-sortable ui-sortable  " >
 
-                          <div [ngClass]="{'right_click_trigger slide-trigger js-popbox false task task_style task-':true,'task-selected':tl1.todo_status==2}" *ngFor="let tl1 of tl.todo_list" (click)="showDetail(tl1.todo_id,tl.key,tl.info)"  draggable [dragScope]="tl.d" [dragClass]="'drag-over'" [dragData]="tl1" (onDragEnd)="onDragList_(tl1.todo_id,tl1.project_id)"><!--tl1.template_id,-->
+                          <div class="bo-color-orange" [ngClass]="{'right_click_trigger slide-trigger js-popbox false task task_style task-':true,'task-selected':tl1.todo_status==2}" *ngFor="let tl1 of tl.todo_list" (click)="showDetail(tl1.todo_id,tl.key,tl.info)"  draggable [dragScope]="tl.d" [dragClass]="'drag-over'" [dragData]="tl1" (onDragEnd)="onDragList_(tl1.todo_id,tl1.project_id)"><!--tl1.template_id,-->
                             <div [ngClass]="{'entry-task-main':true,'task-completed-style':tl1.todo_status==2}">
                               <a class="entry-task-check ng-scope" *ngIf="tl1.todo_status != 2" (click)="editStatus($event,2,tl1.todo_id,todoList?.result?.project_id)">
                                 <i class="fa fa-square-o"></i>
