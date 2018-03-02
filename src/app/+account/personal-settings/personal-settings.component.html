@@ -38,13 +38,13 @@
                 <tabset>
                   <tab [active]="state.tabs.demo2 == 'tab-r1'" class="personal-l">
 
-                    <app-account-personal></app-account-personal>
+                    <app-account-personal [fromFatherValue]="userInfo"></app-account-personal>
                   </tab>
                   <tab [active]="state.tabs.demo2 == 'tab-r2'" class="personal-l">
-                    <app-account-password></app-account-password>
+                    <app-account-password [fromFatherValue]="userInfo"></app-account-password>
                   </tab>
                   <tab [active]="state.tabs.demo2 == 'tab-r3'" class="personal-l">
-                    <app-account-binding></app-account-binding>
+                    <app-account-binding [fromFatherValue]="userInfo"></app-account-binding>
                   </tab>
                 </tabset>
               </div>

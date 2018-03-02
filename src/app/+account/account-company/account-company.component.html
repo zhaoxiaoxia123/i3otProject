@@ -2,100 +2,58 @@
   <div class="row">
     <div class="col-sm-12 col-md-12 col-lg-12">
       <div class="well well-light well-sm no-margin no-padding">
-        <!--<div class="row margin-bottom-40">
-          <div class="col-sm-12">
-            <div class="air air-right pd-20 text-align-center">
-              &lt;!&ndash;<a href="" class="btn txt-color-white bg-color-teal btn-sm"><i class="fa fa-check"></i> 关注</a>&#xA0;&ndash;&gt;
-              <a  data-toggle="modal" data-target="#myModal" href="" class="btn txt-color-white bg-color-pinkDark btn-sm"><i class="fa fa-link"></i> 编辑公司信息</a>
-            </div>
-            <h1 class="title-h1">成都矿易帮科技有限公司</h1><hr />
-          </div>
-          <div class="col-xs-8">
-            <div class="editor" style="margin:100px 0" data-toggle="modal" data-target="#myModal">
-              <div class="padding-left-20 line-2 text-align-center">
-                <a  data-toggle="modal" data-target="#myModal" href="" class="btn txt-color-white bg-color-pinkDark btn-sm"><i class="fa fa-link"></i> 编辑公司信息</a>
-              </div>
-            </div>
-
-          </div>
-          <div class="col-xs-4">
-            <div class="text-align-center " >
-                      <span class="user-image"  >
-                      <img  alt="" style="width: 160px; height: 160px;" src="assets/img/default_user.png"  >
-                      </span>
-              <p class="pd-10">*图片不能超过300k</p>
-            </div>
-          </div>
-        </div>-->
         <div class="row margin-bottom-40">
           <div class="col-sm-12">
             <div class="air air-right pd-20 text-align-center">
               <!--<a href="" class="btn txt-color-white bg-color-teal btn-sm"><i class="fa fa-check"></i> 关注</a>&#xA0;-->
-              <a  data-toggle="modal" data-target="#myModal" href="" class="btn txt-color-white bg-color-lightBlue btn-sm"><!--<i class="fa fa-link"></i>--> 编辑公司信息</a>
+              <a (click)="lgModal.show()" class="btn txt-color-white bg-color-lightBlue btn-sm"><!--<i class="fa fa-link"></i>--> 编辑公司信息</a>
             </div>
-            <h1 class="title-h1">成都矿易帮科技有限公司</h1><hr />
+            <h1 class="title-h1">{{customerInfo?.result?.customerInfo?.c_name}}</h1><hr />
           </div>
-          <div class="col-xs-8">
-              <div class="editor padding-left-20 line-2" data-toggle="modal" data-target="#myModal">
-                <h4 class="no-margin size-bold">矿易帮<a class="padding-left-5" href="">(dffdfds)</a></h4>
-                <p>
-                  矿易帮旨在为所有矿业人打造一个了解最新时事资讯和进行互打造一个了解最新时事资讯和进行互打造一个了解最新时事资讯和进行互打造一个了解最新时事资讯和进行互打造一个了解最新时事资讯和进行互
-                </p>
+          <div class="col-xs-8" (click)="lgModal.show()">
+              <div class="editor padding-left-20 line-2">
+                <h4 class="no-margin size-bold">{{customerInfo?.result?.customerInfo?.c_abbreviation}}<a class="padding-left-5" href="">({{customerInfo?.result?.customerInfo?.c_number}})</a></h4>
+                <p>{{customerInfo?.result?.customerInfo?.c_notes}}</p>
               </div>
-              <div class="editor padding-left-20 line-2 cml-c" data-toggle="modal" data-target="#myModal">
-                <span>地点：成都</span>
-                <span>领域：计算机/互联网</span>
-                <span>规模：50-150人</span>
-                <span>网址：www.kuangyibang.com</span>
+              <div class="editor padding-left-20 line-2 cml-c">
+                <span>地点：{{customerInfo?.result?.customerInfo?.c_city}}</span>
+                <span>领域：{{customerInfo?.result?.customerInfo?.category_desc}}</span>
+                <span>规模：{{customerInfo?.result?.customerInfo?.c_company_size}}</span>
+                <span>网址：{{customerInfo?.result?.customerInfo?.c_link}}</span>
               </div>
-
               <div class="padding-left-20 margin-top-40 ">
                 <h4 class="no-margin size-bold">联系方式</h4>
                 <hr/>
-                <div class="editor  line-2 cml-c" data-toggle="modal" data-target="#myModal">
-                  <span>联系电话：028-86121208</span>
-                  <span>Email： info@kuangyibang.com</span>
-                  <span>联系地址： 四川省成都市下南大街59号世代锦江国际酒店25楼</span>
+                <div class="editor  line-2 cml-c">
+                  <span>联系电话：{{customerInfo?.result?.customerInfo?.c_phone}}</span>
+                  <span>Email： {{customerInfo?.result?.customerInfo?.c_email}}</span>
+                  <span>联系地址： {{customerInfo?.result?.customerInfo?.c_address}}</span>
                 </div>
-
               </div>
-
-
-
-
-
           </div>
           <div class="col-xs-4">
             <div class="text-align-center " >
-                      <span class="user-image"  >
-                      <img  alt="" style="width: 160px; height: 160px;" src="assets/img/default_user.png"  >
-                      </span>
+              <span class="user-image"  >
+              <img  alt="" style="width: 160px; height: 160px;" src="assets/img/default_user.png"  >
+              </span>
               <p class="pd-10">*图片不能超过300k</p>
             </div>
           </div>
         </div>
       </div>
-
-
     </div>
-
   </div>
   <!-- end row -->
 </div>
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" bsModal #lgModal="bs-modal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <!-- 关闭按钮 -->
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-          ×
-        </button>
+        <button type="button" class="close" (click)="lgModal.hide()">×</button>
         <!-- 标题 -->
         <h3 class="modal-title" data-ng-bind='results.title'>公司信息</h3>
-        <!-- <h4 class="modal-title" id="myModalLabel">
-            模态框（Modal）标题
-        </h4> -->
       </div>
       <div class="modal-body">
         <sa-widget [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
@@ -116,13 +74,13 @@
                   <tabset >
                     <tab [active]="state.tabs.demo3 == 'hr1'">
                       <div class="row">
-                        <form   class="smart-form ">
+                        <form class="smart-form " [formGroup]="formModel">
                           <fieldset>
                             <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                               <section>
                                 <label class="label">公司编码</label>
                                 <label class="input">
-                                  <input type="text" placeholder="自动生成"  disabled="disabled">
+                                  <input type="text" placeholder="自动生成" name="c_number" formControlName="c_number">
                                 </label>
                               </section>
                             </div>
@@ -130,7 +88,7 @@
                               <section>
                                 <label class="label txt-color-blue">公司名称<span class="asterisk-color">*</span></label>
                                 <label class="input">
-                                  <input type="text"   placeholder=""  >
+                                  <input type="text" name="c_name" formControlName="c_name">
                                 </label>
                               </section>
                             </div>
@@ -138,7 +96,7 @@
                               <section>
                                 <label class="label">识别码</label>
                                 <label class="input">
-                                  <input type="text" placeholder="公司简称" >
+                                  <input type="text" placeholder="公司简称" name="c_abbreviation" formControlName="c_abbreviation">
                                 </label>
                               </section>
                             </div>
@@ -146,7 +104,7 @@
                               <section>
                                 <label class="label txt-color-blue">公司网址<span class="asterisk-color">*</span></label>
                                 <label class="input">
-                                  <input type="text" placeholder="" >
+                                  <input type="text" name="c_link" formControlName="c_link">
                                 </label>
                               </section>
                             </div>
@@ -154,58 +112,52 @@
                               <section>
                                 <label class="label txt-color-blue">所在城市<span class="asterisk-color">*</span></label>
                                 <label class="select ">
-                                  <select  name="birthplace2" >
-                                    <option value="0">--请选择市--</option>
-                                    <option >四川</option>
-                                  </select> <i></i> </label>
+                                  <select name="c_city1"  formControlName="c_city1" [(ngModel)]="c_city1_default" (change)="getCity()">
+                                    <option value="0">--请选择省--</option>
+                                    <option *ngFor="let p of province" [selected]="customerInfo?.result?.customerInfo?.c_city1 == p" value="{{p}}">{{p}}</option>
+                                  </select>
+                                  <i></i>
+                                </label>
+                                <section class="col col-4">
+                                  <label class="select margin-top-24">
+                                    <select name="c_city2"  formControlName="c_city2" [(ngModel)]="c_city2_default">
+                                      <option value="0">--请选择市--</option>
+                                      <option *ngFor="let c of city" [selected]="customerInfo?.result?.customerInfo?.c_city2 == c" value="{{c}}">{{c}}</option>
+                                    </select> <i></i> </label>
+                                </section>
                               </section>
                             </div>
                             <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                               <section>
                                 <label class="label">详细地址</label>
                                 <label class="input">
-                                  <input type="text" placeholder="" >
+                                  <input type="text" name="c_address" formControlName="c_address">
                                 </label>
                               </section>
                             </div>
                             <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                               <section>
                                 <label class="label ">行业领域</label>
-                                  <label class="select">
-                                    <select  name="birthplace2" >
-                                      <option value="0">--请选行业--</option>
-                                      <option >矿产</option>
-                                    </select> <i></i> </label>
+                                <label class="select">
+                                  <select name="c_industry_category" formControlName="c_industry_category" [(ngModel)]="industry_category_default">
+                                    <option *ngFor="let c of customerInfo?.result?.categoryInfo" [selected]="customerInfo?.result?.customerInfo?.c_industry_category == c.category_id || this.cid == 0" value="{{c.category_id}}">{{c.category_desc}}</option>
+                                  </select>
+                                  <i></i> </label>
                               </section>
                             </div>
                             <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                               <section>
-                                <label class="label ">公司规模</label>
-                                <label class="select  ">
-                                  <select  name="birthplace2" >
-                                    <option value="0">--公司规模--</option>
-                                    <option >少于15人</option>
-                                    <option >15-50人</option>
-                                    <option >50-150人</option>
-                                    <option >150-500人</option>
-                                    <option >500-2000人</option>
-                                    <option >500-2000人以上</option>
-                                  </select> <i></i> </label>
-                              </section>
-                            </div>
-                            <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section>
-                                <label class="label txt-color-blue">简短介绍<span class="asterisk-color">*</span></label>
+                                <label class="label">公司规模</label>
                                 <label class="input">
-                                  <input type="text" placeholder="" >
+                                  <input type="text" name="c_company_size" formControlName="c_company_size">
                                 </label>
                               </section>
-                            </div>-->
+                            </div>
                             <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
                               <section>
                                 <label class="label">说明</label>
                                 <label class="textarea textarea-resizable">
-                                  <textarea class="custom-scroll" rows="2" name="" ></textarea>
+                                  <textarea class="custom-scroll" rows="2" name="c_notes" formControlName="c_notes"></textarea>
                                 </label>
                               </section>
                             </div>
@@ -220,13 +172,13 @@
                   <tabset >
                     <tab [active]="state.tabs.demo3 == 'hr2'">
                       <div class="row">
-                        <form   class="smart-form ">
+                        <form class="smart-form " [formGroup]="formModel1">
                           <fieldset>
                             <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                               <section>
                                 <label class="label">联系电话</label>
                                 <label class="input">
-                                  <input type="text"   placeholder=""  >
+                                  <input type="text" name="c_phone" formControlName="c_phone">
                                 </label>
                               </section>
                             </div>
@@ -234,21 +186,12 @@
                               <section>
                                 <label class="label">Email</label>
                                 <label class="input">
-                                  <input type="text"   placeholder=""  >
-                                </label>
-                              </section>
-                            </div>
-                            <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                              <section>
-                                <label class="label">联系地址</label>
-                                <label class="input">
-                                  <input type="text"   placeholder=""  >
+                                  <input type="text" name="c_email" formControlName="c_email">
                                 </label>
                               </section>
                             </div>
                           </fieldset>
                         </form>
-
                       </div>
                     </tab>
                   </tabset>
@@ -259,8 +202,8 @@
         </sa-widget>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-ng-click="ok()">确定</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary" (click)="onSubmit();">确定</button>
+        <button type="button" class="btn btn-default" (click)="lgModal.hide()">关闭</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal -->

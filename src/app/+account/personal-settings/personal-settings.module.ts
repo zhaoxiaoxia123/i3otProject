@@ -8,14 +8,20 @@ import {I3otpEditorsModule} from "../../shared/forms/editors/i3otp-editors.modul
 import { AccountPersonalComponent } from './account-personal/account-personal.component';
 import { AccountBindingComponent } from './account-binding/account-binding.component';
 import { AccountPasswordComponent } from './account-password/account-password.component';
+import {CookieService} from "angular2-cookie/core";
+import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   imports: [
     CommonModule,
       I3otpModule,
       I3otpEditorsModule,
+    FormsModule,
+    ReactiveFormsModule,
     PersonalSettingsRoutingModule
-  ],
-  declarations: [PersonalSettingsComponent, AccountPersonalComponent, AccountBindingComponent, AccountPasswordComponent]
-})
+],
+declarations: [PersonalSettingsComponent, AccountPersonalComponent, AccountBindingComponent, AccountPasswordComponent],
+providers:[ CookieService,CookieStoreService ]
+ })
 export class PersonalSettingsModule { }
