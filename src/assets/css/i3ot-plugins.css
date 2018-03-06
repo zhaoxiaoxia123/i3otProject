@@ -575,6 +575,9 @@ div.dataTables_paginate ul.pagination {
 .bo-color-orange{
     border: 2px solid #c79121!important;
 }
+.bo-color-grey {
+    border: 2px solid #ccc!important;
+}
 
 /*百分比*/
 .percent-6{
