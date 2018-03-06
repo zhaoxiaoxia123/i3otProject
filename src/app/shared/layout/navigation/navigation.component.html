@@ -25,7 +25,7 @@
 
       <li>
         <a href="#"><i class="fa fa-lg fa-fw fa-child "></i> <span
-                class="menu-item-parent">{{'人事管理' | i18n}}</span></a>
+                class="menu-item-parent">{{'人力资源' | i18n}}</span></a>
         <ul>
           <li routerLinkActive="active">
             <a routerLink="/tables/staff">{{'员工档案' | i18n}}</a>
@@ -164,6 +164,26 @@
 
         </ul>
       </li>
+      <!--<li>
+        <a href="#"><i class=" fa fa-lg fa-fw fa-sitemap"></i> <span
+                class="menu-item-parent">{{'流程审批' | i18n}}</span></a>
+        <ul>
+          <li routerLinkActive="active">
+            <a routerLink="/assets-management/assets-category">{{'资产类别' | i18n}}</a>
+          </li>
+
+        </ul>
+      </li>
+      <li>
+        <a href="#"><i class=" fa fa-lg fa-fw  fa-folder-open"></i> <span
+                class="menu-item-parent">{{'文档管理' | i18n}}</span></a>
+        <ul>
+          <li routerLinkActive="active">
+            <a routerLink="/assets-management/assets-category">{{'资产类别' | i18n}}</a>
+          </li>
+
+        </ul>
+      </li>-->
 
       <li *ngIf="is_admin=='1'">
         <a href="#"><i class="fa fa-lg fa-fw fa-cog txt-color-blue"></i> <span
@@ -203,8 +223,8 @@
         </ul>
       </li>
       <li>
-        <a href="#"><i class="fa fa-lg fa-fw  fa-list"></i> <span
-                class="menu-item-parent">{{'设备管理' | i18n}}</span></a>
+        <a href="#"><i class="fa fa-lg fa-fw  fa-list txt-color-blue"></i> <span
+                class="menu-item-parent">{{'物联网管理' | i18n}}</span></a>
         <ul>
           <li routerLinkActive="active">
             <a routerLink="/equipment/equipment-list">{{'设备列表' | i18n}}</a>
@@ -307,7 +327,7 @@
 
               <li>
                 <a href="#"><i class="fa fa-lg fa-fw fa-suitcase"></i> <span
-                        class="menu-item-parent">{{'人事管理' | i18n}}</span></a>
+                        class="menu-item-parent">{{'人力资源' | i18n}}</span></a>
                 <ul>
                   <li routerLinkActive="active" *ngIf="is_admin=='1' || is_admin=='2'">
                     <a routerLink="/management/department">{{'部门设置' | i18n}}</a>
