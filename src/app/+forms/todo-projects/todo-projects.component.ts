@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FadeInTop} from "../../shared/animations/fade-in-top.decorator";
 import {Http} from "@angular/http";
 import {Router} from "@angular/router";
 import {GlobalService} from "../../core/global.service";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
+import {ModalDirective} from "ngx-bootstrap";
 
 @FadeInTop()
 @Component({
@@ -14,6 +15,7 @@ export class TodoProjectsComponent implements OnInit {
   projectList : Array<any> = [];
   projectDefault : Array<any> = [];
   projectInfo : Array<any> = [];
+  categoryList : Array<any> = [];
 
   edit_project_id : number = 0;
   project_owner : number = 0;
@@ -21,16 +23,17 @@ export class TodoProjectsComponent implements OnInit {
   project_content : string;
   project_publicity : number = 0;
   project_template:boolean = false;
+  uId : any = 0;
   rollback_url : string = '/forms/todo-projects';
   constructor(
       private http:Http,
       private router : Router,
-      private cookiestore:CookieStoreService,
+      private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
-
-    let nav = '{"title":"项目","url":"/forms/todo-projects/0","class_":"active"}';
+    let nav = '{"title":"项目","url":"/forms/todo-projects","class_":"active"}';
     this.globalService.navEventEmitter.emit(nav);
 
+    this.uId = this.cookieStore.getCookie('uid');
     this.getProjectList('1');
     this.getProjectDefault();
     window.scrollTo(0,0);
@@ -43,19 +46,17 @@ export class TodoProjectsComponent implements OnInit {
    * 获取发布和修改项目信息的默认数据
    */
   getProjectDefault(){
-    let url = this.globalService.getDomain()+'/api/v1/getProjectDefault?sid='+this.cookiestore.getCookie('sid');
+    let url = this.globalService.getDomain()+'/api/v1/getProjectDefault?sid='+this.cookieStore.getCookie('sid');
     this.http.get(url)
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.projectDefault = data;
+          console.log(this.projectDefault);
+          if(this.projectDefault['status'] == 202){
+            this.cookieStore.removeAll(this.rollback_url);
+            this.router.navigate(['/auth/login']);
+          }
         });
-    setTimeout(() => {
-      console.log(this.projectDefault);
-      if(this.projectDefault['status'] == 202){
-        this.cookiestore.removeAll(this.rollback_url);
-        this.router.navigate(['/auth/login']);
-      }
-    }, 300);
   }
 
   /**
@@ -63,20 +64,18 @@ export class TodoProjectsComponent implements OnInit {
    * @param number
    */
   getProjectList(number:string) {
-    let url = this.globalService.getDomain()+'/api/v1/getProjectList?page='+number+'&sid='+this.cookiestore.getCookie('sid');
+    let url = this.globalService.getDomain()+'/api/v1/getProjectList?page='+number+'&uId='+this.uId+'&sid='+this.cookieStore.getCookie('sid');
     this.http.get(url)
         .map((res)=>res.json())
         .subscribe((data)=>{
-          this.projectList = data;
+            this.projectList = data;
+            console.log('this.projectList:----');
+            console.log(this.projectList);
+            if(this.projectList['status'] == 202){
+                this.cookieStore.removeAll(this.rollback_url);
+                this.router.navigate(['/auth/login']);
+            }
         });
-
-    setTimeout(() => {
-      console.log(this.projectList);
-      if(this.projectList['status'] == 202){
-        this.cookiestore.removeAll(this.rollback_url);
-        this.router.navigate(['/auth/login']);
-      }
-    }, 300);
   }
 
   /**
@@ -94,19 +93,21 @@ export class TodoProjectsComponent implements OnInit {
           .map((res)=>res.json())
           .subscribe((data)=>{
             this.projectInfo = data;
+            console.log(this.projectInfo);
+            if(this.projectInfo['status'] == 202){
+              this.cookieStore.removeAll(this.rollback_url);
+              this.router.navigate(['/auth/login']);
+            }
+            this.project_owner = this.projectInfo['result']['project_owner'];
+            this.project_title = this.projectInfo['result']['project_title'];
+            this.project_content = this.projectInfo['result']['project_content'];
+            this.project_publicity = this.projectInfo['result']['project_publicity'];
+            this.project_template = (this.projectInfo['result']['project_template'] != null && this.projectInfo['result']['project_template'] != '') ? true : false;
+
           });
-      setTimeout(() => {
-        console.log(this.projectInfo);
-        if(this.projectInfo['status'] == 202){
-          this.cookiestore.removeAll(this.rollback_url);
-          this.router.navigate(['/auth/login']);
-        }
-        this.project_owner = this.projectInfo['result']['project_owner'];
-        this.project_title = this.projectInfo['result']['project_title'];
-        this.project_content = this.projectInfo['result']['project_content'];
-        this.project_publicity = this.projectInfo['result']['project_publicity'];
-        this.project_template = (this.projectInfo['result']['project_template'] != null && this.projectInfo['result']['project_template'] != '') ? true : false;
-      }, 300);
+    }
+    if(this.project_owner != 0){
+      this.changeCategory(this.project_owner,2);
     }
   }
 
@@ -125,7 +126,7 @@ export class TodoProjectsComponent implements OnInit {
       this.http.post(this.globalService.getDomain()+'/api/v1/addCommonProject',{
         'project_id' : project_id,
         'project_status':project_status,
-        'sid':this.cookiestore.getCookie('sid')
+        'sid':this.cookieStore.getCookie('sid')
       }).subscribe(
           (data)=>{
             let info = JSON.parse(data['_body']);
@@ -133,7 +134,7 @@ export class TodoProjectsComponent implements OnInit {
               alert(info['msg']);
             }else if(info['status'] == 202){
               alert(info['msg']);
-              this.cookiestore.removeAll(this.rollback_url);
+              this.cookieStore.removeAll(this.rollback_url);
               this.router.navigate(['/auth/login']);
             }
             this.projectList = info;
@@ -158,25 +159,60 @@ export class TodoProjectsComponent implements OnInit {
       'project_content' : this.project_content,
       'project_publicity' : this.project_publicity,
       'project_template' : this.project_template,
-      'u_id' : this.cookiestore.getCookie('uid'),
-      'sid':this.cookiestore.getCookie('sid')
+      'u_id' : this.cookieStore.getCookie('uid'),
+      'sid':this.cookieStore.getCookie('sid')
     }).subscribe(
         (data)=>{
           let info = JSON.parse(data['_body']);
           if(info['status'] == 200) {
+            this.router.navigate(['/forms/todo-mission/'+info['result']['last_project_id']]);
             this.edit_project_id = 0;
             this.project_owner = 0;
             this.project_title = '';
             this.project_content = '';
             this.project_publicity = 0;
-            this.router.navigate(['/forms/todo-mission/'+this.edit_project_id]);
           }else if(info['status'] == 202){
             alert(info['msg']);
-            this.cookiestore.removeAll(this.rollback_url);
+            this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
-          this.projectList = info;
+          this.projectList = info['result']['projectList'];
+            this.lgModal.hide();
         }
     );
   }
+
+  
+  changeCategory(obj,type:number){
+    let value = 0;
+    if(type == 1){
+      value = obj.target.value;
+    }else{
+      value =obj;
+    }
+    this.http.get(this.globalService.getDomain()+'/api/v1/getProjectPublicity?category_id='+value+'&sid='+this.cookieStore.getCookie('sid'))
+        .map((res)=>res.json())
+        .subscribe((data)=>{
+          this.categoryList = data;
+          console.log('------------');
+          console.log(this.categoryList);
+          if(this.categoryList['status'] == 202){
+            alert(this.categoryList['msg']);
+            this.cookieStore.removeAll(this.rollback_url);
+            this.router.navigate(['/auth/login']);
+          }
+        });
+  }
+
+  closeSubmit(){
+      this.edit_project_id = 0;
+      this.project_owner = 0;
+      this.project_title = '';
+      this.project_content = '';
+      this.project_publicity = 0;
+      this.lgModal.hide();
+  }
+
+    @ViewChild('lgModal') public lgModal:ModalDirective;
+  
 }

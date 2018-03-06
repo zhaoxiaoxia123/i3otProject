@@ -1,162 +1,159 @@
 
-      <div id="content">
-        <div class="row" *ngIf="is_show_power[cookie_u_id]">
-          <div class="col-sm-12 col-md-12 col-lg-12">
-            <div class="well well-light well-sm no-margin no-padding">
-              <div class="row ">
-                <div class="col-sm-12">
-                  <div class="air air-right pd-20 text-align-center">
-                    <!--<a href="" class="btn txt-color-white bg-color-teal btn-sm"><i class="fa fa-check"></i> 关注</a>&#xA0;-->
-                    <!--<a  data-toggle="modal" data-target="#myModal" href="" class="btn txt-color-white bg-color-lightBlue btn-sm">&lt;!&ndash;<i class="fa fa-link"></i>&ndash;&gt; 编辑公司信息</a>-->
-                    <button class="btn btn-success btn--fancy ng-binding" data-toggle="dropdown" (click)="showPublishTemplate(todoList?.result?.project_id,3)">新建任务列表</button>
-                    <ul class="dropdown-menu pull-right" style="width: 300px;padding: 10px 20px;">
-                      <!--<li>-->
-                      <!--<button type="button" class="close margin-bottom-10" data-dismiss="modal" aria-hidden="true">-->
-                      <!--×-->
-                      <!--</button>-->
-                      <!--</li>-->
-                      <li>
-                        <div class="form-group">
-                          <input  name="template_name" [(ngModel)]="template_name" placeholder="列表名" type="text" class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" required="" >
-                        </div>
-                      </li>
-                      <li>
-                        <div class="form-group">
-                          <button  data-loading-text="保存中…" class="btn btn-success mr_15 ng-binding" (click)="showPublishTemplate(todoList?.result?.project_id,2)" >保&nbsp;&nbsp;存</button>
-                          <button  class="btn btn-link btn-cancel ng-binding" (click)="showPublishTemplate(todoList?.result?.project_id,3)">取&nbsp;&nbsp;消</button>
-                        </div>
-                      </li>
-                    </ul>
+<div id="content">
+  <div class="row"><!-- *ngIf="is_show_power[cookie_u_id]"-->
+    <div class="col-sm-12 col-md-12 col-lg-12">
+      <div class="well well-light well-sm no-margin no-padding">
+        <div class="row ">
+          <div class="col-sm-12">
+            <div class="air air-right pd-20 text-align-center">
+              <!--<a href="" class="btn txt-color-white bg-color-teal btn-sm"><i class="fa fa-check"></i> 关注</a>&#xA0;-->
+              <!--<a  data-toggle="modal" data-target="#myModal" href="" class="btn txt-color-white bg-color-lightBlue btn-sm">&lt;!&ndash;<i class="fa fa-link"></i>&ndash;&gt; 编辑公司信息</a>-->
+              <button class="btn btn-success btn--fancy ng-binding" data-toggle="dropdown" (click)="showPublishTemplate(todoList?.result?.project_id,3)">新建任务列表</button>
+              <ul class="dropdown-menu pull-right" style="width: 300px;padding: 10px 20px;">
+                <!--<li>-->
+                <!--<button type="button" class="close margin-bottom-10" data-dismiss="modal" aria-hidden="true">-->
+                <!--×-->
+                <!--</button>-->
+                <!--</li>-->
+                <li>
+                  <div class="form-group">
+                    <input  name="template_name" [(ngModel)]="template_name" placeholder="列表名" type="text" class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" required="" >
                   </div>
-                  <h1 class="title-h1"><a  class="js-popbox prj_icon text-color-black" >
-                    <i class="fa-fw fa fa-inbox text-blove" ></i>{{todoList?.result?.project_title}}
-                  </a>
-                   <!-- <a class="js-popbox prj_name ng-binding" ></a>-->
-                  </h1><hr />
+                </li>
+                <li>
+                  <div class="form-group">
+                    <button  data-loading-text="保存中…" class="btn btn-success mr_15 ng-binding" (click)="showPublishTemplate(todoList?.result?.project_id,2)" >保&nbsp;&nbsp;存</button>
+                    <button  class="btn btn-link btn-cancel ng-binding" (click)="showPublishTemplate(todoList?.result?.project_id,3)">取&nbsp;&nbsp;消</button>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <h1 class="title-h1"><a  class="js-popbox prj_icon text-color-black" >
+              <i class="fa-fw fa fa-inbox text-blove" ></i>{{todoList?.result?.project_title}}
+            </a>
+             <!-- <a class="js-popbox prj_name ng-binding" ></a>-->
+            </h1><hr />
+          </div>
+        </div>
+        <div class="ng-scope margin-bottom-40">
+          <div class="entries_panel js-sortable layout_content_main_tasks ng-scope wt-scroll"   style="overflow-x: auto; overflow-y: hidden;">
+            <div class="entries_panel_sortarea ui-sortable" >
+
+              <div class="entry ng-scope" *ngFor="let tl of todoList?.result?.template_list;let ind = index;" droppable [dropScope]="''+tl.key" [dragOverClass]="'drag-target-border'"
+                   [dragHintClass]="'drag-hint'" (onDrop)="onListDrop_(tl.key)">
+                <div class="entry_header ui-sortable-handle">
+                  <i class="wtfont wtf-entryhover ng-scope" ></i>
+                  <div class="entry_header_title">
+                    <h2>
+                      <a data-toggle="dropdown"><span class="ng-binding ng-scope" (click)="showEditTemplateName(tl.info,tl.key)">{{tl.info}}</span>&nbsp; &nbsp;({{tl.complate_count}} / {{tl.todo_list_count}}) </a>
+                      <ul class="dropdown-menu pull-right" style="width: 300px;padding: 10px 20px;">
+                        <li>
+                          <button type="button" class="close margin-bottom-10" data-dismiss="modal" aria-hidden="true">
+                            ×
+                          </button>
+                          <h4>重命名</h4>
+                        </li>
+                        <li>
+                          <div class="form-group">
+                            <input name="entry_name" [(ngModel)]="edit_template_name[tl.key]" placeholder="" type="text" class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" required="" >
+                          </div>
+                        </li>
+                        <li>
+                          <div class="form-group">
+                            <button  data-loading-text="保存中…" class="btn btn-success mr_15 ng-binding" (click)="editTemplateName(todoList?.result?.project_id,tl.key)">保&nbsp;&nbsp;存</button>
+                            <button  class="btn btn-link btn-cancel ng-binding">取&nbsp;&nbsp;消</button>
+                          </div>
+                        </li>
+                      </ul>
+
+                    </h2>
+                  </div>
+                  <a class="entry_header_number ng-binding ng-scope" (click)="deleteTodoList(tl.key,todoList?.result?.project_id)">
+                    删除 </a>
                 </div>
-              </div>
-              <div class="ng-scope margin-bottom-40">
-                <div class="entries_panel js-sortable layout_content_main_tasks ng-scope wt-scroll"   style="overflow-x: auto; overflow-y: hidden;">
-                  <div class="entries_panel_sortarea ui-sortable" >
+                <div class="entry-task-panel wt-scroll"  style="overflow-x: hidden; overflow-y: auto;">
+                  <div class="entry-tasks js-sortable ui-sortable  " >
 
-                    <div class="entry ng-scope" *ngFor="let tl of todoList?.result?.template_list;let ind = index;" droppable [dropScope]="''+tl.key" [dragOverClass]="'drag-target-border'"
-                         [dragHintClass]="'drag-hint'" (onDrop)="onListDrop_(tl.key)">
-                      <div class="entry_header ui-sortable-handle">
-                        <i class="wtfont wtf-entryhover ng-scope" ></i>
-                        <div class="entry_header_title">
-                          <h2>
-                            <a data-toggle="dropdown"><span class="ng-binding ng-scope" (click)="showEditTemplateName(tl.info,tl.key)">{{tl.info}}</span>&nbsp; &nbsp;({{tl.complate_count}} / {{tl.todo_list_count}}) </a>
-                            <ul class="dropdown-menu pull-right" style="width: 300px;padding: 10px 20px;">
-                              <li>
-                                <button type="button" class="close margin-bottom-10" data-dismiss="modal" aria-hidden="true">
-                                  ×
-                                </button>
-                                <h4>重命名</h4>
-                              </li>
-                              <li>
-                                <div class="form-group">
-                                  <input name="entry_name" [(ngModel)]="edit_template_name[tl.key]" placeholder="" type="text" class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" required="" >
-                                </div>
-                              </li>
-                              <li>
-                                <div class="form-group">
-                                  <button  data-loading-text="保存中…" class="btn btn-success mr_15 ng-binding" (click)="editTemplateName(todoList?.result?.project_id,tl.key)">保&nbsp;&nbsp;存</button>
-                                  <button  class="btn btn-link btn-cancel ng-binding">取&nbsp;&nbsp;消</button>
-                                </div>
-                              </li>
-                            </ul>
-
-                          </h2>
-                        </div>
-                        <a class="entry_header_number ng-binding ng-scope" (click)="deleteTodoList(tl.key,todoList?.result?.project_id)">
-                          删除 </a>
-                      </div>
-                      <div class="entry-task-panel wt-scroll"  style="overflow-x: hidden; overflow-y: auto;">
-                        <div class="entry-tasks js-sortable ui-sortable  " >
-
-                          <div class="bo-color-orange" [ngClass]="{'right_click_trigger slide-trigger js-popbox false task task_style task-':true,'task-selected':tl1.todo_status==2}" *ngFor="let tl1 of tl.todo_list" (click)="showDetail(tl1.todo_id,tl.key,tl.info)"  draggable [dragScope]="tl.d" [dragClass]="'drag-over'" [dragData]="tl1" (onDragEnd)="onDragList_(tl1.todo_id,tl1.project_id)"><!--tl1.template_id,-->
-                            <div [ngClass]="{'entry-task-main':true,'task-completed-style':tl1.todo_status==2}">
-                              <a class="entry-task-check ng-scope" *ngIf="tl1.todo_status != 2" (click)="editStatus($event,2,tl1.todo_id,todoList?.result?.project_id)">
-                                <i class="fa fa-square-o"></i>
-                              </a>
-                              <a class="entry-task-check ng-scope" *ngIf="tl1.todo_status == 2" (click)="editStatus($event,1,tl1.todo_id,todoList?.result?.project_id)">
-                                <i class="fa fa-check-square"></i>
-                              </a>
-                              <a class="entry-task-title ng-binding">{{tl1.todo_title}}</a>
-                            </div>
-                            <div class="task-badges task-height">
-                              <span class="task-badge fa fa-clock-o badge-expire-soon" title="任务即将截止">{{tl1.expired_at | date:'yyyy-MM-dd'}}</span>
-                              <span class="task-badge fa fa-long-arrow-right" title="任务有描述" *ngIf="tl1.todo_content"></span>
-                              <span class="task-badge fa fa-comment-o" title="任务有 {{tl1.comment_count}} 个评论">{{tl1.comment_count}}</span>
-                              <span class="task-badge fa fa-user" title="分配人数"> {{tl1.assignCount}}</span>
-                              <span class="task-badge task-label" title="{{tag}}" *ngFor="let tag of tl1.tags;let ti = index;"  [ngStyle]="{'background-color': tl1.tags_color[ti]}">{{tag}}</span>
-                            </div>
-                            <!--<div class="entry-task-members" *ngIf="tl1.todo_assign">-->
-                            <!--<a class="js-popbox member avatar ng-scope avatar-28" title="{{h.u_username}}" *ngFor="let h of tl1.assignList">-->
-                            <!--{{h.u_username}}-->
-                            <!--</a>-->
-                            <!--</div>-->
-                          </div>
-                        </div>
-                        <!--新建任务发布框-->
-                        <div class="entry-add-bottom-composer entry-task-composer ng-isolate-scope" *ngIf="selects[tl.key]">
-                          <div class="composer-body" >
-                            <div class="entry-task-labels">
-                            </div>
-                            <textarea rows="2" class="form-control help-block" placeholder="请输入任务标题" [(ngModel)]="publish_todo_title[tl.key]"></textarea>
-                            <div class="composer-body-footer">
-                              <div class="task-badges" >
-                              </div>
-                            </div>
-                          </div>
-                          <div class="composer-footer">
-                            <button  class="btn btn-success btn--big confirm mr-10 ng-binding" (click)="submitTodo(todoList?.result?.project_id,tl.key)">保&nbsp;&nbsp;存</button>
-                            <button  class="btn btn-link btn-cancel ng-binding" (click)="showAddTodo(tl.key)">取&nbsp;&nbsp;消</button>
-                          </div>
-                        </div>
-
-                      </div>
-                      <div class="entry-task-footer ng-scope" *ngIf=" ! selects[tl.key]">
-                        <a  class="js-add-task-composer ng-binding ng-scope" (click)="showAddTodo(tl.key)">
-                          <i class="fa fa-plus-circle"></i> 新建任务
+                    <div *ngFor="let tl1 of tl.todo_list" (click)="showDetail(tl1.todo_id,tl.key,tl.info)" [ngClass]="{'right_click_trigger slide-trigger js-popbox false task task_style task-':true,'task-selected':tl1.todo_status==2,'bo-color-orange':tl1.isAssign,'bo-color-info':tl1.isFollower}" draggable [dragScope]="tl.d" [dragClass]="'drag-over'" [dragData]="tl1" (onDragEnd)="onDragList_(tl1.todo_id,tl1.project_id)"><!--tl1.template_id,-->
+                      <div [ngClass]="{'entry-task-main':true,'task-completed-style':tl1.todo_status==2}">
+                        <a class="entry-task-check ng-scope" *ngIf="tl1.todo_status != 2" (click)="editStatus($event,2,tl1.todo_id,todoList?.result?.project_id)">
+                          <i class="fa fa-square-o"></i>
                         </a>
+                        <a class="entry-task-check ng-scope" *ngIf="tl1.todo_status == 2" (click)="editStatus($event,1,tl1.todo_id,todoList?.result?.project_id)">
+                          <i class="fa fa-check-square"></i>
+                        </a>
+                        <a class="entry-task-title ng-binding">{{tl1.todo_title}}</a>
+                      </div>
+                      <div class="task-badges task-height">
+                        <span class="task-badge fa fa-clock-o badge-expire-soon" title="任务即将截止">{{tl1.expired_at | date:'yyyy-MM-dd'}}</span>
+                        <span class="task-badge fa fa-long-arrow-right" title="任务有描述" *ngIf="tl1.todo_content"></span>
+                        <span class="task-badge fa fa-comment-o" title="任务有 {{tl1.comment_count}} 个评论">{{tl1.comment_count}}</span>
+                        <span class="task-badge fa fa-user" title="分配人数"> {{tl1.assignCount}}</span>
+                        <span class="task-badge task-label" title="{{tag}}" *ngFor="let tag of tl1.tags;let ti = index;"  [ngStyle]="{'background-color': tl1.tags_color[ti]}">{{tag}}</span>
+                      </div>
+                      <!--<div class="entry-task-members" *ngIf="tl1.todo_assign">-->
+                      <!--<a class="js-popbox member avatar ng-scope avatar-28" title="{{h.u_username}}" *ngFor="let h of tl1.assignList">-->
+                      <!--{{h.u_username}}-->
+                      <!--</a>-->
+                      <!--</div>-->
+                    </div>
+                    <a (click)="getTodoDefault(project_id,tl.key)" *ngIf="todoListPages[tl.key] <= tl.todo_list_count">查看更多</a>
+                  </div>
+                  <!--新建任务发布框-->
+                  <div class="entry-add-bottom-composer entry-task-composer ng-isolate-scope" *ngIf="selects[tl.key]">
+                    <div class="composer-body" >
+                      <div class="entry-task-labels">
+                      </div>
+                      <textarea rows="2" class="form-control help-block" placeholder="请输入任务标题" [(ngModel)]="publish_todo_title[tl.key]"></textarea>
+                      <div class="composer-body-footer">
+                        <div class="task-badges" >
+                        </div>
                       </div>
                     </div>
-
-
-                    <div class="entry-new ng-scope" >
-                      <a  class="ng-binding entry-add" *ngIf="!is_show_publish_template" (click)="showPublishTemplate(todoList?.result?.project_id,1)">
-                        <i class="fa fa-plus-circle"></i> 新建任务列表
-                      </a>
-                      <div  class="pd-10 " *ngIf="is_show_publish_template"><!-- ng-hide-->
-                        <div class="form-group">
-                          <input name="template_name" [(ngModel)]="template_name" placeholder="列表名" type="text" class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" required="" >
-                        </div>
-                        <div class="form-group">
-                          <button  data-loading-text="保存中…" class="btn btn-success mr_15 ng-binding" (click)="showPublishTemplate(todoList?.result?.project_id,2)">保&nbsp;&nbsp;存</button>
-                          <button  class="btn btn-link btn-cancel ng-binding" (click)="showPublishTemplate(todoList?.result?.project_id,3)">取&nbsp;&nbsp;消</button>
-                        </div>
-                      </div>
+                    <div class="composer-footer">
+                      <button  class="btn btn-success btn--big confirm mr-10 ng-binding" (click)="submitTodo(todoList?.result?.project_id,tl.key)">保&nbsp;&nbsp;存</button>
+                      <button  class="btn btn-link btn-cancel ng-binding" (click)="showAddTodo(tl.key)">取&nbsp;&nbsp;消</button>
                     </div>
+                  </div>
 
+                </div>
+                <div class="entry-task-footer ng-scope" *ngIf=" ! selects[tl.key]">
+                  <a  class="js-add-task-composer ng-binding ng-scope" (click)="showAddTodo(tl.key)">
+                    <i class="fa fa-plus-circle"></i> 新建任务
+                  </a>
+                </div>
+              </div>
+
+
+              <div class="entry-new ng-scope" >
+                <a  class="ng-binding entry-add" *ngIf="!is_show_publish_template" (click)="showPublishTemplate(todoList?.result?.project_id,1)">
+                  <i class="fa fa-plus-circle"></i> 新建任务列表
+                </a>
+                <div  class="pd-10 " *ngIf="is_show_publish_template"><!-- ng-hide-->
+                  <div class="form-group">
+                    <input name="template_name" [(ngModel)]="template_name" placeholder="列表名" type="text" class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" required="" >
+                  </div>
+                  <div class="form-group">
+                    <button  data-loading-text="保存中…" class="btn btn-success mr_15 ng-binding" (click)="showPublishTemplate(todoList?.result?.project_id,2)">保&nbsp;&nbsp;存</button>
+                    <button  class="btn btn-link btn-cancel ng-binding" (click)="showPublishTemplate(todoList?.result?.project_id,3)">取&nbsp;&nbsp;消</button>
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
         </div>
-
-        <div class="layout_right_sidebar layout_right_sidebar--project" style="width: 1px;">
-
-        </div>
       </div>
-
-    <div class="empty-panel" *ngIf="! is_show_power[cookie_u_id]">
-      <i class="fa fa-ban"></i>
-      <br>
-      <span  class="ng-binding ng-scope">你没有权限访问该项目<br>该项目被删除或者你不是该项目的成员。 </span>
-      <span  class="ng-binding ng-hide"></span>
     </div>
+  </div>
+</div>
+
+    <!--<div class="empty-panel" *ngIf="! is_show_power[cookie_u_id]">-->
+      <!--<i class="fa fa-ban"></i>-->
+      <!--<br>-->
+      <!--<span  class="ng-binding ng-scope">你没有权限访问该项目<br>该项目被删除或者你不是该项目的成员。 </span>-->
+      <!--<span  class="ng-binding ng-hide"></span>-->
+    <!--</div>-->
 
     <!--<app-mission-details></app-mission-details>-->
 
@@ -205,8 +202,8 @@
               <a  class="dropdown-toggle ng-binding"  data-toggle="dropdown" title="更多">
                 <i class="fa fa-chevron-down"></i> 更多</a>
               <ul class="dropdown-menu dropdown-menu-right">
-                <li  class="ng-scope">
-                  <a   class="ng-binding" (click)="showPublishDetail(todo_info?.result?.todo_id,1)">
+                <li class="ng-scope">
+                  <a class="ng-binding" (click)="showPublishDetail(todo_info?.result?.todo_id,1)">
                     <i class="fa fa-pencil fa-fw"></i> 编辑
                   </a>
                 </li>
@@ -276,7 +273,7 @@
                 <dd>
                   <ul class="avatars">
                     <li  class="ng-scope" *ngFor="let au1 of todo_info?.result?.assign_list">
-                      <a  class="fa fa-times-circle" ></a>
+                      <a  class="fa fa-times-circle" style="display:block;" (click)="removeUser(todo_info?.result?.todo_id,au1.id,'assign')"></a>
                       <a class="js-popbox avatar avatar-40 portrait-size"  title="{{au1.u_username}}">
                         {{au1.u_username}}
                         <!--<img alt="{{au1.u_username}}" class="online width-40" src="{{domain_url}}{{au1.u_avatar}}" *ngIf="au1.u_avatar">-->
@@ -298,7 +295,7 @@
                 <dd>
                   <ul class="avatars">
                     <li  class="ng-scope" *ngFor="let au2 of todo_info?.result?.follower_list">
-                      <a  class="fa fa-times-circle" ></a>
+                      <a  class="fa fa-times-circle" style="display:block;" (click)="removeUser(todo_info?.result?.todo_id,au2.id,'follower')"></a>
                       <a class="js-popbox avatar avatar-40 portrait-size"  title="{{au2.u_username}}">
                         {{au2.u_username}}
                         <!--<img alt="{{au2.u_username}}" class="online width-40" src="{{domain_url}}{{au2.u_avatar}}" *ngIf="au2.u_avatar">-->
@@ -317,22 +314,22 @@
                 </dd>
               </dl>
               <dl class="entity-members-watchs ng-scope">
-                <dt class="ng-binding">审批人</dt>
+                <dt class="ng-binding">创建者</dt>
                 <dd>
                   <ul class="avatars">
                     <li  class="ng-scope">
                       <a  class="fa fa-times-circle" ></a>
                       <a class="js-popbox avatar avatar-40 portrait-size" title="" >
-                        鑫磊
+                        {{todo_info?.result?.u_username}}
                       </a>
                     </li>
-                    <li  class="ng-scope">
-                      <div class="js-popbox text-center ng-isolate-scope"  type="watch" >
-                        <a class="avatar-add"  >
-                          <span class="o">＋</span>
-                        </a>
-                      </div>
-                    </li>
+                    <!--<li  class="ng-scope">-->
+                      <!--<div class="js-popbox text-center ng-isolate-scope"  type="watch" >-->
+                        <!--<a class="avatar-add"  >-->
+                          <!--<span class="o">＋</span>-->
+                        <!--</a>-->
+                      <!--</div>-->
+                    <!--</li>-->
                     <!--<li >-->
                       <!--<div class="js-popbox text-center" >-->
                         <!--<a class="avatar-add" title="取消关注" >-->
@@ -351,8 +348,8 @@
                   <i class="fa fa-clock-o"></i> 截止日期
                 </dt>
                 <dd class="js_popbox">
-                  <a class="ng-binding expire-text-soon" *ngIf="!is_expired_at" (click)="editExpiredAt(todo_info?.result?.expired_at,1)">&nbsp;&nbsp;{{todo_info?.result?.expired_at | date:'yyyy-MM-dd'}}&nbsp;&nbsp;</a>
-                  <!--<input type="date" name="expired_at" (blur)="editExpiredAt(todo_info?.result?.todo_id,2)" [(ngModel)]="expired_at" value="{{expired_at}}" class="ng-binding expire-text-soon" *ngIf="is_expired_at"/>-->
+                  <a class="ng-binding expire-text-soon" *ngIf="!is_expired_at" (click)="editExpiredAt(todo_info?.result?.expired_at,1)">&nbsp;&nbsp;{{todo_info?.result?.expired_at}}&nbsp;&nbsp;</a>
+                  <!--<input type="date" name="expired_at" (blur)="editExpiredAt(todo_info?.result?.todo_id,2)" [(ngModel)]="expired_at" value="{{expired_at}}" class="ng-binding expire-text-soon" *ngIf="is_expired_at"/>   | date:'yyyy-MM-dd'-->
                   <input name="expired_at" [(ngModel)]="expired_at" [dpDayPicker]="datePickerConfig" [theme]="'dp-material'" [mode]="'day'"  class="form-control ng-binding expire-text-soon" placeholder="截止日期" value="{{expired_at}}" *ngIf="is_expired_at" (blur)="editExpiredAt(todo_info?.result?.todo_id,2)"/>
                 </dd>
               </dl>
@@ -399,11 +396,10 @@
                         <tab [active]="state.tabs.demo3 == 'hr1'">
                           <div class="row">
                             <div class="comment-list">
-
-                              <div *ngFor="let cl of comment_list?.result;let ind=index;">
-                              <div class="timeline-seperator text-center mb-20"><span>{{cl.created_at | date:"yyyy-MM-dd"}}</span>
+                              <div *ngFor="let clr of comment_list?.result;">
+                              <div class="timeline-seperator text-center mb-20"><span>{{clr.date}}</span>
                               </div>
-                              <div class="chat-body no-padding profile-message">
+                              <div class="chat-body no-padding profile-message" *ngFor="let cl of clr.commentList;let ind=index;">
                                 <ul>
                                   <li class="message">
                                     <img alt="{{cl.u_username}}" class="online" src="{{domain_url}}{{cl.u_avatar}}" *ngIf="cl.u_avatar">
@@ -430,11 +426,11 @@
                                         <a class="text-primary" (click)="isShowReplayList(99999)">隐藏回复</a>
                                       </li>
                                       <li>
-                                        <a class="text-muted">删除</a>
+                                        <a class="text-muted" (click)="removeComment(todo_info?.result?.todo_id,cl.comment_id)">删除</a>
                                       </li>
                                     </ul>
                                   </li>
-                                  <li class="message message-reply" *ngIf="is_show_replay == ind">
+                                  <li class="message message-reply" *ngIf="is_show_replay == ind && cl.replayCount > 0">
                                   <div  *ngFor="let rl of cl.replayList">
                                     <img src="assets/img/avatars/female.png" class="online" alt="user">
                                     <span class="message-text"> <a class="username text-color-black">{{rl.u_username}} </a> {{rl.comment_content}} <i class="fa fa-smile-o txt-color-orange"></i> </span>
@@ -443,7 +439,7 @@
                                         <a  class="text-muted"> {{rl.return_time}}</a>
                                       </li>
                                       <li>
-                                        <a class="text-muted">删除</a>
+                                        <a class="text-muted" (click)="removeComment(todo_info?.result?.todo_id,rl.comment_id)">删除</a>
                                       </li>
                                       <!--<li>
                                         <a class="text-danger"><i class="fa fa-thumbs-up"></i> 赞</a>
