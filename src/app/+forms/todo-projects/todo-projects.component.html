@@ -3,22 +3,17 @@
   <!--<div class="row">
     <sa-big-breadcrumbs [items]="['待办事项', '项目']" icon="inbox" ></sa-big-breadcrumbs>
   </div>-->
-
   <sa-widgets-grid>
     <div class="row">
-
       <article class="col-sm-12 ">
-
         <sa-widget [editbutton]="false" [deletebutton]="false" >
           <header>
             <span class="widget-icon"> <i class="fa fa-inbox"></i> </span>
             <h2>项目</h2>
           </header>
-
           <div>
             <!--小部件内容-->
             <div class="widget-body no-padding">
-
               <div class="project-grid-panel">
                 <div class="form-group ">
                   <a class="btn btn-success btn-sm" (click)="showAddProject($event,0,0);lgModal.show();">
@@ -44,7 +39,6 @@
                     </div>
                   </div>
                 </div>
-
                 <div class="row margin-bottom-10" *ngFor="let cl of projectList?.result?.categoryList;">
                   <div class="projects-panel-header">
                     <span>
@@ -73,7 +67,6 @@
                     </div>
                   </div>
                 </div>
-
               </div>
             </div>
           </div>
@@ -88,9 +81,10 @@
       <div class="modal-content">
         <div class="modal-header">
           <!-- 关闭按钮 -->
-          <button type="button" class="close" (click)="lgModal.hide()" aria-label="Close"> × </button>
+          <button type="button" class="close" (click)="closeSubmit()" aria-label="Close"> × </button>
           <!-- 标题 -->
-          <h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>新建项目</h3>
+          <h3 class="modal-title txt-color-blue" data-ng-bind='results.title' *ngIf="edit_project_id == 0"><i class="fa-fw fa fa-plus"></i>新建项目</h3>
+          <h3 class="modal-title txt-color-blue" data-ng-bind='results.title' *ngIf="edit_project_id != 0"><i class="fa-fw fa fa-plus"></i>修改项目</h3>
         </div>
         <div class="modal-body">
           <form   class="smart-form ">
@@ -99,7 +93,7 @@
                 <section>
                   <label class="label">项目所属：</label>
                   <label class="select">
-                    <select class="input-sm" name="project_owner" [(ngModel)]="project_owner" >
+                    <select class="input-sm" name="project_owner" [(ngModel)]="project_owner" (change)="changeCategory($event,1)">
                       <option value="0" disabled="disabled" style="color:#ccc;">请选择所有者：</option>
                       <option *ngFor="let c1 of projectDefault?.result?.categoryList1" [selected]="projectInfo.result?.project_owner == c1.category_id" value="{{c1.category_id}}">{{c1.category_desc}}</option>
                     </select> <i></i> </label>
@@ -127,7 +121,7 @@
                   <label class="select">
                     <select class="input-sm" name="project_publicity" [(ngModel)]="project_publicity">
                       <option value="0" disabled="disabled" style="color:#ccc;">请选择公开性：</option>
-                      <option *ngFor="let c2 of projectDefault?.result?.categoryList2" value="{{c2.category_id}}" [selected]="projectInfo.result?.project_publicity == c2.category_id" >{{c2.category_desc}}</option>
+                      <option *ngFor="let c2 of categoryList?.result" value="{{c2.category_id}}" [selected]="projectInfo.result?.project_publicity == c2.category_id" >{{c2.category_desc}}</option>
                     </select> <i></i> </label>
                 </section>
               </div>
@@ -146,8 +140,8 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" (click)="onSubmit();lgModal.hide();">确定</button>
-          <button type="button" class="btn btn-default" (click)="lgModal.hide()">关闭</button>
+          <button type="button" class="btn btn-primary" (click)="onSubmit();">确定</button>
+          <button type="button" class="btn btn-default" (click)="closeSubmit()">关闭</button>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal -->

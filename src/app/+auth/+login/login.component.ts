@@ -25,7 +25,9 @@ export class LoginComponent implements OnInit {
               private cookieStoreService:CookieStoreService,
               private router: Router,
               private globalService:GlobalService
-  ) { }
+  ) {
+    window.scrollTo(0,0);
+  }
 
   headers = new Headers({'Content-Type': 'application/x-www'});
   options = new RequestOptions({headers: this.headers});

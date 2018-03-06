@@ -46,6 +46,7 @@ export class TodoMissionComponent implements OnInit {
     todo_info : Array<any> = [];
     project_id:number = 0;
     todoList : Array<any> = [];
+    todoListPages : Array<any> = [];
     selects : Array<any> = [];
     //发布任务标题
     publish_todo_title : Array<any> = [];
@@ -86,7 +87,7 @@ export class TodoMissionComponent implements OnInit {
     show_user_type : number = 0;
     selected_user : Array<any> = [];
     check : boolean = false;
-    is_show_power : Array<any> = []; //是否有权限查看此任务
+    // is_show_power : Array<any> = []; //是否有权限查看此任务
 
     /**
      * 以下为评论所需变量
@@ -99,7 +100,6 @@ export class TodoMissionComponent implements OnInit {
     is_show_replay : number = 0;
 
     dropTemplateId : any = '';//拽入模版编号
-
     rollback_url : string = '/forms/todo-mission';
     constructor(
       private http:Http,
@@ -112,19 +112,19 @@ export class TodoMissionComponent implements OnInit {
       // Observable.fromEvent(window, 'scroll').subscribe((event) => {
       //     this.onWindowScroll();
       // });
-
-        this.routInfo.params.subscribe((param : Params)=>this.project_id=param['project_id']); //这种获取方式是参数订阅，解决在本页传参不生效问题
-        if(this.project_id != 0){
-            this.getTodoDefault(this.project_id);
-            this.rollback_url += '/'+this.project_id
-        }else{
-            this.rollback_url += '/0';
-        }
         this.admin_id = this.globalService.getAdminID();
         this.cookie_c_id = this.cookieStore.getCookie('cid');
         this.cookie_u_id = this.cookieStore.getCookie('uid');
         this.domain_url = this.globalService.getDomain();
-        this.is_show_power[this.cookie_u_id] = true;
+        // this.is_show_power[this.cookie_u_id] = true;
+
+        this.routInfo.params.subscribe((param : Params)=>this.project_id=param['project_id']); //这种获取方式是参数订阅，解决在本页传参不生效问题
+        if(this.project_id != 0){
+            this.getTodoDefault(this.project_id,0);
+            this.rollback_url += '/'+this.project_id
+        }else{
+            this.rollback_url += '/0';
+        }
         window.scrollTo(0,0);
   }
     // onWindowScroll() {
@@ -160,25 +160,23 @@ export class TodoMissionComponent implements OnInit {
             'dragTodoId':todoId,
             'dropTemplateId':this.dropTemplateId,
             'sid':this.cookieStore.getCookie('sid')
-        }).subscribe(
-            (data)=>{
-                let info = JSON.parse(data['_body']);
-                if(info['status'] == 200) {
-                    this.todoList = info;
-                    this.selects = [];
-                    for (let entry of this.todoList['result']['template_list']) {
-                        this.selects[entry['key']] = false;
-                        this.publish_todo_title[entry['key']] = '';
-                    }
-                }else if(info['status'] == 202){
-                    alert(info['msg']);
-                    this.cookieStore.removeAll(this.rollback_url);
-                    this.router.navigate(['/auth/login']);
-                }else if(info['status'] == 201){
-                    alert(info['msg']);
+        }).subscribe((data)=>{
+            let info = JSON.parse(data['_body']);
+            if(info['status'] == 200) {
+                this.todoList = info;
+                this.selects = [];
+                for (let entry of this.todoList['result']['template_list']) {
+                    this.selects[entry['key']] = false;
+                    this.publish_todo_title[entry['key']] = '';
                 }
+            }else if(info['status'] == 202){
+                alert(info['msg']);
+                this.cookieStore.removeAll(this.rollback_url);
+                this.router.navigate(['/auth/login']);
+            }else if(info['status'] == 201){
+                alert(info['msg']);
             }
-        );
+        });
     }
 
     //放下的模版id
@@ -190,30 +188,35 @@ export class TodoMissionComponent implements OnInit {
      * 获取默认的模版信息和任务列表信息
      * @param project_id
      */
-    getTodoDefault(project_id:number){
-        let url = this.globalService.getDomain()+'/api/v1/getTodoList?project_id='+project_id+'&sid='+this.cookieStore.getCookie('sid');
+    getTodoDefault(project_id:number,template_id:number){
+        let url = this.globalService.getDomain()+'/api/v1/getTodoList?project_id='+project_id+'&uid='+this.cookie_u_id+'&sid='+this.cookieStore.getCookie('sid');
+        if(template_id != 0) {
+            this.todoListPages[template_id] = this.todoListPages[template_id] + 5;
+        }
+        if(this.todoListPages){
+            url += '&pages='+JSON.stringify(this.todoListPages);
+        }
         this.http.get(url)
             .map((res)=>res.json())
             .subscribe((data)=>{
                 this.todoList = data;
-
                 if(this.todoList['status'] == 202){
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
+                this.todoListPages = this.todoList['result']['pages'];
                 this.selects = [];
                 for (let entry of this.todoList['result']['template_list']) {
                     this.selects[entry['key']] = false;
                     this.publish_todo_title[entry['key']] = '';
                     this.edit_template_name[entry['key']] = '';
                 }
-                this.is_show_power = [];
-                for (let entry1 of this.todoList['result']['user_id_list']) {
-                    this.is_show_power[entry1] = true;
-                }
-                this.is_show_power[this.todoList['result']['u_id']] = true;
+                // this.is_show_power = [];
+                // for (let entry1 of this.todoList['result']['user_id_list']) {
+                //     this.is_show_power[entry1] = true;
+                // }
+                // this.is_show_power[this.todoList['result']['u_id']] = true;
             });
-
     }
 
     /**
@@ -236,6 +239,7 @@ export class TodoMissionComponent implements OnInit {
             'project_id':project_id,
             'template_id':template_id,
             'todo_title':this.publish_todo_title[template_id],
+            'page':JSON.stringify(this.todoListPages),
             'u_id':this.cookie_u_id,
             'sid':this.cookieStore.getCookie('sid')
         }).subscribe(
@@ -276,6 +280,7 @@ export class TodoMissionComponent implements OnInit {
             this.http.post(this.globalService.getDomain()+'/api/v1/addTemplate',{
                 'project_id':project_id,
                 'template_name':this.template_name,
+                'pages':JSON.stringify(this.todoListPages),
                 'sid':this.cookieStore.getCookie('sid')
             }).subscribe(
                 (data)=>{
@@ -326,6 +331,7 @@ export class TodoMissionComponent implements OnInit {
             'project_id':project_id,
             'template_id':template_id,
             'template_name':this.edit_template_name[template_id],
+            'pages':JSON.stringify(this.todoListPages),
             'sid':this.cookieStore.getCookie('sid')
         }).subscribe(
             (data)=>{
@@ -401,6 +407,7 @@ export class TodoMissionComponent implements OnInit {
                 'project_id':project_id,
                 'todo_status':num,
                 'is_list':1,
+                'pages':JSON.stringify(this.todoListPages),
                 'sid':this.cookieStore.getCookie('sid')
             }).subscribe(
                 (data)=>{
@@ -566,7 +573,7 @@ export class TodoMissionComponent implements OnInit {
      */
     deleteTodo(project_id:any,todo_id:any) {
         if(confirm("您确定要删除该任务，以及该任务下的评论信息吗？")) {
-            this.http.delete(this.globalService.getDomain()+'/api/v1/deleteTodoById?todo_id=' + todo_id + '&project_id='+project_id+'&type=id&sid='+this.cookieStore.getCookie('sid'))
+            this.http.delete(this.globalService.getDomain()+'/api/v1/deleteTodoById?todo_id=' + todo_id + '&pages=[]&project_id='+project_id+'&type=id&sid='+this.cookieStore.getCookie('sid'))
                 .map((res) => res.json())
                 .subscribe((data) => {
                     this.todoList = data;
@@ -585,7 +592,7 @@ export class TodoMissionComponent implements OnInit {
      */
     hideDetail(){
         this.is_show_detail = '';
-        this.getTodoDefault(this.project_id);
+        this.getTodoDefault(this.project_id,0);
     }
 
     /**
@@ -763,7 +770,7 @@ export class TodoMissionComponent implements OnInit {
      */
     deleteTodoList(template_id:string ,project_id:any){
         if(confirm("您确定要删除该模版，以及此模版下所有任务及评论信息吗？")) {
-            this.http.delete(this.globalService.getDomain()+'/api/v1/deleteTodoById?template_id=' + template_id + '&project_id='+project_id+'&type=all&sid='+this.cookieStore.getCookie('sid'))
+            this.http.delete(this.globalService.getDomain()+'/api/v1/deleteTodoById?template_id=' + template_id + '&pages=[]&project_id='+project_id+'&type=all&sid='+this.cookieStore.getCookie('sid'))
                 .map((res) => res.json())
                 .subscribe((data) => {
                     this.todoList = data;
@@ -848,4 +855,52 @@ export class TodoMissionComponent implements OnInit {
     isShowReplayList(ind:number){
         this.is_show_replay = ind;
     }
+
+    /**
+     * 移除分配者（assigin）或关注者（follower）
+     * @param au1
+     */
+    removeUser(todo_id:number,id:number,type:string){
+        if(id == 0){
+            alert('信息有误，无法移除该用户！');
+            return false;
+        }
+        this.http.post(this.globalService.getDomain()+'/api/v1/addTodo',{
+            'todo_id':todo_id,
+            'type':type,
+            'remove_u_id':id,
+            'sid':this.cookieStore.getCookie('sid')
+        }).subscribe( (data)=>{
+            let info = JSON.parse(data['_body']);
+            if(info['status'] == 200) {
+                this.todo_info = info;
+            }else if(info['status'] == 202){
+                alert(info['msg']);
+                this.cookieStore.removeAll(this.rollback_url);
+                this.router.navigate(['/auth/login']);
+            }
+        });
+    }
+
+    /**
+     * 移除评论或回复
+     * @param comment_id
+     */
+    removeComment(todo_id:number,comment_id:number){
+        if(confirm('确定要移除该评论信息吗？')){
+            this.http.delete(this.globalService.getDomain()+'/api/v1/deleteComment?comment_id=' + comment_id + '&todo_id='+todo_id+'&sid='+this.cookieStore.getCookie('sid'))
+                .map((res) => res.json())
+                .subscribe((data) => {
+                    if (data['status'] == 202) {
+                        alert(data['msg']);
+                        this.cookieStore.removeAll(this.rollback_url);
+                        this.router.navigate(['/auth/login']);
+                    }
+                    //调用显示评论列表信息
+                    this.getCommentList(todo_id);
+                });
+        }
+
+    }
+
 }
