@@ -13,16 +13,6 @@
                 <article class="col-sm-12">
                   <div class="navbar navbar-default">
                     <form class="navbar-form navbar-left" role="search" [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate>
-                      <!--筛选-->
-                      <!-- <div class="form-group">
-                         <select class="form-control">
-                           <option value =""></option>
-                           <option value =""></option>
-                           <option value=""></option>
-                           <option value=""></option>
-                         </select>
-                       </div>-->
-
                       <div class="form-group pdlr-4">
                         <a class="btn btn-success btn-sm" (click)="isDemo('/forms/employees','0')">
                           <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
@@ -39,7 +29,6 @@
                         <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="getUserInfo()">
                           <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
                       </div>
-
                       <div class="form-group pdlr-4" *ngIf="isStatus == 2">
                         <a class="btn default-btn btn-sm" (click)="editStatus(1,'id')">
                           <span class="fa-fw fa fa-play mr-5 color-green"></span>启用</a>
@@ -61,7 +50,7 @@
                     </form>
                     <form class="navbar-form navbar-left" role="search" [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate>
                       <div class="form-group pdlr-4">
-                        <input type="text" name="keyword" maxlength="15" formControlName="keyword" class="form-control" placeholder="请输入搜索内容">
+                        <input type="text" name="keyword" maxlength="15" formControlName="keyword" class="form-control" placeholder="请输入编号和名称">
                       </div>
                       <div class="form-group pdlr-4">
                         <button type="button" (click)="getUserList(1,0)" class="btn btn-default">

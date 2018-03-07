@@ -1,4 +1,3 @@
-
 <div id="content">
   <div class="row"><!-- *ngIf="is_show_power[cookie_u_id]"-->
     <div class="col-sm-12 col-md-12 col-lg-12">
@@ -425,7 +424,7 @@
                                       <li *ngIf="is_show_replay == ind && cl.replayCount > 0">
                                         <a class="text-primary" (click)="isShowReplayList(99999)">隐藏回复</a>
                                       </li>
-                                      <li>
+                                      <li *ngIf="todo_info?.result?.u_id == cookie_u_id">
                                         <a class="text-muted" (click)="removeComment(todo_info?.result?.todo_id,cl.comment_id)">删除</a>
                                       </li>
                                     </ul>
@@ -438,7 +437,7 @@
                                       <li>
                                         <a  class="text-muted"> {{rl.return_time}}</a>
                                       </li>
-                                      <li>
+                                      <li *ngIf="todo_info?.result?.u_id == cookie_u_id">
                                         <a class="text-muted" (click)="removeComment(todo_info?.result?.todo_id,rl.comment_id)">删除</a>
                                       </li>
                                       <!--<li>

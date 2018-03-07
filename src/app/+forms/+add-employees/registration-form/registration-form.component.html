@@ -156,14 +156,6 @@
     </div>
     <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
       <section >
-        <label class="label ">电话</label>
-        <label class="input"> <i class="icon-append fa fa-phone"></i>
-          <input name=""  placeholder="请输入电话号码" maxlength="12">
-        </label>
-      </section>
-    </div>
-    <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-      <section >
         <label class="label">Email</label>
         <label class="input"> <i class="icon-append fa fa-envelope-o"></i>
           <input name="email" formControlName="email" placeholder="请输入E-mail" type="email" maxlength="20">
@@ -171,10 +163,10 @@
       </section>
     </div>
     <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-      <section >
+      <section>
         <label class="label ">出生日期</label>
         <label class="input">
-          <input type="date" name="" saUiDatepicker date-format="dd/mm/yy"  />
+          <input type="date" name="u_birthday" formControlName="u_birthday"/>
         </label>
       </section>
     </div>
@@ -182,7 +174,7 @@
       <section>
         <label class="label ">助记码</label>
         <label class="input">
-          <input type="text" name="" placeholder="手工录入或自动生成 " maxlength="20" />
+          <input type="text" name="u_shortcode" formControlName="u_shortcode" placeholder="手工录入或自动生成 " maxlength="20" />
         </label>
       </section>
     </div>
@@ -196,8 +188,6 @@
     </div>
 
   </fieldset>
-
-
   <fieldset>
     <legend>其他信息</legend>
   </fieldset>
@@ -205,19 +195,10 @@
   <div [ngStyle]="{'display':is_showDiv?'block':'none'}" >
     <fieldset>
       <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-        <section >
-          <label class="label ">职业</label>
-          <label class="input">
-            <input  name=''  placeholder="" size="18" maxlength="18" type="text">
-          </label>
-        </section>
-      </div>
-      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-        <section >
+        <section>
           <label class="label ">入职时间</label>
           <label class="input">
-            <input type="date" name="enrol_time" placeholder="入职时间"
-                   saUiDatepicker date-format="dd/mm/yy"  formControlName="enrol_time"/>
+            <input type="date" name="enrol_time" placeholder="入职时间" saUiDatepicker date-format="dd/mm/yy" formControlName="enrol_time"/>
           </label>
         </section>
       </div>
@@ -365,12 +346,11 @@
               </select> <i></i> </label></div>
         </section>
       </div>
-
       <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
         <section >
           <label class="label ">邮编</label>
           <label class="input">
-            <input  name=''  placeholder="" size="18" maxlength="18" type="text">
+            <input name="u_zip_code" formControlName="u_zip_code" size="18" maxlength="18" type="text">
           </label>
         </section>
       </div>
@@ -378,7 +358,7 @@
         <section >
           <label class="label  ">家庭电话</label>
           <label class="input"> <i class="icon-append fa fa-phone"></i>
-            <input name=""  placeholder="请输入家庭号码" maxlength="12">
+            <input name="u_home_phone" formControlName="u_home_phone" placeholder="请输入家庭号码" maxlength="12">
           </label>
         </section>
       </div>
@@ -386,7 +366,6 @@
         <div class="margin-left-15">
           <label class="labe2">紧急联系人</label>
           <section class="col col-4">
-
             <label class="input">
               <input  name='emergency_contact' formControlName="emergency_contact" placeholder="请输入姓名"  type="text" maxlength="20">
             </label>
@@ -396,15 +375,13 @@
               <input name="emergency_phone" formControlName="emergency_phone" placeholder="请输入紧急联系电话" samaskedinput="(999) 999-9999" type="tel" ng-reflect-sa-masked-input="(999) 999-9999" maxlength="20" aria-required="true" class="valid" aria-invalid="false">
             </label>
           </section>
-
-
         </div>
       </div>
       <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
         <section >
           <label class="label ">通讯地址</label>
           <label class="input">
-            <input  name=''  placeholder="请输入通讯地址"  type="text" >
+            <input name="u_emergency_address" formControlName="u_emergency_address" placeholder="请输入通讯地址"  type="text" >
           </label>
         </section>
       </div>
@@ -441,66 +418,34 @@
         <section >
           <label class="label ">详细地址</label>
           <label class="input">
-            <input  name='address4' formControlName="address4" placeholder="请输入详细地址"  type="text" maxlength="20">
+            <input name='address4' formControlName="address4" placeholder="请输入详细地址"  type="text" maxlength="20">
           </label>
         </section>
       </div>
     </fieldset>
     <fieldset>
       <!--创建人、修改人、停用人、创建日期、修改时间、启用时间、停用时间：只读项，系统自动产生。-->
-      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-        <section >
-          <label class="label ">创建人</label>
-          <label class="input">
-            <input  name=""  disabled="disabled"  type="text" >
-          </label>
-        </section>
-      </div>
-      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-        <section >
-          <label class="label ">修改人</label>
-          <label class="input">
-            <input  name=""  disabled="disabled"  type="text" >
-          </label>
-        </section>
-      </div>
-      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-        <section >
-          <label class="label ">停用人</label>
-          <label class="input">
-            <input  name=""  disabled="disabled"  type="text" >
-          </label>
-        </section>
-      </div>
+      <!--<div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">-->
+        <!--<section >-->
+          <!--<label class="label ">创建人</label>-->
+          <!--<label class="input">-->
+            <!--<input name='created_username' formControlName="created_username" disabled="disabled"  type="text" >-->
+          <!--</label>-->
+        <!--</section>-->
+      <!--</div>-->
       <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
         <section >
           <label class="label ">创建日期</label>
           <label class="input">
-            <input  name=""  disabled="disabled"  type="text" >
+            <input name='created_at' formControlName="created_at" disabled="disabled"  type="text" >
           </label>
         </section>
       </div>
       <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-        <section >
+        <section>
           <label class="label">修改时间</label>
           <label class="input">
-            <input  name=""  disabled="disabled"  type="text" >
-          </label>
-        </section>
-      </div>
-      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-        <section >
-          <label class="label ">启用时间</label>
-          <label class="input">
-            <input  name=""  disabled="disabled"  type="text" >
-          </label>
-        </section>
-      </div>
-      <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-        <section >
-          <label class="label ">停用时间</label>
-          <label class="input">
-            <input  name=""  disabled="disabled"  type="text" >
+            <input name='updated_at' formControlName="updated_at" disabled="disabled"  type="text" >
           </label>
         </section>
       </div>
