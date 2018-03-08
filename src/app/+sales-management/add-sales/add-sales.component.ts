@@ -52,8 +52,10 @@ export class AddSalesComponent implements OnInit {
   category_type : number = 22; //销售类型
   p_type : number = 2;//商品
   role : number = 4; //客户角色
+  p_property : number = 1; //销售商品
   rollback_url : string = '/sales-management/add-sales';
-    url:string = '';
+    p_pur_prices : number = 0;
+  url:string = '';
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -62,7 +64,6 @@ export class AddSalesComponent implements OnInit {
       private cookieStore:CookieStoreService,
       private globalService:GlobalService,
       private notificationService: NotificationService) {
-
     let nav = '{"title":"添加销售单","url":"/sales-management/add-sales/0","class_":"active"}';
     this.globalService.navEventEmitter.emit(nav);
     this.url = this.globalService.getDomain();
@@ -134,8 +135,11 @@ export class AddSalesComponent implements OnInit {
             this.getUserList(this.purchaseInfo['result']['pr_department'],2);
           }
           this.selectProductList = this.purchaseInfo['result']['detail'];
-            console.log('this.selectProductList:----');
-          console.log(this.selectProductList);
+          this.p_pur_prices = 0;
+          //合计
+            this.selectProductList.forEach((val, idx, array) => {
+                this.p_pur_prices += parseInt(val['p_pur_price']);
+            });
         });
   }
 
@@ -235,7 +239,7 @@ export class AddSalesComponent implements OnInit {
    * 搜索商品
    */
   searchKey(page:any){
-      let url = this.globalService.getDomain()+'/api/v1/getProductList?page='+page+'&p_type='+this.p_type+'&type=list&sid='+this.cookieStore.getCookie('sid');
+      let url = this.globalService.getDomain()+'/api/v1/getProductList?page='+page+'&p_type='+this.p_type+'&type=list&p_property='+this.p_property+'&sid='+this.cookieStore.getCookie('sid');
       if(this.keyword_product.trim() != '') {
           url += '&keyword='+this.keyword_product.trim();
       }else {
@@ -491,6 +495,22 @@ export class AddSalesComponent implements OnInit {
     removeInput(ind) {
         // let i = this.selectProductList.indexOf(item);
         this.selectProductList.splice(ind, 1);
+    }
+
+    /**
+     * 计算金额总数
+     * @param obj
+     * type   p_pur_price:销售金额
+     */
+    sumPCount(obj,type){
+        if(type == 'p_pur_price'){
+            this.p_pur_prices = 0;
+            this.selectProductList.forEach((val, idx, array) => {
+                this.p_pur_prices += parseInt(val['p_pur_price']);
+            });
+            console.log('this.p_pur_prices:----');
+            console.log(this.p_pur_prices);
+        }
     }
 
     @ViewChild('lgModal') public lgModal:ModalDirective;

@@ -233,7 +233,6 @@
                     <div class="widget-body no-padding">
                       <div  class="padding0">
                         <div style="z-index: 2;width:20%;float:left;" class="table-responsive padding0 table-minheight">
-
                           <table style="margin-top: 0!important;" class="table table-border table-hover table-bordered dataTable table-height-70">
                             <thead>
                             <tr>
@@ -243,9 +242,9 @@
                             </thead>
                             <tbody>
                             <tr *ngFor="let p of selectProductList;let ind = index;">
-                              <td style="width: 112px;">
+                              <td>
                                 <!--<a *ngIf="isDetail!='detail'" class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-plus"></span>添加</a>-->
-                                <a *ngIf="isDetail!='detail'" class="btn btn-danger btn-xs" (click)="removeInput(ind)"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                <a *ngIf="isDetail!='detail'" class="btn btn-danger btn-xs" (click)="removeInput(ind)"><span class="glyphicon glyphicon-remove"></span></a>
                               </td>
                               <td>
                                 {{p.p_name}}
@@ -255,7 +254,7 @@
                             <tfoot>
                             <tr >
                               <th></th>
-                              <th></th>
+                              <th>合计</th>
                             </tr>
                             </tfoot>
                           </table>
@@ -295,8 +294,8 @@
                               </td>
                               <td>
                                 <label  class="input">
-                                <input *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_pur_price" value="{{p.p_pur_price}}" type="number">
-                                  <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_pur_price" value="{{p.p_pur_price}}" type="number">
+                                <input *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_pur_price" value="{{p.p_pur_price}}" type="number" (blur)="sumPCount($event,'p_pur_price')">
+                                  <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_pur_price" value="{{p.p_pur_price}}" type="number" (blur)="sumPCount($event,'p_pur_price')">
                                 </label>
                               </td>
                               <td>
@@ -319,7 +318,7 @@
                               <th></th>
                               <th></th>
                               <th></th>
-                              <th></th>
+                              <th>{{p_pur_prices}}</th>
                               <th></th>
                               <!--<th></th>-->
                             </tr>
@@ -344,12 +343,8 @@
                     返回
                   </button>
                   <!--<button type="button" class="btn btn-success btn-sm" ><span class="glyphicon glyphicon-plus"></span>保存并新增</button>-->
-                  <button *ngIf="isDetail=='detail'" disabled="disabled" type="submit" class="btn btn-primary">
-                    保存
-                  </button>
-                  <button *ngIf="isDetail!='detail'" type="submit" class="btn btn-primary">
-                    保存
-                  </button>
+                  <button *ngIf="pr_id==0" type="submit" class="btn btn-primary">保存</button>
+                  <button *ngIf="isDetail!='detail' && pr_id!=0" type="submit" class="btn btn-primary">修改</button>
                 </footer>
               </form>
             </div>

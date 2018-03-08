@@ -47,11 +47,14 @@ export class AddReceiptComponent implements OnInit {
   prev : boolean = false;
   next : boolean = false;
 
+  p_prices:number = 0;
+
   isDetail : string = '';
   keyword : string = '';
   category_type : number = 17; //采购类型
   p_type : number = 2;//商品
   role : number = 3; //供应商角色
+  p_property : number = 2; //采购商品
   rollback_url : string = '/procurement-management/add-receipt';
   constructor(
       fb:FormBuilder,
@@ -135,6 +138,11 @@ export class AddReceiptComponent implements OnInit {
           }
 
           this.selectProductList = this.purchaseInfo['result']['detail'];
+          this.p_prices = 0;
+          //合计
+          this.selectProductList.forEach((val, idx, array) => {
+            this.p_prices += parseInt(val['p_price']);
+          });
         });
   }
 
@@ -229,7 +237,7 @@ export class AddReceiptComponent implements OnInit {
    * 搜索商品
    */
   searchKey(page:any){
-    let url = this.globalService.getDomain()+'/api/v1/getProductList?page='+page+'&p_type='+this.p_type+'&type=list&sid='+this.cookieStore.getCookie('sid');
+    let url = this.globalService.getDomain()+'/api/v1/getProductList?page='+page+'&p_type='+this.p_type+'&p_property='+this.p_property+'&type=list&sid='+this.cookieStore.getCookie('sid');
     if(this.keyword_product.trim() != '') {
       url += '&keyword='+this.keyword_product.trim();
     }else {
@@ -482,6 +490,22 @@ export class AddReceiptComponent implements OnInit {
   removeInput(ind) {
     // let i = this.selectProductList.indexOf(item);
     this.selectProductList.splice(ind, 1);
+  }
+
+  /**
+   * 计算金额总数
+   * @param obj
+   * type   p_price:销售金额
+   */
+  sumPCount(obj,type){
+    if(type == 'p_price'){
+      this.p_prices = 0;
+      this.selectProductList.forEach((val, idx, array) => {
+        this.p_prices += parseInt(val['p_price']);
+      });
+      console.log('this.p_prices:----');
+      console.log(this.p_prices);
+    }
   }
 
   @ViewChild('lgModal') public lgModal:ModalDirective;

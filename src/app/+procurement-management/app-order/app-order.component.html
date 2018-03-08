@@ -221,7 +221,7 @@
                             <tr >
                               <!--<th></th>-->
                               <th></th>
-                              <th></th>
+                              <th>合计</th>
                             </tr>
                             </tfoot>
                           </table>
@@ -263,8 +263,8 @@
                               </td>
                               <td>
                                 <label  class="input">
-                                  <input *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_price" value="{{p.p_price}}" type="number">
-                                  <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_price" value="{{p.p_price}}" type="number">
+                                  <input *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_price" value="{{p.p_price}}" type="number" (blur)="sumPCount($event,'p_price')">
+                                  <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_price" value="{{p.p_price}}" type="number" (blur)="sumPCount($event,'p_price')">
                                 </label>
                               </td>
                               <td>
@@ -300,7 +300,7 @@
                               <th></th>
                               <th></th>
                               <th></th>
-                              <th></th>
+                              <th>{{p_prices}}</th>
                               <th></th>
                               <th></th>
                               <th></th>
@@ -377,12 +377,8 @@
                     返回
                   </button>
                   <!--<button type="button" class="btn btn-success btn-sm" ><span class="glyphicon glyphicon-plus"></span>保存并新增</button>-->
-                  <button *ngIf="isDetail=='detail'" disabled="disabled" type="submit" class="btn btn-primary">
-                    保存
-                  </button>
-                  <button *ngIf="isDetail!='detail'" type="submit" class="btn btn-primary">
-                    保存
-                  </button>
+                  <button *ngIf="pr_id==0" type="submit" class="btn btn-primary">保存</button>
+                  <button *ngIf="isDetail!='detail' && pr_id!=0" type="submit" class="btn btn-primary">修改</button>
                 </footer>
               </form>
             </div>
