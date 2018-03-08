@@ -3961,7 +3961,7 @@ div.dataTables_editor{
     background: #f8f6f2;
 }
 .project-grid .project-item a.center:hover h4 {
-    color: #5b835b;
+    color: #169af6;
 }
 .project-grid .project-item a.center i {
     font-size: 32px;
@@ -4122,6 +4122,13 @@ div.dataTables_editor{
     left: 0;
     right: 0;
     z-index: 0;
+}
+.entries_panel {
+    white-space: nowrap;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 .entries_panel .entries_panel_sortarea {
     display: inline-block;

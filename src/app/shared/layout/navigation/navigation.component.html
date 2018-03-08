@@ -164,7 +164,7 @@
 
         </ul>
       </li>
-      <!--<li>
+      <li>
         <a href="#"><i class=" fa fa-lg fa-fw fa-sitemap"></i> <span
                 class="menu-item-parent">{{'流程审批' | i18n}}</span></a>
         <ul>
@@ -174,7 +174,7 @@
 
         </ul>
       </li>
-      <li>
+      <!--<li>
         <a href="#"><i class=" fa fa-lg fa-fw  fa-folder-open"></i> <span
                 class="menu-item-parent">{{'文档管理' | i18n}}</span></a>
         <ul>
@@ -252,11 +252,18 @@
         </ul>
       </li>
       <li>
-        <a href="#"><i class="fa fa-lg fa-fw  fa-envelope"></i> <span
+        <a href="#"><i class="fa fa-lg fa-fw  fa-envelope"><em>3</em></i> <span
                 class="menu-item-parent">{{'待办事项' | i18n}}</span></a>
         <ul>
           <li routerLinkActive="active">
+            <a routerLink="/to-do/todo-workbench">{{'我的工作台' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
             <a routerLink="/forms/todo-projects">{{'项目' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/to-do/todo-message">{{'待办事项消息' | i18n}}<span
+                    class="badge bg-color-red pull-right inbox-badge">3</span></a>
           </li>
           <li routerLinkActive="active">
             <a routerLink="/management/setting-labellinga">{{'项目标签设置' | i18n}}</a>
@@ -279,14 +286,9 @@
         </ul>
       </li>
 
-
-
-
-
-
       <li>
         <a href="#"><i class="fa fa-lg fa-fw  fa-credit-card"></i> <span
-                class="account">{{'账户管理' | i18n}}</span></a>
+                class="menu-item-parent">{{'账户管理' | i18n}}</span></a>
         <ul>
           <li routerLinkActive="active">
             <a routerLink="/account/account-company">{{'公司信息' | i18n}}</a>

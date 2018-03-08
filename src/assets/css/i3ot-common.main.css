@@ -21,6 +21,7 @@ body {
     font-family: "Open Sans","微软雅黑",Arial,Helvetica,Sans-Serif;
     background: url(../img/mybg.png) #fff;
     direction: ltr;
+    overflow-x: hidden;
 }
 
 #content {
@@ -596,7 +597,7 @@ a,button,input {
 .flag {
     width: 16px;
     height: 11px;
-    background: url(../img/flags/flags.png) no-repeat;
+    /*background: url(../img/flags/flags.png) no-repeat;*/
     margin-top: -.18em;
     display: inline-block
 }
