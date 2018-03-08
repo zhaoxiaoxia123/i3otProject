@@ -96,7 +96,7 @@
                     <tbody>
                     <tr *ngFor="let sl of storehouseList?.result?.storehouseList?.data" (click)="isStatusShow(sl.storehouse_id)" [ngClass]="{'table-color':editStatusStorehouseId == sl.storehouse_id}">
                       <td>{{ sl.storehouse_name }}</td>
-                      <td></td>
+                      <td>{{ sl.storehouse_number }}</td>
                       <td>{{ sl.u_username }}</td>
                       <td>{{ sl.storehouse_phone }}</td>
                       <td>

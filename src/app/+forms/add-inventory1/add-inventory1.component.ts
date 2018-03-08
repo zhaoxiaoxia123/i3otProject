@@ -43,6 +43,9 @@ export class AddInventory1Component implements OnInit {
       u_id:[''],
       storehouse_phone:[''],
       storehouse_notes:[''],
+      storehouse_number:[''],
+      storehouse_address:[''],
+      storehouse_shortcode:['']
     });
   }
 
@@ -99,6 +102,9 @@ export class AddInventory1Component implements OnInit {
         u_id:this.storehouse_info['result']['u_id'],
         storehouse_phone:this.storehouse_info['result']['storehouse_phone'],
         storehouse_notes:this.storehouse_info['result']['storehouse_notes'],
+        storehouse_number:this.storehouse_info['result']['storehouse_number'],
+        storehouse_address:this.storehouse_info['result']['storehouse_address'],
+        storehouse_shortcode:this.storehouse_info['result']['storehouse_shortcode'],
       });
     }, 500);
   }
@@ -117,9 +123,11 @@ export class AddInventory1Component implements OnInit {
       'u_id':this.formModel.value['u_id'],
       'storehouse_phone':this.formModel.value['storehouse_phone'],
       'storehouse_notes':this.formModel.value['storehouse_notes'],
+      'storehouse_number':this.formModel.value['storehouse_number'],
+      'storehouse_address':this.formModel.value['storehouse_address'],
+      'storehouse_shortcode':this.formModel.value['storehouse_shortcode'],
       'sid':this.cookieStore.getCookie('sid')
-    }).subscribe(
-        (data)=>{
+    }).subscribe((data)=>{
           let info = JSON.parse(data['_body']);
           alert(info['msg']);
           if(info['status'] == 200) {
@@ -128,14 +136,7 @@ export class AddInventory1Component implements OnInit {
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
-        },
-        response => {
-          console.log('PATCH call in error', response);
-        },
-        () => {
-          console.log('The PATCH observable is now completed.');
-        }
-    );
+        });
   }
 
     //添加按钮

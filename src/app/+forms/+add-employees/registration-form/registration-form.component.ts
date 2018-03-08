@@ -107,10 +107,17 @@ export class RegistrationFormComponent implements OnInit {
       email:[''],
       emergency_contact:[''],
       emergency_phone:[''],
+      u_emergency_address:[''],
+      u_zip_code:[''],
+      u_home_phone:[''],
+      u_shortcode:[''],
+      u_birthday:[''],
       address1:[''],
       address2:[''],
       address3:[''],
       address4:[''],
+      updated_at:[''],
+      created_at:[''],
       c_id:['']
     });
 
@@ -209,11 +216,18 @@ export class RegistrationFormComponent implements OnInit {
             'email':this.user_info['result']['email'],
             'emergency_contact':this.user_info['result']['u_emergency_contact'],
             'emergency_phone':this.user_info['result']['u_emergency_phone'],
+            'u_emergency_address':this.user_info['result']['u_emergency_address'],
+            'u_zip_code':this.user_info['result']['u_zip_code'],
+            'u_home_phone':this.user_info['result']['u_home_phone'],
+            'u_shortcode':this.user_info['result']['u_shortcode'],
+            'u_birthday':this.user_info['result']['u_birthday'],
             'address1':this.user_info['result']['address1'],
             'address2':this.user_info['result']['address2'],
             'address3':this.user_info['result']['address3'],
-            'address4':this.user_info['result']['address4']
+            'address4':this.user_info['result']['address4'],
             // 'address':this.user_info['result']['address1']+' '+this.user_info['result']['address2'] +' '+ this.user_info['result']['address3']+' '+this.user_info['result']['address4'],
+            'updated_at':this.user_info['result']['updated_at'],
+            'created_at':this.user_info['result']['created_at'],
           });
           this.path = this.user_info['result']['u_avatar'];
           if(this.user_info['result']['birthplace1'] != 0){
@@ -324,6 +338,11 @@ export class RegistrationFormComponent implements OnInit {
       'email':this.formModel.value['email'],
       'emergency_contact':this.formModel.value['emergency_contact'],
       'emergency_phone':this.formModel.value['emergency_phone'],
+      'u_emergency_address':this.formModel.value['u_emergency_address'],
+      'u_zip_code':this.formModel.value['u_zip_code'],
+      'u_home_phone':this.formModel.value['u_home_phone'],
+      'u_shortcode':this.formModel.value['u_shortcode'],
+      'u_birthday':this.formModel.value['u_birthday'],
       'address':this.formModel.value['address1']+','+this.formModel.value['address2'] +','+ this.formModel.value['address3']+','+this.formModel.value['address4'],
       'sid':this.cookieStoreService.getCookie('sid'),
       'c_id':this.formModel.value['c_id'],

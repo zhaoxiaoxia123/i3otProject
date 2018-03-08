@@ -1,4 +1,3 @@
-
 <div id="content">
   <div class="row"><!-- *ngIf="is_show_power[cookie_u_id]"-->
     <div class="col-sm-12 col-md-12 col-lg-12">
@@ -71,10 +70,11 @@
                   <a class="entry_header_number ng-binding ng-scope" (click)="deleteTodoList(tl.key,todoList?.result?.project_id)">
                     删除 </a>
                 </div>
-                <div class="entry-task-panel wt-scroll"  style="overflow-x: hidden; overflow-y: auto;">
-                  <div class="entry-tasks js-sortable ui-sortable  " >
+                <div class="entry-task-panel wt-scroll" style="overflow-x: hidden; overflow-y: auto;">
+                  <div class="entry-tasks js-sortable ui-sortable" >
 
-                    <div *ngFor="let tl1 of tl.todo_list" (click)="showDetail(tl1.todo_id,tl.key,tl.info)" [ngClass]="{'right_click_trigger slide-trigger js-popbox false task task_style task-':true,'task-selected':tl1.todo_status==2,'bo-color-orange':tl1.isAssign,'bo-color-info':tl1.isFollower}" draggable [dragScope]="tl.d" [dragClass]="'drag-over'" [dragData]="tl1" (onDragEnd)="onDragList_(tl1.todo_id,tl1.project_id)"><!--tl1.template_id,-->
+                    <div *ngFor="let tl1 of tl.todo_list;let indtl=index;">
+                    <div *ngIf="((indtl < todoListPages[tl.key] && todoListPages[tl.key] == 5) || (todoListPages[tl.key] >= 10))" (click)="showDetail(tl1.todo_id,tl.key,tl.info)" [ngClass]="{'right_click_trigger slide-trigger js-popbox false task task_style task-':true,'task-selected':tl1.todo_status==2,'bo-color-orange':tl1.isAssign,'bo-color-info':tl1.isFollower}" draggable [dragScope]="tl.d" [dragClass]="'drag-over'" [dragData]="tl1" (onDragEnd)="onDragList_(tl1.todo_id,tl1.project_id)"><!--tl1.template_id,-->
                       <div [ngClass]="{'entry-task-main':true,'task-completed-style':tl1.todo_status==2}">
                         <a class="entry-task-check ng-scope" *ngIf="tl1.todo_status != 2" (click)="editStatus($event,2,tl1.todo_id,todoList?.result?.project_id)">
                           <i class="fa fa-square-o"></i>
@@ -97,7 +97,9 @@
                       <!--</a>-->
                       <!--</div>-->
                     </div>
-                    <a (click)="getTodoDefault(project_id,tl.key)" *ngIf="todoListPages[tl.key] <= tl.todo_list_count">查看更多</a>
+                    </div>
+                    <a (click)="showTodoList(tl.key,1)" *ngIf="todoListPages[tl.key] <= 5 && tl.todo_list_count > 5">查看更多</a><!-- (click)="getTodoDefault(project_id,tl.key)"-->
+                    <a (click)="showTodoList(tl.key,2)" *ngIf="todoListPages[tl.key] == 10 && tl.todo_list_count > 5">隐藏</a>
                   </div>
                   <!--新建任务发布框-->
                   <div class="entry-add-bottom-composer entry-task-composer ng-isolate-scope" *ngIf="selects[tl.key]">
@@ -425,7 +427,7 @@
                                       <li *ngIf="is_show_replay == ind && cl.replayCount > 0">
                                         <a class="text-primary" (click)="isShowReplayList(99999)">隐藏回复</a>
                                       </li>
-                                      <li>
+                                      <li *ngIf="todo_info?.result?.u_id == cookie_u_id">
                                         <a class="text-muted" (click)="removeComment(todo_info?.result?.todo_id,cl.comment_id)">删除</a>
                                       </li>
                                     </ul>
@@ -438,7 +440,7 @@
                                       <li>
                                         <a  class="text-muted"> {{rl.return_time}}</a>
                                       </li>
-                                      <li>
+                                      <li *ngIf="todo_info?.result?.u_id == cookie_u_id">
                                         <a class="text-muted" (click)="removeComment(todo_info?.result?.todo_id,rl.comment_id)">删除</a>
                                       </li>
                                       <!--<li>

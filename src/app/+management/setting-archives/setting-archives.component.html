@@ -18,7 +18,7 @@
                   <div class="navbar navbar-default">
                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
                       <div class="form-group pdlr-4">
-                        <a class="btn btn-success btn-sm" (click)="getAddProductDefault();">
+                        <a class="btn btn-success btn-sm" (click)="getAddProductDefault(0);">
                           <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
                       </div>
                       <div class="form-group pdlr-4">
@@ -262,9 +262,9 @@
                 <li [class.active]="state.tabs.demo3=='hr3'" class="active">
                   <a (click)="state.tabs.demo3 = 'hr3'">多单位</a>
                 </li>
-                <li [class.active]="state.tabs.demo3=='hr4'" class="active">
-                  <a (click)="state.tabs.demo3 = 'hr4'">多级价格</a>
-                </li>
+                <!--<li [class.active]="state.tabs.demo3=='hr4'" class="active">-->
+                  <!--<a (click)="state.tabs.demo3 = 'hr4'">多级价格</a>-->
+                <!--</li>-->
                 <li [class.active]="state.tabs.demo3=='hr5'" class="active">
                   <a (click)="state.tabs.demo3 = 'hr5'">图片信息</a>
                 </li>
@@ -356,9 +356,10 @@
                                   <label class="select">
                                     <select class="input-sm" name="p_unit" [(ngModel)]="p_unit" [disabled]="isDetail=='detail'">
                                       <option value="0" disabled="disabled" >选择计量单位</option>
-                                      <option value="1" >件</option>
-                                      <option value="2" >颗</option>
-                                      <option value="3" >kg</option>
+                                      <option value="件" >件</option>
+                                      <option value="颗" >颗</option>
+                                      <option value="kg" >kg</option>
+                                      <option value="吨" >吨</option>
                                     </select> <i></i> </label>
                                 </section>
                               </div>
@@ -458,22 +459,22 @@
                                   </label>
                                 </section>
                               </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section >
-                                  <label class="label ">停用时间</label>
-                                  <label class="input">
-                                    <input name="p_stop_time" [(ngModel)]="p_stop_time" disabled="disabled" type="text" [disabled]="isDetail=='detail'">
-                                  </label>
-                                </section>
-                              </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section >
-                                  <label class="label ">停用人</label>
-                                  <label class="input">
-                                    <input name="p_stop_use" [(ngModel)]="p_stop_use" disabled="disabled" type="text" [disabled]="isDetail=='detail'">
-                                  </label>
-                                </section>
-                              </div>
+                              <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">-->
+                                <!--<section >-->
+                                  <!--<label class="label ">停用时间</label>-->
+                                  <!--<label class="input">-->
+                                    <!--<input name="p_stop_time" [(ngModel)]="p_stop_time" disabled="disabled" type="text" [disabled]="isDetail=='detail'">-->
+                                  <!--</label>-->
+                                <!--</section>-->
+                              <!--</div>-->
+                              <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">-->
+                                <!--<section >-->
+                                  <!--<label class="label ">停用人</label>-->
+                                  <!--<label class="input">-->
+                                    <!--<input name="p_stop_use" [(ngModel)]="p_stop_use" disabled="disabled" type="text" [disabled]="isDetail=='detail'">-->
+                                  <!--</label>-->
+                                <!--</section>-->
+                              <!--</div>-->
                             </fieldset>
                           </form>
                         </div>
@@ -632,98 +633,98 @@
                       </tab>
                     </tabset>
                   </tab>
-                  <tab [active]="state.tabs.demo3 == 'hr4'">
-                    <tabset >
-                      <tab [active]="state.tabs.demo3 == 'hr4'">
-                        <div class="row">
-                          <form   class="smart-form ">
-                            <fieldset>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section >
-                                  <label class="label ">一级价</label>
-                                  <label class="input">
-                                    <input  name=""    type="text" >
-                                  </label>
-                                </section>
-                              </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section >
-                                  <label class="label ">二级价</label>
-                                  <label class="input">
-                                    <input  name=""    type="text" >
-                                  </label>
-                                </section>
-                              </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section >
-                                  <label class="label ">三级价</label>
-                                  <label class="input">
-                                    <input  name=""    type="text" >
-                                  </label>
-                                </section>
-                              </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section >
-                                  <label class="label ">市场价</label>
-                                  <label class="input">
-                                    <input  name=""    type="text" >
-                                  </label>
-                                </section>
-                              </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section >
-                                  <label class="label ">厉害价</label>
-                                  <label class="input">
-                                    <input  name=""    type="text" >
-                                  </label>
-                                </section>
-                              </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section >
-                                  <label class="label ">最高级</label>
-                                  <label class="input">
-                                    <input  name=""    type="text" >
-                                  </label>
-                                </section>
-                              </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section >
-                                  <label class="label ">参考价格</label>
-                                  <label class="input">
-                                    <input  name=""    type="text" >
-                                  </label>
-                                </section>
-                              </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section >
-                                  <label class="label ">跳楼价</label>
-                                  <label class="input">
-                                    <input  name=""    type="text" >
-                                  </label>
-                                </section>
-                              </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section >
-                                  <label class="label ">蹦极价</label>
-                                  <label class="input">
-                                    <input  name=""    type="text" >
-                                  </label>
-                                </section>
-                              </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section >
-                                  <label class="label ">十级价</label>
-                                  <label class="input">
-                                    <input  name=""    type="text" >
-                                  </label>
-                                </section>
-                              </div>
-                            </fieldset>
-                          </form>
-                        </div>
-                      </tab>
-                    </tabset>
-                  </tab>
+                  <!--<tab [active]="state.tabs.demo3 == 'hr4'">-->
+                    <!--<tabset >-->
+                      <!--<tab [active]="state.tabs.demo3 == 'hr4'">-->
+                        <!--<div class="row">-->
+                          <!--<form   class="smart-form ">-->
+                            <!--<fieldset>-->
+                              <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">-->
+                                <!--<section >-->
+                                  <!--<label class="label ">一级价</label>-->
+                                  <!--<label class="input">-->
+                                    <!--<input  name=""    type="text" >-->
+                                  <!--</label>-->
+                                <!--</section>-->
+                              <!--</div>-->
+                              <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">-->
+                                <!--<section >-->
+                                  <!--<label class="label ">二级价</label>-->
+                                  <!--<label class="input">-->
+                                    <!--<input  name=""    type="text" >-->
+                                  <!--</label>-->
+                                <!--</section>-->
+                              <!--</div>-->
+                              <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">-->
+                                <!--<section >-->
+                                  <!--<label class="label ">三级价</label>-->
+                                  <!--<label class="input">-->
+                                    <!--<input  name=""    type="text" >-->
+                                  <!--</label>-->
+                                <!--</section>-->
+                              <!--</div>-->
+                              <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">-->
+                                <!--<section >-->
+                                  <!--<label class="label ">市场价</label>-->
+                                  <!--<label class="input">-->
+                                    <!--<input  name=""    type="text" >-->
+                                  <!--</label>-->
+                                <!--</section>-->
+                              <!--</div>-->
+                              <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">-->
+                                <!--<section >-->
+                                  <!--<label class="label ">厉害价</label>-->
+                                  <!--<label class="input">-->
+                                    <!--<input  name=""    type="text" >-->
+                                  <!--</label>-->
+                                <!--</section>-->
+                              <!--</div>-->
+                              <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">-->
+                                <!--<section >-->
+                                  <!--<label class="label ">最高级</label>-->
+                                  <!--<label class="input">-->
+                                    <!--<input  name=""    type="text" >-->
+                                  <!--</label>-->
+                                <!--</section>-->
+                              <!--</div>-->
+                              <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">-->
+                                <!--<section >-->
+                                  <!--<label class="label ">参考价格</label>-->
+                                  <!--<label class="input">-->
+                                    <!--<input  name=""    type="text" >-->
+                                  <!--</label>-->
+                                <!--</section>-->
+                              <!--</div>-->
+                              <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">-->
+                                <!--<section >-->
+                                  <!--<label class="label ">跳楼价</label>-->
+                                  <!--<label class="input">-->
+                                    <!--<input  name=""    type="text" >-->
+                                  <!--</label>-->
+                                <!--</section>-->
+                              <!--</div>-->
+                              <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">-->
+                                <!--<section >-->
+                                  <!--<label class="label ">蹦极价</label>-->
+                                  <!--<label class="input">-->
+                                    <!--<input  name=""    type="text" >-->
+                                  <!--</label>-->
+                                <!--</section>-->
+                              <!--</div>-->
+                              <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">-->
+                                <!--<section >-->
+                                  <!--<label class="label ">十级价</label>-->
+                                  <!--<label class="input">-->
+                                    <!--<input  name=""    type="text" >-->
+                                  <!--</label>-->
+                                <!--</section>-->
+                              <!--</div>-->
+                            <!--</fieldset>-->
+                          <!--</form>-->
+                        <!--</div>-->
+                      <!--</tab>-->
+                    <!--</tabset>-->
+                  <!--</tab>-->
                   <tab [active]="state.tabs.demo3 == 'hr5'">
                     <tabset >
                       <tab [active]="state.tabs.demo3 == 'hr5'">

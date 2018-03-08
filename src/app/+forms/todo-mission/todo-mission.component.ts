@@ -252,6 +252,9 @@ export class TodoMissionComponent implements OnInit {
                         this.selects[entry['key']] = false;
                         this.publish_todo_title[entry['key']] = '';
                     }
+                    //添加新的任务直接展开
+                    this.todoListPages[template_id] = 10;
+
                 }else if(info['status'] == 202){
                     alert(info['msg']);
                     this.cookieStore.removeAll(this.rollback_url);
@@ -900,7 +903,18 @@ export class TodoMissionComponent implements OnInit {
                     this.getCommentList(todo_id);
                 });
         }
-
     }
 
+    /**
+     * 任务列表显示和展开
+     * @param template_id
+     * @param type  1 ：查看更多 2：隐藏
+     */
+    showTodoList(template_id:number,type:number){
+        if(type == 1){
+            this.todoListPages[template_id] = 10;
+        }else if(type == 2){
+            this.todoListPages[template_id] = 5;
+        }
+    }
 }

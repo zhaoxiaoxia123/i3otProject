@@ -252,7 +252,7 @@ export class SettingArchivesComponent implements OnInit {
     /**
      * 获取添加页面的默认参数
      */
-    getAddProductDefault(){
+    getAddProductDefault(type:number){
         // if( this.addProductDefault.length <= 0) {
         this.http.get(this.globalService.getDomain() + '/api/v1/getProductDefault?type=add&p_type=' + this.p_type + '&category_type=' + this.category_type + '&sid=' + this.cookieStore.getCookie('sid'))
             .map((res) => res.json())
@@ -264,7 +264,10 @@ export class SettingArchivesComponent implements OnInit {
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
-                this.lgModal.show();
+                if(type == 0){
+                    this.editStatusProductId = 0;
+                    this.lgModal.show();
+                }
             });
         // }else{
         //     this.lgModal.show();
@@ -417,13 +420,9 @@ export class SettingArchivesComponent implements OnInit {
         if(this.isStatus == 0){
             return false;
         }
+        this.getAddProductDefault(1);
         this.isDetail = type;
         this.lgModal.show();
-        // if(type == 'edit'){
-        //     this.lgModal.show();
-        // }else{
-        //     // this.detailModal.show();
-        // }
         this.http.get(this.globalService.getDomain()+'/api/v1/getProductInfo?p_id='+this.editStatusProductId+'&p_type='+this.p_type+'&sid='+this.cookieStore.getCookie('sid'))
             .map((res)=>res.json())
             .subscribe((data)=>{

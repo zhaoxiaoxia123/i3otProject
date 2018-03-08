@@ -48,12 +48,15 @@ export class AppOrderComponent implements OnInit {
   prev : boolean = false;
   next : boolean = false;
 
+  p_prices:number = 0;
+
   isDetail : string = '';
   keyword : string = '';
   category_type : number = 17; //采购类型
   p_type : number = 2;//商品
   pr_type : number = 3;//订单类型  3：采购订单
   role : number = 3; //供应商角色
+  p_property : number = 2; //采购商品
   rollback_url : string = '/procurement-management/app-order';
   constructor( fb:FormBuilder,
                private http:Http,
@@ -151,6 +154,11 @@ export class AppOrderComponent implements OnInit {
           this.pr_payment_method_default = this.purchaseInfo['result']['pr_payment_method']; //结算方式
 
           this.selectProductList = this.purchaseInfo['result']['detail'];
+          this.p_prices = 0;
+          //合计
+          this.selectProductList.forEach((val, idx, array) => {
+            this.p_prices += parseInt(val['p_price']);
+          });
         });
   }
 
@@ -256,7 +264,7 @@ export class AppOrderComponent implements OnInit {
    * 搜索商品
    */
   searchKey(page:any){
-    let url = this.globalService.getDomain()+'/api/v1/getProductList?page='+page+'&p_type='+this.p_type+'&type=list&sid='+this.cookieStore.getCookie('sid');
+    let url = this.globalService.getDomain()+'/api/v1/getProductList?page='+page+'&p_type='+this.p_type+'&p_property='+this.p_property+'&type=list&sid='+this.cookieStore.getCookie('sid');
     if(this.keyword_product.trim() != '') {
       url += '&keyword='+this.keyword_product.trim();
     }else {
@@ -510,6 +518,24 @@ export class AppOrderComponent implements OnInit {
     // let i = this.selectProductList.indexOf(item);
     this.selectProductList.splice(ind, 1);
   }
+
+
+  /**
+   * 计算金额总数
+   * @param obj
+   * type   p_price:金额
+   */
+  sumPCount(obj,type){
+    if(type == 'p_price'){
+      this.p_prices = 0;
+      this.selectProductList.forEach((val, idx, array) => {
+        this.p_prices += parseInt(val['p_price']);
+      });
+      console.log('this.p_prices:----');
+      console.log(this.p_prices);
+    }
+  }
+
 
   @ViewChild('lgModal') public lgModal:ModalDirective;
 
