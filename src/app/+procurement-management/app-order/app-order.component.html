@@ -27,8 +27,10 @@
                     <section >
                       <label class="label txt-color-blue">单据日期<span class="asterisk-color">*</span></label>
                       <label  class="input">
-                        <input *ngIf="isDetail=='detail'" disabled="disabled" type="date" name="pr_date" formControlName="pr_date">
-                        <input *ngIf="isDetail!='detail'" type="date" name="pr_date" formControlName="pr_date">
+                        <!--<input *ngIf="isDetail=='detail'" disabled="disabled" type="date" name="pr_date" formControlName="pr_date">-->
+                        <!--<input *ngIf="isDetail!='detail'" type="date" name="pr_date" formControlName="pr_date">-->
+                        <input *ngIf="isDetail=='detail'" disabled="disabled" name="pr_date"  maxlength="20" formControlName="pr_date" placeholder="选择日期" [dpDayPicker]="datePickerConfig" [theme]="'dp-material'" [mode]="'day'" class="form-control ng-binding expire-text-soon"/>
+                        <input *ngIf="isDetail!='detail'" name="pr_date"  maxlength="20" formControlName="pr_date" placeholder="选择日期" [dpDayPicker]="datePickerConfig" [theme]="'dp-material'" [mode]="'day'" class="form-control ng-binding expire-text-soon"/>
                       </label>
                     </section>
                   </div>

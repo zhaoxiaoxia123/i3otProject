@@ -133,8 +133,9 @@
                     <section >
                       <label class="label">销售时间</label>
                       <label class="input">
-                        <input type="date"  maxlength="20" placeholder="销售时间"
-                               saUiDatepicker date-format="dd/mm/yy"  name="o_sales_time" formControlName="o_sales_time"  />
+                        <input name="o_sales_time"  maxlength="20" formControlName="o_sales_time" placeholder="销售时间" [dpDayPicker]="datePickerConfig" [theme]="'dp-material'" [mode]="'day'" class="form-control ng-binding expire-text-soon"/>
+                        <!--<input type="date"  maxlength="20" placeholder="销售时间"-->
+                               <!--saUiDatepicker date-format="dd/mm/yy"  name="o_sales_time" formControlName="o_sales_time"  />-->
                       </label>
                     </section>
 

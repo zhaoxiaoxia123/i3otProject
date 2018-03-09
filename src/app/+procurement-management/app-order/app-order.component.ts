@@ -50,6 +50,12 @@ export class AppOrderComponent implements OnInit {
 
   p_prices:number = 0;
 
+  datePickerConfig = {
+    locale: 'zh-CN',
+    format:'YYYY-MM-DD',
+    enableMonthSelector:true,
+    showMultipleYearsNavigation:true,
+  };
   isDetail : string = '';
   keyword : string = '';
   category_type : number = 17; //采购类型
@@ -531,8 +537,6 @@ export class AppOrderComponent implements OnInit {
       this.selectProductList.forEach((val, idx, array) => {
         this.p_prices += parseInt(val['p_price']);
       });
-      console.log('this.p_prices:----');
-      console.log(this.p_prices);
     }
   }
 

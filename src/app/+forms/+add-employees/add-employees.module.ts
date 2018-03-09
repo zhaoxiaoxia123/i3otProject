@@ -11,6 +11,7 @@ import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 import {ReactiveFormsModule} from '@angular/forms';
 import { ImageCropperModule} from "ng2-img-cropper";
 import {ImgCropperSelectModule} from "../../shared/img-cropper-select/img-cropper-select.module";
+import {DpDatePickerModule} from "ng2-date-picker";
 @NgModule({
   imports: [
     CommonModule,
@@ -19,6 +20,7 @@ import {ImgCropperSelectModule} from "../../shared/img-cropper-select/img-croppe
     addEmployeesRouting,
     ImageCropperModule,
     ImgCropperSelectModule,
+    DpDatePickerModule,
     // FileUploadModule,
   ],
   declarations: [

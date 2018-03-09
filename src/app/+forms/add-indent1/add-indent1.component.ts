@@ -31,6 +31,13 @@ export class AddIndent1Component implements OnInit {
   // category_id2_default : number;
   // category_id1_default : number;
 
+  datePickerConfig = {
+    locale: 'zh-CN',
+    format:'YYYY-MM-DD',
+    enableMonthSelector:true,
+    showMultipleYearsNavigation:true,
+  };
+
   //类型变量
   category_id1 : number = 0;
   category_desc1: string;

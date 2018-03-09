@@ -29,6 +29,12 @@ export class AddProduct1Component implements OnInit {
   inspector_default : number;
   storehouse_default : number;
 
+  datePickerConfig = {
+    locale: 'zh-CN',
+    format:'YYYY-MM-DD',
+    enableMonthSelector:true,
+    showMultipleYearsNavigation:true,
+  };
   //类型变量
   category_id1 : number = 0;
   category_desc1: string;

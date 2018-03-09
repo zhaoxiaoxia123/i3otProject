@@ -38,7 +38,7 @@ export class UnitListComponent implements OnInit {
     c_phone: string = '';
     c_address: string = '';
     c_abbreviation: string = '';
-    c_price_type: number = 0;
+    // c_price_type: number = 0;
     c_notes: string = '';
     c_contacts: string = '';
     user_title: string = '';
@@ -191,9 +191,9 @@ export class UnitListComponent implements OnInit {
                 if(this.departmentInfo['status'] == 201){
                     alert(this.departmentInfo['msg']);
                 }else if(this.departmentInfo['status'] == 200){
-                    this.department = this.departmentInfo['result']['category_desc'];
+                    this.department = this.departmentInfo['result']['department_name'];
                 }
-                console.log(this.department);
+                // console.log(this.department);
             });
     }
 
@@ -220,7 +220,7 @@ export class UnitListComponent implements OnInit {
             'notes' : this.c_notes,
             'contacts' : this.c_contacts,
             'category_id' : this.c_category_id,
-            'price_type' : this.c_price_type,
+            // 'price_type' : this.c_price_type,
             'user_title' : this.user_title,
             'user_phone' : this.user_phone,
             'user_mobile' : this.user_mobile,
@@ -270,7 +270,7 @@ export class UnitListComponent implements OnInit {
         this.c_phone = '';
         this.c_address = '';
         this.c_abbreviation = '';
-        this.c_price_type = 0;
+        // this.c_price_type = 0;
         this.c_notes = '';
         this.c_contacts = '';
         this.user_title = '';
@@ -301,7 +301,7 @@ export class UnitListComponent implements OnInit {
         this.c_phone = info['result']['c_phone'];
         this.c_address = info['result']['c_address'];
         this.c_abbreviation = info['result']['c_abbreviation'];
-        this.c_price_type = info['result']['c_price_type'];
+        // this.c_price_type = info['result']['c_price_type'];
         this.c_notes = info['result']['c_notes'];
         this.c_contacts = info['result']['c_contacts'];
         this.user_title = info['result']['user_info']['user_title'];

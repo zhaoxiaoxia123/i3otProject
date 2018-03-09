@@ -7,9 +7,8 @@ import {GlobalService} from "../../core/global.service";
 import {stringify} from "querystring";
 // import { DOCUMENT } from '@angular/platform-browser';
 // import {Observable} from "rxjs/Observable";
-import {DropEvent} from 'ng-drag-drop';
 
-const $script = require('scriptjs');
+// const $script = require('scriptjs');
 
 @FadeInTop()
 @Component({
