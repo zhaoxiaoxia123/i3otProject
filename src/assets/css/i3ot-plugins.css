@@ -713,6 +713,10 @@ div.dataTables_paginate ul.pagination {
 }
 
 /*外边距 margin*/
+.margin-lr30{
+    margin-left: -30px;
+    margin-right: -30px;
+}
 .no-margin {
     margin: 0!important
 }

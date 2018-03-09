@@ -28,7 +28,7 @@
               </div>
               <div  class="entry-task-panel wt-scroll" style="overflow-x: hidden; overflow-y: auto;max-height:600px;">
                 <div  class="entry-tasks js-sortable ui-sortable  ">
-              <div   class="right_click_trigger slide-trigger js-popbox false task task_style task-  drag-handle" >
+              <div   class="right_click_trigger slide-trigger js-popbox false task task_style task- task-selected  drag-handle" >
                   <div  class="entry-task-main" >
                     <a  class="entry-task-check ng-scope">
                     <i  class="fa fa-square-o"></i>
@@ -48,12 +48,65 @@
                 </div>
 
               </div>
+
               <div  class="entry-task-footer ng-scope">
                 <a  class="js-add-task-composer ng-binding ng-scope">
                 <i  class="fa fa-plus-circle"></i> 新建任务
                 </a>
               </div>
+
+                <!--新建任务发布框-->
+                <div class="entry-add-bottom-composer entry-task-composer ng-isolate-scope" style="padding: 10px;" >
+                  <div class="composer-body" >
+                    <div class="entry-task-labels">
+                    </div>
+                    <textarea rows="2" class="form-control help-block" placeholder="请输入任务标题" ></textarea>
+                    <form  class="smart-form">
+
+                        <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <div class="margin-lr30" >
+                            <section class="col col-6">
+                              <label  class="select form-control border-0">
+                                <select   name="department"   class="ng-valid ng-touched ng-dirty">
+                                  <option value="0" >--请选择项目名--</option>
+                                  <option value=""  disabled="" style="font-weight: bold;color: black;">公司项目</option>
+                                  <option  value=""  style="font-weight: normal; color: rgb(64, 64, 64);">--项目1</option>
+                                  <option  value=""  style="font-weight: normal; color: rgb(64, 64, 64);">--项目2</option>
+                                  <option  value=""  style="font-weight: normal; color: rgb(64, 64, 64);">--项目3</option>
+                                  <option value=""  disabled="" style="font-weight: bold;color: black;">个人项目</option>
+                                  <option  value=""  style="font-weight: normal; color: rgb(64, 64, 64);">--项目1</option>
+                                  <option  value=""  style="font-weight: normal; color: rgb(64, 64, 64);">--项目2</option>
+                                  <option  value=""  style="font-weight: normal; color: rgb(64, 64, 64);">--项目3</option>
+                                </select> <i ></i>
+                              </label>
+                            </section>
+                            <section class="col col-6">
+                              <label class="select">
+                                <select name="" >
+                                  <option value="0" >--请选择任务名--</option>
+                                  <option value="1">任务名1</option>
+                                  <option value="2">任务名2</option>
+                                </select> <i></i> </label>
+                            </section>
+                          </div>
+                        </div>
+
+                    </form>
+
+
+
+                    <div class="composer-body-footer">
+                      <div class="task-badges" >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="composer-footer">
+                    <button  class="btn btn-success btn--big confirm mr-10 ng-binding" >保&nbsp;&nbsp;存</button>
+                    <button  class="btn btn-link btn-cancel ng-binding" >取&nbsp;&nbsp;消</button>
+                  </div>
+                </div>
             </div>
+
               <div  class="entry ng-scope"  >
               <div  class="entry_header ui-sortable-handle">
                 <i  class="wtfont wtf-entryhover ng-scope"></i>
