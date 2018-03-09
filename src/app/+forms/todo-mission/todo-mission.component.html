@@ -28,7 +28,8 @@
               </ul>
             </div>
             <h1 class="title-h1"><a  class="js-popbox prj_icon text-color-black" >
-              <i class="fa-fw fa fa-inbox text-blove" ></i>{{todoList?.result?.project_title}}
+              <i class="fa-fw fa fa-inbox text-blove" ></i>
+              <a [routerLink]="['/forms/todo-projects']">项目</a>  &nbsp;&nbsp;=>  &nbsp;&nbsp;{{todoList?.result?.project_title}}
             </a>
              <!-- <a class="js-popbox prj_name ng-binding" ></a>-->
             </h1><hr />
@@ -349,8 +350,8 @@
                 </dt>
                 <dd class="js_popbox">
                   <a class="ng-binding expire-text-soon" *ngIf="!is_expired_at" (click)="editExpiredAt(todo_info?.result?.expired_at,1)">&nbsp;&nbsp;{{todo_info?.result?.expired_at}}&nbsp;&nbsp;</a>
-                  <!--<input type="date" name="expired_at" (blur)="editExpiredAt(todo_info?.result?.todo_id,2)" [(ngModel)]="expired_at" value="{{expired_at}}" class="ng-binding expire-text-soon" *ngIf="is_expired_at"/>   | date:'yyyy-MM-dd'-->
-                  <input name="expired_at" [(ngModel)]="expired_at" [dpDayPicker]="datePickerConfig" [theme]="'dp-material'" [mode]="'day'"  class="form-control ng-binding expire-text-soon" placeholder="截止日期" value="{{expired_at}}" *ngIf="is_expired_at" (blur)="editExpiredAt(todo_info?.result?.todo_id,2)"/>
+                  <!--<input type="date" name="expired_at" (ngModelChange)="editExpiredAt(todo_info?.result?.todo_id,2)" [(ngModel)]="expired_at" value="{{expired_at}}" class="ng-binding expire-text-soon" *ngIf="is_expired_at"/>   | date:'yyyy-MM-dd'-->
+                  <input name="expired_at" [(ngModel)]="expired_at" [dpDayPicker]="datePickerConfig" [theme]="'dp-material'" [mode]="'day'"  class="form-control ng-binding expire-text-soon" placeholder="截止日期" value="{{expired_at}}" *ngIf="is_expired_at" (ngModelChange)="editExpiredAt(todo_info?.result?.todo_id,2)"/>
                 </dd>
               </dl>
               <dl class="module-label ng-scope">

@@ -1,9 +1,9 @@
 <!-- MAIN CONTENT -->
 <div id="content">
- <!-- <div class="row">
-    <sa-big-breadcrumbs *ngIf="storehouse_id == 0" [items]="['仓库管理', '添加仓库']" icon="pencil-square-o" ></sa-big-breadcrumbs>
-    <sa-big-breadcrumbs *ngIf="storehouse_id != 0" [items]="['仓库管理', '修改仓库']" icon="pencil-square-o" ></sa-big-breadcrumbs>
-  </div>-->
+  <!--<div class="row">-->
+    <!--<sa-big-breadcrumbs *ngIf="storehouse_id == 0" [items]="['仓库管理', '添加仓库']" icon="pencil-square-o" ></sa-big-breadcrumbs>-->
+    <!--<sa-big-breadcrumbs *ngIf="storehouse_id != 0" [items]="['仓库管理', '修改仓库']" icon="pencil-square-o" ></sa-big-breadcrumbs>-->
+  <!--</div>-->
   <sa-widgets-grid>
     <div class="row">
       <article class="col-sm-12 ">
@@ -20,9 +20,7 @@
           <div>
             <!-- widget content -->
             <div class="widget-body no-padding">
-
               <form id="smart-form-register" class="smart-form" [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate>
-
                 <fieldset>
                   <legend>基本信息</legend>
                   <input type="hidden" name="storehouse_id" formControlName="storehouse_id" >
@@ -68,8 +66,6 @@
 
                         </div>
                       </div>
-
-
                     </section>
                   </div>
                  <!-- <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
@@ -80,11 +76,37 @@
                       </label>
                     </section>
                   </div>-->
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <section>
-                      <label class="label ">地址</label>
+                  <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
+                    <div class="margin-left-15">
+                      <section class="col col-4">
+                        <label class="label ">地址</label>
+                        <label class="select ">
+                          <select name="address1"  formControlName="address1" [(ngModel)]="address1_default" (change)="getCity()">
+                            <option value="0">--请选择省--</option>
+                            <option *ngFor="let p of province" [selected]="storehouse_info.result?.address1 == p" value="{{p}}">{{p}}</option>
+                          </select> <i></i> </label>
+                      </section>
+                      <section class="col col-4">
+                        <label class="select margin-top-24">
+                          <select name="address2"  formControlName="address2" [(ngModel)]="address2_default" (change)="getArea()">
+                            <option value="0">--请选择市--</option>
+                            <option *ngFor="let c of city" [selected]="storehouse_info.result?.address2 == c" value="{{c}}">{{c}}</option>
+                          </select> <i></i> </label>
+                      </section>
+                      <section class="col col-4">
+                        <label class="select margin-top-24">
+                          <select name="address3"  formControlName="address3" [(ngModel)]="address3_default">
+                            <option value="0">--请选择区--</option>
+                            <option *ngFor="let a of area" [selected]="storehouse_info.result?.address3 == a" value="{{a}}">{{a}}</option>
+                          </select> <i></i> </label>
+                      </section>
+                    </div>
+                  </div>
+                  <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
+                    <section >
+                      <label class="label ">详细地址</label>
                       <label class="input">
-                        <input type="text" name="storehouse_address" formControlName="storehouse_address" placeholder=" " maxlength="20" />
+                        <input name='storehouse_address' formControlName="storehouse_address" placeholder="请输入详细地址"  type="text" maxlength="20">
                       </label>
                     </section>
                   </div>
