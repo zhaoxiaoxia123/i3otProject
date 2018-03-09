@@ -102,7 +102,8 @@
                     <section >
                       <label class="label">生产日期</label>
                       <label class="input">
-                        <input type="date" name="production_date"  maxlength="20" formControlName="production_date" placeholder="选择日期" saUiDatepicker/>
+                        <!--<input type="date" name="production_date"  maxlength="20" formControlName="production_date" placeholder="选择日期" saUiDatepicker/>-->
+                        <input name="production_date"  maxlength="20" formControlName="production_date" placeholder="选择日期" [dpDayPicker]="datePickerConfig" [theme]="'dp-material'" [mode]="'day'" class="form-control ng-binding expire-text-soon"/>
                       </label>
                     </section>
 
@@ -121,7 +122,8 @@
                     <section>
                       <label class="label">入库时间</label>
                       <label class="input">
-                        <input type="date" name="storage_time" maxlength="20" formControlName="storage_time" placeholder="选择日期" saUiDatepicker/>
+                        <!--<input type="date" name="storage_time" maxlength="20" formControlName="storage_time" placeholder="选择日期" saUiDatepicker/>-->
+                        <input name="storage_time"  maxlength="20" formControlName="storage_time" placeholder="选择日期" [dpDayPicker]="datePickerConfig" [theme]="'dp-material'" [mode]="'day'" class="form-control ng-binding expire-text-soon"/>
                       </label>
                     </section>
 

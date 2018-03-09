@@ -166,7 +166,7 @@
       <section>
         <label class="label ">出生日期</label>
         <label class="input">
-          <input type="date" name="u_birthday" formControlName="u_birthday"/>
+          <input name="u_birthday" formControlName="u_birthday" type="date" /> <!-- [dpDayPicker]="datePickerConfig" [theme]="'dp-material'" [mode]="'day'" class="form-control ng-binding expire-text-soon"-->
         </label>
       </section>
     </div>
@@ -198,7 +198,8 @@
         <section>
           <label class="label ">入职时间</label>
           <label class="input">
-            <input type="date" name="enrol_time" placeholder="入职时间" saUiDatepicker date-format="dd/mm/yy" formControlName="enrol_time"/>
+            <!--<input type="date" name="enrol_time" placeholder="入职时间" saUiDatepicker date-format="dd/mm/yy" formControlName="enrol_time"/>-->
+            <input name="enrol_time" formControlName="enrol_time" placeholder="入职时间" [dpDayPicker]="datePickerConfig" [theme]="'dp-material'" [mode]="'day'" class="form-control ng-binding expire-text-soon"/>
           </label>
         </section>
       </div>

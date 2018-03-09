@@ -50,8 +50,10 @@
                     <section >
                       <label class="label txt-color-blue">单据日期<span class="asterisk-color">*</span></label>
                       <label  class="input">
-                        <input *ngIf="isDetail=='detail'" disabled="disabled" type="date" name="stock_allot_date" formControlName="stock_allot_date">
-                        <input *ngIf="isDetail!='detail'" type="date" name="stock_allot_date" formControlName="stock_allot_date">
+                        <input *ngIf="isDetail=='detail'" disabled="disabled" name="stock_allot_date"  maxlength="20" formControlName="stock_allot_date" placeholder="选择日期" [dpDayPicker]="datePickerConfig" [theme]="'dp-material'" [mode]="'day'" class="form-control ng-binding expire-text-soon"/>
+                        <input *ngIf="isDetail!='detail'" name="stock_allot_date"  maxlength="20" formControlName="stock_allot_date" placeholder="选择日期" [dpDayPicker]="datePickerConfig" [theme]="'dp-material'" [mode]="'day'" class="form-control ng-binding expire-text-soon"/>
+                        <!--<input *ngIf="isDetail=='detail'" disabled="disabled" type="date" name="stock_allot_date" formControlName="stock_allot_date">-->
+                        <!--<input *ngIf="isDetail!='detail'" type="date" name="stock_allot_date" formControlName="stock_allot_date">-->
                       </label>
                     </section>
                   </div>

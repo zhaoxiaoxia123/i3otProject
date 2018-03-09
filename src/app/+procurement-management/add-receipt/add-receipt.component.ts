@@ -49,6 +49,12 @@ export class AddReceiptComponent implements OnInit {
 
   p_prices:number = 0;
 
+  datePickerConfig = {
+    locale: 'zh-CN',
+    format:'YYYY-MM-DD',
+    enableMonthSelector:true,
+    showMultipleYearsNavigation:true,
+  };
   isDetail : string = '';
   keyword : string = '';
   category_type : number = 17; //采购类型

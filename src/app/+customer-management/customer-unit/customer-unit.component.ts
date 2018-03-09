@@ -220,7 +220,7 @@ export class CustomerUnitComponent implements OnInit {
                 if(this.departmentInfo['status'] == 201){
                     alert(this.departmentInfo['msg']);
                 }else if(this.departmentInfo['status'] == 200){
-                    this.department = this.departmentInfo['result']['category_desc'];
+                    this.department = this.departmentInfo['result']['department_name'];
                 }
                 console.log(this.department);
             });

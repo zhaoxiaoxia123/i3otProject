@@ -44,6 +44,12 @@ export class AddRequisitionComponent implements OnInit {
   keyword : string = '';
   p_type : number = 2;//商品
 
+    datePickerConfig = {
+        locale: 'zh-CN',
+        format:'YYYY-MM-DD',
+        enableMonthSelector:true,
+        showMultipleYearsNavigation:true,
+    };
   //默认选中值
   user_u_id_default : number = 0; //经手人
   rollback_url : string = '/inventory-management/add-requisition';
@@ -134,7 +140,7 @@ export class AddRequisitionComponent implements OnInit {
           if(this.departmentInfo['status'] == 201){
             alert(this.departmentInfo['msg']);
           }else if(this.departmentInfo['status'] == 200){
-            this.department = this.departmentInfo['result']['category_desc'];
+            this.department = this.departmentInfo['result']['department_name'];
           }
           console.log(this.department);
         });

@@ -57,6 +57,13 @@ export class RegistrationFormComponent implements OnInit {
   url : string = this.globalService.getDomain();
   path:string = '';
 
+  datePickerConfig = {
+    locale: 'zh-CN',
+    format:'YYYY-MM-DD',
+    enableMonthSelector:true,
+    showMultipleYearsNavigation:true,
+  };
+
   name:string;
   data1:any;
   avatarSettings:CropperSettings;

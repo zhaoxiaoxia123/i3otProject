@@ -47,6 +47,13 @@ export class AddSalesComponent implements OnInit {
   pr_category_default: number = 0; //采购类型
   pr_transport_default: number = 0; //运输方式
 
+    datePickerConfig = {
+        locale: 'zh-CN',
+        format:'YYYY-MM-DD',
+        enableMonthSelector:true,
+        showMultipleYearsNavigation:true,
+    };
+
   isDetail : string = '';
   keyword : string = '';
   category_type : number = 22; //销售类型
