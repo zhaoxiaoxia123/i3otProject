@@ -31,11 +31,19 @@
                         </div>
                         <div class="form-group pdlr-4" *ngIf="isStatus == 2">
                           <a class="btn default-btn btn-sm" (click)="editStatus(1,'id')">
-                            <span class="fa-fw fa fa-play mr-5 color-green"></span>启用</a>
+                            <span class="fa-fw fa fa-reply-all mr-5 color-red"></span>弃审</a>
                         </div>
                         <div class="form-group pdlr-4" *ngIf="isStatus == 1">
                           <a class="btn default-btn btn-sm" (click)="editStatus(2,'id')" >
-                            <span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>无效</a>
+                            <span class="fa-fw fa fa-check-square-o mr-5 color-green"></span>审核</a>
+                        </div>
+                        <div class="form-group pdlr-4" >
+                          <a class="btn default-btn btn-sm"  >
+                            <span class="fa-fw fa fa-trash-o mr-5 color-yellow"></span>作废 </a>
+                        </div>
+                        <div class="form-group pdlr-4" >
+                          <a class="btn default-btn btn-sm"  >
+                            <span class="fa-fw fa fa-reply-all mr-5 color-red"></span>弃废 </a>
                         </div>
                         <div class="form-group btn-group pdlr-4">
                           <a class="btn default-btn btn-sm dropdown-toggle" (click)="showAllCheck()" data-toggle="dropdown">
@@ -65,7 +73,7 @@
               </div>
               <div  class="padding0">
                 <div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-scrolling   padding0">
-                  <table class="table table-striped   smart-form table-height-20">
+                  <table class="table table-striped   smart-form table-height-32">
                     <thead>
                     <tr style="height: 37px;" >
                       <td><label class="checkbox mt-8">
@@ -88,12 +96,12 @@
                   </table>
                 </div>
                 <div style="z-index: 2;width:40%;float:left;" class="table-scrolling   padding0">
-                  <table class="table table-striped   smart-form table-height-20">
+                  <table class="table table-striped   smart-form table-height-32">
                     <thead>
                     <tr >
                       <th>单据号</th>
                       <th>单据状态</th>
-                      <th>退货标志</th>
+                      <th>进退货标志</th>
                       <th>单据日期 </th>
                     </tr>
                     </thead>
@@ -102,9 +110,10 @@
                       <td>{{p.pr_order}}</td>
                       <td>
                         <span [ngSwitch]="p.pr_status">
-                          <span class="label-normal" *ngSwitchCase="1">正常</span>
-                          <span class="label-invalid" *ngSwitchCase="2">无效</span>
-                          <span class="label-unknown" *ngSwitchDefault>未知</span>
+                          <span class="button label-button blue" *ngSwitchCase="1">待审</span>
+                          <span class="button label-button green" *ngSwitchCase="2">已审核</span>
+                          <span class="button label-button orange" *ngSwitchCase="3">已作废</span>
+                          <span class="button label-button gray" *ngSwitchDefault>未知</span>
                         </span>
                       </td>
                       <td>
@@ -120,7 +129,7 @@
                   </table>
                 </div>
                 <div [ngStyle]="{'padding': '0','z-index': '2','width':width_1,'float':'left'}" class="table-responsive ">
-                  <table class="table table-striped smart-form table-height-20">
+                  <table class="table table-striped smart-form table-height-32">
                     <thead>
                     <tr>
                       <th>供应商</th>

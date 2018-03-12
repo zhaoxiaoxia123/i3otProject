@@ -1,9 +1,9 @@
-<span>
-  <div class="bar-holder no-padding">
-    <p class="margin-bottom-5">
+<span class="bar-holder no-padding">
+
+    <h6 class="margin-bottom-5">
       <i *ngIf="item.status == 'PRIMARY'" class="fa fa-warning text-warning"></i>
-        <strong>{{item.status}}:</strong> <i>{{item.title}}</i>
-        <span class="pull-right semi-bold"
+        <strong>{{item.status}}</strong> <i>{{item.title}}</i>
+        <!--<span class="pull-right semi-bold"
               [ngClass]="{
                 'pull-right': true,
                 'semi-bold':true,
@@ -13,12 +13,12 @@
           <span *ngIf="item.width == 100">
             <i class="fa fa-check text-blove"></i> Complete
           </span>
-          <span *ngIf="item.width != 100">{{item.width + '%'}}</span>
-        </span>
-    </p>
-    <div class="progress" [class]="item.size">
+          <span >{{lastUpdate | moment: "MMMM Do, h:mm a"}}</span>
+        </span>-->
+    </h6>
+   <!-- <div class="progress" >
       <div [ngClass]="setProgressClasses()" [style.width]="item.width + '%'"></div>
-    </div>
-    <em class="note no-margin">最后更新的时间 {{lastUpdate | moment: "MMMM Do, h:mm a"}}</em>
-  </div>
+    </div>-->
+    <p>任务：<em class="note no-margin">{{item.message}} </em></p>
+    <p><em class="note no-margin">截止日期：{{item.time}} </em></p>
 </span>

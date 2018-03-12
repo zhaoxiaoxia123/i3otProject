@@ -3123,9 +3123,9 @@ ul.ColVis_collection li label {
 }
 
 .table-color{
-    background: #ffd85d!important;
+    background: #ffe79c!important;
     color: #000!important;
-    border-bottom: 2px solid #d4a50f;
+    border-bottom: 2px solid #ffc303;
 }
 /*员工详情*/
 
@@ -3354,6 +3354,36 @@ div.dataTables_editor{
     margin:0;
 }
 
+.contact-group .media-content .fa {
+    font-size: 16px;
+    vertical-align: middle;
+    width: 20px;
+    color: #333;
+}
+.contact-group .list-group-item {
+    border-color: #e7e7e7;
+    margin-top: 10px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.column-datetime{
+    position: absolute;
+    top: 0;
+    right: 15px;
+    width: 118px;
+    font-size: 14px;
+    line-height: 48px;
+    color: #ccc;
+    text-align: right;
+}
+.media-content{
+    color:#ccc;
+}
+.media-content>i{
+    color:#ccc!important;
+}
 /*面板*/
 
 .the-price {

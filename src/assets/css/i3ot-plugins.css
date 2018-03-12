@@ -730,6 +730,9 @@ div.dataTables_paginate ul.pagination {
 .mt-20{
     margin-top:-20px;
 }
+.mb-15{
+    margin-bottom:-15px!important;
+}
 .margin-top-5 {
     margin-top: 5px!important
 }
@@ -1425,3 +1428,43 @@ span.input-icon {
     border-top: 0 solid transparent;
 }
 
+.blue.button {
+    background-color: #48b5f2;
+    background-image: url(../img/button_bg.png), url(../img/button_bg.png), -webkit-gradient(radial, 50% 100%, 0, 50% 100%, 100, from(rgb(89, 208, 244)), to(rgba(89, 208, 244, 0))), -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(79, 187, 247)), to(rgb(63, 174, 235)));
+    border-width: 1px !important;
+    border-color: #83acc3 !important;
+}
+.green.button {
+    border: 1px solid #96a37b !important;
+    background-color: #79be1e;
+    background-image: url(../img/button_bg.png), url(../img/button_bg.png), -webkit-gradient(radial, 50% 100%, 0, 50% 100%, 100, from(rgba(162,211,30,1)), to(rgba(162,211,30,0))),-webkit-gradient(linear, 0% 0%, 0% 100%, from(#82cc27), to(#74b317));
+}
+.orange.button{
+    border: 1px solid #bea280 !important;
+    background-color: #e38d27;
+    background-image: url(../img/button_bg.png), url(../img/button_bg.png), -webkit-gradient(radial, 50% 100%, 0, 50% 100%, 100, from(rgba(232,189,45,1)), to(rgba(232,189,45,0))),-webkit-gradient(linear, 0% 0%, 0% 100%, from(#f1982f), to(#d4821f));
+}
+.gray.button{
+    border: 1px solid #a5a5a5 !important;
+    background-color: #a9adb1;
+    background-image: url(../img/button_bg.png), url(../img/button_bg.png), -webkit-gradient(radial, 50% 100%, 0, 50% 100%, 100, from(rgba(197,199,202,1)), to(rgba(197,199,202,0))),-webkit-gradient(linear, 0% 0%, 0% 100%, from(#c5c7ca), to(#92989c));
+}
+.label-button{
+    color: #fff;
+    display: inline-block!important;
+    width: 60px;
+    height: 26px;
+    text-align: center;
+    line-height: 26px;
+    background-repeat: no-repeat;
+    background-position: bottom left, top right, 0 0, 0 0;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+    -moz-box-shadow: 0 0 1px #fff inset;
+    -webkit-box-shadow: 0 0 1px #fff inset;
+    box-shadow: 0 0 1px #fff inset;
+    -webkit-transition: background-position 1s;
+    -moz-transition: background-position 1s;
+    transition: background-position 1s;
+}

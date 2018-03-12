@@ -79,52 +79,54 @@
     "name": "tasks",
     "data": [
       {
-        "status": "标题",
+        "status": "名字",
         "type": "task",
         "size": "progress-md progress-striped",
-        "title": "内容内容",
-        "width": 85,
-        "last_update": "12/12/2015"
+        "title": "给你分配了一个新任务！",
+        "last_update": "12/12/2015",
+        "message": "任务名称",
+        "time": "2018-01-22 10:47 "
+
       },
       {
-        "status": "标题",
+        "status": "名字",
         "type": "task",
         "size": "progress-sm",
         "title": "内容",
-        "width": 65,
-        "last_update": "12/12/2015"
+        "last_update": "12/12/2015",
+        "message": "任务名称"
       },
       {
         "status": "Project Plan",
         "type": "task",
         "size": "progress-xs",
         "title": "Code foundation",
-        "width": 25,
-        "last_update": "12/12/2015"
+        "last_update": "12/12/2015",
+        "message": "任务名称"
       },
       {
         "status": "CRITICAL",
         "type": "task",
         "size": "progress-xs",
         "title": "Wireframes",
-        "width": 5,
-        "last_update": "12/12/2015"
+        "last_update": "12/12/2015",
+        "message": "任务名称"
       },
       {
         "status": "NORMAL",
         "type": "task",
         "size": "progress-xs",
         "title": "Compile hotfix",
-        "width": 99,
-        "last_update": "12/12/2015"
+        "last_update": "12/12/2015",
+        "message": "任务名称"
       },
       {
         "status": "MINOR",
         "type": "task",
         "size": "progress-micro",
         "title": "Bug fix #213",
-        "width": 100,
-        "last_update": "12/12/2015"
+        "last_update": "12/12/2015",
+        "message": "任务名称"
       }
     ]
   }
