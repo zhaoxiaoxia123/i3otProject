@@ -24,7 +24,7 @@ export class ProcurementOrderComponent implements OnInit {
   //处理批量
   isAll : number = 0;
   width : string = '0%';
-  width_1 : string = '70%';
+  width_1 : string = '50%';
   
   keyword:string = '';
   type : number = 3;
@@ -238,7 +238,7 @@ export class ProcurementOrderComponent implements OnInit {
 
     this.isAll = 0;
     this.width = '0%';
-    this.width_1 ='70%';
+    this.width_1 ='50%';
     this.selects.forEach((val, idx, array) => {
       if(val == true){
         this.selects[idx] = false;
@@ -317,7 +317,7 @@ export class ProcurementOrderComponent implements OnInit {
       this.editStatusPurchaseId = 0;
       this.isStatus = 0;
       this.width = '10%';
-      this.width_1 = '60%';
+      this.width_1 = '40%';
     }
   }
 

@@ -21,6 +21,7 @@ body {
     font-family: "Open Sans","微软雅黑",Arial,Helvetica,Sans-Serif;
     background: url(../img/mybg.png) #fff;
     direction: ltr;
+    overflow-x: hidden;
 }
 
 #content {
@@ -266,16 +267,18 @@ a,button,input {
     margin-left: -10px;
     border-bottom: 1px solid #CECECE;
     border-top: 1px solid #CECECE;
-    background: #E9E9E9
+    background: #fbfbfb
 }
 .notification-body {
-    padding: 0 0 0 3px;
+    padding: 10px;
     margin: 0;
-    list-style: none
+    list-style: none;
 }
 .notification-body>li {
-    border-bottom: 1px solid #E9E9E9;
-    position: relative
+    border: 1px solid #E9E9E9;
+    border-radius: 4px;
+    position: relative;
+    margin-bottom: 10px;
 }
 .notification-body>li>span:hover {
     background: #F0F4F7;
@@ -289,8 +292,8 @@ a,button,input {
     display: block;
     min-height: 25px;
     overflow: hidden;
-    padding: 8px 10px 13px;
-    white-space: normal
+    padding: 8px;
+    white-space: normal;
 }
 .notification-body>li a.msg {
     padding-left: 50px!important
@@ -302,6 +305,64 @@ a,button,input {
     display: block;
     position: relative;
     overflow: hidden
+}
+
+.notification-body *,.notification-body:after *,.notification-body:before * {
+    box-sizing: border-box!important;
+    -webkit-box-sizing: border-box!important;
+    -moz-box-sizing: border-box!important
+}
+.notification-body>li:hover .progress {
+    background: #fff;
+    box-shadow: 0 1px 0 rgba(0,0,0,0),0 0 0 1px #a7a7a7 inset;
+    -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0),0 0 0 1px #ccc inset;
+    -moz-box-shadow: 0 1px 0 transparent,0 0 0 1px #fff inset
+}
+
+
+
+.notification-body .from {
+    font-size: 14px;
+    line-height: normal;
+    color: #333;
+    font-weight: 400;
+    margin-right: 60px;
+    margin-bottom: 6px;
+    height: 20px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden
+}
+
+.notification-body .unread .from {
+    font-weight: 700
+}
+
+
+
+.notification-body time {
+    position: absolute;
+    top: 3px;
+    right: 0;
+    font-size: 11px;
+    font-weight: 400;
+    color: #058dc7
+}
+
+.notification-body .msg-body,.notification-body .subject {
+    font-size: 13px;
+    color: #A0A0A0;
+    max-height: 35px;
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden
+}
+
+.notification-body .subject {
+    font-size: 13px;
+    color: #333;
+    max-height: 22px
 }
 .air {
     position: absolute;
@@ -596,7 +657,7 @@ a,button,input {
 .flag {
     width: 16px;
     height: 11px;
-    background: url(../img/flags/flags.png) no-repeat;
+    /*background: url(../img/flags/flags.png) no-repeat;*/
     margin-top: -.18em;
     display: inline-block
 }

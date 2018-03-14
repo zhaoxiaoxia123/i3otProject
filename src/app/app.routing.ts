@@ -80,6 +80,11 @@ export const routes: Routes = [
             path: 'account',
             loadChildren: 'app/+account/account.module#AccountModule',
             data: {pageTitle: 'Account'}
+        },
+        {
+            path: 'to-do',
+            loadChildren: 'app/+to-do/to-do.module#ToDoModule',
+            data: {pageTitle: 'ToDo'}
         }
     ]
   },
