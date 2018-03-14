@@ -25,7 +25,7 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
       private globalService:GlobalService,
       private el:ElementRef,
       private renderer: Renderer,
-    // private activitiesService:ActivitiesService,
+    private activitiesService:ActivitiesService,
     ) {
     this.active = false;
     this.loading = false;
@@ -36,17 +36,22 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // this.activitiesService.getActivities().subscribe(data=> {
-    //   this.activities = data;
-    //   this.count = data.reduce((sum, it)=> sum + it.data.length, 0);
-    //   this.currentActivity = data[0];
-    // });
+    this.activitiesService.getActivities().subscribe(data=> {
+      this.activities = data;
+      this.count = data.reduce((sum, it)=> sum + it.data.length, 0);
+      this.currentActivity = data[0];
+    });
 
-    // this.http.get(this.globalService.getDomain() + '/api/v1/getMessageCount?to=' + this.uid+'&category=notice,warning,task')
+    // this.http.get(this.globalService.getDomain() + '/api/v1/getNewMessages?to=' + this.uid+'&type=all')
     //     .map((res) => res.json())
     //     .subscribe((data) => {
-    //       this.count = data.result.notice.count + data.result.warning.count + data.result.task.count ;
+    //       this.activities = data;
+    //       this.count = data.result.notice.count + data.result.warning.count + data.result.task.count;
+    //       this.currentActivity = data.result.notice.messageArr[0];
+    //       console.log('this.activities:------');
+    //       console.log(this.activities);
     //       console.log(this.count);
+    //       console.log(this.currentActivity);
     //     });
   }
 
@@ -56,17 +61,6 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
 
   private documentSub: any;
   onToggle() {
-
-    // this.http.get(this.globalService.getDomain() + '/api/v1/getNewMessages?to=' + this.uid+'&category=notice,warning,task')
-    //     .map((res) => res.json())
-    //     .subscribe((data) => {
-    //       this.activities = data;
-    //       this.currentActivity = data.result.notice.data[0];
-    //       console.log('this.activities:------');
-    //       console.log(this.activities);
-    //       console.log(this.currentActivity);
-    //     });
-
     let dropdown = $('.ajax-dropdown', this.el.nativeElement);
     this.active = !this.active;
     if (this.active) {
