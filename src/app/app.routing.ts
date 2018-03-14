@@ -57,6 +57,11 @@ export const routes: Routes = [
           data: {pageTitle: 'Equipment'}
       },
         {
+            path: 'assets-management',
+            loadChildren: 'app/+assets-management/assets-management.module#AssetsManagementModule',
+            data: {pageTitle: 'AssetsManagement'}
+        },
+        {
             path: 'inventory-management',
             loadChildren: 'app/+inventory-management/inventory-management.module#InventoryManagementModule',
             data: {pageTitle: 'InventoryManagement'}

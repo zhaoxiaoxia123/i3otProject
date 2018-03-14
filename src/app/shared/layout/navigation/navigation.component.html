@@ -54,15 +54,6 @@
           <li routerLinkActive="active">
             <a routerLink="/inventory-management/inventory-classification">{{'商品分类' | i18n}}</a>
           </li>
-          <li routerLinkActive="active">
-            <a routerLink="/management/setting-conversion">{{'单位换算设置' | i18n}}</a>
-          </li>
-          <li routerLinkActive="active">
-            <a routerLink="/management/setting-price">{{'商品价格级别' | i18n}}</a>
-          </li>
-          <li routerLinkActive="active" *ngIf="is_admin=='1' || is_admin=='2'">
-            <a routerLink="/management/product4parameters">{{'产品规格/参数设置' | i18n}}</a>
-          </li>
         </ul>
       </li>
 
@@ -94,7 +85,6 @@
           </li>
         </ul>
       </li>
-
       <li>
         <a href="#"><i class="fa fa-lg fa-fw  fa-database"></i> <span
                 class="menu-item-parent">{{'仓库管理' | i18n}}</span></a>
@@ -109,10 +99,25 @@
             <a routerLink="/management/setting-repertory">{{'出入库类别' | i18n}}</a>
           </li>
           <li routerLinkActive="active">
+            <a routerLink="/inventory-management/inventory-early">{{'期初库存' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
             <a routerLink="/inventory-management/inventory-requisition">{{'调拨单' | i18n}}</a>
           </li>
           <li routerLinkActive="active">
             <a routerLink="/inventory-management/add-requisition/0">{{'添加调拨单' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/inventory-management/storage">{{'其他入库单' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/inventory-management/add-storage">{{'添加其他入库单' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/inventory-management/outbound">{{'其他出库单' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/inventory-management/add-outbound">{{'添加其他出库单' | i18n}}</a>
           </li>
 
         </ul>
@@ -327,7 +332,7 @@
             <ul>
 
               <li>
-                <a href="#"><i class="fa fa-lg fa-fw fa-suitcase"></i> <span
+                <a href="#"><i class="fa fa-lg fa-fw fa-group"></i> <span
                         class="menu-item-parent">{{'人力资源' | i18n}}</span></a>
                 <ul>
                   <li routerLinkActive="active" *ngIf="is_admin=='1' || is_admin=='2'">
@@ -351,6 +356,12 @@
                   </li>
                   <li routerLinkActive="active" *ngIf="is_admin=='1' || is_admin=='2'">
                     <a routerLink="/management/product3type">{{'产品类型设置' | i18n}}</a>
+                  </li>
+                  <li routerLinkActive="active">
+                    <a routerLink="/management/setting-conversion">{{'单位换算设置' | i18n}}</a>
+                  </li>
+                  <li routerLinkActive="active">
+                    <a routerLink="/management/setting-price">{{'商品价格级别' | i18n}}</a>
                   </li>
                   <li routerLinkActive="active" *ngIf="is_admin=='1' || is_admin=='2'">
                     <a routerLink="/management/product4parameters">{{'产品规格/参数设置' | i18n}}</a>

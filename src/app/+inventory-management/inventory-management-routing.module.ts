@@ -21,6 +21,31 @@ export const routes: Routes = [
         loadChildren: 'app/+inventory-management/commodity-classify/commodity-classify.module#CommodityClassifyModule',
         data: {pageTitle: 'CommodityClassify'}
     },
+    {
+        path: 'add-outbound',
+        loadChildren: 'app/+inventory-management/add-outbound/add-outbound.module#AddOutboundModule',
+        data: {pageTitle: 'AddOutbound'}
+    },
+    {
+        path: 'add-storage',
+        loadChildren: 'app/+inventory-management/add-storage/add-storage.module#AddStorageModule',
+        data: {pageTitle: 'AddStorage'}
+    },
+    {
+        path: 'inventory-early',
+        loadChildren: 'app/+inventory-management/inventory-early/inventory-early.module#InventoryEarlyModule',
+        data: {pageTitle: 'InventoryEarly'}
+    },
+    {
+        path: 'outbound',
+        loadChildren: 'app/+inventory-management/outbound/outbound.module#OutboundModule',
+        data: {pageTitle: 'Outbound'}
+    },
+    {
+        path: 'storage',
+        loadChildren: 'app/+inventory-management/storage/storage.module#StorageModule',
+        data: {pageTitle: 'Storage'}
+    },
 ];
 
 export const routing = RouterModule.forChild(routes);
