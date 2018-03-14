@@ -717,6 +717,9 @@ div.dataTables_paginate ul.pagination {
     margin-left: -30px;
     margin-right: -30px;
 }
+.margin-b50{
+    margin-bottom:-50px!important;
+}
 .no-margin {
     margin: 0!important
 }
@@ -917,7 +920,7 @@ h1,h2,h3,h4 {
     box-shadow: none;
     border: 1px solid #CCC;
     overflow: auto;
-    height: 320px;
+    height: 400px;
     padding: 10px;
 }
 

@@ -5,8 +5,7 @@
         <div class="row ">
           <div class="col-sm-12">
             <div class="air air-right pd-20 text-align-center">
-              <!--<a href="" class="btn txt-color-white bg-color-teal btn-sm"><i class="fa fa-check"></i> 关注</a>&#xA0;-->
-              <!--<a  data-toggle="modal" data-target="#myModal" href="" class="btn txt-color-white bg-color-lightBlue btn-sm">&lt;!&ndash;<i class="fa fa-link"></i>&ndash;&gt; 编辑公司信息</a>-->
+              <a   href="" class="btn txt-color-white bg-color-lightBlue btn-sm"><!--<i class="fa  fa-columns"></i>-->切换布局</a>
               <button class="btn btn-success btn--fancy ng-binding" data-toggle="dropdown" (click)="showPublishTemplate(todoList?.result?.project_id,3)">新建任务列表</button>
               <ul class="dropdown-menu pull-right" style="width: 300px;padding: 10px 20px;">
                 <!--<li>-->
@@ -35,9 +34,9 @@
             </h1><hr />
           </div>
         </div>
-        <div class="ng-scope margin-bottom-40">
-          <div class="entries_panel js-sortable layout_content_main_tasks ng-scope wt-scroll"   style="overflow-x: auto; overflow-y: hidden;">
-            <div class="entries_panel_sortarea ui-sortable" >
+        <div class="ng-scope ">
+          <div class="entries_panel js-sortable layout_content_main_tasks ng-scope wt-scroll entries_panel_cross"  >
+            <div class="entries_panel_sortarea ui-sortable margin-bottom-40" >
 
               <div class="entry ng-scope" *ngFor="let tl of todoList?.result?.template_list;let ind = index;" droppable [dropScope]="''+tl.key" [dragOverClass]="'drag-target-border'"
                    [dragHintClass]="'drag-hint'" (onDrop)="onListDrop_(tl.key)">
@@ -71,7 +70,7 @@
                   <a class="entry_header_number ng-binding ng-scope" (click)="deleteTodoList(tl.key,todoList?.result?.project_id)">
                     删除 </a>
                 </div>
-                <div class="entry-task-panel wt-scroll" style="overflow-x: hidden; overflow-y: auto;">
+                <div class="entry-task-panel wt-scroll entries_panel_height" >
                   <div class="entry-tasks js-sortable ui-sortable" >
 
                     <div *ngFor="let tl1 of tl.todo_list;let indtl=index;">
@@ -103,7 +102,7 @@
                     <a (click)="showTodoList(tl.key,2)" *ngIf="todoListPages[tl.key] == 10 && tl.todo_list_count > 5">隐藏</a>
                   </div>
                   <!--新建任务发布框-->
-                  <div class="entry-add-bottom-composer entry-task-composer ng-isolate-scope" *ngIf="selects[tl.key]">
+                  <div class="entry-add-bottom-composer entry-task-composer ng-isolate-scope" *ngIf="selects[tl.key]" >
                     <div class="composer-body" >
                       <div class="entry-task-labels">
                       </div>
@@ -119,12 +118,14 @@
                     </div>
                   </div>
 
+
                 </div>
                 <div class="entry-task-footer ng-scope" *ngIf=" ! selects[tl.key]">
                   <a  class="js-add-task-composer ng-binding ng-scope" (click)="showAddTodo(tl.key)">
                     <i class="fa fa-plus-circle"></i> 新建任务
                   </a>
                 </div>
+
               </div>
 
 
@@ -222,7 +223,7 @@
             </li>
           </ul>
         </div>
-        <div class="entity-well-scroll height-nonav height-nonav--notab ng-scope wt-scroll"  style="overflow-x: hidden; overflow-y: auto;">
+        <div class="entity-well-scroll height-nonav height-nonav--notab ng-scope wt-scroll entries_panel_height"  >
           <div class="entity-well-content">
             <div  class="ng-scope">
               <div class="entity-title" *ngIf="todo_info?.result?.todo_status == 1">

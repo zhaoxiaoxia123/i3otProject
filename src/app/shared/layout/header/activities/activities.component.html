@@ -21,7 +21,6 @@
     <div class="ajax-notifications custom-scroll">
         <ul class="notification-body" *ngIf="currentActivity" >
             <ng-template ngFor let-item [ngForOf]="currentActivity.data">
-
                 <li activitiesMessage *ngIf="item.type == 'message'" [item]="item"></li>
                 <li activitiesNotification *ngIf="item.type == 'notification'" [item]="item"></li>
                 <li activitiesTask *ngIf="item.type == 'task'" [item]="item" [lastUpdate]="lastUpdate"></li>
