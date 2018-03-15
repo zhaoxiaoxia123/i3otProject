@@ -1,8 +1,5 @@
 <!--主要内容-->
 <div id="content">
-  <!--<div class="row">
-    <sa-big-breadcrumbs [items]="['待办事项', '项目']" icon="inbox" ></sa-big-breadcrumbs>
-  </div>-->
   <sa-widgets-grid>
     <div class="row">
       <article class="col-sm-12 ">
@@ -32,9 +29,11 @@
                       <a class="center ">
                         <i class="fa-fw fa fa-inbox text-blove"></i>
                         <h4 class="">{{ca.project_title}}</h4></a>
-                      <a class="members">
-                        <i class="fa fa-user"></i>
-                        <!--<span class="">1</span>-->
+                      <a class="add-project" (click)="showAddProject($event,cl.category_id,pl.project_id);lgModal.show();">
+                        <i class="glyphicon glyphicon-pencil" style="font-size:12px;"></i>
+                      </a>
+                      <a class="delete-project" >
+                        <i class="fa fa-minus-circle"></i>
                       </a>
                     </div>
                   </div>
@@ -61,9 +60,13 @@
                       <a class="center">
                         <i class="fa-fw fa fa-inbox text-blove"></i>
                         <h4 class="">{{pl.project_title}}</h4></a>
-                      <a class="members" (click)="showAddProject($event,cl.category_id,pl.project_id);lgModal.show();">
-                        <i class="fa fa-plus-circle"></i>
+                      <a class="add-project" (click)="showAddProject($event,cl.category_id,pl.project_id);lgModal.show();">
+                        <i class="glyphicon glyphicon-pencil" style="font-size:12px;"></i>
                       </a>
+                      <a class="delete-project" >
+                        <i class="fa fa-minus-circle"></i>
+                      </a>
+
                     </div>
                   </div>
                 </div>
@@ -84,7 +87,7 @@
           <button type="button" class="close" (click)="closeSubmit()" aria-label="Close"> × </button>
           <!-- 标题 -->
           <h3 class="modal-title txt-color-blue" data-ng-bind='results.title' *ngIf="edit_project_id == 0"><i class="fa-fw fa fa-plus"></i>新建项目</h3>
-          <h3 class="modal-title txt-color-blue" data-ng-bind='results.title' *ngIf="edit_project_id != 0"><i class="fa-fw fa fa-plus"></i>修改项目</h3>
+          <h3 class="modal-title txt-color-blue" data-ng-bind='results.title' *ngIf="edit_project_id != 0"><i class="glyphicon glyphicon-pencil"></i>修改项目</h3>
         </div>
         <div class="modal-body">
           <form   class="smart-form ">

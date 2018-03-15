@@ -31,7 +31,13 @@
                                   <a href="#" class="list-group-item">
                                       <div class="media">
                                           <div class="pull-left">
-                                              <img class="img-circle img-online online" src="assets/img/avatars/male.png" alt="...">
+                                              <!--初始状态只有第一个显示，标记为待处理后样式为第二个显示在处理中，在处理中标记为已处理，在待处理中不显示-->
+                                              <a  class="fa fa-lg   fa-flag-o profile-io" placement="top" tooltip="标记为待处理"></a>
+                                              <a  class="fa fa-lg  fa-flag  profile-io"  placement="top"  tooltip="标记为已处理">
+                                              </a>
+                                          </div>
+                                          <div class="pull-left">
+                                              <img class="img-circle img-online online profile-img" src="assets/img/avatars/male.png" alt="..." style="width: 40px; height: auto;">
                                           </div>
                                           <div class="media-body">
                                               <h4 class="media-heading">
@@ -39,7 +45,9 @@
                                               <div class="media-content">
                                                   <i class="fa fa-check-square-o"></i>任务名
                                               </div>
-                                              <div class="column-datetime"><span >2017-12-25 15:51</span></div>
+                                              <div class="media-content">
+                                                 2017-12-25 15:51
+                                              </div>
                                           </div>
                                       </div><!-- media -->
                                   </a>
@@ -47,7 +55,11 @@
                                   <a href="#" class="list-group-item">
                                       <div class="media">
                                           <div class="pull-left">
-                                              <img class="img-circle img-online online" src="assets/img/avatars/male.png" alt="...">
+                                              <a  class="fa fa-lg  fa-flag  profile-io"  placement="top"  tooltip="标记为已处理">
+                                              </a>
+                                          </div>
+                                          <div class="pull-left">
+                                              <img class="img-circle img-online online profile-img" src="assets/img/avatars/male.png" alt="...">
                                           </div>
                                           <div class="media-body">
                                               <h4 class="media-heading">
@@ -55,14 +67,19 @@
                                               <div class="media-content">
                                                   <i class="fa fa-check-square-o"></i>任务名
                                               </div>
-                                              <div class="column-datetime"><span >2017-12-25 15:51</span></div>
+                                              <div class="media-content">
+                                                 2017-12-25 15:51
+                                              </div>
                                           </div>
                                       </div><!-- media -->
                                   </a>
                                   <a href="#" class="list-group-item">
                                       <div class="media">
                                           <div class="pull-left">
-                                              <img class="img-circle img-online online" src="assets/img/avatars/male.png" alt="...">
+                                              <a  class="fa fa-lg   fa-flag-o profile-io" placement="top" tooltip="标记为待处理"></a>
+                                          </div>
+                                          <div class="pull-left">
+                                              <img class="img-circle img-online online profile-img" src="assets/img/avatars/male.png" alt="...">
                                           </div>
                                           <div class="media-body">
                                               <h4 class="media-heading">
@@ -76,7 +93,12 @@
                                   <a href="#" class="list-group-item">
                                       <div class="media">
                                           <div class="pull-left">
-                                              <img class="img-circle img-online online" src="assets/img/avatars/male.png" alt="...">
+
+                                              <a  class="fa fa-lg   fa-flag-o profile-io" placement="top" tooltip="标记为待处理"></a>
+
+                                          </div>
+                                          <div class="pull-left">
+                                              <img class="img-circle img-online online profile-img" src="assets/img/avatars/male.png" alt="...">
                                           </div>
                                           <div class="media-body">
                                               <h4 class="media-heading">
@@ -84,7 +106,9 @@
                                               <div class="media-content">
                                                   <i class="fa fa-comment-o"></i>评论内容
                                               </div>
-                                              <div class="column-datetime"><span >2017-12-25 15:51</span></div>
+                                              <div class="media-content">
+                                                 2017-12-25 15:51
+                                              </div>
                                           </div>
                                       </div><!-- media -->
                                   </a>
@@ -92,7 +116,10 @@
                                   <a href="#" class="list-group-item">
                                       <div class="media">
                                           <div class="pull-left">
-                                              <img class="img-circle img-online online" src="assets/img/avatars/male.png" alt="...">
+                                              <a  class="fa fa-lg   fa-flag-o profile-io" placement="top" tooltip="标记为待处理"></a>
+                                          </div>
+                                          <div class="pull-left">
+                                              <img class="img-circle img-online online profile-img" src="assets/img/avatars/male.png" alt="...">
                                           </div>
                                           <div class="media-body">
                                               <h4 class="media-heading">
@@ -100,7 +127,9 @@
                                               <div class="media-content">
                                                   <i class="fa fa-comment-o"></i> 回复了任务：任务内容
                                               </div>
-                                              <div class="column-datetime"><span >2017-12-25 15:51</span></div>
+                                              <div class="media-content">
+                                                 2017-12-25 15:51
+                                              </div>
                                           </div>
                                       </div><!-- media -->
                                   </a>
@@ -119,6 +148,8 @@
                       </div>
                       <div class="col-xs-4">
                           <div class="well">
+                              <a class="btn btn-primary   btn-block mb-20" >
+                                  <strong>全部标记为已读</strong> </a>
                               <h5 class="margin-top-0">按类型筛选</h5>
                               <div class="row">
                                   <div class="col-lg-12">
@@ -158,7 +189,11 @@
                                   <a href="#" class="list-group-item">
                                       <div class="media">
                                           <div class="pull-left">
-                                              <img class="img-circle img-online online" src="assets/img/avatars/male.png" alt="...">
+                                              <a  class="fa fa-lg  fa-flag  profile-io"  placement="top"  tooltip="标记为已处理">
+                                              </a>
+                                          </div>
+                                          <div class="pull-left">
+                                              <img class="img-circle img-online online profile-img" src="assets/img/avatars/male.png" alt="...">
                                           </div>
                                           <div class="media-body">
                                               <h4 class="media-heading">
@@ -166,7 +201,9 @@
                                               <div class="media-content">
                                                   <i class="fa fa-check-square-o"></i>任务名
                                               </div>
-                                              <div class="column-datetime"><span >2017-12-25 15:51</span></div>
+                                              <div class="media-content">
+                                                 2017-12-25 15:51
+                                              </div>
                                           </div>
                                       </div><!-- media -->
                                   </a>
@@ -185,26 +222,8 @@
                       </div>
                       <div class="col-xs-4">
                           <div class="well">
-                              <h5 class="margin-top-0">按类型筛选</h5>
-                              <div class="row">
-                                  <div class="col-lg-12">
-                                      <ul class="list-group no-margin editor">
-                                          <li class="list-group-item table-color">
-                                              <a  class="text-color-black"> <span class="badge pull-right">15</span> 全部 </a>
-                                          </li>
-                                          <li class="list-group-item">
-                                              <a class="text-color-black"> <span class="badge pull-right">2</span> 分配给我 </a>
-                                          </li>
-                                          <li class="list-group-item">
-                                              <a class="text-color-black"> <span class="badge pull-right">9</span> 提醒关注 </a>
-                                          </li>
-                                          <li class="list-group-item">
-                                              <a class="text-color-black"> <span class="badge pull-right">4</span>评论</a>
-                                          </li>
-                                      </ul>
-                                  </div>
-                              </div>
-
+                              <a class="btn btn-primary   btn-block ">
+                                  <strong>全部标记为已处理</strong> </a>
                           </div>
                       </div>
                   </div>
@@ -223,7 +242,11 @@
                                   <a href="#" class="list-group-item">
                                       <div class="media">
                                           <div class="pull-left">
-                                              <img class="img-circle img-online online" src="assets/img/avatars/male.png" alt="...">
+                                              <a  class="fa fa-lg  fa-flag  profile-io"  placement="top"  tooltip="标记为已处理">
+                                              </a>
+                                          </div>
+                                          <div class="pull-left">
+                                              <img class="img-circle img-online online profile-img" src="assets/img/avatars/male.png" alt="...">
                                           </div>
                                           <div class="media-body">
                                               <h4 class="media-heading">
@@ -231,7 +254,9 @@
                                               <div class="media-content">
                                                   <i class="fa fa-check-square-o"></i>任务名
                                               </div>
-                                              <div class="column-datetime"><span >2017-12-25 15:51</span></div>
+                                              <div class="media-content">
+                                                 2017-12-25 15:51
+                                              </div>
                                           </div>
                                       </div><!-- media -->
                                   </a>
@@ -239,7 +264,10 @@
                                   <a href="#" class="list-group-item">
                                       <div class="media">
                                           <div class="pull-left">
-                                              <img class="img-circle img-online online" src="assets/img/avatars/male.png" alt="...">
+                                              <a  class="fa fa-lg   fa-flag-o profile-io" placement="top" tooltip="标记为待处理"></a>
+                                          </div>
+                                          <div class="pull-left">
+                                              <img class="img-circle img-online online profile-img" src="assets/img/avatars/male.png" alt="...">
                                           </div>
                                           <div class="media-body">
                                               <h4 class="media-heading">
@@ -247,14 +275,20 @@
                                               <div class="media-content">
                                                   <i class="fa fa-check-square-o"></i>任务名
                                               </div>
-                                              <div class="column-datetime"><span >2017-12-25 15:51</span></div>
+                                              <div class="media-content">
+                                                 2017-12-25 15:51
+                                              </div>
                                           </div>
                                       </div><!-- media -->
                                   </a>
                                   <a href="#" class="list-group-item">
                                       <div class="media">
                                           <div class="pull-left">
-                                              <img class="img-circle img-online online" src="assets/img/avatars/male.png" alt="...">
+                                              <a  class="fa fa-lg  fa-flag  profile-io"  placement="top"  tooltip="标记为已处理">
+                                              </a>
+                                          </div>
+                                          <div class="pull-left">
+                                              <img class="img-circle img-online online profile-img" src="assets/img/avatars/male.png" alt="...">
                                           </div>
                                           <div class="media-body">
                                               <h4 class="media-heading">
@@ -268,7 +302,11 @@
                                   <a href="#" class="list-group-item">
                                       <div class="media">
                                           <div class="pull-left">
-                                              <img class="img-circle img-online online" src="assets/img/avatars/male.png" alt="...">
+                                              <a  class="fa fa-lg  fa-flag  profile-io"  placement="top"  tooltip="标记为已处理">
+                                              </a>
+                                          </div>
+                                          <div class="pull-left">
+                                              <img class="img-circle img-online online profile-img" src="assets/img/avatars/male.png" alt="...">
                                           </div>
                                           <div class="media-body">
                                               <h4 class="media-heading">
@@ -276,7 +314,9 @@
                                               <div class="media-content">
                                                   <i class="fa fa-comment-o"></i>评论内容
                                               </div>
-                                              <div class="column-datetime"><span >2017-12-25 15:51</span></div>
+                                              <div class="media-content">
+                                                 2017-12-25 15:51
+                                              </div>
                                           </div>
                                       </div><!-- media -->
                                   </a>
@@ -284,7 +324,10 @@
                                   <a href="#" class="list-group-item">
                                       <div class="media">
                                           <div class="pull-left">
-                                              <img class="img-circle img-online online" src="assets/img/avatars/male.png" alt="...">
+                                              <a  class="fa fa-lg   fa-flag-o profile-io" placement="top" tooltip="标记为待处理"></a>
+                                          </div>
+                                          <div class="pull-left">
+                                              <img class="img-circle img-online online profile-img" src="assets/img/avatars/male.png" alt="...">
                                           </div>
                                           <div class="media-body">
                                               <h4 class="media-heading">
@@ -292,7 +335,9 @@
                                               <div class="media-content">
                                                   <i class="fa fa-comment-o"></i> 回复了任务：任务内容
                                               </div>
-                                              <div class="column-datetime"><span >2017-12-25 15:51</span></div>
+                                              <div class="media-content">
+                                                 2017-12-25 15:51
+                                              </div>
                                           </div>
                                       </div><!-- media -->
                                   </a>
@@ -342,5 +387,3 @@
   </sa-widget>
 </div>
 
-
-<!--点击的效果直接拷贝 app-todo-mission  html 备注：select-hidden 这部分放在这个位置-->

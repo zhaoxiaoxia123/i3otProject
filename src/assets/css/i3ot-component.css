@@ -3385,6 +3385,20 @@ div.dataTables_editor{
 .media-content>i{
     color:#ccc!important;
 }
+
+
+.profile-io{
+    line-height:40px;
+    margin-right:10px;
+}
+.profile-io:hover{
+    color: #ED1C24;
+    text-decoration: none;
+}
+.profile-img{
+    width: 40px;
+    height: auto;
+}
 /*面板*/
 
 .the-price {
@@ -3971,6 +3985,32 @@ div.dataTables_editor{
     text-overflow: ellipsis;
 }
 .project-grid .project-item a.members {
+    color: #d3d3d3;
+    font-size: 14px;
+    visibility: visible;
+    right: 5px;
+    top: 5px;
+    z-index: 1;
+    height: 30px;
+    position: absolute;
+    display: block;
+    text-align: center;
+    line-height: 30px;
+}
+.project-grid .project-item a.add-project {
+    color: #d3d3d3;
+    font-size: 14px;
+    visibility: visible;
+    right: 30px;
+    top: 5px;
+    z-index: 1;
+    height: 30px;
+    position: absolute;
+    display: block;
+    text-align: center;
+    line-height: 30px;
+}
+.project-grid .project-item a.delete-project {
     color: #d3d3d3;
     font-size: 14px;
     visibility: visible;

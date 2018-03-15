@@ -1,3 +1,53 @@
+<span class="activity-dropdown" id="activity">
+  <i class="fa fa-user"></i>
+  <b class="badge bg-color-red">14</b>
+</span>
+<div class="ajax-dropdown"  style="display: none;">
+    <div class="btn-group btn-group-justified" data-toggle="buttons">
+     <label class="btn btn-default " >
+        <input name="activity" type="radio">
+        通知 (5)
+    </label><label class="btn btn-default" >
+        <input name="activity" type="radio">
+        预警 (3)
+    </label>
+        <label class="btn btn-default active" >
+        <input name="activity" type="radio">
+        待办事项 (6)
+    </label>
+
+    </div>
+
+    <div class="ajax-notifications custom-scroll">
+        <ul class="notification-body" activitiesMessage>
+
+        </ul>
+        <ul class="notification-body" activitiesNotification>
+
+
+        </ul>
+        <ul class="notification-body" activitiesTask>
+
+
+        </ul>
+
+    </div>
+
+
+    <span> 最后更新的时间: 2018-03-12 09:50
+     <button type="button" (click)="update()"
+                class="btn btn-xs btn-default pull-right">
+        <i class="fa fa-refresh" *ngIf="!loading"></i>
+        <i class="fa fa-refresh fa-spin" *ngIf="loading"></i>
+        <span *ngIf="loading">loading...</span>
+    </button>
+    </span>
+
+</div>
+
+
+<!--
+
 <span id="activity" class="activity-dropdown" (click)="onToggle()">
   <i class="fa fa-user"></i>
   <b class="badge bg-color-red">{{count}}</b>
@@ -17,7 +67,7 @@
 
     </div>
 
-    <!-- notification content -->
+    &lt;!&ndash; notification content &ndash;&gt;
     <div class="ajax-notifications custom-scroll">
         <ul class="notification-body" *ngIf="currentActivity" >
             <ng-template ngFor let-item [ngForOf]="currentActivity.data">
@@ -30,9 +80,9 @@
 
         </ul>
     </div>
-    <!-- end notification content -->
+    &lt;!&ndash; end notification content &ndash;&gt;
 
-    <!-- footer: refresh area -->
+    &lt;!&ndash; footer: refresh area &ndash;&gt;
     <span> 最后更新的时间: {{lastUpdate | moment:"h:mm:ss a"}}
     <button type="button" (click)="update()"
             class="btn btn-xs btn-default pull-right">
@@ -41,5 +91,8 @@
         <span *ngIf="loading">loading...</span>
     </button>
     </span>
-    <!-- end footer -->
+    &lt;!&ndash; end footer &ndash;&gt;
 </div>
+
+
+-->
