@@ -128,12 +128,13 @@ export class SettingHonorComponent implements OnInit {
                     this.category_id = 0;
                     this.category_desc = '';
                     this.category_number = '';
+                    this.categoryList = info;
                 }else if(info['status'] == 202){
-                    alert(info['msg']);
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
+                }else if(info['status'] != 200){
+                    alert(info['msg']);
                 }
-                this.categoryList = info;
             }
         );
     }
@@ -223,6 +224,15 @@ export class SettingHonorComponent implements OnInit {
             this.width = '10%';
             this.width_1 = '90%';
         }
+    }
+
+    /**
+     * 重置信息
+     */
+    resetCategory(){
+        this.category_id = 0;
+        this.category_desc = '';
+        this.category_number = '';
     }
 
 }

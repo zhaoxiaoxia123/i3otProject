@@ -44,6 +44,9 @@
                                 </section>
                               </fieldset>
                               <footer>
+                                <button (click)="resetCategory()" type="button" class="btn btn-primary">
+                                  重置
+                                </button>
                                 <button (click)="addCategory()" type="button" class="btn btn-primary">
                                   保存
                                 </button>
@@ -67,7 +70,7 @@
                           <div  class="row mt-10">
                             <article  class="col-sm-12">
                               <div class="navbar navbar-default">
-                                <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" *ngIf="cid == super_admin_id || c.c_id == cid"  >
+                                <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search">
                                     <div class="form-group pdlr-4">
                                       <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusCategoryId == 0}" (click)="editCategory()">
                                         <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
