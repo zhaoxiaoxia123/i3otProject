@@ -23,16 +23,16 @@
                     <span class="txt-color-red padding-left-10">{{projectList?.result?.commonArrayCount}}</span>
                   </div>
                   <div class="project-grid ">
-                    <div class="project-item" [routerLink]="['/forms/todo-mission',ca.project_id]" *ngFor="let ca of projectList?.result?.commonArray">
+                    <div class="project-item" (mouseover)="showOrHide(ca.project_id)" (mouseleave)="showOrHide(0)" [routerLink]="['/forms/todo-mission',ca.project_id]" *ngFor="let ca of projectList?.result?.commonArray">
                       <a class="star" (click)="isCommon($event,ca.project_id,ca.project_status);">
                         <i class="fa fa-star txt-color-yellowMing"></i> </a>
                       <a class="center ">
                         <i class="fa-fw fa fa-inbox text-blove"></i>
                         <h4 class="">{{ca.project_title}}</h4></a>
-                      <a class="add-project" (click)="showAddProject($event,cl.category_id,pl.project_id);lgModal.show();">
+                      <a *ngIf="isShowButton == ca.project_id" class="add-project" (click)="showAddProject($event,ca.project_owner,ca.project_id);lgModal.show();">
                         <i class="glyphicon glyphicon-pencil" style="font-size:12px;"></i>
                       </a>
-                      <a class="delete-project" >
+                      <a *ngIf="isShowButton == ca.project_id" class="delete-project" (click)="deleteProjectById($event,ca.project_id);">
                         <i class="fa fa-minus-circle"></i>
                       </a>
                     </div>
@@ -53,20 +53,19 @@
                         <i class="fa-fw fa fa-inbox text-blove"></i>
                         <h4 class="">发起项目</h4></a>
                     </div>
-                    <div class="project-item " [routerLink]="['/forms/todo-mission',pl.project_id]" *ngFor="let pl of cl.project_list">
+                    <div class="project-item" (mouseover)="showOrHide(pl.project_id)" (mouseleave)="showOrHide(0)" [routerLink]="['/forms/todo-mission',pl.project_id]" *ngFor="let pl of cl.project_list">
                       <a class="star" (click)="isCommon($event,pl.project_id,pl.project_status);">
                         <i class="fa fa-star-o" *ngIf="pl.project_status == 1"></i>
                         <i class="fa fa-star txt-color-yellowMing" *ngIf="pl.project_status == 2"></i></a>
                       <a class="center">
                         <i class="fa-fw fa fa-inbox text-blove"></i>
                         <h4 class="">{{pl.project_title}}</h4></a>
-                      <a class="add-project" (click)="showAddProject($event,cl.category_id,pl.project_id);lgModal.show();">
+                      <a *ngIf="isShowButton == pl.project_id" class="add-project" (click)="showAddProject($event,cl.category_id,pl.project_id);lgModal.show();">
                         <i class="glyphicon glyphicon-pencil" style="font-size:12px;"></i>
                       </a>
-                      <a class="delete-project" >
+                      <a *ngIf="isShowButton == pl.project_id" class="delete-project" (click)="deleteProjectById($event,pl.project_id);">
                         <i class="fa fa-minus-circle"></i>
                       </a>
-
                     </div>
                   </div>
                 </div>

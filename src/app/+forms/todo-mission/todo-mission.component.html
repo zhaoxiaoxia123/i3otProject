@@ -6,7 +6,7 @@
         <sa-widget [editbutton]="false" [deletebutton]="false" >
           <header>
             <span class="widget-icon"> <i class="fa fa-inbox"></i> </span>
-            <h2>项目</h2>
+            <h2><a [routerLink]="['/forms/todo-projects']">项目</a>  &nbsp;&nbsp;=>  &nbsp;&nbsp;{{todoList?.result?.project_title}}</h2>
             <div class="widget-toolbar">
               <!--<button class="btn btn-xs btn-default"><i class="fa fa-plus"></i> 添加</button>-->
               <button class="btn btn-success btn--fancy ng-binding" data-toggle="dropdown" (click)="showPublishTemplate(todoList?.result?.project_id,3)"><i class="fa fa-plus"></i>新建任务列表</button>
@@ -158,27 +158,6 @@
       </article>
     </div>
   </sa-widgets-grid>
-
-  <div class="row"><!-- *ngIf="is_show_power[cookie_u_id]"-->
-    <div class="col-sm-12 col-md-12 col-lg-12">
-      <div class="well well-light well-sm no-margin no-padding">
-        <div class="row ">
-          <div class="col-sm-12">
-
-            <h1 class="title-h1"><a  class="js-popbox prj_icon text-color-black" >
-              <i class="fa-fw fa fa-inbox text-blove" ></i>
-              <a [routerLink]="['/forms/todo-projects']">项目</a>  &nbsp;&nbsp;=>  &nbsp;&nbsp;{{todoList?.result?.project_title}}
-            </a>
-             <!-- <a class="js-popbox prj_name ng-binding" ></a>-->
-            </h1><hr />
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-
 </div>
 
     <!--<div class="empty-panel" *ngIf="! is_show_power[cookie_u_id]">-->
@@ -932,18 +911,14 @@
                               <button class="btn ng-binding btn-default " >加载更多…</button>
                             </div>
                           </div>
-
-
                         </tab>
                       </tabset>
                     </tab>
-
                   </tabset>
                 </div>
               </div>
             </sa-widget>
           </div>
-
         </div>
       </div>
     </div>
@@ -966,18 +941,16 @@
               <article  class="col-sm-12">
                 <div class="navbar navbar-default">
                   <div class="collapse navbar-collapse">
-
                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
                       <div class="form-group pdlr-4">
                         <div class="form-group padding-left-10">
-                          <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15"   name="keyword_product" placeholder="请输入搜索内容" type="text">
+                          <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" [(ngModel)]="keyword" name="keyword" placeholder="请输入搜索内容" type="text">
                         </div>
-                        <button class="btn btn-default" type="button" >
+                        <button class="btn btn-default" type="button" (click)="getUserList(1,0)">
                           <i  class="glyphicon glyphicon-search"></i>
                           搜索
                         </button>
                       </div>
-
                     </form>
                   </div>
                 </div>
@@ -1001,62 +974,34 @@
                                 <li class=" parent_li">
                                   <span>
                                     <label class="checkbox inline-block tree-label pt-12 ">
-                                          <input name="checkbox-inline" type="checkbox"><i></i>
-                                   </label>
-                                    <i class="fa fa-lg fa-folder-open"></i>矿易帮
-                                    <i class="sa-icon fa fa-lg fa-minus-circle"></i>
+                                        <input type="checkbox" name="checkbox-inline" [checked]="select_department_ids[0]" (click)="selectDepartmentAll()"><i></i>
+                                      </label>
+
+                                    <i class="fa fa-lg fa-folder-open"></i>{{customer_name}}
+                                    <i class="sa-icon fa fa-lg fa-plus-circle" *ngIf="showUl == 0" (click)="showLeftUl(1)"></i>
+                                    <i class="sa-icon fa fa-lg fa-minus-circle" *ngIf="showUl == 1" (click)="showLeftUl(0)"></i>
                                   </span>
-                                  <ul class="">
-                                    <li class=" parent_li">
+                                  <ul *ngIf="showUl == 1">
+                                    <li class=" parent_li" *ngFor="let d of userDefault?.result?.departmentList;let ind = index;">
+                                    <span>
+                                      <label class="checkbox inline-block tree-label ">
+                                        <input type="checkbox" name="checkbox-inline" [checked]="select_department_ids[d.department_id]" (click)="selectDepartment(d.department_id,ind,0,1)"><i></i>{{d.department_name}}
+                                        <em class="txt-color-blue">({{d.child_count}})</em>
+                                      </label>
+                                      <i class="sa-icon fa fa-lg fa-minus-circle" *ngIf="showUlChild == d.department_id && d.has_child != 0" (click)="showLeftUlChild(0)"></i>
+                                      <i class="sa-icon fa fa-lg fa-plus-circle" *ngIf="showUlChild != d.department_id && d.has_child != 0" (click)="showLeftUlChild(d.department_id)"></i>
+                                    </span>
+                                      <ul class="" *ngIf="showUlChild == d.department_id">
+                                        <li *ngFor="let dc of d.child;let indChild = index;">
                                         <span>
-                                          <label class="checkbox inline-block tree-label ">
-                                            <input name="checkbox-inline" type="checkbox">
-                                            <i></i>财务部
-                                            <em class="txt-color-blue">(0)</em>
+                                          <label class="checkbox inline-block tree-label">
+                                            <input type="checkbox" name="checkbox-inline" [checked]="select_department_ids[d.department_id] || select_department_ids[dc.department_id]" (click)="selectDepartment(dc.department_id,ind,indChild,d.department_id)">
+                                            <i></i>{{dc.department_name}}
+                                            <em class="txt-color-blue">({{dc.child_count}})</em>
                                           </label>
-
                                         </span>
-                                    </li>
-                                    <li class=" parent_li">
-                                        <span>
-                                          <label class="checkbox inline-block tree-label ">
-                                            <input name="checkbox-inline" type="checkbox">
-                                            <i></i>开发部
-                                            <em class="txt-color-blue">(0)</em>
-                                          </label>
-
-                                        </span>
-                                    </li>
-                                    <li class=" parent_li">
-                                        <span>
-                                          <label class="checkbox inline-block tree-label ">
-                                            <input name="checkbox-inline" type="checkbox">
-                                            <i></i>媒体宣传部
-                                            <em class="txt-color-blue">(0)</em>
-                                          </label>
-                                           <i class="sa-icon fa fa-lg fa-plus-circle"></i>
-                                        </span>
-                                      <ul class="">
-                                        <li>
-                                            <span>
-                                              <label class="checkbox inline-block tree-label">
-                                                <input name="checkbox-inline" type="checkbox">
-                                                <i></i>物联网部
-                                                <em class="txt-color-blue">(0)</em>
-                                              </label>
-                                            </span>
                                         </li>
                                       </ul>
-
-                                    </li>
-                                    <li class=" parent_li">
-                                        <span>
-                                          <label class="checkbox inline-block tree-label ">
-                                            <input name="checkbox-inline" type="checkbox">
-                                            <i></i>软件开发部
-                                            <em class="txt-color-blue">(2)</em>
-                                          </label>
-                                        </span>
                                     </li>
                                   </ul>
                                 </li>
@@ -1081,44 +1026,43 @@
                           员工列表
                         </alert>
                         <div class="mt-10 "  style="padding:0;">
-                          <div style="padding: 0;z-index: 1;" class="table-responsive border-overflow-320">
-                            <table class="table table-striped  table-hover smart-form table-height-32">
-                              <thead>
-                              <tr>
-                                <td><label class="checkbox mt-8">
-                                  <input type="checkbox" name="checkbox-inline" >
+                          <table class="table table-striped   smart-form table-height-20">
+                            <thead>
+                            <tr>
+                              <td>
+                                <label class="checkbox mt-8">
+                                  <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)">
                                   <i></i>
                                 </label>
-                                </td>
-                                <th >员工ID</th>
-                                <th>姓名</th>
-                                <th>所属部门</th>
-                              </tr>
-                              </thead>
-                              <tbody>
-                              <tr ><!-- class="table-color"-->
-                                <td>
-                                  <label class="checkbox padding-top-10" >
-                                    <input type="checkbox" name="checkbox-inline" >
-                                    <i></i>
-                                  </label>
-                                </td>
-                                <td>kyb0002</td>
-                                <td>刘强</td>
-                                <td>开发部</td>
-                              </tr>
-                              </tbody>
-                            </table>
-                          </div>
+                              </td>
+                              <th>员工ID </th>
+                              <th>姓名</th>
+                              <th>所属部门</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let ul of userList.result?.userList?.data">
+                              <td>
+                                <label class="checkbox mt-8" >
+                                  <input type="checkbox" value="{{ul.id}}" [checked]="selected_user[ul.id]" (change)="handle($event);" />
+                                  <i></i>
+                                </label>
+                              </td>
+                              <td>{{ ul.name }}</td>
+                              <td>{{ ul.u_username }}</td>
+                              <td>{{ ul.department_name }}</td>
+                            </tr>
+                            </tbody>
+                          </table>
                         </div>
                         <!-- 底部-（分页部分）-->
                         <div class="dt-toolbar">
                           <div class="col-xs-12 col-sm-6">
-                            <span>共5条</span>
+                            <span>共{{userList.result?.userList?.total}}条</span>
                           </div>
                           <div class="hidden-xs right">
-                            <ul class="pagination pagination-sm">
-                              <li *ngFor="let p of searchProductList?.result?.page" class="{{p.class}}">
+                            <ul class="pagination pagination-sm" *ngIf="userList?.result?.page != ''">
+                              <li *ngFor="let p of userList?.result?.page" class="{{p.class}}">
                                 <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
                                 <a *ngIf="p.method==''">{{p.text}}</a>
                               </li>
@@ -1132,69 +1076,9 @@
                 </article>
               </div>
             </div>
-
           </div>
-
-          <!--<div class="modal-body">
-            <div class="row">
-              <div class=" form-group  col col-lg-12" >
-                <div class="selector-choices-wrapper">
-
-                  <div class="tab-contents">
-                    <div class="tab-contents-box">
-                      <ul>
-
-                        <li class="entity-members" *ngIf="cookie_c_id == admin_id">
-                          <dl class="entity-members-assign ng-scope" >
-                            <dt class="ng-binding">选择公司</dt>
-                            <dd>
-                              <select name="c_id" [(ngModel)]="c_id" (change)="selectCustomer($event)">
-                                <option value="0" >&#45;&#45;选择公司&#45;&#45;</option>
-                                <option value="{{c.c_id}}" *ngFor="let c of todo_info?.result?.customer_list">{{c.c_name}}</option>
-                              </select>
-                            </dd>
-                          </dl>
-                        </li>
-
-                        <li class="checkbox-item table  smart-form">
-                          <label class="checkbox">
-                            <input name="checkbox-inline" type="checkbox" [checked]="check" (change)="changeCheckAll($event)">全选
-                            <i></i>
-                          </label>
-                        </li>
-                        <li *ngFor="let au of user_list?.result?.userList">
-                          <div class="table smart-form">
-                            <label class="checkbox">
-                              <input name="checkbox-inline" type="checkbox" (change)="handle($event)" [checked]="selected_user[au.id]" value="{{au.id}}">
-                              <i></i>
-                              &lt;!&ndash;<img alt="{{au.u_username}}" class="online width-40" src="{{domain_url}}{{au.u_avatar}}" *ngIf="au.u_avatar">&ndash;&gt;
-                              &lt;!&ndash;<img alt="{{au.u_username}}" class="online width-40" src="assets/img/avatars/male.png" *ngIf="!au.u_avatar">&ndash;&gt;
-                              <span >{{au.u_username}}</span>
-                            </label>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              &lt;!&ndash;<div class=" form-group col col-lg-6">&ndash;&gt;
-                &lt;!&ndash;<div class="selector-choices-wrapper">&ndash;&gt;
-                  &lt;!&ndash;<ul class="select2-selection__rendered" *ngIf="show_user_type == 1">&ndash;&gt;
-                    &lt;!&ndash;<li class="select2-selection__choice" title="" *ngFor="let au1 of todo_info?.result?.assign_list">&ndash;&gt;
-                      &lt;!&ndash;<span class="select2-selection__choice__remove" >×</span>{{au1.u_username}}</li>&ndash;&gt;
-                  &lt;!&ndash;</ul>&ndash;&gt;
-                  &lt;!&ndash;<ul class="select2-selection__rendered" *ngIf="show_user_type == 2">&ndash;&gt;
-                    &lt;!&ndash;<li class="select2-selection__choice" title="Montana" *ngFor="let au2 of todo_info?.result?.follower_list">&ndash;&gt;
-                      &lt;!&ndash;<span class="select2-selection__choice__remove" role="presentation">×</span>{{au2.u_username}}&ndash;&gt;
-                    &lt;!&ndash;</li>&ndash;&gt;
-                  &lt;!&ndash;</ul>&ndash;&gt;
-                &lt;!&ndash;</div>&ndash;&gt;
-              &lt;!&ndash;</div>&ndash;&gt;
-            </div>
-          </div>-->
           <div class="modal-footer">
-            <button type="button" class="btn btn-success btn-sm" data-ng-click="ok()" data-dismiss="modal" (click)="submitSelectedUser(todo_info?.result?.todo_id)"><span class="glyphicon glyphicon-plus"></span>选入(0)</button>
+            <button type="button" class="btn btn-success btn-sm" data-ng-click="ok()" data-dismiss="modal" (click)="submitSelectedUser(todo_info?.result?.todo_id)"><span class="glyphicon glyphicon-plus"></span>选入</button>
             <button type="button" class="btn btn-default" data-dismiss="modal" >返回</button>
           </div>
         </div><!-- /.modal-content -->

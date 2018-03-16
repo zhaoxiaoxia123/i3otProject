@@ -17,6 +17,8 @@ export class TodoProjectsComponent implements OnInit {
   projectInfo : Array<any> = [];
   categoryList : Array<any> = [];
 
+  isShowButton : any = 0;
+
   edit_project_id : number = 0;
   project_owner : number = 0;
   project_title : string;
@@ -58,6 +60,35 @@ export class TodoProjectsComponent implements OnInit {
           }
         });
   }
+
+    /**
+     * 展示或隐藏
+     * @param project_id
+     */
+    showOrHide(project_id:number){
+     this.isShowButton =  project_id;
+    }
+
+    /**
+     * 删除项目
+     * @param project_id
+     */
+    deleteProjectById($event:Event,project_id:number){
+        $event.stopPropagation();
+        if(confirm("您确定要删除该项目，以及该项目下的所有任务信息吗？")) {
+        this.http.delete(this.globalService.getDomain()+'/api/v1/deleteProjectById?project_id=' + project_id + '&type=id&sid='+this.cookieStore.getCookie('sid'))
+            .map((res) => res.json())
+            .subscribe((data) => {
+                this.projectList = data;
+                if (this.projectList['status'] == 202) {
+                    alert(this.projectList['msg']);
+                    this.cookieStore.removeAll(this.rollback_url);
+                    this.router.navigate(['/auth/login']);
+                }
+            });
+        }
+    }
+
 
   /**
    * 获取项目列表

@@ -1,98 +1,33 @@
-<span class="activity-dropdown" id="activity">
+<span class="activity-dropdown" id="activity" (click)="showMessageDiv('all')">
   <i class="fa fa-user"></i>
   <b class="badge bg-color-red">14</b>
 </span>
-<div class="ajax-dropdown"  style="display: none;">
+<div class="ajax-dropdown"  [ngStyle]="{'display':isShow==''?'none':'block'}">
     <div class="btn-group btn-group-justified" data-toggle="buttons">
-     <label class="btn btn-default " >
+     <label [ngClass]="{'btn btn-default':true,'active':(isShow == 'notice' || isShow == 1)}" (click)="showMessageDiv('notice')">
         <input name="activity" type="radio">
-        通知 (5)
-    </label><label class="btn btn-default" >
-        <input name="activity" type="radio">
-        预警 (3)
+        通知 ({{messageList?.result?.notice?.count}})
     </label>
-        <label class="btn btn-default active" >
+        <label [ngClass]="{'btn btn-default':true,'active':(isShow == 'warning')}" (click)="showMessageDiv('warning')">
         <input name="activity" type="radio">
-        待办事项 (6)
+        预警 ({{messageList?.result?.warning?.count}})
     </label>
-
+        <label [ngClass]="{'btn btn-default':true,'active':isShow == 'task'}" (click)="showMessageDiv('task')" >
+        <input name="activity" type="radio">
+        待办事项 ({{messageList?.result?.task?.count}})
+    </label>
     </div>
-
     <div class="ajax-notifications custom-scroll">
-        <ul class="notification-body" activitiesMessage>
-
-        </ul>
-        <ul class="notification-body" activitiesNotification>
-
-
-        </ul>
-        <ul class="notification-body" activitiesTask>
-
-
-        </ul>
-
+        <ul class="notification-body" activitiesMessage *ngIf="isShow == 'notice' || isShow == 1" style="display:block"></ul>
+        <ul class="notification-body" activitiesNotification [ngStyle]="{'display':(isShow == 'warning')?'block':'none'}"></ul>
+        <ul class="notification-body" activitiesTask [fromFatherValue]="messageList" [ngStyle]="{'display':(isShow == 'task')?'block':'none'}"></ul>
     </div>
 
-
-    <span> 最后更新的时间: 2018-03-12 09:50
-     <button type="button" (click)="update()"
-                class="btn btn-xs btn-default pull-right">
+    <span> 最后更新的时间: {{lastUpdate}}
+     <button type="button" (click)="update()" class="btn btn-xs btn-default pull-right">
         <i class="fa fa-refresh" *ngIf="!loading"></i>
         <i class="fa fa-refresh fa-spin" *ngIf="loading"></i>
         <span *ngIf="loading">loading...</span>
     </button>
     </span>
-
 </div>
-
-
-<!--
-
-<span id="activity" class="activity-dropdown" (click)="onToggle()">
-  <i class="fa fa-user"></i>
-  <b class="badge bg-color-red">{{count}}</b>
-</span>
-
-<div class="ajax-dropdown" #dropdown>
-    <div class="btn-group btn-group-justified" data-toggle="buttons">
-        <label [ngClass]="{
-      'btn btn-default': true,
-      active: activity==currentActivity
-    }" *ngFor="let activity of activities"
-               (click)="setActivity(activity)"
-        >
-            <input type="radio" name="activity"/>
-            {{activity.title}} ({{activity.data.length}})
-        </label>
-
-    </div>
-
-    &lt;!&ndash; notification content &ndash;&gt;
-    <div class="ajax-notifications custom-scroll">
-        <ul class="notification-body" *ngIf="currentActivity" >
-            <ng-template ngFor let-item [ngForOf]="currentActivity.data">
-
-                <li activitiesMessage *ngIf="item.type == 'message'" [item]="item"></li>
-                <li activitiesNotification *ngIf="item.type == 'notification'" [item]="item"></li>
-                <li activitiesTask *ngIf="item.type == 'task'" [item]="item" [lastUpdate]="lastUpdate"></li>
-
-            </ng-template>
-
-        </ul>
-    </div>
-    &lt;!&ndash; end notification content &ndash;&gt;
-
-    &lt;!&ndash; footer: refresh area &ndash;&gt;
-    <span> 最后更新的时间: {{lastUpdate | moment:"h:mm:ss a"}}
-    <button type="button" (click)="update()"
-            class="btn btn-xs btn-default pull-right">
-        <i class="fa fa-refresh" *ngIf="!loading"></i>
-        <i class="fa fa-refresh fa-spin" *ngIf="loading"></i>
-        <span *ngIf="loading">loading...</span>
-    </button>
-    </span>
-    &lt;!&ndash; end footer &ndash;&gt;
-</div>
-
-
--->

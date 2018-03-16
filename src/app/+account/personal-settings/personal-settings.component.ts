@@ -15,7 +15,7 @@ export class PersonalSettingsComponent implements OnInit {
             demo3: 'hr1',
         },
     }
-    userInfo : Array<any> = [];
+    userInfo : Array<any> = [];  //父类传值到子类
     uid : any = 0;//当前登录用户id
   constructor(
       private http:Http,
