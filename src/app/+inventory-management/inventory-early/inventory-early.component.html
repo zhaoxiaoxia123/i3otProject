@@ -20,8 +20,12 @@
                           <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
                       </div>
                       <div class="form-group pdlr-4">
-                        <a class="btn default-btn btn-sm"   data-toggle="modal" data-target="#myModal">
+                        <a class="btn default-btn btn-sm">
                           <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
+                      </div>
+                      <div class="form-group pdlr-4">
+                        <a class="btn default-btn btn-sm">
+                          <span class="fa fa-save mr-5 color-yellow"></span>保存</a>
                       </div>
                       <div class="form-group pdlr-4">
                         <a class="btn default-btn btn-sm" >
@@ -66,9 +70,9 @@
                         <i></i>
                       </label>
                       </td>
-                      <th>存货名称</th>
-                      <th>存货编码</th>
-                      <th>存货型号</th>
+                      <th>商品名称</th>
+                      <th>商品编码</th>
+                      <th>商品型号</th>
                       <th>仓库名称</th>
                       <th>单位</th>
                       <th>数量</th>
@@ -413,7 +417,7 @@
         </button>
         <!-- 标题 -->
         <h3 class="modal-title" data-ng-bind='results.title'></h3>
-        <h4 class="modal-title">资产名称-编号</h4>
+        <h4 class="modal-title">商品名称-商品编号</h4>
       </div>
       <div class="modal-body height-overflow-380">
         <div class="row ">
@@ -423,14 +427,35 @@
               <table class="table table-striped table-forum">
                 <tbody>
                 <tr>
-                  <td class="width-120">类别代码:</td>
+                  <td class="width-120">商品名称:</td>
                   <td class=""></td>
-                  <td class="width-120">类别名称:</td>
+                  <td class="width-120">商品编码:</td>
                   <td >
                   </td>
                 </tr>
                 <tr>
-                  <td class="width-120">说明:</td>
+                  <td class="width-120">商品型号:</td>
+                  <td class=""></td>
+                  <td class="width-120">仓库名称:</td>
+                  <td >
+                  </td>
+                </tr>
+                <tr>
+                  <td class="width-120">单位:</td>
+                  <td class=""></td>
+                  <td class="width-120">数量:</td>
+                  <td >
+                  </td>
+                </tr>
+                <tr>
+                  <td class="width-120">初期金额:</td>
+                  <td class=""></td>
+                  <td class="width-120">成本单价:</td>
+                  <td >
+                  </td>
+                </tr>
+                <tr>
+                  <td class="width-120">条码:</td>
                   <td class="" colspan="3"></td>
 
                 </tr>

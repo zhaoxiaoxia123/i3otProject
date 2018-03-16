@@ -1,3 +1,231 @@
-<p>
-  outbound works!
-</p>
+<div id="content">
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-sm-12 ">
+        <sa-widget [editbutton]="false" [deletebutton]="false" [colorbutton]="false">
+          <header>
+            <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+            <h2>其他出库单</h2>
+          </header>
+
+          <div>
+            <div class="widget-body no-padding" >
+              <div  class="row">
+                <article  class="col-sm-12">
+                  <div class="navbar navbar-default">
+                    <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
+
+                      <div class="form-group pdlr-4">
+                        <a class="btn btn-success btn-sm" routerLink="/inventory-management/add-outbound">
+                          <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
+                      </div>
+                      <div class="form-group pdlr-4">
+                        <a class="btn default-btn btn-sm" routerLink="/inventory-management/add-outbound">
+                          <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
+                      </div>
+                      <div class="form-group pdlr-4">
+                        <a class="btn default-btn btn-sm" >
+                          <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
+                      </div>
+                      <div class="form-group pdlr-4">
+                        <a class="btn default-btn btn-sm"  routerLink="/inventory-management/add-outbound" >
+                          <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
+                      </div>
+                      <div class="form-group btn-group pdlr-4">
+                        <a class="btn default-btn btn-sm dropdown-toggle"  data-toggle="dropdown">
+                          <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
+
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a ><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
+                        </ul>
+                      </div>
+                    </form>
+                    <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
+                      <div class="form-group pdlr-4">
+                        <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" name="" placeholder="请输入搜索内容" type="text">
+                      </div>
+                      <div class="form-group pdlr-4">
+                        <button class="btn btn-default" type="submit">
+                          <i  class="glyphicon glyphicon-search"></i>
+                          搜索
+                        </button>
+                      </div>
+                    </form>
+
+                  </div>
+                </article>
+              </div>
+
+              <div style="padding:0;">
+                <div style="padding: 0;z-index: 2;width:40%;float:left;" class="table-scrolling">
+                  <table class="table table-striped  smart-form table-height-32">
+                    <thead>
+                    <tr >
+                      <td><label class="checkbox mt-8">
+                        <input type="checkbox" name="checkbox-inline" >
+                        <i></i>
+                      </label>
+                      </td>
+                      <th>单据状态</th>
+                      <th>单据号</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="table-color">
+                      <td>
+                        <label class="checkbox mt-8">
+                          <input type="checkbox" >
+                          <i></i>
+                        </label>
+                      </td>
+                      <td>
+                        <span >
+                          <span class="button label-button blue" >正常</span>
+                          <span class="button label-button orange" >作废</span>
+                          <span class="button label-button gray" >未知</span>
+                        </span>
+                      </td>
+                      <td>
+                        <a class="click-a">12132233223232</a>
+                      </td>
+                    </tr>
+                    <tr class="">
+                      <td>
+                        <label class="checkbox mt-8">
+                          <input type="checkbox" >
+                          <i></i>
+                        </label>
+                      </td>
+                      <td>
+                        <span >
+                          <span class="button label-button blue" >正常</span>
+                          <span class="button label-button orange" >作废</span>
+                          <span class="button label-button gray" >未知</span>
+                        </span>
+                      </td>
+                      <td>
+                        <a class="click-a">12132233223232</a>
+                      </td>
+                    </tr>
+                    <tr class="">
+                      <td>
+                        <label class="checkbox mt-8">
+                          <input type="checkbox" >
+                          <i></i>
+                        </label>
+                      </td>
+                      <td>
+                        <span >
+                          <span class="button label-button blue" >正常</span>
+                          <span class="button label-button orange" >作废</span>
+                          <span class="button label-button gray" >未知</span>
+                        </span>
+                      </td>
+                      <td>
+                        <a class="click-a">12132233223232</a>
+                      </td>
+                    </tr>
+
+
+                    </tbody>
+                  </table>
+
+                </div>
+
+                <div style="padding: 0;z-index: 1;width:60%;float:left;" class="table-responsive">
+                  <table class="table table-striped  smart-form table-height-32">
+                    <thead>
+                    <tr>
+                      <th>单据日期</th>
+                      <th>出库类别 </th>
+                      <th>客户</th>
+                      <th>成本合计 </th>
+                      <th>出库仓库</th>
+                      <th>经手人 </th>
+                      <th>业务部门 </th>
+                      <th>制单人 </th>
+                      <th>创建时间 </th>
+                      <th>作废人</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="table-color">
+                      <td>2017-09-26</td>
+                      <td>矿矿业</td>
+                      <td>15952788795</td>
+                      <td>121544785421</td>
+                      <td>四川矿业有限公司</td>
+                      <td>10</td>
+                      <td>fdf</td>
+                      <td>55</td>
+                      <td>报废</td>
+                      <td>姐姐姐</td>
+
+                    </tr>
+                    <tr class="">
+                      <td>2017-09-26</td>
+                      <td>矿矿业</td>
+                      <td>15952788795</td>
+                      <td>121544785421</td>
+                      <td>四川矿业有限公司</td>
+                      <td>10</td>
+                      <td>sdfs</td>
+                      <td>55</td>
+                      <td>报废</td>
+                      <td>姐姐姐</td>
+
+                    </tr>
+                    <tr class="">
+                      <td>2017-09-26</td>
+                      <td>矿矿业</td>
+                      <td>15952788795</td>
+                      <td>121544785421</td>
+                      <td>四川矿业有限公司</td>
+                      <td>10</td>
+                      <td>sdfs</td>
+                      <td>55</td>
+                      <td>报废</td>
+                      <td>姐姐姐</td>
+
+                    </tr>
+
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+
+
+              <!-- 底部-（分页部分）-->
+              <div class="dt-toolbar">
+                <div class="col-xs-12 col-sm-6">
+                  <span>共5条</span>
+                </div>
+                <div class="hidden-xs right">
+                  <ul class="pagination pagination-sm">
+                    <li *ngFor="let p of categoryList?.page" class="{{p.class}}">
+                      <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+                      <a *ngIf="p.method==''">{{p.text}}</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+          </div>
+
+        </sa-widget>
+      </article>
+    </div>
+  </sa-widgets-grid>
+
+
+
+</div>
+
+
+

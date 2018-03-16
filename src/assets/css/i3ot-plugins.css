@@ -911,6 +911,17 @@ h1,h2,h3,h4 {
 .width-100{
     width:100px;
 }
+.wi-100{
+    width:100px;
+}
+.wi-60{
+    width:60px;
+}
+
+/*高度*/
+.he-32{
+    height:32px;
+}
 
 /*文本溢出隐藏*/
 .text-overflow-y{
@@ -1342,8 +1353,8 @@ span.input-icon {
     vertical-align: middle
 }
 
-.table-height-70>tbody>tr>td{
-    height:70px;
+.table-height-50>tbody>tr>td{
+    height:50px;
     vertical-align: middle
 }
 
@@ -1458,10 +1469,11 @@ span.input-icon {
 .label-button{
     color: #fff;
     display: inline-block!important;
-    width: 60px;
-    height: 26px;
+    width: 36px;
+    /*height: 26px;*/
     text-align: center;
-    line-height: 26px;
+   /* line-height: 26px;*/
+    padding:2px 10px;
     background-repeat: no-repeat;
     background-position: bottom left, top right, 0 0, 0 0;
     -moz-border-radius: 8px;
