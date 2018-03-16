@@ -16,27 +16,26 @@
                       <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
 
                         <div class="form-group pdlr-4">
-                          <a class="btn btn-success btn-sm"  data-toggle="modal" data-target="#myModal">
+                          <a class="btn btn-success btn-sm" (click)="lgModal.show()">
                             <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
                         </div>
                         <div class="form-group pdlr-4">
-                          <a class="btn default-btn btn-sm"   data-toggle="modal" data-target="#myModal">
+                          <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusCategoryId == 0}" (click)="editCategory('edit')">
                             <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
                         </div>
                         <div class="form-group pdlr-4">
-                          <a class="btn default-btn btn-sm" >
+                          <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusCategoryId == 0}" (click)="deleteCategory('id')">
                             <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
                         </div>
                         <div class="form-group pdlr-4">
-                          <a class="btn default-btn btn-sm"  data-toggle="modal" data-target="#particulars" >
+                          <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusCategoryId == 0}" (click)="editCategory('detail')">
                             <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
                         </div>
                         <div class="form-group btn-group pdlr-4">
-                          <a class="btn default-btn btn-sm dropdown-toggle"  data-toggle="dropdown">
+                          <a class="btn default-btn btn-sm dropdown-toggle" (click)="showAllCheck()" data-toggle="dropdown">
                             <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
-
                           <ul class="dropdown-menu" role="menu">
-                            <li><a ><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
+                            <li><a (click)="deleteCategory('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
                           </ul>
                         </div>
                         <div class="form-group pdlr-4" >
@@ -47,98 +46,77 @@
                           <a class="btn btn-default not-click" >
                             <i class="fa fa-arrow-circle-o-up mr-5" ></i>导出</a>
                         </div>
-
                       </form>
                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
                       <div class="form-group pdlr-4">
-                          <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" name="" placeholder="请输入搜索内容" type="text">
+                          <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" [(ngModel)]="keyword"  name="keyword" placeholder="请输入搜索内容" type="text">
                       </div>
                       <div class="form-group pdlr-4">
-                        <button class="btn btn-default" type="submit">
+                        <button class="btn btn-default" type="submit" (click)="getCategoryList(1)">
                           <i  class="glyphicon glyphicon-search"></i>
                           搜索
                         </button>
                       </div>
                     </form>
-
                   </div>
                 </article>
               </div>
-
               <div style="padding:0;">
-                <div style="padding: 0;z-index: 2;" class="table-responsive">
-                  <table class="table table-striped  smart-form">
+                <div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-scrolling">
+                  <table class="table table-striped   smart-form">
                     <thead>
-                    <tr >
-                      <td><label class="checkbox">
-                        <input type="checkbox" name="checkbox-inline" >
-                        <i></i>
-                      </label>
+                    <tr style="height: 37px;">
+                      <td>
+                        <label class="checkbox mt-8">
+                          <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)">
+                          <i></i>
+                        </label>
                       </td>
-                      <th>序号</th>
-                      <th>名称</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="height: 35px;" *ngFor="let c of categoryList?.result?.categoryList?.data">
+                      <td >
+                        <label class="checkbox" *ngIf="cid != super_admin_id && cid != c.c_id" >
+                          <input type="checkbox" name="checkbox-inline" disabled="disabled">
+                          <i></i>
+                        </label>
+                        <label class="checkbox" *ngIf="cid == super_admin_id || cid == c.c_id" >
+                          <input type="checkbox" name="checkbox-inline" value="{{ c.category_id }}" [checked]="selects[c.category_id]" (change)="handle($event)">
+                          <i></i>
+                        </label>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div [ngStyle]="{'padding': '0','z-index': '1','width':width_1,'float':'left'}" class="table-responsive">
+                  <table class="table table-striped smart-form">
+                    <thead>
+                    <tr>
                       <th>类别代码</th>
                       <th>类别名称</th>
                       <th>说明</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="">
-                      <td>
-                        <label class="checkbox">
-                          <input type="checkbox" >
-                          <i></i>
-                        </label>
-                      </td>
-                      <td>1</td>
-                      <td>四川矿业有限公司</td>
-                      <td>2155</td>
-                      <td>分隔符</td>
-                      <td>囧囧飞洒街坊邻居撒娇给付对价会计法看见过复健科该矿该矿</td>
+                    <tr *ngFor="let c of categoryList?.result?.categoryList?.data" (click)="isStatusShow(c.category_id)" [ngClass]="{'table-color':editStatusCategoryId == c.category_id}">
+                      <td>{{c.category_number}}</td>
+                      <td>{{c.category_desc}}</td>
+                      <td>{{c.category_tab}}</td>
                     </tr>
-                    <tr class="">
-                      <td>
-                        <label class="checkbox">
-                          <input type="checkbox" >
-                          <i></i>
-                        </label>
-                      </td>
-                      <td>1</td>
-                      <td>四川矿业有限公司</td>
-                      <td>2155</td>
-                      <td>分隔符</td>
-                      <td>囧囧飞洒街坊邻居撒娇给付对价会计法看见过复健科该矿该矿</td>
-                    </tr>
-                    <tr class="table-color">
-                      <td>
-                        <label class="checkbox">
-                          <input type="checkbox" >
-                          <i></i>
-                        </label>
-                      </td>
-                      <td>1</td>
-                      <td>四川矿业有限公司</td>
-                      <td>2155</td>
-                      <td>分隔符</td>
-                      <td>囧囧飞洒街坊邻居撒娇给付对价会计法看见过复健科该矿该矿</td>
-                    </tr>
-
-
                     </tbody>
                   </table>
-
                 </div>
               </div>
-
-
               <!-- 底部-（分页部分）-->
               <div class="dt-toolbar">
                 <div class="col-xs-12 col-sm-6">
-                  <span>共5条</span>
+                  <span>共{{categoryList.result?.categoryList?.total}}条</span>
                 </div>
                 <div class="hidden-xs right">
                   <ul class="pagination pagination-sm">
-                    <li *ngFor="let p of categoryList?.page" class="{{p.class}}">
+                    <li *ngFor="let p of categoryList?.result?.page" class="{{p.class}}">
                       <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
                       <a *ngIf="p.method==''">{{p.text}}</a>
                     </li>
@@ -146,35 +124,24 @@
                 </div>
               </div>
             </div>
-
-
-
-
-
           </div>
-
         </sa-widget>
       </article>
     </div>
   </sa-widgets-grid>
-
-
-
 </div>
 
-
-
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" bsModal #lgModal="bs-modal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <!-- 关闭按钮 -->
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+        <button type="button" class="close" (click)="closeSubmit();lgModal.hide()">
           ×
         </button>
         <!-- 标题 -->
-        <h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>添加资产类别</h3>
-         <h3 class="modal-title  color-yellow" data-ng-bind='results.title'><i class="glyphicon glyphicon-pencil"></i>修改资产类别</h3>
+        <h3 class="modal-title txt-color-blue" data-ng-bind='results.title' *ngIf="category_id == 0"><i class="fa-fw fa fa-plus"></i>添加资产类别</h3>
+         <h3 class="modal-title  color-yellow" data-ng-bind='results.title' *ngIf="category_id != 0"><i class="glyphicon glyphicon-pencil"></i>修改资产类别</h3>
       </div>
       <div class="modal-body">
         <div class="row mt-20">
@@ -182,9 +149,9 @@
             <fieldset>
               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <section>
-                  <label class="label txt-color-blue">类别代码<span class="asterisk-color">*</span></label>
+                  <label class="label txt-color-blue">类别编号<span class="asterisk-color">*</span></label>
                   <label class="input">
-                    <input type="text"   placeholder=""  >
+                    <input type="text" placeholder="类别编号" name="category_number" [(ngModel)]="category_number">
                   </label>
                 </section>
               </div>
@@ -192,7 +159,7 @@
                 <section>
                   <label class="label txt-color-blue">类别名称<span class="asterisk-color">*</span></label>
                   <label class="input">
-                    <input type="text" placeholder="" >
+                    <input type="text" placeholder="请输类别名称" name="category_desc" [(ngModel)]="category_desc">
                   </label>
                 </section>
               </div>
@@ -200,35 +167,29 @@
                 <section>
                   <label class="label">说明</label>
                   <label class="textarea textarea-resizable">
-                    <textarea class="custom-scroll" rows="2" name="" ></textarea>
+                    <textarea class="custom-scroll" rows="2" placeholder="请输分类说明" name="category_tab" [(ngModel)]="category_tab"></textarea>
                   </label>
                 </section>
               </div>
             </fieldset>
           </form>
-
         </div>
-
       </div>
       <div class="modal-footer">
-        <button class="btn btn-success btn-sm" type="button"><span class="glyphicon glyphicon-plus"></span>保存并新增</button>
-        <button type="button" class="btn btn-primary" data-ng-click="ok()">保存</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+        <!--<button class="btn btn-success btn-sm" type="button"><span class="glyphicon glyphicon-plus"></span>保存并新增</button>-->
+        <button type="button" class="btn btn-primary" (click)="addCategory()">保存</button>
+        <button type="button" class="btn btn-default" (click)="closeSubmit();lgModal.hide()">取消</button>
       </div>
     </div>
   </div>
 </div>
 
-
-
-<div class="modal fade" id="particulars" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" bsModal #detailModel="bs-modal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <!-- 关闭按钮 -->
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-          ×
-        </button>
+        <button type="button" class="close" (click)="closeSubmit();detailModel.hide()">×</button>
         <!-- 标题 -->
         <h3 class="modal-title" data-ng-bind='results.title'></h3>
         <h4 class="modal-title">资产名称-编号</h4>
@@ -242,25 +203,22 @@
                 <tbody>
                 <tr>
                   <td class="width-120">类别代码:</td>
-                  <td class=""></td>
+                  <td class="">{{categoryInfo?.result?.parent?.category_number}}</td>
                   <td class="width-120">类别名称:</td>
-                  <td >
-                  </td>
+                  <td >{{categoryInfo?.result?.parent?.category_desc}} </td>
                 </tr>
                 <tr>
                   <td class="width-120">说明:</td>
-                  <td class="" colspan="3"></td>
-
+                  <td class="" colspan="3">{{categoryInfo?.result?.parent?.category_tab}}</td>
                 </tr>
                 </tbody>
               </table>
-
             </div>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+        <button type="button" class="btn btn-default" (click)="closeSubmit();detailModel.hide()">返回</button>
       </div>
     </div>
   </div>

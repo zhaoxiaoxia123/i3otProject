@@ -1,5 +1,4 @@
 import {Component, OnInit, ElementRef, Renderer, OnDestroy} from '@angular/core';
-import {ActivitiesService} from "./activities.service";
 import {Http} from "@angular/http";
 import {CookieStoreService} from "../../../cookies/cookie-store.service";
 import {GlobalService} from "../../../../core/global.service";
@@ -8,55 +7,52 @@ declare var $: any;
 
 @Component({
   selector: 'sa-activities',
-  templateUrl: './activities.component.html',
-  providers: [ActivitiesService],
+  templateUrl: './activities.component.html'
 })
 export class ActivitiesComponent implements OnInit, OnDestroy {
-  count:number;
+
   lastUpdate:any;
   active:boolean;
-  activities:any;
-  currentActivity: any;
   loading: boolean;
   uid:any;
+  messageList : Array<any>[];
+  isShow:any = '';
   constructor(
       private http:Http,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService,
       private el:ElementRef,
-      private renderer: Renderer,
-    private activitiesService:ActivitiesService,
+      private renderer: Renderer
     ) {
-    this.active = false;
-    this.loading = false;
-    this.activities = [];
-    this.count = 0;
     this.lastUpdate = new Date();
     this.uid = this.cookieStore.getCookie('uid');
+    console.log('this.isShow:--');
+    console.log(this.isShow);
   }
 
   ngOnInit() {
-    this.activitiesService.getActivities().subscribe(data=> {
-      this.activities = data;
-      this.count = data.reduce((sum, it)=> sum + it.data.length, 0);
-      this.currentActivity = data[0];
-    });
-
-    // this.http.get(this.globalService.getDomain() + '/api/v1/getNewMessages?to=' + this.uid+'&type=all')
-    //     .map((res) => res.json())
-    //     .subscribe((data) => {
-    //       this.activities = data;
-    //       this.count = data.result.notice.count + data.result.warning.count + data.result.task.count;
-    //       this.currentActivity = data.result.notice.messageArr[0];
-    //       console.log('this.activities:------');
-    //       console.log(this.activities);
-    //       console.log(this.count);
-    //       console.log(this.currentActivity);
-    //     });
+    this.http.get(this.globalService.getDomain() + '/api/v1/getNewMessages?u_id=' + this.uid+'&category=notice,warning,task')
+        .map((res) => res.json())
+        .subscribe((data) => {
+          this.messageList = data;
+          console.log('this.messageList~~~~:------');
+          console.log(this.messageList);
+        });
   }
 
-  setActivity(activity){
-    this.currentActivity = activity;
+
+  showMessageDiv(type:any) {
+    console.log(type);
+    if (type == 'all' ) {
+      if(this.isShow == '') {
+        this.isShow = 1;
+      }else{
+        this.isShow = '';
+      }
+    }else if (type == 'notice' || type == 'warning' || type == 'task') {
+      this.isShow = type;
+    }
+    console.log(this.isShow);
   }
 
   private documentSub: any;
@@ -72,11 +68,8 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
           this.documentUnsub()
         }
       });
-
-
     } else {
       dropdown.fadeOut()
-
       this.documentUnsub()
     }
   }
