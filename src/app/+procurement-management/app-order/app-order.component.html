@@ -499,7 +499,6 @@
                               <i></i>
                             </label>
                             </td>
-                            <th class="text-align-center">数量</th>
                             <th>商品编号</th>
                             <th>商品属性</th>
                             <th>商品名称</th>
@@ -517,9 +516,6 @@
                                 <input type="checkbox" name="checkbox-inline" value="{{ p.p_id }}" [checked]="selects[p.p_id]" (change)="handle($event,ind)">
                                 <i></i>
                               </label>
-                            </td>
-                            <td>
-                              <label class="input" style="width:60px;"><input type="number"  class="ng-pristine ng-valid ng-touched"></label>
                             </td>
                             <td>{{p.p_product_id}}</td>
                             <td>{{p.p_property==1?'销售':'外购'}}</td>

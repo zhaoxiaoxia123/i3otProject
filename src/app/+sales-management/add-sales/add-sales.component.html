@@ -283,25 +283,25 @@
                               <td>{{p.category}}</td>
                               <td>{{p.p_unit}}</td>
                               <td>
-                                <label  class="input">
+                                <label  class="input wi-100">
                                   <input *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_count" value="{{p.p_count}}" type="number">
                                   <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_count" value="{{p.p_count}}" type="number">
                                 </label>
                               </td>
                               <td>
-                                <label  class="input">
+                                <label  class="input wi-100">
                                 <input *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_price" value="{{p.p_price}}" type="number">
                                   <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_price" value="{{p.p_price}}" type="number">
                                 </label>
                               </td>
                               <td>
-                                <label  class="input">
+                                <label  class="input wi-100">
                                 <input *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_pur_price" value="{{p.p_pur_price}}" type="number" (blur)="sumPCount($event,'p_pur_price')">
                                   <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_pur_price" value="{{p.p_pur_price}}" type="number" (blur)="sumPCount($event,'p_pur_price')">
                                 </label>
                               </td>
                               <td>
-                                <label  class="input">
+                                <label  class="input wi-200">
                                 <input *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_note" value="{{p.p_note}}" type="text">
                                   <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_note" value="{{p.p_note}}" type="text">
                                 </label>
@@ -467,7 +467,6 @@
                               <i></i>
                             </label>
                             </td>
-                            <th class="text-align-center">数量</th>
                             <th>商品编号</th>
                             <th>商品属性</th>
                             <th>商品名称</th>
@@ -485,9 +484,6 @@
                                 <input type="checkbox" name="checkbox-inline" value="{{ p.p_id }}" [checked]="selects[p.p_id]" (change)="handle($event,ind)">
                                 <i></i>
                               </label>
-                            </td>
-                            <td>
-                              <label class="input" style="width:60px;"><input type="number"  class="ng-pristine ng-valid ng-touched"></label>
                             </td>
                             <td>{{p.p_product_id}}</td>
                             <td>{{p.p_property==1?'销售':'外购'}}</td>

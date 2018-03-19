@@ -914,6 +914,10 @@ h1,h2,h3,h4 {
 .wi-100{
     width:100px;
 }
+.wi-200{
+    max-width:200px;
+    min-width:100px;
+}
 .wi-60{
     width:60px;
 }

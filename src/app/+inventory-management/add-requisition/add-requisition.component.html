@@ -57,6 +57,54 @@
                       </label>
                     </section>
                   </div>
+
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <label class="label">调出仓库</label>
+                    <section>
+                      <div class="input-group">
+                        <label   class="select form-control border-0">
+
+                          <select  name="" >
+                            <option  value="0">--请选择--</option>
+                            <option  value="1">地方</option>
+                          </select><i></i>
+                        </label>
+                        <div class="input-group-btn">
+                          <a  href="http://cn.i3ot.com/#/forms/inventory1/0" (click)="smartModEg1()" target="_blank"  class="btn btn-default btn-sm pb-6" type="button">
+                            <!-- <i class="fa fa-plus "></i>--> 添加
+                          </a>
+                          <a class="btn btn-default btn-sm pb-6" type="button" ><i class="fa fa-link"></i>
+                            刷新
+                          </a>
+                        </div>
+                      </div>
+
+                    </section>
+                  </div>
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <label class="label">调入仓库</label>
+                    <section>
+                      <div class="input-group">
+                        <label   class="select form-control border-0">
+
+                          <select  name="" >
+                            <option  value="0">--请选择--</option>
+                            <option  value="1">分隔符</option>
+                          </select><i></i>
+                        </label>
+                        <div class="input-group-btn">
+                          <a  href="http://cn.i3ot.com/#/forms/inventory1/0" (click)="smartModEg1()" target="_blank"  class="btn btn-default btn-sm pb-6" type="button">
+                            <!-- <i class="fa fa-plus "></i>--> 添加
+                          </a>
+                          <a class="btn btn-default btn-sm pb-6" type="button" ><i class="fa fa-link"></i>
+                            刷新
+                          </a>
+                        </div>
+                      </div>
+
+                    </section>
+                  </div>
+
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
                     <label class="label">经手人</label>
                     <section>
@@ -135,15 +183,18 @@
                                     <tbody>
                                     <tr>
                                       <td>
-                                        <form class="smart-form">
-                                          <section>
-                                            <label class="input">
+                                        <span>
+                                          <label class="input wi-200">
                                               <i *ngIf="isDetail!='detail'" class="icon-append glyphicon glyphicon-search cursor-pointer" (click)="searchKey()"></i><!-- data-toggle="modal" data-target="#myModal"-->
                                               <input *ngIf="isDetail=='detail'" disabled="disabled" type="text" placeholder="" name="keyword" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">
                                               <input *ngIf="isDetail!='detail'" type="text" placeholder="" name="keyword" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">
                                             </label>
+                                        </span>
+                                        <!--<form class="smart-form">
+                                          <section>
+
                                           </section>
-                                        </form>
+                                        </form>-->
                                       </td>
                                       <td>
                                       </td>
@@ -170,8 +221,8 @@
                               <th>商品分类</th>
                               <th>规格型号</th>
                               <th>单位</th>
-                              <!--<th class="txt-color-blue">调出仓库</th>-->
-                              <!--<th class="txt-color-blue">调入仓库</th>-->
+                              <th class="txt-color-blue">调出仓库</th>
+                              <th class="txt-color-blue">调入仓库</th>
                               <th class="txt-color-blue">数量</th>
                               <th class="txt-color-blue">调拨单位成本</th>
                               <th>调拨成本</th>
@@ -184,6 +235,26 @@
                               <td>{{p.p_category_id}}</td>
                               <td>{{p.p_specification}}</td>
                               <td>{{p.p_unit}}</td>
+                              <td>
+                                <span>
+                                  <label   class="select form-control border-0 wi-100">
+                                  <select  name="" >
+                                    <option  value="0">--请选择--</option>
+                                    <option  value="1">fgf</option>
+                                  </select><i></i>
+                                </label>
+                                </span>
+                              </td>
+                              <td>
+                                <span>
+                                  <label   class="select form-control border-0 wi-100">
+                                  <select  name="" >
+                                    <option  value="0">--请选择--</option>
+                                    <option  value="1">fgf</option>
+                                  </select><i></i>
+                                </label>
+                                </span>
+                              </td>
                               <!--<td>-->
                                 <!--<label  class="input">-->
                                   <!--<input [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_count" value="{{p.p_count}}" type="number">-->
@@ -195,20 +266,20 @@
                                 <!--</label>-->
                               <!--</td>-->
                               <td>
-                                <label class="input">
+                                <label class="input wi-100">
                                   <input *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_count" value="{{p.p_count}}" type="number">
                                   <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_count" value="{{p.p_count}}" type="number">
                                 </label>
                               </td>
                               <td>
-                                <label class="input">
+                                <label class="input wi-100">
                                   <input *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_price" value="{{p.p_price}}" type="text">
                                   <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_price" value="{{p.p_price}}" type="text">
                                 </label>
                               </td>
                               <td>{{p.p_count * p.p_price}}</td>
                               <td>
-                                <label class="input">
+                                <label class="input wi-100">
                                   <input *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_total_price" value="{{p.p_total_price}}" type="text">
                                   <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_total_price" value="{{p.p_total_price}}" type="text">
                                 </label>
@@ -221,8 +292,8 @@
                               <th></th>
                               <th></th>
                               <th></th>
-                              <!--<th></th>-->
-                              <!--<th></th>-->
+                              <th></th>
+                              <th></th>
                               <th></th>
                               <th></th>
                               <th></th>
@@ -370,7 +441,6 @@
                               <i></i>
                             </label>
                             </td>
-                            <th class="text-align-center">数量</th>
                             <th>商品编号</th>
                             <th>商品属性</th>
                             <th>商品名称</th>
@@ -388,9 +458,6 @@
                                 <input type="checkbox" name="checkbox-inline" value="{{ p.p_id }}" [checked]="selects[p.p_id]" (change)="handle($event,ind)">
                                 <i></i>
                               </label>
-                            </td>
-                            <td>
-                              <label class="input" style="width:60px;"><input type="number"  class="ng-pristine ng-valid ng-touched"></label>
                             </td>
                             <td>{{p.p_product_id}}</td>
                             <td>{{p.p_property==1?'销售':'外购'}}</td>

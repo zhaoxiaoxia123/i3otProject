@@ -78,7 +78,7 @@
 
               <div style="padding:0;">
                 <div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-scrolling">
-                  <table class="table table-striped   smart-form table-height-32">
+                  <table class="table table-striped   smart-form table-height-20">
                     <thead>
                     <tr style="height: 34px;" >
                       <td><label class="checkbox " >
@@ -304,17 +304,17 @@
                   </section>
                 </div>
               </div>
-              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <section>
                   <label class="label ">使用人</label>
                   <label class="select">
                     <select name="assets_user_id" [(ngModel)]="assets_user_id">
-                      <option value="0" [selected]="assets_id == 0">--请选择--</option>
+                      <option value="0" [selected]="assets_id == 0">&#45;&#45;请选择&#45;&#45;</option>
                       <option value="{{u.id}}" [selected]="assetsInfo?.result?.assets_user_id == u.id" *ngFor="let u of userList?.result?.userList">{{u.u_username}}</option>
                     </select>
                     <i></i> </label>
                 </section>
-              </div>
+              </div>-->
               <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <section>
                   <label class="label">补充说明</label>
