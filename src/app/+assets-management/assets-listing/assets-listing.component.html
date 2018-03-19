@@ -32,33 +32,33 @@
                           <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailAssets('detail')">
                             <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
                         </div>
-                     <div class="form-group pdlr-4" *ngIf="isStatus == 2">
+                    <!-- <div class="form-group pdlr-4" *ngIf="isStatus == 2">
                        <a class="btn default-btn btn-sm" (click)="editStatus(1,'id')">
                          <span class="fa-fw fa fa-play mr-5 color-green"></span>启用</a>
                      </div>
                      <div class="form-group pdlr-4" *ngIf="isStatus == 1">
                        <a class="btn default-btn btn-sm" (click)="editStatus(2,'id')">
                          <span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>无效</a>
-                     </div>
+                     </div>-->
                         <div class="form-group btn-group pdlr-4">
                           <a class="btn default-btn btn-sm dropdown-toggle" (click)="showAllCheck()" data-toggle="dropdown">
                             <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
 
                           <ul class="dropdown-menu" role="menu">
-                            <li><a (click)="editStatus(1,'all')"><span class="fa-fw fa fa-play mr-5 color-green"></span>批量设为启动</a></li>
+                            <!--<li><a (click)="editStatus(1,'all')"><span class="fa-fw fa fa-play mr-5 color-green"></span>批量设为启动</a></li>
                             <li><a (click)="editStatus(2,'all')"><span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>批量设为无效</a></li>
-                            <li class="divider"></li>
+                            <li class="divider"></li>-->
                             <li><a (click)="deleteAssets('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
                           </ul>
                         </div>
-                        <div class="form-group pdlr-4" >
+                        <!--<div class="form-group pdlr-4" >
                           <a class="btn btn-default not-click"  >
                             <i class="fa fa-arrow-circle-o-down mr-5"></i>导入</a>
                         </div>
                         <div class="form-group pdlr-4 " >
                           <a class="btn btn-default not-click" >
                             <i class="fa fa-arrow-circle-o-up mr-5" ></i>导出</a>
-                        </div>
+                        </div>-->
                       </form>
                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
                       <div class="form-group pdlr-4">
@@ -132,8 +132,8 @@
                       <th>购买日期 </th>
                       <th>购买金额 </th>
                       <th>当前状态 </th>
-                      <th>使用人</th>
-                      <th>使用部门</th>
+                      <!--<th>使用人</th>
+                      <th>使用部门</th>-->
                       <th>存放地点</th>
                       <th>创建时间</th>
                     </tr>
@@ -152,8 +152,8 @@
                             <span class="label-invalid" *ngSwitchCase="3">报废</span>
                          </span>
                       </td>
-                      <td>{{a1.u_username}}</td>
-                      <td><span class="">{{a1.department_name}}</span></td>
+                      <!--<td>{{a1.u_username}}</td>
+                      <td><span class="">{{a1.department_name}}</span></td>-->
                       <td><span class="">{{a1.assets_address}}</span></td>
                       <td><span class="">{{a1.created_at}}</span></td>
                     </tr>
@@ -264,12 +264,12 @@
                 </section>
               </div>
 
-              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+             <!-- <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <section>
                   <label  class="label txt-color-blue">当前状态<span class="asterisk-color">*</span></label>
                   <label class="select">
                     <select name="assets_status" [(ngModel)]="assets_status">
-                      <option value="0" [selected]="assets_id == 0">--请选择--</option>
+                      <option value="0" [selected]="assets_id == 0">&#45;&#45;请选择&#45;&#45;</option>
                       <option value="1">闲置</option>
                       <option value="2">使用</option>
                       <option value="3">报废</option>
@@ -277,7 +277,7 @@
                     <i></i>
                   </label>
                 </section>
-              </div>
+              </div>-->
               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <section>
                   <label class="label ">存放地点</label>
@@ -286,13 +286,13 @@
                   </label>
                 </section>
               </div>
-              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="margin-left-15">
                   <label class="labe2">使用部门</label>
                   <section class="col col-8 col-sm-8 col-xs-8">
                     <label class="select">
                       <select name="assets_department_id" [(ngModel)]="assets_department_id" (change)="geteUserList($event,1)">
-                        <option value="0">--请选择--</option>
+                        <option value="0">&#45;&#45;请选择&#45;&#45;</option>
                         <option value="{{p.department_id}}" [selected]="assetsInfo?.result?.assets_department_id == p.department_id" *ngFor="let p of assetsDefault?.result?.department">{{p.department_name}}</option>
                       </select>
                      <i></i> </label>
@@ -303,7 +303,7 @@
                     </button>
                   </section>
                 </div>
-              </div>
+              </div>-->
               <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <section>
                   <label class="label ">使用人</label>

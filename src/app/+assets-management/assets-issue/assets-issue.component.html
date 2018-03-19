@@ -43,14 +43,14 @@
                           </ul>
                         </div>
 
-                        <div class="form-group pdlr-4" >
+                       <!-- <div class="form-group pdlr-4" >
                           <a class="btn btn-default not-click"  >
                             <i class="fa fa-arrow-circle-o-down mr-5"></i>导入</a>
                         </div>
                         <div class="form-group pdlr-4" >
                           <a class="btn btn-default not-click" >
                             <i class="fa fa-arrow-circle-o-up mr-5" ></i>导出</a>
-                        </div>
+                        </div>-->
 
                       </form>
                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
@@ -78,8 +78,8 @@
                         <i></i>
                       </label>
                       </td>
-                      <th>序号</th>
-                      <th>名称</th>
+                      <th>资产编号</th>
+                      <th>资产名称</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -115,7 +115,6 @@
                   <table class="table table-striped   smart-form table-height-20">
                     <thead>
                     <tr>
-                      <th>资产</th>
                       <th>使用部门 </th>
                       <th>使用人 </th>
                       <th>发放日期 </th>
@@ -124,7 +123,6 @@
                     </thead>
                     <tbody>
                     <tr class="table-color">
-                      <td>gdfg</td>
                       <td>矿矿业</td>
                       <td>2017-09-26</td>
                       <td>121544785421</td>
@@ -132,7 +130,6 @@
 
                     </tr>
                     <tr class="">
-                      <td>gdfg</td>
                       <td>矿矿业</td>
                       <td>2017-09-26</td>
                       <td>121544785421</td>
@@ -231,9 +228,9 @@
                 </section>
               </div>
               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <div class="margin-left-15">
-                  <label class="labe2">使用部门</label>
-                  <section class="col col-8 col-sm-8 col-xs-8">
+                <label class="label ">使用部门</label>
+                <section >
+                  <div class="input-group">
                     <label class="select">
                       <select class="">
                         <option value="">--请选择--</option>
@@ -242,13 +239,46 @@
                         <option value=""></option>
                       </select>
                       <i></i> </label>
+
+                    <div class="input-group-btn">
+                      <a  href="http://cn.i3ot.com/#/management/setting-departmentnew" target="_blank" (click)="smartModEg1()" class="btn btn-default btn-sm pb-6" type="button">
+                        <!-- <i class="fa fa-plus "></i>--> 添加
+                      </a>
+                      <a class="btn btn-default btn-sm pb-6" type="button" (click)="getUserDefault(1)"><i class="fa fa-link"></i>
+                        刷新
+                      </a>
+
+                    </div>
+                  </div>
+
+                </section>
+               <!-- <div class="margin-left-15">
+                  <label class="labe2">使用部门</label>
+                  <section class="col col-8 col-sm-8 col-xs-8">
+                    <label class="select">
+                      <select class="">
+                        <option value="">&#45;&#45;请选择&#45;&#45;</option>
+                        <option value=""></option>
+                        <option value=""></option>
+                        <option value=""></option>
+                      </select>
+                      <i></i> </label>
                   </section>
-                  <section class="col col-4 col-sm-4 col-xs-4">
+                  <div class="input-group-btn">
+                    <a  href="http://cn.i3ot.com/#/management/setting-departmentnew" target="_blank" (click)="smartModEg1()" class="btn btn-default btn-sm pb-6" type="button">
+                      &lt;!&ndash; <i class="fa fa-plus "></i>&ndash;&gt; 添加
+                    </a>
+                    <a class="btn btn-default btn-sm pb-6" type="button" (click)="getUserDefault(1)"><i class="fa fa-link"></i>
+                      刷新
+                    </a>
+
+                  </div>
+                  &lt;!&ndash;<section class="col col-4 col-sm-4 col-xs-4">
                     <button type="button" class="btn btn-info btn-sm"  >
                       添加部门
                     </button>
-                  </section>
-                </div>
+                  </section>&ndash;&gt;
+                </div>-->
               </div>
               <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <section>
