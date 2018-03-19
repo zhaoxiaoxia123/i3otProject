@@ -258,40 +258,55 @@
                               <td>{{p.p_unit}}</td>
                               <!--<td></td>-->
                               <td>
-                                <label  class="input">
+                                <span>
+                                  <label  class="input wi-100">
                                   <input *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_count" value="{{p.p_count}}" type="number">
                                   <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_count" value="{{p.p_count}}" type="number">
                                 </label>
+                                </span>
+
                               </td>
                               <td>
-                                <label  class="input">
+                                <span>
+                                   <label  class="input wi-100">
                                   <input *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_price" value="{{p.p_price}}" type="number" (blur)="sumPCount($event,'p_price')">
                                   <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_price" value="{{p.p_price}}" type="number" (blur)="sumPCount($event,'p_price')">
                                 </label>
+                                </span>
+
                               </td>
                               <td>
-                                <label  class="input">
+                                <span>
+                                  <label  class="input wi-100">
                                   <input *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.discount" value="{{p.discount}}" type="number">
                                   <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.discount" value="{{p.discount}}" type="number">
                                 </label>
+                                </span>
+
                               </td>
                               <td>{{p.p_count * p.p_price}}</td>
                               <td>{{p.p_price * p.discount}}</td>
                               <td>{{(p.p_count * p.p_price * p.discount)}}</td>
                               <td>
-                                <label  class="input">
+                                <span>
+                                   <label  class="input wi-100">
                                   <input *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.rate" value="{{p.rate}}" type="number">
                                   <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.rate" value="{{p.rate}}" type="number">
                                 </label>
+                                </span>
+
                               </td>
                               <td>{{p.p_count * p.p_price * p.discount}}</td>
                               <td>{{p.p_price * p.discount}}</td>
                               <td>{{p.p_count * p.p_price * p.discount * p.rate}}</td>
                               <td>
-                                <label  class="input">
+                                <span>
+                                  <label  class="input wi-200">
                                   <input *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_note" value="{{p.p_note}}" type="text">
                                   <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_note" value="{{p.p_note}}" type="text">
                                 </label>
+                                </span>
+
                               </td>
                             </tr>
                             </tbody>

@@ -127,6 +127,8 @@
                   <table class="table table-striped   smart-form table-height-20">
                     <thead>
                     <tr>
+                      <th>调入仓库</th>
+                      <th>调出仓库</th>
                       <th>经手人</th>
                       <th>经手部门 </th>
                       <th>制单人</th>
@@ -135,6 +137,8 @@
                     </thead>
                     <tbody>
                     <tr *ngFor="let s of stockallotList?.result?.stockallotList?.data" (click)="isStatusShow(s.stock_allot_id,s.stock_allot_status)" [ngClass]="{'table-color':editStatusStockallotId == s.stock_allot_id}">
+                      <td></td>
+                      <td></td>
                       <td>{{s.user_name}}</td>
                       <td>{{s.stock_allot_date}}</td>
                       <td>{{s.u_username}}</td>
