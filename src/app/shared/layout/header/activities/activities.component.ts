@@ -1,4 +1,4 @@
-import {Component, OnInit, ElementRef, Renderer, OnDestroy} from '@angular/core';
+import {Component, OnInit, ElementRef, Renderer, OnDestroy, Output} from '@angular/core';
 import {Http} from "@angular/http";
 import {CookieStoreService} from "../../../cookies/cookie-store.service";
 import {GlobalService} from "../../../../core/global.service";
@@ -16,7 +16,7 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
   loading: boolean;
   uid:any;
   messageList : Array<any>[];
-  isShow:any = '';
+  isShow:any = 'none';
   constructor(
       private http:Http,
       private cookieStore:CookieStoreService,
@@ -40,19 +40,24 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
         });
   }
 
-
+  /**
+   * 获取任务通知点击后的状态
+   * @param value
+   */
+  getData(value:any){
+      this.isShow = value;
+  }
   showMessageDiv(type:any) {
     console.log(type);
     if (type == 'all' ) {
-      if(this.isShow == '') {
+      if(this.isShow == 'none') {
         this.isShow = 1;
       }else{
-        this.isShow = '';
+        this.isShow = 'none';
       }
     }else if (type == 'notice' || type == 'warning' || type == 'task') {
       this.isShow = type;
     }
-    console.log(this.isShow);
   }
 
   private documentSub: any;
@@ -79,7 +84,11 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
   update(){
     this.loading= true;
     setTimeout(()=>{
-      this.lastUpdate = new Date()
+      this.lastUpdate = new Date().getFullYear()+'-'+
+          new Date().getMonth()+'-'+
+          new Date().getDay()+' '+
+          new Date().getHours()+':'+
+          new Date().getMinutes();
       this.loading = false
     }, 1000)
   }

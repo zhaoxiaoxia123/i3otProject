@@ -44,7 +44,6 @@ export class TodoMissionComponent implements OnInit {
         },
     };
     todo_info : Array<any> = [];
-    project_id:number = 0;
     todoList : Array<any> = [];
     todoListPages : Array<any> = [];
     selects : Array<any> = [];
@@ -110,8 +109,13 @@ export class TodoMissionComponent implements OnInit {
     showUlChild : number  = 0;//二级
     keyword:string = '';
 
+    project_ids:any = 0;//接收的
+    project_id:any = 0;
+    todo_id:any = 0;
+
     dropTemplateId : any = '';//拽入模版编号
     rollback_url : string = '/forms/todo-mission';
+
     constructor(
       private http:Http,
       private router : Router,
@@ -129,12 +133,23 @@ export class TodoMissionComponent implements OnInit {
         this.domain_url = this.globalService.getDomain();
         // this.is_show_power[this.cookie_u_id] = true;
 
-        this.routInfo.params.subscribe((param : Params)=>this.project_id=param['project_id']); //这种获取方式是参数订阅，解决在本页传参不生效问题
+        this.routInfo.params.subscribe((param : Params)=> {
+            this.project_ids = param['project_id'];
+        }); //这种获取方式是参数订阅，解决在本页传参不生效问题
+
+        this.todo_id = this.project_ids.split('_')[1];
+        this.project_id = this.project_ids.split('_')[0];
         if(this.project_id != 0){
             this.getTodoDefault(this.project_id,0);
-            this.rollback_url += '/'+this.project_id
+            this.rollback_url += '/'+this.project_id+'_'+this.todo_id;
         }else{
-            this.rollback_url += '/0';
+            this.rollback_url += '/0_0';
+        }
+        console.log('来自消息提醒:--');
+        console.log(this.project_id);
+        console.log(this.todo_id);
+        if(this.todo_id != 0){
+            this.showDetail(this.todo_id,'来自消息提醒',2);
         }
         window.scrollTo(0,0);
 
@@ -595,14 +610,14 @@ export class TodoMissionComponent implements OnInit {
      * 显示详情页
      * @param todo_id
      * template_name 模版名称
+     * isRead 1:正常点击进入详情  2：来自消息提醒
      */
-    showDetail(todo_id:number,template_id:string,template_name:string){
+    showDetail(todo_id:number,template_name:string,isRead:any){
         // if(document.body.scrollTop >90){
         //     this.scroll_ = (document.body.scrollTop-90) +'px';
         // }else{
         //     this.scroll_ = document.body.scrollTop + 'px';
         // }
-        this.is_show_detail = template_id;
         this.detail_template_name = template_name;
         let url = this.globalService.getDomain()+'/api/v1/getTodoInfo?todo_id='+todo_id+'&sid='+this.cookieStore.getCookie('sid');
         this.http.get(url)
@@ -613,6 +628,8 @@ export class TodoMissionComponent implements OnInit {
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
+
+                this.is_show_detail =  this.todo_info['result']['template_id'];
                 this.todo_name = this.todo_info['result']['todo_title'];
                 this.todo_content = this.todo_info['result']['todo_content'];
 
@@ -643,7 +660,9 @@ export class TodoMissionComponent implements OnInit {
                 'project_id':project_id,
                 'todo_status':num,
                 'is_list':1,
+                'is_send_message':'true',
                 'pages':JSON.stringify(this.todoListPages),
+                'u_id':this.cookieStore.getCookie('uid'),
                 'sid':this.cookieStore.getCookie('sid')
             }).subscribe(
                 (data)=>{
@@ -666,7 +685,6 @@ export class TodoMissionComponent implements OnInit {
                 }
             );
         }
-
     }
 
     /**
@@ -680,9 +698,12 @@ export class TodoMissionComponent implements OnInit {
         }
         if(confirm(msg)){
             this.http.post(this.globalService.getDomain()+'/api/v1/addTodo',{
+                'project_id':this.project_id,
                 'todo_id':todo_id,
                 'todo_status':num,
-                'is_list':0,
+                'is_list':2,
+                'is_send_message':'true',
+                'u_id':this.cookieStore.getCookie('uid'),
                 'sid':this.cookieStore.getCookie('sid')
             }).subscribe(
                 (data)=>{
@@ -962,6 +983,7 @@ export class TodoMissionComponent implements OnInit {
                 'todo_id': todo_id,
                 'project_id': this.project_id,
                 'todo_assign':stringify(this.selected_user),
+                'is_send_message':'true',
                 'u_id':this.cookieStore.getCookie('uid'),
                 'sid':this.cookieStore.getCookie('sid')
             };
@@ -971,6 +993,7 @@ export class TodoMissionComponent implements OnInit {
                 'todo_id': todo_id,
                 'project_id': this.project_id,
                 'todo_follower':stringify(this.selected_user),
+                'is_send_message':'true',
                 'u_id':this.cookieStore.getCookie('uid'),
                 'sid':this.cookieStore.getCookie('sid')
             };
@@ -1091,9 +1114,12 @@ export class TodoMissionComponent implements OnInit {
             return false;
         }
         this.http.post(this.globalService.getDomain()+'/api/v1/addTodo',{
+            'project_id':this.project_id,
             'todo_id':todo_id,
             'type':type,
             'remove_u_id':id,
+            'is_send_message':'true',
+            'u_id':this.cookieStore.getCookie('uid'),
             'sid':this.cookieStore.getCookie('sid')
         }).subscribe( (data)=>{
             let info = JSON.parse(data['_body']);

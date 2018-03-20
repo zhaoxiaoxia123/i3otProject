@@ -28,16 +28,16 @@ export class AssetsListingComponent implements OnInit {
   assets_name: string = '';
   assets_number: string = '';
   assets_param: string = '';
-  assets_type: string = '';
+  category_type_ids: string = '';
   assets_count: string = '';
   assets_unit: string = '';
   assets_price: string = '';
-  assets_date: string = '';
+  assets_buy_date: string = '';
   assets_status: number = 1;
-  assets_address : string = '';
+  assets_check_address : string = '';
   assets_department_id : number = 0;
   assets_user_id : number = 0;
-  assets_detail : string = '';
+  assets_note : string = '';
 
   //顶部启动 和无效是否启用显示
   editStatusAssetsId : any = 0;
@@ -53,6 +53,9 @@ export class AssetsListingComponent implements OnInit {
    * @type {string}
    */
   selectTypeIds : string = '';
+  //用作全选和反选
+  selectIds : Array<any> = [];
+  checkId : boolean = false;
 
   keyword : string = '';
   cid : any = 0;//当前登录用户的所属公司id
@@ -81,7 +84,7 @@ export class AssetsListingComponent implements OnInit {
    * 获取默认参数
    */
   getAssetsDefault(){
-    this.http.get(this.globalService.getDomain()+'/api/v1/getAssetsDefault?type=department&category_type='+this.category_type+'&sid='+this.cookieStore.getCookie('sid'))
+    this.http.get(this.globalService.getDomain()+'/api/v1/getAssetsDefault?type=category_type&category_type='+this.category_type+'&sid='+this.cookieStore.getCookie('sid'))
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.assetsDefault = data;
@@ -93,37 +96,37 @@ export class AssetsListingComponent implements OnInit {
           }
         });
   }
-
-  /**
-   * 获取使用人
-   */
-  geteUserList(obj,type:number) {
-    let department_id = 0;
-    if(type == 1) {
-       department_id = obj.target.value;
-    }else{
-       department_id = obj;
-    }
-    if(department_id != 0) {
-      this.http.get(this.globalService.getDomain() + '/api/v1/getAssetsDefault?type=user&department_id=' + department_id + '&sid=' + this.cookieStore.getCookie('sid'))
-          .map((res) => res.json())
-          .subscribe((data) => {
-            this.userList = data;
-            console.log(this.userList);
-            if (this.userList['status'] == 202) {
-              alert(this.userList['msg']);
-              this.cookieStore.removeAll(this.rollback_url);
-              this.router.navigate(['/auth/login']);
-            }
-          });
-    }
-  }
+  //
+  // /**
+  //  * 获取使用人
+  //  */
+  // geteUserList(obj,type:number) {
+  //   let department_id = 0;
+  //   if(type == 1) {
+  //      department_id = obj.target.value;
+  //   }else{
+  //      department_id = obj;
+  //   }
+  //   if(department_id != 0) {
+  //     this.http.get(this.globalService.getDomain() + '/api/v1/getAssetsDefault?type=user&department_id=' + department_id + '&sid=' + this.cookieStore.getCookie('sid'))
+  //         .map((res) => res.json())
+  //         .subscribe((data) => {
+  //           this.userList = data;
+  //           console.log(this.userList);
+  //           if (this.userList['status'] == 202) {
+  //             alert(this.userList['msg']);
+  //             this.cookieStore.removeAll(this.rollback_url);
+  //             this.router.navigate(['/auth/login']);
+  //           }
+  //         });
+  //   }
+  // }
   /**
    * 获取产品列表
    * @param number
    */
   getAssetsList(number:string) {
-    let url = this.globalService.getDomain()+'/api/v1/getAssetsList?page='+number+'&sid='+this.cookieStore.getCookie('sid');
+    let url = this.globalService.getDomain()+'/api/v1/getAssetsOrder?page='+number+'&sid='+this.cookieStore.getCookie('sid');
     if(this.keyword.trim() != '') {
       url += '&keyword='+this.keyword.trim();
     }
@@ -220,16 +223,16 @@ export class AssetsListingComponent implements OnInit {
       'assets_name' : this.assets_name,
       'assets_number' : this.assets_number,
       'assets_param' : this.assets_param,
-      'assets_type' : this.assets_type,
+      'category_type_ids' : this.category_type_ids,
       'assets_count' : this.assets_count,
       'assets_unit' : this.assets_unit,
       'assets_price' : this.assets_price,
-      'assets_date' : this.assets_date,
+      'assets_buy_date' : this.assets_buy_date,
       'assets_status' : this.assets_status,
-      'assets_address' : this.assets_address,
+      'assets_check_address' : this.assets_check_address,
       'assets_department_id' : this.assets_department_id,
       'assets_user_id' : this.assets_user_id,
-      'assets_detail' : this.assets_detail,
+      'assets_note' : this.assets_note,
       'u_id' : this.cookieStore.getCookie('uid'),
       'sid':this.cookieStore.getCookie('sid')
     }).subscribe(
@@ -277,16 +280,16 @@ export class AssetsListingComponent implements OnInit {
     this.assets_name = '';
     this.assets_number = '';
     this.assets_param = '';
-    this.assets_type = '';
+    this.category_type_ids = '';
     this.assets_count = '';
     this.assets_unit = '';
     this.assets_price = '';
-    this.assets_date = '';
+    this.assets_buy_date = '';
     this.assets_status = 1;
-    this.assets_address = '';
+    this.assets_check_address = '';
     this.assets_department_id = 0;
     this.assets_user_id = 0;
-    this.assets_detail = '';
+    this.assets_note = '';
     this.addModal.hide();
   }
 
@@ -298,19 +301,25 @@ export class AssetsListingComponent implements OnInit {
     this.assets_name = info['result']['assets_name'];
     this.assets_number = info['result']['assets_number'];
     this.assets_param = info['result']['assets_param'];
-    this.assets_type = info['result']['assets_type'];
+    this.category_type_ids = info['result']['category_type_ids'];
     this.assets_count = info['result']['assets_count'];
     this.assets_unit = info['result']['assets_unit'];
     this.assets_price = info['result']['assets_price'];
-    this.assets_date = info['result']['assets_date'];
+    this.assets_buy_date = info['result']['assets_buy_date'];
     this.assets_status = info['result']['assets_status'];
-    this.assets_address = info['result']['assets_address'];
-    this.assets_department_id = info['result']['assets_department_id'];
-    this.assets_user_id = info['result']['assets_user_id'];
-    this.assets_detail = info['result']['assets_detail'];
-    if(this.assets_department_id){
-      this.geteUserList(this.assets_department_id,2);
+    this.assets_check_address = info['result']['assets_check_address'];
+    // this.assets_department_id = info['result']['assets_department_id'];
+    // this.assets_user_id = info['result']['assets_user_id'];
+    this.assets_note = info['result']['assets_note'];
+    // if(this.assets_department_id){
+    //   this.geteUserList(this.assets_department_id,2);
+    // }
+
+    this.selectIds = [];
+    for (let entry of this.assetsDefault['result']['category']) {
+      this.selectIds[entry['category_id']] = false;
     }
+    this.checkId = false;
   }
 
   /**
@@ -493,30 +502,76 @@ export class AssetsListingComponent implements OnInit {
    */
   showAssetsType(){
     this.searchModal.show();
+
   }
 
-  /**
-   * 选中类别
-   * @param id
-   */
-  selectId(id:any) {
-    let ids = this.selectTypeIds.split(',');
-    if(this.cookieStore.in_array(id,ids)) {
-      this.selectTypeIds = this.selectTypeIds.replace(id+',','');
-    }else{
-      this.selectTypeIds += id+',';
-    }
-    console.log('this.selectTypeIds :----');
-    console.log(this.selectTypeIds);
+  // /**
+  //  * 选中类别
+  //  * @param id
+  //  */
+  // selectId(id:any) {
+  //   let ids = this.selectTypeIds.split(',');
+  //   if(this.cookieStore.in_array(id,ids)) {
+  //     this.selectTypeIds = this.selectTypeIds.replace(id+',','');
+  //   }else{
+  //     this.selectTypeIds += id+',';
+  //   }
+  //   console.log('this.selectTypeIds :----');
+  //   console.log(this.selectTypeIds);
+  // }
+
+
+  //选择资产类别   start
+
+  //全选，反全选
+  changeCheckAllId(e){
+    let t = e.target;
+    let c = t.checked;
+    this.selectIds.forEach((val, idx, array) => {
+      this.selectIds[idx] = c;
+    });
+    this.checkId = c;
   }
+
+  //点击列表checkbox事件
+  handleId(e){
+    let t = e.target;
+    let v = t.value;
+    let c = t.checked;
+    this.selectIds[v] = c;
+    let isAll = 0;
+    for (let s of this.selectIds) {
+      if(s == false) {
+        isAll += 1;
+      }
+    }
+    if(isAll >= 1){
+      this.checkId = false;
+    }else{
+      this.checkId = true;
+    }
+  }
+
+
+  //end
 
   closeSubmit(){
     this.searchModal.hide();
-    this.selectTypeIds = '';
+    this.selectIds = [];
   }
 
   addSelect(){
+    this.searchModal.hide();
 
+    console.log('this.:----');
+    console.log(this.selectIds);
+    let typeIds = '';
+    this.selectIds.forEach((val, idx, array) => {
+      if(val == true) {
+        typeIds += idx + ',';
+      }
+    });
+    this.category_type_ids = typeIds;
   }
 
   @ViewChild('addModal') public addModal:ModalDirective;

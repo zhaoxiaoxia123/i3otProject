@@ -143,7 +143,7 @@
                       <td><span class="">{{a1.assets_param}}</span></td>
                       <td><span class="">{{a1.assets_unit}}</span></td>
                       <td><span class="">{{a1.assets_count}}</span></td>
-                      <td><span class="">{{a1.assets_date}}</span></td>
+                      <td><span class="">{{a1.assets_buy_date}}</span></td>
                       <td><span class="">{{a1.assets_price}}</span></td>
                       <td>
                          <span [ngSwitch]="a1.assets_status">
@@ -154,7 +154,7 @@
                       </td>
                       <!--<td>{{a1.u_username}}</td>
                       <td><span class="">{{a1.department_name}}</span></td>-->
-                      <td><span class="">{{a1.assets_address}}</span></td>
+                      <td><span class="">{{a1.assets_check_address}}</span></td>
                       <td><span class="">{{a1.created_at}}</span></td>
                     </tr>
                     </tbody>
@@ -211,7 +211,7 @@
                   <label class="label txt-color-blue">资产类别<span class="asterisk-color">*</span></label>
                   <label class="input">
                     <i class="icon-append glyphicon glyphicon-search cursor-pointer" (click)="showAssetsType()"></i>
-                    <input type="text" name="assets_type" [(ngModel)]="assets_type">
+                    <input type="text" name="category_type_ids" [(ngModel)]="category_type_ids">
                   </label>
                 </section>
               </div>
@@ -251,7 +251,7 @@
                 <section class="mb-15">
                   <label class="label txt-color-blue">购买日期<span class="asterisk-color">*</span></label>
                   <label class="input">
-                    <input type="date" name="assets_date" [(ngModel)]="assets_date">
+                    <input type="date" name="assets_buy_date" [(ngModel)]="assets_buy_date">
                   </label>
                 </section>
               </div>
@@ -264,7 +264,7 @@
                 </section>
               </div>
 
-             <!-- <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+             <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <section>
                   <label  class="label txt-color-blue">当前状态<span class="asterisk-color">*</span></label>
                   <label class="select">
@@ -277,12 +277,12 @@
                     <i></i>
                   </label>
                 </section>
-              </div>-->
+              </div>
               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <section>
                   <label class="label ">存放地点</label>
                   <label class="input">
-                    <input type="text" name="assets_address" [(ngModel)]="assets_address">
+                    <input type="text" name="assets_check_address" [(ngModel)]="assets_check_address">
                   </label>
                 </section>
               </div>
@@ -319,7 +319,7 @@
                 <section>
                   <label class="label">补充说明</label>
                   <label class="textarea textarea-resizable">
-                    <textarea class="custom-scroll" rows="2" name="assets_detail" [(ngModel)]="assets_detail" ></textarea>
+                    <textarea class="custom-scroll" rows="2" name="assets_note" [(ngModel)]="assets_note" ></textarea>
                   </label>
                 </section>
               </div>
@@ -373,13 +373,25 @@
             <table class="table table-striped  table-hover smart-form">
               <thead>
               <tr>
+                <th>
+                  <label class="checkbox padding-top-10" >
+                    <input type="checkbox" name="checkbox-inline" [checked]="checkId" (change)="changeCheckAllId($event)" >
+
+                  </label>
+                </th>
                 <th>类别编号</th>
                 <th>类别名称</th>
                 <th>说明</th>
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let c of category" (click)="selectId()">
+              <tr *ngFor="let c of assetsDefault?.result?.category">
+                <td>
+                  <label class="checkbox padding-top-10">
+                    <input type="checkbox" name="checkbox-inline" value="{{c.category_id}}" [checked]="selectIds[c.category_id]" (change)="handleId($event)">
+                    <i></i>
+                  </label>
+                </td>
                 <td>{{c.category_number}}</td>
                 <td>{{c.category_desc}}</td>
                 <td>{{c.category_tab}}</td>
@@ -421,7 +433,7 @@
                   <td class="">{{assetsInfo?.result?.assets_number}}</td>
                   <td class="width-120">资产类别:</td>
                   <td>
-                    <span>{{assetsInfo?.result?.assets_type}}</span>
+                    <span>{{assetsInfo?.result?.category_type_ids}}</span>
                   </td>
                 </tr>
                 <!--<tr>-->
@@ -444,7 +456,7 @@
                 </tr>
                 <tr>
                   <td class="width-120">购买日期：</td>
-                  <td class="">{{assetsInfo?.result?.assets_date}}</td>
+                  <td class="">{{assetsInfo?.result?.assets_buy_date}}</td>
                   <td class="width-120">购买金额：</td>
                   <td class="">{{assetsInfo?.result?.assets_price}}</td>
                 </tr>
@@ -458,7 +470,7 @@
                     </span>
                   </td>
                   <td class="width-120">存放地点：</td>
-                  <td class="">{{assetsInfo?.result?.assets_address}}</td>
+                  <td class="">{{assetsInfo?.result?.assets_check_address}}</td>
                 </tr>
                 <tr>
                   <td class="width-120">使用部门：</td>
@@ -468,7 +480,7 @@
                 </tr>
                 <tr>
                   <td class="width-120">补充说明：</td>
-                  <td class="" colspan="3">{{assetsInfo?.result?.assets_detail}}</td>
+                  <td class="" colspan="3">{{assetsInfo?.result?.assets_note}}</td>
                 </tr>
                 </tbody>
               </table>
