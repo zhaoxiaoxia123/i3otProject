@@ -222,7 +222,7 @@
                   </div>
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
                     <section>
-                      <label  class="label">搜索的商品名称</label>
+                      <label  class="label">搜索选择商品名称</label>
                       <label class="input">
                         <i *ngIf="isDetail!='detail'" class="icon-append glyphicon glyphicon-search cursor-pointer" (click)="searchKey(1)"></i><!-- data-toggle="modal" data-target="#myModal"-->
                         <input *ngIf="isDetail=='detail'" disabled="disabled" type="text" placeholder="" name="keyword" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">
@@ -470,6 +470,7 @@
                             <th>商品编号</th>
                             <th>商品属性</th>
                             <th>商品名称</th>
+                            <th>商品量</th>
                             <th>商品分类</th>
                             <th>生产厂家</th>
                             <th>参考售价</th>
@@ -488,6 +489,7 @@
                             <td>{{p.p_product_id}}</td>
                             <td>{{p.p_property==1?'销售':'外购'}}</td>
                             <td>{{p.p_name}}</td>
+                            <td>6</td>
                             <td>{{p.category}}</td>
                             <td>{{p.c_name}}</td>
                             <td>{{p.p_purchase_price}}</td>

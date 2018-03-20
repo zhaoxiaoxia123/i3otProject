@@ -109,23 +109,26 @@
                               </section>
                             </div>
                             <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section>
-                                <label class="label txt-color-blue">所在城市<span class="asterisk-color">*</span></label>
-                                <label class="select ">
-                                  <select name="c_city1"  formControlName="c_city1" [(ngModel)]="c_city1_default" (change)="getCity()">
-                                    <option value="0">--请选择省--</option>
-                                    <option *ngFor="let p of province" [selected]="customerInfo?.result?.customerInfo?.c_city1 == p" value="{{p}}">{{p}}</option>
-                                  </select>
-                                  <i></i>
-                                </label>
+                              <div class="margin-left-15" >
+
                                 <section class="col col-4">
+                                  <label class="label txt-color-blue">所在城市<span class="asterisk-color">*</span></label>
+                                  <label class="select ">
+                                    <select name="c_city1"  formControlName="c_city1" [(ngModel)]="c_city1_default" (change)="getCity()">
+                                      <option value="0">--请选择省--</option>
+                                      <option *ngFor="let p of province" [selected]="customerInfo?.result?.customerInfo?.c_city1 == p" value="{{p}}">{{p}}</option>
+                                    </select>
+                                    <i></i>
+                                  </label>
+                                </section>
+                                <section class="col col-8">
                                   <label class="select margin-top-24">
                                     <select name="c_city2"  formControlName="c_city2" [(ngModel)]="c_city2_default">
                                       <option value="0">--请选择市--</option>
                                       <option *ngFor="let c of city" [selected]="customerInfo?.result?.customerInfo?.c_city2 == c" value="{{c}}">{{c}}</option>
                                     </select> <i></i> </label>
                                 </section>
-                              </section>
+                              </div>
                             </div>
                             <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                               <section>

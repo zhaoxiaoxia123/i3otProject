@@ -62,10 +62,10 @@
                 class="menu-item-parent">{{'客户管理' | i18n}}</span></a>
         <ul>
           <li routerLinkActive="active">
-            <a routerLink="/customer-management/unit-classify">{{'单位分类' | i18n}}</a>
+            <a routerLink="/customer-management/unit-list">{{'往来客户或单位' | i18n}}</a>
           </li>
           <li routerLinkActive="active">
-            <a routerLink="/customer-management/unit-list">{{'往来客户或单位' | i18n}}</a>
+            <a routerLink="/customer-management/unit-classify">{{'单位分类' | i18n}}</a>
           </li>
         </ul>
       </li>
@@ -75,13 +75,13 @@
                 class="menu-item-parent">{{'销售管理' | i18n}}</span></a>
         <ul>
           <li routerLinkActive="active">
-            <a routerLink="/sales-management/sales-type">{{'销售类型' | i18n}}</a>
-          </li>
-          <li routerLinkActive="active">
             <a routerLink="/sales-management/sales-list">{{'销售单' | i18n}}</a>
           </li>
           <li routerLinkActive="active">
             <a routerLink="/sales-management/add-sales/0">{{'添加销售单' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/sales-management/sales-type">{{'销售类型' | i18n}}</a>
           </li>
         </ul>
       </li>
@@ -94,9 +94,6 @@
           </li>
           <li routerLinkActive="active" *ngIf="is_admin!='0'">
             <a routerLink="/forms/inventory1/0">{{'添加仓库' | i18n}}</a>
-          </li>
-          <li routerLinkActive="active">
-            <a routerLink="/management/setting-repertory">{{'出入库类别' | i18n}}</a>
           </li>
           <li routerLinkActive="active">
             <a routerLink="/inventory-management/inventory-early">{{'期初库存' | i18n}}</a>
@@ -119,6 +116,9 @@
           <li routerLinkActive="active">
             <a routerLink="/inventory-management/add-outbound">{{'添加其他出库单' | i18n}}</a>
           </li>
+          <li routerLinkActive="active">
+            <a routerLink="/management/setting-repertory">{{'出入库类别' | i18n}}</a>
+          </li>
 
         </ul>
       </li>
@@ -126,9 +126,6 @@
         <a href="#"><i class="fa fa-lg fa-fw  fa-shopping-cart"></i> <span
                 class="menu-item-parent">{{'采购管理' | i18n}}</span></a>
         <ul>
-          <li routerLinkActive="active">
-            <a routerLink="/procurement-management/procurement-type">{{'采购类型' | i18n}}</a>
-          </li>
           <li routerLinkActive="active">
             <a routerLink="/procurement-management/procurement-order">{{'采购订单' | i18n}}</a>
           </li>
@@ -141,6 +138,9 @@
           <li routerLinkActive="active">
             <a routerLink="/procurement-management/add-receipt/0">{{'添加进货单' | i18n}}</a>
           </li>
+          <li routerLinkActive="active">
+            <a routerLink="/procurement-management/procurement-type">{{'采购类型' | i18n}}</a>
+          </li>
 
 
         </ul>
@@ -149,9 +149,6 @@
         <a href="#"><i class=" fa fa-lg fa-fw fa-cube"></i> <span
                 class="menu-item-parent">{{'资产管理' | i18n}}</span></a>
         <ul>
-          <li routerLinkActive="active">
-            <a routerLink="/assets-management/assets-category">{{'资产类别' | i18n}}</a>
-          </li>
           <li routerLinkActive="active">
             <a routerLink="/assets-management/assets-listing">{{'资产清单' | i18n}}</a>
           </li>
@@ -163,6 +160,9 @@
           </li>
           <li routerLinkActive="active">
             <a routerLink="/assets-management/assets-scrap">{{'资产报废' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/assets-management/assets-category">{{'资产类别' | i18n}}</a>
           </li>
           <li routerLinkActive="active">
             <a routerLink="/assets-management/assets-statistical">{{'资产分类统计' | i18n}}</a>
