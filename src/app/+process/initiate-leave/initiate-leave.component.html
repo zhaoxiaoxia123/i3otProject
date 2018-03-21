@@ -14,25 +14,45 @@
                 <fieldset>
                   <legend>基本信息</legend>
                   <input type="hidden" name="">
-                  <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                  <!--<div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
                     <label class="label txt-color-blue">请假类型<span class="asterisk-color">*</span></label>
                     <section>
                       <div class="input-group">
                         <label   class="select form-control border-0">
                           <select  name="" >
-                            <option  value="0">--请选择--</option>
+                            <option  value="0">&#45;&#45;请选择&#45;&#45;</option>
                             <option  value="1">fgf</option>
                           </select><i></i>
                         </label>
                         <div class="input-group-btn">
                           <a  href="" target="_blank"  class="btn btn-default btn-sm pb-6" type="button">
-                            <!-- <i class="fa fa-plus "></i>--> 添加
+                            &lt;!&ndash; <i class="fa fa-plus "></i>&ndash;&gt; 添加
                           </a>
                           <a class="btn btn-default btn-sm pb-6" type="button" ><i class="fa fa-link"></i>
                             刷新
                           </a>
                         </div>
                       </div>
+
+                    </section>
+                  </div>-->
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <label class="label txt-color-blue">请假类型<span class="asterisk-color">*</span></label>
+                    <section>
+                        <label   class="select form-control border-0">
+                          <select  name="" >
+                            <option  value="0" disabled>--请选择--</option>
+                            <option  value="1">事假</option>
+                            <option  value="2">病假</option>
+                            <option  value="3">年假</option>
+                            <option  value="4">调休</option>
+                            <option  value="5">婚假</option>
+                            <option  value="6">产假</option>
+                            <option  value="7">陪产假</option>
+                            <option  value="8">路途假</option>
+                            <option  value="9">其他</option>
+                          </select><i></i>
+                        </label>
 
                     </section>
                   </div>
@@ -121,6 +141,9 @@
 
                     </div>
 
+                  </div>
+                  <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-20">
+                    <div class="label ">附件<a class="txt-color-blue pd-10" >添加附件</a></div>
                   </div>
 
                   <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-20">

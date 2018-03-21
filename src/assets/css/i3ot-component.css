@@ -616,6 +616,7 @@ body.nooverflow {
 
 #jarviswidget-fullscreen-mode .jarviswidget>div {
     overflow-y: scroll;
+    overflow-x:hidden;
     -moz-border-radius: 0;
     -khtml-border-radius: 0;
     -webkit-border-radius: 0;
@@ -3044,6 +3045,7 @@ ul.ColVis_collection li label {
     overflow: hidden;
     text-overflow: ellipsis;
     border-top: 0;
+    border-bottom: 1px solid #ddd;
 }
 @media screen and (max-width: 1920px) {
     .table-responsive {
