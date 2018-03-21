@@ -106,7 +106,7 @@
                     </tbody>
                   </table>
                 </div>
-                <div style="padding: 0;z-index: 2;width:20%;float:left;" class="table-scrolling">
+                <div style="padding: 0;z-index: 2;width:23%;float:left;" class="table-scrolling">
                   <table class="table table-striped  smart-form table-height-20">
                     <thead>
                     <tr >
@@ -211,7 +211,8 @@
                   <label class="label txt-color-blue">资产类别<span class="asterisk-color">*</span></label>
                   <label class="input">
                     <i class="icon-append glyphicon glyphicon-search cursor-pointer" (click)="showAssetsType()"></i>
-                    <input type="text" name="category_type_ids" [(ngModel)]="category_type_ids">
+                    <input type="text" style="display: none;" name="category_type_ids" [(ngModel)]="category_type_ids">
+                  <input type="text" name="category_type_name" [(ngModel)]="category_type_name">
                   </label>
                 </section>
               </div>
@@ -264,20 +265,20 @@
                 </section>
               </div>
 
-             <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <section>
-                  <label  class="label txt-color-blue">当前状态<span class="asterisk-color">*</span></label>
-                  <label class="select">
-                    <select name="assets_status" [(ngModel)]="assets_status">
-                      <option value="0" [selected]="assets_id == 0">&#45;&#45;请选择&#45;&#45;</option>
-                      <option value="1">闲置</option>
-                      <option value="2">使用</option>
-                      <option value="3">报废</option>
-                    </select>
-                    <i></i>
-                  </label>
-                </section>
-              </div>
+             <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">-->
+                <!--<section>-->
+                  <!--<label  class="label txt-color-blue">当前状态<span class="asterisk-color">*</span></label>-->
+                  <!--<label class="select">-->
+                    <!--<select name="assets_status" [(ngModel)]="assets_status">-->
+                      <!--<option value="0" [selected]="assets_id == 0">&#45;&#45;请选择&#45;&#45;</option>-->
+                      <!--<option value="1">闲置</option>-->
+                      <!--<option value="2">使用</option>-->
+                      <!--<option value="3">报废</option>-->
+                    <!--</select>-->
+                    <!--<i></i>-->
+                  <!--</label>-->
+                <!--</section>-->
+              <!--</div>-->
               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <section>
                   <label class="label ">存放地点</label>
@@ -375,8 +376,7 @@
               <tr>
                 <th>
                   <label class="checkbox padding-top-10" >
-                    <input type="checkbox" name="checkbox-inline" [checked]="checkId" (change)="changeCheckAllId($event)" >
-
+                    <input type="checkbox" name="checkbox-inline" [checked]="checkId" (change)="changeCheckAllId($event)">
                   </label>
                 </th>
                 <th>类别编号</th>
@@ -416,7 +416,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <!-- 关闭按钮 -->
-        <button type="button" class="close" (click)="detailModal.hide()">×</button>
+        <button type="button" class="close" (click)="clear_('detail')">×</button>
         <!-- 标题 -->
         <h3 class="modal-title" data-ng-bind='results.title'></h3>
         <h4 class="modal-title">{{assetsInfo?.result?.assets_name}}-{{assetsInfo?.result?.assets_number}}</h4>
@@ -433,7 +433,7 @@
                   <td class="">{{assetsInfo?.result?.assets_number}}</td>
                   <td class="width-120">资产类别:</td>
                   <td>
-                    <span>{{assetsInfo?.result?.category_type_ids}}</span>
+                    <span>{{category_type_name}}</span>
                   </td>
                 </tr>
                 <!--<tr>-->
@@ -489,7 +489,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" (click)="detailModal.hide()">返回</button>
+        <button type="button" class="btn btn-default" (click)="clear_('detail')">返回</button>
       </div>
     </div>
   </div>

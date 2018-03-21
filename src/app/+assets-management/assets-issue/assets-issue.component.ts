@@ -25,11 +25,11 @@ export class AssetsIssueComponent implements OnInit {
 
   //默认值
   assets_id:number = 0;
+  assets_name: string = '';
   assets_date: string = '';
   assets_department_id:number = 0;
   assets_user_id:number = 0;
   assets_use_note: string = '';
-  assets_address: string = '';
 
   //顶部启动 和无效是否启用显示
   editStatusAssetsId : any = 0;
@@ -37,13 +37,15 @@ export class AssetsIssueComponent implements OnInit {
   //处理批量
   isAll : number = 0;
   width : string = '0%';
-  width_1 : string = '80%';
+  width_1 : string = '70%';
   isDetail : string = '';
 
   keyword : string = '';
   cid : any = 0;//当前登录用户的所属公司id
   super_admin_id : any = 0;//超级管理员所属公司id
   assets_status_default : number = 1; //需查询的资产清单状态 1：闲置 2：使用 3：报废
+  edit_assets_status_default : number = 2; //需更新为的资产清单状态 1：闲置 2：使用 3：报废
+  edit_assets_type_default : number = 2; //需更新为的资产状态  1:归还 2:资产发放 3：资产报废
   rollback_url : string = '/assets-management/assets-issue';
   constructor(
       private http:Http,
@@ -60,8 +62,7 @@ export class AssetsIssueComponent implements OnInit {
     this.getAssetsListDefault();
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   /**
    * 获取默认参数
@@ -109,7 +110,7 @@ export class AssetsIssueComponent implements OnInit {
    * @param number
    */
   getAssetsList(number:string) {
-    let url = this.globalService.getDomain()+'/api/v1/getAssetsLists?page='+number+'&sid='+this.cookieStore.getCookie('sid');
+    let url = this.globalService.getDomain()+'/api/v1/getAssetsList?page='+number+'&assets_status='+this.edit_assets_status_default+'&assets_type='+this.edit_assets_type_default+'&sid='+this.cookieStore.getCookie('sid');
     if(this.keyword.trim() != '') {
       url += '&keyword='+this.keyword.trim();
     }
@@ -181,15 +182,6 @@ export class AssetsIssueComponent implements OnInit {
   }
 
   /**
-   * 展示添加页面
-   */
-  showAddAssets(){
-    this.editStatusAssetsId = 0;
-    this.isStatus = 0;
-    this.addModal.show();
-  }
-
-  /**
    * 添加信息
    */
   onSubmit(){
@@ -207,8 +199,8 @@ export class AssetsIssueComponent implements OnInit {
       'assets_department_id' : this.assets_department_id,
       'assets_user_id' : this.assets_user_id,
       'assets_use_note' : this.assets_use_note,
-      'assets_address' : this.assets_address,
-      'u_id' : this.cookieStore.getCookie('uid'),
+      'assets_status' : this.edit_assets_status_default,
+      'assets_type' : this.edit_assets_type_default,
       'sid':this.cookieStore.getCookie('sid')
     }).subscribe(
         (data)=>{
@@ -236,7 +228,7 @@ export class AssetsIssueComponent implements OnInit {
               }
               this.check = false;
             }
-            this.clear_();
+            this.clear_('');
             this.addModal.hide();
           }else if(info['status'] == 202){
             this.cookieStore.removeAll(this.rollback_url);
@@ -250,14 +242,18 @@ export class AssetsIssueComponent implements OnInit {
   /**
    * 重置
    */
-  clear_(){
+  clear_(type:any){
     this.assets_id = 0;
     this.assets_date = '';
+    this.assets_name = '';
     this.assets_department_id = 0;
     this.assets_user_id = 0;
     this.assets_use_note = '';
-    this.assets_address = '';
-    this.addModal.hide();
+    if(type == 'detail') {
+      this.detailModal.hide();
+    }else{
+      this.addModal.hide();
+    }
   }
 
   /**
@@ -266,10 +262,10 @@ export class AssetsIssueComponent implements OnInit {
   setValue(info:Array<any>){
     this.assets_id = info['result']['assets_id'];
     this.assets_date = info['result']['assets_date'];
+    this.assets_name = info['result']['assets_name'];
     this.assets_department_id = info['result']['assets_department_id'];
     this.assets_user_id = info['result']['assets_user_id'];
     this.assets_use_note = info['result']['assets_use_note'];
-    this.assets_address = info['result']['assets_address'];
 
     if(this.assets_department_id){
       this.geteUserList(this.assets_department_id,2);
@@ -280,13 +276,14 @@ export class AssetsIssueComponent implements OnInit {
    *  type ： （ edit ：修改  ；  detail  ： 详情）
    */
   detailAssets(type:string){
-    if(this.isStatus == 0){
-      return false;
-    }
     if(type == 'add'){
+      this.isStatus = 0;
       this.editStatusAssetsId = 0;
       this.addModal.show();
     }else {
+      if(this.isStatus == 0){
+        return false;
+      }
       this.isDetail = type;
       this.http.get(this.globalService.getDomain() + '/api/v1/getAssetsInfo?type=' + type + '&assets_id=' + this.editStatusAssetsId + '&sid=' + this.cookieStore.getCookie('sid'))
           .map((res) => res.json())
@@ -336,7 +333,7 @@ export class AssetsIssueComponent implements OnInit {
     }
     msg = '您确定要删除该信息吗？';
     if(confirm(msg)) {
-      let url = this.globalService.getDomain()+'/api/v1/deleteAssetsListById?assets_id=' + assets_id + '&type='+type+'&sid=' + this.cookieStore.getCookie('sid');
+      let url = this.globalService.getDomain()+'/api/v1/deleteAssetsById?assets_id=' + assets_id + '&type='+type+'&sid=' + this.cookieStore.getCookie('sid');
       this.http.delete(url)
           .map((res) => res.json())
           .subscribe((data) => {
@@ -375,7 +372,7 @@ export class AssetsIssueComponent implements OnInit {
 
     this.isAll = 0;
     this.width = '0%';
-    this.width_1 ='80%';
+    this.width_1 ='70%';
     this.selects.forEach((val, idx, array) => {
       if(val == true){
         this.selects[idx] = false;
@@ -391,7 +388,7 @@ export class AssetsIssueComponent implements OnInit {
       this.editStatusAssetsId = 0;
       this.isStatus = 0;
       this.width = '10%';
-      this.width_1 = '70%';
+      this.width_1 = '60%';
     }
   }
 

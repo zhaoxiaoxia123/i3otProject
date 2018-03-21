@@ -28,7 +28,8 @@ export class AssetsListingComponent implements OnInit {
   assets_name: string = '';
   assets_number: string = '';
   assets_param: string = '';
-  category_type_ids: string = '';
+  category_type_ids: string = '';//资产分类id
+  category_type_name: string = ''; //资产分类名称
   assets_count: string = '';
   assets_unit: string = '';
   assets_price: string = '';
@@ -45,7 +46,7 @@ export class AssetsListingComponent implements OnInit {
   //处理批量
   isAll : number = 0;
   width : string = '0%';
-  width_1 : string = '80%';
+  width_1 : string = '77%';
   isDetail : string = '';
 
   /**
@@ -94,12 +95,22 @@ export class AssetsListingComponent implements OnInit {
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
+
+          this.selectIds = [];
+          for (let entry of this.assetsDefault['result']['category']) {
+            this.selectIds[entry['category_id']] = false;
+          }
+          this.checkId = false;
+
+          console.log('this.selectIds:----');
+          console.log(this.selectIds);
+          console.log(this.checkId);
         });
   }
-  //
-  // /**
-  //  * 获取使用人
-  //  */
+
+  /**
+   * 获取使用人
+   */
   // geteUserList(obj,type:number) {
   //   let department_id = 0;
   //   if(type == 1) {
@@ -281,6 +292,7 @@ export class AssetsListingComponent implements OnInit {
     this.assets_number = '';
     this.assets_param = '';
     this.category_type_ids = '';
+    this.category_type_name = '';
     this.assets_count = '';
     this.assets_unit = '';
     this.assets_price = '';
@@ -290,7 +302,12 @@ export class AssetsListingComponent implements OnInit {
     this.assets_department_id = 0;
     this.assets_user_id = 0;
     this.assets_note = '';
-    this.addModal.hide();
+    this.selectIds=[];
+    if(type == 'detail'){
+      this.detailModal.hide()
+    }else{
+      this.addModal.hide();
+    }
   }
 
   /**
@@ -314,10 +331,16 @@ export class AssetsListingComponent implements OnInit {
     // if(this.assets_department_id){
     //   this.geteUserList(this.assets_department_id,2);
     // }
-
     this.selectIds = [];
+    let selectIds_ = info['result']['selectIds'];
+    this.category_type_name = '';
     for (let entry of this.assetsDefault['result']['category']) {
-      this.selectIds[entry['category_id']] = false;
+      selectIds_.forEach((val, idx, array) => {
+        this.selectIds[val] = true;
+        if(entry['category_id'] == val) {
+          this.category_type_name += entry['category_desc'] + ',';
+        }
+      });
     }
     this.checkId = false;
   }
@@ -416,7 +439,7 @@ export class AssetsListingComponent implements OnInit {
 
     this.isAll = 0;
     this.width = '0%';
-    this.width_1 ='80%';
+    this.width_1 ='77%';
     this.selects.forEach((val, idx, array) => {
       if(val == true){
         this.selects[idx] = false;
@@ -492,7 +515,7 @@ export class AssetsListingComponent implements OnInit {
       this.isAll = 1;
       this.editStatusAssetsId = 0;
       this.isStatus = 0;
-      this.width = '10%';
+      this.width = '7%';
       this.width_1 = '70%';
     }
   }
@@ -551,26 +574,31 @@ export class AssetsListingComponent implements OnInit {
       this.checkId = true;
     }
   }
-
-
   //end
 
   closeSubmit(){
     this.searchModal.hide();
-    this.selectIds = [];
+    if(this.editStatusAssetsId == 0) {
+      this.selectIds = [];
+    }
   }
 
   addSelect(){
     this.searchModal.hide();
-
-    console.log('this.:----');
-    console.log(this.selectIds);
     let typeIds = '';
+    this.category_type_name = '';
     this.selectIds.forEach((val, idx, array) => {
       if(val == true) {
         typeIds += idx + ',';
       }
     });
+    for (let entry of this.assetsDefault['result']['category']) {
+      this.selectIds.forEach((val, idx, array) => {
+        if(entry['category_id'] == idx && val == true) {
+          this.category_type_name += entry['category_desc'] + ',';
+        }
+      });
+    }
     this.category_type_ids = typeIds;
   }
 

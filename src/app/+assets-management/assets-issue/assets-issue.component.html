@@ -88,7 +88,7 @@
                     </tbody>
                   </table>
                 </div>
-                <div style="padding: 0;z-index: 2;width:20%;float:left;" class="table-scrolling">
+                <div style="padding: 0;z-index: 2;width:30%;float:left;" class="table-scrolling">
                   <table class="table table-striped  smart-form table-height-20">
                     <thead>
                     <tr>
@@ -151,7 +151,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <!-- 关闭按钮 -->
-        <button type="button" class="close" (click)="clear_()">×</button>
+        <button type="button" class="close" (click)="clear_('add')">×</button>
         <!-- 标题 -->
         <h3 class="modal-title txt-color-blue" data-ng-bind='results.title' *ngIf="editStatusAssetsId == 0"><i class="fa-fw fa fa-plus"></i>添加资产发放</h3>
          <h3 class="modal-title   color-yellow" data-ng-bind='results.title' *ngIf="editStatusAssetsId != 0"><i class="glyphicon glyphicon-pencil"></i>修改资产发放</h3>
@@ -163,13 +163,16 @@
               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <section>
                   <label class="label txt-color-blue">资产<span class="asterisk-color">*</span></label>
-                  <label class="select">
+                  <label class="select" *ngIf="editStatusAssetsId == 0">
                     <select name="assets_id" [(ngModel)]="assets_id">
                       <option value="0">--请选择--</option>
                       <option value="{{a.assets_id}}" [selected]="assetsInfo?.result?.assets_id == a.assets_id" *ngFor="let a of assetsDefault?.result?.assetsList">{{a.assets_name}}</option>
                     </select>
                     <i></i>
                   </label>
+                <label class="input" *ngIf="editStatusAssetsId != 0">
+                    <input type="text" disabled="disabled" name="assets_name" [(ngModel)]="assets_name">
+                </label>
                 </section>
               </div>
               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -197,19 +200,18 @@
                     </div>
                   </div>
                 </section>
-                <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                  <section>
-                    <label class="label ">使用人</label>
-                    <label class="select">
-                      <select name="assets_user_id" [(ngModel)]="assets_user_id">
-                        <option value="0" [selected]="assets_id == 0">&#45;&#45;请选择&#45;&#45;</option>
-                        <option value="{{u.id}}" [selected]="assetsInfo?.result?.assets_user_id == u.id" *ngFor="let u of userList?.result?.userList">{{u.u_username}}</option>
-                      </select>
-                      <i></i> </label>
-                  </section>
-                </div>
-
               </div>
+                <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <section>
+                        <label class="label ">使用人</label>
+                        <label class="select">
+                            <select name="assets_user_id" [(ngModel)]="assets_user_id">
+                                <option value="0" [selected]="assets_id == 0">&#45;&#45;请选择&#45;&#45;</option>
+                                <option value="{{u.id}}" [selected]="assetsInfo?.result?.assets_user_id == u.id" *ngFor="let u of userList?.result?.userList">{{u.u_username}}</option>
+                            </select>
+                            <i></i> </label>
+                    </section>
+                </div>
               <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <section>
                   <label class="label">说明</label>
@@ -223,9 +225,9 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-success btn-sm" type="button"><span class="glyphicon glyphicon-plus"></span>保存并新增</button>
+        <!--<button class="btn btn-success btn-sm" type="button"><span class="glyphicon glyphicon-plus"></span>保存并新增</button>-->
         <button type="button" class="btn btn-primary" (click)="onSubmit()">保存</button>
-        <button type="button" class="btn btn-default" (click)="clear_()">返回</button>
+        <button type="button" class="btn btn-default" (click)="clear_('add')">返回</button>
       </div>
     </div>
   </div>
@@ -236,7 +238,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <!-- 关闭按钮 -->
-        <button type="button" class="close" (click)="clear_()">×</button>
+        <button type="button" class="close" (click)="clear_('detail')">×</button>
         <!-- 标题 -->
         <h3 class="modal-title" data-ng-bind='results.title'></h3>
         <h4 class="modal-title">{{assetsInfo?.result?.assets_name}}-{{assetsInfo?.result?.assets_number}}</h4>
@@ -275,7 +277,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" (click)="clear_()">返回</button>
+        <button type="button" class="btn btn-default" (click)="clear_('detail')">返回</button>
       </div>
     </div>
   </div>
