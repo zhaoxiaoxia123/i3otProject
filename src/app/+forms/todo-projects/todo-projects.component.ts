@@ -196,7 +196,7 @@ export class TodoProjectsComponent implements OnInit {
         (data)=>{
           let info = JSON.parse(data['_body']);
           if(info['status'] == 200) {
-            this.router.navigate(['/forms/todo-mission/'+info['result']['last_project_id']]);
+            this.router.navigate(['/forms/todo-mission/'+info['result']['last_project_id']+'_0']);
             this.edit_project_id = 0;
             this.project_owner = 0;
             this.project_title = '';

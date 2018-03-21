@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
 import {Http} from "@angular/http";
 import {Router} from "@angular/router";
 import {CookieStoreService} from "../../../../cookies/cookie-store.service";
@@ -13,8 +13,9 @@ export class ActivitiesTaskComponent implements OnInit {
   @Input() item: any;
   @Input() lastUpdate: any;
 
-  messageList : Array<any> = [];
   @Input() fromFatherValue;
+  @Input() isShow ;
+  @Output() private toParent = new EventEmitter();
 
   constructor(
       private http:Http,
@@ -23,26 +24,29 @@ export class ActivitiesTaskComponent implements OnInit {
       private globalService:GlobalService
   ) {}
 
-  ngOnInit() {
-    setTimeout(()=>{
-      this.messageList = this.fromFatherValue;
-      console.log('this.messageList:~~~~~~~~~~~~~~');
-      console.log(this.messageList);
-    },800);
-  }
+  ngOnInit() {}
 
   /**
    * 已读
    * @param project_id
    */
-  readTask(project_id:any,userId:number){
-    this.http.get(this.globalService.getDomain() + '/api/v1/readMessage?u_id=' + userId +'&typee=one&category=task')
+  readTask(project_id:any,todo_id:any,userId:number){
+    this.http.get(this.globalService.getDomain() + '/api/v1/readMessage?u_id=' + userId +'&type=one&category=task')
         .map((res) => res.json())
         .subscribe((data) => {
           if(data['status'] == 200){
-            this.router.navigate(['/forms/todo-mission/'+project_id]);
+            console.log(this.isShow);
+            this.isShow = 'none';
+            console.log('this.isShow child:--');
+            console.log(this.isShow);
+            this.setData();
+            this.router.navigate(['/forms/todo-mission/'+project_id+'_'+todo_id]);
           }
         });
   }
 
+  setData()
+  {
+    this.toParent.emit(this.isShow);
+  }
 }

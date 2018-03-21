@@ -1,4 +1,5 @@
-<li *ngFor="let ml of messageList?.result?.task?.data" (click)="readTask(ml.project_id,ml.userId)">
+
+<li *ngFor="let ml of fromFatherValue?.result?.task?.data" (click)="readTask(ml.project_id,ml.todo_id,ml.userId)">
    <span class="bar-holder">
       <a>
          <span class="margin-bottom-5 from">

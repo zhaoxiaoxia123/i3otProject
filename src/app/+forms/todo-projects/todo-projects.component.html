@@ -23,7 +23,7 @@
                     <span class="txt-color-red padding-left-10">{{projectList?.result?.commonArrayCount}}</span>
                   </div>
                   <div class="project-grid ">
-                    <div class="project-item" (mouseover)="showOrHide(ca.project_id)" (mouseleave)="showOrHide(0)" [routerLink]="['/forms/todo-mission',ca.project_id]" *ngFor="let ca of projectList?.result?.commonArray">
+                    <div class="project-item" (mouseover)="showOrHide(ca.project_id)" (mouseleave)="showOrHide(0)" [routerLink]="['/forms/todo-mission',ca.project_id+'_0']" *ngFor="let ca of projectList?.result?.commonArray">
                       <a class="star" (click)="isCommon($event,ca.project_id,ca.project_status);">
                         <i class="fa fa-star txt-color-yellowMing"></i> </a>
                       <a class="center ">
@@ -53,7 +53,7 @@
                         <i class="fa-fw fa fa-inbox text-blove"></i>
                         <h4 class="">发起项目</h4></a>
                     </div>
-                    <div class="project-item" (mouseover)="showOrHide(pl.project_id)" (mouseleave)="showOrHide(0)" [routerLink]="['/forms/todo-mission',pl.project_id]" *ngFor="let pl of cl.project_list">
+                    <div class="project-item" (mouseover)="showOrHide(pl.project_id)" (mouseleave)="showOrHide(0)" [routerLink]="['/forms/todo-mission',pl.project_id+'/0']" *ngFor="let pl of cl.project_list">
                       <a class="star" (click)="isCommon($event,pl.project_id,pl.project_status);">
                         <i class="fa fa-star-o" *ngIf="pl.project_status == 1"></i>
                         <i class="fa fa-star txt-color-yellowMing" *ngIf="pl.project_status == 2"></i></a>

@@ -2,7 +2,7 @@
   <i class="fa fa-user"></i>
   <b class="badge bg-color-red">14</b>
 </span>
-<div class="ajax-dropdown"  [ngStyle]="{'display':isShow==''?'none':'block'}">
+<div class="ajax-dropdown"  [ngStyle]="{'display':isShow=='none'?'none':'block'}">
     <div class="btn-group btn-group-justified" data-toggle="buttons">
      <label [ngClass]="{'btn btn-default':true,'active':(isShow == 'notice' || isShow == 1)}" (click)="showMessageDiv('notice')">
         <input name="activity" type="radio">
@@ -20,7 +20,7 @@
     <div class="ajax-notifications custom-scroll">
         <ul class="notification-body" activitiesMessage *ngIf="isShow == 'notice' || isShow == 1" style="display:block"></ul>
         <ul class="notification-body" activitiesNotification [ngStyle]="{'display':(isShow == 'warning')?'block':'none'}"></ul>
-        <ul class="notification-body" activitiesTask [fromFatherValue]="messageList" [ngStyle]="{'display':(isShow == 'task')?'block':'none'}"></ul>
+        <ul class="notification-body" activitiesTask (toParent)="getData($event)" [fromFatherValue]="messageList" [isShow]="isShow" [ngStyle]="{'display':(isShow == 'task')?'block':'none'}"></ul>
     </div>
 
     <span> 最后更新的时间: {{lastUpdate}}

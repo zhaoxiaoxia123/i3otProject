@@ -19,46 +19,36 @@
                   <div class="navbar navbar-default">
                       <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate=""  >
                         <div class="form-group pdlr-4">
-                          <a class="btn btn-success btn-sm"  data-toggle="modal" data-target="#myModal">
+                          <a class="btn btn-success btn-sm" (click)="detailAssets('add');">
                             <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
                         </div>
                         <div class="form-group pdlr-4">
-                          <a class="btn default-btn btn-sm"   data-toggle="modal" data-target="#myModal">
+                          <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailAssets('edit')">
                             <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
                         </div>
                         <div class="form-group pdlr-4">
-                          <a class="btn default-btn btn-sm" >
+                          <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="deleteAssets('id')">
                             <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
                         </div>
                         <div class="form-group pdlr-4">
-                          <a class="btn default-btn btn-sm"  data-toggle="modal" data-target="#particulars" >
+                          <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailAssets('detail')">
                             <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
                         </div>
                         <div class="form-group btn-group pdlr-4">
-                          <a class="btn default-btn btn-sm dropdown-toggle"  data-toggle="dropdown">
+                          <a class="btn default-btn btn-sm dropdown-toggle" (click)="showAllCheck()" data-toggle="dropdown">
                             <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
 
                           <ul class="dropdown-menu" role="menu">
-                            <li><a ><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
+                            <li><a (click)="deleteAssets('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
                           </ul>
                         </div>
-
-                       <!-- <div class="form-group pdlr-4" >
-                          <a class="btn btn-default not-click"  >
-                            <i class="fa fa-arrow-circle-o-down mr-5"></i>导入</a>
-                        </div>
-                        <div class="form-group pdlr-4" >
-                          <a class="btn btn-default not-click" >
-                            <i class="fa fa-arrow-circle-o-up mr-5" ></i>导出</a>
-                        </div>-->
-
                       </form>
                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
                       <div class="form-group pdlr-4">
-                        <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" name="keyword" placeholder="请输入搜索内容" type="text">
+                        <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" name="keyword" [(ngModel)]="keyword" placeholder="请输入搜索内容" type="text">
                       </div>
                       <div class="form-group pdlr-4">
-                        <button class="btn btn-default" type="submit">
+                        <button class="btn btn-default" type="button" (click)="getAssetsList(1,0)">
                           <i  class="glyphicon glyphicon-search"></i>
                           搜索
                         </button>
@@ -69,95 +59,79 @@
               </div>
 
               <div style="padding:0;">
-                <div style="padding: 0;z-index: 2;width:30%;float:left;" class="table-scrolling">
-                  <table class="table table-striped  smart-form table-height-20">
+                <div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-scrolling">
+                  <table class="table table-striped   smart-form table-height-20">
                     <thead>
-                    <tr >
-                      <td><label class="checkbox mt-8">
-                        <input type="checkbox" name="checkbox-inline" >
+                    <tr style="height: 34px;" >
+                      <td><label class="checkbox " >
+                        <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)" >
                         <i></i>
                       </label>
                       </td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr  style="height: 34.5px;" *ngFor="let al of assetsList.result?.assetsList?.data">
+                      <td >
+                        <div class="">
+                          <label class="checkbox padding-top-10" *ngIf="cid != super_admin_id && cid != al.c_id" >
+                            <input type="checkbox" name="checkbox-inline" disabled="disabled">
+                            <i></i>
+                          </label>
+                          <label class="checkbox padding-top-10" *ngIf="cid == super_admin_id || cid == al.c_id" >
+                            <input type="checkbox" name="checkbox-inline" value="{{ al.assets_id }}" [checked]="selects[al.assets_id]" (change)="handle($event)">
+                            <i></i>
+                          </label>
+                        </div>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div style="padding: 0;z-index: 2;width:30%;float:left;" class="table-scrolling">
+                  <table class="table table-striped  smart-form table-height-20">
+                    <thead>
+                    <tr>
                       <th>资产编号</th>
                       <th>资产名称</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="table-color">
-                      <td>
-                        <label class="checkbox mt-8">
-                          <input type="checkbox" >
-                          <i></i>
-                        </label>
-                      </td>
-                      <td>1</td>
-                      <td>四川矿业有限公司</td>
+                    <tr *ngFor="let a of assetsList.result?.assetsList?.data" (click)="isStatusShow(a.assets_id,a.assets_status)" [ngClass]="{'table-color':editStatusAssetsId == a.assets_id}"><!--class="table-color"-->
+                      <td><span class="">{{a.assets_number}}</span></td>
+                      <td><span class="">{{a.assets_name}}</span></td>
                     </tr>
-                    <tr class="">
-                      <td>
-                        <label class="checkbox mt-8">
-                          <input type="checkbox" >
-                          <i></i>
-                        </label>
-                      </td>
-                      <td>1</td>
-                      <td>四川矿业有限公司</td>
-                    </tr>
-
-
-
                     </tbody>
                   </table>
-
                 </div>
-
-                <div style="padding: 0;z-index: 1;width:70%;float:left;" class="table-responsive">
+                <div [ngStyle]="{'padding': '0','z-index': '1','width':width_1,'float':'left'}" class="table-responsive">
                   <table class="table table-striped   smart-form table-height-20">
                     <thead>
                     <tr>
                       <th>报废日期 </th>
                       <th>报废原因 </th>
                       <th>处置方式 </th>
-                      <th>修改人 </th>
-                      <th>修改时间</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="table-color">
-                      <td>矿矿业</td>
-                      <td>2017-09-26</td>
-                      <td>121544785421</td>
-                      <td>2017-09-26</td>
-                      <td>已结束</td>
-
+                    <tr *ngFor="let a1 of assetsList.result?.assetsList?.data" (click)="isStatusShow(a1.assets_id,a1.assets_status)" [ngClass]="{'table-color':editStatusAssetsId == a1.assets_id}"><!-- class="table-color"-->
+                      <td><span class="">{{a1.assets_date}}</span></td>
+                      <td>{{a1.assets_reason}}</td>
+                      <td><span class="">{{a1.assets_method}}</span></td>
                     </tr>
-                    <tr class="">
-                      <td>矿矿业</td>
-                      <td>2017-09-26</td>
-                      <td>121544785421</td>
-                      <td>2017-09-26</td>
-                      <td>已结束</td>
-
-                    </tr>
-
                     </tbody>
                   </table>
-
                 </div>
               </div>
 
               <!-- 底部-（分页部分）-->
               <div class="dt-toolbar">
                 <div class="col-xs-12 col-sm-6">
-                  <span>共2条</span>
-                 <!-- <button class="btn btn-default">
-                    <i class="fa fa-trash-o fa-lg"></i>
-                    删除所选
-                  </button>-->
+                  <span>共{{assetsList.result?.assetsList?.total}}条</span>
                 </div>
                 <div class="hidden-xs right">
                   <ul class="pagination pagination-sm">
-                    <li *ngFor="let p of categoryList?.page" class="{{p.class}}">
+                    <li *ngFor="let p of assetsList?.result?.page" class="{{p.class}}">
                       <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
                       <a *ngIf="p.method==''">{{p.text}}</a>
                     </li>
@@ -165,35 +139,22 @@
                 </div>
               </div>
             </div>
-
-
-
-
-
           </div>
-
         </sa-widget>
       </article>
     </div>
   </sa-widgets-grid>
-
-
-
 </div>
 
-
-
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" bsModal #addModal="bs-modal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <!-- 关闭按钮 -->
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-          ×
-        </button>
+        <button type="button" class="close" (click)="clear_('add')">×</button>
         <!-- 标题 -->
-        <h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>添加资产报废</h3>
-         <h3 class="modal-title   color-yellow" data-ng-bind='results.title'><i class="glyphicon glyphicon-pencil"></i>修改资产报废</h3>
+        <h3 class="modal-title txt-color-blue" data-ng-bind='results.title' *ngIf="editStatusAssetsId == 0"><i class="fa-fw fa fa-plus"></i>添加资产报废</h3>
+        <h3 class="modal-title color-yellow" data-ng-bind='results.title' *ngIf="editStatusAssetsId != 0"><i class="glyphicon glyphicon-pencil"></i>修改资产报废</h3>
       </div>
       <div class="modal-body  height-overflow-380">
         <div class="row">
@@ -202,9 +163,15 @@
               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <section>
                   <label class="label txt-color-blue">资产<span class="asterisk-color">*</span></label>
-                  <label class="input">
-                    <i class="icon-append glyphicon glyphicon-search cursor-pointer" data-toggle="modal" data-target="#myModalname"></i>
-                    <input type="text" placeholder="" >
+                  <label class="select" *ngIf="editStatusAssetsId == 0">
+                    <select name="assets_id" [(ngModel)]="assets_id">
+                      <option value="0">--请选择--</option>
+                      <option value="{{a.assets_id}}" [selected]="assetsInfo?.result?.assets_id == a.assets_id" *ngFor="let a of assetsDefault?.result?.assetsList">{{a.assets_name}}</option>
+                    </select>
+                    <i></i>
+                  </label>
+                  <label class="input" *ngIf="editStatusAssetsId != 0">
+                    <input type="text" disabled="disabled" name="assets_name" [(ngModel)]="assets_name">
                   </label>
                 </section>
               </div>
@@ -212,7 +179,7 @@
                 <section class="mb-15">
                   <label class="label txt-color-blue">报废日期<span class="asterisk-color">*</span></label>
                   <label class="input">
-                    <input type="date" placeholder="" >
+                    <input type="date" name="assets_date" [(ngModel)]="assets_date">
                   </label>
                 </section>
               </div>
@@ -221,7 +188,7 @@
                 <section>
                   <label class="label txt-color-blue">报废原因<span class="asterisk-color">*</span></label>
                   <label class="input">
-                    <input type="text" placeholder="" >
+                    <input type="text" name="assets_reason" [(ngModel)]="assets_reason">
                   </label>
                 </section>
               </div>
@@ -229,17 +196,15 @@
                 <section>
                   <label class="label txt-color-blue">处置方式<span class="asterisk-color">*</span></label>
                   <label class="input">
-                    <input type="text" placeholder="" >
+                    <input type="text" name="assets_method" [(ngModel)]="assets_method">
                   </label>
                 </section>
               </div>
-
-
               <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <section>
                   <label class="label">补充说明</label>
                   <label class="textarea textarea-resizable">
-                    <textarea class="custom-scroll" rows="2" name="" ></textarea>
+                    <textarea class="custom-scroll" rows="2" name="assets_use_note" [(ngModel)]="assets_use_note"></textarea>
                   </label>
                 </section>
               </div>
@@ -250,26 +215,24 @@
 
       </div>
       <div class="modal-footer">
-        <button class="btn btn-success btn-sm" type="button"><span class="glyphicon glyphicon-plus"></span>保存并新增</button>
-        <button type="button" class="btn btn-primary" data-ng-click="ok()">保存</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+        <!--<button class="btn btn-success btn-sm" type="button"><span class="glyphicon glyphicon-plus"></span>保存并新增</button>-->
+        <button type="button" class="btn btn-primary" (click)="onSubmit()">保存</button>
+        <button type="button" class="btn btn-default" (click)="clear_('add')">返回</button>
       </div>
     </div>
   </div>
 </div>
 
 
-<div class="modal fade" id="particulars" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" bsModal #detailModal="bs-modal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <!-- 关闭按钮 -->
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-          ×
-        </button>
+        <button type="button" class="close" (click)="clear_('detail')">×</button>
         <!-- 标题 -->
         <h3 class="modal-title" data-ng-bind='results.title'></h3>
-        <h4 class="modal-title">资产名称-编号</h4>
+        <h4 class="modal-title">{{assetsInfo?.result?.assets_name}}-{{assetsInfo?.result?.assets_number}}</h4>
       </div>
       <div class="modal-body height-overflow-380">
         <div class="row ">
@@ -280,42 +243,39 @@
                 <tbody>
                 <tr>
                   <td class="width-120">资产编号:</td>
-                  <td class=""></td>
+                  <td class="">{{assetsInfo?.result?.assets_number}}</td>
                   <td class="width-120">资产名称:</td>
-                  <td class=""></td>
+                  <td class="">{{assetsInfo?.result?.assets_name}}</td>
                 </tr>
                 <tr>
                   <td class="width-120">报废日期:</td>
-                  <td >
-                  </td>
+                  <td >{{assetsInfo?.result?.assets_date}}</td>
                   <td class="width-120">报废原因:</td>
-                  <td class=""></td>
+                  <td class="">{{assetsInfo?.result?.assets_reason}}</td>
                 </tr>
-                <tr>
-                  <td class="width-120">修改人:</td>
-                  <td >
-                  </td>
-                  <td class="width-120">修改时间:</td>
-                  <td class=""></td>
-                </tr>
+                <!--<tr>-->
+                  <!--<td class="width-120">修改人:</td>-->
+                  <!--<td >-->
+                  <!--</td>-->
+                  <!--<td class="width-120">修改时间:</td>-->
+                  <!--<td class=""></td>-->
+                <!--</tr>-->
                 <tr>
                   <td class="width-120">处置方式：</td>
-                  <td class="" colspan="3"></td>
+                  <td class="" colspan="3">{{assetsInfo?.result?.assets_method}}</td>
                 </tr>
                 <tr>
                   <td class="width-120">补充说明:</td>
-                  <td class="" colspan="3"></td>
+                  <td class="" colspan="3">{{assetsInfo?.result?.assets_use_note}}</td>
                 </tr>
-
                 </tbody>
               </table>
-
             </div>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+        <button type="button" class="btn btn-default" (click)="clear_('detail')">返回</button>
       </div>
     </div>
   </div>
