@@ -5375,3 +5375,26 @@ ul.checkable.checkable--popboxmenu li a .label-name {
     outline: none;
     border: none;
 }
+
+/*图片*/
+.picture-list{
+    display: inline-block;
+    zoom: 1;
+    width:100px;
+    padding: 6px!important;
+    position: relative;
+}
+.picture-list img{
+    max-width: 100%;
+    width: 100%;
+    cursor: pointer;
+}
+.picture-a{
+    position: absolute;
+    display: none;
+    top: -3px;
+    right: -4px;
+    color: #acaba7;
+    z-index: 3;
+    font-size: 14px;
+}

@@ -376,7 +376,6 @@ div.dataTables_paginate ul.pagination {
 .txt-color-blue {
     color: #3782e7!important
 }
-
 .txt-color-blueLight {
     color: #92a2a8!important
 }
@@ -765,7 +764,10 @@ div.dataTables_paginate ul.pagination {
 .margin-bottom-10 {
     margin-bottom: 10px!important
 }
-.margin-bottom-40 {
+.mb-40{
+    margin-bottom: 40px!important
+}
+.margin-bottom-40{
     margin-bottom: 40px!important
 }
 .mb-20{
@@ -1007,6 +1009,18 @@ h1,h2,h3,h4 {
     border: none;
     border-radius: 4px;
 
+}
+.btn-save:hover{
+    background-color: #3782e7;
+    color: #fff;
+}
+.btn-s{
+    color: #ffffff;
+    border: solid 1px #169af6;
+    display: inline-block;
+    line-height: 30px;
+    padding: 0 8px;
+    background: #169af6
 }
 .btn-cancel{
     background-color: #ccc;

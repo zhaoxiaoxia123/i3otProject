@@ -1,0 +1,76 @@
+<!--主要内容-->
+<div id="content">
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-sm-12 ">
+        <sa-widget [editbutton]="false" [deletebutton]="false" >
+          <header>
+            <span class="widget-icon"> <i class="fa  fa-sign-out"></i> </span>
+            <h2>发起审批</h2>
+          </header>
+
+          <div>
+            <!--小部件内容-->
+            <div class="widget-body no-padding">
+              <div class="project-grid-panel">
+                <div class="row margin-bottom-10">
+                  <div class="projects-panel-header">
+                    <span>
+                      <i class="fa fa-sitemap padding-left-5"></i>&nbsp;&nbsp;出勤休假
+                    </span>
+                    <span class="txt-color-red padding-left-10">
+                      1
+                    </span>
+                  </div>
+                  <div class="project-grid ">
+                    <div class="project-item " routerLink="/process/initiate-leave" >
+                      <a class="center ">
+                        <i class="fa-fw fa fa-inbox text-blove"></i>
+                        <h4 class="">请假</h4></a>
+                    </div>
+                    <div class="project-item">
+                      <a class="center">
+                        <i class="fa-fw fa fa-inbox text-blove"></i>
+                        <h4 class="">出差</h4></a>
+                    </div>
+                    <div class="project-item " routerLink="/process/initiate-leave" >
+                      <a class="center ">
+                        <i class="fa-fw fa fa-inbox text-blove"></i>
+                        <h4 class="">外出</h4></a>
+                    </div>
+                  </div>
+                </div>
+                <div class="row margin-bottom-10">
+                  <div class="projects-panel-header">
+                    <span>
+                      <i class="fa fa-sitemap padding-left-5"></i>&nbsp;&nbsp;其他
+                    </span>
+                    <span class="txt-color-red padding-left-10">
+                      1
+                    </span>
+                  </div>
+                  <div class="project-grid ">
+                    <div class="project-item " routerLink="/process/initiate-leave" >
+                      <a class="center ">
+                        <i class="fa-fw fa fa-inbox text-blove"></i>
+                        <h4 class="">报销</h4></a>
+                    </div>
+                    <div class="project-item">
+                      <a class="center">
+                        <i class="fa-fw fa fa-inbox text-blove"></i>
+                        <h4 class="">通用审核</h4></a>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+
+            </div>
+          </div>
+
+        </sa-widget>
+      </article>
+    </div>
+  </sa-widgets-grid>
+</div>

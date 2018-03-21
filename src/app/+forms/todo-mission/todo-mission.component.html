@@ -1026,34 +1026,37 @@
                           员工列表
                         </alert>
                         <div class="mt-10 "  style="padding:0;">
-                          <table class="table table-striped   smart-form table-height-20">
-                            <thead>
-                            <tr>
-                              <td>
-                                <label class="checkbox mt-8">
-                                  <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)">
-                                  <i></i>
-                                </label>
-                              </td>
-                              <th>员工ID </th>
-                              <th>姓名</th>
-                              <th>所属部门</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr *ngFor="let ul of userList.result?.userList?.data">
-                              <td>
-                                <label class="checkbox mt-8" >
-                                  <input type="checkbox" value="{{ul.id}}" [checked]="selected_user[ul.id]" (change)="handle($event);" />
-                                  <i></i>
-                                </label>
-                              </td>
-                              <td>{{ ul.name }}</td>
-                              <td>{{ ul.u_username }}</td>
-                              <td>{{ ul.department_name }}</td>
-                            </tr>
-                            </tbody>
-                          </table>
+                          <div style="padding: 0;z-index: 1;" class="table-responsive border-overflow-320">
+                            <table class="table table-striped   smart-form table-height-20">
+                              <thead>
+                              <tr>
+                                <td>
+                                  <label class="checkbox mt-8">
+                                    <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)">
+                                    <i></i>
+                                  </label>
+                                </td>
+                                <th>员工ID </th>
+                                <th>姓名</th>
+                                <th>所属部门</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr *ngFor="let ul of userList.result?.userList?.data">
+                                <td>
+                                  <label class="checkbox mt-8" >
+                                    <input type="checkbox" value="{{ul.id}}" [checked]="selected_user[ul.id]" (change)="handle($event);" />
+                                    <i></i>
+                                  </label>
+                                </td>
+                                <td>{{ ul.name }}</td>
+                                <td>{{ ul.u_username }}</td>
+                                <td>{{ ul.department_name }}</td>
+                              </tr>
+                              </tbody>
+                            </table>
+                          </div>
+
                         </div>
                         <!-- 底部-（分页部分）-->
                         <div class="dt-toolbar">
