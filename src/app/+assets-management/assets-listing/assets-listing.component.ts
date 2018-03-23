@@ -303,11 +303,8 @@ export class AssetsListingComponent implements OnInit {
     this.assets_user_id = 0;
     this.assets_note = '';
     this.selectIds=[];
-    if(type == 'detail'){
-      this.detailModal.hide()
-    }else{
-      this.addModal.hide();
-    }
+    if(type == 'detail'){}
+    this.addModal.hide();
   }
 
   /**

@@ -22,12 +22,12 @@ export const routes: Routes = [
         data: {pageTitle: 'CommodityClassify'}
     },
     {
-        path: 'add-outbound',
+        path: 'add-outbound/:otherorder_id',
         loadChildren: 'app/+inventory-management/add-outbound/add-outbound.module#AddOutboundModule',
         data: {pageTitle: 'AddOutbound'}
     },
     {
-        path: 'add-storage',
+        path: 'add-storage/:otherorder_id',
         loadChildren: 'app/+inventory-management/add-storage/add-storage.module#AddStorageModule',
         data: {pageTitle: 'AddStorage'}
     },
