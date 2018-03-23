@@ -31,7 +31,7 @@
 
             </div>
             <div class="widget-toolbar">
-              <button class="btn txt-color-white bg-color-lightBlue " >切换布局</button>
+              <button class="btn txt-color-white bg-color-lightBlue " (click)="checkLayout()">切换布局</button>
 
             </div>
           </header>
@@ -39,7 +39,7 @@
             <!--小部件内容-->
             <div class="widget-body no-padding">
               <div class="ng-scope ">
-                <div class="entries_panel js-sortable layout_content_main_tasks ng-scope wt-scroll entries_panel_cross"  >
+                <div [ngClass]="{'entries_panel js-sortable layout_content_main_tasks ng-scope wt-scroll':true, 'entries_panel_cross':isCheck}"  >
                   <div class="entries_panel_sortarea ui-sortable margin-bottom-40" >
 
                     <div class="entry ng-scope" *ngFor="let tl of todoList?.result?.template_list;let ind = index;" droppable [dropScope]="''+tl.key" [dragOverClass]="'drag-target-border'"
@@ -74,11 +74,36 @@
                         <a class="entry_header_number ng-binding ng-scope" (click)="deleteTodoList(tl.key,todoList?.result?.project_id)">
                           删除 </a>
                       </div>
-                      <div class="entry-task-panel wt-scroll entries_panel_height" >
+                      <div [ngClass]="{'entry-task-panel wt-scroll':true, 'entries_panel_height':isCheck}">
                         <div class="entry-tasks js-sortable ui-sortable" >
 
                           <div *ngFor="let tl1 of tl.todo_list;let indtl=index;">
-                            <div *ngIf="((indtl < todoListPages[tl.key] && todoListPages[tl.key] == 5) || (todoListPages[tl.key] >= 10))" (click)="showDetail(tl1.todo_id,tl.info,1)" [ngClass]="{'right_click_trigger slide-trigger js-popbox false task task_style task-':true,'task-selected':tl1.todo_status==2,'bo-color-orange':tl1.isAssign,'bo-color-info':tl1.isFollower}" draggable [dragScope]="tl.d" [dragClass]="'drag-over'" [dragData]="tl1" (onDragEnd)="onDragList_(tl1.todo_id,tl1.project_id)"><!--tl1.template_id,-->
+                            <!-- isCheck为0 的切换模式--->
+                            <div *ngIf="((indtl < todoListPages[tl.key] && todoListPages[tl.key] == 5) || (todoListPages[tl.key] >= 10)) && isCheck == 0" (click)="showDetail(tl1.todo_id,tl.info,1)" [ngClass]="{'right_click_trigger slide-trigger js-popbox false task task_style task-':true,'task-selected':tl1.todo_status==2,'bo-color-orange':tl1.isAssign,'bo-color-info':tl1.isFollower}" draggable [dragScope]="tl.d" [dragClass]="'drag-over'" [dragData]="tl1" (onDragEnd)="onDragList_(tl1.todo_id,tl1.project_id)"><!--tl1.template_id,-->
+                              <div [ngClass]="{'entry-task-main':true,'task-completed-style':tl1.todo_status==2}">
+                                <a class="entry-task-check ng-scope" *ngIf="tl1.todo_status != 2" (click)="editStatus($event,2,tl1.todo_id,todoList?.result?.project_id)">
+                                  <i class="fa fa-square-o"></i>
+                                </a>
+                                <a class="entry-task-check ng-scope" *ngIf="tl1.todo_status == 2" (click)="editStatus($event,1,tl1.todo_id,todoList?.result?.project_id)">
+                                  <i class="fa fa-check-square"></i>
+                                </a>
+                                <a class="entry-task-title ng-binding">{{tl1.todo_title}}</a>
+                              </div>
+                              <div class="task-badges task-height">
+                                <span class="task-badge fa fa-clock-o badge-expire-soon" title="任务即将截止">{{tl1.expired_at | date:'yyyy-MM-dd'}}</span>
+                                <span class="task-badge fa fa-long-arrow-right" title="任务有描述" *ngIf="tl1.todo_content"></span>
+                                <span class="task-badge fa fa-comment-o" title="任务有 {{tl1.comment_count}} 个评论">{{tl1.comment_count}}</span>
+                                <span class="task-badge fa fa-user" title="分配人数"> {{tl1.assignCount}}</span>
+                                <span class="task-badge task-label" title="{{tag}}" *ngFor="let tag of tl1.tags;let ti = index;"  [ngStyle]="{'background-color': tl1.tags_color[ti]}">{{tag}}</span>
+                              </div>
+                              <!--<div class="entry-task-members" *ngIf="tl1.todo_assign">-->
+                              <!--<a class="js-popbox member avatar ng-scope avatar-28" title="{{h.u_username}}" *ngFor="let h of tl1.assignList">-->
+                              <!--{{h.u_username}}-->
+                              <!--</a>-->
+                              <!--</div>-->
+                            </div>
+                            <!-- isCheck为1 的切换模式--->
+                            <div *ngIf="isCheck == 1" (click)="showDetail(tl1.todo_id,tl.info,1)" [ngClass]="{'right_click_trigger slide-trigger js-popbox false task task_style task-':true,'task-selected':tl1.todo_status==2,'bo-color-orange':tl1.isAssign,'bo-color-info':tl1.isFollower}" draggable [dragScope]="tl.d" [dragClass]="'drag-over'" [dragData]="tl1" (onDragEnd)="onDragList_(tl1.todo_id,tl1.project_id)"><!--tl1.template_id,-->
                               <div [ngClass]="{'entry-task-main':true,'task-completed-style':tl1.todo_status==2}">
                                 <a class="entry-task-check ng-scope" *ngIf="tl1.todo_status != 2" (click)="editStatus($event,2,tl1.todo_id,todoList?.result?.project_id)">
                                   <i class="fa fa-square-o"></i>
@@ -102,8 +127,8 @@
                               <!--</div>-->
                             </div>
                           </div>
-                          <a (click)="showTodoList(tl.key,1)" *ngIf="todoListPages[tl.key] <= 5 && tl.todo_list_count > 5">查看更多</a><!-- (click)="getTodoDefault(project_id,tl.key)"-->
-                          <a (click)="showTodoList(tl.key,2)" *ngIf="todoListPages[tl.key] == 10 && tl.todo_list_count > 5">隐藏</a>
+                          <a (click)="showTodoList(tl.key,1)" *ngIf="todoListPages[tl.key] <= 5 && tl.todo_list_count > 5 && isCheck== 0">查看更多</a><!-- (click)="getTodoDefault(project_id,tl.key)"-->
+                          <a (click)="showTodoList(tl.key,2)" *ngIf="todoListPages[tl.key] == 10 && tl.todo_list_count > 5 && isCheck== 0">隐藏</a>
                         </div>
                         <!--新建任务发布框-->
                         <div class="entry-add-bottom-composer entry-task-composer ng-isolate-scope" *ngIf="selects[tl.key]" >

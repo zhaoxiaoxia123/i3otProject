@@ -113,6 +113,7 @@ export class TodoMissionComponent implements OnInit {
     project_id:any = 0;
     todo_id:any = 0;
 
+    isCheck:number=0;//切换布局  0：隐藏查看更多  1：查看更多
     dropTemplateId : any = '';//拽入模版编号
     rollback_url : string = '/forms/todo-mission';
 
@@ -247,7 +248,13 @@ export class TodoMissionComponent implements OnInit {
             });
     }
 
-
+    /**
+     * 切换布局
+     */
+    checkLayout(){
+        this.isCheck = this.isCheck ? 0 : 1;
+        console.log(this.isCheck );
+    }
 
     /**
      * 左边选中所有

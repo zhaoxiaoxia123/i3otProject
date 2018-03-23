@@ -157,6 +157,7 @@ export class TodoProjectsComponent implements OnInit {
       this.http.post(this.globalService.getDomain()+'/api/v1/addCommonProject',{
         'project_id' : project_id,
         'project_status':project_status,
+        'uId':this.uId,
         'sid':this.cookieStore.getCookie('sid')
       }).subscribe(
           (data)=>{
