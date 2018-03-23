@@ -124,8 +124,8 @@
                         <span class="" *ngIf="isDetail != '' && p1.openinginventory_id == editStatusOpeningInventoryId">{{p_count*p_price}}</span>
                         <span class="" *ngIf="isDetail == ''">{{p1.openinginventory_price*p1.openinginventory_count}}</span>
                       </td>
-                      <td>
-                        <span class="" *ngIf="isDetail != '' && p1.openinginventory_id == editStatusOpeningInventoryId"><input type="text" name="p_price" [(ngModel)]="p_price"/></span>
+                        <td>
+                        <span class="" *ngIf="isDetail != '' && p1.openinginventory_id == editStatusOpeningInventoryId"><input class="ng-pristine ng-valid ng-touched" type="text" name="p_price" [(ngModel)]="p_price"/></span>
                         <span class="" *ngIf="isDetail == ''">{{p1.openinginventory_price}}</span>
                       </td>
                       <td><span class="">{{p1.p_qrcode}}</span></td>
@@ -266,7 +266,7 @@
                             <th>商品编号</th>
                             <th>商品属性</th>
                             <th>商品名称</th>
-                            <!--<th>商品量</th>-->
+                            <!--<th>商品储量</th>-->
                             <th>商品分类</th>
                             <th>生产厂家</th>
                             <th>参考售价</th>

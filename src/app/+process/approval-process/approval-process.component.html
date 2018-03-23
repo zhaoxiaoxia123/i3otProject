@@ -1,0 +1,63 @@
+<div id="content">
+    <sa-widgets-grid>
+        <div class="row">
+            <article class="col-sm-12 ">
+                <sa-widget  [editbutton]="false" [deletebutton]="false">
+                    <header>
+                        <ul class="nav nav-tabs pull-left in">
+
+                            <li [class.active]="state.tabs.demo5=='iss1'" class="active">
+                                <a (click)="state.tabs.demo5 = 'iss1'">待我审批的<span class="badge bg-color-red txt-color-white">99</span></a>
+                            </li>
+                            <li [class.active]="state.tabs.demo5=='iss2'">
+                                <a (click)="state.tabs.demo5 = 'iss2'">我已审批的 </a>
+                            </li>
+                            <li [class.active]="state.tabs.demo5=='iss3'">
+                                <a (click)="state.tabs.demo5 = 'iss3'">我发起的 </a>
+                            </li>
+                            <li [class.active]="state.tabs.demo5=='iss4'">
+                                <a (click)="state.tabs.demo5 = 'iss4'">抄送我的 </a>
+                            </li>
+                        </ul>
+                    </header>
+                    <div>
+                        <div class="widget-body">
+                            <tabset>
+                                <tab [active]="state.tabs.demo5 == 'iss1'">
+                                    <div class="row">
+                                        <app-process-await></app-process-await>
+                                    </div>
+
+                                </tab>
+                                <tab [active]="state.tabs.demo5 == 'iss2'">
+                                    <div class="row">
+                                        <app-process-already></app-process-already>
+                                    </div>
+
+                                </tab>
+                                <tab [active]="state.tabs.demo5 == 'iss3'">
+                                    <div class="row">
+                                        <app-process-my></app-process-my>
+                                    </div>
+
+                                </tab>
+                                <tab [active]="state.tabs.demo5 == 'iss4'">
+                                    <div class="row">
+                                        <app-process-copy></app-process-copy>
+                                    </div>
+
+                                </tab>
+
+                            </tabset>
+                        </div>
+                    </div>
+                </sa-widget>
+
+            </article>
+        </div>
+
+
+    </sa-widgets-grid>
+
+</div>
+

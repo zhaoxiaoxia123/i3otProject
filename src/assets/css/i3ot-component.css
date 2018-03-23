@@ -616,6 +616,7 @@ body.nooverflow {
 
 #jarviswidget-fullscreen-mode .jarviswidget>div {
     overflow-y: scroll;
+    overflow-x:hidden;
     -moz-border-radius: 0;
     -khtml-border-radius: 0;
     -webkit-border-radius: 0;
@@ -3044,6 +3045,7 @@ ul.ColVis_collection li label {
     overflow: hidden;
     text-overflow: ellipsis;
     border-top: 0;
+    border-bottom: 1px solid #ddd;
 }
 @media screen and (max-width: 1920px) {
     .table-responsive {
@@ -5374,4 +5376,27 @@ ul.checkable.checkable--popboxmenu li a .label-name {
     cursor: pointer;
     outline: none;
     border: none;
+}
+
+/*图片*/
+.picture-list{
+    display: inline-block;
+    zoom: 1;
+    width:100px;
+    padding: 6px!important;
+    position: relative;
+}
+.picture-list img{
+    max-width: 100%;
+    width: 100%;
+    cursor: pointer;
+}
+.picture-a{
+    position: absolute;
+    display: none;
+    top: -3px;
+    right: -4px;
+    color: #acaba7;
+    z-index: 3;
+    font-size: 14px;
 }

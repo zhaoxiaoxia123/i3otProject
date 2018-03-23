@@ -90,6 +90,11 @@ export const routes: Routes = [
             path: 'to-do',
             loadChildren: 'app/+to-do/to-do.module#ToDoModule',
             data: {pageTitle: 'ToDo'}
+        },
+        {
+            path: 'process',
+            loadChildren: 'app/+process/process.module#ProcessModule',
+            data: {pageTitle: 'Process'}
         }
     ]
   },
