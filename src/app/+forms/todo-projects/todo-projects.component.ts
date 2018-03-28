@@ -53,7 +53,6 @@ export class TodoProjectsComponent implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.projectDefault = data;
-          console.log(this.projectDefault);
           if(this.projectDefault['status'] == 202){
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
@@ -100,8 +99,6 @@ export class TodoProjectsComponent implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
             this.projectList = data;
-            console.log('this.projectList:----');
-            console.log(this.projectList);
             if(this.projectList['status'] == 202){
                 this.cookieStore.removeAll(this.rollback_url);
                 this.router.navigate(['/auth/login']);
@@ -124,7 +121,6 @@ export class TodoProjectsComponent implements OnInit {
           .map((res)=>res.json())
           .subscribe((data)=>{
             this.projectInfo = data;
-            console.log(this.projectInfo);
             if(this.projectInfo['status'] == 202){
               this.cookieStore.removeAll(this.rollback_url);
               this.router.navigate(['/auth/login']);
@@ -134,7 +130,6 @@ export class TodoProjectsComponent implements OnInit {
             this.project_content = this.projectInfo['result']['project_content'];
             this.project_publicity = this.projectInfo['result']['project_publicity'];
             this.project_template = (this.projectInfo['result']['project_template'] != null && this.projectInfo['result']['project_template'] != '') ? true : false;
-
           });
     }
     if(this.project_owner != 0){
@@ -226,8 +221,6 @@ export class TodoProjectsComponent implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.categoryList = data;
-          console.log('------------');
-          console.log(this.categoryList);
           if(this.categoryList['status'] == 202){
             alert(this.categoryList['msg']);
             this.cookieStore.removeAll(this.rollback_url);

@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Input, Output, Renderer2, ViewContainerRef } from '@angular/core';
 import { PopoverConfig } from './popover.config';
-import { ComponentLoaderFactory } from '../component-loader';
+import { ComponentLoaderFactory } from '../component-loader/index';
 import { PopoverContainerComponent } from './popover-container.component';
 /**
  * A lightweight, extensible directive for fancy popover creation.
@@ -23,14 +23,16 @@ var PopoverDirective = (function () {
         this.onShown = this._popover.onShown;
         this.onHidden = this._popover.onHidden;
         // fix: no focus on button on Mac OS #1795
-        _elementRef.nativeElement.addEventListener('click', function () {
-            try {
-                _elementRef.nativeElement.focus();
-            }
-            catch (err) {
-                return;
-            }
-        });
+        if (typeof window !== 'undefined') {
+            _elementRef.nativeElement.addEventListener('click', function () {
+                try {
+                    _elementRef.nativeElement.focus();
+                }
+                catch (err) {
+                    return;
+                }
+            });
+        }
     }
     Object.defineProperty(PopoverDirective.prototype, "isOpen", {
         /**
@@ -55,7 +57,7 @@ var PopoverDirective = (function () {
      * the popover.
      */
     PopoverDirective.prototype.show = function () {
-        if (this._popover.isShown) {
+        if (this._popover.isShown || !this.popover) {
             return;
         }
         this._popover

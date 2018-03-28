@@ -89,22 +89,17 @@ export class AssetsListingComponent implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.assetsDefault = data;
-          console.log(this.assetsDefault);
           if(this.assetsDefault['status'] == 202){
             alert(this.assetsDefault['msg']);
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
-
           this.selectIds = [];
           for (let entry of this.assetsDefault['result']['category']) {
             this.selectIds[entry['category_id']] = false;
           }
           this.checkId = false;
 
-          console.log('this.selectIds:----');
-          console.log(this.selectIds);
-          console.log(this.checkId);
         });
   }
 
@@ -123,7 +118,6 @@ export class AssetsListingComponent implements OnInit {
   //         .map((res) => res.json())
   //         .subscribe((data) => {
   //           this.userList = data;
-  //           console.log(this.userList);
   //           if (this.userList['status'] == 202) {
   //             alert(this.userList['msg']);
   //             this.cookieStore.removeAll(this.rollback_url);
@@ -145,7 +139,6 @@ export class AssetsListingComponent implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.assetsList = data;
-          console.log(this.assetsList);
           if(this.assetsList['status'] == 202){
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
@@ -249,7 +242,6 @@ export class AssetsListingComponent implements OnInit {
     }).subscribe(
         (data)=>{
           let info = JSON.parse(data['_body']);
-          console.log(info['status']);
           if(info['status'] == 201){
             alert(info['msg']);
             return false;
@@ -303,8 +295,11 @@ export class AssetsListingComponent implements OnInit {
     this.assets_user_id = 0;
     this.assets_note = '';
     this.selectIds=[];
-    if(type == 'detail'){}
-    this.addModal.hide();
+    if(type == 'detail'){
+      this.detailModal.hide();
+    }else {
+      this.addModal.hide();
+    }
   }
 
   /**
@@ -397,7 +392,7 @@ export class AssetsListingComponent implements OnInit {
     }
     msg = '您确定要删除该信息吗？';
     if(confirm(msg)) {
-      let url = this.globalService.getDomain()+'/api/v1/deleteAssetsById?assets_id=' + assets_id + '&type='+type+'&sid=' + this.cookieStore.getCookie('sid');
+      let url = this.globalService.getDomain()+'/api/v1/deleteAssetsById?assets_id=' + assets_id + '&type='+type+'&page_type=order&sid=' + this.cookieStore.getCookie('sid');
       this.http.delete(url)
           .map((res) => res.json())
           .subscribe((data) => {
@@ -536,8 +531,6 @@ export class AssetsListingComponent implements OnInit {
   //   }else{
   //     this.selectTypeIds += id+',';
   //   }
-  //   console.log('this.selectTypeIds :----');
-  //   console.log(this.selectTypeIds);
   // }
 
 

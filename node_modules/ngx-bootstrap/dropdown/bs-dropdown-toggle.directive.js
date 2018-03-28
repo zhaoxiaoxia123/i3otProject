@@ -12,8 +12,7 @@ var BsDropdownToggleDirective = (function () {
         // populate disabled state
         this._subscriptions.push(this._state.isDisabledChange.subscribe(function (value) { return (_this.isDisabled = value || null); }));
     }
-    BsDropdownToggleDirective.prototype.onClick = function (event) {
-        event.stopPropagation();
+    BsDropdownToggleDirective.prototype.onClick = function () {
         if (this.isDisabled) {
             return;
         }
@@ -54,7 +53,7 @@ var BsDropdownToggleDirective = (function () {
     BsDropdownToggleDirective.propDecorators = {
         'isDisabled': [{ type: HostBinding, args: ['attr.disabled',] },],
         'isOpen': [{ type: HostBinding, args: ['attr.aria-expanded',] },],
-        'onClick': [{ type: HostListener, args: ['click', ['$event'],] },],
+        'onClick': [{ type: HostListener, args: ['click', [],] },],
         'onDocumentClick': [{ type: HostListener, args: ['document:click', ['$event'],] },],
         'onEsc': [{ type: HostListener, args: ['keyup.esc',] },],
     };

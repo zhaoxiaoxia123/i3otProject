@@ -71,7 +71,6 @@ export class AssetsReturnComponent implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.assetsDefault = data;
-          console.log(this.assetsDefault);
           if(this.assetsDefault['status'] == 202){
             alert(this.assetsDefault['msg']);
             this.cookieStore.removeAll(this.rollback_url);
@@ -93,7 +92,6 @@ export class AssetsReturnComponent implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.assetsList = data;
-          console.log(this.assetsList);
           if(this.assetsList['status'] == 202){
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
@@ -179,7 +177,6 @@ export class AssetsReturnComponent implements OnInit {
     }).subscribe(
         (data)=>{
           let info = JSON.parse(data['_body']);
-          console.log(info['status']);
           if(info['status'] == 201){
             alert(info['msg']);
             return false;
@@ -302,7 +299,7 @@ export class AssetsReturnComponent implements OnInit {
     }
     msg = '您确定要删除该信息吗？';
     if(confirm(msg)) {
-      let url = this.globalService.getDomain()+'/api/v1/deleteAssetsById?assets_id=' + assets_id + '&type='+type+'&sid=' + this.cookieStore.getCookie('sid');
+      let url = this.globalService.getDomain()+'/api/v1/deleteAssetsById?assets_id=' + assets_id +'&assets_status='+this.edit_assets_status_default+'&assets_type='+this.edit_assets_type_default + '&type='+type+'&sid=' + this.cookieStore.getCookie('sid');
       this.http.delete(url)
           .map((res) => res.json())
           .subscribe((data) => {

@@ -24,10 +24,12 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
       private el:ElementRef,
       private renderer: Renderer
     ) {
-    this.lastUpdate = new Date();
+    this.lastUpdate = new Date().getFullYear()+'-'+
+    new Date().getMonth()+'-'+
+    new Date().getDate()+' '+
+    new Date().getHours()+':'+
+    new Date().getMinutes();
     this.uid = this.cookieStore.getCookie('uid');
-    console.log('this.isShow:--');
-    console.log(this.isShow);
   }
 
   ngOnInit() {
@@ -35,7 +37,7 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
         .map((res) => res.json())
         .subscribe((data) => {
           this.messageList = data;
-          console.log('this.messageList~~~~:------');
+          console.log('this.messageList:---');
           console.log(this.messageList);
         });
   }
@@ -48,7 +50,6 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
       this.isShow = value;
   }
   showMessageDiv(type:any) {
-    console.log(type);
     if (type == 'all' ) {
       if(this.isShow == 'none') {
         this.isShow = 1;

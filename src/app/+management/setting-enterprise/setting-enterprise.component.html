@@ -40,9 +40,9 @@
                         <form [formGroup]="formModel" (ngSubmit)="onSubmitIndustryCategory()" novalidate class="smart-form ">
                           <fieldset>
                             <section>
-                              <label class="label txt-color-blue">项目编号<span class="asterisk-color">*</span></label>
+                              <label class="label txt-color-blue">行业编号<span class="asterisk-color">*</span></label>
                               <label class="input">
-                                <input type="text" placeholder="自动编码" disabled="disabled" name="" >
+                                <input type="text" placeholder="行业编号" formControlName="category_number" name="category_number">
                               </label>
                             </section>
                             <section>

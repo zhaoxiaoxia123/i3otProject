@@ -94,9 +94,6 @@ export class AddOutboundComponent implements OnInit {
             }
             this.getOtherorderInfo(id);
             this.rollback_url += '/' + id;
-            // if(this.otherorder_id != 0){
-            //   this.getOtherorderInfo(this.otherorder_id);
-            //   this.rollback_url += '/' + this.otherorder_id;
         }else{
             this.rollback_url += '/0';
         }
@@ -108,7 +105,6 @@ export class AddOutboundComponent implements OnInit {
             .map((res)=>res.json())
             .subscribe((data)=>{
                 this.otherorderInfo = data;
-                console.log(this.otherorderInfo);
                 this.formModel.patchValue({
                     otherorder_id:otherorder_id,
                     otherorder_order:this.otherorderInfo['result']['otherorder_order'],
@@ -165,14 +161,12 @@ export class AddOutboundComponent implements OnInit {
             id = obj;
         }
         let url = this.globalService.getDomain()+'/api/v1/getDepartment';
-        console.log(id);
         if(id != 0){
             url += '?u_id='+id;
         }
         this.http.get(url)
             .map((res)=>res.json())
             .subscribe((data)=>{
-                console.log(data);
                 if(data['status'] == 201){
                     alert(data['msg']);
                 }else if(data['status']== 200){
@@ -277,7 +271,6 @@ export class AddOutboundComponent implements OnInit {
             .map((res)=>res.json())
             .subscribe((data)=>{
                 this.productDefault = data;
-                console.log(this.productDefault);
                 if(this.productDefault['status'] == 202){
                     alert(this.productDefault['msg']);
                     this.cookieStore.removeAll(this.rollback_url);
@@ -294,7 +287,6 @@ export class AddOutboundComponent implements OnInit {
                 });
             });
     }
-
 
     /**
      * 计算金额总数
@@ -492,25 +484,8 @@ export class AddOutboundComponent implements OnInit {
     }
     //移除商品
     removeInput(ind) {
-        // let i = this.selectProductList.indexOf(item);
         this.selectProductList.splice(ind, 1);
     }
-    //
-    // /**
-    //  * 计算金额总数
-    //  * @param obj
-    //  * type   p_otherorderice:销售金额
-    //  */
-    // sumPCount(obj,type){
-    //     if(type == 'p_otherorderice'){
-    //         this.p_otherorderices = 0;
-    //         this.selectProductList.forEach((val, idx, array) => {
-    //             this.p_otherorderices += parseInt(val['p_otherorderice']);
-    //         });
-    //         console.log('this.p_otherorderices:----');
-    //         console.log(this.p_otherorderices);
-    //     }
-    // }
 
     @ViewChild('lgModal') public lgModal:ModalDirective;
 

@@ -86,8 +86,6 @@ export class UnitListComponent implements OnInit {
         window.scrollTo(0,0);
         this.super_admin_id = this.globalService.getAdminID();
         this.cid = this.cookieStoreService.getCookie('cid');
-        console.log(this.super_admin_id);
-        console.log(this.cid);
         this.getCustomerDefault();
     }
 
@@ -102,7 +100,6 @@ export class UnitListComponent implements OnInit {
             .map((res)=>res.json())
             .subscribe((data)=>{
                 this.customerDefault = data;
-                console.log(this.customerDefault);
                 if(this.customerDefault['status'] == 202){
                     alert(this.customerDefault['msg']);
                     this.cookieStoreService.removeAll(this.rollback_url);
@@ -123,7 +120,6 @@ export class UnitListComponent implements OnInit {
             .map((res)=>res.json())
             .subscribe((data)=>{
                 this.customerList = data;
-                console.log(this.customerList);
                 if(this.customerList['status'] == 202){
                     this.cookieStoreService.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
@@ -164,8 +160,6 @@ export class UnitListComponent implements OnInit {
         }else{
             this.check = true;
         }
-        console.log(this.selects);
-        console.log(this.check);
     }
 
     /**
@@ -179,7 +173,6 @@ export class UnitListComponent implements OnInit {
             id = obj;
         }
         let url = this.globalService.getDomain()+'/api/v1/getDepartment';
-        console.log(id);
         if(id != 0){
             url += '?u_id='+id;
         }
@@ -193,7 +186,6 @@ export class UnitListComponent implements OnInit {
                 }else if(this.departmentInfo['status'] == 200){
                     this.department = this.departmentInfo['result']['department_name'];
                 }
-                // console.log(this.department);
             });
     }
 
@@ -494,7 +486,6 @@ export class UnitListComponent implements OnInit {
             id = obj;
         }
         let url = this.globalService.getDomain()+'/api/v1/getUnitCategoryList?category_type='+this.category_type+'&sid='+this.cookieStoreService.getCookie('sid');
-        console.log(id);
         if(id != 0){
             url += '&category_tab='+id;
         }

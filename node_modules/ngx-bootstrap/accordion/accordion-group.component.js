@@ -1,4 +1,4 @@
-import { Component, HostBinding, Inject, Input } from '@angular/core';
+import { Component, HostBinding, Inject, Input, Output, EventEmitter } from '@angular/core';
 import { isBs3 } from '../utils/theme-provider';
 import { AccordionComponent } from './accordion.component';
 /**
@@ -9,18 +9,27 @@ import { AccordionComponent } from './accordion.component';
  */
 var AccordionPanelComponent = (function () {
     function AccordionPanelComponent(accordion) {
+        /** Emits when the opened state changes */
+        this.isOpenChange = new EventEmitter();
+        this._isOpen = false;
         this.accordion = accordion;
     }
     Object.defineProperty(AccordionPanelComponent.prototype, "isOpen", {
         // Questionable, maybe .panel-open should be on child div.panel element?
-        /** Is accordion group open or closed */
+        /** Is accordion group open or closed. This property supports two-way binding */
         get: function () {
             return this._isOpen;
         },
         set: function (value) {
-            this._isOpen = value;
-            if (value) {
-                this.accordion.closeOtherPanels(this);
+            var _this = this;
+            if (value !== this.isOpen) {
+                if (value) {
+                    this.accordion.closeOtherPanels(this);
+                }
+                this._isOpen = value;
+                Promise.resolve(null).then(function () {
+                    _this.isOpenChange.emit(value);
+                });
             }
         },
         enumerable: true,
@@ -63,6 +72,7 @@ var AccordionPanelComponent = (function () {
         'heading': [{ type: Input },],
         'panelClass': [{ type: Input },],
         'isDisabled': [{ type: Input },],
+        'isOpenChange': [{ type: Output },],
         'isOpen': [{ type: HostBinding, args: ['class.panel-open',] }, { type: Input },],
     };
     return AccordionPanelComponent;

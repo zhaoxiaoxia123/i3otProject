@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Input, Output, forwardRef } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, Output, forwardRef, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 export var RATING_CONTROL_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
@@ -7,7 +7,8 @@ export var RATING_CONTROL_VALUE_ACCESSOR = {
     multi: true
 };
 var RatingComponent = (function () {
-    function RatingComponent() {
+    function RatingComponent(changeDetection) {
+        this.changeDetection = changeDetection;
         /** number of icons */
         this.max = 5;
         /** fired when icon selected, $event:number equals to selected rating */
@@ -39,19 +40,23 @@ var RatingComponent = (function () {
         if (value % 1 !== value) {
             this.value = Math.round(value);
             this.preValue = value;
+            this.changeDetection.markForCheck();
             return;
         }
         this.preValue = value;
         this.value = value;
+        this.changeDetection.markForCheck();
     };
     RatingComponent.prototype.enter = function (value) {
         if (!this.readonly) {
             this.value = value;
+            this.changeDetection.markForCheck();
             this.onHover.emit(value);
         }
     };
     RatingComponent.prototype.reset = function () {
         this.value = this.preValue;
+        this.changeDetection.markForCheck();
         this.onLeave.emit(this.value);
     };
     RatingComponent.prototype.registerOnChange = function (fn) {
@@ -80,11 +85,14 @@ var RatingComponent = (function () {
         { type: Component, args: [{
                     selector: 'rating',
                     template: "<span (mouseleave)=\"reset()\" (keydown)=\"onKeydown($event)\" tabindex=\"0\" role=\"slider\" aria-valuemin=\"0\" [attr.aria-valuemax]=\"range.length\" [attr.aria-valuenow]=\"value\"> <ng-template #star let-value=\"value\" let-index=\"index\">{{index < value ? '&#9733;' : '&#9734;'}}</ng-template> <ng-template ngFor let-r [ngForOf]=\"range\" let-index=\"index\"> <span class=\"sr-only\">({{ index < value ? '*' : ' ' }})</span> <span class=\"bs-rating-star\" (mouseenter)=\"enter(index + 1)\" (click)=\"rate(index + 1)\" [title]=\"r.title\" [style.cursor]=\"readonly ? 'default' : 'pointer'\" [class.active]=\"index < value\"> <ng-template [ngTemplateOutlet]=\"customTemplate || star\" [ngTemplateOutletContext]=\"{index: index, value: value}\"> </ng-template> </span> </ng-template> </span> ",
-                    providers: [RATING_CONTROL_VALUE_ACCESSOR]
+                    providers: [RATING_CONTROL_VALUE_ACCESSOR],
+                    changeDetection: ChangeDetectionStrategy.OnPush
                 },] },
     ];
     /** @nocollapse */
-    RatingComponent.ctorParameters = function () { return []; };
+    RatingComponent.ctorParameters = function () { return [
+        { type: ChangeDetectorRef, },
+    ]; };
     RatingComponent.propDecorators = {
         'max': [{ type: Input },],
         'readonly': [{ type: Input },],

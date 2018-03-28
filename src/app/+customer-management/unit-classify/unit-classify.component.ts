@@ -60,7 +60,6 @@ export class UnitClassifyComponent implements OnInit {
   keyword:string = '';
   rollback_url : string = '/customer-management/unit-classify';
   constructor(
-      // fb:FormBuilder,
       private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
@@ -69,7 +68,6 @@ export class UnitClassifyComponent implements OnInit {
     let nav = '{"title":"单位分类","url":"/customer-management/unit-classify","class_":"active"}';
     this.globalService.navEventEmitter.emit(nav);
 
-    // this.getCategoryList('1');
     window.scrollTo(0,0);
     this.super_admin_id = this.globalService.getAdminID();
     this.cid = this.cookieStore.getCookie('cid');
@@ -84,37 +82,18 @@ export class UnitClassifyComponent implements OnInit {
      * 获取默认参数
      */
     getCategoryDefault() {
-        // let url = this.globalService.getDomain()+'/api/v1/getCategory?category_type='+this.category_type+'&page=1&sid='+this.cookieStore.getCookie('sid');
         this.http.get(this.globalService.getDomain()+'/api/v1/getCategory?category_type='+this.category_type+'&type=left&sid='+this.cookieStore.getCookie('sid'))
             .map((res)=>res.json())
             .subscribe((data)=>{
                 this.categoryDefault = data;
-                console.log(this.categoryDefault);
                 if(this.categoryDefault['status'] == 202){
                     alert(this.categoryDefault['msg']);
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
-                this.select_category_ids[0] = true;
-                this.categoryDefault['result']['categoryList']['data'].forEach((val, idx, array) => {
-                    this.select_category_ids[val['category_id']] = true;
-                    if(val['child_count'] >= 1){
-                        val['child'].forEach((val1, idx1, array1) => {
-                            this.select_category_ids[val1['category_id']] = true;
-                        });
-                    }
-                });
-                let category_ids = '';
-                this.select_category_ids.forEach((val, idx, array) => {
-                    if(val == true) {
-                        category_ids += idx + ',';
-                    }
-                });
-                this.getCategoryList('1',category_ids);
+                //重置数据
+                this.selectCategoryAll(2);
             });
-        setTimeout(() => {
-
-        }, 600);
     }
 
     /**
@@ -141,7 +120,6 @@ export class UnitClassifyComponent implements OnInit {
             .map((res)=>res.json())
             .subscribe((data)=>{
                 this.categoryList = data;
-                console.log(this.categoryList);
                 if(this.categoryList['status'] == 202){
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
@@ -163,7 +141,6 @@ export class UnitClassifyComponent implements OnInit {
      * @param category_id
      */
     show(number:number,category_id:number){
-        // console.log(this.index);
         this.index = number;
         this.button_contrl_id = category_id;
     }
@@ -212,30 +189,14 @@ export class UnitClassifyComponent implements OnInit {
             this.http.delete(url)
                 .map((res) => res.json())
                 .subscribe((data) => {
-                    this.categoryList = data;
-                    if(this.categoryList['status'] == 202){
+                    this.categoryDefault = data;
+                    if(this.categoryDefault['status'] == 202){
+                        alert(this.categoryDefault['msg']);
                         this.cookieStore.removeAll(this.rollback_url);
                         this.router.navigate(['/auth/login']);
                     }
-                    if (this.categoryList) {
-                        if (this.categoryList['result']['categoryList']['current_page'] == this.categoryList['result']['categoryList']['last_page']) {
-                            this.next = true;
-                        } else {
-                            this.next = false;
-                        }
-                        if (this.categoryList['result']['categoryList']['current_page'] == 1) {
-                            this.prev = true;
-                        } else {
-                            this.prev = false;
-                        }
-                        this.selects = [];
-                        if(this.categoryList && this.categoryList['result']['categoryList'].length > 0)
-                            for (let entry of this.categoryList['result']['categoryList']['data']) {
-                                this.selects[entry['department_id']] = false;
-                            }
-                        this.check = false;
-                        this.getCategoryDefault();
-                    }
+                    //重置数据
+                    this.selectCategoryAll(2);
                 });
         }
     }
@@ -263,15 +224,18 @@ export class UnitClassifyComponent implements OnInit {
         }).subscribe(
             (data)=>{
                 let info = JSON.parse(data['_body']);
-                alert(info['msg']);
-                if(info['status'] == 200) {
-                    // this.categoryList = info;
-                    this.clearSubmit();
-                    this.getCategoryDefault();
-                }else if(info['status'] == 202){
+                this.categoryDefault = info;
+                alert(this.categoryDefault['msg']);
+                if(this.categoryDefault['status'] == 202){
+                    alert(this.categoryDefault['msg']);
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
+                }else if(this.categoryDefault['status'] == 200){
+                    this.clearSubmit();
                 }
+                //重置数据
+                this.selectCategoryAll(2);
+
             }
         );
     }
@@ -306,7 +270,6 @@ export class UnitClassifyComponent implements OnInit {
             id = obj;
         }
         let url = this.globalService.getDomain()+'/api/v1/getUnitCategoryList?category_type='+this.category_type+'&type=addCategory&sid='+this.cookieStore.getCookie('sid');
-        console.log(id);
         if(id != 0){
             url += '&category_tab='+id;
         }
@@ -394,8 +357,8 @@ export class UnitClassifyComponent implements OnInit {
     /**
      * 左边选中所有
      */
-    selectCategoryAll(){
-        if(this.select_category_ids[0] == true){
+    selectCategoryAll(type:any){
+        if(this.select_category_ids[0] == true && type == 1){
             this.select_category_ids[0] = false;
             this.categoryDefault['result']['categoryList']['data'].forEach((val, idx, array) => {
                 this.select_category_ids[val['category_id']] = false;
@@ -444,10 +407,8 @@ export class UnitClassifyComponent implements OnInit {
             }else{
                 this.select_category_ids[category_id] = true;
                 if(this.categoryDefault['result']['categoryList']['data'][index]){
-                    console.log(this.categoryDefault['result']['categoryList']['data'][index]['child_count']);
                     if(this.categoryDefault['result']['categoryList']['data'][index]['child_count'] >= 1){
                         this.categoryDefault['result']['categoryList']['data'][index]['child'].forEach((val, idx, array) => {
-                            console.log(val['category_id']);
                             this.select_category_ids[val['category_id']] = true;
                         });
                     }

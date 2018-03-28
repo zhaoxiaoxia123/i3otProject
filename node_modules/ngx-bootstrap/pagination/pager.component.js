@@ -1,4 +1,4 @@
-import { Component, ElementRef, Renderer2, Input, Output, EventEmitter, forwardRef } from '@angular/core';
+import { Component, ElementRef, Renderer2, Input, Output, EventEmitter, forwardRef, ChangeDetectorRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PaginationConfig } from './pagination.config';
 export var PAGER_CONTROL_VALUE_ACCESSOR = {
@@ -8,7 +8,10 @@ export var PAGER_CONTROL_VALUE_ACCESSOR = {
     multi: true
 };
 var PagerComponent = (function () {
-    function PagerComponent(renderer, elementRef, paginationConfig) {
+    function PagerComponent(renderer, elementRef, paginationConfig, changeDetection) {
+        this.renderer = renderer;
+        this.elementRef = elementRef;
+        this.changeDetection = changeDetection;
         /** fired when total pages count changes, $event:number equals to total pages count */
         this.numPages = new EventEmitter();
         /** fired when page was changed, $event:{page, itemsPerPage} equals to
@@ -70,6 +73,7 @@ var PagerComponent = (function () {
         set: function (value) {
             var _previous = this._page;
             this._page = value > this.totalPages ? this.totalPages : value || 1;
+            this.changeDetection.markForCheck();
             if (_previous === this._page || typeof _previous === 'undefined') {
                 return;
             }
@@ -85,7 +89,9 @@ var PagerComponent = (function () {
         this.config = Object.assign({}, config);
     };
     PagerComponent.prototype.ngOnInit = function () {
-        this.classMap = this.elementRef.nativeElement.getAttribute('class') || '';
+        if (typeof window !== 'undefined') {
+            this.classMap = this.elementRef.nativeElement.getAttribute('class') || '';
+        }
         // watch for maxSize
         this.maxSize =
             typeof this.maxSize !== 'undefined' ? this.maxSize : this.config.maxSize;
@@ -212,6 +218,7 @@ var PagerComponent = (function () {
         { type: Renderer2, },
         { type: ElementRef, },
         { type: PaginationConfig, },
+        { type: ChangeDetectorRef, },
     ]; };
     PagerComponent.propDecorators = {
         'align': [{ type: Input },],

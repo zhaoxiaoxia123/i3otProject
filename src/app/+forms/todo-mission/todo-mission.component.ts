@@ -146,9 +146,6 @@ export class TodoMissionComponent implements OnInit {
         }else{
             this.rollback_url += '/0_0';
         }
-        console.log('来自消息提醒:--');
-        console.log(this.project_id);
-        console.log(this.todo_id);
         if(this.todo_id != 0){
             this.showDetail(this.todo_id,'来自消息提醒',2);
         }
@@ -166,7 +163,6 @@ export class TodoMissionComponent implements OnInit {
             .map((res)=>res.json())
             .subscribe((data)=>{
                 this.userDefault = data;
-                console.log(this.userDefault);
                 if(this.userDefault['status'] == 202){
                     alert(this.userDefault['msg']);
                     this.cookieStore.removeAll(this.rollback_url);
@@ -224,7 +220,6 @@ export class TodoMissionComponent implements OnInit {
                 }
                 //服务器返回html正确解析输出
                 // this.pageHtml = this.sanitizer.bypassSecurityTrustHtml(this.userList['page']);
-                // console.log(this.userList);
                 this.selected_user = [];
                 if (this.userList) {
                     if (this.userList['result']['userList']['current_page'] == this.userList['result']['userList']['last_page']) {
@@ -243,7 +238,6 @@ export class TodoMissionComponent implements OnInit {
                         }
                     }
                     this.check = false;
-                    console.log(this.selected_user);
                 }
             });
     }
@@ -253,7 +247,6 @@ export class TodoMissionComponent implements OnInit {
      */
     checkLayout(){
         this.isCheck = this.isCheck ? 0 : 1;
-        console.log(this.isCheck );
     }
 
     /**
@@ -311,10 +304,8 @@ export class TodoMissionComponent implements OnInit {
                 this.select_department_ids[department_id] = true;
 
                 if(this.userDefault['result']['departmentList'][index]){
-                    console.log(this.userDefault['result']['departmentList'][index]['has_child']);
                     if(this.userDefault['result']['departmentList'][index]['has_child'] >= 1){
                         this.userDefault['result']['departmentList'][index]['child'].forEach((val, idx, array) => {
-                            console.log(val['department_id']);
                             this.select_department_ids[val['department_id']] = true;
                         });
                     }

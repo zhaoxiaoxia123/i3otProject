@@ -1,6 +1,6 @@
 <span class="activity-dropdown" id="activity" (click)="showMessageDiv('all')">
   <i class="fa fa-user"></i>
-  <b class="badge bg-color-red">14</b>
+  <b class="badge bg-color-red" *ngIf="messageList?.result?.task?.count != 0">{{messageList?.result?.task?.count}}</b>
 </span>
 <div class="ajax-dropdown"  [ngStyle]="{'display':isShow=='none'?'none':'block'}">
     <div class="btn-group btn-group-justified" data-toggle="buttons">

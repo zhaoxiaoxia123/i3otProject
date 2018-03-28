@@ -1,7 +1,8 @@
-import { EventEmitter, OnInit, TemplateRef } from '@angular/core';
+import { EventEmitter, OnInit, TemplateRef, ChangeDetectorRef } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 export declare const RATING_CONTROL_VALUE_ACCESSOR: any;
 export declare class RatingComponent implements ControlValueAccessor, OnInit {
+    private changeDetection;
     /** number of icons */
     max: number;
     /** if true will not react on any user events */
@@ -19,6 +20,7 @@ export declare class RatingComponent implements ControlValueAccessor, OnInit {
     range: any[];
     value: number;
     protected preValue: number;
+    constructor(changeDetection: ChangeDetectorRef);
     onKeydown(event: any): void;
     ngOnInit(): void;
     writeValue(value: number): void;

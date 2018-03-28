@@ -62,12 +62,16 @@
                     <label class="label">调出仓库</label>
                     <section>
                       <div class="input-group">
-                        <label   class="select form-control border-0">
-
-                          <select  name="" >
-                            <option  value="0">--请选择--</option>
-                            <option  value="1">地方</option>
-                          </select><i></i>
+                        <label class="select form-control border-0">
+                          <select *ngIf="isDetail=='detail'" disabled="disabled" name="out_storehouse_id" formControlName="out_storehouse_id" [(ngModel)]="out_storehouse_id_default" >
+                            <option [selected]="stock_allot_id == 0" value="0">--请选择--</option>
+                            <option *ngFor="let s of stockallotList.result?.storehouse" [selected]="stockallotInfo.result?.out_storehouse_id == s.storehouse_id" value="{{ s.storehouse_id }}">{{s.storehouse_name}}</option>
+                          </select>
+                          <select *ngIf="isDetail!='detail'" name="out_storehouse_id" formControlName="out_storehouse_id" [(ngModel)]="out_storehouse_id_default">
+                            <option [selected]="stock_allot_id == 0" value="0">--请选择--</option>
+                            <option *ngFor="let s of stockallotList.result?.storehouse" [selected]="stockallotInfo.result?.out_storehouse_id == s.storehouse_id" value="{{ s.storehouse_id }}">{{s.storehouse_name}}</option>
+                          </select>
+                          <i></i>
                         </label>
                         <div class="input-group-btn">
                           <a  href="http://cn.i3ot.com/#/forms/inventory1/0" (click)="smartModEg1()" target="_blank"  class="btn btn-default btn-sm pb-6" type="button">
@@ -87,9 +91,13 @@
                       <div class="input-group">
                         <label   class="select form-control border-0">
 
-                          <select  name="" >
-                            <option  value="0">--请选择--</option>
-                            <option  value="1">分隔符</option>
+                          <select *ngIf="isDetail=='detail'" disabled="disabled" name="in_storehouse_id" formControlName="in_storehouse_id" [(ngModel)]="in_storehouse_id_default" >
+                            <option [selected]="stock_allot_id == 0" value="0">--请选择--</option>
+                            <option *ngFor="let s of stockallotList.result?.storehouse" [selected]="stockallotInfo.result?.in_storehouse_id == s.storehouse_id" value="{{ s.storehouse_id }}">{{s.storehouse_name}}</option>
+                          </select>
+                          <select *ngIf="isDetail!='detail'" name="in_storehouse_id" formControlName="in_storehouse_id" [(ngModel)]="in_storehouse_id_default">
+                            <option [selected]="stock_allot_id == 0" value="0">--请选择--</option>
+                            <option *ngFor="let s of stockallotList.result?.storehouse" [selected]="stockallotInfo.result?.in_storehouse_id == s.storehouse_id" value="{{ s.storehouse_id }}">{{s.storehouse_name}}</option>
                           </select><i></i>
                         </label>
                         <div class="input-group-btn">

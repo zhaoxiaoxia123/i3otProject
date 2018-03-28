@@ -68,7 +68,6 @@ export class SettingRepertoryComponent implements OnInit {
         this.http.get(url)
             .map((res)=>res.json())
             .subscribe((data)=>{
-                console.log(this.categoryList);
                 if(this.categoryList['status'] == 202){
                     this.cookieStoreService.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);

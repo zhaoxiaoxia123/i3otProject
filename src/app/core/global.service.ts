@@ -15,7 +15,6 @@ export class GlobalService {
   constructor(
       private router : Router,
       private cookieStoreService : CookieStoreService){
-    console.log('global EventEmitter');
     this.navEventEmitter = new EventEmitter();
   }
 

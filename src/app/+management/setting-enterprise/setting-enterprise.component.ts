@@ -57,12 +57,14 @@ export class SettingEnterpriseComponent implements OnInit {
         let nav = '{"title":"客户设置","url":"/management/enterprise","class_":"active"}';
         this.globalService.navEventEmitter.emit(nav);
         this.formModel = fb.group({
+            category_number:[''],
             category_desc:[''],
             category_type:['1'],
             category_id:['']
         });
 
         this.formModelSource = fb.group({
+            category_number:[''],
             category_desc:[''],
             category_type:['2'],
             category_id:['']
@@ -87,8 +89,6 @@ export class SettingEnterpriseComponent implements OnInit {
 
         setTimeout(() => {
             if(category_type == 1) {
-                console.log('industryCategoryList:----');
-                console.log(this.industryCategoryList);
                 if(this.industryCategoryList['status'] == 202){
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
@@ -108,8 +108,6 @@ export class SettingEnterpriseComponent implements OnInit {
                 this.category_id1 = 0;
             }
             if(category_type == 2) {
-                console.log('sourceList:----');
-                console.log(this.sourceList);
                 if(this.sourceList['status'] == 202){
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
@@ -136,28 +134,22 @@ export class SettingEnterpriseComponent implements OnInit {
      */
     onSubmitIndustryCategory() {
         this.http.post(this.globalService.getDomain()+'/api/v1/addCategory',{
+            'category_number':this.formModel.value['category_number'],
             'category_desc':this.formModel.value['category_desc'],
             'category_type':this.formModel.value['category_type'],
             'category_id':this.formModel.value['category_id'],
             'sid':this.cookieStore.getCookie('sid')
-        }).subscribe(
-            (data)=>{
-                alert(JSON.parse(data['_body'])['msg']);
-                console.log( JSON.parse(data['_body'])['result']);
-                this.formModel.setValue({category_desc:'',category_type:'1',category_id:''});
-                // this.formModel.reset();
-                this.industryCategoryList = JSON.parse(data['_body']);
-                if(this.industryCategoryList['status'] == 202){
-                    this.cookieStore.removeAll(this.rollback_url);
-                    this.router.navigate(['/auth/login']);
-                }
-
-                this.category_id1 = 0;
-            },
-            response => {
-                console.log('PATCH call in error', response);
+        }).subscribe((data)=>{
+            alert(JSON.parse(data['_body'])['msg']);
+            this.formModel.setValue({category_number:'',category_desc:'',category_type:'1',category_id:''});
+            // this.formModel.reset();
+            this.industryCategoryList = JSON.parse(data['_body']);
+            if(this.industryCategoryList['status'] == 202){
+                this.cookieStore.removeAll(this.rollback_url);
+                this.router.navigate(['/auth/login']);
             }
-        );
+            this.category_id1 = 0;
+        });
     }
 
 
@@ -166,6 +158,7 @@ export class SettingEnterpriseComponent implements OnInit {
      */
     onSubmitSource() {
         this.http.post(this.globalService.getDomain()+'/api/v1/addCategory',{
+            'category_number':this.formModelSource.value['category_number'],
             'category_desc':this.formModelSource.value['category_desc'],
             'category_type':this.formModelSource.value['category_type'],
             'category_id':this.formModelSource.value['category_id'],
@@ -173,8 +166,7 @@ export class SettingEnterpriseComponent implements OnInit {
         }).subscribe(
             (data)=>{
                 alert(JSON.parse(data['_body'])['msg']);
-                console.log( JSON.parse(data['_body'])['result']);
-                this.formModelSource.setValue({category_desc:'',category_type:'2',category_id:''});
+                this.formModelSource.setValue({category_number:'',category_desc:'',category_type:'2',category_id:''});
                 // this.formModel.reset();
                 this.sourceList = JSON.parse(data['_body']);
                 if(this.sourceList['status'] == 202){
@@ -183,9 +175,6 @@ export class SettingEnterpriseComponent implements OnInit {
                 }
 
                 this.category_id2 = 0;
-            },
-            response => {
-                console.log('PATCH call in error', response);
             }
         );
     }
@@ -215,6 +204,7 @@ export class SettingEnterpriseComponent implements OnInit {
     editIndustryCategory(category_type:number,cid:string,cvalue:string) {
         if(category_type == 1){
             this.formModel.setValue({
+                category_number:'',//------------------------
                 category_desc:cvalue,
                 category_type:category_type,
                 category_id:cid
@@ -223,6 +213,7 @@ export class SettingEnterpriseComponent implements OnInit {
             this.category_id1 = cid;
         }else if(category_type == 2){
             this.formModelSource.setValue({
+                category_number:'',//-----------------------
                 category_desc:cvalue,
                 category_type:category_type,
                 category_id:cid

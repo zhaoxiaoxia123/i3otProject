@@ -14,7 +14,7 @@
                   <div class="navbar navbar-default">
                       <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
                         <div class="form-group pdlr-4">
-                          <a class="btn btn-success btn-sm" (click)="isDemo('/inventory-management/add-requisition','0')">
+                          <a class="btn btn-success btn-sm" (click)="isDemo('/inventory-management/add-requisition','0','')">
                             <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
                         </div>
                         <div class="form-group pdlr-4">
@@ -137,8 +137,8 @@
                     </thead>
                     <tbody>
                     <tr *ngFor="let s of stockallotList?.result?.stockallotList?.data" (click)="isStatusShow(s.stock_allot_id,s.stock_allot_status)" [ngClass]="{'table-color':editStatusStockallotId == s.stock_allot_id}">
-                      <td></td>
-                      <td></td>
+                      <td>{{s.storehouse_name}}</td>
+                      <td>{{s.out_storehouse_name}}</td>
                       <td>{{s.user_name}}</td>
                       <td>{{s.stock_allot_date}}</td>
                       <td>{{s.u_username}}</td>

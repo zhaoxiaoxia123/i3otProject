@@ -65,8 +65,6 @@ export class AddInventory1Component implements OnInit {
 
   ngOnInit() {
     this.storehouse_id = this.routInfo.snapshot.params['storehouse_id'];
-    console.log( 'this.storehouse_id:----');
-    console.log( this.storehouse_id);
     if(this.storehouse_id != 0){
       this.getStorehouseInfo(this.storehouse_id);
       this.rollback_url += '/' + this.storehouse_id;
@@ -85,7 +83,6 @@ export class AddInventory1Component implements OnInit {
     let pro = this.formModel.value['address1'];
     let city = this.formModel.value['address2'];
     this.area = getArea(pro,city);
-    // console.log(this.area);
   }
   /**
    * 获取添加订单的默认参数
@@ -95,7 +92,6 @@ export class AddInventory1Component implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.storehouseList = data;
-          console.log(this.storehouseList);
           if(this.storehouseList['status'] == 202){
             alert(this.storehouseList['msg'] );
             this.cookieStore.removeAll(this.rollback_url);
@@ -116,7 +112,6 @@ export class AddInventory1Component implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.storehouse_info = data;
-          console.log(this.storehouse_info);
           this.formModel.patchValue({
             storehouse_id:this.storehouse_info['result']['storehouse_id'],
             storehouse_name:this.storehouse_info['result']['storehouse_name'],
@@ -142,7 +137,6 @@ export class AddInventory1Component implements OnInit {
   }
 
   onSubmit(){
-    // console.log(this.formModel.value['u_id'] );
     if(this.formModel.value['storehouse_name'].trim() == ''){
       alert('请填写仓库名称！');
       return false;

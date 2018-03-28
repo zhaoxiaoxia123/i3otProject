@@ -62,7 +62,6 @@ export class ListInventoryComponent implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.storehouseList = data;
-          console.log(this.storehouseList);
           if(this.storehouseList['status'] == 202){
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);

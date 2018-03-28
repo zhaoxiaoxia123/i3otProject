@@ -52,6 +52,8 @@ export class AddRequisitionComponent implements OnInit {
     };
   //默认选中值
   user_u_id_default : number = 0; //经手人
+    out_storehouse_id_default : number = 0; //出库仓库id
+    in_storehouse_id_default : number = 0; //入库仓库id
   rollback_url : string = '/inventory-management/add-requisition';
   constructor(
       fb:FormBuilder,
@@ -72,6 +74,8 @@ export class AddRequisitionComponent implements OnInit {
       stock_allot_qrcode:[''],
       stock_allot_remark:[''],
       department:[''],
+        out_storehouse_id:[''],
+        in_storehouse_id:[''],
     });
   }
 
@@ -99,7 +103,6 @@ export class AddRequisitionComponent implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.stockallotInfo = data;
-          console.log(this.stockallotInfo);
           this.formModel.patchValue({
             stock_allot_id:this.stockallotInfo['result']['stock_allot_id'],
             stock_allot_type:this.stockallotInfo['result']['stock_allot_type'],
@@ -108,8 +111,12 @@ export class AddRequisitionComponent implements OnInit {
             user_u_id:this.stockallotInfo['result']['user_u_id'],
             stock_allot_qrcode:this.stockallotInfo['result']['stock_allot_qrcode'],
             stock_allot_remark:this.stockallotInfo['result']['stock_allot_remark'],
+              out_storehouse_id:this.stockallotInfo['result']['out_storehouse_id'],
+              in_storehouse_id:this.stockallotInfo['result']['in_storehouse_id'],
           });
           this.user_u_id_default = this.stockallotInfo['result']['user_u_id']; //经手人
+            this.out_storehouse_id_default = this.stockallotInfo['result']['out_storehouse_id']; //
+            this.in_storehouse_id_default = this.stockallotInfo['result']['in_storehouse_id']; //
 
           this.selectProductList = this.stockallotInfo['result']['detail'];
           if(this.stockallotInfo['result']['user_u_id'] != 0){
@@ -129,7 +136,6 @@ export class AddRequisitionComponent implements OnInit {
       id = obj;
     }
     let url = this.globalService.getDomain()+'/api/v1/getDepartment';
-    console.log(id);
     if(id != 0){
       url += '?u_id='+id;
     }
@@ -142,7 +148,6 @@ export class AddRequisitionComponent implements OnInit {
           }else if(this.departmentInfo['status'] == 200){
             this.department = this.departmentInfo['result']['department_name'];
           }
-          console.log(this.department);
         });
   }
 
@@ -185,6 +190,8 @@ export class AddRequisitionComponent implements OnInit {
       'stock_allot_remark':this.formModel.value['stock_allot_remark'],
       'stock_allot_status':this.formModel.value['stock_allot_id'] ? 0 : 1,
       'product_detail' :JSON.stringify(this.selectProductList),
+        'out_storehouse_id':this.formModel.value['out_storehouse_id'],
+        'in_storehouse_id':this.formModel.value['in_storehouse_id'],
       'u_id':this.cookieStore.getCookie('uid'),
       'sid':this.cookieStore.getCookie('sid')
     }).subscribe(
@@ -260,7 +267,6 @@ export class AddRequisitionComponent implements OnInit {
             .map((res)=>res.json())
             .subscribe((data)=>{
                 this.productDefault = data;
-                console.log(this.productDefault);
                 if(this.productDefault['status'] == 202){
                     alert(this.productDefault['msg']);
                     this.cookieStore.removeAll(this.rollback_url);

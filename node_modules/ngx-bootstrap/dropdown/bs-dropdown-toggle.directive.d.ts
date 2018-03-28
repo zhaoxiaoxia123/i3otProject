@@ -7,7 +7,7 @@ export declare class BsDropdownToggleDirective implements OnDestroy {
     isOpen: boolean;
     private _subscriptions;
     constructor(_state: BsDropdownState, _element: ElementRef);
-    onClick(event: MouseEvent): void;
+    onClick(): void;
     onDocumentClick(event: any): void;
     onEsc(): void;
     ngOnDestroy(): void;

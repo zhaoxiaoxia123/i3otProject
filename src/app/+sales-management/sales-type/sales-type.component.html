@@ -99,7 +99,7 @@
                               <div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-scrolling">
                                 <table class="table table-striped   smart-form">
                                   <thead>
-                                  <tr style="height: 37px;">
+                                  <tr style="height: 34px;">
                                     <td>
                                       <label class="checkbox mt-8">
                                         <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)">
@@ -109,7 +109,7 @@
                                   </tr>
                                   </thead>
                                   <tbody>
-                                  <tr style="height: 35px;" *ngFor="let c of categoryList?.result?.categoryList?.data">
+                                  <tr style="height: 34px;" *ngFor="let c of categoryList?.result?.categoryList?.data">
                                     <td >
                                       <label class="checkbox" *ngIf="cid != super_admin_id && cid != c.c_id" >
                                         <input type="checkbox" name="checkbox-inline" disabled="disabled">

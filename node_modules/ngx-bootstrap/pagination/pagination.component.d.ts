@@ -1,4 +1,4 @@
-import { ElementRef, EventEmitter, OnInit, Renderer2 } from '@angular/core';
+import { ElementRef, EventEmitter, OnInit, Renderer2, ChangeDetectorRef } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { PaginationConfig } from './pagination.config';
 export interface PageChangedEvent {
@@ -7,6 +7,9 @@ export interface PageChangedEvent {
 }
 export declare const PAGINATION_CONTROL_VALUE_ACCESSOR: any;
 export declare class PaginationComponent implements ControlValueAccessor, OnInit {
+    private renderer;
+    private elementRef;
+    private changeDetection;
     config: any;
     /** if `true` aligns each link to the sides of pager */
     align: boolean;
@@ -44,8 +47,6 @@ export declare class PaginationComponent implements ControlValueAccessor, OnInit
     page: number;
     onChange: any;
     onTouched: any;
-    renderer: Renderer2;
-    elementRef: ElementRef;
     classMap: string;
     pages: any[];
     protected _itemsPerPage: number;
@@ -53,7 +54,7 @@ export declare class PaginationComponent implements ControlValueAccessor, OnInit
     protected _totalPages: number;
     protected inited: boolean;
     protected _page: number;
-    constructor(renderer: Renderer2, elementRef: ElementRef, paginationConfig: PaginationConfig);
+    constructor(renderer: Renderer2, elementRef: ElementRef, paginationConfig: PaginationConfig, changeDetection: ChangeDetectorRef);
     configureOptions(config: any): void;
     ngOnInit(): void;
     writeValue(value: number): void;

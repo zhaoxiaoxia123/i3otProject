@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Renderer,Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {Http} from "@angular/http";
 import {Router} from "@angular/router";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
@@ -87,8 +87,7 @@ export class SettingArchivesComponent implements OnInit {
     cropperSettings1:CropperSettings;
     croppedWidth:number;
     croppedHeight:number;
-    @ViewChild('cropper', undefined) cropper:ImageCropperComponent;
-
+    @ViewChild('cropper',undefined) cropper:ImageCropperComponent;
     constructor(
         private http:Http,
         private router : Router,
@@ -118,6 +117,7 @@ export class SettingArchivesComponent implements OnInit {
         this.cropperSettings1.cropperDrawSettings.strokeColor = 'rgba(255,255,255,1)';
         this.cropperSettings1.cropperDrawSettings.strokeWidth = 2;
         this.data1 = {};
+
     }
 
     cropped(bounds:Bounds) {
@@ -125,6 +125,8 @@ export class SettingArchivesComponent implements OnInit {
         this.croppedWidth = bounds.right-bounds.left;
         // console.log(bounds);
     }
+
+
     ngOnInit() {
     }
     
@@ -760,6 +762,7 @@ export class SettingArchivesComponent implements OnInit {
     }
 
     @ViewChild('lgModal') public lgModal:ModalDirective;
+    // @ViewChild('cropper', undefined) cropper:ImageCropperComponent;
 
     //添加按钮
     smartModEg1() {

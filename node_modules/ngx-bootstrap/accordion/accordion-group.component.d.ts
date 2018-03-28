@@ -1,4 +1,4 @@
-import { OnDestroy, OnInit } from '@angular/core';
+import { OnDestroy, OnInit, EventEmitter } from '@angular/core';
 import { AccordionComponent } from './accordion.component';
 /**
  * ### Accordion heading
@@ -12,12 +12,14 @@ export declare class AccordionPanelComponent implements OnInit, OnDestroy {
     /** Provides an ability to use Bootstrap's contextual panel classes
      * (`panel-primary`, `panel-success`, `panel-info`, etc...).
      * List of all available classes [available here]
-     * (http://getbootstrap.com/components/#panels-alternatives)
+     * (https://getbootstrap.com/docs/3.3/components/#panels-alternatives)
      */
     panelClass: string;
     /** if <code>true</code> — disables accordion group */
     isDisabled: boolean;
-    /** Is accordion group open or closed */
+    /** Emits when the opened state changes */
+    isOpenChange: EventEmitter<boolean>;
+    /** Is accordion group open or closed. This property supports two-way binding */
     isOpen: boolean;
     readonly isBs3: boolean;
     protected _isOpen: boolean;

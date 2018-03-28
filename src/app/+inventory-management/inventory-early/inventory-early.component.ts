@@ -62,38 +62,24 @@ export class InventoryEarlyComponent implements OnInit {
   }
 
 
-
   getOpeningInventoryList(p_ids:any=''){
     this.http.get(this.globalService.getDomain()+'/api/v1/getOpeningInventoryList?p_ids='+p_ids+'&sid='+this.cookieStore.getCookie('sid'))
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.productList = data;
-          console.log('this.productList');
-          console.log(this.productList);
           if(this.productList['status'] == 202){
             alert(this.productList['msg']);
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
-          // this.select_category_ids[0] = true;
-          // this.productDefault['result']['categoryList'].forEach((val, idx, array) => {
-          //   this.select_category_ids[val['category_id']] = true;
-          //   if(val['has_child'] >= 1){
-          //     val['child'].forEach((val1, idx1, array1) => {
-          //       this.select_category_ids[val1['category_id']] = true;
-          //     });
-          //   }
-          // });
         });
   }
-
 
 
   /**
    * 顶部  启用. 无效
    */
   isStatusShow(openinginventory_id:any){
-
     this.isAll = 0;
     this.width = '0%';
     this.width_1 ='100%';
@@ -307,7 +293,6 @@ export class InventoryEarlyComponent implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.productDefault = data;
-          console.log(this.productDefault);
           if(this.productDefault['status'] == 202){
             alert(this.productDefault['msg']);
             this.cookieStore.removeAll(this.rollback_url);
@@ -323,8 +308,6 @@ export class InventoryEarlyComponent implements OnInit {
             }
           });
         });
-    console.log('this.select_category_ids:----');
-    console.log( this.select_category_ids);
   }
 
   /**
@@ -412,8 +395,6 @@ export class InventoryEarlyComponent implements OnInit {
     }else{
       this.check = true;
     }
-    console.log(this.selects);
-    console.log(this.selects_index);
   }
 
   /**

@@ -30,14 +30,12 @@ export class RibbonComponent implements OnInit {
     if(!this.cookieStore.getCookie('countN')){
       this.cookieStore.setCookie('countN',this.countN);
     }
-    console.log(window.innerWidth);
+    // console.log(window.innerWidth);
     // console.log(el.nativeElement);
-    console.log(this.countN);
+
     Observable.fromEvent(window,'resize').subscribe((event) => {
-      // console.log('window.innerWidth');
       // console.log(window.innerWidth);
       this.countN = this.setCountN();
-      // console.log(this.countN);
 
       if(this.countN != this.cookieStore.getCookie('countN')){
         this.cookieStore.setCookie('countN',this.countN);

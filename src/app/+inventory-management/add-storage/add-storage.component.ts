@@ -108,7 +108,6 @@ export class AddStorageComponent implements OnInit {
             .map((res)=>res.json())
             .subscribe((data)=>{
                 this.otherorderInfo = data;
-                console.log(this.otherorderInfo);
                 this.formModel.patchValue({
                     otherorder_id:otherorder_id,
                     otherorder_order:this.otherorderInfo['result']['otherorder_order'],
@@ -179,14 +178,12 @@ export class AddStorageComponent implements OnInit {
             id = obj;
         }
         let url = this.globalService.getDomain()+'/api/v1/getDepartment';
-        console.log(id);
         if(id != 0){
             url += '?u_id='+id;
         }
         this.http.get(url)
             .map((res)=>res.json())
             .subscribe((data)=>{
-            console.log(data);
             if(data['status'] == 201){
                 alert(data['msg']);
             }else if(data['status']== 200){
@@ -291,7 +288,6 @@ export class AddStorageComponent implements OnInit {
             .map((res)=>res.json())
             .subscribe((data)=>{
                 this.productDefault = data;
-                console.log(this.productDefault);
                 if(this.productDefault['status'] == 202){
                     alert(this.productDefault['msg']);
                     this.cookieStore.removeAll(this.rollback_url);
