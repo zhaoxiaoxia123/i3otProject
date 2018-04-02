@@ -6,8 +6,8 @@ import {CookieStoreService} from "../shared/cookies/cookie-store.service";
 export class GlobalService {
   domain ='http://182.61.53.58:8080';
   tsdbDomain ='http://182.61.53.58:10088';
-  station1 = '155';//安全帽
-  station2 = '156';//基站
+  station1 = '1';//安全帽
+  station2 = '2';//基站
   adminID = 1;//超级管理员c_id
 
   //顶部导航

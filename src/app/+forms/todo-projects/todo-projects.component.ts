@@ -198,12 +198,13 @@ export class TodoProjectsComponent implements OnInit {
             this.project_title = '';
             this.project_content = '';
             this.project_publicity = 0;
+
+          this.projectList = info['result']['projectList'];
           }else if(info['status'] == 202){
             alert(info['msg']);
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
-          this.projectList = info['result']['projectList'];
             this.lgModal.hide();
         }
     );

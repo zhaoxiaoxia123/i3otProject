@@ -14,73 +14,67 @@
               <div  class="ng-scope">
                 <div class="entries_panel js-sortable layout_content_main_tasks ng-scope wt-scroll entries_panel_cross"  >
                   <div  class="entries_panel_sortarea ui-sortable margin-bottom-40">
-                    <div class="entry ng-scope"  >
+                    <div class="entry ng-scope" *ngFor="let tl of todoList?.result?.template_list;let ind = index;" droppable [dropScope]="''+tl.key" [dragOverClass]="'drag-target-border'"
+                         [dragHintClass]="'drag-hint'" (onDrop)="onListDrop_(tl.key)" >
                       <div  class="entry_header ui-sortable-handle">
                         <i  class="wtfont wtf-entryhover ng-scope"></i>
                         <div  class="entry_header_title">
                           <h2 >
-                            <a  ><span  class="ng-binding ng-scope">收件箱</span>&nbsp; &nbsp;(0 / 1) </a>
+                            <a><span  class="ng-binding ng-scope">{{tl.info}}</span></a>
                           </h2>
                         </div>
-
                       </div>
-                      <div  class="entry-task-panel wt-scroll entries_panel_height">
-                        <div  class="entry-tasks js-sortable ui-sortable  ">
-                          <div   class="right_click_trigger slide-trigger js-popbox false task task_style task- task-selected  drag-handle" >
-                            <div  class="entry-task-main" >
-                              <a  class="entry-task-check ng-scope">
-                                <i  class="fa fa-square-o"></i>
-                              </a>
+                      <div  class="entry-task-panel wt-scroll entries_panel_height" >
 
-                              <a  class="entry-task-title ng-binding">任务名</a>
+                        <div  class="entry-tasks js-sortable ui-sortable" *ngFor="let tl1 of tl.todo_list;let indtl=index;">
+                          <div   class="right_click_trigger slide-trigger js-popbox false task task_style task- task-selected  drag-handle"  draggable [dragScope]="tl.d" [dragClass]="'drag-over'" [dragData]="tl1" (onDragEnd)="onDragList_(tl1.todo_id)"><!--,tl1.project_id-->
+                            <!--<div  class="entry-task-main" >-->
+                              <!--<a  class="entry-task-check ng-scope">-->
+                                <!--<i  class="fa fa-square-o"></i>-->
+                              <!--</a>-->
+                            <div [ngClass]="{'entry-task-main':true,'task-completed-style':tl1.todo_status==2}">
+                              <a class="entry-task-check ng-scope" *ngIf="tl1.todo_status != 2" (click)="editStatus($event,2,tl1.todo_id,todoList?.result?.project_id)">
+                                <i class="fa fa-square-o"></i>
+                              </a>
+                              <a class="entry-task-check ng-scope" *ngIf="tl1.todo_status == 2" (click)="editStatus($event,1,tl1.todo_id,todoList?.result?.project_id)">
+                                <i class="fa fa-check-square"></i>
+                              </a>
+                              <a  class="entry-task-title ng-binding">{{tl1.todo_title}}</a>
                             </div>
                             <div  class="task-badges task-height">
-                              <span class="task-badge fa fa-inbox" title="项目名">项目名</span>
+                              <span class="task-badge fa fa-inbox" title="{{tl1.project_title}}">{{tl1.project_title}}</span>
                             </div>
-
-
                           </div>
                         </div>
 
                         <!--新建任务发布框-->
-                        <div class="entry-add-bottom-composer entry-task-composer ng-isolate-scope"  >
+                        <div class="entry-add-bottom-composer entry-task-composer ng-isolate-scope" *ngIf="selects[tl.key]">
                           <div class="composer-body" >
                             <div class="entry-task-labels">
                             </div>
-                            <textarea rows="2" class="form-control help-block" placeholder="请输入任务标题" ></textarea>
+                            <textarea rows="2" class="form-control help-block" placeholder="请输入任务标题" [ngModelOptions]="{standalone: true}" [(ngModel)]="publish_todo_title[tl.key]"></textarea>
                             <form  class="smart-form">
 
                               <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="margin-lr30" >
                                   <section class="col col-6">
                                     <label  class="select form-control border-0">
-                                      <select   name="department"   class="ng-valid ng-touched ng-dirty">
+                                      <select [(ngModel)]="workbench_project_id[tl.key]" [ngModelOptions]="{standalone: true}" (change)="getTodoInfo($event)" class="ng-valid ng-touched ng-dirty">
                                         <option value="0" >--请选择项目名--</option>
-                                        <option value=""  disabled="" style="font-weight: bold;color: black;">公司项目</option>
-                                        <option  value=""  style="font-weight: normal; color: rgb(64, 64, 64);">--项目1</option>
-                                        <option  value=""  style="font-weight: normal; color: rgb(64, 64, 64);">--项目2</option>
-                                        <option  value=""  style="font-weight: normal; color: rgb(64, 64, 64);">--项目3</option>
-                                        <option value=""  disabled="" style="font-weight: bold;color: black;">个人项目</option>
-                                        <option  value=""  style="font-weight: normal; color: rgb(64, 64, 64);">--项目1</option>
-                                        <option  value=""  style="font-weight: normal; color: rgb(64, 64, 64);">--项目2</option>
-                                        <option  value=""  style="font-weight: normal; color: rgb(64, 64, 64);">--项目3</option>
+                                        <option *ngFor="let pd of projectDefault?.result?.categoryList" [disabled]="(pd.is_parent == 1) ? 'disabled' : false" [ngStyle]="{'font-weight':((pd.is_parent == 1) ? 'bold' : 'normal'),'color':((pd.is_parent == 1) ? 'black' : ' rgb(64, 64, 64)')}" value="{{pd.project_id}}">{{pd.project_title}}</option>
                                       </select> <i ></i>
                                     </label>
                                   </section>
                                   <section class="col col-6">
                                     <label class="select">
-                                      <select name="" >
+                                      <select [(ngModel)]="workbench_template_id[tl.key]" [ngModelOptions]="{standalone: true}">
                                         <option value="0" >--请选择任务名--</option>
-                                        <option value="1">任务名1</option>
-                                        <option value="2">任务名2</option>
+                                        <option *ngFor="let tt of todoLists?.result?.template_list" value="{{tt.key}}">{{tt.info}}</option>
                                       </select> <i></i> </label>
                                   </section>
                                 </div>
                               </div>
-
                             </form>
-
-
 
                             <div class="composer-body-footer">
                               <div class="task-badges" >
@@ -88,88 +82,19 @@
                             </div>
                           </div>
                           <div class="composer-footer">
-                            <button  class="btn btn-success btn--big confirm mr-10 ng-binding" >保&nbsp;&nbsp;存</button>
-                            <button  class="btn btn-link btn-cancel ng-binding" >取&nbsp;&nbsp;消</button>
+                            <button  class="btn btn-success btn--big confirm mr-10 ng-binding" (click)="submitTodo(todoList?.result?.project_id,tl.key)">保&nbsp;&nbsp;存</button>
+                            <button  class="btn btn-link btn-cancel ng-binding" (click)="showAddTodo(tl.key)">取&nbsp;&nbsp;消</button>
                           </div>
                         </div>
 
                       </div>
 
-                      <div  class="entry-task-footer ng-scope">
-                        <a  class="js-add-task-composer ng-binding ng-scope">
-                          <i  class="fa fa-plus-circle"></i> 新建任务
-                        </a>
-                      </div>
-
-
-                    </div>
-
-                    <div  class="entry ng-scope"  >
-                      <div  class="entry_header ui-sortable-handle">
-                        <i  class="wtfont wtf-entryhover ng-scope"></i>
-                        <div  class="entry_header_title">
-                          <h2 >
-                            <a  ><span  class="ng-binding ng-scope">今天要做</span>&nbsp; &nbsp;(0 / 0) </a>
-                          </h2>
-                        </div>
-
-                      </div>
-                      <div  class="entry-task-panel wt-scroll entries_panel_height" >
-                        <div  class="entry-tasks js-sortable ui-sortable  ">
-                        </div>
-
-                      </div>
-                      <div  class="entry-task-footer ng-scope">
-                        <a  class="js-add-task-composer ng-binding ng-scope">
+                      <div  class="entry-task-footer ng-scope" *ngIf=" ! selects[tl.key]">
+                        <a  class="js-add-task-composer ng-binding ng-scope" (click)="showAddTodo(tl.key)">
                           <i  class="fa fa-plus-circle"></i> 新建任务
                         </a>
                       </div>
                     </div>
-
-                    <div  class="entry ng-scope" >
-                      <div  class="entry_header ui-sortable-handle">
-                        <i  class="wtfont wtf-entryhover ng-scope"></i>
-                        <div  class="entry_header_title">
-                          <h2 >
-                            <a  ><span  class="ng-binding ng-scope">下一步要做</span>&nbsp; &nbsp;(0 / 0) </a>
-                          </h2>
-                        </div>
-                      </div>
-                      <div  class="entry-task-panel wt-scroll entries_panel_height" >
-                        <div  class="entry-tasks js-sortable ui-sortable  ">
-                        </div>
-                      </div>
-                      <div  class="entry-task-footer ng-scope">
-                        <a  class="js-add-task-composer ng-binding ng-scope">
-                          <i  class="fa fa-plus-circle"></i> 新建任务
-                        </a>
-                      </div>
-                    </div>
-                    <div  class="entry ng-scope" >
-                      <div  class="entry_header ui-sortable-handle">
-                        <i  class="wtfont wtf-entryhover ng-scope"></i>
-                        <div  class="entry_header_title">
-                          <h2 >
-                            <a  ><span  class="ng-binding ng-scope">以后再做</span>&nbsp; &nbsp;(0 / 0) </a>
-                          </h2>
-                        </div>
-                      </div>
-                      <div  class="entry-task-panel wt-scroll entries_panel_height">
-                        <div  class="entry-tasks js-sortable ui-sortable  ">
-                        </div>
-                      </div>
-                      <div  class="entry-task-footer ng-scope">
-                        <a  class="js-add-task-composer ng-binding ng-scope">
-                          <i  class="fa fa-plus-circle"></i> 新建任务
-                        </a>
-                      </div>
-                    </div>
-
-
-
-
-
-
                   </div>
                 </div>
               </div>
