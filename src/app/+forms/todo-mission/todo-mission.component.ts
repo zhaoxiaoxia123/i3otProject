@@ -116,7 +116,7 @@ export class TodoMissionComponent implements OnInit {
     isCheck:number=0;//切换布局  0：隐藏查看更多  1：查看更多
     dropTemplateId : any = '';//拽入模版编号
     rollback_url : string = '/forms/todo-mission';
-
+    isEdit : number = 0; //是否修改过详情里面的东西或是评论过该任务
     constructor(
       private http:Http,
       private router : Router,
@@ -436,7 +436,7 @@ export class TodoMissionComponent implements OnInit {
      */
     getTodoDefault(project_id:number,template_id:number){
         let url = this.globalService.getDomain()+'/api/v1/getTodoList?project_id='+project_id+'&uid='+this.cookie_u_id+'&sid='+this.cookieStore.getCookie('sid');
-        if(template_id != 0) {
+        if(template_id != 0){
             this.todoListPages[template_id] = this.todoListPages[template_id] + 5;
         }
         if(this.todoListPages){
@@ -637,6 +637,8 @@ export class TodoMissionComponent implements OnInit {
                         this.selected_tag['T'+val] = true;
                     }
                 });
+
+                this.isEdit = 0; //显示详情的初始化
                 //调用显示评论列表信息
                 this.getCommentList(todo_id);
             });
@@ -708,6 +710,7 @@ export class TodoMissionComponent implements OnInit {
                     let info = JSON.parse(data['_body']);
                     if(info['status'] == 200) {
                         this.todo_info = info;
+                        this.isEdit = 1;
                     }else if(info['status'] == 202){
                         alert(info['msg']);
                         this.cookieStore.removeAll(this.rollback_url);
@@ -742,6 +745,7 @@ export class TodoMissionComponent implements OnInit {
                     let info = JSON.parse(data['_body']);
                     if(info['status'] == 200) {
                         this.todo_info = info;
+                        this.isEdit = 1;
                     }else if(info['status'] == 202){
                         alert(info['msg']);
                         this.cookieStore.removeAll(this.rollback_url);
@@ -778,6 +782,7 @@ export class TodoMissionComponent implements OnInit {
                                 this.selected_tag['T'+val] = true;
                             }
                         });
+                        this.isEdit = 1;
                     }else if(info['status'] == 202){
                         alert(info['msg']);
                         this.cookieStore.removeAll(this.rollback_url);
@@ -812,6 +817,7 @@ export class TodoMissionComponent implements OnInit {
                     let info = JSON.parse(data['_body']);
                     if(info['status'] == 200) {
                         this.todo_info = info;
+                        this.isEdit = 1;
                     }else if(info['status'] == 202){
                         alert(info['msg']);
                         this.cookieStore.removeAll(this.rollback_url);
@@ -837,6 +843,7 @@ export class TodoMissionComponent implements OnInit {
                         this.cookieStore.removeAll(this.rollback_url);
                         this.router.navigate(['/auth/login']);
                     }
+                    this.isEdit = 1;
                 });
             this.is_show_detail = '';
         }
@@ -847,7 +854,9 @@ export class TodoMissionComponent implements OnInit {
      */
     hideDetail(){
         this.is_show_detail = '';
-        this.getTodoDefault(this.project_id,0);
+        if(this.isEdit == 1) {
+            this.getTodoDefault(this.project_id, 0);
+        }
     }
 
     /**
@@ -870,6 +879,7 @@ export class TodoMissionComponent implements OnInit {
                         if(info['status'] == 200) {
                             this.todo_info = info;
                             this.is_expired_at = 0;
+                            this.isEdit = 1;
                         }else if(info['status'] == 202){
                             alert(info['msg']);
                             this.cookieStore.removeAll(this.rollback_url);
@@ -1002,6 +1012,7 @@ export class TodoMissionComponent implements OnInit {
                 if(info['status'] == 200) {
                     this.todo_info = info;
                     this.selected_user = [];
+                    this.isEdit = 1;
                 }else if(info['status'] == 202){
                     alert(info['msg']);
                     this.cookieStore.removeAll(this.rollback_url);
@@ -1025,6 +1036,7 @@ export class TodoMissionComponent implements OnInit {
                         this.cookieStore.removeAll(this.rollback_url);
                         this.router.navigate(['/auth/login']);
                     }
+                    this.isEdit = 1;
                 });
             this.is_show_detail = '';
         }
@@ -1082,6 +1094,7 @@ export class TodoMissionComponent implements OnInit {
                 let info = JSON.parse(data['_body']);
                 if(info['status'] == 200) {
                     this.comment_list = info;
+                    this.isEdit = 1;
                 }else if(info['status'] == 202){
                     alert(info['msg']);
                     this.cookieStore.removeAll(this.rollback_url);
@@ -1123,6 +1136,7 @@ export class TodoMissionComponent implements OnInit {
             let info = JSON.parse(data['_body']);
             if(info['status'] == 200) {
                 this.todo_info = info;
+                this.isEdit = 1;
             }else if(info['status'] == 202){
                 alert(info['msg']);
                 this.cookieStore.removeAll(this.rollback_url);
@@ -1145,6 +1159,7 @@ export class TodoMissionComponent implements OnInit {
                         this.cookieStore.removeAll(this.rollback_url);
                         this.router.navigate(['/auth/login']);
                     }
+                    this.isEdit = 1;
                     //调用显示评论列表信息
                     this.getCommentList(todo_id);
                 });
