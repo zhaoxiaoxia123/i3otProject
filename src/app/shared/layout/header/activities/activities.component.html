@@ -2,17 +2,17 @@
   <i class="fa fa-user"></i>
   <b class="badge bg-color-red" *ngIf="messageList?.result?.task?.count != 0">{{messageList?.result?.task?.count}}</b>
 </span>
-<div class="ajax-dropdown"  [ngStyle]="{'display':isShow=='none'?'none':'block'}">
+<div class="ajax-dropdown" [ngStyle]="{'z-index':'1051','display':isShow=='none'?'none':'block'}">
     <div class="btn-group btn-group-justified" data-toggle="buttons">
-     <label [ngClass]="{'btn btn-default':true,'active':(isShow == 'notice' || isShow == 1)}" (click)="showMessageDiv('notice')">
+    <label [ngClass]="{'btn btn-default':true,'active':(isShow == 'notice' || isShow == 1)}" (click)="showMessageDiv('notice')">
         <input name="activity" type="radio">
         通知 ({{messageList?.result?.notice?.count}})
     </label>
-        <label [ngClass]="{'btn btn-default':true,'active':(isShow == 'warning')}" (click)="showMessageDiv('warning')">
+    <label [ngClass]="{'btn btn-default':true,'active':(isShow == 'warning')}" (click)="showMessageDiv('warning')">
         <input name="activity" type="radio">
         预警 ({{messageList?.result?.warning?.count}})
     </label>
-        <label [ngClass]="{'btn btn-default':true,'active':isShow == 'task'}" (click)="showMessageDiv('task')" >
+    <label [ngClass]="{'btn btn-default':true,'active':isShow == 'task'}" (click)="showMessageDiv('task')" >
         <input name="activity" type="radio">
         待办事项 ({{messageList?.result?.task?.count}})
     </label>
@@ -30,4 +30,7 @@
         <span *ngIf="loading">loading...</span>
     </button>
     </span>
+</div>
+
+<div class="modal fade in" (click)="showMessageDiv('all')" [ngStyle]="{'display':isShow=='none'?'none':'block'}">
 </div>
