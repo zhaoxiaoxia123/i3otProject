@@ -27,11 +27,7 @@
                       <div  class="entry-task-panel wt-scroll entries_panel_height" >
 
                         <div  class="entry-tasks js-sortable ui-sortable" *ngFor="let tl1 of tl.todo_list;let indtl=index;">
-                          <div   class="right_click_trigger slide-trigger js-popbox false task task_style task- task-selected  drag-handle"  draggable [dragScope]="tl.d" [dragClass]="'drag-over'" [dragData]="tl1" (onDragEnd)="onDragList_(tl1.todo_id)"><!--,tl1.project_id-->
-                            <!--<div  class="entry-task-main" >-->
-                              <!--<a  class="entry-task-check ng-scope">-->
-                                <!--<i  class="fa fa-square-o"></i>-->
-                              <!--</a>-->
+                          <div (click)="showDetail(tl1.todo_id,tl.info,1);" class="right_click_trigger slide-trigger js-popbox false task task_style task- task-selected  drag-handle"  draggable [dragScope]="tl.d" [dragClass]="'drag-over'" [dragData]="tl1" (onDragEnd)="onDragList_(tl1.todo_id)"><!--,tl1.project_id-->
                             <div [ngClass]="{'entry-task-main':true,'task-completed-style':tl1.todo_status==2}">
                               <a class="entry-task-check ng-scope" *ngIf="tl1.todo_status != 2" (click)="editStatus($event,2,tl1.todo_id,todoList?.result?.project_id)">
                                 <i class="fa fa-square-o"></i>
@@ -107,3 +103,4 @@
   </sa-widgets-grid>
 </div>
 
+<app-todo-mission-detail (isEdit)="getData($event)" [todoList]="todoList" [selects]="selects" [is_show_detail]="is_show_detail" *ngIf="is_show_detail != ''"></app-todo-mission-detail>

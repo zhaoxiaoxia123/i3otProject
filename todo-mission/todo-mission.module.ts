@@ -6,9 +6,10 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {TodoMissionComponent} from "./todo-mission.component";
 import {I3otpModule} from "../../shared/i3otp.module";
 import {I3otpEditorsModule} from "../../shared/forms/editors/i3otp-editors.module";
+import {TodoMissionDetailComponent} from "./mission-details/todo-mission-detail.component";
+
 import { NgDragDropModule } from 'ng-drag-drop';
-// import {DpDatePickerModule} from 'ng2-date-picker';
-import {TodoMissionDetailModule} from "../../shared/common/mission-details/todo-mission-detail.module";
+import {DpDatePickerModule} from 'ng2-date-picker';
 
 
 @NgModule({
@@ -18,9 +19,9 @@ import {TodoMissionDetailModule} from "../../shared/common/mission-details/todo-
       I3otpEditorsModule,
       ReactiveFormsModule,
     TodoMissionRoutingModule,
-    TodoMissionDetailModule,
+    DpDatePickerModule,
     NgDragDropModule.forRoot()
   ],
-  declarations: [TodoMissionComponent]
+  declarations: [TodoMissionComponent,TodoMissionDetailComponent]
 })
 export class TodoMissionModule { }

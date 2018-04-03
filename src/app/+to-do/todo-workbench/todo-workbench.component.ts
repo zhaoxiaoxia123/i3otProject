@@ -2,8 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {Http} from "@angular/http";
 import {Router} from "@angular/router";
 import {GlobalService} from "../../core/global.service";
+import {TododetailService} from "../../shared/tododetail.service";
+import {FadeInTop} from "../../shared/animations/fade-in-top.decorator";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 
+@FadeInTop()
 @Component({
   selector: 'app-todo-workbench',
   templateUrl: './todo-workbench.component.html',
@@ -49,11 +52,16 @@ export class TodoWorkbenchComponent implements OnInit {
     dropTemplateId : any = '';//拽入模版编号
     todo_type : string = 'workbench';
 
+    isEdit : number = 0; //是否修改过详情里面的东西或是评论过该任务
+    //是否展示详情  绑定当前点击的template_id
+    is_show_detail : string = '';
+    // @ViewChild('mission_detail',undefined) mission_detail:TodoMissionDetailComponent;
     constructor(
         private http:Http,
         private router : Router,
         private cookieStore:CookieStoreService,
-        private globalService:GlobalService) {
+        private globalService:GlobalService,
+        private tododetail:TododetailService) {
         let nav = '{"title":"我的工作台","url":"/to-do/todo-workbench","class_":"active"}';
         this.globalService.navEventEmitter.emit(nav);
 
@@ -66,6 +74,24 @@ export class TodoWorkbenchComponent implements OnInit {
 
     }
 
+    showDetail(todo_id:number,template_name:string,isRead:any){
+        this.tododetail.showDetail(todo_id,template_name,isRead);
+
+        setTimeout(()=>{
+            this.is_show_detail =  this.tododetail.todo_info['result']['template_id'];
+            // this.cookieStore.setCookie('is_show_detail',this.is_show_detail);
+        },600);
+    }
+    /**
+     * 获取任务通知点击后的状态
+     * @param value
+     */
+    getData(value:any){
+        this.isEdit = value;
+        if(this.isEdit == 1) {
+            this.isHaveTemplate();
+        }
+    }
     isHaveTemplate(){
         let url = this.globalService.getDomain()+'/api/v1/isHaveTemplate?uid='+this.uId+'&sid='+this.cookieStore.getCookie('sid');
         this.http.get(url)

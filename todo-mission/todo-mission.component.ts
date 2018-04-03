@@ -1,10 +1,13 @@
-import {Component, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FadeInTop} from "../../shared/animations/fade-in-top.decorator";
 import {Http} from "@angular/http";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
-import {TododetailService} from "../../shared/tododetail.service";
+// import {stringify} from "querystring";
+// import {isUndefined} from "util";
+// import { DOCUMENT } from '@angular/platform-browser';
+// import {Observable} from "rxjs/Observable";
 
 // const $script = require('scriptjs');
 
@@ -93,6 +96,8 @@ export class TodoMissionComponent implements OnInit {
     is_show_publish_template : boolean = false;
     //发布新模版名称
     template_name : string = '';
+    //是否展示详情  绑定当前点击的template_id
+    is_show_detail : string = '';
 
     project_ids:any = 0;//接收的
     project_id:any = 0;
@@ -110,16 +115,12 @@ export class TodoMissionComponent implements OnInit {
     dropTemplateId : any = '';//拽入模版编号
     rollback_url : string = '/forms/todo-mission';
     isEdit : number = 0; //是否修改过详情里面的东西或是评论过该任务
-    //是否展示详情  绑定当前点击的template_id
-    is_show_detail : string = '';
-    // @ViewChild('mission_detail',undefined) mission_detail:TodoMissionDetailComponent;
     constructor(
       private http:Http,
       private router : Router,
       private routInfo : ActivatedRoute,
       private cookieStore:CookieStoreService,
-      private globalService:GlobalService,
-      private tododetail:TododetailService
+      private globalService:GlobalService
   ) {
       // this.scroll_ = '0px';
       // Observable.fromEvent(window, 'scroll').subscribe((event) => {
@@ -143,30 +144,245 @@ export class TodoMissionComponent implements OnInit {
         }else{
             this.rollback_url += '/0_0';
         }
-        if(this.todo_id != 0){
-            this.showDetail(this.todo_id,'来自消息提醒',2);
-        }
+        // if(this.todo_id != 0){
+        //     this.showDetail(this.todo_id,'来自消息提醒',2);
+        // }
         window.scrollTo(0,0);
 
         // this.getUserDefault();
   }
 
 
+    // /**
+    //  * 获取默认参数
+    //  */
+    // getUserDefault() {
+    //     this.http.get(this.globalService.getDomain()+'/api/v1/getUserDefault?type=list&sid='+this.cookieStore.getCookie('sid'))
+    //         .map((res)=>res.json())
+    //         .subscribe((data)=>{
+    //             this.userDefault = data;
+    //             if(this.userDefault['status'] == 202){
+    //                 alert(this.userDefault['msg']);
+    //                 this.cookieStore.removeAll(this.rollback_url);
+    //                 this.router.navigate(['/auth/login']);
+    //             }
+    //             this.select_department_ids[0] = true;
+    //             this.userDefault['result']['departmentList'].forEach((val, idx, array) => {
+    //                 this.select_department_ids[val['department_id']] = true;
+    //                 if(val['has_child'] >= 1){
+    //                     val['child'].forEach((val1, idx1, array1) => {
+    //                         this.select_department_ids[val1['department_id']] = true;
+    //                     });
+    //                 }
+    //             });
+    //
+    //             let depart = '';
+    //             this.select_department_ids.forEach((val, idx, array) => {
+    //                 if(val == true) {
+    //                     depart += idx + ',';
+    //                 }
+    //             });
+    //             this.getUserList('1',depart);
+    //         });
+    // }
+
+
+    // /**
+    //  * 获取用户列表
+    //  * @param number
+    //  */
+    // getUserList(number:string,department_id:any) {
+    //     let url = this.globalService.getDomain()+'/api/v1/getUserList?page='+number+'&sid='+this.cookieStore.getCookie('sid');
+    //     if(this.keyword.trim() != ''){
+    //         url += '&keyword='+this.keyword.trim();
+    //     }
+    //     if(department_id != 0){
+    //         url += '&depart='+department_id;
+    //     }else{
+    //         let depart = '';
+    //         this.select_department_ids.forEach((val, idx, array) => {
+    //             if(val == true) {
+    //                 depart += idx + ',';
+    //             }
+    //         });
+    //
+    //         url += '&depart='+depart;
+    //     }
+    //     this.http.get(url)
+    //         .map((res)=>res.json())
+    //         .subscribe((data)=>{
+    //             this.userList = data;
+    //             if(this.userList['status'] == 202){
+    //                 this.cookieStore.removeAll(this.rollback_url);
+    //                 this.router.navigate(['/auth/login']);
+    //             }
+    //             //服务器返回html正确解析输出
+    //             // this.pageHtml = this.sanitizer.bypassSecurityTrustHtml(this.userList['page']);
+    //             this.selected_user = [];
+    //             if (this.userList) {
+    //                 if (this.userList['result']['userList']['current_page'] == this.userList['result']['userList']['last_page']) {
+    //                     this.next = true;
+    //                 } else {
+    //                     this.next = false;
+    //                 }
+    //                 if (this.userList['result']['userList']['current_page'] == 1) {
+    //                     this.prev = true;
+    //                 } else {
+    //                     this.prev = false;
+    //                 }
+    //                 if(this.userList['result']['userList']) {
+    //                     for (let entry of this.userList['result']['userList']['data']) {
+    //                         this.selected_user[entry['id']] = false;
+    //                     }
+    //                 }
+    //                 this.check = false;
+    //             }
+    //         });
+    // }
+
+
+    // /**
+    //  * 左边选中所有
+    //  */
+    // selectDepartmentAll(){
+    //     if(this.select_department_ids[0] == true){
+    //         this.select_department_ids[0] = false;
+    //         this.userDefault['result']['departmentList'].forEach((val, idx, array) => {
+    //             this.select_department_ids[val['department_id']] = false;
+    //             if (val['has_child'] >= 1) {
+    //                 val['child'].forEach((val1, idx1, array1) => {
+    //                     this.select_department_ids[val1['department_id']] = false;
+    //                 });
+    //             }
+    //         });
+    //     }else {
+    //         this.select_department_ids[0] = true;
+    //         this.userDefault['result']['departmentList'].forEach((val, idx, array) => {
+    //             this.select_department_ids[val['department_id']] = true;
+    //             if (val['has_child'] >= 1) {
+    //                 val['child'].forEach((val1, idx1, array1) => {
+    //                     this.select_department_ids[val1['department_id']] = true;
+    //                 });
+    //             }
+    //         });
+    //     }
+    //     let depart = '';
+    //     this.select_department_ids.forEach((val, idx, array) => {
+    //         if(val == true) {
+    //             depart += idx + ',';
+    //         }
+    //     });
+    //     this.getUserList('1',depart);
+    // }
+
+    // /**
+    //  * 左侧导航栏 选中显示列表
+    //  * @param department_id
+    //  * index 点击的父类 or子类 索引
+    //  * num  1：父类 2：子类
+    //  */
+    // selectDepartment(department_id:any,index:number,indexChild:number,num:number){
+    //     if(num == 1){//点击父类
+    //         if(this.select_department_ids[department_id] == true){
+    //             if(this.userDefault['result']['departmentList'][index]){
+    //                 if(this.userDefault['result']['departmentList'][index]['has_child'] >= 1){
+    //                     this.userDefault['result']['departmentList'][index]['child'].forEach((val, idx, array) => {
+    //                         this.select_department_ids[val['department_id']] = false;
+    //                     });
+    //                 }
+    //             }
+    //             this.select_department_ids[department_id] = false;
+    //         }else{
+    //             this.select_department_ids[department_id] = true;
+    //
+    //             if(this.userDefault['result']['departmentList'][index]){
+    //                 if(this.userDefault['result']['departmentList'][index]['has_child'] >= 1){
+    //                     this.userDefault['result']['departmentList'][index]['child'].forEach((val, idx, array) => {
+    //                         this.select_department_ids[val['department_id']] = true;
+    //                     });
+    //                 }
+    //             }
+    //         }
+    //     }else if(num != 1){//点击子类
+    //         if(this.select_department_ids[department_id] == true){
+    //             this.select_department_ids[num] = false;
+    //             this.select_department_ids[department_id] = false;
+    //         }else{
+    //             this.select_department_ids[department_id] = true;
+    //
+    //             let count = 0;
+    //             if(this.userDefault['result']['departmentList'][index]){
+    //                 if(this.userDefault['result']['departmentList'][index]['has_child'] >= 1){
+    //                     this.userDefault['result']['departmentList'][index]['child'].forEach((val, idx, array) => {
+    //                         if(this.select_department_ids[val['department_id']] == false ||  isUndefined(this.select_department_ids[val['department_id']])){
+    //                             count ++;
+    //                         }
+    //                     });
+    //                 }
+    //             }
+    //             if(count == 0){//若子类全是true则父类变为选中状态
+    //                 this.select_department_ids[num] = true;
+    //             }
+    //         }
+    //     }
+    //     let depart = '';
+    //     this.select_department_ids.forEach((val, idx, array) => {
+    //         if(val == true) {
+    //             depart += idx + ',';
+    //         }
+    //     });
+    //     this.leftIsAll(); //左边是否全选
+    //     this.getUserList('1',depart);
+    // }
+
+    // /**
+    //  * 左边是否被全选
+    //  */
+    // leftIsAll(){
+    //     let isAll = 0;
+    //     this.userDefault['result']['departmentList'].forEach((val, idx, array) => {
+    //         if(this.select_department_ids[val['department_id']] == false){
+    //             isAll ++;
+    //         }
+    //     });
+    //     if(isAll == 0){
+    //         this.select_department_ids[0] = true;
+    //     }else{
+    //         this.select_department_ids[0] = false;
+    //     }
+    // }
+
+
+    // /**
+    //  * 左边展示效果
+    //  * @param bool
+    //  */
+    // showLeftUl(bool:any){
+    //     this.showUl = bool;
+    // }
+    // showLeftUlChild(department_id:any){
+    //     this.showUlChild = department_id;
+    // }
+
+
+    // onWindowScroll() {
+    //   let scroll_1 = (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop);
+    //     if(scroll_1 < document.body.clientHeight) {
+    //         if (scroll_1 > 90) {
+    //             this.scroll_ = (scroll_1 - 90) + 'px';
+    //         } else {
+    //             this.scroll_ = (scroll_1) + 'px';
+    //         }
+    //     }
+    // }
+
     ngOnInit() {
-  //     // $script("https://cdn.ckeditor.com/4.5.11/standard/ckeditor.js", ()=> {
-  //     //     const CKEDITOR = window['CKEDITOR'];
-  //     //     CKEDITOR.replace('ckeditor-showcase');
-  //     // });
+      // $script("https://cdn.ckeditor.com/4.5.11/standard/ckeditor.js", ()=> {
+      //     const CKEDITOR = window['CKEDITOR'];
+      //     CKEDITOR.replace('ckeditor-showcase');
+      // });
   }
 
-    showDetail(todo_id:number,template_name:string,isRead:any){
-        this.tododetail.showDetail(todo_id,template_name,isRead);
-
-        setTimeout(()=>{
-            this.is_show_detail =  this.tododetail.todo_info['result']['template_id'];
-            // this.cookieStore.setCookie('is_show_detail',this.is_show_detail);
-        },600);
-    }
     /**
      * 获取任务通知点击后的状态
      * @param value

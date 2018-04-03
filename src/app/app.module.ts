@@ -20,6 +20,7 @@ import {I3otpLayoutModule} from "./shared/layout/layout.module";
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {GlobalService} from './core/global.service';
 import { AngularEchartsModule } from 'ngx-echarts';
+import {TododetailService} from "./shared/tododetail.service";
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -58,7 +59,8 @@ type StoreType = {
     // ENV_PROVIDERS,
     APP_PROVIDERS,
     {provide:LocationStrategy,useClass:HashLocationStrategy},
-    GlobalService
+    GlobalService,
+      TododetailService,
   ]
 })
 export class AppModule {
