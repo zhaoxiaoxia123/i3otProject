@@ -95,16 +95,6 @@ export const routes: Routes = [
             path: 'process',
             loadChildren: 'app/+process/process.module#ProcessModule',
             data: {pageTitle: 'Process'}
-        },
-        {
-            path: 'file',
-            loadChildren: 'app/+file/file.module#FileModule',
-            data: {pageTitle: 'File'}
-        },
-        {
-            path: 'mail',
-            loadChildren: 'app/+mail/mail.module#MailModule',
-            data: {pageTitle: 'Mail'}
         }
     ]
   },
