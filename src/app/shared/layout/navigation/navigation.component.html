@@ -170,7 +170,7 @@
 
         </ul>
       </li>
-      <li>
+      <li *ngIf="is_admin=='1'">
         <a href="#"><i class=" fa fa-lg fa-fw fa-sitemap"></i> <span
                 class="menu-item-parent">{{'流程审批' | i18n}}</span></a>
         <ul>
@@ -196,6 +196,15 @@
             <a routerLink="/process/initiate-general">{{'通用审批' | i18n}}</a>
           </li>
 
+        </ul>
+      </li>
+      <li *ngIf="is_admin!='1'">
+        <a href="#"><i class=" fa fa-lg fa-fw fa-sitemap"></i> <span
+                class="menu-item-parent">{{'流程审批' | i18n}}</span></a>
+        <ul>
+          <li routerLinkActive="active">
+            <a routerLink="/process/process-initiate">{{'发起审批' | i18n}}</a>
+          </li>
         </ul>
       </li>
       <li>
