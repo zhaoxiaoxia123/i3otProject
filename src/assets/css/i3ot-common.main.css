@@ -275,8 +275,6 @@ a,button,input {
     list-style: none;
 }
 .notification-body>li {
-    border: 1px solid #E9E9E9;
-    border-radius: 4px;
     position: relative;
     margin-bottom: 10px;
 }
@@ -294,6 +292,8 @@ a,button,input {
     overflow: hidden;
     padding: 8px;
     white-space: normal;
+    border: 1px solid #E9E9E9;
+    border-radius: 0px 0px 6px 6px;
 }
 .notification-body>li a.msg {
     padding-left: 50px!important
@@ -326,7 +326,7 @@ a,button,input {
     line-height: normal;
     color: #333;
     font-weight: 400;
-    margin-right: 60px;
+    margin-right: 10px;
     margin-bottom: 6px;
     height: 20px;
     text-overflow: ellipsis;
@@ -350,9 +350,8 @@ a,button,input {
 }
 
 .notification-body .msg-body,.notification-body .subject {
-    font-size: 13px;
+    font-size: 14px;
     color: #A0A0A0;
-    max-height: 35px;
     width: 100%;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -362,7 +361,6 @@ a,button,input {
 .notification-body .subject {
     font-size: 13px;
     color: #333;
-    max-height: 22px
 }
 .air {
     position: absolute;

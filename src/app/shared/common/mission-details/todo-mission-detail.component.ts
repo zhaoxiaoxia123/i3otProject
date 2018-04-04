@@ -164,6 +164,7 @@ export class TodoMissionDetailComponent implements OnInit {
         // this.is_show_detail.valueChanges.subscribe(this.getInfo);
     }
     ngDoCheck(){
+        this.is_show_detail = this.tododetail.is_show_detail;
         if(this.todo_info.length == 0 && this.is_show_detail){
             this.getInfo();
         }
@@ -175,6 +176,7 @@ export class TodoMissionDetailComponent implements OnInit {
     hideDetail(){
         this.is_show_detail = '';
         this.todo_info = [];
+        this.tododetail.setIsShowDetail();
     }
 
     getInfo(){
@@ -187,7 +189,7 @@ export class TodoMissionDetailComponent implements OnInit {
 
         this.detail_template_name = this.tododetail.detail_template_name;
 
-        this.is_show_detail =  this.todo_info['result']['template_id'];
+        // this.is_show_detail =  this.todo_info['result']['template_id'];
         this.todo_name = this.todo_info['result']['todo_title'];
         this.todo_content = this.todo_info['result']['todo_content'];
 

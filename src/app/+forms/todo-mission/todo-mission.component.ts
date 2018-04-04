@@ -163,8 +163,9 @@ export class TodoMissionComponent implements OnInit {
         this.tododetail.showDetail(todo_id,template_name,isRead);
 
         setTimeout(()=>{
-            this.is_show_detail =  this.tododetail.todo_info['result']['template_id'];
-            // this.cookieStore.setCookie('is_show_detail',this.is_show_detail);
+            this.is_show_detail =  this.tododetail.is_show_detail;
+            console.log('is_show_detail:---');
+            console.log(this.is_show_detail);
         },600);
     }
     /**

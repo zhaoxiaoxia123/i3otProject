@@ -9,6 +9,7 @@ export class TododetailService {
   todo_info : Array<any> = [];
   detail_template_name : string = '';
   todo_id : number = 0;
+  is_show_detail : string = '';
   constructor(
       private http:Http,
       private cookieStore:CookieStoreService,
@@ -29,11 +30,15 @@ export class TododetailService {
     this.http.get(url)
         .map((res)=>res.json())
         .subscribe((data)=>{
-      console.log(33423423);
+          console.log(33423423);
           this.todo_info = data;
-
-        });
+          this.is_show_detail = this.todo_info['result']['template_id'];
+    });
   }
 
+  setIsShowDetail(){
+    this.todo_info = [];
+    this.is_show_detail = '';
+  }
 
 }
