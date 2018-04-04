@@ -1396,9 +1396,7 @@ h1,h2,h3,h4 {
         max-width: none;
     }
 }
-.modal{
-    z-index: 999999;
-}
+
 
 /*可嵌套的列表*/
 

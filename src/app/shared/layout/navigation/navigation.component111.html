@@ -198,26 +198,16 @@
 
         </ul>
       </li>
-      <li>
+      <!--<li>
         <a href="#"><i class=" fa fa-lg fa-fw  fa-folder-open"></i> <span
                 class="menu-item-parent">{{'文档管理' | i18n}}</span></a>
         <ul>
           <li routerLinkActive="active">
-            <a routerLink="/file/my-file">{{'我的文档' | i18n}}</a>
+            <a routerLink="/assets-management/assets-category">{{'资产类别' | i18n}}</a>
           </li>
 
         </ul>
-      </li>
-      <li>
-        <a href="#"><i class=" fa fa-lg fa-fw  fa-envelope"></i> <span
-                class="menu-item-parent">{{'邮件管理' | i18n}}</span></a>
-        <ul>
-          <li routerLinkActive="active">
-            <a routerLink="/mail/my-mail">{{'我的邮件' | i18n}}</a>
-          </li>
-
-        </ul>
-      </li>
+      </li>-->
 
       <li *ngIf="is_admin=='1'">
         <a href="#"><i class="fa fa-lg fa-fw fa-cog txt-color-blue"></i> <span
@@ -286,7 +276,7 @@
         </ul>
       </li>
       <li>
-        <a href="#"><i class="fa fa-lg fa-fw  fa-inbox"><em>3</em></i> <span
+        <a href="#"><i class="fa fa-lg fa-fw  fa-envelope"><em>3</em></i> <span
                 class="menu-item-parent">{{'待办事项' | i18n}}</span></a>
         <ul>
           <li routerLinkActive="active">
