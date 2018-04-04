@@ -7253,13 +7253,18 @@ label input[type=checkbox][disabled].checkbox+span:before,label input[type=check
 }
 
 #extr-page .hero {
-    background-image: url(../img/superbox-full.png);
+    background-image: url(../img/pattern/login.png);
     background-repeat: no-repeat;
-    /*background-position: 0 60px;*/
-    height: 400px;
+    background-position: 0 182px;
+     height: 360px;
     width: 100%;
-    float: left
+    float: left;
 }
+.display-image {
+    margin-top: -340px;
+    margin-right: 50px;
+}
+
 
 #extr-page h4.paragraph-header {
     color: #565656;
