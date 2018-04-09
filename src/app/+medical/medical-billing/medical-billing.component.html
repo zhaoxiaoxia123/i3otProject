@@ -54,6 +54,18 @@
                       </label>
                     </section>
                   </div>
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                    <section>
+                      <label class="label">性别</label>
+                      <label   class="select form-control border-0">
+                        <select  name="" >
+                          <option value="0">--请选择--</option>
+                          <option>男</option>
+                          <option>女</option>
+                        </select><i></i>
+                      </label>
+                    </section>
+                  </div>
                   <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
                     <section>
                       <label class="label">病症</label>
@@ -81,16 +93,12 @@
                             <thead>
                             <tr>
                               <th>序号</th>
-                              <th>操作</th>
                               <th>商品名称 </th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr >
                               <td>1</td>
-                              <td >
-                                <a  class="btn btn-danger btn-xs" ><span class="glyphicon glyphicon-remove"></span></a>
-                              </td>
                               <td>
                                 商品名称
                               </td>
@@ -100,8 +108,6 @@
                             <tr class="he-32">
                               <th></th>
                               <th></th>
-                              <th></th>
-
                             </tr>
                             </tfoot>
                           </table>
@@ -110,11 +116,12 @@
                           <table style="margin-top: 0!important;" class="table table-hover table-border table-bordered dataTable table-height-50">
                             <thead>
                             <tr>
-                              <th>分类</th>
+                              <th>商品类型</th>
                               <th class="txt-color-blue">数量</th>
                               <th >计量单位</th>
                               <th >单价</th>
                               <th >总价</th>
+                              <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -130,10 +137,14 @@
                               <td>
                                 1225
                               </td>
+                              <td >
+                                <a  class="btn btn-danger btn-xs" ><span class="glyphicon glyphicon-remove"></span></a>
+                              </td>
                             </tr>
                             </tbody>
                             <tfoot>
                             <tr class="he-32">
+                              <th></th>
                               <th></th>
                               <th></th>
                               <th></th>
@@ -160,7 +171,7 @@
                   </div>
                   <div class="form-group col col-lg-8 col-md-8 col-sm-6 col-xs-6 ">
                     <h4 class="text-align-right">
-                     总价:<strong>1225</strong>
+                     合计金额:<strong>1225</strong>
                     </h4>
                   </div>
 
@@ -318,14 +329,13 @@
                             </label>
                             </td>
                             <th>商品编号</th>
-                            <th>商品属性</th>
                             <th>商品名称</th>
-                            <th>商品储量</th>
-                            <th>商品分类</th>
-                            <th>生产厂家</th>
-                            <th>参考售价</th>
-                            <th>图片</th>
-                            <th>状态</th>
+                            <th>商品类型</th>
+                            <th>重量</th>
+                            <th>计量单位</th>
+                            <th>成本单价</th>
+                            <th>入库时间</th>
+                            <th>备注</th>
                           </tr>
                           </thead>
                           <tbody>
@@ -343,16 +353,7 @@
                             <td>dfgfd</td>
                             <td>dfgfd</td>
                             <td>dfgfd</td>
-                            <td>
-                              <div style="height:auto;" >
-                              <img  alt="" height="22" width="22" class="img-picture" src="">
-                            </div></td>
-                            <td>
-                              <span >
-                                    <span class="label-normal" >正常</span>
-                                    <span class="label-invalid" >无效</span>
-                              </span>
-                            </td>
+                            <td>4545</td>
                           </tr>
 
                           </tbody>
@@ -439,7 +440,7 @@
                 <thead>
                 <tr>
                   <th>序号</th>
-                  <th>名称</th>
+                  <th>商品名称</th>
                   <th>分类</th>
                   <th>数量</th>
                   <th>计量单位</th>

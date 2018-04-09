@@ -7,18 +7,13 @@
             <span class="widget-icon"> <i class="fa fa-table"></i> </span>
             <h2>库存管理</h2>
           </header>
-
-
+          <div>
             <div class="widget-body no-padding" >
               <div  class="row">
                 <article  class="col-sm-12">
                   <div class="navbar navbar-default">
                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
 
-                      <div class="form-group pdlr-4">
-                        <a class="btn btn-success btn-sm"  data-toggle="modal" data-target="#myModal">
-                          <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
-                      </div>
                       <div class="form-group pdlr-4">
                         <a class="btn default-btn btn-sm"   data-toggle="modal" data-target="#myModal">
                           <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
@@ -90,8 +85,8 @@
                     <thead>
                     <tr >
                       <th>姓名</th>
-                      <th>名称</th>
-                      <th>类型</th>
+                      <th>商品名称</th>
+                      <th>商品类型</th>
                       <th>数量</th>
                       <th>计量单位</th>
                     </tr>
@@ -132,7 +127,12 @@
 
 
 
+            </div>
+
           </div>
+
+
+
 
         </sa-widget>
       </article>
@@ -152,7 +152,6 @@
           ×
         </button>
         <!-- 标题 -->
-        <h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>添加库存信息</h3>
         <h3 class="modal-title  color-yellow" data-ng-bind='results.title'><i class="glyphicon glyphicon-pencil"></i>修改库存信息</h3>
       </div>
       <div class="modal-body height-overflow-380">
@@ -172,7 +171,7 @@
 
               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <section>
-                  <label  class="label txt-color-blue">名称<span  class="asterisk-color">*</span></label>
+                  <label  class="label txt-color-blue">商名称<span  class="asterisk-color">*</span></label>
                   <label class="input">
                     <input  type="text" placeholder="" name="" >
                   </label>
@@ -181,7 +180,7 @@
               </div>
               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12" >
                 <section>
-                  <label class="label">类别</label>
+                  <label class="label">商品类型</label>
                   <label   class="select form-control border-0">
                     <select  name="" >
                       <option value="0">--请选择--</option>
@@ -261,11 +260,11 @@
                 <tr>
                   <td class="width-120">编号:</td>
                   <td class=""></td>
-                  <td class="width-120">名称:</td>
+                  <td class="width-120">商品名称:</td>
                   <td ></td>
                 </tr>
                 <tr>
-                  <td class="width-120">类别:</td>
+                  <td class="width-120">商品类型:</td>
                   <td class=""></td>
                   <td class="width-120">数量:</td>
                   <td ></td>

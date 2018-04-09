@@ -172,7 +172,7 @@
 
         </ul>
       </li>
-      <li>
+      <li *ngIf="is_admin=='1'">
         <a href="#"><i class=" fa fa-lg fa-fw fa-sitemap"></i> <span
                 class="menu-item-parent">{{'流程审批' | i18n}}</span></a>
         <ul>
@@ -198,6 +198,15 @@
             <a routerLink="/process/initiate-general">{{'通用审批' | i18n}}</a>
           </li>
 
+        </ul>
+      </li>
+      <li *ngIf="is_admin!='1'">
+        <a href="#"><i class=" fa fa-lg fa-fw fa-sitemap"></i> <span
+                class="menu-item-parent">{{'流程审批' | i18n}}</span></a>
+        <ul>
+          <li routerLinkActive="active">
+            <a routerLink="/process/process-initiate">{{'发起审批' | i18n}}</a>
+          </li>
         </ul>
       </li>
       <li>
@@ -326,12 +335,6 @@
             <ul>
               <li routerLinkActive="active">
                 <a routerLink="/inventory-management/commodity-classify">{{'商品分类' | i18n}}</a>
-              </li>
-              <li routerLinkActive="active">
-                <a routerLink="/sales-management/sales-type">{{'销售类型' | i18n}}</a>
-              </li>
-              <li routerLinkActive="active">
-                <a routerLink="/management/setting-repertory">{{'出入库类别' | i18n}}</a>
               </li>
             </ul>
           </li>
