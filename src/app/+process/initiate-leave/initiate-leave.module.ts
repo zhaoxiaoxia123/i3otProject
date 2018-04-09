@@ -9,6 +9,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DpDatePickerModule} from "ng2-date-picker";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {CookieService} from "angular2-cookie/core";
+import {ImgCropperSelectModule} from "../../shared/img-cropper-select/img-cropper-select.module";
+import {ImageCropperModule} from "ng2-img-cropper";
 
 @NgModule({
   imports: [
@@ -19,6 +21,8 @@ import {CookieService} from "angular2-cookie/core";
   FormsModule,
   ReactiveFormsModule,
   DpDatePickerModule,
+    ImageCropperModule,
+    ImgCropperSelectModule
 ],
 declarations: [InitiateLeaveComponent],
     providers:[ CookieService,CookieStoreService ]

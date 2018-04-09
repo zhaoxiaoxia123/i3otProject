@@ -5,7 +5,6 @@
                 <sa-widget  [editbutton]="false" [deletebutton]="false">
                     <header>
                         <ul class="nav nav-tabs pull-left in">
-
                             <li [class.active]="state.tabs.demo5=='iss1'" class="active">
                                 <a (click)="state.tabs.demo5 = 'iss1'">待我审批的<span class="badge bg-color-red txt-color-white">99</span></a>
                             </li>
@@ -27,48 +26,36 @@
                                     <div class="row">
                                         <app-process-await></app-process-await>
                                     </div>
-
                                 </tab>
                                 <tab [active]="state.tabs.demo5 == 'iss2'">
                                     <div class="row">
                                         <app-process-already></app-process-already>
                                     </div>
-
                                 </tab>
                                 <tab [active]="state.tabs.demo5 == 'iss3'">
                                     <div class="row">
                                         <app-process-my></app-process-my>
                                     </div>
-
                                 </tab>
                                 <tab [active]="state.tabs.demo5 == 'iss4'">
                                     <div class="row">
                                         <app-process-copy></app-process-copy>
                                     </div>
-
                                 </tab>
-
                             </tabset>
                         </div>
                     </div>
                 </sa-widget>
-
             </article>
         </div>
-
-
     </sa-widgets-grid>
-
 </div>
 
-
-<div class="slide-content"  style="position:fixed;z-index: 99999;" >
+<div class="slide-content"  style="position:fixed;z-index: 99999;display: none;" >
     <div class="entity-well entity-well--tasks">
-
         <div class="entity-well-header" >
             <span  class="approval-head" >某某的通用审批</span>
             <ul class="entity-well-header-nav nav s pull-right">
-
                 <li class="divider-v"></li>
                 <li><a class="entity-well-header-close" >
                     <i class="fa fa-times"></i></a>
@@ -102,7 +89,6 @@
                         已撤销
                     </p>
                 </div>
-
                <!-- 已同意-->
                 <div class="approve-result agree pullout" ></div>
 
@@ -110,7 +96,6 @@
                 <div class="approve-result refuse pullout" ></div>
                 <!--已撤销-->
                 <div class="approve-result revoke pullout" ></div>
-
 
                 <!--请假-->
                 <div >
@@ -160,9 +145,6 @@
                     </div>
                 </div>
 
-
-
-
                 <!--外出-->
                 <div >
                     <div class="approve-formschema" >
@@ -201,7 +183,6 @@
                                     <a class="fa fa-times-circle" style="display:block;"></a>
                                     <img alt="" src="assets/img/superbox/superbox-thumb-4.jpg" title="">
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -218,7 +199,6 @@
                             <label class="label" >所在部门:</label>
                             <span >矿易帮</span>
                         </div>
-
                     </div>
                     <div class="line approve-formschema">
                         <div class="subs-row" >
@@ -272,10 +252,7 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-
-
 
                 <!--报销-->
                 <div>
@@ -288,7 +265,6 @@
                             <label class="label" >所在部门:</label>
                             <span >矿易帮</span>
                         </div>
-
                     </div>
                     <div class="line approve-formschema">
                         <div class="subs-row" >
@@ -343,13 +319,10 @@
                                     <a class="fa fa-times-circle" style="display:block;"></a>
                                     <img alt="" src="assets/img/superbox/superbox-thumb-4.jpg" title="">
                                 </div>
-
                             </div>
                         </div>
                     </div>
                 </div>
-
-
 
                 <!--通用审批-->
                 <div>
@@ -381,13 +354,10 @@
                                     <a class="fa fa-times-circle" style="display:block;"></a>
                                     <img alt="" src="assets/img/superbox/superbox-thumb-4.jpg" title="">
                                 </div>
-
                             </div>
                         </div>
                     </div>
                 </div>
-
-
             </div>
             <hr/>
             <div class="cl-mcont">
@@ -431,8 +401,6 @@
                             <p>意见</p>
                         </div>
                     </li>
-
-
                 </ul>
             </div>
             <div class="entity-well-content">
@@ -446,7 +414,7 @@
                                         分隔符
                                     </a>
                                 </li>
-                                <li   >
+                                <li>
                                     <a class="portrait-size"  title="地方个">
                                         地方个
                                     </a>
@@ -456,7 +424,6 @@
                                         风格的个
                                     </a>
                                 </li>
-
                             </ul>
                         </dd>
                     </dl>
@@ -466,8 +433,6 @@
                     <div  class="ng-binding ng-scope">某某 2018-03-22 14:54，创建了审核</div>
                 </div>
             </div>
-
-
         </div>
         <div class="body">
             <div class="approve-foot show ">
@@ -478,7 +443,6 @@
                 当其他人发起审批时页面显示：
                 1、我审批时：同意、拒绝、转交、评论
                 2、他人审批中：评论-->
-
                 <div class="tFlexbox tAlignCenter tJustifyCenter" >
                     <div class="tFlex1 approval-action tTap agree" data-toggle="modal" data-target="#opinion" >同意</div>
                     <div class="tFlex1 approval-action tTap refuse" data-toggle="modal" data-target="#opinion">拒绝</div>
@@ -488,12 +452,7 @@
                     <div class="tFlex1 approval-action tTap  " data-toggle="modal" data-target="#myModal">转交</div>
                 </div>
             </div>
-
-
-
-    </div>
-
-
+        </div>
     </div>
 </div>
 
@@ -787,7 +746,6 @@
                         </article>
                     </div>
                 </div>
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" data-ng-click="ok()"><span class="glyphicon glyphicon-plus"></span>选入</button>

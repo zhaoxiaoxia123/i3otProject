@@ -13,12 +13,11 @@
               <form id="smart-form-register" class="smart-form" >
                 <fieldset>
                   <legend>基本信息</legend>
-                  <input type="hidden" name="">
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
                     <section >
                       <label class="label txt-color-blue">开始日期<span class="asterisk-color">*</span></label>
                       <label  class="input">
-                        <input  name=""  maxlength="20"  placeholder="选择日期"  class="form-control ng-binding expire-text-soon"/>
+                        <input name="approval_start_date" [ngModelOptions]="{standalone: true}" [(ngModel)]="approval_start_date" value="{{approval_start_date}}" [dpDayPicker]="datePickerConfig" [theme]="'dp-material'" [mode]="'day'" placeholder="选择日期"  class="form-control ng-binding expire-text-soon"/>
                       </label>
                     </section>
                   </div>
@@ -26,7 +25,7 @@
                     <section >
                       <label class="label txt-color-blue">结束日期<span class="asterisk-color">*</span></label>
                       <label  class="input">
-                        <input  name=""  maxlength="20"  placeholder="选择日期"  class="form-control ng-binding expire-text-soon"/>
+                        <input  name="approval_end_date" [ngModelOptions]="{standalone: true}" [(ngModel)]="approval_end_date" value="{{approval_end_date}}" [dpDayPicker]="datePickerConfig" [theme]="'dp-material'" [mode]="'day'" placeholder="选择日期"  class="form-control ng-binding expire-text-soon"/>
                       </label>
                     </section>
                   </div>
@@ -35,7 +34,7 @@
                     <section>
                       <label class="label txt-color-blue">外出时间（小时）<span class="asterisk-color">*</span></label>
                       <label class="input">
-                        <input  type="number" placeholder="请输入外出时间（必填）" name="" >
+                        <input  type="number" placeholder="请输入外出时间（必填）" name="day" [(ngModel)]="day">
                       </label>
                     </section>
                   </div>
@@ -44,7 +43,7 @@
                     <section>
                       <label class="label txt-color-blue">外出事由<span class="asterisk-color">*</span></label>
                       <label class="textarea textarea-resizable">
-                        <textarea class="custom-scroll" rows="4" name="" placeholder="请输入外出事由（必填）"></textarea>
+                        <textarea class="custom-scroll" rows="4" name="reason" [(ngModel)]="reason" placeholder="请输入外出事由（必填）"></textarea>
                       </label>
                     </section>
                   </div>
@@ -52,52 +51,26 @@
                   <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
                     <div class="label ">图片<a class="txt-color-blue pd-10" >添加图片</a><span class="txt-color-blueLight pd-10">(最多可以选择10张)</span></div>
                     <div  class="picture mb-20">
-                      <div  class="picture-list " >
-                        <a  class="fa fa-times-circle picture-a" style="display:block;"></a>
-                        <img   src="assets/img/superbox/superbox-thumb-2.jpg" alt="" title="">
+                      <div  class="picture-list" *ngFor="let img of imgList;let ind = index;">
+                        <a  class="fa fa-times-circle picture-a" style="display:block;" (click)="removeImg(ind)"></a>
+                        <img src="{{url}}{{img}}">
                       </div>
-                      <div  class="picture-list picture-a" >
-                        <a  class="fa fa-times-circle" style="display:block;"></a>
-                        <img  src="assets/img/superbox/superbox-thumb-4.jpg" alt="" title="">
-                      </div>
-                      <div  class="picture-list picture-a" >
-                        <a  class="fa fa-times-circle" style="display:block;"></a>
-                        <img src="assets/img/superbox/superbox-thumb-6.jpg" alt="" title="">
-                      </div>
-                      <div  class="picture-list" >
-                        <a  class="fa fa-times-circle picture-a" ></a>
-                        <img src="assets/img/superbox/superbox-thumb-6.jpg" alt="" title="">
-                      </div>
-                      <div  class="picture-list" >
-                        <a  class="fa fa-times-circle picture-a" ></a>
-                        <img src="assets/img/superbox/superbox-thumb-6.jpg" alt="" title="">
-                      </div>
-                      <div  class="picture-list" >
-                        <a  class="fa fa-times-circle picture-a" ></a>
-                        <img src="assets/img/superbox/superbox-thumb-6.jpg" alt="" title="">
-                      </div>
-                      <div  class="picture-list" >
-                        <a  class="fa fa-times-circle picture-a" ></a>
-                        <img src="assets/img/superbox/superbox-thumb-6.jpg" alt="" title="">
-                      </div>
-                      <div  class="picture-list" >
-                        <a  class="fa fa-times-circle picture-a" ></a>
-                        <img src="assets/img/superbox/superbox-thumb-6.jpg" alt="" title="">
-                      </div>
-                      <div  class="picture-list" >
-                        <a  class="fa fa-times-circle picture-a" ></a>
-                        <img src="assets/img/superbox/superbox-thumb-6.jpg" alt="" title="">
-                      </div>
-                      <div  class="picture-list" >
-                        <a  class="fa fa-times-circle picture-a" ></a>
-                        <img src="assets/img/superbox/superbox-thumb-6.jpg" alt="" title="">
-                      </div>
-                      <div  class="picture-list" >
-                        <a  class="fa fa-times-circle picture-a" ></a>
-                        <img src="assets/img/superbox/superbox-thumb-6.jpg" alt="" title="">
-                      </div>
-
                     </div>
+
+                    <ul class="ace-thumbnails clearfix" *ngIf="imgCount < 10">
+                      <li>
+                        <img-cropper #cropper [image]="data1" [settings]="cropperSettings1" (onCrop)="cropped($event)"></img-cropper>
+                      </li>
+                      <li>
+                        <div  class="c-file-upload">
+                          <a class="btn btn-primary " style="width: 100px; height: 100px;" >
+                            <i class="fa fa-plus fa-2x" style="font-size: 100px;"></i>
+                          </a>
+                          <input id="image-input" class="btn btn-primary " type="file" c-img-cropper-select [cropper]="cropper">
+                        </div>
+                      </li>
+                      <li><button type="button" class="btn btn-primary" (click)="postFile()">确认上传</button></li>
+                    </ul>
 
                   </div>
                   <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-20">
@@ -105,74 +78,31 @@
                   </div>
 
                   <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-20">
-                    <div class="label ">审批人<a class="txt-color-blue pd-10" data-toggle="modal" data-target="#myModal">添加审批人</a></div>
+                    <div class="label ">审批人<a class="txt-color-blue pd-10" data-toggle="modal" data-target="#myModal" (click)="changeType('assign')">添加审批人</a></div>
                     <ul  class="avatars">
-                      <li>
-                        <a class="fa fa-times-circle picture-a" style="display:block;"></a>
-                        <a  class="portrait-size" title="刘鑫">
-                          刘鑫
+                      <li *ngFor="let su of approve_user;let ind = index;">
+                        <a class="fa fa-times-circle picture-a" style="display:block;" (click)="removeUser(su.id,'assign')"></a>
+                        <a  class="portrait-size" title="{{su.u_username}}">
+                          {{su.u_username}}
                         </a>
-                      </li>
-                      <div class="approval-arrow" >
-                        <img  src="assets/img/icon/arrow.png" >
-                      </div>
-                      <li >
-                        <a class="fa fa-times-circle picture-a" ></a>
-                        <a  class=" portrait-size" title="刘鑫">
-                          刘鑫
-                        </a>
-                      </li>
-                      <div class="approval-arrow" >
-                        <img  src="assets/img/icon/arrow.png" >
-                      </div>
-                      <li>
-                        <a class="fa fa-times-circle picture-a" ></a>
-                        <a  class=" portrait-size" title="刘鼎折覆餗鑫">
-                          刘鼎折覆餗鑫
-                        </a>
-                      </li>
-                      <div class="approval-arrow" >
-                        <img  src="assets/img/icon/arrow.png" >
-                      </div>
-                      <li >
-                        <a class="fa fa-times-circle picture-a"></a>
-                        <a  class="portrait-size" title="刘鼎折覆餗鑫">
-                          刘鼎折覆餗鑫
-                        </a>
+                        <div class="approval-arrow" *ngIf="ind < approve_user.length && ind != 0">
+                          <img  src="assets/img/icon/arrow.png" >
+                        </div>
                       </li>
                     </ul>
 
                   </div>
 
                   <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-20">
-                    <div class="label ">抄送人<a class="txt-color-blue pd-10" data-toggle="modal" data-target="#myModal">添加抄送人</a><span class="txt-color-blueLight pd-10">(审批通过后，通知抄送人)</span></div>
+                    <div class="label ">抄送人<a class="txt-color-blue pd-10" data-toggle="modal" data-target="#myModal" (click)="changeType('follower')">添加抄送人</a><span class="txt-color-blueLight pd-10">(审批通过后，通知抄送人)</span></div>
                     <ul  class="avatars">
-                      <li>
-                        <a class="fa fa-times-circle picture-a" style="display:block;"></a>
-                        <a  class="portrait-size" title="刘鑫">
-                          刘鑫
-                        </a>
-                      </li>
-                      <li >
-                        <a class="fa fa-times-circle picture-a" ></a>
-                        <a  class=" portrait-size" title="刘鑫">
-                          刘鑫
-                        </a>
-                      </li>
-                      <li>
-                        <a class="fa fa-times-circle picture-a" ></a>
-                        <a  class=" portrait-size" title="刘鼎折覆餗鑫">
-                          刘鼎折覆餗鑫
-                        </a>
-                      </li>
-                      <li >
-                        <a class="fa fa-times-circle picture-a"></a>
-                        <a  class="portrait-size" title="刘鼎折覆餗鑫">
-                          刘鼎折覆餗鑫
+                      <li *ngFor="let su1 of follower_user;let ind1 = index;">
+                        <a class="fa fa-times-circle picture-a" style="display:block;" (click)="removeUser(su1.id,'follower')"></a>
+                        <a  class="portrait-size" title="{{su1.u_username}}">
+                          {{su1.u_username}}
                         </a>
                       </li>
                     </ul>
-
                   </div>
 
                 </fieldset>
@@ -180,7 +110,7 @@
                   <button type="button" class="btn btn-default" >
                     返回
                   </button>
-                  <button  type="submit" class="btn btn-primary">
+                  <button type="button" class="btn btn-primary" (click)="onSubmit()">
                     提交
                   </button>
                 </footer>
@@ -194,14 +124,13 @@
 </div>
 
 
+
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <!-- 关闭按钮 -->
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-          ×
-        </button>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="closeSelectedUser()">×</button>
         <!-- 标题 -->
         <h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>选择人</h3>
       </div>
@@ -210,18 +139,16 @@
           <article  class="col-sm-12">
             <div class="navbar navbar-default">
               <div class="collapse navbar-collapse">
-
                 <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
                   <div class="form-group pdlr-4">
                     <div class="form-group padding-left-10">
-                      <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15"   name="keyword_product" placeholder="请输入搜索内容" type="text">
+                      <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" [(ngModel)]="keyword" name="keyword" placeholder="请输入搜索内容" type="text">
                     </div>
-                    <button class="btn btn-default" type="button" >
+                    <button class="btn btn-default" type="button" (click)="getUserList(1,0)">
                       <i  class="glyphicon glyphicon-search"></i>
                       搜索
                     </button>
                   </div>
-
                 </form>
               </div>
             </div>
@@ -243,64 +170,36 @@
                         <div class="tree smart-form">
                           <ul class="">
                             <li class=" parent_li">
+                                <span>
+                                  <label class="checkbox inline-block tree-label pt-12 ">
+                                      <input type="checkbox" name="checkbox-inline" [checked]="select_department_ids[0]" (click)="selectDepartmentAll()"><i></i>
+                                    </label>
+
+                                  <i class="fa fa-lg fa-folder-open"></i>{{customer_name}}
+                                  <i class="sa-icon fa fa-lg fa-plus-circle" *ngIf="showUl == 0" (click)="showLeftUl(1)"></i>
+                                  <i class="sa-icon fa fa-lg fa-minus-circle" *ngIf="showUl == 1" (click)="showLeftUl(0)"></i>
+                                </span>
+                              <ul *ngIf="showUl == 1">
+                                <li class=" parent_li" *ngFor="let d of userDefault?.result?.departmentList;let ind = index;">
                                   <span>
-                                    <label class="checkbox inline-block tree-label pt-12 ">
-                                          <input name="checkbox-inline" type="checkbox"><i></i>
-                                   </label>
-                                    <i class="fa fa-lg fa-folder-open"></i>矿易帮
-                                    <i class="sa-icon fa fa-lg fa-minus-circle"></i>
+                                    <label class="checkbox inline-block tree-label ">
+                                      <input type="checkbox" name="checkbox-inline" [checked]="select_department_ids[d.department_id]" (click)="selectDepartment(d.department_id,ind,0,1)"><i></i>{{d.department_name}}
+                                      <em class="txt-color-blue">({{d.child_count}})</em>
+                                    </label>
+                                    <i class="sa-icon fa fa-lg fa-minus-circle" *ngIf="showUlChild == d.department_id && d.has_child != 0" (click)="showLeftUlChild(0)"></i>
+                                    <i class="sa-icon fa fa-lg fa-plus-circle" *ngIf="showUlChild != d.department_id && d.has_child != 0" (click)="showLeftUlChild(d.department_id)"></i>
                                   </span>
-                              <ul class="">
-                                <li class=" parent_li">
-                                        <span>
-                                          <label class="checkbox inline-block tree-label ">
-                                            <input name="checkbox-inline" type="checkbox">
-                                            <i></i>财务部
-                                            <em class="txt-color-blue">(0)</em>
-                                          </label>
-
-                                        </span>
-                                </li>
-                                <li class=" parent_li">
-                                        <span>
-                                          <label class="checkbox inline-block tree-label ">
-                                            <input name="checkbox-inline" type="checkbox">
-                                            <i></i>互联网部
-                                            <em class="txt-color-blue">(0)</em>
-                                          </label>
-
-                                        </span>
-                                </li>
-                                <li class=" parent_li">
-                                        <span>
-                                          <label class="checkbox inline-block tree-label ">
-                                            <input name="checkbox-inline" type="checkbox">
-                                            <i></i>行政部
-                                            <em class="txt-color-blue">(0)</em>
-                                          </label>
-                                           <i class="sa-icon fa fa-lg fa-plus-circle"></i>
-                                        </span>
-                                  <ul class="">
-                                    <li>
-                                            <span>
-                                              <label class="checkbox inline-block tree-label">
-                                                <input name="checkbox-inline" type="checkbox">
-                                                <i></i>财务部
-                                                <em class="txt-color-blue">(0)</em>
-                                              </label>
-                                            </span>
+                                  <ul class="" *ngIf="showUlChild == d.department_id">
+                                    <li *ngFor="let dc of d.child;let indChild = index;">
+                                      <span>
+                                        <label class="checkbox inline-block tree-label">
+                                          <input type="checkbox" name="checkbox-inline" [checked]="select_department_ids[d.department_id] || select_department_ids[dc.department_id]" (click)="selectDepartment(dc.department_id,ind,indChild,d.department_id)">
+                                          <i></i>{{dc.department_name}}
+                                          <em class="txt-color-blue">({{dc.child_count}})</em>
+                                        </label>
+                                      </span>
                                     </li>
                                   </ul>
-
-                                </li>
-                                <li class=" parent_li">
-                                        <span>
-                                          <label class="checkbox inline-block tree-label ">
-                                            <input name="checkbox-inline" type="checkbox">
-                                            <i></i>软件部
-                                            <em class="txt-color-blue">(2)</em>
-                                          </label>
-                                        </span>
                                 </li>
                               </ul>
                             </li>
@@ -331,7 +230,7 @@
                           <tr>
                             <td>
                               <label class="checkbox mt-8">
-                                <input type="checkbox" name="checkbox-inline" >
+                                <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)">
                                 <i></i>
                               </label>
                             </td>
@@ -341,51 +240,30 @@
                           </tr>
                           </thead>
                           <tbody>
-                          <tr >
+                          <tr *ngFor="let ul of userList.result?.userList?.data">
                             <td>
                               <label class="checkbox mt-8" >
-                                <input type="checkbox"   />
+                                <input type="checkbox" value="{{ul.id}}" [checked]="selected_user[ul.id]" (change)="handle($event);" />
                                 <i></i>
                               </label>
                             </td>
-                            <td>dgff</td>
-                            <td>dfgd</td>
-                            <td>dfgfd</td>
-                          </tr>
-                          <tr >
-                            <td>
-                              <label class="checkbox mt-8" >
-                                <input type="checkbox"   />
-                                <i></i>
-                              </label>
-                            </td>
-                            <td>dgff</td>
-                            <td>dfgd</td>
-                            <td>dfgfd</td>
-                          </tr>
-                          <tr >
-                            <td>
-                              <label class="checkbox mt-8" >
-                                <input type="checkbox"   />
-                                <i></i>
-                              </label>
-                            </td>
-                            <td>dgff</td>
-                            <td>dfgd</td>
-                            <td>dfgfd</td>
+                            <td>{{ ul.name }}</td>
+                            <td>{{ ul.u_username }}</td>
+                            <td>{{ ul.department_name }}</td>
                           </tr>
                           </tbody>
                         </table>
                       </div>
+
                     </div>
                     <!-- 底部-（分页部分）-->
                     <div class="dt-toolbar">
                       <div class="col-xs-12 col-sm-6">
-                        <span>共5条</span>
+                        <span>共{{userList.result?.userList?.total}}条</span>
                       </div>
                       <div class="hidden-xs right">
-                        <ul class="pagination pagination-sm">
-                          <li *ngFor="let p of searchProductList?.result?.page" class="{{p.class}}">
+                        <ul class="pagination pagination-sm" *ngIf="userList?.result?.page != ''">
+                          <li *ngFor="let p of userList?.result?.page" class="{{p.class}}">
                             <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
                             <a *ngIf="p.method==''">{{p.text}}</a>
                           </li>
@@ -399,12 +277,11 @@
             </article>
           </div>
         </div>
-
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-ng-click="ok()"><span class="glyphicon glyphicon-plus"></span>选入</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal" >返回</button>
+        <button type="button" class="btn btn-success btn-sm" data-ng-click="ok()" data-dismiss="modal" (click)="submitSelectedUser()"><span class="glyphicon glyphicon-plus"></span>选入</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="closeSelectedUser()">返回</button>
       </div>
-    </div>
-  </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
 </div>

@@ -1,0 +1,47 @@
+
+/**
+上传图片
+ */
+
+/*图片上传按钮*/
+.c-file-upload {
+  display: block;
+  overflow: hidden;
+  position: relative;
+  //width:100px;
+  [type=file] {
+    cursor: pointer;
+    display: block;
+    filter: alpha(opacity=0);
+    min-height: 100%;
+    min-width: 100%;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    text-align: right;
+    top: 0;
+  }
+}
+
+/*白色*/
+$c-color-white:#ffffff !default;
+
+//盒子阴影
+$c-box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.03) !default;
+
+/*内容*/
+.c-content-inner{
+  background-color: $c-color-white;
+  border: 0px;
+  border-radius: 1px;
+  -webkit-box-shadow: $c-box-shadow;
+  box-shadow: $c-box-shadow;
+  -moz-box-shadow:  $c-box-shadow;
+  padding:15px;
+}
+.c-mt15 {
+  margin-top: 15px;
+}
+
+
+
