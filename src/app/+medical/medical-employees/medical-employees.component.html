@@ -1,0 +1,321 @@
+<div id="content">
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-sm-12 ">
+        <sa-widget [editbutton]="false" [deletebutton]="false" [colorbutton]="false">
+          <header>
+            <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+            <h2>员工管理</h2>
+          </header>
+
+          <div>
+            <div class="widget-body no-padding" >
+              <div  class="row">
+                <article  class="col-sm-12">
+                  <div class="navbar navbar-default">
+                    <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
+
+                      <div class="form-group pdlr-4">
+                        <a class="btn btn-success btn-sm"  data-toggle="modal" data-target="#myModal">
+                          <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
+                      </div>
+                      <div class="form-group pdlr-4">
+                        <a class="btn default-btn btn-sm"   data-toggle="modal" data-target="#myModal">
+                          <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
+                      </div>
+                      <div class="form-group pdlr-4">
+                        <a class="btn default-btn btn-sm" >
+                          <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
+                      </div>
+                      <div class="form-group pdlr-4">
+                        <a class="btn default-btn btn-sm"  data-toggle="modal" data-target="#particulars" >
+                          <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
+                      </div>
+                      <div class="form-group btn-group pdlr-4">
+                        <a class="btn default-btn btn-sm dropdown-toggle"  data-toggle="dropdown">
+                          <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
+
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a ><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
+                        </ul>
+                      </div>
+                    </form>
+                    <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
+                      <div class="form-group pdlr-4">
+                        <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" name="" placeholder="请输入搜索内容" type="text">
+                      </div>
+                      <div class="form-group pdlr-4">
+                        <button class="btn btn-default" type="submit">
+                          <i  class="glyphicon glyphicon-search"></i>
+                          搜索
+                        </button>
+                      </div>
+                    </form>
+
+                  </div>
+                </article>
+              </div>
+              <div class="mt-10" style="padding:0;">
+                <div class="table-scrolling" style="padding: 0;z-index: 2;width:26%;float:left;">
+                  <table class="table table-striped   smart-form ">
+                    <thead>
+                    <tr >
+                      <td><label class="checkbox padding-top-10">
+                        <input type="checkbox" name="checkbox-inline" >
+                        <i></i>
+                      </label>
+                      </td>
+                      <th>编号</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr class="table-color">
+                      <td>
+                        <label class="checkbox padding-top-10">
+                          <input type="checkbox" >
+                          <i></i>
+                        </label>
+                      </td>
+                      <td>1</td>
+                    </tr>
+
+
+                    </tbody>
+                  </table>
+
+                </div>
+                <div class="table-responsive"  style="padding: 0; z-index: 1; width: 74%; float: left;">
+                  <table class="table table-striped  smart-form ">
+                    <thead>
+                    <tr >
+                      <th>姓名</th>
+                      <th>性别</th>
+                      <th>年龄</th>
+                      <th>电话号码</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr class="table-color">
+                      <td>矿业</td>
+                      <td>男</td>
+                      <td>25</td>
+                      <td>2155</td>
+
+                    </tr>
+
+
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+              <!-- 底部-（分页部分）-->
+              <div class="dt-toolbar">
+                <div class="col-xs-12 col-sm-6">
+                  <span>共5条</span>
+                </div>
+                <div class="hidden-xs right">
+                  <ul class="pagination pagination-sm">
+                    <li *ngFor="let p of categoryList?.page" class="{{p.class}}">
+                      <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+                      <a *ngIf="p.method==''">{{p.text}}</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+
+            </div>
+
+
+          </div>
+
+        </sa-widget>
+      </article>
+    </div>
+  </sa-widgets-grid>
+
+</div>
+
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- 关闭按钮 -->
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          ×
+        </button>
+        <!-- 标题 -->
+        <h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>添加员工信息</h3>
+        <h3 class="modal-title  color-yellow" data-ng-bind='results.title'><i class="glyphicon glyphicon-pencil"></i>修改员工信息</h3>
+      </div>
+      <div class="modal-body height-overflow-380">
+        <div class="row mt-20">
+          <form   class="smart-form ">
+            <fieldset>
+              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <section>
+                  <label class="label">编号</label>
+                  <label class="input">
+                    <input  type="text" placeholder="" name="" >
+                  </label>
+                </section>
+              </div>
+
+              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12" style="display: none;">
+                <section>
+                  <label  class="label txt-color-blue">登陆账号<span  class="asterisk-color">*</span></label>
+                  <label class="input">
+                    <input  type="text" placeholder="" name="" >
+                  </label>
+                </section>
+
+              </div>
+              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12" style="display: none;">
+                <section>
+                  <label class="label">角色</label>
+                  <label class="input">
+                    <input  type="number" placeholder="" name="" >
+                  </label>
+                </section>
+
+              </div>
+
+              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <section>
+                  <label  class="label txt-color-blue">姓名<span  class="asterisk-color">*</span></label>
+                  <label class="input">
+                    <input  type="text" placeholder="" name="" >
+                  </label>
+                </section>
+
+              </div>
+              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <section>
+                  <label  class="label ">性别</label>
+                  <label   class="select form-control border-0">
+                    <select  name="" >
+                      <option value="0">--请选择--</option>
+                      <option>男</option>
+                      <option>女</option>
+                    </select><i></i>
+                  </label>
+                </section>
+
+              </div>
+              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <section>
+                  <label  class="label">年龄</label>
+                  <label class="input">
+                    <input  type="number" placeholder="" name="" >
+                  </label>
+                </section>
+
+              </div>
+
+              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <section>
+                  <label  class="label ">电话号码</label>
+                  <label class="input">
+                    <input  type="text" placeholder="" name="" >
+                  </label>
+                </section>
+
+              </div>
+
+              <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <section>
+                  <label class="label">备注</label>
+                  <label class="textarea textarea-resizable">
+                    <textarea  class="custom-scroll" rows="3" name=""></textarea>
+                  </label>
+                </section>
+
+              </div>
+
+            </fieldset>
+          </form>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-success btn-sm" type="button"><span class="glyphicon glyphicon-plus"></span>保存并新增</button>
+        <button type="button" class="btn btn-primary" data-ng-click="ok()">保存</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="particulars" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- 关闭按钮 -->
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          ×
+        </button>
+        <!-- 标题 -->
+        <h3 class="modal-title" data-ng-bind='results.title'></h3>
+        <h4 class="modal-title">员工信息</h4>
+      </div>
+      <div class="modal-body height-overflow-380">
+        <div class="row ">
+          <div class="col-sm-12">
+            <div class="" >
+              <P class="alert alert-info">基本信息</P>
+              <table class="table table-striped table-forum">
+                <tbody>
+                <tr>
+                  <td class="width-120">编号:</td>
+                  <td class=""></td>
+                  <td class="width-120">姓名:</td>
+                  <td ></td>
+
+                </tr>
+                <tr  style="display: none;">
+                  <td class="width-120">登录账号:</td>
+                  <td ></td>
+                  <td class="width-120">角色:</td>
+                  <td class=""></td>
+                </tr>
+                <tr>
+                  <td class="width-120">性别:</td>
+                  <td class=""></td>
+                  <td class="width-120">年龄:</td>
+                  <td ></td>
+                </tr>
+                <tr>
+                  <td class="width-120">电话号码:</td>
+                  <td class="" colspan="3"></td>
+                </tr>
+                <tr>
+                  <td class="width-120">备注:</td>
+                  <td class="" colspan="3"></td>
+
+                </tr>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+

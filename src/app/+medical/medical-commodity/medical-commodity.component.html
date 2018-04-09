@@ -1,0 +1,437 @@
+<div id="content">
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-sm-12 ">
+        <sa-widget [editbutton]="false" [deletebutton]="false" [colorbutton]="false">
+          <header>
+            <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+            <h2>商品入库管理</h2>
+          </header>
+
+          <div>
+            <div class="widget-body no-padding" >
+              <div  class="row">
+                <article  class="col-sm-12">
+                  <div class="navbar navbar-default">
+                    <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
+
+                      <div class="form-group pdlr-4">
+                        <a class="btn btn-success btn-sm"  data-toggle="modal" data-target="#myModal">
+                          <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
+                      </div>
+                      <div class="form-group pdlr-4">
+                        <a class="btn default-btn btn-sm"   data-toggle="modal" data-target="#myModal">
+                          <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
+                      </div>
+                      <div class="form-group pdlr-4">
+                        <a class="btn default-btn btn-sm" >
+                          <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
+                      </div>
+                      <div class="form-group pdlr-4">
+                        <a class="btn default-btn btn-sm"  data-toggle="modal" data-target="#particulars" >
+                          <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
+                      </div>
+                      <div class="form-group btn-group pdlr-4">
+                        <a class="btn default-btn btn-sm dropdown-toggle"  data-toggle="dropdown">
+                          <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
+
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a ><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
+                        </ul>
+                      </div>
+                    </form>
+                    <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
+                      <div class="form-group pdlr-4">
+                        <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" name="" placeholder="请输入搜索内容" type="text">
+                      </div>
+                      <div class="form-group pdlr-4">
+                        <button class="btn btn-default" type="submit">
+                          <i  class="glyphicon glyphicon-search"></i>
+                          搜索
+                        </button>
+                      </div>
+                    </form>
+
+                  </div>
+                </article>
+              </div>
+
+
+              <div class="pt">
+                <article class="form-group col col-xs-4">
+                  <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                             [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+                    <div>
+                      <div class="widget-body no-padding">
+                        <alert type="info" class="no-margin">
+                          <i class="fa-fw fa fa-sitemap"></i>
+                          商品分类
+                        </alert>
+                        <div class="pd-10">
+                          <div class="widget-body">
+                            <div class="tree smart-form">
+                              <ul class="">
+                                <li class=" parent_li">
+                                  <span>
+                                    <label class="checkbox inline-block tree-label pt-12 ">
+                                          <input name="checkbox-inline" type="checkbox"><i></i>
+                                   </label>
+                                    <i class="fa fa-lg fa-folder-open"></i>全部
+                                    <i class="sa-icon fa fa-lg fa-minus-circle"></i>
+                                  </span>
+                                  <ul class="">
+                                    <li class=" parent_li">
+                                        <span>
+                                          <label class="checkbox inline-block tree-label ">
+                                            <input name="checkbox-inline" type="checkbox">
+                                            <i></i>煤炭（焦煤）
+                                            <em class="txt-color-blue">(0)</em>
+                                          </label>
+
+                                        </span>
+                                    </li>
+                                    <li class=" parent_li">
+                                        <span>
+                                          <label class="checkbox inline-block tree-label ">
+                                            <input name="checkbox-inline" type="checkbox">
+                                            <i></i>煤炭
+                                            <em class="txt-color-blue">(0)</em>
+                                          </label>
+
+                                        </span>
+                                    </li>
+                                    <li class=" parent_li">
+                                        <span>
+                                          <label class="checkbox inline-block tree-label ">
+                                            <input name="checkbox-inline" type="checkbox">
+                                            <i></i>磷矿石
+                                            <em class="txt-color-blue">(0)</em>
+                                          </label>
+                                           <i class="sa-icon fa fa-lg fa-plus-circle"></i>
+                                        </span>
+                                      <ul class="">
+                                        <li>
+                                            <span>
+                                              <label class="checkbox inline-block tree-label">
+                                                <input name="checkbox-inline" type="checkbox">
+                                                <i></i>黄磷矿(25%)
+                                                <em class="txt-color-blue">(0)</em>
+                                              </label>
+                                            </span>
+                                        </li>
+                                      </ul>
+
+                                    </li>
+                                    <li class=" parent_li">
+                                        <span>
+                                          <label class="checkbox inline-block tree-label ">
+                                            <input name="checkbox-inline" type="checkbox">
+                                            <i></i>非金属矿
+                                            <em class="txt-color-blue">(2)</em>
+                                          </label>
+                                        </span>
+                                    </li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </sa-widget>
+                </article>
+                <article class="form-group col col-xs-8">
+                  <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                             [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+                    <div>
+                      <div class="widget-body no-padding">
+                        <alert type="info" class="no-margin" >
+                          <i class="fa-fw fa fa-table"></i>
+                          商品列表
+                        </alert>
+                        <div class="mt-10" style="padding:0;">
+                          <div class="table-scrolling" style="padding: 0;z-index: 2;width:26%;float:left;">
+                            <table class="table table-striped   smart-form ">
+                              <thead>
+                              <tr >
+                                <td><label class="checkbox padding-top-10">
+                                  <input type="checkbox" name="checkbox-inline" >
+                                  <i></i>
+                                </label>
+                                </td>
+                                <th>编号</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+
+                              <tr class="table-color">
+                                <td>
+                                  <label class="checkbox padding-top-10">
+                                    <input type="checkbox" >
+                                    <i></i>
+                                  </label>
+                                </td>
+                                <td>1</td>
+                              </tr>
+
+
+                              </tbody>
+                            </table>
+
+                          </div>
+                          <div class="table-responsive"  style="padding: 0; z-index: 1; width: 74%; float: left;">
+                            <table class="table table-striped  smart-form ">
+                              <thead>
+                              <tr >
+                                <th>商品名称</th>
+                                <th>商品类型</th>
+                                <th>重量</th>
+                                <th>计量单位</th>
+                                <th>成本单价</th>
+                                <th>入库时间</th>
+                                <th>备注</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+
+                              <tr class="table-color">
+                                <td>四川矿业</td>
+                                <td>2155</td>
+                                <td>2155</td>
+                                <td>2155</td>
+                                <td>2155</td>
+                                <td>2155</td>
+                                <td>2155</td>
+                              </tr>
+
+
+                              </tbody>
+                            </table>
+
+                          </div>
+                        </div>
+                        <!-- 底部-（分页部分）-->
+                        <div class="dt-toolbar">
+                          <div class="col-xs-12 col-sm-6">
+                            <span>共5条</span>
+                          </div>
+                          <div class="hidden-xs right">
+                            <ul class="pagination pagination-sm">
+                              <li *ngFor="let p of categoryList?.page" class="{{p.class}}">
+                                <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+                                <a *ngIf="p.method==''">{{p.text}}</a>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </sa-widget>
+                  <!-- end widget -->
+                </article>
+              </div>
+
+
+            </div>
+
+
+          </div>
+
+        </sa-widget>
+      </article>
+    </div>
+  </sa-widgets-grid>
+
+</div>
+
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- 关闭按钮 -->
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          ×
+        </button>
+        <!-- 标题 -->
+        <h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>添加商品信息</h3>
+        <h3 class="modal-title  color-yellow" data-ng-bind='results.title'><i class="glyphicon glyphicon-pencil"></i>修改商品信息</h3>
+      </div>
+      <div class="modal-body height-overflow-380">
+        <div class="row mt-20">
+          <form   class="smart-form ">
+            <fieldset>
+              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <section>
+                  <label class="label">编号</label>
+                  <label class="input">
+                    <input  type="text" placeholder="" name="" >
+                  </label>
+                </section>
+              </div>
+              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <section>
+                  <label  class="label txt-color-blue">商品名称<span  class="asterisk-color">*</span></label>
+                  <label class="input">
+                    <input  type="text" placeholder="" name="" >
+                  </label>
+                </section>
+
+              </div>
+              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <section>
+                  <label class="label">商品类型</label>
+                  <label   class="select form-control border-0">
+                    <select  name="" >
+                      <option value="0">--请选择--</option>
+                      <option>4545</option>
+                      <option>4545</option>
+                    </select><i></i>
+                  </label>
+                </section>
+
+              </div>
+              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <section>
+                  <label class="label">数量</label>
+                  <label class="input">
+                    <input  type="number" placeholder="" name="" >
+                  </label>
+                </section>
+
+              </div>
+              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <section>
+                  <label class="label">计量单位</label>
+                  <label class="input">
+                    <input  type="text" placeholder="" name="" >
+                  </label>
+                </section>
+
+              </div>
+              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <section>
+                  <label class="label">成本单价</label>
+                  <label class="input">
+                    <input  type="number" placeholder="" name="" >
+                  </label>
+                </section>
+
+              </div>
+              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <section>
+                  <label class="label">销售单价</label>
+                  <label class="input">
+                    <input  type="number" placeholder="" name="" >
+                  </label>
+                </section>
+
+              </div>
+              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <section class="">
+                  <label class="label">入库时间</label>
+                  <label  class="input">
+                    <input  name=""  maxlength="20"  placeholder="选择日期"  class="form-control ng-binding expire-text-soon"/>
+                  </label>
+                </section>
+
+              </div>
+              <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <section>
+                  <label class="label">备注</label>
+                  <label class="textarea textarea-resizable">
+                    <textarea  class="custom-scroll" rows="3" name=""></textarea>
+                  </label>
+                </section>
+
+              </div>
+
+            </fieldset>
+          </form>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-success btn-sm" type="button"><span class="glyphicon glyphicon-plus"></span>保存并新增</button>
+        <button type="button" class="btn btn-primary" data-ng-click="ok()">保存</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="particulars" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- 关闭按钮 -->
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          ×
+        </button>
+        <!-- 标题 -->
+        <h3 class="modal-title" data-ng-bind='results.title'></h3>
+        <h4 class="modal-title">商品信息</h4>
+      </div>
+      <div class="modal-body height-overflow-380">
+        <div class="row ">
+          <div class="col-sm-12">
+            <div class="" >
+              <P class="alert alert-info">基本信息</P>
+              <table class="table table-striped table-forum">
+                <tbody>
+                <tr>
+                  <td class="width-120">编号:</td>
+                  <td class=""></td>
+                  <td class="width-120">商品名称:</td>
+                  <td >
+                  </td>
+                </tr>
+                <tr>
+                  <td class="width-120">商品类型:</td>
+                  <td class=""></td>
+                  <td class="width-120">数量:</td>
+                  <td >
+                  </td>
+                </tr>
+                <tr>
+                  <td class="width-120">计量单位:</td>
+                  <td class=""></td>
+                  <td class="width-120">成本单价:</td>
+                  <td >
+                  </td>
+                </tr>
+                <tr>
+                  <td class="width-120">销售单价:</td>
+                  <td class=""></td>
+                  <td class="width-120">入库时间:</td>
+                  <td >
+                  </td>
+                </tr>
+                <tr>
+                  <td class="width-120">备注:</td>
+                  <td class="" colspan="3"></td>
+
+                </tr>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+

@@ -105,6 +105,11 @@ export const routes: Routes = [
             path: 'mail',
             loadChildren: 'app/+mail/mail.module#MailModule',
             data: {pageTitle: 'Mail'}
+        },
+        {
+            path: 'medical',
+            loadChildren: 'app/+medical/medical.module#MedicalModule',
+            data: {pageTitle: 'Medical'}
         }
     ]
   },
