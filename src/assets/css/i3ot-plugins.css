@@ -17,6 +17,11 @@
     min-height: 200px;
 }
 
+a:focus, a:hover {
+    color: #3782e7;
+    text-decoration: none;
+}
+
 .display-inline {
     display: inline-block!important
 }
@@ -72,7 +77,8 @@
 }
 .click-a>a{
     color:#3782e7;
-    text-decoration:none;
+    /*text-decoration:none;*/
+    text-decoration: underline;
 }
 .click-a>a:link{
     color:#3782e7;/* 未访问的链接 */
@@ -431,6 +437,11 @@ div.dataTables_paginate ul.pagination {
     color: #fff;
     padding: 2px 10px;
 }
+.maintain-style{
+    border: 1px solid #cc7f0e;
+    -webkit-box-shadow: 0 2px 0 #cb8620, 0 4px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 0 #cb8620, 0 4px 2px rgba(0, 0, 0, 0.3)
+}
 .navbar-form{
     margin-left: 0;
     margin-right: 0;
@@ -756,6 +767,10 @@ div.dataTables_paginate ul.pagination {
 .bo-color-grey {
     border: 2px solid #ccc!important;
 }
+.bg-transparent{
+    background: rgba(0, 0, 0, 0.6);
+}
+
 
 /*百分比*/
 .percent-6{
@@ -844,7 +859,7 @@ div.dataTables_paginate ul.pagination {
     padding:20px!important;
 }
 .pd-80{
-    padding:20px!important;
+    padding:80px!important;
 }
 .padding20{
     padding:20px!important;
@@ -892,6 +907,9 @@ div.dataTables_paginate ul.pagination {
 .padding-top-0 {
     padding-top: 0!important
 }
+.pd-t60{
+    padding-top:60px;
+}
 
 /*外边距 margin*/
 .margin-lr30{
@@ -916,6 +934,9 @@ div.dataTables_paginate ul.pagination {
 }
 .mb-15{
     margin-bottom:-15px!important;
+}
+.mb-6{
+    margin-bottom:-6px!important;
 }
 .margin-top-5 {
     margin-top: 5px!important
@@ -1111,8 +1132,8 @@ h1,h2,h3,h4 {
 }
 
 /*高度*/
-.he-32{
-    height:32px;
+.he-40{
+    height:40px;
 }
 
 /*文本溢出隐藏*/

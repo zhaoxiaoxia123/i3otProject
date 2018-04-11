@@ -5387,6 +5387,7 @@ ul.checkable.checkable--popboxmenu li a .label-name {
 .picture-list img{
     max-width: 100%;
     width: 100%;
+    border: 1px solid #ccc;
     cursor: pointer;
 }
 .picture-a{
@@ -5397,6 +5398,29 @@ ul.checkable.checkable--popboxmenu li a .label-name {
     color: #acaba7;
     z-index: 3;
     font-size: 14px;
+}
+.picture-normal {
+    display: inline-block;
+    zoom: 1;
+    padding: 6px!important;
+    position: relative;
+}
+
+.picture-normal-a {
+    position: absolute;
+    display: none;
+    top: -4px;
+    right: -10px;
+    color: #000;
+    z-index: 3;
+    font-size: 23px;
+}
+
+.picture-normal img {
+    max-width: 100%;
+    width: 100%;
+    border: 8px solid #fff;
+    cursor: pointer;
 }
 .cl-mcont {
     color: inherit;

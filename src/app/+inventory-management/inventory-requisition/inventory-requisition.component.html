@@ -29,22 +29,22 @@
                           <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="isDemo('/inventory-management/add-requisition','1','detail')" >
                             <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
                         </div>
-                        <div class="form-group pdlr-4" *ngIf="isStatus == 2">
-                          <a class="btn default-btn btn-sm" (click)="editStatus(1,'id')">
-                            <span class="fa-fw fa fa-play mr-5 color-green"></span>启用</a>
-                        </div>
-                        <div class="form-group pdlr-4" *ngIf="isStatus == 1">
-                          <a class="btn default-btn btn-sm" (click)="editStatus(2,'id')" >
-                            <span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>无效</a>
-                        </div>
+                        <!--<div class="form-group pdlr-4" *ngIf="isStatus == 2">-->
+                          <!--<a class="btn default-btn btn-sm" (click)="editStatus(1,'id')">-->
+                            <!--<span class="fa-fw fa fa-play mr-5 color-green"></span>启用</a>-->
+                        <!--</div>-->
+                        <!--<div class="form-group pdlr-4" *ngIf="isStatus == 1">-->
+                          <!--<a class="btn default-btn btn-sm" (click)="editStatus(2,'id')" >-->
+                            <!--<span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>无效</a>-->
+                        <!--</div>-->
                         <div class="form-group btn-group pdlr-4">
                           <a class="btn default-btn btn-sm dropdown-toggle" (click)="showAllCheck()" data-toggle="dropdown">
                             <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
 
                           <ul class="dropdown-menu" role="menu">
-                            <li><a (click)="editStatus(1,'all')"><span class="fa-fw fa fa-play mr-5 color-green"></span>批量设为启动</a></li>
-                            <li><a (click)="editStatus(2,'all')"><span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>批量设为无效</a></li>
-                            <li class="divider"></li>
+                            <!--<li><a (click)="editStatus(1,'all')"><span class="fa-fw fa fa-play mr-5 color-green"></span>批量设为启动</a></li>-->
+                            <!--<li><a (click)="editStatus(2,'all')"><span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>批量设为无效</a></li>-->
+                            <!--<li class="divider"></li>-->
                             <li><a (click)="deleteStockallot('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
                           </ul>
                         </div>
@@ -97,9 +97,10 @@
                         <!--<i></i>-->
                       <!--</label>-->
                       <!--</td>-->
+                      <th>审核状态 </th>
                       <th>单据号</th>
                       <th>单据日期 </th>
-                      <th>单据状态</th>
+                      <!--<th>单据状态</th>-->
                     </tr>
                     </thead>
                     <tbody>
@@ -110,15 +111,26 @@
                           <!--<i></i>-->
                         <!--</label>-->
                       <!--</td>-->
+                      <td>
+                        <div>
+                          <span class="label-maintain maintain-style editor" data-toggle="modal" data-target="#audit"><i class="glyphicon glyphicon-exclamation-sign approval-icon" ></i>审核</span>
+                          <span class="label-unknown" >待审核</span>
+                          <span class="label-maintain" >审核中</span>
+                          <span class="label-normal">已通过</span>
+                          <span  class="label-full">已拒绝</span>
+
+                        </div>
+
+                      </td>
                       <td>{{s.stock_allot_number}}</td>
                       <td>{{s.stock_allot_date}}</td>
-                      <td>
-                        <span [ngSwitch]="s.stock_allot_status">
-                          <span class="label-normal" *ngSwitchCase="1">正常</span>
-                          <span class="label-invalid" *ngSwitchCase="2">失效</span>
-                          <span class="label-unknown" *ngSwitchDefault>未知</span>
-                        </span>
-                      </td>
+                      <!--<td>-->
+                        <!--<span [ngSwitch]="s.stock_allot_status">-->
+                          <!--<span class="label-normal" *ngSwitchCase="1">正常</span>-->
+                          <!--<span class="label-invalid" *ngSwitchCase="2">失效</span>-->
+                          <!--<span class="label-unknown" *ngSwitchDefault>未知</span>-->
+                        <!--</span>-->
+                      <!--</td>-->
                     </tr>
                     </tbody>
                   </table>
@@ -127,6 +139,7 @@
                   <table class="table table-striped   smart-form table-height-20">
                     <thead>
                     <tr>
+                      <th>调拨状态</th>
                       <th>调入仓库</th>
                       <th>调出仓库</th>
                       <th>经手人</th>
@@ -137,6 +150,13 @@
                     </thead>
                     <tbody>
                     <tr *ngFor="let s of stockallotList?.result?.stockallotList?.data" (click)="isStatusShow(s.stock_allot_id,s.stock_allot_status)" [ngClass]="{'table-color':editStatusStockallotId == s.stock_allot_id}">
+                      <td>
+                         <span >
+                            <span class="label-normal" >等价调拨</span>
+                            <span class="label-invalid" >差价调拨</span>
+                            <span class="label-unknown" >未知</span>
+                          </span>
+                      </td>
                       <td>{{s.storehouse_name}}</td>
                       <td>{{s.out_storehouse_name}}</td>
                       <td>{{s.user_name}}</td>
@@ -171,5 +191,26 @@
 </div>
 
 
+<div class="modal fade" id="audit" tabindex="-1" role="dialog">
+  <div class="modal-dialog" style="width:400px;">
+    <div class="modal-content text-center">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <!-- 标题 -->
+        <h3 class="modal-title " data-ng-bind='results.title'>提示</h3>
+      </div>
+      <div class="pd-20">
+        <div class="text-center pd-20">
+          <h4>某某的请假需要您审批!</h4>
+        </div>
+      </div>
+      <div class="modal-footer text-center">
+
+        <button type="button" class="btn btn btn-primary  btn-lg" data-dismiss="modal">同意</button>
+        <button type="button" class="btn btn-danger  btn-lg" data-dismiss="modal">拒绝</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 
