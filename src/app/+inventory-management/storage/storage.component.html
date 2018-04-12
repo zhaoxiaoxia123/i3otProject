@@ -54,7 +54,7 @@
               </div>
               <div style="padding:0;">
                 <div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-scrolling padding0">
-                  <table class="table table-striped   smart-form table-height-32">
+                  <table class="table table-striped   smart-form table-height-20">
                     <thead>
                     <tr style="height: 37px;" >
                       <td><label class="checkbox mt-8">
@@ -77,21 +77,32 @@
                   </table>
                 </div>
                 <div style="padding: 0;z-index: 2;width:20%;float:left;" class="table-scrolling">
-                  <table class="table table-striped  smart-form table-height-32">
+                  <table class="table table-striped  smart-form table-height-20">
                     <thead>
                     <tr>
-                      <th>单据状态</th>
+                      <th>审核状态</th>
                       <th>单据号</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr *ngFor="let p2 of otherorderList?.result?.otherorderList?.data" (click)="isStatusShow(p2.otherorder_id,p2.otherorder_status)" [ngClass]="{'table-color':editStatusOtherorderId == p2.otherorder_id}">
+                      <!--<td>-->
+                        <!--<span [ngSwitch]="p2.otherorder_status">-->
+                          <!--<span class="button label-button blue" *ngSwitchCase="1">正常</span>-->
+                          <!--<span class="button label-button orange" *ngSwitchCase="2">无效</span>-->
+                          <!--<span class="button label-button gray" *ngSwitchDefault>未知</span>-->
+                        <!--</span>-->
+                      <!--</td>-->
                       <td>
-                        <span [ngSwitch]="p2.otherorder_status">
-                          <span class="button label-button blue" *ngSwitchCase="1">正常</span>
-                          <span class="button label-button orange" *ngSwitchCase="2">无效</span>
-                          <span class="button label-button gray" *ngSwitchDefault>未知</span>
-                        </span>
+                        <div>
+                          <span class="label-maintain maintain-style editor" data-toggle="modal" data-target="#audit"><i class="glyphicon glyphicon-exclamation-sign approval-icon" ></i>审核</span>
+                          <span class="label-unknown" >待审核</span>
+                          <span class="label-maintain" >审核中</span>
+                          <span class="label-normal">已通过</span>
+                          <span  class="label-full">已拒绝</span>
+
+                        </div>
+
                       </td>
                       <td>{{p2.otherorder_order}}</td>
                     </tr>
@@ -100,7 +111,7 @@
                 </div>
 
                 <div [ngStyle]="{'padding': '0','z-index': '2','width':width_1,'float':'left'}" class="table-responsive">
-                  <table class="table table-striped  smart-form table-height-32">
+                  <table class="table table-striped  smart-form table-height-20">
                     <thead>
                     <tr>
                       <th>单据日期</th>

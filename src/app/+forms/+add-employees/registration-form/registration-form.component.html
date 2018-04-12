@@ -163,7 +163,7 @@
       </section>
     </div>
     <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-      <section class="mb-15">
+      <section class="mb-6">
         <label class="label ">出生日期</label>
         <label class="input">
           <input name="u_birthday" formControlName="u_birthday" type="date" /> <!-- [dpDayPicker]="datePickerConfig" [theme]="'dp-material'" [mode]="'day'" class="form-control ng-binding expire-text-soon"-->
@@ -195,7 +195,7 @@
   <div [ngStyle]="{'display':is_showDiv?'block':'none'}" >
     <fieldset>
       <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-        <section class="mb-15">
+        <section class="mb-6">
           <label class="label ">入职时间</label>
           <label class="input">
             <!--<input type="date" name="enrol_time" placeholder="入职时间" saUiDatepicker date-format="dd/mm/yy" formControlName="enrol_time"/>-->
@@ -435,7 +435,7 @@
         <!--</section>-->
       <!--</div>-->
       <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-        <section class="mb-15">
+        <section class="mb-6">
           <label class="label ">创建日期</label>
           <label class="input">
             <input name='created_at' formControlName="created_at" disabled="disabled"  type="text" >
@@ -514,48 +514,77 @@
           ×
         </button>
         <!-- 标题 -->
-        <h3 class="modal-title" data-ng-bind='results.title'><i class="fa fa-file-photo-o" ></i>头像编辑</h3>
+        <h3 class="modal-title" data-ng-bind='results.title'><i class="fa fa-file-photo-o" ></i>头像上传</h3>
 
       </div>
       <div class="modal-body">
         <form>
           <fieldset>
             <div class="text-align-center col-lg-12 col-md-12 col-sm-12 col-xs-12">
-              <section>
-                <div class="form-group ">
-                  <label class="col-md-2 control-label">上传头像</label>
-                  <div class="col-md-10">
-                    <div class="c-content-inner">
-                      <img-cropper #avatarCropper [image]="data1" [settings]="avatarSettings" (onCrop)="cropped($event)"></img-cropper>
-                      <div  class="c-file-upload">
-                        <button class="btn btn-primary ">浏览图片</button>
-                        <input id="image-input" class="btn btn-primary " type="file" c-img-cropper-select [cropper]="avatarCropper">
+              <div class="col-xs-6">
+                <section>
+                  <div class="form-group ">
+                      <div class="c-content-inner">
+                        <img-cropper #avatarCropper [image]="data1" [settings]="avatarSettings" (onCrop)="cropped($event)"></img-cropper>
+                        <div  class="c-file-upload">
+                          <button class="btn btn-primary ">选择图片</button>
+                          <input id="image-input" class="btn btn-primary " type="file" c-img-cropper-select [cropper]="avatarCropper">
+                        </div>
                       </div>
-                    </div>
-
-                    <p class="help-block">
-                      仅支持JPG、GIF、PNG图片文件，且小于3M
-                    </p>
+                      <p class="help-block">
+                        仅支持JPG、GIF、PNG图片文件，且小于3M
+                      </p>
                   </div>
-                </div>
-              </section>
-              <div class="text-align-center col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-                <p class="help-block">
-                  大尺寸图片，180px×180px
-                </p>
+                </section>
               </div>
+              <div class="col-xs-6 pd-t60">
+                <div class="text-align-center " >
+                  <span class="user-image" *ngIf="data1.image" >
+                      <img [src]="data1.image"
+                           style="width: 180px; height: 180px;">
+                  </span>
+                </div>
+                <div class="text-align-center " >
+                  <p class="help-block">
+                    大尺寸图片，180px×180px
+                  </p>
+                </div>
+              </div>
+              <!--<section>-->
+                <!--<div class="form-group ">-->
+                  <!--<label class="col-md-2 control-label">上传头像</label>-->
+                  <!--<div class="col-md-10">-->
+                    <!--<div class="c-content-inner">-->
+                      <!--<img-cropper #avatarCropper [image]="data1" [settings]="avatarSettings" (onCrop)="cropped($event)"></img-cropper>-->
+                      <!--<div  class="c-file-upload">-->
+                        <!--<button class="btn btn-primary ">浏览图片</button>-->
+                        <!--<input id="image-input" class="btn btn-primary " type="file" c-img-cropper-select [cropper]="avatarCropper">-->
+                      <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<p class="help-block">-->
+                      <!--仅支持JPG、GIF、PNG图片文件，且小于3M-->
+                    <!--</p>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</section>-->
+              <!--<div class="text-align-center col-lg-12 col-md-12 col-sm-12 col-xs-12" >-->
+                <!--<p class="help-block">-->
+                  <!--大尺寸图片，180px×180px-->
+                <!--</p>-->
+              <!--</div>-->
             </div>
-            <div class="text-align-center col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-              <span class="user-image" *ngIf="data1.image" >
-                  <img [src]="data1.image"
-                       style="width: 180px; height: 180px;">
-              </span>
-            </div>
+            <!--<div class="text-align-center col-lg-12 col-md-12 col-sm-12 col-xs-12" >-->
+              <!--<span class="user-image" *ngIf="data1.image" >-->
+                  <!--<img [src]="data1.image"-->
+                       <!--style="width: 180px; height: 180px;">-->
+              <!--</span>-->
+            <!--</div>-->
           </fieldset>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="postFile()"  data-dismiss="modal" aria-hidden="true">确定</button>
+        <button type="button" class="btn btn-primary" (click)="postFile()"  data-dismiss="modal" aria-hidden="true">确定上传</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
       </div>
     </div><!-- /.modal-content -->
