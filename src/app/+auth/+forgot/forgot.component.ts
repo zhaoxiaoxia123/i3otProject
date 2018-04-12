@@ -15,6 +15,6 @@ export class ForgotComponent implements OnInit {
 
   submit(event){
     event.preventDefault();
-    this.router.navigate(['/dashboard/dynamic-wall'])
+    this.router.navigate(['/account/account-company'])
   }
 }

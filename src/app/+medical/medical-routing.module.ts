@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 export const routes: Routes = [
     {
-        path: 'medical-billing',
+        path: 'medical-billing/:pr_id',
         loadChildren: 'app/+medical/medical-billing/medical-billing.module#MedicalBillingModule',
         data: {pageTitle: 'MedicalBilling'}
     },

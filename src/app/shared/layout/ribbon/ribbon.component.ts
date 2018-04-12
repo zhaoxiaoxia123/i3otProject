@@ -13,8 +13,8 @@ import {CookieStoreService} from "../../cookies/cookie-store.service";
 })
 export class RibbonComponent implements OnInit {
 
-  navLists : Array<any> = [{"title":"动态面板","url":"/dashboard/dynamic-wall","class_":"active"}];
-  navList : Array<any> = [{"title":"动态面板","url":"/dashboard/dynamic-wall","class_":"active"}];
+  navLists : Array<any> = [{"title":"公司信息","url":"/account/account-company","class_":"active"}];
+  navList : Array<any> = [{"title":"公司信息","url":"/account/account-company","class_":"active"}];
   navListMore : Array<any> = [];
   countN : any = 5 ;
 

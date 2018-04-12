@@ -235,10 +235,11 @@ export class InventoryClassificationComponent implements OnInit {
      * 提交部门
      */
     onSubmit(){
-        if(this.category_number.trim() == ''){
-            alert('请填写编号！');
-            return false;
-        }if(this.category_desc.trim() == ''){
+        // if(this.category_number.trim() == ''){
+        //     alert('请填写编号！');
+        //     return false;
+        // }
+        if(this.category_desc.trim() == ''){
             alert('请填写名称！');
             return false;
         }

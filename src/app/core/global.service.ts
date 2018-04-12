@@ -9,6 +9,7 @@ export class GlobalService {
   station1 = '1';//安全帽
   station2 = '2';//基站
   adminID = 1;//超级管理员c_id
+  medicalID = 65;//医疗公司c_id
 
   //顶部导航
   navEventEmitter:EventEmitter<any>;
@@ -44,6 +45,10 @@ export class GlobalService {
 
   getAdminID() : number{
     return this.adminID;
+  }
+
+  getMedicalID() : number{
+    return this.medicalID;
   }
 
   /**

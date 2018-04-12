@@ -15,32 +15,32 @@
                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
 
                       <div class="form-group pdlr-4">
-                        <a class="btn default-btn btn-sm"   data-toggle="modal" data-target="#myModal">
+                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailAssets('edit')">
                           <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
                       </div>
+                      <!--<div class="form-group pdlr-4">-->
+                        <!--<a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="deleteAssets('id')">-->
+                          <!--<span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>-->
+                      <!--</div>-->
                       <div class="form-group pdlr-4">
-                        <a class="btn default-btn btn-sm" >
-                          <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
-                      </div>
-                      <div class="form-group pdlr-4">
-                        <a class="btn default-btn btn-sm"  data-toggle="modal" data-target="#particulars" >
+                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailAssets('detail')">
                           <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
                       </div>
-                      <div class="form-group btn-group pdlr-4">
-                        <a class="btn default-btn btn-sm dropdown-toggle"  data-toggle="dropdown">
-                          <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
+                      <!--<div class="form-group btn-group pdlr-4">-->
+                        <!--<a class="btn default-btn btn-sm dropdown-toggle" (click)="showAllCheck()" data-toggle="dropdown">-->
+                          <!--<span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>-->
 
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a ><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
-                        </ul>
-                      </div>
+                        <!--<ul class="dropdown-menu" role="menu">-->
+                          <!--<li><a (click)="deleteAssets('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>-->
+                        <!--</ul>-->
+                      <!--</div>-->
                     </form>
                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
                       <div class="form-group pdlr-4">
-                        <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" name="" placeholder="请输入搜索内容" type="text">
+                        <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" [(ngModel)]="keyword" name="keyword" placeholder="请输入搜索内容" type="text">
                       </div>
                       <div class="form-group pdlr-4">
-                        <button class="btn btn-default" type="submit">
+                        <button class="btn btn-default" type="button" (click)="getAssetsList(1,0)">
                           <i  class="glyphicon glyphicon-search"></i>
                           搜索
                         </button>
@@ -51,40 +51,24 @@
                 </article>
               </div>
               <div class="mt-10" style="padding:0;">
-                <div class="table-scrolling" style="padding: 0;z-index: 2;width:26%;float:left;">
-                  <table class="table table-striped   smart-form ">
+                <div style="padding: 0;z-index: 2;width:10%;float:left;" class="table-scrolling">
+                  <table class="table table-striped  smart-form">
                     <thead>
                     <tr >
-                      <td><label class="checkbox padding-top-10">
-                        <input type="checkbox" name="checkbox-inline" >
-                        <i></i>
-                      </label>
-                      </td>
-                      <th>编号</th>
+                      <th>资产编号</th>
                     </tr>
                     </thead>
                     <tbody>
-
-                    <tr class="table-color">
-                      <td>
-                        <label class="checkbox padding-top-10">
-                          <input type="checkbox" >
-                          <i></i>
-                        </label>
-                      </td>
-                      <td>1</td>
+                    <tr style="height: 35px;" *ngFor="let a of assetsList.result?.assetsList?.data" (click)="isStatusShow(a.assets_id,a.assets_status)" [ngClass]="{'table-color':editStatusAssetsId == a.assets_id}"><!--class="table-color"-->
+                      <td><span>{{a.assets_number}}</span></td>
                     </tr>
-
-
                     </tbody>
                   </table>
-
                 </div>
-                <div class="table-responsive"  style="padding: 0; z-index: 1; width: 74%; float: left;">
+                <div class="table-responsive" [ngStyle]="{'padding': '0','z-index': '1','width':width_1,'float':'left'}">
                   <table class="table table-striped  smart-form ">
                     <thead>
                     <tr >
-                      <th>姓名</th>
                       <th>商品名称</th>
                       <th>商品类型</th>
                       <th>数量</th>
@@ -92,63 +76,45 @@
                     </tr>
                     </thead>
                     <tbody>
-
-                    <tr class="table-color">
-                      <td>矿业</td>
-                      <td>2155</td>
-                      <td>2155</td>
-                      <td>2155</td>
-                      <td>2155</td>
-
+                    <tr *ngFor="let a1 of assetsList.result?.assetsList?.data" (click)="isStatusShow(a1.assets_id,a1.assets_status)" [ngClass]="{'table-color':editStatusAssetsId == a1.assets_id}"><!-- class="table-color"-->
+                      <td><span class="">{{a1.assets_name}}</span></td>
+                      <td><span class="">{{a1.category_desc}}</span></td>
+                      <td><span class="">{{a1.assets_surplus_count}}</span></td>
+                      <td><span class="">{{a1.assets_unit}}</span></td>
                     </tr>
-
-
                     </tbody>
                   </table>
-
                 </div>
               </div>
               <!-- 底部-（分页部分）-->
               <div class="dt-toolbar">
                 <div class="col-xs-12 col-sm-6">
-                  <span>共5条</span>
+                  <span>共{{assetsList.result?.assetsList?.total}}条</span>
                 </div>
                 <div class="hidden-xs right">
                   <ul class="pagination pagination-sm">
-                    <li *ngFor="let p of categoryList?.page" class="{{p.class}}">
-                      <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
-                      <a *ngIf="p.method==''">{{p.text}}</a>
+                    <li *ngFor="let ap of assetsList?.result?.page" class="{{ap.class}}">
+                      <a (click)="pagination(ap.value)" *ngIf="ap.method=='method'">{{ap.text}}</a>
+                      <a *ngIf="ap.method==''">{{ap.text}}</a>
                     </li>
                   </ul>
                 </div>
               </div>
-
-
-
-
-
             </div>
-
           </div>
-
-
-
-
         </sa-widget>
       </article>
     </div>
   </sa-widgets-grid>
-
 </div>
 
 
-
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" bsModal #addModal="bs-modal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <!-- 关闭按钮 -->
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+        <button type="button" class="close" (click)="clear_('edit')">
           ×
         </button>
         <!-- 标题 -->
@@ -162,31 +128,30 @@
                 <section>
                   <label class="label">编号</label>
                   <label class="input">
-                    <input  type="text" placeholder="" name="" >
+                    <input  type="text" name="assets_number" [(ngModel)]="assets_number">
                   </label>
                 </section>
               </div>
-
-
-
               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <section>
                   <label  class="label txt-color-blue">商名称<span  class="asterisk-color">*</span></label>
                   <label class="input">
-                    <input  type="text" placeholder="" name="" >
+                    <input  type="text" name="assets_name" [(ngModel)]="assets_name">
                   </label>
                 </section>
-
               </div>
               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12" >
                 <section>
                   <label class="label">商品类型</label>
-                  <label   class="select form-control border-0">
-                    <select  name="" >
-                      <option value="0">--请选择--</option>
-                      <option>4545</option>
-                      <option>4545</option>
-                    </select><i></i>
+                  <!--<label class="select form-control border-0">-->
+                    <!--<select  name="" >-->
+                      <!--<option value="0">&#45;&#45;请选择&#45;&#45;</option>-->
+                      <!--<option>4545</option>-->
+                      <!--<option>4545</option>-->
+                    <!--</select><i></i>-->
+                  <!--</label>-->
+                  <label class="input">
+                    <input  type="text" name="category_type_name" [(ngModel)]="category_type_name">
                   </label>
                 </section>
 
@@ -195,42 +160,34 @@
                 <section>
                   <label  class="label">数量</label>
                   <label class="input">
-                    <input  type="number" placeholder="" name="" >
+                    <input  type="number" name="assets_count" [(ngModel)]="assets_count">
                   </label>
                 </section>
-
               </div>
               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12" >
                 <section>
                   <label  class="label">计量单位</label>
                   <label class="input">
-                    <input  type="text" placeholder="" name="" >
+                    <input  type="text" name="assets_unit" [(ngModel)]="assets_unit">
                   </label>
                 </section>
-
               </div>
-
-
-
               <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <section>
                   <label class="label">备注</label>
                   <label class="textarea textarea-resizable">
-                    <textarea  class="custom-scroll" rows="3" name=""></textarea>
+                    <textarea class="custom-scroll" rows="3" name="assets_note" [(ngModel)]="assets_note"></textarea>
                   </label>
                 </section>
-
               </div>
-
             </fieldset>
           </form>
-
         </div>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-success btn-sm" type="button"><span class="glyphicon glyphicon-plus"></span>保存并新增</button>
-        <button type="button" class="btn btn-primary" data-ng-click="ok()">保存</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+        <!--<button class="btn btn-success btn-sm" type="button"><span class="glyphicon glyphicon-plus"></span>保存并新增</button>-->
+        <button type="button" class="btn btn-primary" (click)="onSubmit()">保存</button>
+        <button type="button" class="btn btn-default" (click)="clear_('edit')">返回</button>
       </div>
     </div>
   </div>
@@ -238,12 +195,12 @@
 
 
 
-<div class="modal fade" id="particulars" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" bsModal #detailModal="bs-modal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <!-- 关闭按钮 -->
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+        <button type="button" class="close" (click)="clear_('detail')">
           ×
         </button>
         <!-- 标题 -->
@@ -259,34 +216,32 @@
                 <tbody>
                 <tr>
                   <td class="width-120">编号:</td>
-                  <td class=""></td>
+                  <td class="">{{assetsInfo?.result?.assets_number}}</td>
                   <td class="width-120">商品名称:</td>
-                  <td ></td>
+                  <td >{{assetsInfo?.result?.assets_name}}</td>
                 </tr>
                 <tr>
                   <td class="width-120">商品类型:</td>
-                  <td class=""></td>
+                  <td class="">{{category_type_name}}</td>
                   <td class="width-120">数量:</td>
-                  <td ></td>
+                  <td >{{assetsInfo?.result?.assets_count}}</td>
                 </tr>
                 <tr>
                   <td class="width-120">计量单位:</td>
-                  <td class="" colspan="3"></td>
+                  <td class="" colspan="3">{{assetsInfo?.result?.assets_unit}}</td>
                 </tr>
                 <tr>
                   <td class="width-120">备注:</td>
-                  <td class="" colspan="3"></td>
-
+                  <td class="" colspan="3">{{assetsInfo?.result?.assets_note}}</td>
                 </tr>
                 </tbody>
               </table>
-
             </div>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+        <button type="button" class="btn btn-default" (click)="clear_('detail')">返回</button>
       </div>
     </div>
   </div>

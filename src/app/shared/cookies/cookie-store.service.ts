@@ -19,7 +19,7 @@ export class CookieStoreService {
     return this._cookieService.put(key,value, {'expires': expireDate.toUTCString()});
   }
 
-  removeAll(url:string = '/dashboard/dynamic-wall'){
+  removeAll(url:string = '/account/account-company'){
     this._cookieService.removeAll();
     this.setCookie('rollback',url);
   }

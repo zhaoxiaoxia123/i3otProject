@@ -7,7 +7,7 @@ import {GlobalService} from '../../core/global.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ModalDirective} from "ngx-bootstrap";
 import {isUndefined} from "util";
-// import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
+
 @FadeInTop()
 @Component({
   selector: 'app-list-staff',
