@@ -34,6 +34,7 @@ export class AccountCompanyComponent implements OnInit {
     industry_category_default : any = 0;
     category_type : number = 1;//所属行业
     cid : any = 0;//当前登录用户的所属公司id
+    medical_c_id : number = 0;
     rollback_url : string = '/account/account-company';
     constructor(
         fb:FormBuilder,
@@ -64,6 +65,8 @@ export class AccountCompanyComponent implements OnInit {
 
         this.province = getProvince(); //
         this.cid = this.cookieStore.getCookie('cid');
+        this.medical_c_id = this.globalService.getMedicalID();
+
         this.getCustomerDefault();
     }
 

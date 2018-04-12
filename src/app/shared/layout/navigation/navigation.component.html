@@ -1,11 +1,9 @@
 <aside id="left-panel">
   <!-- User info -->
   <sa-login-info></sa-login-info>
-
   <nav>
     <ul saSmartMenu>
-
-      <li>
+      <li *ngIf="c_id != medical_id">
         <a title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span
           class="menu-item-parent">{{'面板' | i18n}}</span></a>
         <ul>
@@ -25,7 +23,7 @@
         </ul>
       </li>
 
-      <li>
+      <li *ngIf="c_id != medical_id">
         <a href="#"><i class="fa fa-lg fa-fw fa-group "></i> <span
                 class="menu-item-parent">{{'人力资源' | i18n}}</span></a>
         <ul>
@@ -46,9 +44,8 @@
         </ul>
       </li>
 
-      <li>
-        <a href="#"><i class="fa fa-lg fa-fw fa-cubes"></i> <span
-                class="menu-item-parent">{{'商品管理' | i18n}}</span></a>
+      <li *ngIf="c_id != medical_id">
+        <a href="#"><i class="fa fa-lg fa-fw fa-cubes"></i> <span class="menu-item-parent">{{'商品管理' | i18n}}</span></a>
         <ul>
           <li routerLinkActive="active">
             <a routerLink="/management/setting-archives">{{'商品档案' | i18n}}</a>
@@ -59,7 +56,7 @@
         </ul>
       </li>
 
-      <li>
+      <li *ngIf="c_id != medical_id">
         <a href="#"><i class="fa fa-lg fa-fw fa-suitcase"></i> <span
                 class="menu-item-parent">{{'客户管理' | i18n}}</span></a>
         <ul>
@@ -72,7 +69,7 @@
         </ul>
       </li>
 
-      <li>
+      <li *ngIf="c_id != medical_id">
         <a href="#"><i class="fa fa-lg fa-fw fa-skype"></i> <span
                 class="menu-item-parent">{{'销售管理' | i18n}}</span></a>
         <ul>
@@ -87,7 +84,7 @@
           </li>
         </ul>
       </li>
-      <li>
+      <li *ngIf="c_id != medical_id">
         <a href="#"><i class="fa fa-lg fa-fw  fa-database"></i> <span
                 class="menu-item-parent">{{'仓库管理' | i18n}}</span></a>
         <ul>
@@ -124,7 +121,7 @@
 
         </ul>
       </li>
-      <li>
+      <li *ngIf="c_id != medical_id">
         <a href="#"><i class="fa fa-lg fa-fw  fa-shopping-cart"></i> <span
                 class="menu-item-parent">{{'采购管理' | i18n}}</span></a>
         <ul>
@@ -147,7 +144,7 @@
 
         </ul>
       </li>
-      <li>
+      <li *ngIf="c_id != medical_id">
         <a href="#"><i class=" fa fa-lg fa-fw fa-cube"></i> <span
                 class="menu-item-parent">{{'资产管理' | i18n}}</span></a>
         <ul>
@@ -172,7 +169,7 @@
 
         </ul>
       </li>
-      <li *ngIf="is_admin=='1'">
+      <li *ngIf="is_admin=='1' && c_id != medical_id">
         <a href="#"><i class=" fa fa-lg fa-fw fa-sitemap"></i> <span
                 class="menu-item-parent">{{'流程审批' | i18n}}</span></a>
         <ul>
@@ -200,7 +197,7 @@
 
         </ul>
       </li>
-      <li *ngIf="is_admin!='1'">
+      <li *ngIf="is_admin!='1' && c_id != medical_id">
         <a href="#"><i class=" fa fa-lg fa-fw fa-sitemap"></i> <span
                 class="menu-item-parent">{{'流程审批' | i18n}}</span></a>
         <ul>
@@ -209,7 +206,7 @@
           </li>
         </ul>
       </li>
-      <li>
+      <li *ngIf="c_id != medical_id">
         <a href="#"><i class=" fa fa-lg fa-fw  fa-folder-open"></i> <span
                 class="menu-item-parent">{{'文档管理' | i18n}}</span></a>
         <ul>
@@ -219,7 +216,7 @@
 
         </ul>
       </li>
-      <li>
+      <li *ngIf="c_id != medical_id">
         <a href="#"><i class=" fa fa-lg fa-fw  fa-envelope"></i> <span
                 class="menu-item-parent">{{'邮件管理' | i18n}}</span></a>
         <ul>
@@ -230,7 +227,7 @@
         </ul>
       </li>
 
-      <li *ngIf="is_admin=='1'">
+      <li *ngIf="is_admin=='1' && c_id != medical_id">
         <a href="#"><i class="fa fa-lg fa-fw fa-cog txt-color-blue"></i> <span
                 class="menu-item-parent">{{'矿易帮设置' | i18n}}</span></a>
         <ul>
@@ -255,7 +252,7 @@
           <li routerLinkActive="active">
             <a routerLink="/management/setting-personnel">{{'角色设置' | i18n}}</a>
           </li>
-          <li *ngIf="is_admin=='1'">
+          <li *ngIf="is_admin=='1' && c_id != medical_id">
             <a href="#"><i class="fa fa-lg fa-fw fa-suitcase"></i> <span
                     class="menu-item-parent">{{'客户管理' | i18n}}</span></a>
             <ul>
@@ -267,7 +264,7 @@
 
         </ul>
       </li>
-      <li>
+      <li *ngIf="c_id != medical_id">
         <a href="#"><i class="fa fa-lg fa-fw  fa-list txt-color-blue"></i> <span
                 class="menu-item-parent txt-color-blue">{{'物联网管理' | i18n}}</span></a>
         <ul>
@@ -297,13 +294,10 @@
         </ul>
       </li>
 
-      <li>
+      <li *ngIf="c_id == medical_id">
         <a title="Dashboard"><i class="fa fa-lg fa-fw fa-medkit"></i> <span
                 class="menu-item-parent">{{'医疗管理' | i18n}}</span></a>
         <ul>
-          <li routerLinkActive="active">
-            <a routerLink="/account/account-company"><i class="fa fa-home"></i>{{'公司信息' | i18n}}</a>
-          </li>
           <li routerLinkActive="active">
             <a routerLink="/medical/medical-commodity"><i class="fa fa-cubes"></i>{{'商品入库管理' | i18n}}</a>
           </li>
@@ -322,7 +316,7 @@
                 <a routerLink="/medical/medical-sales">{{'销售列表' | i18n}}</a>
               </li>
               <li routerLinkActive="active">
-                <a routerLink="/medical/medical-billing">{{'处方单' | i18n}}</a>
+                <a routerLink="/medical/medical-billing/0">{{'处方单' | i18n}}</a>
               </li>
             </ul>
           </li>
@@ -334,7 +328,7 @@
                     class="menu-item-parent">{{'设置' | i18n}}</span></a>
             <ul>
               <li routerLinkActive="active">
-                <a routerLink="/inventory-management/commodity-classify">{{'商品分类' | i18n}}</a>
+                <a routerLink="/inventory-management/inventory-classification">{{'商品分类' | i18n}}</a>
               </li>
             </ul>
           </li>
@@ -342,7 +336,7 @@
         </ul>
       </li>
 
-      <li>
+      <li *ngIf="c_id != medical_id">
         <a href="#"><i class="fa fa-lg fa-fw  fa-inbox"><em>3</em></i> <span
                 class="menu-item-parent">{{'待办事项' | i18n}}</span></a>
         <ul>
@@ -359,10 +353,18 @@
           <li routerLinkActive="active">
             <a routerLink="/management/setting-labellinga">{{'项目标签设置' | i18n}}</a>
           </li>
-
         </ul>
       </li>
       <li>
+        <a href="#"><i class="fa fa-lg fa-fw  fa-bell"></i>
+          <span class="menu-item-parent">{{'待办事项' | i18n}}</span></a>
+        <ul>
+          <li routerLinkActive="active">
+            <a routerLink="/forms/todo-projects">{{'备忘录' | i18n}}</a>
+          </li>
+        </ul>
+      </li>
+      <li *ngIf="c_id != medical_id">
         <a href="#"><i class="fa fa-lg fa-fw   fa-bell"></i> <span
                 class="menu-item-parent">{{'广播及通知' | i18n}}</span></a>
         <ul>
@@ -388,7 +390,7 @@
             <a routerLink="/account/personal-settings">{{'个人设置' | i18n}}</a>
           </li>
 
-          <li routerLinkActive="active">
+          <li routerLinkActive="active" *ngIf="c_id != medical_id">
             <a routerLink="/account/account-permissions">{{'权限管理' | i18n}}</a>
           </li>
 
@@ -404,7 +406,7 @@
 
       </ul>
     </li>-->
-      <li *ngIf="is_admin=='1'">
+      <li *ngIf="is_admin=='1' && c_id != medical_id">
         <a href="#"><i class="fa fa-lg fa-fw  fa-th txt-color-blue"></i> <span
                 class="menu-item-parent">{{'收藏夹' | i18n}}</span></a>
         <ul>

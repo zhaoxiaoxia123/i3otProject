@@ -12,7 +12,7 @@
               <div class="row">
                 <article class="col-sm-12">
                   <div class="navbar navbar-default">
-                    <form class="navbar-form navbar-left" role="search" [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate>
+                    <form class="navbar-form navbar-left" role="search" novalidate>
                       <div class="form-group pdlr-4">
                         <a class="btn btn-success btn-sm" (click)="isDemo('/forms/employees','0')">
                           <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
@@ -48,7 +48,7 @@
                         </ul>
                       </div>
                     </form>
-                    <form class="navbar-form navbar-left" role="search" [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate>
+                    <form class="navbar-form navbar-left" role="search" novalidate>
                       <div class="form-group pdlr-4">
                         <input type="text" name="keyword" maxlength="15" formControlName="keyword" class="form-control" placeholder="请输入编号和名称">
                       </div>
@@ -231,12 +231,11 @@
     </div>
   </sa-widgets-grid>
 
-  <div bsModal #lgModal="bs-modal" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-       aria-hidden="true">
+  <div bsModal #lgModal="bs-modal" class="modal fade">
     <div class="modal-dialog modal-lg ">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" (click)="lgModal.hide()" aria-label="Close">
+          <button type="button" class="close" (click)="lgModal.hide()">
             <span aria-hidden="true">&times;</span>
           </button>
           <h4 class="modal-title">{{user_info.result?.u_username}}-{{user_info.result?.name}}</h4>

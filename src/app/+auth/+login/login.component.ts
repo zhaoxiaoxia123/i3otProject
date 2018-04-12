@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
   options = new RequestOptions({headers: this.headers});
   ngOnInit() {
     if(this.cookieStoreService.getCookie('username')) {
-      this.router.navigate(['/dashboard/dynamic-wall']);
+      this.router.navigate(['/account/account-company']);
     }
   }
 
@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
             if (this.cookieStoreService.getCookie('rollback')) {
               this.router.navigate([this.cookieStoreService.getCookie('rollback')]);
             }else {
-              this.router.navigate(['/dashboard/dynamic-wall']);
+              this.router.navigate(['/account/account-company']);
             }
           }else if(info['status'] == 202){
             this.cookieStoreService.removeAll();

@@ -8,18 +8,17 @@
               <!--<a href="" class="btn txt-color-white bg-color-teal btn-sm"><i class="fa fa-check"></i> 关注</a>&#xA0;-->
               <a (click)="lgModal.show()" class="btn txt-color-white bg-color-lightBlue btn-sm"><!--<i class="fa fa-link"></i>--> 编辑公司信息</a>
             </div>
-            <h1 class="title-h1">{{customerInfo?.result?.customerInfo?.c_name}}</h1><hr />
+            <h1 class="title-h1">{{customerInfo?.result?.customerInfo?.c_name}}<a class="padding-left-5" href="">({{customerInfo?.result?.customerInfo?.c_number}})</a></h1><hr />
           </div>
           <div class="col-xs-8" (click)="lgModal.show()">
               <div class="editor padding-left-20 line-2">
-                <h4 class="no-margin size-bold">{{customerInfo?.result?.customerInfo?.c_abbreviation}}<a class="padding-left-5" href="">({{customerInfo?.result?.customerInfo?.c_number}})</a></h4>
+                <h4 class="no-margin size-bold">{{customerInfo?.result?.customerInfo?.c_abbreviation}}</h4>
                 <p>{{customerInfo?.result?.customerInfo?.c_notes}}</p>
               </div>
               <div class="editor padding-left-20 line-2 cml-c">
-                <span>地点：{{customerInfo?.result?.customerInfo?.c_city}}</span>
                 <span>领域：{{customerInfo?.result?.customerInfo?.category_desc}}</span>
-                <span>规模：{{customerInfo?.result?.customerInfo?.c_company_size}}</span>
-                <span>网址：{{customerInfo?.result?.customerInfo?.c_link}}</span>
+                <span *ngIf="medical_c_id != cid">规模：{{customerInfo?.result?.customerInfo?.c_company_size}}</span>
+                <span *ngIf="medical_c_id == cid">经验范围：{{customerInfo?.result?.customerInfo?.c_company_size}}</span>
               </div>
               <div class="padding-left-20 margin-top-40 ">
                 <h4 class="no-margin size-bold">联系方式</h4>
@@ -27,7 +26,8 @@
                 <div class="editor  line-2 cml-c">
                   <span>联系电话：{{customerInfo?.result?.customerInfo?.c_phone}}</span>
                   <span>Email： {{customerInfo?.result?.customerInfo?.c_email}}</span>
-                  <span>联系地址： {{customerInfo?.result?.customerInfo?.c_address}}</span>
+                  <span>联系地址：{{customerInfo?.result?.customerInfo?.c_city}} &nbsp;&nbsp; {{customerInfo?.result?.customerInfo?.c_address}}</span>
+                  <span>网址：{{customerInfo?.result?.customerInfo?.c_link}}</span>
                 </div>
               </div>
           </div>
@@ -80,7 +80,7 @@
                               <section>
                                 <label class="label">公司编码</label>
                                 <label class="input">
-                                  <input type="text" placeholder="自动生成" name="c_number" formControlName="c_number">
+                                  <input type="text" placeholder="自动生成" disabled="disabled" name="c_number" formControlName="c_number">
                                 </label>
                               </section>
                             </div>
@@ -92,7 +92,7 @@
                                 </label>
                               </section>
                             </div>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div *ngIf="medical_c_id == c_id" class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                               <section>
                                 <label class="label">识别码</label>
                                 <label class="input">
@@ -150,7 +150,8 @@
                             </div>
                             <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                               <section>
-                                <label class="label">公司规模</label>
+                                <label class="label"  *ngIf="medical_c_id != cid">公司规模</label>
+                                <label class="label"  *ngIf="medical_c_id == cid">经验范围</label>
                                 <label class="input">
                                   <input type="text" name="c_company_size" formControlName="c_company_size">
                                 </label>
