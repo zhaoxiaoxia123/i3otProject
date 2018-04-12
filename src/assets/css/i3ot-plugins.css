@@ -77,8 +77,8 @@ a:focus, a:hover {
 }
 .click-a>a{
     color:#3782e7;
-    /*text-decoration:none;*/
-    text-decoration: underline;
+    text-decoration:none;
+
 }
 .click-a>a:link{
     color:#3782e7;/* 未访问的链接 */
@@ -88,6 +88,7 @@ a:focus, a:hover {
 }
 .click-a>a:hover{
     color:#0000ff;/* 当有鼠标悬停在链接上 */
+    text-decoration: underline;
 }
 .click-a>a:active{
     color:#0000ff;/* 被选择的链接 */
