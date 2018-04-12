@@ -99,15 +99,28 @@
                   <table class="table table-striped   smart-form table-height-32">
                     <thead>
                     <tr >
+                      <th>审核状态</th>
                       <th>单据号</th>
-                      <th>单据状态</th>
                       <th>进退货标志</th>
                       <th>单据日期 </th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr *ngFor="let p of purchaseList?.result?.purchaseList?.data" (click)="isStatusShow(p.pr_id,p.pr_status)" [ngClass]="{'table-color':editStatusPurchaseId == p.pr_id}">
-                      <td>{{p.pr_order}}</td>
+                      <td>
+                        <div>
+                          <span class="label-maintain maintain-style editor" data-toggle="modal" data-target="#audit"><i class="glyphicon glyphicon-exclamation-sign approval-icon" ></i>审核</span>
+                          <span class="label-unknown" >待审核</span>
+                          <span class="label-maintain" >审核中</span>
+                          <span class="label-normal">已同意</span>
+                          <span  class="label-full">已拒绝</span>
+
+                        </div>
+
+                      </td>
+                      <td>
+                        <div class="click-a"><a>{{p.pr_order}}</a></div>
+                        </td>
                       <td>
                         <span [ngSwitch]="p.pr_status">
                           <span class="button label-button blue" *ngSwitchCase="1">待审</span>
@@ -177,3 +190,26 @@
   </sa-widgets-grid>
 </div>
 
+
+
+<div class="modal fade" id="audit" tabindex="-1" role="dialog">
+  <div class="modal-dialog" style="width:400px;">
+    <div class="modal-content text-center">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <!-- 标题 -->
+        <h3 class="modal-title " data-ng-bind='results.title'>提示</h3>
+      </div>
+      <div class="pd-20">
+        <div class="text-center pd-20">
+          <h4>某某的其他入库单需要您审批!</h4>
+        </div>
+      </div>
+      <div class="modal-footer text-center">
+
+        <button type="button" class="btn btn btn-primary  btn-lg" data-dismiss="modal">同意</button>
+        <button type="button" class="btn btn-danger  btn-lg" data-dismiss="modal">拒绝</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

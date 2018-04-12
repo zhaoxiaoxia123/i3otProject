@@ -332,6 +332,13 @@ img.away {
     vertical-align: 1px;
 }
 
+/*下拉菜单*/
+.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover{
+    text-decoration: none;
+    color: #3782e7;
+    background-color: #e4e5eb;
+}
+
 /*分页*/
 div.dataTables_paginate {
     float: right;
