@@ -60,7 +60,9 @@
                     </thead>
                     <tbody>
                     <tr style="height: 35px;" *ngFor="let a of assetsList.result?.assetsList?.data" (click)="isStatusShow(a.assets_id,a.assets_status)" [ngClass]="{'table-color':editStatusAssetsId == a.assets_id}"><!--class="table-color"-->
-                      <td><span>{{a.assets_number}}</span></td>
+                      <td>
+                        <span class="click-a"><a>{{a.assets_number}}</a></span>
+                      </td>
                     </tr>
                     </tbody>
                   </table>

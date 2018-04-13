@@ -62,10 +62,10 @@
 
               <div style="padding:0;">
                 <div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-scrolling">
-                  <table class="table table-striped   smart-form table-height-20">
+                  <table class="table table-striped   smart-form table-height-32">
                     <thead>
-                    <tr style="height: 48px;" >
-                      <td><label class="checkbox " >
+                    <tr  >
+                      <td><label class="checkbox padding-top-10" >
                         <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)" >
                         <i></i>
                       </label>
@@ -73,7 +73,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr  style="height: 48px;" *ngFor="let p of productList?.result?.openinginventoryList?.data">
+                    <tr   *ngFor="let p of productList?.result?.openinginventoryList?.data">
                       <td >
                         <div class="">
                           <label class="checkbox padding-top-10">

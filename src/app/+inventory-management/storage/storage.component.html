@@ -30,10 +30,33 @@
                         <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="isDemo('/inventory-management/add-storage','1','detail')" >
                           <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
                       </div>
+                      <div class="form-group pdlr-4" >
+                        <a data-toggle="modal" data-target="#audit" class="btn default-btn btn-sm" >
+                          <span class="fa-fw fa fa-check mr-5 text-success"></span>同意</a>
+                      </div>
+                      <div class="form-group pdlr-4" >
+                        <a data-toggle="modal" data-target="#audit" class="btn default-btn btn-sm" >
+                          <span class="fa-fw fa fa-stop  mr-5 text-danger"></span>拒绝</a>
+                      </div>
+
+                      <div class="form-group pdlr-4" >
+                        <a data-toggle="modal" data-target="#audit" class="btn default-btn btn-sm" >
+                          <span class="fa-fw fa fa-trash-o mr-5 text-warning"></span>作废</a>
+                      </div>
+                      <div class="form-group pdlr-4" >
+                        <a data-toggle="modal" data-target="#audit" class="btn default-btn btn-sm" >
+                          <span class="fa-fw fa fa-mail-reply-all mr-5 text-primary"></span>弃废</a>
+                      </div>
                       <div class="form-group btn-group pdlr-4">
                         <a class="btn default-btn btn-sm dropdown-toggle" (click)="showAllCheck()" data-toggle="dropdown">
                           <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
                         <ul class="dropdown-menu" role="menu">
+                          <li><a  data-toggle="modal" data-target="#audit"><span class="fa-fw fa  fa-check mr-5 text-success"></span>批量同意</a></li>
+                          <li><a  data-toggle="modal" data-target="#audit"><span class="fa-fw fa  fa-stop mr-5 text-danger"></span>批量拒绝</a></li>
+                          <li class="divider"></li>
+                          <li><a  data-toggle="modal" data-target="#audit"><span class="fa-fw fa fa-trash-o mr-5 text-warning"></span>批量作废</a></li>
+                          <li><a  data-toggle="modal" data-target="#audit"><span class="fa-fw fa fa-mail-reply-all mr-5 text-primary"></span>批量弃废</a></li>
+                          <li class="divider"></li>
                           <li><a (click)="deleteOtherorder('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
                         </ul>
                       </div>
@@ -80,7 +103,7 @@
                   <table class="table table-striped  smart-form table-height-20">
                     <thead>
                     <tr>
-                      <th>审核状态</th>
+                      <th>单据状态</th>
                       <th>单据号</th>
                     </tr>
                     </thead>
@@ -100,6 +123,7 @@
                           <span class="label-maintain" >审核中</span>
                           <span class="label-normal">已同意</span>
                           <span  class="label-full">已拒绝</span>
+                          <span  class="label-full">已作废</span>
 
                         </div>
 
@@ -163,8 +187,10 @@
   </sa-widgets-grid>
 </div>
 
+
+
 <div class="modal fade" id="audit" tabindex="-1" role="dialog">
-  <div class="modal-dialog" style="width:400px;">
+  <div class="modal-dialog" style="width:500px;">
     <div class="modal-content text-center">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -173,18 +199,68 @@
       </div>
       <div class="pd-20">
         <div class="text-center pd-20">
-          <h4>某某的其他入库单需要您审批!</h4>
+          <h4>某某的单据[CD180400004]需要您审批!</h4>
+          <h4>你确定要将单据[CD180400004]作废！</h4>
+          <h4>你确定要将单据[CD180400004]弃废！</h4>
+          <h4>您确认批量作废当前选中的[4]张单据吗？</h4>
+          <h4>您确认批量弃废当前选中的[4]张单据吗？</h4>
+          <h4>您确认批量同意当前选中的[4]张单据吗？</h4>
+          <h4>您确认批量拒绝当前选中的[4]张单据吗？</h4>
         </div>
       </div>
       <div class="modal-footer text-center">
-
-        <button type="button" class="btn btn btn-primary  btn-lg" data-dismiss="modal">同意</button>
+        <button type="button" class="btn btn-success  btn-lg" data-dismiss="modal" data-toggle="modal" data-target="#audit-center">同意</button>
         <button type="button" class="btn btn-danger  btn-lg" data-dismiss="modal">拒绝</button>
+        <button type="button" class="btn btn-primary  btn-lg" data-dismiss="modal" data-toggle="modal" data-target="#audit-center">确定</button>
+        <button type="button" class="btn btn-default  btn-lg" data-dismiss="modal">取消</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+
+<div class="modal fade" id="audit-center" tabindex="-1" role="dialog">
+  <div class="modal-dialog" style="width:500px;">
+    <div class="modal-content text-center">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <!-- 标题 -->
+        <h3 class="modal-title " data-ng-bind='results.title'>开始执行批量审核，请勿关闭</h3>
+        <h3 class="modal-title " data-ng-bind='results.title'>开始执行批量作废，请勿关闭</h3>
+        <h3 class="modal-title " data-ng-bind='results.title'>开始执行批量弃废，请勿关闭</h3>
+      </div>
+      <div class="pd-20">
+        <div class="text-center pd-20">
+          <div><span>单据[CD180400005]审核已通过</span></div>
+          <div><span>单据[CD180400004]审核跳过，该单据已审核！</span></div>
+          <div><span>单据[CD180400004]审核跳过，你没有权限审核该单据！</span></div>
+          <div><span>批量审核结束</span></div>
+        </div>
+        <div class="text-center pd-20">
+          <div><span>单据[CD180400005]审核已拒绝</span></div>
+          <div><span>单据[CD180400004]审核跳过，该单据已审核！</span></div>
+          <div><span>单据[CD180400004]审核跳过，你没有权限审核该单据！</span></div>
+          <div><span>批量审核结束</span></div>
+        </div>
+        <div class="text-center pd-20">
+          <div><span>单据[CD180400005]已作废</span></div>
+          <div><span>单据[CD180400002]作废跳过，该单据已作废，请弃废后再执行作废操作！</span></div>
+          <div><span>单据[CD180400004]作废跳过，你没有权限作废该单据！</span></div>
+          <div><span>批量审核结束</span></div>
+        </div>
+        <div class="text-center pd-20">
+          <div><span>单据[CD180400001]已弃废</span></div>
+          <div><span>单据[CD180400002]弃废跳过，该单据尚未作废，请作废再执行弃废操作！</span></div>
+          <div><span>单据[CD180400004]弃废跳过，你没有权限弃废该单据！</span></div>
+          <div><span>批量审核结束</span></div>
+        </div>
+      </div>
+      <div class="modal-footer text-center">
+        <button type="button" class="btn btn btn-primary  btn-lg" data-dismiss="modal">确定</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 
 

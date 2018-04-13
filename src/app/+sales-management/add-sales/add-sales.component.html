@@ -30,11 +30,13 @@
                 <fieldset>
                   <legend>基本信息</legend>
                   <input type="hidden" name="pr_id" formControlName="pr_id">
-                  <div class="" style="left: -24px; top: 38px;position: absolute;z-index: 999;">
+                  <div class="picture-opacity" style="left: -24px; top: 38px;position: absolute;z-index: 999;">
                     <!--同意-->
                     <img class="" src="assets/img/chapter1.png">
                     <!--拒绝-->
                     <img  class="" src="assets/img/chapter2.png">
+                    <!--作废-->
+                    <img  class="" src="assets/img/chapter4.png">
                   </div>
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
                     <section>
@@ -245,7 +247,7 @@
                             <thead>
                             <tr>
                               <th>操作</th>
-                              <th class="txt-color-blue">商品名称 </th>
+                              <th >商品名称 </th>
                             </tr>
                             </thead>
                             <tbody>
@@ -420,11 +422,20 @@
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
                     转交
                   </button>
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#revocation">
-                    撤销
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cuiBan">
+                    催办
+                  </button>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#audit">
+                    弃废
                   </button>
                   <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#audit">
-                    审核
+                    作废
+                  </button>
+                  <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#audit">
+                    拒绝
+                  </button>
+                  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#audit">
+                    同意
                   </button>
                   <button type="button" class="btn btn-default" [routerLink]="['/sales-management/sales-list']">
                     返回
@@ -843,8 +854,8 @@
 </div>
 
 
-<!-- 撤销 -->
-<div class="modal fade" id="revocation" tabindex="-1" role="dialog">
+<!-- 催办-->
+<div class="modal fade" id="cuiBan" tabindex="-1" role="dialog">
   <div class="modal-dialog" style="width:400px;">
     <div class="modal-content text-center">
       <div class="modal-header">
@@ -854,7 +865,7 @@
       </div>
       <div class="pd-20">
         <div class="text-center pd-20">
-          <h4>你确定要撤销申请吗？</h4>
+          <h4>你确定要发送催办消息吗？</h4>
         </div>
       </div>
       <div class="modal-footer text-center">
@@ -867,8 +878,9 @@
 </div><!-- /.modal -->
 
 <!-- 审批 -->
+
 <div class="modal fade" id="audit" tabindex="-1" role="dialog">
-  <div class="modal-dialog" style="width:400px;">
+  <div class="modal-dialog" style="width:500px;">
     <div class="modal-content text-center">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -877,15 +889,18 @@
       </div>
       <div class="pd-20">
         <div class="text-center pd-20">
-          <h4>某某的销售单[CD180400004]需要您审批!</h4>
+          <h4>某某的单据[CD180400004]需要您审批!</h4>
+          <h4>你确定要将单据[CD180400004]作废！</h4>
+          <h4>你确定要将单据[CD180400004]弃废！</h4>
         </div>
       </div>
       <div class="modal-footer text-center">
-        <button type="button" class="btn btn btn-primary  btn-lg" data-dismiss="modal">同意</button>
+        <button type="button" class="btn btn-success  btn-lg" data-dismiss="modal" data-toggle="modal" data-target="#audit-center">同意</button>
         <button type="button" class="btn btn-danger  btn-lg" data-dismiss="modal">拒绝</button>
+        <button type="button" class="btn btn-primary  btn-lg" data-dismiss="modal" data-toggle="modal" data-target="#audit-center">确定</button>
+        <button type="button" class="btn btn-default  btn-lg" data-dismiss="modal">取消</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
 
