@@ -169,7 +169,7 @@
 
         </ul>
       </li>
-      <li *ngIf="is_admin=='1' && c_id != medical_id">
+      <li *ngIf="c_id != medical_id"><!--is_admin=='1' &&  c_id != medical_id--->
         <a href="#"><i class=" fa fa-lg fa-fw fa-sitemap"></i> <span
                 class="menu-item-parent">{{'流程审批' | i18n}}</span></a>
         <ul>
@@ -177,7 +177,7 @@
             <a routerLink="/process/process-initiate">{{'发起审批' | i18n}}</a>
           </li>
           <li routerLinkActive="active">
-            <a routerLink="/process/approval-process">{{'审批流程' | i18n}}</a>
+            <a routerLink="/process/approval-process/0">{{'审批流程' | i18n}}</a>
           </li>
           <!--<li routerLinkActive="active">-->
             <!--<a routerLink="/process/initiate-leave">{{'请假' | i18n}}</a>-->
@@ -197,7 +197,7 @@
 
         </ul>
       </li>
-      <li *ngIf="is_admin!='1' && c_id != medical_id">
+      <li *ngIf="c_id == medical_id">
         <a href="#"><i class=" fa fa-lg fa-fw fa-sitemap"></i> <span
                 class="menu-item-parent">{{'流程审批' | i18n}}</span></a>
         <ul>
@@ -396,11 +396,10 @@
 
         </ul>
       </li>
-      <li>
+      <li *ngIf="c_id != medical_id">
         <a href="http://www.i3ot.com/" target="_blank"><i class="fa fa-lg fa-fw fa-university"></i> <span
                 class="menu-item-parent">{{'i3ot物联网' | i18n}}</span></a>
       </li>
-
 
       <!--<li>
       <a href="#"><i class="fa fa-lg fa-fw  fa-cog"></i> <span

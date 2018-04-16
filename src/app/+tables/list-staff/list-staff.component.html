@@ -48,7 +48,7 @@
                         </ul>
                       </div>
                     </form>
-                    <form class="navbar-form navbar-left" role="search" novalidate>
+                    <form class="navbar-form navbar-left" role="search" novalidate [formGroup]="formModel">
                       <div class="form-group pdlr-4">
                         <input type="text" name="keyword" maxlength="15" formControlName="keyword" class="form-control" placeholder="请输入编号和名称">
                       </div>

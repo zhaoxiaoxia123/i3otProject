@@ -261,27 +261,30 @@ export class SettingRepertoryComponent implements OnInit {
             this.http.delete(url)
                 .map((res) => res.json())
                 .subscribe((data) => {
-                    if(this.categoryList['status'] == 202){
+                    console.log('data');
+                console.log(data);
+                    if(data['status'] == 202){
                         this.cookieStoreService.removeAll(this.rollback_url);
                         this.router.navigate(['/auth/login']);
-                    }
-                    this.categoryList = data;
-                    if(this.categoryList){
-                        if (this.categoryList['result']['categoryList']['current_page'] == this.categoryList['result']['categoryList']['last_page']) {
-                            this.next = true;
-                        } else {
-                            this.next = false;
+                    }else if(data['status'] == 200) {
+                        this.categoryList = data;
+                        if (this.categoryList) {
+                            if (this.categoryList['result']['categoryList']['current_page'] == this.categoryList['result']['categoryList']['last_page']) {
+                                this.next = true;
+                            } else {
+                                this.next = false;
+                            }
+                            if (this.categoryList['result']['categoryList']['current_page'] == 1) {
+                                this.prev = true;
+                            } else {
+                                this.prev = false;
+                            }
+                            this.selects = [];
+                            for (let entry of this.categoryList['result']['categoryList']['data']) {
+                                this.selects[entry['category_id']] = false;
+                            }
+                            this.check = false;
                         }
-                        if (this.categoryList['result']['categoryList']['current_page'] == 1) {
-                            this.prev = true;
-                        } else {
-                            this.prev = false;
-                        }
-                        this.selects = [];
-                        for (let entry of this.categoryList['result']['categoryList']['data']) {
-                            this.selects[entry['category_id']] = false;
-                        }
-                        this.check = false;
                     }
                 });
         }

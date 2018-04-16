@@ -99,6 +99,7 @@ export class MedicalEmployeesComponent implements OnInit {
         if(info['status'] == 200) {
           this.clear_();
           this.getUserList('1');
+          this.lgModal.hide();
         }else if(info['status'] == 202){
           alert(info['msg']);
           this.cookieStore.removeAll(this.rollback_url);

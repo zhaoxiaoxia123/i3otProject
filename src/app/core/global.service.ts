@@ -58,10 +58,11 @@ export class GlobalService {
    * @returns {boolean}
    */
   demoAlert(url:string,param:any) {
-    if(this.cookieStoreService.getCookie('urole') == '0') {
-      alert('演示账号，不能做此操作！');
-      return true;
-    }else if(url != "" && param != ""){
+    // if(this.cookieStoreService.getCookie('urole') == '0') {
+    //   alert('演示账号，不能做此操作！');
+    //   return true;
+    // }else
+    if(url != "" && param != ""){
       let path = url+'/'+param;
       this.router.navigate([path]);
     }

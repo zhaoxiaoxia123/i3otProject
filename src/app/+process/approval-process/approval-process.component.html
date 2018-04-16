@@ -6,16 +6,16 @@
                     <header>
                         <ul class="nav nav-tabs pull-left in">
                             <li [class.active]="state.tabs.demo5=='iss1'" class="active">
-                                <a (click)="state.tabs.demo5 = 'iss1'">待我审批的<span class="badge bg-color-red txt-color-white">99</span></a>
+                                <a (click)="showTab('iss1')">待我审批的<span class="badge bg-color-red txt-color-white" *ngIf="count_">{{count_}}</span></a>
                             </li>
                             <li [class.active]="state.tabs.demo5=='iss2'">
-                                <a (click)="state.tabs.demo5 = 'iss2'">我已审批的 </a>
+                                <a (click)="showTab('iss2')">我已审批的 </a>
                             </li>
                             <li [class.active]="state.tabs.demo5=='iss3'">
-                                <a (click)="state.tabs.demo5 = 'iss3'">我发起的 </a>
+                                <a (click)="showTab('iss3')">我发起的 </a>
                             </li>
                             <li [class.active]="state.tabs.demo5=='iss4'">
-                                <a (click)="state.tabs.demo5 = 'iss4'">抄送我的 </a>
+                                <a (click)="showTab('iss4')">抄送我的 </a>
                             </li>
                         </ul>
                     </header>
@@ -24,22 +24,22 @@
                             <tabset>
                                 <tab [active]="state.tabs.demo5 == 'iss1'">
                                     <div class="row">
-                                        <app-process-await></app-process-await>
+                                        <app-process-await (isShowDetail)="getStatus($event)" (count_)="getData($event)" [rollback_url]="rollback_url"></app-process-await>
                                     </div>
                                 </tab>
                                 <tab [active]="state.tabs.demo5 == 'iss2'">
                                     <div class="row">
-                                        <app-process-already></app-process-already>
+                                        <app-process-already (isShowDetail)="getStatus($event)" [rollback_url]="rollback_url"></app-process-already>
                                     </div>
                                 </tab>
                                 <tab [active]="state.tabs.demo5 == 'iss3'">
                                     <div class="row">
-                                        <app-process-my></app-process-my>
+                                        <app-process-my (isShowDetail)="getStatus($event)" [rollback_url]="rollback_url"></app-process-my>
                                     </div>
                                 </tab>
                                 <tab [active]="state.tabs.demo5 == 'iss4'">
                                     <div class="row">
-                                        <app-process-copy></app-process-copy>
+                                        <app-process-copy (isShowDetail)="getStatus($event)" [rollback_url]="rollback_url"></app-process-copy>
                                     </div>
                                 </tab>
                             </tabset>
@@ -51,13 +51,20 @@
     </sa-widgets-grid>
 </div>
 
-<div class="slide-content"  style="position:fixed;z-index: 99999;display: none;" >
+<div class="slide-content"  [ngStyle]="{'position':'fixed','display': (isShowDetail == 0 ?'none':'block'),'z-index': '9991'}" >
     <div class="entity-well entity-well--tasks">
         <div class="entity-well-header" >
-            <span  class="approval-head" >某某的通用审批</span>
+            <span  class="approval-head" >{{approvalInfo?.result?.u_username}}
+                        <span [ngSwitch]="approvalInfo?.result?.approval_type">
+                          <span *ngSwitchCase="1">的请假</span>
+                          <span *ngSwitchCase="2">的出差</span>
+                          <span *ngSwitchCase="3">的外出</span>
+                          <span *ngSwitchCase="4">的报销</span>
+                          <span *ngSwitchCase="5">的通用审批</span>
+                        </span></span>
             <ul class="entity-well-header-nav nav s pull-right">
                 <li class="divider-v"></li>
-                <li><a class="entity-well-header-close" >
+                <li><a class="entity-well-header-close" (click)="closeDetail()" >
                     <i class="fa fa-times"></i></a>
                 </li>
             </ul>
@@ -72,287 +79,232 @@
                     </a>
                 </div>
                 <div class="approve-head" >
-                    <a class="approval-size" title=" 刘鑫胜多负少的">
-                        刘鑫胜多负少的
+                    <a class="approval-size" title="{{approvalInfo?.result?.u_username}}">
+                        {{approvalInfo?.result?.u_username}}
+                        <span [ngSwitch]="approvalInfo?.result?.approval_type">
+                          <span *ngSwitchCase="1">的请假</span>
+                          <span *ngSwitchCase="2">的出差</span>
+                          <span *ngSwitchCase="3">的外出</span>
+                          <span *ngSwitchCase="4">的报销</span>
+                          <span *ngSwitchCase="5">的通用审批</span>
+                        </span>
                     </a>
-                    <p class="username" >刘鑫胜多负少的</p>
-                    <p class="text-warning" >
-                    等待某某审批
-                   </p>
-                    <p class="text-success" >
+                    <p class="username" >{{approvalInfo?.result?.u_username}}</p>
+                    <p class="text-warning" *ngIf="approvalInfo?.result?.approval_status != 'no' && approvalInfo?.result?.approval_status != 'yes' && approvalInfo?.result?.approval_status != 'cancel'" >
+                    等待{{approvalInfo?.result?.assigin_user_name}}审批
+                    </p>
+                    <p class="text-success" *ngIf="approvalInfo?.result?.approval_status == 'yes'" >
                      已同意
                     </p>
-                    <p class="text-danger" >
+                    <p class="text-danger" *ngIf="approvalInfo?.result?.approval_status == 'no'">
                         已拒绝
                     </p>
-                    <p class="text-primary" >
+                    <p class="text-primary" *ngIf="approvalInfo?.result?.approval_status == 'cancel'">
                         已撤销
                     </p>
                 </div>
                <!-- 已同意-->
-                <div class="approve-result agree pullout" ></div>
-
+                <div class="approve-result agree pullout" *ngIf="approvalInfo?.result?.approval_status == 'yes'" ></div>
                 <!--已拒绝-->
-                <div class="approve-result refuse pullout" ></div>
+                <div class="approve-result refuse pullout" *ngIf="approvalInfo?.result?.approval_status == 'no'"></div>
                 <!--已撤销-->
-                <div class="approve-result revoke pullout" ></div>
+                <div class="approve-result revoke pullout" *ngIf="approvalInfo?.result?.approval_status == 'cancel'"></div>
 
-                <!--请假-->
-                <div >
-                    <div class="approve-formschema" >
-                        <div class="line component-textfield" >
-                            <label class="label" >审批编号:</label>
-                            <span >201803221022000496456</span>
-                        </div>
+                <div [ngSwitch]="approvalInfo?.result?.approval_type">
+                    <!--请假-->
+                    <div class="approve-formschema" *ngSwitchCase="1">
+                        <!--<div class="line component-textfield" >-->
+                            <!--<label class="label" >审批编号:</label>-->
+                            <!--<span >201803221022000496456</span>-->
+                        <!--</div>-->
                         <div class="line component-textareafield">
                             <label class="label" >所在部门:</label>
-                            <span >矿易帮</span>
+                            <span >{{approvalInfo?.result?.department_name}}</span>
                         </div>
                         <div class="line component-textfield">
                             <label class="label" >请假类型:</label>
-                            <span >fhgfg</span>
+                            <span >{{approvalInfo?.result?.detail.type}}</span>
                         </div>
                         <div class="line component-textfield">
                             <label class="label" >开始时间:</label>
-                            <span >2018-03-24</span>
+                            <span >{{approvalInfo?.result?.approval_start_date}}</span>
                         </div>
                         <div class="line component-textfield">
                             <label class="label" >结束时间:</label>
-                            <span >2018-03-24</span>
+                            <span >{{approvalInfo?.result?.approval_end_date}}</span>
                         </div>
                         <div class="line component-textfield">
                             <label class="label" >请假天数:</label>
-                            <span >2</span>
+                            <span >{{approvalInfo?.result?.detail?.day}}</span>
                         </div>
                         <div class="line component-textfield">
                             <label class="label" >请假事由:</label>
-                            <span >1111111111</span>
+                            <span >{{approvalInfo?.result?.detail?.reason}}</span>
                         </div>
                         <div class="line component-ddphotofield">
                             <label class="label" >图片:</label>
                             <div class="picture mb-20">
-                                <div class="picture-list ">
-                                    <a class="fa fa-times-circle picture-a" style="display:block;"></a>
-                                    <img alt="" src="assets/img/superbox/superbox-thumb-2.jpg" title="">
+                                <div class="picture-list " *ngFor="let i of approvalInfo?.result?.img">
+                                    <!--<a class="fa fa-times-circle picture-a" style="display:block;"></a>-->
+                                    <img alt="" src="{{domain}}{{i}}" title="">
                                 </div>
-                                <div class="picture-list picture-a">
-                                    <a class="fa fa-times-circle" style="display:block;"></a>
-                                    <img alt="" src="assets/img/superbox/superbox-thumb-4.jpg" title="">
-                                </div>
-
+                                <!--<div class="picture-list picture-a">-->
+                                    <!--<a class="fa fa-times-circle" style="display:block;"></a>-->
+                                    <!--<img alt="" src="assets/img/superbox/superbox-thumb-4.jpg" title="">-->
+                                <!--</div>-->
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!--外出-->
-                <div >
-                    <div class="approve-formschema" >
-                        <div class="line component-textfield" >
-                            <label class="label" >审批编号:</label>
-                            <span >201803221022000496456</span>
-                        </div>
+                <!--出差-->
+                    <div class="approve-formschema"  *ngSwitchCase="2">
+                        <!--<div class="line component-textfield" >-->
+                            <!--<label class="label" >审批编号:</label>-->
+                            <!--<span >201803221022000496456</span>-->
+                        <!--</div>-->
                         <div class="line component-textareafield">
                             <label class="label" >所在部门:</label>
-                            <span >矿易帮</span>
+                            <span >{{approvalInfo?.result?.department_name}}</span>
+                        </div>
+                        <div class="line approve-formschema" *ngIf="approvalInfo?.result?.detail">
+                            <div class="subs-row" *ngFor="let dt of approvalInfo?.result?.detail?.trip;let ind = index;">
+                                <label class="label row-label-title" >
+                                    <span >行程明细{{ind}}</span>
+                                </label>
+                                <div class="line component-textfield" >
+                                    <label class="label" >出差地点</label>
+                                    <span class="component-content" >{{dt.address}}</span>
+                                </div>
+                                <div class="line component-textfield">
+                                    <label class="label" >开始时间:</label>
+                                    <span >{{dt.start}}</span>
+                                </div>
+                                <div class="line component-textfield">
+                                    <label class="label" >结束时间:</label>
+                                    <span >{{dt.end}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="approve-formschema" >
+                            <div class="line component-ddphotofield">
+                                <label class="label" >图片:</label>
+                                <div class="picture mb-20">
+                                    <div class="picture-list " *ngFor="let i of approvalInfo?.result?.img">
+                                        <!--<a class="fa fa-times-circle picture-a" style="display:block;"></a>-->
+                                        <img alt="" src="{{domain}}{{i}}" title="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--外出-->
+                    <div class="approve-formschema" *ngSwitchCase="3" >
+                        <!--<div class="line component-textfield" >-->
+                            <!--<label class="label" >审批编号:</label>-->
+                            <!--<span >201803221022000496456</span>-->
+                        <!--</div>-->
+                        <div class="line component-textareafield">
+                            <label class="label" >所在部门:</label>
+                            <span >{{approvalInfo?.result?.department_name}}</span>
                         </div>
                         <div class="line component-textfield">
                             <label class="label" >开始时间:</label>
-                            <span >2018-03-24</span>
+                            <span >{{approvalInfo?.result?.approval_start_date}}</span>
                         </div>
                         <div class="line component-textfield">
                             <label class="label" >结束时间:</label>
-                            <span >2018-03-24</span>
+                            <span >{{approvalInfo?.result?.approval_end_date}}</span>
                         </div>
                         <div class="line component-textfield">
                             <label class="label" >外出时间（小时）:</label>
-                            <span >2</span>
+                            <span >{{approvalInfo?.result?.detail?.day}}</span>
                         </div>
                         <div class="line component-textfield">
                             <label class="label" >外出事由:</label>
-                            <span >1111111111</span>
+                            <span >{{approvalInfo?.result?.detail?.reason}}</span>
                         </div>
                         <div class="line component-ddphotofield">
                             <label class="label" >图片:</label>
                             <div class="picture mb-20">
-                                <div class="picture-list ">
-                                    <a class="fa fa-times-circle picture-a" style="display:block;"></a>
-                                    <img alt="" src="assets/img/superbox/superbox-thumb-2.jpg" title="">
-                                </div>
-                                <div class="picture-list picture-a">
-                                    <a class="fa fa-times-circle" style="display:block;"></a>
-                                    <img alt="" src="assets/img/superbox/superbox-thumb-4.jpg" title="">
+                                <div class="picture-list " *ngFor="let i of approvalInfo?.result?.img">
+                                    <!--<a class="fa fa-times-circle picture-a" style="display:block;"></a>-->
+                                    <img alt="" src="{{domain}}{{i}}" title="">
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!--出差-->
-                <div>
-                    <div class="approve-formschema" >
-                        <div class="line component-textfield" >
-                            <label class="label" >审批编号:</label>
-                            <span >201803221022000496456</span>
-                        </div>
+                    <!--报销-->
+                    <div class="approve-formschema" *ngSwitchCase="4">
+                        <!--<div class="line component-textfield" >-->
+                            <!--<label class="label" >审批编号:</label>-->
+                            <!--<span >201803221022000496456</span>-->
+                        <!--</div>-->
                         <div class="line component-textareafield">
                             <label class="label" >所在部门:</label>
-                            <span >矿易帮</span>
+                            <span >{{approvalInfo?.result?.department_name}}</span>
                         </div>
-                    </div>
-                    <div class="line approve-formschema">
-                        <div class="subs-row" >
-                            <label class="label row-label-title" >
-                                <span >行程明细1</span>
-                            </label>
-                            <div class="line component-textfield" >
-                                <label class="label" >出差地点</label>
-                                <span class="component-content" >地方地方</span>
-                            </div>
-                            <div class="line component-textfield">
-                                <label class="label" >开始时间:</label>
-                                <span >2018-03-24</span>
-                            </div>
-                            <div class="line component-textfield">
-                                <label class="label" >结束时间:</label>
-                                <span >2018-03-24</span>
-                            </div>
-                        </div>
-                        <div class="subs-row">
-                            <label class="label row-label-title" >
-                                <span>行程明细2</span>
-                            </label>
-                            <div class="line component-textfield">
-                                <label class="label" >出差地点</label>
-                                <span class="component-content" >胜多负少的</span>
-                            </div>
-                            <div class="line component-textfield">
-                                <label class="label" >开始时间:</label>
-                                <span >2018-03-24</span>
-                            </div>
-                            <div class="line component-textfield">
-                                <label class="label" >结束时间:</label>
-                                <span >2018-03-24</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="approve-formschema" >
-                        <div class="line component-ddphotofield">
-                            <label class="label" >图片:</label>
-                            <div class="picture mb-20">
-                                <div class="picture-list ">
-                                    <a class="fa fa-times-circle picture-a" style="display:block;"></a>
-                                    <img alt="" src="assets/img/superbox/superbox-thumb-2.jpg" title="">
-                                </div>
-                                <div class="picture-list picture-a">
-                                    <a class="fa fa-times-circle" style="display:block;"></a>
-                                    <img alt="" src="assets/img/superbox/superbox-thumb-4.jpg" title="">
-                                </div>
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!--报销-->
-                <div>
-                    <div class="approve-formschema" >
-                        <div class="line component-textfield" >
-                            <label class="label" >审批编号:</label>
-                            <span >201803221022000496456</span>
-                        </div>
-                        <div class="line component-textareafield">
-                            <label class="label" >所在部门:</label>
-                            <span >矿易帮</span>
-                        </div>
-                    </div>
-                    <div class="line approve-formschema">
-                        <div class="subs-row" >
-                            <label class="label row-label-title" >
-                                <span >报销明细1</span>
-                            </label>
-                            <div class="line component-textfield" >
-                                <label class="label" >报销金额(元)</label>
-                                <span class="component-content" >12</span>
-                            </div>
-                            <div class="line component-textfield">
-                                <label class="label" >报销类别:</label>
-                                <span >12</span>
-                            </div>
-                            <div class="line component-textfield">
-                                <label class="label" >费用明细:</label>
-                                <span >4566646</span>
-                            </div>
-                        </div>
-                        <div class="subs-row">
-                            <label class="label row-label-title" >
-                                <span>报销明细2</span>
-                            </label>
-                            <div class="line component-textfield" >
-                                <label class="label" >报销金额(元)</label>
-                                <span class="component-content" >12</span>
-                            </div>
-                            <div class="line component-textfield">
-                                <label class="label" >报销类别:</label>
-                                <span >12</span>
-                            </div>
-                            <div class="line component-textfield">
-                                <label class="label" >费用明细:</label>
-                                <span >4566646</span>
-                            </div>
-                        </div>
-                        <hr/>
-                        <div class="line component-textfield">
-                            <label class="label" >总报销金额(元):</label>
-                            <span class="text-warning">123123</span>
-                        </div>
-                    </div>
-                    <div class="approve-formschema" >
-                        <div class="line component-ddphotofield">
-                            <label class="label" >图片:</label>
-                            <div class="picture mb-20">
-                                <div class="picture-list ">
-                                    <a class="fa fa-times-circle picture-a" style="display:block;"></a>
-                                    <img alt="" src="assets/img/superbox/superbox-thumb-2.jpg" title="">
+                        <div class="line approve-formschema" *ngIf="approvalInfo?.result?.detail">
+                            <div class="subs-row" *ngFor="let dt1 of approvalInfo?.result?.detail?.trip;let ind1 = index;">
+                                <label class="label row-label-title" >
+                                    <span >报销明细{{ind1}}</span>
+                                </label>
+                                <div class="line component-textfield" >
+                                    <label class="label" >报销金额(元)</label>
+                                    <span class="component-content" >{{dt1.price}}</span>
                                 </div>
-                                <div class="picture-list picture-a">
-                                    <a class="fa fa-times-circle" style="display:block;"></a>
-                                    <img alt="" src="assets/img/superbox/superbox-thumb-4.jpg" title="">
+                                <div class="line component-textfield">
+                                    <label class="label" >报销类别:</label>
+                                    <span >{{dt1.type}}</span>
+                                </div>
+                                <div class="line component-textfield">
+                                    <label class="label" >费用明细:</label>
+                                    <span >{{dt1.reason}}</span>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="line component-textfield">
+                                <label class="label" >总报销金额(元):</label>
+                                <span class="text-warning">{{approvalInfo?.result?.detail?.total}}</span>
+                            </div>
+                        </div>
+                        <div class="approve-formschema" >
+                            <div class="line component-ddphotofield">
+                                <label class="label" >图片:</label>
+                                <div class="picture mb-20">
+                                    <div class="picture-list " *ngFor="let i of approvalInfo?.result?.img">
+                                        <!--<a class="fa fa-times-circle picture-a" style="display:block;"></a>-->
+                                        <img alt="" src="{{domain}}{{i}}" title="">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
                 <!--通用审批-->
-                <div>
-                    <div class="approve-formschema" >
-                        <div class="line component-textfield" >
-                            <label class="label" >审批编号:</label>
-                            <span >201803221022000496456</span>
-                        </div>
+                    <div class="approve-formschema"  *ngSwitchCase="5">
+                        <!--<div class="line component-textfield" >-->
+                            <!--<label class="label" >审批编号:</label>-->
+                            <!--<span >201803221022000496456</span>-->
+                        <!--</div>-->
                         <div class="line component-textareafield">
                             <label class="label" >所在部门:</label>
-                            <span >矿易帮</span>
+                            <span >{{approvalInfo?.result?.department_name}}</span>
                         </div>
                         <div class="line component-textfield">
                             <label class="label" >申请内容:</label>
-                            <span >fhgfg</span>
+                            <span >{{approvalInfo?.result?.detail?.title}}</span>
                         </div>
                         <div class="component-textfield " >
                             <label class="label" >审批详情:</label>
-                            <span >fhgfg</span>
+                            <span >{{approvalInfo?.result?.detail?.reason}}</span>
                         </div>
                         <div class="line component-ddphotofield">
                             <label class="label" >图片:</label>
                             <div class="picture mb-20">
-                                <div class="picture-list ">
-                                    <a class="fa fa-times-circle picture-a" style="display:block;"></a>
-                                    <img alt="" src="assets/img/superbox/superbox-thumb-2.jpg" title="">
-                                </div>
-                                <div class="picture-list picture-a">
-                                    <a class="fa fa-times-circle" style="display:block;"></a>
-                                    <img alt="" src="assets/img/superbox/superbox-thumb-4.jpg" title="">
+                                <div class="picture-list " *ngFor="let i of approvalInfo?.result?.img">
+                                    <!--<a class="fa fa-times-circle picture-a" style="display:block;"></a>-->
+                                    <img alt="" src="{{domain}}{{i}}" title="">
                                 </div>
                             </div>
                         </div>
@@ -361,67 +313,40 @@
             </div>
             <hr/>
             <div class="cl-mcont">
-                <ul class="cbp_tmtimeline">
-                    <li>
-                        <time class="cbp_tmtime" datetime="2018-04-10 18:30"><span>18/04/10</span> <span>18:30</span></time>
-                        <div class="cbp_tmicon cbp_tmicon-phone"></div>
-                        <div class="cbp_tmlabel">
-                            <h2>我发起了申请</h2>
-                        </div>
-                    </li>
-                    <li>
-                        <time class="cbp_tmtime" datetime="2018-04-11 12:04"><span>18/04/11</span> <span>12:04</span></time>
-                        <div class="cbp_tmicon cbp_tmicon-screen"></div>
-                        <div class="cbp_tmlabel">
-                            <h2>我已同意</h2>
-                            <p>意见</p>
-                        </div>
-                    </li>
-                    <li>
-                        <time class="cbp_tmtime" datetime="2018-04-13 05:36"><span>18/04/13</span> <span>05:36</span></time>
-                        <div class="cbp_tmicon cbp_tmicon-mail"></div>
-                        <div class="cbp_tmlabel">
-                            <h2> 某某同意</h2>
-                            <p>意见</p>
-                        </div>
-                    </li>
-                    <li>
-                        <time class="cbp_tmtime" datetime="2018-04-15 13:15"><span>18/04/15</span> <span>13:15</span></time>
-                        <div class="cbp_tmicon cbp_tmicon-phone"></div>
-                        <div class="cbp_tmlabel">
-                            <h2>我</h2>
-                            <p>评论内容</p>
-                        </div>
-                    </li>
-                    <li>
-                        <time class="cbp_tmtime" datetime="2018-04-16 21:30"><span>18/04/16</span> <span>21:30</span></time>
-                        <div class="cbp_tmicon cbp_tmicon-earth"></div>
-                        <div class="cbp_tmlabel">
-                            <h2>某某已拒绝</h2>
-                            <p>意见</p>
+                <ul class="cbp_tmtimeline" *ngIf="approvalInfo?.result?.log">
+                    <li *ngFor="let lg of approvalInfo?.result?.log;let ind2 = index;">
+                        <time class="cbp_tmtime">
+                            <span>{{lg.created_at | date:'yyyy-MM-dd'}}</span> <span>{{lg.created_at | date:'HH:mm'}}</span>
+                        </time>
+                        <div class="cbp_tmicon cbp_tmicon-phone" *ngIf="ind2%2 == 0"></div>
+                        <div class="cbp_tmicon cbp_tmicon-screen" *ngIf="ind2%2 != 0"></div>
+
+                        <div class="cbp_tmlabel" [ngSwitch]="lg.log_operation_type">
+                          <span *ngSwitchCase="'create'"><h2>{{lg.u_username}}发起了申请</h2></span>
+                          <span *ngSwitchCase="'ok'"><h2>{{lg.u_username}}已同意</h2>
+                            <p>{{lg.log_detail}}</p></span>
+                          <span *ngSwitchCase="'no'"> <h2> {{lg.u_username}}已拒绝</h2>
+                            <p>{{lg.log_detail}}</p></span>
+                          <span *ngSwitchCase="'comment'"><h2>{{lg.u_username}}的评论</h2>
+                            <p>{{lg.log_detail}}</p></span>
+                          <span *ngSwitchCase="'urge'"><h2>{{lg.u_username}}的催办</h2>
+                            <p>{{lg.log_detail}}</p></span>
+                            <span *ngSwitchCase="'cancel'"><h2>{{lg.u_username}}撤销了申请</h2></span>
+                            <span *ngSwitchCase="'transfer'"><h2>{{lg.u_username}}转交了申请</h2></span>
                         </div>
                     </li>
                 </ul>
             </div>
+
             <div class="entity-well-content">
                 <div class="entity-members peopel-bg">
                     <dl class="pd-10">
                         <dt class="ng-binding"><span class="peopel-span">抄送人<small>审批通过后，通知抄送人</small></span></dt>
                         <dd >
-                            <ul class="avatars">
-                                <li  >
-                                    <a class="portrait-size"  title="分隔符">
-                                        分隔符
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="portrait-size"  title="地方个">
-                                        地方个
-                                    </a>
-                                </li>
-                                <li >
-                                    <a class="portrait-size"  title="风格的个">
-                                        风格的个
+                            <ul class="avatars" *ngIf="approvalInfo?.result?.copy_user">
+                                <li *ngFor="let cu of approvalInfo?.result?.copy_user">
+                                    <a class="portrait-size"  title="{{cu.u_username}}">
+                                        {{cu.u_username}}
                                     </a>
                                 </li>
                             </ul>
@@ -430,7 +355,7 @@
                 </div>
                 <hr class="entity-hr">
                 <div class="entity-content-footer">
-                    <div  class="ng-binding ng-scope">某某 2018-03-22 14:54，创建了审核</div>
+                    <div  class="ng-binding ng-scope">{{approvalInfo?.result?.u_username}} {{approvalInfo?.result?.created_at}}，创建了审核</div>
                 </div>
             </div>
         </div>
@@ -444,43 +369,43 @@
                 1、我审批时：同意、拒绝、转交、评论
                 2、他人审批中：评论-->
                 <div class="tFlexbox tAlignCenter tJustifyCenter" >
-                    <div class="tFlex1 approval-action tTap agree" data-toggle="modal" data-target="#opinion" >同意</div>
-                    <div class="tFlex1 approval-action tTap refuse" data-toggle="modal" data-target="#opinion">拒绝</div>
-                    <div class="tFlex1 approval-action tTap reminders" data-toggle="modal" data-target="#rush">催办</div>
-                    <div class="tFlex1 approval-action tTap revoke" data-toggle="modal" data-target="#revocation">撤销</div>
-                    <div class="tFlex1 approval-action tTap  comment " data-toggle="modal" data-target="#opinion">评论</div>
-                    <div class="tFlex1 approval-action tTap  " data-toggle="modal" data-target="#myModal">转交</div>
+                    <div class="tFlex1 approval-action tTap agree" (click)="showModal('operation','ok')" *ngIf="uid == approvalInfo?.result?.approval_status">同意</div>
+                    <div class="tFlex1 approval-action tTap refuse" (click)="showModal('operation','no')" *ngIf="uid == approvalInfo?.result?.approval_status">拒绝</div>
+                    <div class="tFlex1 approval-action tTap reminders" (click)="showModal('urge','urge')" *ngIf="uid == approvalInfo?.result?.u_id && approvalInfo?.result?.approval_status != 'yes' && approvalInfo?.result?.approval_status != 'no' && approvalInfo?.result?.approval_status != 'cancel'">催办</div>
+                    <div class="tFlex1 approval-action tTap revoke" (click)="showModal('cancel','cancel')" *ngIf="uid == approvalInfo?.result?.u_id && approvalInfo?.result?.approval_status != 'yes' && approvalInfo?.result?.approval_status != 'no' && approvalInfo?.result?.approval_status != 'cancel'">撤销</div>
+                    <div class="tFlex1 approval-action tTap  comment " (click)="showModal('operation','comment')" *ngIf="approvalInfo?.result?.approval_status != 'yes' && approvalInfo?.result?.approval_status != 'no' && approvalInfo?.result?.approval_status != 'cancel' ">评论</div>
+                    <div class="tFlex1 approval-action tTap" (click)="showModal('transfer','transfer')" *ngIf="uid == approvalInfo?.result?.approval_status">转交</div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="opinion" tabindex="-1" role="dialog">
+<!-- Modal 审批同意意见  审批拒绝意见   评论-->
+<div class="modal fade" bsModal #operationModel="bs-modal" style="z-index:9992">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <button type="button" class="close" (click)="hideModal()">&times;</button>
                 <!-- 标题 -->
-                <h3 class="modal-title " data-ng-bind='results.title'>审批同意意见</h3>
-                <h3 class="modal-title " data-ng-bind='results.title'>审批拒绝意见</h3>
-                <h3 class="modal-title " data-ng-bind='results.title'>评论</h3>
+                <h3 class="modal-title " data-ng-bind='results.title' *ngIf="operate_button_type == 'ok'">审批同意意见</h3>
+                <h3 class="modal-title " data-ng-bind='results.title' *ngIf="operate_button_type == 'no'">审批拒绝意见</h3>
+                <h3 class="modal-title " data-ng-bind='results.title' *ngIf="operate_button_type == 'comment'">评论</h3>
             </div>
             <div class="modal-body">
                 <form  class="smart-form" >
                     <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
                         <section>
                             <label class="textarea textarea-resizable">
-                                <textarea class="custom-scroll" rows="8" name="" placeholder=""></textarea>
+                                <textarea class="custom-scroll" rows="8" name="content_operation" [(ngModel)]="content_operation"></textarea>
                             </label>
                         </section>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn btn-primary" data-dismiss="modal">确定</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn btn-primary" (click)="setModal()">确定</button>
+                <button type="button" class="btn btn-default" (click)="hideModal()">取消</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -488,11 +413,11 @@
 
 
 <!-- 撤销 -->
-<div class="modal fade" id="revocation" tabindex="-1" role="dialog">
+<div class="modal fade" id="revocation" bsModal #cancelModel="bs-modal" style="z-index:9992">
     <div class="modal-dialog" style="width:400px;">
         <div class="modal-content text-center">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <button type="button" class="close" (click)="hideModal()">&times;</button>
                 <!-- 标题 -->
                 <h3 class="modal-title " data-ng-bind='results.title'>提示</h3>
             </div>
@@ -502,9 +427,8 @@
                 </div>
             </div>
             <div class="modal-footer text-center">
-
-                <button type="button" class="btn btn btn-primary  btn-lg" data-dismiss="modal">确定</button>
-                <button type="button" class="btn btn-danger  btn-lg" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn btn-primary btn-lg" (click)="setModal()">确定</button>
+                <button type="button" class="btn btn-danger  btn-lg" (click)="hideModal()">取消</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -512,11 +436,11 @@
 
 
 <!-- 催办 -->
-<div class="modal fade" id="rush" tabindex="-1" role="dialog">
+<div class="modal fade" id="rush" bsModal #urgeModel="bs-modal" style="z-index:9992">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <button type="button" class="close" (click)="hideModal()">&times;</button>
                 <!-- 标题 -->
                 <h3 class="modal-title " data-ng-bind='results.title'>催办</h3>
             </div>
@@ -525,30 +449,28 @@
                     <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
                         <section>
                             <label class="textarea textarea-resizable">
-                                <textarea class="custom-scroll" rows="8" name="" placeholder=""></textarea>
+                                <textarea class="custom-scroll" rows="8" name="content_urge" [(ngModel)]="content_urge"></textarea>
                             </label>
                         </section>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn btn-primary" data-dismiss="modal">确定</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn btn-primary" (click)="setModal()">确定</button>
+                <button type="button" class="btn btn-default" (click)="hideModal()">取消</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
 
-<!--添加员工-->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!--添加员工  转交-->
+<div class="modal fade" bsModal #transferModel="bs-modal" style="z-index:9992">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <!-- 关闭按钮 -->
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                    ×
-                </button>
+                <button type="button" class="close" (click)="hideModal()">×</button>
                 <!-- 标题 -->
                 <h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>选择人</h3>
             </div>
@@ -557,18 +479,16 @@
                     <article  class="col-sm-12">
                         <div class="navbar navbar-default">
                             <div class="collapse navbar-collapse">
-
                                 <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
                                     <div class="form-group pdlr-4">
                                         <div class="form-group padding-left-10">
-                                            <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15"   name="keyword_product" placeholder="请输入搜索内容" type="text">
+                                            <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" [(ngModel)]="keyword" name="keyword" placeholder="请输入搜索内容" type="text">
                                         </div>
-                                        <button class="btn btn-default" type="button" >
+                                        <button class="btn btn-default" type="button" (click)="getUserList(1,0)">
                                             <i  class="glyphicon glyphicon-search"></i>
                                             搜索
                                         </button>
                                     </div>
-
                                 </form>
                             </div>
                         </div>
@@ -590,64 +510,36 @@
                                                 <div class="tree smart-form">
                                                     <ul class="">
                                                         <li class=" parent_li">
+                                <span>
+                                  <label class="checkbox inline-block tree-label pt-12 ">
+                                      <input type="checkbox" name="checkbox-inline" [checked]="select_department_ids[0]" (click)="selectDepartmentAll()"><i></i>
+                                    </label>
+
+                                  <i class="fa fa-lg fa-folder-open"></i>{{customer_name}}
+                                  <i class="sa-icon fa fa-lg fa-plus-circle" *ngIf="showUl == 0" (click)="showLeftUl(1)"></i>
+                                  <i class="sa-icon fa fa-lg fa-minus-circle" *ngIf="showUl == 1" (click)="showLeftUl(0)"></i>
+                                </span>
+                                                            <ul *ngIf="showUl == 1">
+                                                                <li class=" parent_li" *ngFor="let d of userDefault?.result?.departmentList;let ind = index;">
                                   <span>
-                                    <label class="checkbox inline-block tree-label pt-12 ">
-                                          <input name="checkbox-inline" type="checkbox"><i></i>
-                                   </label>
-                                    <i class="fa fa-lg fa-folder-open"></i>矿易帮
-                                    <i class="sa-icon fa fa-lg fa-minus-circle"></i>
+                                    <label class="checkbox inline-block tree-label ">
+                                      <input type="checkbox" name="checkbox-inline" [checked]="select_department_ids[d.department_id]" (click)="selectDepartment(d.department_id,ind,0,1)"><i></i>{{d.department_name}}
+                                      <em class="txt-color-blue">({{d.child_count}})</em>
+                                    </label>
+                                    <i class="sa-icon fa fa-lg fa-minus-circle" *ngIf="showUlChild == d.department_id && d.has_child != 0" (click)="showLeftUlChild(0)"></i>
+                                    <i class="sa-icon fa fa-lg fa-plus-circle" *ngIf="showUlChild != d.department_id && d.has_child != 0" (click)="showLeftUlChild(d.department_id)"></i>
                                   </span>
-                                                            <ul class="">
-                                                                <li class=" parent_li">
-                                        <span>
-                                          <label class="checkbox inline-block tree-label ">
-                                            <input name="checkbox-inline" type="checkbox">
-                                            <i></i>财务部
-                                            <em class="txt-color-blue">(0)</em>
-                                          </label>
-
-                                        </span>
-                                                                </li>
-                                                                <li class=" parent_li">
-                                        <span>
-                                          <label class="checkbox inline-block tree-label ">
-                                            <input name="checkbox-inline" type="checkbox">
-                                            <i></i>互联网部
-                                            <em class="txt-color-blue">(0)</em>
-                                          </label>
-
-                                        </span>
-                                                                </li>
-                                                                <li class=" parent_li">
-                                        <span>
-                                          <label class="checkbox inline-block tree-label ">
-                                            <input name="checkbox-inline" type="checkbox">
-                                            <i></i>行政部
-                                            <em class="txt-color-blue">(0)</em>
-                                          </label>
-                                           <i class="sa-icon fa fa-lg fa-plus-circle"></i>
-                                        </span>
-                                                                    <ul class="">
-                                                                        <li>
-                                            <span>
-                                              <label class="checkbox inline-block tree-label">
-                                                <input name="checkbox-inline" type="checkbox">
-                                                <i></i>财务部
-                                                <em class="txt-color-blue">(0)</em>
-                                              </label>
-                                            </span>
+                                                                    <ul class="" *ngIf="showUlChild == d.department_id">
+                                                                        <li *ngFor="let dc of d.child;let indChild = index;">
+                                      <span>
+                                        <label class="checkbox inline-block tree-label">
+                                          <input type="checkbox" name="checkbox-inline" [checked]="select_department_ids[d.department_id] || select_department_ids[dc.department_id]" (click)="selectDepartment(dc.department_id,ind,indChild,d.department_id)">
+                                          <i></i>{{dc.department_name}}
+                                          <em class="txt-color-blue">({{dc.child_count}})</em>
+                                        </label>
+                                      </span>
                                                                         </li>
                                                                     </ul>
-
-                                                                </li>
-                                                                <li class=" parent_li">
-                                        <span>
-                                          <label class="checkbox inline-block tree-label ">
-                                            <input name="checkbox-inline" type="checkbox">
-                                            <i></i>软件部
-                                            <em class="txt-color-blue">(2)</em>
-                                          </label>
-                                        </span>
                                                                 </li>
                                                             </ul>
                                                         </li>
@@ -678,7 +570,7 @@
                                                     <tr>
                                                         <td>
                                                             <label class="checkbox mt-8">
-                                                                <input type="checkbox" name="checkbox-inline" >
+                                                                <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)">
                                                                 <i></i>
                                                             </label>
                                                         </td>
@@ -688,51 +580,30 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr >
+                                                    <tr *ngFor="let ul of userList.result?.userList?.data">
                                                         <td>
                                                             <label class="checkbox mt-8" >
-                                                                <input type="checkbox"   />
+                                                                <input type="checkbox" value="{{ul.id}}" [checked]="selected_user[ul.id]" (change)="handle($event);" />
                                                                 <i></i>
                                                             </label>
                                                         </td>
-                                                        <td>dgff</td>
-                                                        <td>dfgd</td>
-                                                        <td>dfgfd</td>
-                                                    </tr>
-                                                    <tr >
-                                                        <td>
-                                                            <label class="checkbox mt-8" >
-                                                                <input type="checkbox"   />
-                                                                <i></i>
-                                                            </label>
-                                                        </td>
-                                                        <td>dgff</td>
-                                                        <td>dfgd</td>
-                                                        <td>dfgfd</td>
-                                                    </tr>
-                                                    <tr >
-                                                        <td>
-                                                            <label class="checkbox mt-8" >
-                                                                <input type="checkbox"   />
-                                                                <i></i>
-                                                            </label>
-                                                        </td>
-                                                        <td>dgff</td>
-                                                        <td>dfgd</td>
-                                                        <td>dfgfd</td>
+                                                        <td>{{ ul.name }}</td>
+                                                        <td>{{ ul.u_username }}</td>
+                                                        <td>{{ ul.department_name }}</td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
+
                                         </div>
                                         <!-- 底部-（分页部分）-->
                                         <div class="dt-toolbar">
                                             <div class="col-xs-12 col-sm-6">
-                                                <span>共5条</span>
+                                                <span>共{{userList.result?.userList?.total}}条</span>
                                             </div>
                                             <div class="hidden-xs right">
-                                                <ul class="pagination pagination-sm">
-                                                    <li *ngFor="let p of searchProductList?.result?.page" class="{{p.class}}">
+                                                <ul class="pagination pagination-sm" *ngIf="userList?.result?.page != ''">
+                                                    <li *ngFor="let p of userList?.result?.page" class="{{p.class}}">
                                                         <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
                                                         <a *ngIf="p.method==''">{{p.text}}</a>
                                                     </li>
@@ -748,10 +619,15 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-ng-click="ok()"><span class="glyphicon glyphicon-plus"></span>选入</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal" >返回</button>
+
+                <button type="button" class="btn btn-success" (click)="setModal()"><span class="glyphicon glyphicon-plus"></span>选入</button>
+                <button type="button" class="btn btn-default" (click)="hideModal()" >返回</button>
+                <!--<button type="button" class="btn btn-success btn-sm" (click)="submitSelectedUser()"><span class="glyphicon glyphicon-plus"></span>选入</button>-->
+                <!--<button type="button" class="btn btn-default" data-dismiss="modal" (click)="closeSelectedUser()">返回</button>-->
             </div>
-        </div>
-    </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
 </div>
+
+
 

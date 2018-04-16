@@ -3,31 +3,20 @@
              [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
     <div>
       <div class="widget-body no-padding">
-        <!-- <alert type="info" class="no-margin" >
-           <i class="fa-fw fa fa-table"></i>
-           抄送给我的列表
-         </alert>-->
         <div  class="row  mt-10">
           <article  class="col-sm-12">
             <div class="navbar navbar-default">
-              <!--<form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-                <div class="form-group pdlr-4">
-                  <a class="btn default-btn btn-sm" >
-                    <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除所选</a>
-                </div>
-              </form>-->
               <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
                 <div class="form-group pdlr-4">
-                  <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" name="" placeholder="请输入搜索内容" type="text">
+                  <input  class="form-control ng-pristine ng-valid ng-touched" name="keyword" maxlength="15" [(ngModel)]="keyword" placeholder="请输入搜索内容" type="text">
                 </div>
                 <div class="form-group pdlr-4">
-                  <button class="btn btn-default" type="submit">
+                  <button class="btn btn-default" type="button" (click)="onSubmit()">
                     <i  class="glyphicon glyphicon-search"></i>
                     搜索
                   </button>
                 </div>
               </form>
-
             </div>
           </article>
         </div>
@@ -44,73 +33,60 @@
               </tr>
               </thead>
               <tbody>
-              <tr class="editor">
-                <td>某某的请假</td>
-                <td>
-                  <span>
-                  请假类型：事假<br/>
-                  开始时间：2018-03-09<br/>
-                  结束时间：2018-03-09<br/>
-                </span>
-                </td>
-                <td>2018-03-09</td>
-                <td>2018-03-09</td>
-                <td><span>审批完成<br/>同意</span></td>
-              </tr>
-              <tr class="editor">
-                <td>某某的出差</td>
-                <td>
-                  <span>
-                  出差地点：地质局讲究的是街坊邻居拉克丝给付对价桑德拉了<br/>
-                  开始时间：2018-03-09<br/>
-                  结束时间：2018-03-09<br/>
-                  出差事由：胜利大街反反复复飞反反复复飞反反复复飞反反复复飞反反复复飞反反复复 <br/>
-                </span>
-                </td>
-                <td>2018-03-09</td>
-                <td>2018-03-09</td>
-                <td><span>审批完成<br/>拒绝</span></td>
-              </tr>
-              <tr class="editor">
-                <td>某某的外出</td>
-                <td>
-                  <span>
-                  开始时间：2018-03-09 16:30<br/>
-                  结束时间：2018-03-09 16:52<br/>
-                </span>
-                </td>
-                <td>2018-03-09</td>
-                <td>2018-03-09</td>
-                <td><span>审批完成<br/>同意</span></td>
-              </tr>
-              <tr class="editor">
-                <td>某某的报销</td>
-                <td>
-                  <span>
-                    报销金额（元）：425<br/>
-                    报销类型:查询<br/>
-                    费用明细：丰达饲料家啊啊啊啊啊啊啊啊啊<br/>
-                    总报销金额（元）：54545<br/>
-                </span>
-                </td>
-                <td>2018-03-09</td>
-                <td>2018-03-09</td>
-                <td><span>审批完成<br/>同意</span></td>
-              </tr>
-              <tr class="editor">
-                <td>某某的通用审批</td>
-                <td>
-                  <span>
-                  申请内容：放松放松地方 <br/>
-                  申请详情：收费单啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊<br/>
-                </span>
-                </td>
-                <td>2018-03-09</td>
-                <td>2018-03-09</td>
-                <td><span>审批完成<br/>同意</span></td>
-              </tr>
 
-
+              <tr class="editor" *ngFor="let pa of processHadList?.result?.approvalList?.data" (click)="showDetail(pa.approval_id)">
+                <td>{{pa.u_username}}的
+                  <span [ngSwitch]="pa.approval_type">
+                  <span *ngSwitchCase="1">请假</span>
+                  <span *ngSwitchCase="2">出差</span>
+                  <span *ngSwitchCase="3">外出</span>
+                  <span *ngSwitchCase="4">报销</span>
+                  <span *ngSwitchCase="5">通用审批</span>
+                </span>
+                </td>
+                <td [ngSwitch]="pa.approval_type">
+                  <span *ngSwitchCase="1">
+                    请假类型：{{pa.detail.type}}<br/>
+                    开始时间：{{pa.approval_start_date}}<br/>
+                    结束时间：{{pa.approval_end_date}}<br/>
+                  </span>
+                  <span *ngSwitchCase="2">
+                    <span *ngIf="pa.detail">
+                    出差地点：
+                    <span *ngFor="let dt of pa.detail.trip">
+                    {{dt.address}}&nbsp;&nbsp;
+                    </span><br/>
+                    开始时间：{{pa.approval_start_date}}<br/>
+                    结束时间：{{pa.approval_end_date}}<br/>
+                    出差事由：{{pa.detail.reason}} <br/>
+                  </span>
+                  </span>
+                  <span *ngSwitchCase="3">
+                  开始时间：{{pa.approval_start_date}}<br/>
+                  结束时间：{{pa.approval_end_date}}<br/>
+                  </span>
+                  <span *ngSwitchCase="4">
+                    <span *ngFor="let d of pa.detail.detail">
+                      报销金额（元）：{{d.price}}<br/>
+                      报销类型:{{d.type}}<br/>
+                      费用明细：{{d.reason}}<br/>
+                    </span>
+                    总报销金额（元）：{{pa.detail.total}}<br/>
+                  </span>
+                  <span *ngSwitchCase="5">
+                  申请内容：{{pa.detail.title}} <br/>
+                  申请详情：{{pa.detail.reason}}<br/>
+                  </span>
+                </td>
+                <td>{{ pa.created_at }}</td>
+                <td>{{pa.approval_end_date}}</td>
+                <td>
+                  <span *ngIf="pa.approval_status == 'yes'">审批完成<br/>同意</span>
+                  <span *ngIf="pa.approval_status == 'no'">审批完成<br/>拒绝</span>
+                  <span *ngIf="pa.approval_status == 'cancel'">审批完成<br/>已撤销</span>
+                  <span *ngIf="pa.approval_status != 'no' && pa.approval_status != 'yes' && pa.approval_status != 'cancel'">审批中</span>
+                </td>
+              </tr>
               </tbody>
             </table>
 
@@ -119,11 +95,11 @@
         <!-- 底部-（分页部分）-->
         <div class="dt-toolbar">
           <div class="col-xs-12 col-sm-6">
-            <span>共5条</span>
+            <span>共{{processHadList?.result?.approvalList?.total}}条</span>
           </div>
           <div class="hidden-xs right">
             <ul class="pagination pagination-sm">
-              <li *ngFor="let p of categoryList?.page" class="{{p.class}}">
+              <li *ngFor="let p of processHadList?.result?.page" class="{{p.class}}">
                 <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
                 <a *ngIf="p.method==''">{{p.text}}</a>
               </li>

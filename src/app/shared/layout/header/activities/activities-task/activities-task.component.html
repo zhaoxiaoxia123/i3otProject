@@ -1,7 +1,7 @@
 
 <li *ngFor="let ml of fromFatherValue?.result?.task?.data" (click)="readTask(ml.project_id,ml.todo_id,ml.userId)">
 
-    <div class="text-align-center mb6"><span>03-22 09:44:49</span></div>
+    <div class="text-align-center mb6"><span>{{ml.send_time | date:'yyyy-MM-dd HH:mm'}}</span></div>
     <div class="approval-message badge-primary" >待办事项</div>
    <span class="bar-holder">
       <a>

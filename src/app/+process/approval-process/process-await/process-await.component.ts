@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Http} from "@angular/http";
 import {Router} from "@angular/router";
 import {CookieStoreService} from "../../../shared/cookies/cookie-store.service";
@@ -16,14 +16,16 @@ export class ProcessAwaitComponent implements OnInit {
   next : boolean = false;
 
   keyword : string = '';
-  rollback_url : string = '/tables/client';
+  @Input() rollback_url ;
+  @Output() private count_ = new EventEmitter();
+  @Output() private isShowDetail = new EventEmitter();
+
+  page_type : string = 'assign'; //待我审批的
   constructor(
       private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
-    let nav = '{"title":"客户列表","url":"/tables/client","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
 
     this.getProcessAwaitList('1');
     window.scrollTo(0,0);
@@ -49,7 +51,7 @@ export class ProcessAwaitComponent implements OnInit {
    * @param number
    */
   getProcessAwaitList(number:string) {
-    let url = this.globalService.getDomain()+'/api/v1/getApprovalList?&page='+number+'&sid='+this.cookieStore.getCookie('sid')+'&uid='+this.cookieStore.getCookie('uid');
+    let url = this.globalService.getDomain()+'/api/v1/getApprovalList?page_type='+this.page_type+'&page='+number+'&sid='+this.cookieStore.getCookie('sid')+'&uid='+this.cookieStore.getCookie('uid');
     if(this.keyword.trim() != ''){
       url += '&keyword='+this.keyword.trim();
     }
@@ -57,28 +59,35 @@ export class ProcessAwaitComponent implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.processAwaitList = data;
+          if(this.processAwaitList['status'] == 202){
+            this.cookieStore.removeAll(this.rollback_url);
+            this.router.navigate(['/auth/login']);
+          }
+
+          this.count_.emit(this.processAwaitList['result']['approvalCount']);
+
+          if (this.processAwaitList['result']['approvalList']['total'] != 0) {
+            if (this.processAwaitList['result']['approvalList']['current_page'] == this.processAwaitList['result']['approvalList']['last_page']) {
+              this.next = true;
+            } else {
+              this.next = false;
+            }
+            if (this.processAwaitList['result']['approvalList']['current_page'] == 1) {
+              this.prev = true;
+            } else {
+              this.prev = false;
+            }
+          }
         });
+  }
 
-    setTimeout(() => {
-      console.log(this.processAwaitList);
-      if(this.processAwaitList['status'] == 202){
-        this.cookieStore.removeAll(this.rollback_url);
-        this.router.navigate(['/auth/login']);
-      }
-      if (this.processAwaitList) {
-        if (this.processAwaitList['result']['approvalList']['current_page'] == this.processAwaitList['result']['approvalList']['last_page']) {
-          this.next = true;
-        } else {
-          this.next = false;
-        }
-        if (this.processAwaitList['result']['approvalList']['current_page'] == 1) {
-          this.prev = true;
-        } else {
-          this.prev = false;
-        }
-
-      }
-    }, 300);
+  /**
+   * 显示详情页
+   * @param approval_id
+   */
+  showDetail(approval_id){
+    this.isShowDetail.emit(approval_id);
+    console.log(this.isShowDetail);
   }
 
   /**

@@ -160,7 +160,7 @@ export class ListStaffComponent implements OnInit {
             } else {
               this.prev = false;
             }
-            if(this.userList['result']['userList']) {
+            if(this.userList['result']['userList'].length > 0) {
               for (let entry of this.userList['result']['userList']['data']) {
                 this.selects[entry['id']] = false;
               }
@@ -303,6 +303,7 @@ export class ListStaffComponent implements OnInit {
       param = this.editStatusUserId;
     }
     this.globalService.demoAlert(url,param);
+
   }
 
   /**

@@ -168,7 +168,7 @@ export class InitiateRequiteComponent implements OnInit {
       let info = JSON.parse(data['_body']);
       alert(info['msg']);
       if(info['status'] == 200) {
-        this.router.navigate(['/process/approval-process']);
+        this.router.navigate(['/process/approval-process/0']);
       }else if(info['status'] == 202){
         this.cookieStore.removeAll(this.rollback_url);
         this.router.navigate(['/auth/login']);
@@ -417,7 +417,11 @@ export class InitiateRequiteComponent implements OnInit {
     if(c == true) {
       this.submit_user_ids.push(v);
     }else{
-      this.submit_user_ids.splice(v,1);
+      this.submit_user_ids.forEach((val, idx, array) => {
+        if(val == v){
+          this.submit_user_ids.splice(idx,1);
+        }
+      });
     }
     let isAll = 0;
     for (let s of this.selected_user) {

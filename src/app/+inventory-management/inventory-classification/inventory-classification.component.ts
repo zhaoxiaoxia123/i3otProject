@@ -259,6 +259,7 @@ export class InventoryClassificationComponent implements OnInit {
                     // this.categoryList = info;
                     this.clearSubmit();
                     this.getCategoryDefault();
+                    this.lgModal.hide();
                 }else if(info['status'] == 202){
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);

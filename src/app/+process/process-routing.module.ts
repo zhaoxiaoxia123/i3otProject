@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 export const routes: Routes = [
     {
-        path: 'approval-process',
+        path: 'approval-process/:info',
         loadChildren: 'app/+process/approval-process/approval-process.module#ApprovalProcessModule',
         data: {pageTitle: 'ApprovalProcess'}
     },

@@ -35,7 +35,7 @@
               </thead>
               <tbody>
 
-              <tr class="editor" *ngFor="let pa of processAwaitList?.result?.approvalList?.data">
+              <tr class="editor" *ngFor="let pa of processAwaitList?.result?.approvalList?.data" (click)="showDetail(pa.approval_id)">
                 <td>{{pa.u_username}}的
                 <span [ngSwitch]="pa.approval_type">
                   <span *ngSwitchCase="1">请假</span>
@@ -48,9 +48,11 @@
                 <td [ngSwitch]="pa.approval_type">
                   <span *ngSwitchCase="1">
                     请假类型：{{pa.detail.type}}<br/>
-                  开始时间：{{pa.approval_start_date}}<br/>
-                  结束时间：{{pa.approval_end_date}}<br/></span>
+                    开始时间：{{pa.approval_start_date}}<br/>
+                    结束时间：{{pa.approval_end_date}}<br/>
+                  </span>
                   <span *ngSwitchCase="2">
+                    <span *ngIf="pa.detail">
                     出差地点：
                     <span *ngFor="let dt of pa.detail.trip">
                     {{dt.address}}&nbsp;&nbsp;
@@ -59,24 +61,27 @@
                     结束时间：{{pa.approval_end_date}}<br/>
                     出差事由：{{pa.detail.reason}} <br/>
                   </span>
+                  </span>
                   <span *ngSwitchCase="3">
                   开始时间：{{pa.approval_start_date}}<br/>
-                  结束时间：{{pa.approval_end_date}}<br/></span>
+                  结束时间：{{pa.approval_end_date}}<br/>
+                  </span>
                   <span *ngSwitchCase="4">
                     <span *ngFor="let d of pa.detail.detail">
                       报销金额（元）：{{d.price}}<br/>
                       报销类型:{{d.type}}<br/>
                       费用明细：{{d.reason}}<br/>
                     </span>
-                    总报销金额（元）：{{pa.detail.total}}<br/></span>
+                    总报销金额（元）：{{pa.detail.total}}<br/>
+                  </span>
                   <span *ngSwitchCase="5">
                   申请内容：{{pa.detail.title}} <br/>
                   申请详情：{{pa.detail.reason}}<br/>
                   </span>
                 </td>
                 <td>{{ pa.created_at }}</td>
-                <td></td>
-                <td><span><strong>某某</strong>审批中</span></td>
+                <td>{{pa.approval_end_date}}</td>
+                <td><span>等待我审批...</span></td>
               </tr>
               </tbody>
             </table>
