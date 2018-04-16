@@ -107,7 +107,9 @@
                     </thead>
                     <tbody>
                     <tr *ngFor="let c of customerList?.result?.customerList?.data" (click)="isStatusShow(c.c_id,c.c_status)" [ngClass]="{'table-color':editStatusCustomerId == c.c_id}">
-                      <td>{{c.c_number}}</td>
+                      <td>
+                        <span class="click-a"><a>{{c.c_number}}</a></span>
+                      </td>
                       <td>{{c.c_name}}</td>
                     </tr>
                     </tbody>

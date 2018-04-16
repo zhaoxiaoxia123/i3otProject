@@ -33,22 +33,28 @@
                           <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="isDemo('/procurement-management/app-order','1','detail')" >
                             <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
                         </div>
-                        <div class="form-group pdlr-4" *ngIf="isStatus == 2">
-                          <a class="btn default-btn btn-sm" (click)="editStatus(1,'id')">
-                            <span class="fa-fw fa fa-reply-all mr-5 color-red"></span>弃废</a>
+                        <!--<div class="form-group pdlr-4" *ngIf="isStatus == 2">-->
+                          <!--<a class="btn default-btn btn-sm" (click)="editStatus(1,'id')">-->
+                            <!--<span class="fa-fw fa fa-reply-all mr-5 color-red"></span>弃废</a>-->
+                        <!--</div>-->
+                        <!--<div class="form-group pdlr-4" *ngIf="isStatus == 1">-->
+                          <!--<a class="btn default-btn btn-sm" (click)="editStatus(2,'id')" >-->
+                            <!--<span class="fa-fw fa fa-trash-o mr-5 color-yellow"></span>作废</a>-->
+                        <!--</div>-->
+                        <div class="form-group pdlr-4" >
+                          <a data-toggle="modal" data-target="#audit" class="btn default-btn btn-sm" >
+                            <span class="fa-fw fa fa-stop  mr-5 text-warning"></span>审核</a>
                         </div>
-                        <div class="form-group pdlr-4" *ngIf="isStatus == 1">
-                          <a class="btn default-btn btn-sm" (click)="editStatus(2,'id')" >
-                            <span class="fa-fw fa fa-trash-o mr-5 color-yellow"></span>作废</a>
-                        </div>
-                        <!--<div class="form-group pdlr-4" >
-                          <a class="btn default-btn btn-sm"  >
-                            <span class="fa-fw fa fa-trash-o mr-5 color-yellow"></span>作废 </a>
+
+                        <div class="form-group pdlr-4" >
+                          <a data-toggle="modal" data-target="#audit" class="btn default-btn btn-sm" >
+                            <span class="fa-fw fa fa-trash-o mr-5 text-warning"></span>作废</a>
                         </div>
                         <div class="form-group pdlr-4" >
-                          <a class="btn default-btn btn-sm"  >
-                            <span class="fa-fw fa fa-reply-all mr-5 color-red"></span>弃废 </a>
-                        </div>-->
+                          <a data-toggle="modal" data-target="#audit" class="btn default-btn btn-sm" >
+                            <span class="fa-fw fa fa-mail-reply-all mr-5 text-primary"></span>弃废</a>
+                        </div>
+
                         <div class="form-group pdlr-4" >
                           <a class="btn default-btn btn-sm"  >
                             <span class="fa-fw fa  fa-clipboard mr-5 color-green"></span>生产进货单 </a>
@@ -57,8 +63,13 @@
                           <a class="btn default-btn btn-sm dropdown-toggle" (click)="showAllCheck()" data-toggle="dropdown">
                             <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
                           <ul class="dropdown-menu" role="menu">
-                            <li><a (click)="editStatus(1,'all')"><span class="fa-fw fa fa-play mr-5 color-green"></span>批量设为启动</a></li>
-                            <li><a (click)="editStatus(2,'all')"><span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>批量设为无效</a></li>
+                            <!--<li><a (click)="editStatus(1,'all')"><span class="fa-fw fa fa-play mr-5 color-green"></span>批量设为启动</a></li>-->
+                            <!--<li><a (click)="editStatus(2,'all')"><span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>批量设为无效</a></li>-->
+                            <!--<li class="divider"></li>-->
+                            <li><a  data-toggle="modal" data-target="#audit"><span class="fa-fw fa  fa-stop  mr-5 text-warning"></span>批量审核</a></li>
+                            <li class="divider"></li>
+                            <li><a  data-toggle="modal" data-target="#audit"><span class="fa-fw fa fa-trash-o mr-5 text-warning"></span>批量作废</a></li>
+                            <li><a  data-toggle="modal" data-target="#audit"><span class="fa-fw fa fa-mail-reply-all mr-5 text-primary"></span>批量弃废</a></li>
                             <li class="divider"></li>
                             <li><a (click)="deletePurchase('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
                           </ul>
@@ -82,9 +93,9 @@
               </div>
               <div  class="padding0">
                 <div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-scrolling   padding0">
-                  <table class="table table-striped   smart-form table-height-32">
+                  <table class="table table-striped   smart-form table-height-20">
                     <thead>
-                    <tr style="height: 37px;" >
+                    <tr  >
                       <td><label class="checkbox mt-8">
                         <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)" >
                         <i></i>
@@ -93,7 +104,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr style="height: 34.5px;" *ngFor="let p of purchaseList?.result?.purchaseList?.data">
+                    <tr  *ngFor="let p of purchaseList?.result?.purchaseList?.data">
                       <td>
                         <label class="checkbox mt-8">
                           <input type="checkbox" value="{{p.pr_id}}" [checked]="selects[p.pr_id]" (change)="handle($event)">
@@ -106,7 +117,7 @@
                 </div>
 
                 <div style="z-index: 2;width:50%;float:left;" class="table-scrolling padding0">
-                  <table class="table table-striped   smart-form table-height-32">
+                  <table class="table table-striped   smart-form table-height-20">
                     <thead>
                     <tr >
                       <!--<td *ngIf="isAll != 0"><label class="checkbox mt-8">-->
@@ -114,8 +125,8 @@
                         <!--<i></i>-->
                       <!--</label>-->
                       <!--</td>-->
-                      <th>单据号</th>
                       <th>单据状态</th>
+                      <th>单据号</th>
                       <th>进退货标志</th>
                       <th>单据日期 </th>
                     </tr>
@@ -128,14 +139,30 @@
                           <!--<i></i>-->
                         <!--</label>-->
                       <!--</td>-->
-                      <td>{{p.pr_order}}</td>
                       <td>
-                        <span [ngSwitch]="p.pr_status">
-                          <span class="button label-button blue" *ngSwitchCase="1">正常</span>
-                          <span class="button label-button orange" *ngSwitchCase="2">作废</span>
-                          <span class="button label-button gray" *ngSwitchDefault>未知</span>
-                        </span>
+                        <div>
+                          <span class="label-maintain maintain-style editor" data-toggle="modal" data-target="#audit"><i class="glyphicon glyphicon-exclamation-sign approval-icon" ></i>审核</span>
+                          <span class="label-unknown" >待审核</span>
+                          <span class="label-maintain" >审核中</span>
+                          <span class="label-normal">已同意</span>
+                          <span  class="label-full">已拒绝</span>
+                          <span  class="label-full">已作废</span>
+
+                        </div>
+
                       </td>
+                      <td>
+                        <div class="click-a">
+                          <a>{{p.pr_order}}</a>
+                        </div>
+                      </td>
+                      <!--<td>-->
+                        <!--<span [ngSwitch]="p.pr_status">-->
+                          <!--<span class="button label-button blue" *ngSwitchCase="1">正常</span>-->
+                          <!--<span class="button label-button orange" *ngSwitchCase="2">作废</span>-->
+                          <!--<span class="button label-button gray" *ngSwitchDefault>未知</span>-->
+                        <!--</span>-->
+                      <!--</td>-->
                       <td>
                         <span [ngSwitch]="p.pr_type">
                           <span class="label-normal" *ngSwitchCase="1">进货</span>
@@ -149,7 +176,7 @@
                   </table>
                 </div>
                 <div [ngStyle]="{'padding': '0','z-index': '2','width':width_1,'float':'left'}" class="table-responsive">
-                  <table class="table table-striped   smart-form table-height-32">
+                  <table class="table table-striped   smart-form table-height-20">
                     <thead>
                     <tr>
                       <th>供应商</th>
@@ -191,4 +218,83 @@
   </sa-widgets-grid>
 
 </div>
+
+
+<div class="modal fade" id="audit" tabindex="-1" role="dialog">
+  <div class="modal-dialog" style="width:500px;">
+    <div class="modal-content text-center">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <!-- 标题 -->
+        <h3 class="modal-title " data-ng-bind='results.title'>提示</h3>
+      </div>
+      <div class="modal-body ">
+        <div class="row">
+          <div class="text-align-left pd-15">
+            <h4>某某的单据[CD180400004]需要您审批!</h4>
+            <h4>你确定要将单据[CD180400004]作废！</h4>
+            <h4>你确定要将单据[CD180400004]弃废！</h4>
+            <h4>您确认批量作废当前选中的[4]张单据吗？</h4>
+            <h4>您确认批量弃废当前选中的[4]张单据吗？</h4>
+            <h4>您确认批量审核当前选中的[4]张单据吗？</h4>
+          </div>
+          <form  class="smart-form" >
+            <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+              <section>
+                <label class="textarea textarea-resizable">
+                  <textarea class="custom-scroll" rows="8" name="" placeholder="请输入你的意见"></textarea>
+                </label>
+              </section>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="modal-footer text-center">
+        <button type="button" class="btn btn-success  btn-lg" data-dismiss="modal" data-toggle="modal" data-target="#audit-center">同意</button>
+        <button type="button" class="btn btn-danger  btn-lg" data-dismiss="modal">拒绝</button>
+        <button type="button" class="btn btn-primary  btn-lg" data-dismiss="modal" data-toggle="modal" data-target="#audit-center">确定</button>
+        <button type="button" class="btn btn-default  btn-lg" data-dismiss="modal">取消</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div class="modal fade" id="audit-center" tabindex="-1" role="dialog">
+  <div class="modal-dialog" style="width:500px;">
+    <div class="modal-content text-center">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <!-- 标题 -->
+        <h3 class="modal-title " data-ng-bind='results.title'>开始执行批量审核，请勿关闭</h3>
+        <h3 class="modal-title " data-ng-bind='results.title'>开始执行批量作废，请勿关闭</h3>
+        <h3 class="modal-title " data-ng-bind='results.title'>开始执行批量弃废，请勿关闭</h3>
+      </div>
+      <div class="pd-20">
+        <div class="text-center pd-20">
+          <div><span>单据[CD180400005]审核成功</span></div>
+          <div><span>单据[CD180400004]审核跳过，该单据已审核！</span></div>
+          <div><span>单据[CD180400004]审核跳过，你没有权限审核该单据！</span></div>
+          <div><span>批量审核结束</span></div>
+        </div>
+        <div class="text-center pd-20">
+          <div><span>单据[CD180400005]已作废</span></div>
+          <div><span>单据[CD180400002]作废跳过，该单据已作废，请弃废后再执行作废操作！</span></div>
+          <div><span>单据[CD180400004]作废跳过，你没有权限作废该单据！</span></div>
+          <div><span>批量审核结束</span></div>
+        </div>
+        <div class="text-center pd-20">
+          <div><span>单据[CD180400001]已弃废</span></div>
+          <div><span>单据[CD180400002]弃废跳过，该单据尚未作废，请作废再执行弃废操作！</span></div>
+          <div><span>单据[CD180400004]弃废跳过，你没有权限弃废该单据！</span></div>
+          <div><span>批量审核结束</span></div>
+        </div>
+      </div>
+      <div class="modal-footer text-center">
+        <button type="button" class="btn btn btn-primary  btn-lg" data-dismiss="modal">确定</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 

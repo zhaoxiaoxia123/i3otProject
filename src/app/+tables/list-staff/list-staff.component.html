@@ -132,7 +132,7 @@
                           <div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-scrolling">
                             <table class="table table-striped smart-form table-height-20">
                               <thead>
-                              <tr style="height: 37px;">
+                              <tr >
                                 <td>
                                   <label class="checkbox mt-8">
                                     <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)">
@@ -142,7 +142,7 @@
                               </tr>
                               </thead>
                               <tbody>
-                              <tr style="height: 34.5px;" *ngFor="let ul of userList.result?.userList?.data">
+                              <tr  *ngFor="let ul of userList.result?.userList?.data">
                                 <td>
                                   <label class="checkbox mt-8" >
                                     <input type="checkbox" value="{{ul.id}}" [checked]="selects[ul.id]" (change)="handle($event);" />
@@ -163,7 +163,9 @@
                               </thead>
                               <tbody>
                               <tr *ngFor="let ul of userList.result?.userList?.data" (click)="isStatusShow(ul.id,ul.u_status)" [ngClass]="{'table-color':editStatusUserId == ul.id}">
-                                <td>{{ ul.name }}</td>
+                                <td>
+                                  <span class="click-a"><a> {{ ul.name }}</a></span>
+                                </td>
                                 <td>{{ ul.u_username }}</td>
                               </tr>
                               </tbody>

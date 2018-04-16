@@ -34,11 +34,29 @@
                           <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailAssets('detail')">
                             <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
                         </div>
+                        <div class="form-group pdlr-4" >
+                          <a data-toggle="modal" data-target="#audit" class="btn default-btn btn-sm" >
+                            <span class="fa-fw fa fa-stop  mr-5 text-warning"></span>审核</a>
+                        </div>
+
+                        <div class="form-group pdlr-4" >
+                          <a data-toggle="modal" data-target="#audit" class="btn default-btn btn-sm" >
+                            <span class="fa-fw fa fa-trash-o mr-5 text-warning"></span>作废</a>
+                        </div>
+                        <div class="form-group pdlr-4" >
+                          <a data-toggle="modal" data-target="#audit" class="btn default-btn btn-sm" >
+                            <span class="fa-fw fa fa-mail-reply-all mr-5 text-primary"></span>弃废</a>
+                        </div>
                         <div class="form-group btn-group pdlr-4">
                           <a class="btn default-btn btn-sm dropdown-toggle" (click)="showAllCheck()" data-toggle="dropdown">
                             <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
 
                           <ul class="dropdown-menu" role="menu">
+                            <li><a  data-toggle="modal" data-target="#audit"><span class="fa-fw fa  fa-stop  mr-5 text-warning"></span>批量审核</a></li>
+                            <li class="divider"></li>
+                            <li><a  data-toggle="modal" data-target="#audit"><span class="fa-fw fa fa-trash-o mr-5 text-warning"></span>批量作废</a></li>
+                            <li><a  data-toggle="modal" data-target="#audit"><span class="fa-fw fa fa-mail-reply-all mr-5 text-primary"></span>批量弃废</a></li>
+                            <li class="divider"></li>
                             <li><a (click)="deleteAssets('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
                           </ul>
                         </div>
@@ -62,16 +80,16 @@
                 <div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-scrolling">
                   <table class="table table-striped   smart-form table-height-20">
                     <thead>
-                    <tr style="height: 34px;" >
-                      <td><label class="checkbox " >
-                        <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)" >
+                    <tr  >
+                      <td><label class="checkbox padding-top-10" >
+                        <input type="checkbox " name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)" >
                         <i></i>
                       </label>
                       </td>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr  style="height: 34.5px;" *ngFor="let al of assetsList.result?.assetsList?.data">
+                    <tr   *ngFor="let al of assetsList.result?.assetsList?.data">
                       <td >
                         <div class="">
                           <label class="checkbox padding-top-10" *ngIf="cid != super_admin_id && cid != al.c_id" >
@@ -92,13 +110,28 @@
                   <table class="table table-striped  smart-form table-height-20">
                     <thead>
                     <tr>
+                      <th>审核状态 </th>
                       <th>资产编号</th>
                       <th>资产名称</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr *ngFor="let a of assetsList.result?.assetsList?.data" (click)="isStatusShow(a.assets_id,a.assets_status)" [ngClass]="{'table-color':editStatusAssetsId == a.assets_id}"><!--class="table-color"-->
-                      <td><span class="">{{a.assets_number}}</span></td>
+                      <td>
+                        <div>
+                          <span class="label-maintain maintain-style editor" data-toggle="modal" data-target="#audit"><i class="glyphicon glyphicon-exclamation-sign approval-icon" ></i>审核</span>
+                          <span class="label-unknown" >待审核</span>
+                          <span class="label-maintain" >审核中</span>
+                          <span class="label-normal">已同意</span>
+                          <span  class="label-full">已拒绝</span>
+                          <span  class="label-full">已作废</span>
+
+                        </div>
+
+                      </td>
+                      <td>
+                        <span class="click-a"><a>{{a.assets_number}}</a></span>
+                        </td>
                       <td><span class="">{{a.assets_name}}</span></td>
                     </tr>
                     </tbody>
@@ -159,6 +192,14 @@
       <div class="modal-body  height-overflow-380">
         <div class="row">
           <form   class="smart-form ">
+            <div class="picture-opacity" style="left: -24px; top: 38px;position: absolute;z-index: 999;">
+              <!--同意-->
+              <img class="" src="assets/img/chapter1.png">
+              <!--拒绝-->
+              <img  class="" src="assets/img/chapter2.png">
+              <!--作废-->
+              <img  class="" src="assets/img/chapter4.png">
+            </div>
             <fieldset>
               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <section>
@@ -215,6 +256,21 @@
 
       </div>
       <div class="modal-footer">
+        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#audit">
+          审核
+        </button>
+        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#audit">
+          作废
+        </button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#audit">
+          弃废
+        </button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cuiBan">
+          催办
+        </button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+          转交
+        </button>
         <!--<button class="btn btn-success btn-sm" type="button"><span class="glyphicon glyphicon-plus"></span>保存并新增</button>-->
         <button type="button" class="btn btn-primary" (click)="onSubmit()">保存</button>
         <button type="button" class="btn btn-default" (click)="clear_('add')">返回</button>
@@ -237,6 +293,14 @@
       <div class="modal-body height-overflow-380">
         <div class="row ">
           <div class="col-sm-12">
+            <div class="picture-opacity" style="left: -24px; top: 38px;position: absolute;z-index: 999;">
+              <!--同意-->
+              <img class="" src="assets/img/chapter1.png">
+              <!--拒绝-->
+              <img  class="" src="assets/img/chapter2.png">
+              <!--作废-->
+              <img  class="" src="assets/img/chapter4.png">
+            </div>
             <div class="" >
               <P class="alert alert-info">基本信息</P>
               <table class="table table-striped table-forum">
@@ -282,4 +346,321 @@
 </div>
 
 
+<div class="modal fade bg-transparent" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- 关闭按钮 -->
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          ×
+        </button>
+        <!-- 标题 -->
+        <h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>选择人</h3>
+      </div>
+      <div class="modal-body ">
+        <div  class="row">
+          <article  class="col-sm-12">
+            <div class="navbar navbar-default">
+              <div class="collapse navbar-collapse">
 
+                <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
+                  <div class="form-group pdlr-4">
+                    <div class="form-group padding-left-10">
+                      <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15"   name="keyword_product" placeholder="请输入搜索内容" type="text">
+                    </div>
+                    <button class="btn btn-default" type="button" >
+                      <i  class="glyphicon glyphicon-search"></i>
+                      搜索
+                    </button>
+                  </div>
+
+                </form>
+              </div>
+            </div>
+          </article>
+        </div>
+        <div class="pt">
+          <div class="row margin-b50" style="padding:0 10px;">
+            <article class="form-group col col-xs-4 ">
+              <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                         [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+                <div>
+                  <div class="widget-body no-padding">
+                    <alert type="info" class="no-margin">
+                      <i class="fa-fw fa fa-sitemap"></i>
+                      部门分类
+                    </alert>
+                    <div class="pd-10 border-overflow-320" style="margin-top: -11px;">
+                      <div class="widget-body">
+                        <div class="tree smart-form">
+                          <ul class="">
+                            <li class=" parent_li">
+                                  <span>
+                                    <label class="checkbox inline-block tree-label pt-12 ">
+                                          <input name="checkbox-inline" type="checkbox"><i></i>
+                                   </label>
+                                    <i class="fa fa-lg fa-folder-open"></i>矿易帮
+                                    <i class="sa-icon fa fa-lg fa-minus-circle"></i>
+                                  </span>
+                              <ul class="">
+                                <li class=" parent_li">
+                                        <span>
+                                          <label class="checkbox inline-block tree-label ">
+                                            <input name="checkbox-inline" type="checkbox">
+                                            <i></i>财务部
+                                            <em class="txt-color-blue">(0)</em>
+                                          </label>
+
+                                        </span>
+                                </li>
+                                <li class=" parent_li">
+                                        <span>
+                                          <label class="checkbox inline-block tree-label ">
+                                            <input name="checkbox-inline" type="checkbox">
+                                            <i></i>互联网部
+                                            <em class="txt-color-blue">(0)</em>
+                                          </label>
+
+                                        </span>
+                                </li>
+                                <li class=" parent_li">
+                                        <span>
+                                          <label class="checkbox inline-block tree-label ">
+                                            <input name="checkbox-inline" type="checkbox">
+                                            <i></i>行政部
+                                            <em class="txt-color-blue">(0)</em>
+                                          </label>
+                                           <i class="sa-icon fa fa-lg fa-plus-circle"></i>
+                                        </span>
+                                  <ul class="">
+                                    <li>
+                                            <span>
+                                              <label class="checkbox inline-block tree-label">
+                                                <input name="checkbox-inline" type="checkbox">
+                                                <i></i>财务部
+                                                <em class="txt-color-blue">(0)</em>
+                                              </label>
+                                            </span>
+                                    </li>
+                                  </ul>
+
+                                </li>
+                                <li class=" parent_li">
+                                        <span>
+                                          <label class="checkbox inline-block tree-label ">
+                                            <input name="checkbox-inline" type="checkbox">
+                                            <i></i>软件部
+                                            <em class="txt-color-blue">(2)</em>
+                                          </label>
+                                        </span>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="dt-toolbar">
+                    </div>
+                  </div>
+                </div>
+              </sa-widget>
+
+            </article>
+            <article class="form-group col col-xs-8 ">
+              <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                         [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+                <div>
+                  <div class="widget-body no-padding">
+                    <alert type="info" class="no-margin" >
+                      <i class="fa-fw fa fa-table"></i>
+                      员工列表
+                    </alert>
+                    <div class="mt-10 "  style="padding:0;">
+                      <div style="padding: 0;z-index: 1;" class="table-responsive border-overflow-320">
+                        <table class="table table-striped   smart-form table-height-20">
+                          <thead>
+                          <tr>
+                            <td>
+                              <label class="checkbox mt-8">
+                                <input type="checkbox" name="checkbox-inline" >
+                                <i></i>
+                              </label>
+                            </td>
+                            <th>员工ID </th>
+                            <th>姓名</th>
+                            <th>所属部门</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr >
+                            <td>
+                              <label class="checkbox mt-8" >
+                                <input type="checkbox"   />
+                                <i></i>
+                              </label>
+                            </td>
+                            <td>dgff</td>
+                            <td>dfgd</td>
+                            <td>dfgfd</td>
+                          </tr>
+                          <tr >
+                            <td>
+                              <label class="checkbox mt-8" >
+                                <input type="checkbox"   />
+                                <i></i>
+                              </label>
+                            </td>
+                            <td>dgff</td>
+                            <td>dfgd</td>
+                            <td>dfgfd</td>
+                          </tr>
+                          <tr >
+                            <td>
+                              <label class="checkbox mt-8" >
+                                <input type="checkbox"   />
+                                <i></i>
+                              </label>
+                            </td>
+                            <td>dgff</td>
+                            <td>dfgd</td>
+                            <td>dfgfd</td>
+                          </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <!-- 底部-（分页部分）-->
+                    <div class="dt-toolbar">
+                      <div class="col-xs-12 col-sm-6">
+                        <span>共5条</span>
+                      </div>
+                      <div class="hidden-xs right">
+                        <ul class="pagination pagination-sm">
+                          <li *ngFor="let p of searchProductList?.result?.page" class="{{p.class}}">
+                            <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+                            <a *ngIf="p.method==''">{{p.text}}</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </sa-widget>
+              <!-- end widget -->
+            </article>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-ng-click="ok()"><span class="glyphicon glyphicon-plus"></span>选入</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" >返回</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- 催办-->
+<div class="modal fade bg-transparent" id="cuiBan" tabindex="-1" role="dialog">
+  <div class="modal-dialog" style="width:400px;">
+    <div class="modal-content text-center">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <!-- 标题 -->
+        <h3 class="modal-title " data-ng-bind='results.title'>提示</h3>
+      </div>
+      <div class="pd-20">
+        <div class="text-center pd-20">
+          <h4>你确定要发送催办消息吗？</h4>
+        </div>
+      </div>
+      <div class="modal-footer text-center">
+
+        <button type="button" class="btn btn btn-primary  btn-lg" data-dismiss="modal">确定</button>
+        <button type="button" class="btn btn-default  btn-lg" data-dismiss="modal">取消</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- 审批 -->
+
+<div class="modal fade" id="audit" tabindex="-1" role="dialog">
+  <div class="modal-dialog" style="width:500px;">
+    <div class="modal-content text-center">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <!-- 标题 -->
+        <h3 class="modal-title " data-ng-bind='results.title'>提示</h3>
+      </div>
+      <div class="modal-body ">
+        <div class="row">
+          <div class="text-align-left pd-15">
+            <h4>某某的单据[CD180400004]需要您审批!</h4>
+            <h4>你确定要将单据[CD180400004]作废！</h4>
+            <h4>你确定要将单据[CD180400004]弃废！</h4>
+            <h4>您确认批量作废当前选中的[4]张单据吗？</h4>
+            <h4>您确认批量弃废当前选中的[4]张单据吗？</h4>
+            <h4>您确认批量审核当前选中的[4]张单据吗？</h4>
+          </div>
+          <form  class="smart-form" >
+            <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+              <section>
+                <label class="textarea textarea-resizable">
+                  <textarea class="custom-scroll" rows="8" name="" placeholder="请输入你的意见"></textarea>
+                </label>
+              </section>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="modal-footer text-center">
+        <button type="button" class="btn btn-success  btn-lg" data-dismiss="modal" data-toggle="modal" data-target="#audit-center">同意</button>
+        <button type="button" class="btn btn-danger  btn-lg" data-dismiss="modal">拒绝</button>
+        <button type="button" class="btn btn-primary  btn-lg" data-dismiss="modal" data-toggle="modal" data-target="#audit-center">确定</button>
+        <button type="button" class="btn btn-default  btn-lg" data-dismiss="modal">取消</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div class="modal fade" id="audit-center" tabindex="-1" role="dialog">
+  <div class="modal-dialog" style="width:500px;">
+    <div class="modal-content text-center">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <!-- 标题 -->
+        <h3 class="modal-title " data-ng-bind='results.title'>开始执行批量审核，请勿关闭</h3>
+        <h3 class="modal-title " data-ng-bind='results.title'>开始执行批量作废，请勿关闭</h3>
+        <h3 class="modal-title " data-ng-bind='results.title'>开始执行批量弃废，请勿关闭</h3>
+      </div>
+      <div class="pd-20">
+        <div class="text-center pd-20">
+          <div><span>单据[CD180400005]审核成功</span></div>
+          <div><span>单据[CD180400004]审核跳过，该单据已审核！</span></div>
+          <div><span>单据[CD180400004]审核跳过，你没有权限审核该单据！</span></div>
+          <div><span>批量审核结束</span></div>
+        </div>
+        <div class="text-center pd-20">
+          <div><span>单据[CD180400005]已作废</span></div>
+          <div><span>单据[CD180400002]作废跳过，该单据已作废，请弃废后再执行作废操作！</span></div>
+          <div><span>单据[CD180400004]作废跳过，你没有权限作废该单据！</span></div>
+          <div><span>批量审核结束</span></div>
+        </div>
+        <div class="text-center pd-20">
+          <div><span>单据[CD180400001]已弃废</span></div>
+          <div><span>单据[CD180400002]弃废跳过，该单据尚未作废，请作废再执行弃废操作！</span></div>
+          <div><span>单据[CD180400004]弃废跳过，你没有权限弃废该单据！</span></div>
+          <div><span>批量审核结束</span></div>
+        </div>
+      </div>
+      <div class="modal-footer text-center">
+        <button type="button" class="btn btn btn-primary  btn-lg" data-dismiss="modal">确定</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
