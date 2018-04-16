@@ -39,11 +39,7 @@
                         <!--</div>-->
                         <div class="form-group pdlr-4" >
                           <a data-toggle="modal" data-target="#audit" class="btn default-btn btn-sm" >
-                            <span class="fa-fw fa fa-check mr-5 text-success"></span>同意</a>
-                        </div>
-                        <div class="form-group pdlr-4" >
-                          <a data-toggle="modal" data-target="#audit" class="btn default-btn btn-sm" >
-                            <span class="fa-fw fa fa-stop  mr-5 text-danger"></span>拒绝</a>
+                            <span class="fa-fw fa fa-stop  mr-5 text-warning"></span>审核</a>
                         </div>
 
                         <div class="form-group pdlr-4" >
@@ -62,8 +58,7 @@
                             <!--<li><a (click)="editStatus(1,'all')"><span class="fa-fw fa fa-play mr-5 color-green"></span>批量设为启动</a></li>-->
                             <!--<li><a (click)="editStatus(2,'all')"><span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>批量设为无效</a></li>-->
                             <!--<li class="divider"></li>-->
-                            <li><a  data-toggle="modal" data-target="#audit"><span class="fa-fw fa  fa-check mr-5 text-success"></span>批量同意</a></li>
-                            <li><a  data-toggle="modal" data-target="#audit"><span class="fa-fw fa  fa-stop mr-5 text-danger"></span>批量拒绝</a></li>
+                            <li><a  data-toggle="modal" data-target="#audit"><span class="fa-fw fa  fa-stop  mr-5 text-warning"></span>批量审核</a></li>
                             <li class="divider"></li>
                             <li><a  data-toggle="modal" data-target="#audit"><span class="fa-fw fa fa-trash-o mr-5 text-warning"></span>批量作废</a></li>
                             <li><a  data-toggle="modal" data-target="#audit"><span class="fa-fw fa fa-mail-reply-all mr-5 text-primary"></span>批量弃废</a></li>
@@ -218,6 +213,7 @@
 
 
 
+
 <div class="modal fade" id="audit" tabindex="-1" role="dialog">
   <div class="modal-dialog" style="width:500px;">
     <div class="modal-content text-center">
@@ -226,17 +222,28 @@
         <!-- 标题 -->
         <h3 class="modal-title " data-ng-bind='results.title'>提示</h3>
       </div>
-      <div class="pd-20">
-        <div class="text-center pd-20">
-          <h4>某某的的单据[CD180400004]需要您审批!</h4>
-          <h4>你确定要将单据[CD180400004]作废！</h4>
-          <h4>你确定要将单据[CD180400004]弃废！</h4>
-          <h4>您确认批量作废当前选中的[4]张单据吗？</h4>
-          <h4>您确认批量弃废当前选中的[4]张单据吗？</h4>
-          <h4>您确认批量同意当前选中的[4]张单据吗？</h4>
-          <h4>您确认批量拒绝当前选中的[4]张单据吗？</h4>
+      <div class="modal-body ">
+        <div class="row">
+          <div class="text-align-left pd-15">
+            <h4>某某的单据[CD180400004]需要您审批!</h4>
+            <h4>你确定要将单据[CD180400004]作废！</h4>
+            <h4>你确定要将单据[CD180400004]弃废！</h4>
+            <h4>您确认批量作废当前选中的[4]张单据吗？</h4>
+            <h4>您确认批量弃废当前选中的[4]张单据吗？</h4>
+            <h4>您确认批量审核当前选中的[4]张单据吗？</h4>
+          </div>
+          <form  class="smart-form" >
+            <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+              <section>
+                <label class="textarea textarea-resizable">
+                  <textarea class="custom-scroll" rows="8" name="" placeholder="请输入你的意见"></textarea>
+                </label>
+              </section>
+            </div>
+          </form>
         </div>
       </div>
+
       <div class="modal-footer text-center">
         <button type="button" class="btn btn-success  btn-lg" data-dismiss="modal" data-toggle="modal" data-target="#audit-center">同意</button>
         <button type="button" class="btn btn-danger  btn-lg" data-dismiss="modal">拒绝</button>
@@ -260,13 +267,7 @@
       </div>
       <div class="pd-20">
         <div class="text-center pd-20">
-          <div><span>单据[CD180400005]审核已通过</span></div>
-          <div><span>单据[CD180400004]审核跳过，该单据已审核！</span></div>
-          <div><span>单据[CD180400004]审核跳过，你没有权限审核该单据！</span></div>
-          <div><span>批量审核结束</span></div>
-        </div>
-        <div class="text-center pd-20">
-          <div><span>单据[CD180400005]审核已拒绝</span></div>
+          <div><span>单据[CD180400005]审核成功</span></div>
           <div><span>单据[CD180400004]审核跳过，该单据已审核！</span></div>
           <div><span>单据[CD180400004]审核跳过，你没有权限审核该单据！</span></div>
           <div><span>批量审核结束</span></div>
