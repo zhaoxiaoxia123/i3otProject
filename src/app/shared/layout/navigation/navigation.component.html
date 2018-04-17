@@ -197,7 +197,7 @@
 
         </ul>
       </li>
-      <li *ngIf="c_id == medical_id">
+      <li *ngIf="c_id != medical_id">
         <a href="#"><i class=" fa fa-lg fa-fw fa-sitemap"></i> <span
                 class="menu-item-parent">{{'流程审批' | i18n}}</span></a>
         <ul>
@@ -355,7 +355,7 @@
           </li>
         </ul>
       </li>
-      <li>
+      <li *ngIf="c_id == medical_id">
         <a href="#"><i class="fa fa-lg fa-fw  fa-bell"></i>
           <span class="menu-item-parent">{{'待办事项' | i18n}}</span></a>
         <ul>

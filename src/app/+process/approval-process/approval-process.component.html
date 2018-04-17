@@ -245,8 +245,8 @@
                             <span >{{approvalInfo?.result?.department_name}}</span>
                         </div>
 
-                        <div class="line approve-formschema" *ngIf="approvalInfo?.result?.detail">
-                            <div class="subs-row" *ngFor="let dt1 of approvalInfo?.result?.detail?.trip;let ind1 = index;">
+                        <div class="line approve-formschema" *ngIf="approvalInfo?.result?.detail?.detail">
+                            <div class="subs-row" *ngFor="let dt1 of approvalInfo?.result?.detail?.detail;let ind1 = index;">
                                 <label class="label row-label-title" >
                                     <span >报销明细{{ind1}}</span>
                                 </label>

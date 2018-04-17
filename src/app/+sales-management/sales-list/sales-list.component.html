@@ -170,11 +170,11 @@
                     <tbody>
                     <tr *ngFor="let p1 of purchaseList.result?.purchaseList?.data" (click)="isStatusShow(p1.pr_id,p1.pr_status)" [ngClass]="{'table-color':editStatusPurchaseId == p1.pr_id}"><!--class="table-color" --->
                       <td>
-                         <span >
-                            <span class="label-normal" >销货单</span>
-                            <span class="label-invalid" >退货单</span>
-                            <span class="label-unknown" >未知</span>
-                          </span>
+                         <span [ngSwitch]="p1.pr_type">
+                            <span class="label-normal" *ngSwitchCase="4">销货单</span>
+                            <span class="label-invalid" *ngSwitchCase="5">退货单</span>
+                            <span class="label-unknown" *ngSwitchDefault>未知</span>
+                         </span>
                       </td>
                       <td>{{p1.supplier}}</td>
                       <td>{{p1.department_name}}</td>
