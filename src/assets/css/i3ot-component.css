@@ -5806,3 +5806,106 @@ ul.checkable.checkable--popboxmenu li a .label-name {
     opacity: 0.6;
     filter: alpha(opacity=60);
 }
+
+/*物联网-豆腐块*/
+
+.status .text {
+    line-height: 2em;
+    padding: 10px;
+}
+.status .text>h4{
+    border-bottom: 1px solid rgba(0,0,0,.07);
+    height: 28px;
+    margin-bottom:10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.status .text>div{
+    overflow: hidden;
+    height: 36px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.status-pd{
+    padding:30px 18px;
+}
+.status.panel-body {
+    padding: 0;
+}
+.status .links {
+    border-top: 1px solid rgba(0,0,0,.07);
+    margin: 0;
+    padding:6px;
+    background: #fafafa;
+}
+.status .links li {
+    display: inline;
+    padding-right: 10px;
+}
+.status .links .fa {
+    color: inherit;
+    font-size: 14px;
+    margin-right: 2px;
+}
+
+
+.testing-data .fact-data h3 {
+    text-transform: uppercase;
+    margin: 0;
+    font-weight: 200;
+    font-size: 13px;
+}
+.testing-data .fact-data h2{
+    margin: 0;
+    font-size: 20px;
+    font-weight: 300;
+}
+.testing-data{
+    padding: 6px 6px 0 6px;
+}
+.testing-data .header{
+    padding-bottom: 6px;
+    border-bottom: 1px solid #ddd;
+
+}
+.testing-data .header h2,.testing-data .header h3{
+    font-size:14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.testing-data .fact-data {
+    margin: 6px 0;
+    display: inline-block;
+    width: 48%;
+    vertical-align: top;
+}
+.testing-data .fact-data:first-child {
+    border-right: 1px solid #ddd;
+}
+
+.testing-data .stat-data{
+    float: left;
+    /*border-right: 1px solid #ddd;*/
+    margin: 6px 0;
+    padding: 10px;
+    text-align: center;
+    display: inline-block;
+    vertical-align: top;
+}
+.testing-data .stat-data1{
+    text-align: center;
+    margin: 10px 0;
+}
+.testing-data .stat-data1 .stat-number{
+    padding: 6px;
+    float: left;
+    border-left: 1px solid #ddd;
+}
+.panel:hover{
+    border: 1px solid #169af6;
+}
+.panel{
+    cursor: pointer;
+}

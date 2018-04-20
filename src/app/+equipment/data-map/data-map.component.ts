@@ -1,4 +1,6 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild,Pipe, PipeTransform} from '@angular/core';
+
+import {Router} from "@angular/router";
 import {FadeInTop} from '../../shared/animations/fade-in-top.decorator';
 import {Observable} from "rxjs/Observable";
 import {Http} from "@angular/http";
@@ -440,8 +442,6 @@ export class DataMapComponent implements OnInit {
 
 }
 
-import { Pipe, PipeTransform } from '@angular/core';
-import {Router} from "@angular/router";
 import {any} from "codelyzer/util/function";
 
 @Pipe({name: 'keys'})

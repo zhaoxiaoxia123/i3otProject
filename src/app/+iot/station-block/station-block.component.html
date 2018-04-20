@@ -1,0 +1,418 @@
+<div id="content">
+  <!--<div class="row">
+    <sa-big-breadcrumbs [items]="['物联网管理', '基站传感数据']" icon="file-text-o" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+  </div>-->
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-sm-12">
+        <sa-widget  [editbutton]="false" [deletebutton]="false" [colorbutton]="false">
+          <header><span class="widget-icon"> <i class="fa fa-table"></i></span>
+            <h2>基站传感数据</h2>
+            <div class="jarviswidget-ctrls" role="menu">
+              <a routerLink="/equipment/chart-setting" href="javascript:void(0);" class="button-icon jarviswidget-edit-btn" rel="tooltip" title="Edit" data-placement="bottom">
+                <i class="fa fa-cog"></i></a>
+            </div>
+            <div class="widget-toolbar">
+              <button class="btn btn-save"  routerLink="/equipment/station-chart">切换布局</button>
+
+            </div>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <div class="row">
+                <article class="col-sm-12">
+                  <div class="navbar navbar-default">
+                    <div class="collapse navbar-collapse" >
+                      <form class="navbar-form navbar-left" role="search"  >
+                        <div class="form-group">
+                          <input type="text" name="keyword" maxlength="15" class="form-control" placeholder="请输入搜索内容">
+                        </div>
+                        <button type="submit" class="btn btn-default">
+                          <i class="glyphicon glyphicon-search"></i>
+                          搜索
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </article>
+              </div>
+              <div class="row status-pd" >
+
+                <!--方案二-->
+                <div class="col-sm-4 col-lg-2 col-xs-6">
+                  <div class="panel panel-default" data-toggle="modal" data-target="#element">
+                    <div class="testing-data">
+                      <div class="header">
+                        <h2><i class="fa fa-location-arrow"></i> 四川省成都市下南大街59号世代锦江国际酒店25楼</h2>
+                        <h3 class="text-align-center"><span>设备名称<small>ID:2155454</small></span></h3>
+                      </div>
+                      <div class="content no-padding">
+                        <div class="fact-data text-center">
+                          <h3>血氧</h3>
+                          <h2>60%</h2>
+                        </div>
+                        <div class="fact-data text-center">
+                          <h3>状态</h3>
+                          <div class="">
+                            <h2 class="text-success">使用中</h2>
+                            <!--<h2  class="text-unknown">未激活</h2>-->
+                            <!--<h2  class="text-maintain">返厂维修</h2>-->
+                            <!--<h2  class="text-invalid">报废</h2>-->
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="status">
+                      <ul class="links">
+                        <li>
+                          <a (click)="(null)"><i class="glyphicon glyphicon-plus"></i>添加对比</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-lg-2 col-xs-6">
+                  <div class="panel panel-default" data-toggle="modal" data-target="#element">
+                    <div class="testing-data">
+                      <div class="header">
+                        <h2><i class="fa fa-location-arrow"></i> 四川省成都市下南大街59号世代锦江国际酒店25楼</h2>
+                        <h3 class="text-align-center"><span>设备名称<small>ID:2155454</small></span></h3>
+                      </div>
+                      <div class="content no-padding">
+                        <div class="fact-data text-center">
+                          <h3>血氧</h3>
+                          <h2>60%</h2>
+                        </div>
+                        <div class="fact-data text-center">
+                          <h3>状态</h3>
+                          <div class="">
+                            <h2 class="text-success">使用中</h2>
+                            <!--<h2  class="text-unknown">未激活</h2>-->
+                            <!--<h2  class="text-maintain">返厂维修</h2>-->
+                            <!--<h2  class="text-invalid">报废</h2>-->
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="status">
+                      <ul class="links">
+                        <li>
+                          <a (click)="(null)"><i class="glyphicon glyphicon-plus"></i>添加对比</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-lg-2 col-xs-6">
+                  <div class="panel panel-default" data-toggle="modal" data-target="#element">
+                    <div class="testing-data">
+                      <div class="header">
+                        <h2><i class="fa fa-location-arrow"></i> 四川省成都市下南大街59号世代锦江国际酒店25楼</h2>
+                        <h3 class="text-align-center"><span>设备名称<small>ID:2155454</small></span></h3>
+                      </div>
+                      <div class="content no-padding">
+                        <div class="fact-data text-center">
+                          <h3>血氧</h3>
+                          <h2>60%</h2>
+                        </div>
+                        <div class="fact-data text-center">
+                          <h3>状态</h3>
+                          <div class="">
+                            <h2 class="text-success">使用中</h2>
+                            <!--<h2  class="text-unknown">未激活</h2>-->
+                            <!--<h2  class="text-maintain">返厂维修</h2>-->
+                            <!--<h2  class="text-invalid">报废</h2>-->
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="status">
+                      <ul class="links">
+                        <li>
+                          <a (click)="(null)"><i class="glyphicon glyphicon-plus"></i>添加对比</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-lg-2 col-xs-6">
+                  <div class="panel panel-default" data-toggle="modal" data-target="#element">
+                    <div class="testing-data">
+                      <div class="header">
+                        <h2><i class="fa fa-location-arrow"></i> 四川省成都市下南大街59号世代锦江国际酒店25楼</h2>
+                        <h3 class="text-align-center"><span>设备名称<small>ID:2155454</small></span></h3>
+                      </div>
+                      <div class="content no-padding">
+                        <div class="fact-data text-center">
+                          <h3>血氧</h3>
+                          <h2>60%</h2>
+                        </div>
+                        <div class="fact-data text-center">
+                          <h3>状态</h3>
+                          <div class="">
+                            <h2 class="text-success">使用中</h2>
+                            <!--<h2  class="text-unknown">未激活</h2>-->
+                            <!--<h2  class="text-maintain">返厂维修</h2>-->
+                            <!--<h2  class="text-invalid">报废</h2>-->
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="status">
+                      <ul class="links">
+                        <li>
+                          <a (click)="(null)"><i class="glyphicon glyphicon-plus"></i>添加对比</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-lg-2 col-xs-6">
+                  <div class="panel panel-default" data-toggle="modal" data-target="#element">
+                    <div class="testing-data">
+                      <div class="header">
+                        <h2><i class="fa fa-location-arrow"></i> 四川省成都市下南大街59号世代锦江国际酒店25楼</h2>
+                        <h3 class="text-align-center"><span>设备名称<small>ID:2155454</small></span></h3>
+                      </div>
+                      <div class="content no-padding">
+                        <div class="fact-data text-center">
+                          <h3>血氧</h3>
+                          <h2>60%</h2>
+                        </div>
+                        <div class="fact-data text-center">
+                          <h3>状态</h3>
+                          <div class="">
+                            <h2 class="text-success">使用中</h2>
+                            <!--<h2  class="text-unknown">未激活</h2>-->
+                            <!--<h2  class="text-maintain">返厂维修</h2>-->
+                            <!--<h2  class="text-invalid">报废</h2>-->
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="status">
+                      <ul class="links">
+                        <li>
+                          <a (click)="(null)"><i class="glyphicon glyphicon-plus"></i>添加对比</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-lg-2 col-xs-6">
+                  <div class="panel panel-default" data-toggle="modal" data-target="#element">
+                    <div class="testing-data">
+                      <div class="header">
+                        <h2><i class="fa fa-location-arrow"></i> 四川省成都市下南大街59号世代锦江国际酒店25楼</h2>
+                        <h3 class="text-align-center"><span>设备名称<small>ID:2155454</small></span></h3>
+                      </div>
+                      <div class="content no-padding">
+                        <div class="fact-data text-center">
+                          <h3>血氧</h3>
+                          <h2>60%</h2>
+                        </div>
+                        <div class="fact-data text-center">
+                          <h3>状态</h3>
+                          <div class="">
+                            <h2 class="text-success">使用中</h2>
+                            <!--<h2  class="text-unknown">未激活</h2>-->
+                            <!--<h2  class="text-maintain">返厂维修</h2>-->
+                            <!--<h2  class="text-invalid">报废</h2>-->
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="status">
+                      <ul class="links">
+                        <li>
+                          <a (click)="(null)"><i class="glyphicon glyphicon-plus"></i>添加对比</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-lg-2 col-xs-6">
+                  <div class="panel panel-default" data-toggle="modal" data-target="#element">
+                    <div class="testing-data">
+                      <div class="header">
+                        <h2><i class="fa fa-location-arrow"></i> 四川省成都市下南大街59号世代锦江国际酒店25楼</h2>
+                        <h3 class="text-align-center"><span>设备名称<small>ID:2155454</small></span></h3>
+                      </div>
+                      <div class="content no-padding">
+                        <div class="fact-data text-center">
+                          <h3>血氧</h3>
+                          <h2>60%</h2>
+                        </div>
+                        <div class="fact-data text-center">
+                          <h3>状态</h3>
+                          <div class="">
+                            <h2 class="text-success">使用中</h2>
+                            <!--<h2  class="text-unknown">未激活</h2>-->
+                            <!--<h2  class="text-maintain">返厂维修</h2>-->
+                            <!--<h2  class="text-invalid">报废</h2>-->
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="status">
+                      <ul class="links">
+                        <li>
+                          <a (click)="(null)"><i class="glyphicon glyphicon-plus"></i>添加对比</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-lg-2 col-xs-6">
+                  <div class="panel panel-default" data-toggle="modal" data-target="#element">
+                    <div class="testing-data">
+                      <div class="header">
+                        <h2><i class="fa fa-location-arrow"></i> 四川省成都市下南大街59号世代锦江国际酒店25楼</h2>
+                        <h3 class="text-align-center"><span>设备名称<small>ID:2155454</small></span></h3>
+                      </div>
+                      <div class="content no-padding">
+                        <div class="fact-data text-center">
+                          <h3>血氧</h3>
+                          <h2>60%</h2>
+                        </div>
+                        <div class="fact-data text-center">
+                          <h3>状态</h3>
+                          <div class="">
+                            <h2 class="text-success">使用中</h2>
+                            <!--<h2  class="text-unknown">未激活</h2>-->
+                            <!--<h2  class="text-maintain">返厂维修</h2>-->
+                            <!--<h2  class="text-invalid">报废</h2>-->
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="status">
+                      <ul class="links">
+                        <li>
+                          <a (click)="(null)"><i class="glyphicon glyphicon-plus"></i>添加对比</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+
+
+                <div class="col-sm-12 col-lg-12 col-xs-12">
+                  <div class="text-center">
+                    <button class="btn btn-loading btn-xs " (click)="update()">
+                      <i class="fa fa-refresh" *ngIf="!loading"></i> <span class="hidden-mobile" *ngIf="!loading">加载更多</span>
+                      <i class="fa fa-refresh fa-spin" *ngIf="loading"></i> <span class="hidden-mobile" *ngIf="loading">加载更多</span>
+                    </button>
+                  </div>
+                </div>
+
+                </div>
+              </div>
+
+          </div>
+        </sa-widget>
+      </article>
+    </div>
+
+
+
+  </sa-widgets-grid>
+
+  <!--数据对比-->
+  <div  class="bigBox animated fadeIn fast" style="border:6px solid #3276b1;" >
+    <h4 >设备数据对比 <i class="botClose fa fa-times" ></i></h4>
+    <ul >
+      <li> <i class="fa fa-times" ></i>ID: 4245</li>
+    </ul>
+    <ul class="select-hidden">
+      <li> 还没有可对比的数据！</li>
+    </ul>
+    <p class="text-align-center">
+      <a class="btn btn-info" >详情</a>
+    </p>
+  </div>
+
+
+</div>
+
+
+<div class="modal fade" id="element" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- 关闭按钮 -->
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          ×
+        </button>
+        <!-- 标题 -->
+        <h3 class="modal-title" data-ng-bind='results.title'><span>设备名称<small>ID:2155454</small>--血氧</span></h3>
+      </div>
+      <div class="modal-body ">
+        <div class="row">
+          <div class="col-xs-6" style="border: 1px solid #ccc;">
+            <div echarts [options]="chartOption" class="demo-chart-220" ></div>
+          </div>
+          <div class="col-xs-6 height-overflow-240">
+            <table class="table table-hover table-striped table-bordered " >
+              <thead>
+              <tr>
+                <th>ID</th>
+                <th >时间</th>
+                <th class="text-align-center">数据</th>
+              </tr>
+              </thead>
+              <tbody >
+              <tr class="text-align-center">
+                <td colspan="3" style="padding: 60px 0;"> spo2h无检测信息</td>
+
+              </tr>
+              <tr  >
+                <td>p10017</td>
+                <td>2017-0-19 16:00:00</td>
+                <td class="text-align-center">0.5</td>
+              </tr>
+              <tr  >
+                <td>p10017</td>
+                <td>2017-0-19 16:00:00</td>
+                <td class="text-align-center">0.5</td>
+              </tr>
+              <tr  >
+                <td>p10017</td>
+                <td>2017-0-19 16:00:00</td>
+                <td class="text-align-center">0.5</td>
+              </tr>
+              <tr  >
+                <td>p10017</td>
+                <td>2017-0-19 16:00:00</td>
+                <td class="text-align-center">0.5</td>
+              </tr>
+              <tr  >
+                <td>p10017</td>
+                <td>2017-0-19 16:00:00</td>
+                <td class="text-align-center">0.5</td>
+              </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+</div>
+
+
+
+
