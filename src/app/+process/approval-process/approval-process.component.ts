@@ -290,6 +290,7 @@ export class ApprovalProcessComponent implements OnInit {
                 }
             });
         }
+
         this.http.post(this.globalService.getDomain()+'/api/v1/addLog',{
             'other_id':this.isShowDetail,
             'other_table_name':'approval',

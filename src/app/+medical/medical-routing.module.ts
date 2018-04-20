@@ -23,7 +23,7 @@ export const routes: Routes = [
         data: {pageTitle: 'MedicalInventory'}
     },
     {
-        path: 'medical-patient',
+        path: 'medical-patient/:info',
         loadChildren: 'app/+medical/medical-patient/medical-patient.module#MedicalPatientModule',
         data: {pageTitle: 'MedicalPatient'}
     },

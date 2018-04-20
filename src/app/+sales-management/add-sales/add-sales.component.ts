@@ -63,6 +63,34 @@ export class AddSalesComponent implements OnInit {
   rollback_url : string = '/sales-management/add-sales';
     p_pur_prices : number = 0;
   url:string = '';
+
+    /**
+     * 选中的审批者
+     * @type {Array}
+     */
+    approve_user : Array<any> = [];
+    /**
+     * 选中的关注者
+     * @type {Array}
+     */
+    follower_user : Array<any> = [];
+    /**
+     * 转交人
+     * @type {Array}
+     */
+    transfer_user : Array<any> = [];
+    remove_user_ids : Array<any> = [];
+    approval_or_copy : string = '';
+    is_show_detail : string = '';
+    is_show_details : string = '';
+    approve_users : Array<any> = [];
+
+    operate_type : string = '';//操作弹框类型
+    operate_button_type : string = '';//操作按钮类型
+    operate_button_type_is_more : string = '';//是否是批量操作
+    operate_types : string = '';//操作弹框类型
+    uid : any = 0;
+    create_user_id: any = 0;
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -74,6 +102,7 @@ export class AddSalesComponent implements OnInit {
     let nav = '{"title":"添加销售单","url":"/sales-management/add-sales/0","class_":"active"}';
     this.globalService.navEventEmitter.emit(nav);
     this.url = this.globalService.getDomain();
+      this.uid = this.cookieStore.getCookie('uid');
       this.pr_id = routInfo.snapshot.params['pr_id'];
       if(this.pr_id != '' && this.pr_id != '0'){
           let id = this.pr_id;
@@ -101,7 +130,8 @@ export class AddSalesComponent implements OnInit {
       pr_qrcode:[''],
       pr_detail:[''],
       pr_note:[''],
-      // pr_voucher:['']
+        pr_assign:[''],
+        pr_copy_person:[''],
     });
   }
 
@@ -130,6 +160,9 @@ export class AddSalesComponent implements OnInit {
             pr_qrcode:this.purchaseInfo['result']['pr_qrcode'],
             // pr_detail:this.purchaseInfo['result']['pr_detail'],
             pr_note:this.purchaseInfo['result']['pr_note'],
+              pr_assign:this.purchaseInfo['result']['pr_assign'],
+              pr_copy_person:this.purchaseInfo['result']['pr_copy_person'],
+
             // pr_voucher:this.purchaseInfo['result']['pr_voucher']
           });
           this.pr_supplier_default = this.purchaseInfo['result']['pr_supplier']; //供应商
@@ -141,13 +174,19 @@ export class AddSalesComponent implements OnInit {
           if(this.purchaseInfo['result']['pr_department'] != 0){
             this.getUserList(this.purchaseInfo['result']['pr_department'],2);
           }
-          this.selectProductList = this.purchaseInfo['result']['detail'];
+          this.create_user_id = this.purchaseInfo['result']['u_id'];//当前创建者
+
+          this.approve_user = this.purchaseInfo['result']['assign_user_name'];
+            this.follower_user = this.purchaseInfo['result']['copy_user'];
+
+          this.selectProductList = this.purchaseInfo['result']['details'];
           this.p_pur_prices = 0;
           //合计
             this.selectProductList.forEach((val, idx, array) => {
                 this.p_pur_prices += parseInt(val['p_pur_price']);
             });
         });
+
   }
 
   /**
@@ -208,6 +247,15 @@ export class AddSalesComponent implements OnInit {
       alert('请填写单据号！');
       return false;
     }
+      let approve_user_ids = [];
+      this.approve_user.forEach((val, idx, array) => {
+          approve_user_ids.push(val['id'].toString());
+      });
+      let follower_user_ids = [];
+      this.follower_user.forEach((val, idx, array) => {
+          follower_user_ids.push(val['id'].toString());
+      });
+
     this.http.post(this.globalService.getDomain()+'/api/v1/addPurchase',{
       'pr_id':this.formModel.value['pr_id'],
       'pr_order':this.formModel.value['pr_order'],
@@ -221,13 +269,12 @@ export class AddSalesComponent implements OnInit {
       'pr_transport':this.formModel.value['pr_transport'],
       'pr_qrcode':this.formModel.value['pr_qrcode'],
       'pr_note':this.formModel.value['pr_note'],
-        'pr_status':1,
-      // 'pr_voucher':this.formModel.value['pr_voucher'],
+      'pr_assign':JSON.stringify(approve_user_ids),
+      'pr_copy_person':JSON.stringify(follower_user_ids),
       'pr_detail' :JSON.stringify(this.selectProductList),
       'u_id':this.cookieStore.getCookie('uid'),
       'sid':this.cookieStore.getCookie('sid')
-    }).subscribe(
-        (data)=>{
+    }).subscribe((data)=>{
           let info = JSON.parse(data['_body']);
           alert(info['msg']);
           if(info['status'] == 200) {
@@ -236,8 +283,7 @@ export class AddSalesComponent implements OnInit {
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
-        }
-    );
+        });
   }
 
   //------------------------以下为弹框内的操作-----------------------------
@@ -519,6 +565,105 @@ export class AddSalesComponent implements OnInit {
             console.log(this.p_pur_prices);
         }
     }
+
+    //--------------弹框  选择审批人和关注者--------------
+    showDetail(type:string){
+        this.approval_or_copy = type;
+        setTimeout(()=>{
+            this.is_show_detail =  '1';
+            console.log(this.is_show_detail);
+        },500);
+    }
+
+    /**
+     * 获取任务通知点击后的状态
+     * @param value
+     */
+    getData(value:any){
+        let id = '';
+        if(this.approval_or_copy == 'assign'){
+            this.approve_user = JSON.parse(value);
+        }else if(this.approval_or_copy == 'follower'){
+            this.follower_user = JSON.parse(value);
+        }else if(this.approval_or_copy == 'transfer'){
+            this.transfer_user = JSON.parse(value);
+
+            this.transfer_user.forEach((val, idx, array) => {
+                id += '"'+val['id']+'",';
+            });
+
+            this.http.post(this.globalService.getDomain()+'/api/v1/addLog',{
+                'other_id':this.pr_id,
+                'other_table_name':'purchase',
+                'log_type':'purchase_sale',
+                'log_operation_type':'transfer',
+                'log_uid':id,
+                'create_user_id':this.purchaseInfo['result']['u_id'],
+                'u_id':this.cookieStore.getCookie('uid'),
+                'sid':this.cookieStore.getCookie('sid')
+            }).subscribe((data)=>{
+                let info = JSON.parse(data['_body']);
+
+                if(info['status'] == 200) {
+                    this.getPurchaseInfo(this.pr_id);
+                }else if(info['status'] == 202){
+                    alert(info['msg']);
+                    this.cookieStore.removeAll(this.rollback_url);
+                    this.router.navigate(['/auth/login']);
+                }else if(info['status'] == 9999 || info['status'] == 201) {
+                    alert(info['msg']);
+                }
+            });
+
+        }
+    }
+
+    getShowStatus(value:any){
+        this.is_show_detail = value;
+    }
+
+    /**
+     * remove user
+     * @param ind
+     */
+    removeUser(ind:number,type:any){
+        this.remove_user_ids.push(ind);
+        let array_ : Array<any> = [];
+        if(type == 'assign') {
+            this.approve_user.forEach((val, idx, array) => {
+                if (val['id'] != ind) {
+                    array_.push(val);
+                }
+            });
+            this.approve_user = array_;
+        }else if(type == 'follower') {
+            this.follower_user.forEach((val1, idx1, array1) => {
+                if ( val1['id'] != ind) {
+                    array_.push(val1);
+                }
+            });
+            this.follower_user = array_;
+        }
+    }
+
+
+    //-----------审核按钮操作-------
+    /**
+     * 显示操作弹出框
+     * @param type
+     */
+    public showModal(type:string,type1:string): void {
+        this.operate_type = type;
+        this.operate_button_type = type1;
+        this.operate_button_type_is_more = '';
+    }
+
+    getOperateTypes(value:any){
+        this.operate_type = '';
+        this.operate_button_type = '';
+        this.getPurchaseInfo(this.pr_id);
+    }
+
 
     @ViewChild('lgModal') public lgModal:ModalDirective;
 

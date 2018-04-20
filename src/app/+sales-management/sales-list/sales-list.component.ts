@@ -29,6 +29,22 @@ export class SalesListComponent implements OnInit {
   type : number = 4;
   keyword:string = '';
   rollback_url : string = '/sales-management/sales-list';
+
+  /**
+   * 用作审核的变量
+   */
+  uid : any = '';//当前登录用户id
+  pr_status : any = '';//当前选中的状态值
+  pr_u_id : any = '';//当前选中的创建者id
+  pr_u_username: any = '';//当前选中的创建者昵称
+  pr_order: any = '';//当前选中的单据号
+
+
+  operate_type : string = '';//操作弹框类型
+  operate_button_type : string = '';//操作按钮类型
+  operate_button_type_is_more : string = '';//是否是批量操作
+  select_count : any = '';//批量选中的操作条数
+  operate_types : string = '';//操作弹框类型
   constructor(
       private http:Http,
       private router : Router,
@@ -37,6 +53,7 @@ export class SalesListComponent implements OnInit {
 
     let nav = '{"title":"销售单","url":"/sales-management/sales-list","class_":"active"}';
     this.globalService.navEventEmitter.emit(nav);
+    this.uid = this.cookieStore.getCookie('uid');
     this.getPurchaseList('1');
     window.scrollTo(0,0);
   }
@@ -196,9 +213,18 @@ export class SalesListComponent implements OnInit {
   /**
    * 顶部  启用. 无效
    */
-  isStatusShow(u_id:any,status:any){
-    this.editStatusPurchaseId = u_id;
+  isStatusShow(pr_id:any,status:any,u_id:any,u_username:string,pr_order:string){
+    this.editStatusPurchaseId = pr_id;
     this.isStatus = status;
+
+    this.pr_u_id = u_id;
+    this.pr_status = status;
+    this.pr_u_username = u_username;
+    this.pr_order = pr_order;
+    console.log(this.pr_u_id);
+    console.log(this.pr_status);
+    console.log(this.pr_u_username);
+    console.log(this.pr_order);
 
     this.isAll = 0;
     this.width = '0%';
@@ -270,6 +296,46 @@ export class SalesListComponent implements OnInit {
       this.width = '5%';
       this.width_1 = '65%';
     }
+  }
+
+
+  //-----------审核按钮操作-------
+  /**
+   * 显示操作弹出框
+   * @param type
+   * is_more （all 表示多选操作）
+   */
+  public showModal(type:string,type1:string,is_more:string): void {
+    this.operate_type = type;
+    this.operate_button_type = type1;
+    this.operate_button_type_is_more = is_more;
+    let s  = [];
+    let is_select = 0;
+    this.selects.forEach((val, idx, array) => {
+      if (val == true) {
+        s[idx] = val;
+        is_select += 1;
+      }
+    });
+    this.selects = s;
+    console.log('====.selects');
+    console.log(this.selects);
+    console.log(is_select);
+    this.select_count = is_select;
+  }
+
+
+
+  getOperateTypes(value:any){
+    this.operate_type = '';
+    this.operate_button_type = '';
+
+    this.editStatusPurchaseId = 0;
+    this.pr_u_id = '';
+    this.pr_status = '';
+    this.pr_u_username = '';
+    this.pr_order = '';
+    this.getPurchaseList("1");
   }
 
 }

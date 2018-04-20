@@ -6,6 +6,7 @@ import {GlobalService} from "../../core/global.service";
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ModalDirective} from "ngx-bootstrap";
 import {isUndefined} from "util";
+import {NotificationService} from "../../shared/utils/notification.service";
 
 @Component({
   selector: 'app-medical-billing',
@@ -64,7 +65,8 @@ export class MedicalBillingComponent implements OnInit {
       private router : Router,
       private routInfo : ActivatedRoute,
       private cookieStore:CookieStoreService,
-      private globalService:GlobalService) {
+      private globalService:GlobalService,
+      private notificationService: NotificationService) {
     let nav = '{"title":"添加处方单","url":"/medical/medical-billing/0","class_":"active"}';
     this.globalService.navEventEmitter.emit(nav);
     this.url = this.globalService.getDomain();
@@ -521,5 +523,15 @@ export class MedicalBillingComponent implements OnInit {
 
 
   @ViewChild('lgModal') public lgModal:ModalDirective;
-
+  //添加按钮
+  smartModEg1() {
+    this.notificationService.smartMessageBox({
+      title: "添加",
+      content: "请在新页面添加选项，添加完成后在当前页面点击<i class='fa fa-link'></i>刷新按钮继续选择（注：刷新按钮只是局部刷新）",
+      buttons: '[取消][确定]'
+    }, (ButtonPressed) => {
+      if (ButtonPressed === "Yes") {
+      }
+    });
+  }
 }

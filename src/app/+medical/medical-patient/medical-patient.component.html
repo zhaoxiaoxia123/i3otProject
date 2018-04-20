@@ -175,7 +175,7 @@
                 <section>
                   <label  class="label ">身份证号</label>
                   <label class="input">
-                    <input  type="text" name="c_id_card" minlength="18" maxlength="18" [(ngModel)]="c_id_card" (blur)="setAge()">
+                    <input  type="text" name="c_id_card" minlength="18" maxlength="18" [(ngModel)]="c_id_card"><!-- (blur)="setAge()"-->
                     <label [ngStyle]="{'color': 'red','display': isTip==0 ? 'none':'block'}">*请输入18位身份证号码。</label>
                   </label>
                 </section>
@@ -184,7 +184,7 @@
                 <section>
                   <label class="label">年龄</label>
                   <label class="input">
-                    <input  type="number" disabled="disabled" name="c_age" [(ngModel)]="c_age" >
+                    <input  type="number" name="c_age" [(ngModel)]="c_age" >
                   </label>
                 </section>
               </div>
