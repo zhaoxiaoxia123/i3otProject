@@ -110,6 +110,11 @@ export const routes: Routes = [
             path: 'medical',
             loadChildren: 'app/+medical/medical.module#MedicalModule',
             data: {pageTitle: 'Medical'}
+        },
+        {
+            path: 'iot',
+            loadChildren: 'app/+iot/iot.module#IotModule',
+            data: {pageTitle: 'Iot'}
         }
     ]
   },

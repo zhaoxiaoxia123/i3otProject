@@ -420,6 +420,7 @@ div.dataTables_paginate ul.pagination {
     color: #fff;
     padding: 2px 10px;
 }
+
 .label-invalid{
     background-color: #a00000!important;
     color: #fff;
@@ -440,6 +441,7 @@ div.dataTables_paginate ul.pagination {
     color: #fff;
     padding: 2px 10px;
 }
+
 .label-maintain{
     background-color: #fcad37!important;
     color: #fff;
@@ -673,7 +675,21 @@ div.dataTables_paginate ul.pagination {
 .text-blove {
     color: #169af6;
 }
-
+.text-normal{
+    color: #60C060;
+}
+.text-unknown{
+    color:#909090;
+}
+.text-maintain{
+    color: #fcad37;
+}
+.text-invalid{
+    color: #a00000;
+}
+.text-full{
+    color: #ED5B56;
+}
 .bg-color-blove {
     background-color: #169af6!important;
 }
@@ -988,6 +1004,9 @@ div.dataTables_paginate ul.pagination {
 .mb-20{
     margin-bottom: 20px!important
 }
+.mb-10{
+    margin-bottom:10px!important;
+}
 
 .mr-5{
     margin-right: 5px!important
@@ -1229,6 +1248,22 @@ h1,h2,h3,h4 {
     background-color: #3782e7;
     color: #fff;
 }
+.btn-loading{
+    background-color: #ffffff;
+    padding: 4px 20px;
+    color: #909090;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+    border-radius: 4px;
+}
+.btn-loading:hover{
+    background-color: #169af6;
+    border:1px solid #3782e7;
+    color: #fff;
+}
+
 .btn-s{
     color: #ffffff;
     border: solid 1px #169af6;
@@ -1656,6 +1691,10 @@ time.icon span {
 .height-overflow-380{
     overflow: auto!important;
     height: 380px;
+}
+.height-overflow-240{
+    overflow: auto!important;
+    height: 240px;
 }
 
 .text-overflow{
