@@ -9,7 +9,8 @@ export class GlobalService {
   station1 = '1';//安全帽
   station2 = '2';//基站
   adminID = 1;//超级管理员c_id
-  medicalID = 65;//医疗公司c_id
+  medicalID = 65;//乐风医疗公司c_id
+  sjfbID = 89;//三彭州市三界丰碑育苗合作社c_id
 
   //顶部导航
   navEventEmitter:EventEmitter<any>;
@@ -51,6 +52,9 @@ export class GlobalService {
     return this.medicalID;
   }
 
+  getSjfbID() : number{
+    return this.sjfbID;
+  }
   /**
    * 是演示账号
    * @param url

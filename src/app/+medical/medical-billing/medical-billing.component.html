@@ -39,21 +39,28 @@
                       </label>
                     </section>
                   </div>
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <section>
-                      <label  class="label txt-color-blue">姓名<span  class="asterisk-color">*</span></label>
-                      <label   class="select form-control border-0">
-                        <select *ngIf="isDetail=='detail'" disabled="disabled" name="pr_supplier" formControlName="pr_supplier" [(ngModel)]="pr_supplier_default">
-                          <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
-                          <option *ngFor="let cus of purchaseList.result?.supplier" [selected]="purchaseInfo.result?.pr_supplier == cus.c_id" value="{{ cus.c_id }}">{{cus.c_name}}</option>
-                        </select>
-                        <select *ngIf="isDetail!='detail'" name="pr_supplier" formControlName="pr_supplier" [(ngModel)]="pr_supplier_default" (change)="getCustomerInfo($event,1)">
-                          <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
-                          <option *ngFor="let cus of purchaseList.result?.supplier" [selected]="purchaseInfo.result?.pr_supplier == cus.c_id" value="{{ cus.c_id }}">{{cus.c_name}}</option>
-                        </select><i></i>
-                      </label>
+                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <label class="label ">姓名</label>
+                    <section >
+                      <div class="input-group">
+                        <label class="select form-control border-0">
+                          <select *ngIf="isDetail=='detail'" disabled="disabled" name="pr_supplier" formControlName="pr_supplier" [(ngModel)]="pr_supplier_default">
+                            <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                            <option *ngFor="let cus of purchaseList.result?.supplier" [selected]="purchaseInfo.result?.pr_supplier == cus.c_id" value="{{ cus.c_id }}">{{cus.c_name}}</option>
+                          </select>
+                          <select *ngIf="isDetail!='detail'" name="pr_supplier" formControlName="pr_supplier" [(ngModel)]="pr_supplier_default" (change)="getCustomerInfo($event,1)">
+                            <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                            <option *ngFor="let cus of purchaseList.result?.supplier" [selected]="purchaseInfo.result?.pr_supplier == cus.c_id" value="{{ cus.c_id }}">{{cus.c_name}}</option>
+                          </select><i></i>
+                        </label>
+                        <div class="input-group-btn" *ngIf="isDetail!='detail'">
+                          <a  href="http://cn.i3ot.com/#/medical/medical-patient/add" target="_blank" (click)="smartModEg1()" class="btn btn-default btn-sm pb-6" type="button">添加</a>
+                          <a class="btn btn-default btn-sm pb-6" type="button" (click)="getPurchaseDefault('1')"><i class="fa fa-link"></i>刷新</a>
+                        </div>
+                      </div>
                     </section>
                   </div>
+
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
                     <section>
                       <label class="label">年龄</label>

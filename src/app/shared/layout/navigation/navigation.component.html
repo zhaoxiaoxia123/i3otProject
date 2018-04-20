@@ -2,15 +2,16 @@
   <!-- User info -->
   <sa-login-info></sa-login-info>
   <nav>
-    <ul saSmartMenu>
-      <li *ngIf="c_id != medical_id">
+
+    <!--默认导航-->
+    <ul saSmartMenu  *ngIf="c_id != medical_id && c_id != sjfbID">
+      <li>
         <a title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span
           class="menu-item-parent">{{'面板' | i18n}}</span></a>
         <ul>
           <li routerLinkActive="active">
             <a routerLink="/dashboard/dynamic-wall">{{'动态墙' | i18n}}</a>
           </li>
-
           <li routerLinkActive="active">
             <a routerLink="">{{'I3oT产品' | i18n}}</a>
           </li>
@@ -23,14 +24,13 @@
         </ul>
       </li>
 
-      <li *ngIf="c_id != medical_id">
+      <li>
         <a href="#"><i class="fa fa-lg fa-fw fa-group "></i> <span
                 class="menu-item-parent">{{'人力资源' | i18n}}</span></a>
         <ul>
           <li routerLinkActive="active">
             <a routerLink="/tables/staff">{{'员工档案' | i18n}}</a>
           </li>
-
           <li routerLinkActive="active" *ngIf="is_admin!='0'">
             <a routerLink="/forms/employees/0">{{'添加员工' | i18n}}</a>
           </li>
@@ -40,11 +40,10 @@
           <li routerLinkActive="active">
             <a routerLink="/management/setting-honor">{{'职称设置' | i18n}}</a>
           </li>
-
         </ul>
       </li>
 
-      <li *ngIf="c_id != medical_id">
+      <li>
         <a href="#"><i class="fa fa-lg fa-fw fa-cubes"></i> <span class="menu-item-parent">{{'商品管理' | i18n}}</span></a>
         <ul>
           <li routerLinkActive="active">
@@ -56,7 +55,7 @@
         </ul>
       </li>
 
-      <li *ngIf="c_id != medical_id">
+      <li>
         <a href="#"><i class="fa fa-lg fa-fw fa-suitcase"></i> <span
                 class="menu-item-parent">{{'客户管理' | i18n}}</span></a>
         <ul>
@@ -69,7 +68,7 @@
         </ul>
       </li>
 
-      <li *ngIf="c_id != medical_id">
+      <li>
         <a href="#"><i class="fa fa-lg fa-fw fa-skype"></i> <span
                 class="menu-item-parent">{{'销售管理' | i18n}}</span></a>
         <ul>
@@ -84,7 +83,7 @@
           </li>
         </ul>
       </li>
-      <li *ngIf="c_id != medical_id">
+      <li>
         <a href="#"><i class="fa fa-lg fa-fw  fa-database"></i> <span
                 class="menu-item-parent">{{'仓库管理' | i18n}}</span></a>
         <ul>
@@ -118,10 +117,9 @@
           <li routerLinkActive="active">
             <a routerLink="/management/setting-repertory">{{'出入库类别' | i18n}}</a>
           </li>
-
         </ul>
       </li>
-      <li *ngIf="c_id != medical_id">
+      <li>
         <a href="#"><i class="fa fa-lg fa-fw  fa-shopping-cart"></i> <span
                 class="menu-item-parent">{{'采购管理' | i18n}}</span></a>
         <ul>
@@ -140,11 +138,9 @@
           <li routerLinkActive="active">
             <a routerLink="/procurement-management/procurement-type">{{'采购类型' | i18n}}</a>
           </li>
-
-
         </ul>
       </li>
-      <li *ngIf="c_id != medical_id">
+      <li>
         <a href="#"><i class=" fa fa-lg fa-fw fa-cube"></i> <span
                 class="menu-item-parent">{{'资产管理' | i18n}}</span></a>
         <ul>
@@ -169,7 +165,7 @@
 
         </ul>
       </li>
-      <li *ngIf="c_id != medical_id"><!--is_admin=='1' &&  c_id != medical_id--->
+      <li *ngIf="is_admin=='1'"><!--is_admin=='1' &&  c_id != medical_id--->
         <a href="#"><i class=" fa fa-lg fa-fw fa-sitemap"></i> <span
                 class="menu-item-parent">{{'流程审批' | i18n}}</span></a>
         <ul>
@@ -197,7 +193,7 @@
 
         </ul>
       </li>
-      <li *ngIf="c_id != medical_id">
+      <li *ngIf="is_admin!='1'">
         <a href="#"><i class=" fa fa-lg fa-fw fa-sitemap"></i> <span
                 class="menu-item-parent">{{'流程审批' | i18n}}</span></a>
         <ul>
@@ -206,7 +202,7 @@
           </li>
         </ul>
       </li>
-      <li *ngIf="c_id != medical_id">
+      <li>
         <a href="#"><i class=" fa fa-lg fa-fw  fa-folder-open"></i> <span
                 class="menu-item-parent">{{'文档管理' | i18n}}</span></a>
         <ul>
@@ -216,7 +212,7 @@
 
         </ul>
       </li>
-      <li *ngIf="c_id != medical_id">
+      <li>
         <a href="#"><i class=" fa fa-lg fa-fw  fa-envelope"></i> <span
                 class="menu-item-parent">{{'邮件管理' | i18n}}</span></a>
         <ul>
@@ -264,7 +260,7 @@
 
         </ul>
       </li>
-      <li *ngIf="c_id != medical_id">
+      <li>
         <a href="#"><i class="fa fa-lg fa-fw  fa-list txt-color-blue"></i> <span
                 class="menu-item-parent txt-color-blue">{{'物联网管理' | i18n}}</span></a>
         <ul>
@@ -294,49 +290,9 @@
         </ul>
       </li>
 
-      <li *ngIf="c_id == medical_id">
-        <a title="Dashboard"><i class="fa fa-lg fa-fw fa-medkit"></i> <span
-                class="menu-item-parent">{{'医疗管理' | i18n}}</span></a>
-        <ul>
-          <li routerLinkActive="active">
-            <a routerLink="/medical/medical-commodity"><i class="fa fa-cubes"></i>{{'商品入库管理' | i18n}}</a>
-          </li>
 
-          <li routerLinkActive="active">
-            <a routerLink="/medical/medical-patient"><i class="fa fa-user-md"></i>{{'病人管理' | i18n}}</a>
-          </li>
-          <li routerLinkActive="active">
-            <a routerLink="/medical/medical-employees"><i class="fa fa-group"></i>{{'员工管理' | i18n}}</a>
-          </li>
-          <li >
-            <a href="#"><i class="fa fa-lg fa-fw fa-skype"></i> <span
-                  class="menu-item-parent">{{'销售管理' | i18n}}</span></a>
-            <ul>
-              <li routerLinkActive="active">
-                <a routerLink="/medical/medical-sales">{{'销售列表' | i18n}}</a>
-              </li>
-              <li routerLinkActive="active">
-                <a routerLink="/medical/medical-billing/0">{{'处方单' | i18n}}</a>
-              </li>
-            </ul>
-          </li>
-          <li routerLinkActive="active">
-            <a routerLink="/medical/medical-inventory"><i class="fa fa-database"></i>{{'库存管理' | i18n}}</a>
-          </li>
-          <li >
-            <a href="#"><i class="fa fa-lg fa-fw fa-cog"></i> <span
-                    class="menu-item-parent">{{'设置' | i18n}}</span></a>
-            <ul>
-              <li routerLinkActive="active">
-                <a routerLink="/inventory-management/inventory-classification">{{'商品分类' | i18n}}</a>
-              </li>
-            </ul>
-          </li>
 
-        </ul>
-      </li>
-
-      <li *ngIf="c_id != medical_id">
+      <li>
         <a href="#"><i class="fa fa-lg fa-fw  fa-inbox"><em>3</em></i> <span
                 class="menu-item-parent">{{'待办事项' | i18n}}</span></a>
         <ul>
@@ -355,16 +311,8 @@
           </li>
         </ul>
       </li>
-      <li *ngIf="c_id == medical_id">
-        <a href="#"><i class="fa fa-lg fa-fw  fa-bell"></i>
-          <span class="menu-item-parent">{{'待办事项' | i18n}}</span></a>
-        <ul>
-          <li routerLinkActive="active">
-            <a routerLink="/forms/todo-projects">{{'备忘录' | i18n}}</a>
-          </li>
-        </ul>
-      </li>
-      <li *ngIf="c_id != medical_id">
+
+      <li>
         <a href="#"><i class="fa fa-lg fa-fw   fa-bell"></i> <span
                 class="menu-item-parent">{{'广播及通知' | i18n}}</span></a>
         <ul>
@@ -374,8 +322,6 @@
           <li routerLinkActive="active" *ngIf="is_admin=='1'">
             <a routerLink="/equipment/phonics/0">{{'添加广播信息' | i18n}}</a>
           </li>
-
-
         </ul>
       </li>
 
@@ -389,28 +335,17 @@
           <li routerLinkActive="active">
             <a routerLink="/account/personal-settings">{{'个人设置' | i18n}}</a>
           </li>
-
-          <li routerLinkActive="active" *ngIf="c_id != medical_id">
+          <li routerLinkActive="active">
             <a routerLink="/account/account-permissions">{{'权限管理' | i18n}}</a>
           </li>
-
         </ul>
       </li>
-      <li *ngIf="c_id != medical_id">
+      <li>
         <a href="http://www.i3ot.com/" target="_blank"><i class="fa fa-lg fa-fw fa-university"></i> <span
                 class="menu-item-parent">{{'i3ot物联网' | i18n}}</span></a>
       </li>
-      <!--<li>
-      <a href="#"><i class="fa fa-lg fa-fw  fa-cog"></i> <span
-              class="menu-item-parent">{{'设置' | i18n}}</span></a>
-      <ul>
-        <li routerLinkActive="active">
-          <a routerLink="/tables/normal">{{'公司信息' | i18n}}</a>
-        </li>
 
-      </ul>
-    </li>-->
-      <li *ngIf="is_admin=='1' && c_id != medical_id">
+      <li *ngIf="is_admin=='1'">
         <a href="#"><i class="fa fa-lg fa-fw  fa-th txt-color-blue"></i> <span
                 class="menu-item-parent">{{'收藏夹' | i18n}}</span></a>
         <ul>
@@ -423,7 +358,6 @@
             <a href="#"><i class="fa fa-lg fa-fw fa-unlock-alt"></i> <span
                     class="menu-item-parent">{{'V1' | i18n}}</span></a>
             <ul>
-
               <li>
                 <a href="#"><i class="fa fa-lg fa-fw fa-group"></i> <span
                         class="menu-item-parent">{{'人力资源' | i18n}}</span></a>
@@ -544,19 +478,125 @@
               <li routerLinkActive="active">
                 <a routerLink="/equipment/i3otp/0">{{'添加设备' | i18n}}</a>
               </li>
-
-
             </ul>
           </li>
-
-
-
         </ul>
       </li>
-
-
-
     </ul>
+
+
+    <ul saSmartMenu  *ngIf="c_id == sjfbID">
+      <!---三彭州市三界丰碑育苗合作社 导航菜单-->
+      <li>
+        <a href="#"><i class="fa fa-lg fa-fw fa-group "></i> <span
+                class="menu-item-parent">{{'人力资源' | i18n}}</span></a>
+        <ul>
+          <li routerLinkActive="active">
+            <a routerLink="/tables/staff">{{'员工档案' | i18n}}</a>
+          </li>
+
+          <li routerLinkActive="active">
+          <a routerLink="/forms/employees/0">{{'添加员工' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/management/setting-departmentnew">{{'部门设置' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/management/setting-honor">{{'职称设置' | i18n}}</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#"><i class="fa fa-lg fa-fw  fa-list txt-color-blue"></i> <span
+                class="menu-item-parent txt-color-blue">{{'物联网管理' | i18n}}</span></a>
+        <ul>
+          <li routerLinkActive="active">
+            <a routerLink="/equipment/data-map">{{'全部实时数据' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/equipment/station-chart">{{'基站传感数据' | i18n}}</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#"><i class="fa fa-lg fa-fw  fa-credit-card"></i> <span
+                class="menu-item-parent">{{'账户管理' | i18n}}</span></a>
+        <ul>
+          <li routerLinkActive="active">
+            <a routerLink="/account/account-company">{{'公司信息' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/account/personal-settings">{{'个人设置' | i18n}}</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+
+      <!--乐风医疗管理 导航菜单-->
+      <ul saSmartMenu  *ngIf="c_id == medical_id">
+        <li>
+          <a title="Dashboard"><i class="fa fa-lg fa-fw fa-medkit"></i> <span
+                  class="menu-item-parent">{{'医疗管理' | i18n}}</span></a>
+          <ul>
+            <li routerLinkActive="active">
+              <a routerLink="/medical/medical-commodity"><i class="fa fa-cubes"></i>{{'商品入库管理' | i18n}}</a>
+            </li>
+
+            <li routerLinkActive="active">
+              <a routerLink="/medical/medical-patient/0"><i class="fa fa-user-md"></i>{{'病人管理' | i18n}}</a>
+            </li>
+            <li routerLinkActive="active">
+              <a routerLink="/medical/medical-employees"><i class="fa fa-group"></i>{{'员工管理' | i18n}}</a>
+            </li>
+            <li >
+              <a href="#"><i class="fa fa-lg fa-fw fa-skype"></i> <span
+                      class="menu-item-parent">{{'销售管理' | i18n}}</span></a>
+              <ul>
+                <li routerLinkActive="active">
+                  <a routerLink="/medical/medical-sales">{{'销售列表' | i18n}}</a>
+                </li>
+                <li routerLinkActive="active">
+                  <a routerLink="/medical/medical-billing/0">{{'处方单' | i18n}}</a>
+                </li>
+              </ul>
+            </li>
+            <li routerLinkActive="active">
+              <a routerLink="/medical/medical-inventory"><i class="fa fa-database"></i>{{'库存管理' | i18n}}</a>
+            </li>
+            <li >
+              <a href="#"><i class="fa fa-lg fa-fw fa-cog"></i> <span
+                      class="menu-item-parent">{{'设置' | i18n}}</span></a>
+              <ul>
+                <li routerLinkActive="active">
+                  <a routerLink="/inventory-management/inventory-classification">{{'商品分类' | i18n}}</a>
+                </li>
+              </ul>
+            </li>
+
+          </ul>
+        </li>
+        <li>
+          <a href="#"><i class="fa fa-lg fa-fw  fa-bell"></i>
+            <span class="menu-item-parent">{{'待办事项' | i18n}}</span></a>
+          <ul>
+            <li routerLinkActive="active">
+              <a routerLink="/forms/todo-projects">{{'备忘录' | i18n}}</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#"><i class="fa fa-lg fa-fw  fa-credit-card"></i> <span
+                  class="menu-item-parent">{{'账户管理' | i18n}}</span></a>
+          <ul>
+            <li routerLinkActive="active">
+              <a routerLink="/account/account-company">{{'公司信息' | i18n}}</a>
+            </li>
+            <li routerLinkActive="active">
+              <a routerLink="/account/personal-settings">{{'个人设置' | i18n}}</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
 
   </nav>
 

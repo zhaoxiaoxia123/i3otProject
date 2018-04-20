@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Http} from "@angular/http";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
 import {ModalDirective} from "ngx-bootstrap";
@@ -47,19 +47,33 @@ export class MedicalPatientComponent implements OnInit {
   width : string = '0%';
   width_1 : string = '80%';
 
+  page_parent : any = 0;
+
   keyword : string = '';
   cid : any = 0;//当前登录用户的所属公司id
   super_admin_id : any = 0;//超级管理员所属公司id
   // category_type : number = 21;
   rollback_url : string = '/medical/medical-patient';
+
+  @ViewChild('lgModal') public lgModal:ModalDirective;
+  @ViewChild('detailModal') public detailModal:ModalDirective;
   constructor(
       private http:Http,
       private router : Router,
+      private routInfo : ActivatedRoute,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
 
-    let nav = '{"title":"病人管理","url":"/medical/medical-patient","class_":"active"}';
+    let nav = '{"title":"病人管理","url":"/medical/medical-patient/0","class_":"active"}';
     this.globalService.navEventEmitter.emit(nav);
+
+    this.page_parent = routInfo.snapshot.params['info'];
+    console.log(this.page_parent);
+    if(this.page_parent == 'add'){
+      this.rollback_url += '/' + this.page_parent;
+    }else{
+      this.rollback_url += '/0';
+    }
 
     this.getCustomerList('1');
     window.scrollTo(0,0);
@@ -69,6 +83,11 @@ export class MedicalPatientComponent implements OnInit {
   }
 
   ngOnInit() {
+    setTimeout(()=>{
+      if(this.page_parent == 'add') {
+        this.lgModal.show();
+      }
+    },500);
   }
 
   /**
@@ -351,8 +370,5 @@ export class MedicalPatientComponent implements OnInit {
       this.width_1 = '70%';
     }
   }
-
-  @ViewChild('lgModal') public lgModal:ModalDirective;
-  @ViewChild('detailModal') public detailModal:ModalDirective;
 
 }
