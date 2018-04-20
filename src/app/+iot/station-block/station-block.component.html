@@ -354,9 +354,14 @@
           ×
         </button>
         <!-- 标题 -->
-        <h3 class="modal-title" data-ng-bind='results.title'><span>设备名称<small>ID:2155454</small>--血氧</span></h3>
+        <h3 class="modal-title" data-ng-bind='results.title'><span>血氧——设备名称<small>ID:2155454</small></span></h3>
       </div>
       <div class="modal-body ">
+        <div class="row">
+          <div class="col-xs-12 text-align-center mb-20">
+            <h4>地址：四川省成都市下南大街59号世代锦江国际酒店25楼</h4>
+          </div>
+        </div>
         <div class="row">
           <div class="col-xs-6" style="border: 1px solid #ccc;">
             <div echarts [options]="chartOption" class="demo-chart-220" ></div>
@@ -404,7 +409,9 @@
               </tbody>
             </table>
           </div>
+
         </div>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
