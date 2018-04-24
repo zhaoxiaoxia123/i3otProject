@@ -272,7 +272,7 @@
                       <div *ngFor="let char of chartOption2;let inde = index;" id="hr{{inde+1}}"><!-- [ngClass]="{'tab-pane fade in success':inde == 0,'tab-pane fade':inde != 0}"-->
                         <div *ngIf="chartOption2[inde].series[0].data.length != 0">
                           <h4 class="alert alert-info"> {{metric_title[inde]}}对比图</h4>
-                          <div echarts [options]="chartOption2[inde]" class="demo-chart"></div>
+                          <div echarts [options]="chartOption2[inde]" class="demo-chart "></div>
                         </div>
                       </div>
                     </div>

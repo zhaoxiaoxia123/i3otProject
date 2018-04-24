@@ -30,6 +30,25 @@ export class InventoryRequisitionComponent implements OnInit {
 
   keyword:string = '';
   rollback_url : string = '/inventory-management/inventory-requisition';
+
+
+  /**
+   * 用作审核的变量
+   */
+  uid : any = '';//当前登录用户id
+  sa_status : any = '';//当前选中的状态值
+  sa_u_id : any = '';//当前选中的创建者id
+  sa_u_username: any = '';//当前选中的创建者昵称
+  sa_order: any = '';//当前选中的单据号
+
+
+  operate_type : string = '';//操作弹框类型
+  operate_button_type : string = '';//操作按钮类型
+  operate_button_type_is_more : string = '';//是否是批量操作
+  select_count : any = '';//批量选中的操作条数
+  operate_types : string = '';//操作弹框类型
+  log_type:string = 'stockallot';
+  log_table_name:string = 'stockallot';
   constructor(
       private http:Http,
       private router : Router,
@@ -37,6 +56,7 @@ export class InventoryRequisitionComponent implements OnInit {
       private globalService:GlobalService) {
     let nav = '{"title":"调拨单","url":"/inventory-management/inventory-requisition","class_":"active"}';
     this.globalService.navEventEmitter.emit(nav);
+    this.uid = this.cookieStore.getCookie('uid');
     this.getStockallotList('1');
     window.scrollTo(0,0);
   }
@@ -258,9 +278,15 @@ export class InventoryRequisitionComponent implements OnInit {
   /**
    * 顶部  启用. 无效
    */
-  isStatusShow(u_id:any,status:any){
-    this.editStatusStockallotId = u_id;
+  isStatusShow(sa_id:any,status:any,u_id:any,u_username:string,sa_order:string){
+    this.editStatusStockallotId = sa_id;
     this.isStatus = status;
+
+
+    this.sa_u_id = u_id;
+    this.sa_status = status;
+    this.sa_u_username = u_username;
+    this.sa_order = sa_order;
 
     this.isAll = 0;
     this.width = '0%';
@@ -343,5 +369,40 @@ export class InventoryRequisitionComponent implements OnInit {
     }
   }
 
+
+
+  //-----------审核按钮操作-------
+  /**
+   * 显示操作弹出框
+   * @param type
+   * is_more （all 表示多选操作）
+   */
+  public showModal(type:string,type1:string,is_more:string): void {
+    this.operate_type = type;
+    this.operate_button_type = type1;
+    this.operate_button_type_is_more = is_more;
+    let s  = [];
+    let is_select = 0;
+    this.selects.forEach((val, idx, array) => {
+      if (val == true) {
+        s[idx] = val;
+        is_select += 1;
+      }
+    });
+    this.selects = s;
+    this.select_count = is_select;
+  }
+
+  getOperateTypes(value:any){
+    this.operate_type = '';
+    this.operate_button_type = '';
+
+    this.editStatusStockallotId = 0;
+    this.sa_u_id = '';
+    this.sa_status = '';
+    this.sa_u_username = '';
+    this.sa_order = '';
+    this.getStockallotList("1");
+  }
 
 }

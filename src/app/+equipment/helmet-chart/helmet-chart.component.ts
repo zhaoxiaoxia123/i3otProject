@@ -26,7 +26,7 @@ export class HelmetChartComponent implements OnInit {
     next : boolean = false;
     size : number = 20;
 
-    cid : string = '';
+    cid : any = '';
     pid : string = '';
     metric : string = '';
 
@@ -69,6 +69,7 @@ export class HelmetChartComponent implements OnInit {
 
     isShowJoin : boolean= false;
     rollback_url : string = '/equipment/helmet-chart';
+    // request_count : number = 0;
     constructor(
         fb:FormBuilder,
         private http: Http,
@@ -171,6 +172,10 @@ export class HelmetChartComponent implements OnInit {
         this.size = 20;
         let str = JSON.stringify(this.selectedStr);
         let url = this.globalService.getTsdbDomain()+'/tsdb/api/getDatapoint.php?size='+this.size+'&cid='+this.cid+'&metric='+this.metric+'&pid='+this.pid+'&selectedStr='+str;
+
+        if(this.cid == this.globalService.getSjfbNumber()){
+            url = this.globalService.getTsdbDomain()+'/tsdb/api/getsjfbDatapoint.php?size='+this.size+'&cid='+this.cid+'&metric='+this.metric+'&pid='+this.pid+'&selectedStr='+str;
+        }
         this.dataSource1 = this.http.get(url)
             .map((res)=>res.json());
         this.dataSource1.subscribe((data)=>{
@@ -442,7 +447,11 @@ export class HelmetChartComponent implements OnInit {
             }
             join_metric += this.join_str[a];
         }
+
         let url = this.globalService.getTsdbDomain()+'/tsdb/api/getDatapoint.php?size='+this.size+'&cid='+this.cid+'&metric='+join_metric+'&pid='+this.join_pid+'&type=join';
+        if(this.cid == this.globalService.getSjfbNumber()){
+            url = this.globalService.getTsdbDomain()+'/tsdb/api/getsjfbDatapoint.php?size='+this.size+'&cid='+this.cid+'&metric='+join_metric+'&pid='+this.join_pid+'&type=join';
+        }
         this.dataSource2 = this.http.get(url)
             .map((res)=>res.json());
         this.dataSource2.subscribe((data)=>{

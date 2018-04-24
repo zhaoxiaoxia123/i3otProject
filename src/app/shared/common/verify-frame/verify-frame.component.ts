@@ -24,11 +24,14 @@ export class VerifyFrameComponent implements OnInit {
     @Input() order_number ;
     @Input() operate_button_type;
     @Input() operate_button_type_is_more = '';//all ：单据为批量
-    @Input() selects = '';//选中单据
+    @Input() selects : Array<any> = [];//选中单据
     @Input() select_count = '';//选中单据条数
     @Input() operate_type ;
+    @Input() log_table_name ;
+    @Input() log_type ;
     @Output() private operate_types = new EventEmitter();
     rollback_url : string = '';
+
     constructor(
       private http:Http,
       private router : Router,
@@ -54,11 +57,25 @@ export class VerifyFrameComponent implements OnInit {
      * @param type
      */
     setModal(type:string){
-        if(this.operate_button_type_is_more == 'all'){
-            this.http.post(this.globalService.getDomain() + '/api/v1/addLog', {
-                'other_ids': JSON.stringify(this.selects),
-                'other_table_name': 'purchase',
-                'log_type': 'purchase_sale',
+        if(this.operate_button_type_is_more == 'all'){ //多选操作
+            let selects_user_ids = [];
+            this.selects.forEach((val, idx, array) => {
+                if(val == true){
+                    selects_user_ids.push(idx.toString());
+                }
+            });
+            let url = '';
+            if(this.log_type == 'purchase_sale'){
+                url = this.globalService.getDomain() + '/api/v1/addPurchaseLogForAll';
+            }else if(this.log_type == 'stockallot'){
+                url = this.globalService.getDomain() + '/api/v1/addStockAllotLogForAll';
+            }else if(this.log_type == 'otherorder_in'){
+                url = this.globalService.getDomain() + '/api/v1/addOtherorderLogForAll';
+            }
+            this.http.post(url, {
+                'other_ids': JSON.stringify(selects_user_ids),
+                'other_table_name': this.log_table_name,
+                'log_type': this.log_type,
                 'log_operation_type': type,
                 'log_detail': this.content,
                 'create_user_id': this.create_user_id,
@@ -66,9 +83,10 @@ export class VerifyFrameComponent implements OnInit {
                 'sid': this.cookieStore.getCookie('sid')
             }).subscribe((data) => {
                 let info = JSON.parse(data['_body']);
-
+                console.log(info);
                 if (info['status'] == 200) {
                     this.is_show_result = 'ok';
+                    console.log(this.is_show_result);
                     this.result_array = info;
                 } else if (info['status'] == 202) {
                     alert(info['msg']);
@@ -84,10 +102,16 @@ export class VerifyFrameComponent implements OnInit {
                 }
             });
         }else {
-            this.http.post(this.globalService.getDomain() + '/api/v1/addLog', {
+            let url = '';
+            if(this.log_type == 'purchase_sale'){
+                url = this.globalService.getDomain() + '/api/v1/addLog';
+            }else if(this.log_type == 'stockallot'){
+                url = this.globalService.getDomain() + '/api/v1/addStockAllotLog';
+            }
+            this.http.post(url, {
                 'other_id': this.pr_id,
-                'other_table_name': 'purchase',
-                'log_type': 'purchase_sale',
+                'other_table_name': this.log_table_name,
+                'log_type': this.log_type,
                 'log_operation_type': type,
                 'log_detail': this.content,
                 'create_user_id': this.create_user_id,

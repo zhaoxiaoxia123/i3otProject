@@ -352,17 +352,21 @@ export class SelectUserComponent implements OnInit {
                 if(val['id'] == val1 && val1 != false){
                     if(this.approval_or_copy == 'assign') {
                         this.approve_user.push(val);
-                        this.approve_users.emit(JSON.stringify(this.approve_user));
                     }else if(this.approval_or_copy == 'follower') {
                         this.follower_user.push(val);
-                        this.approve_users.emit(JSON.stringify(this.follower_user));
                     }else if(this.approval_or_copy == 'transfer') {
                         this.transfer_user.push(val);
-                        this.approve_users.emit(JSON.stringify(this.transfer_user));
                     }
                 }
             });
         });
+        if(this.approval_or_copy == 'assign') {
+            this.approve_users.emit(JSON.stringify(this.approve_user));
+        }else if(this.approval_or_copy == 'follower') {
+            this.approve_users.emit(JSON.stringify(this.follower_user));
+        }else if(this.approval_or_copy == 'transfer') {
+            this.approve_users.emit(JSON.stringify(this.transfer_user));
+        }
         // this.approval_or_copy = '';
         this.is_show_details.emit('');
         this.selected_user = [];

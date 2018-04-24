@@ -45,6 +45,8 @@ export class SalesListComponent implements OnInit {
   operate_button_type_is_more : string = '';//是否是批量操作
   select_count : any = '';//批量选中的操作条数
   operate_types : string = '';//操作弹框类型
+  log_type:string = 'purchase_sale';
+  log_table_name:string = 'purchase';
   constructor(
       private http:Http,
       private router : Router,
@@ -221,10 +223,6 @@ export class SalesListComponent implements OnInit {
     this.pr_status = status;
     this.pr_u_username = u_username;
     this.pr_order = pr_order;
-    console.log(this.pr_u_id);
-    console.log(this.pr_status);
-    console.log(this.pr_u_username);
-    console.log(this.pr_order);
 
     this.isAll = 0;
     this.width = '0%';
@@ -318,9 +316,6 @@ export class SalesListComponent implements OnInit {
       }
     });
     this.selects = s;
-    console.log('====.selects');
-    console.log(this.selects);
-    console.log(is_select);
     this.select_count = is_select;
   }
 

@@ -37,17 +37,16 @@
                           <!--<a class="btn default-btn btn-sm" (click)="editStatus(2,'id')" >-->
                             <!--<span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>无效</a>-->
                         <!--</div>-->
-                        <div class="form-group pdlr-4" >
-                          <a data-toggle="modal" data-target="#audit" class="btn default-btn btn-sm" >
+                        <div class="form-group pdlr-4" (click)="showModal('operation','operation','')" *ngIf="uid == sa_status">
+                          <a class="btn default-btn btn-sm" >
                             <span class="fa-fw fa fa-stop  mr-5 text-warning"></span>审核</a>
                         </div>
-
-                        <div class="form-group pdlr-4" >
-                          <a data-toggle="modal" data-target="#audit" class="btn default-btn btn-sm" >
+                        <div class="form-group pdlr-4" (click)="showModal('operation','cancel','')" *ngIf="uid == sa_u_id && sa_status != 'yes' && sa_status != 'no' && sa_status != 'cancel'">
+                          <a  class="btn default-btn btn-sm" >
                             <span class="fa-fw fa fa-trash-o mr-5 text-warning"></span>作废</a>
                         </div>
-                        <div class="form-group pdlr-4" >
-                          <a data-toggle="modal" data-target="#audit" class="btn default-btn btn-sm" >
+                        <div class="form-group pdlr-4" (click)="showModal('operation','back_cancel','')" *ngIf="uid == sa_u_id && sa_status == 'cancel'">
+                          <a class="btn default-btn btn-sm" >
                             <span class="fa-fw fa fa-mail-reply-all mr-5 text-primary"></span>弃废</a>
                         </div>
                         <div class="form-group btn-group pdlr-4">
@@ -58,10 +57,15 @@
                             <!--<li><a (click)="editStatus(1,'all')"><span class="fa-fw fa fa-play mr-5 color-green"></span>批量设为启动</a></li>-->
                             <!--<li><a (click)="editStatus(2,'all')"><span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>批量设为无效</a></li>-->
                             <!--<li class="divider"></li>-->
-                            <li><a  data-toggle="modal" data-target="#audit"><span class="fa-fw fa  fa-stop  mr-5 text-warning"></span>批量审核</a></li>
+                            <!--<li><a  data-toggle="modal" data-target="#audit"><span class="fa-fw fa  fa-stop  mr-5 text-warning"></span>批量审核</a></li>-->
+                            <!--<li class="divider"></li>-->
+                            <!--<li><a  data-toggle="modal" data-target="#audit"><span class="fa-fw fa fa-trash-o mr-5 text-warning"></span>批量作废</a></li>-->
+                            <!--<li><a  data-toggle="modal" data-target="#audit"><span class="fa-fw fa fa-mail-reply-all mr-5 text-primary"></span>批量弃废</a></li>-->
+                            <li><a (click)="showModal('operation','operation','all')"><span class="fa-fw fa  fa-stop  mr-5 text-warning"></span>批量审核</a></li>
                             <li class="divider"></li>
-                            <li><a  data-toggle="modal" data-target="#audit"><span class="fa-fw fa fa-trash-o mr-5 text-warning"></span>批量作废</a></li>
-                            <li><a  data-toggle="modal" data-target="#audit"><span class="fa-fw fa fa-mail-reply-all mr-5 text-primary"></span>批量弃废</a></li>
+                            <li><a (click)="showModal('operation','cancel','all')"><span class="fa-fw fa fa-trash-o mr-5 text-warning"></span>批量作废</a></li>
+                            <li><a (click)="showModal('operation','back_cancel','all')"><span class="fa-fw fa fa-mail-reply-all mr-5 text-primary"></span>批量弃废</a></li>
+
                             <li class="divider"></li>
                             <li><a (click)="deleteStockallot('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
                           </ul>
@@ -122,7 +126,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let s of stockallotList?.result?.stockallotList?.data" (click)="isStatusShow(s.stock_allot_id,s.stock_allot_status)" [ngClass]="{'table-color':editStatusStockallotId == s.stock_allot_id}">
+                    <tr *ngFor="let s of stockallotList?.result?.stockallotList?.data" (click)="isStatusShow(s.stock_allot_id,s.stock_allot_status,s.u_id,s.u_username,s.stock_allot_number)" [ngClass]="{'table-color':editStatusStockallotId == s.stock_allot_id}">
                       <!--<td *ngIf="isAll != 0">-->
                         <!--<label class="checkbox mt-8">-->
                           <!--<input type="checkbox" value="{{s.stock_allot_id}}" [checked]="selects[s.stock_allot_id]" (change)="$event.preventDefault();$event.stopPropagation();handle($event)">-->
@@ -131,12 +135,10 @@
                       <!--</td>-->
                       <td>
                         <div>
-                          <span class="label-maintain maintain-style editor" data-toggle="modal" data-target="#audit"><i class="glyphicon glyphicon-exclamation-sign approval-icon" ></i>审核</span>
-                          <span class="label-unknown" >待审核</span>
-                          <span class="label-maintain" >审核中</span>
-                          <span class="label-normal">已同意</span>
-                          <span  class="label-full">已拒绝</span>
-                          <span  class="label-full">已作废</span>
+                          <span class="label-maintain" *ngIf="s.stock_allot_status != 'yes' && s.stock_allot_status != 'no' && s.stock_allot_status != 'cancel'">审核中</span>
+                          <span class="label-normal" *ngIf="s.stock_allot_status == 'yes'">已同意</span>
+                          <span  class="label-full" *ngIf="s.stock_allot_status == 'no'">已拒绝</span>
+                          <span  class="label-full" *ngIf="s.stock_allot_status == 'cancel'">已作废</span>
 
                         </div>
 
@@ -170,13 +172,13 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let s of stockallotList?.result?.stockallotList?.data" (click)="isStatusShow(s.stock_allot_id,s.stock_allot_status)" [ngClass]="{'table-color':editStatusStockallotId == s.stock_allot_id}">
+                    <tr *ngFor="let s of stockallotList?.result?.stockallotList?.data" (click)="isStatusShow(s.stock_allot_id,s.stock_allot_status,s.u_id,s.u_username,s.stock_allot_number)" [ngClass]="{'table-color':editStatusStockallotId == s.stock_allot_id}">
                       <td>
-                         <span >
-                            <span class="label-normal" >等价调拨</span>
-                            <span class="label-invalid" >差价调拨</span>
-                            <span class="label-unknown" >未知</span>
-                          </span>
+                        <span [ngSwitch]="s.stock_allot_type">
+                            <span class="label-normal" *ngSwitchCase="1">等价调拨</span>
+                            <span class="label-invalid" *ngSwitchCase="2">差价调拨</span>
+                            <span class="label-unknown" *ngSwitchDefault>未知</span>
+                         </span>
                       </td>
                       <td>{{s.storehouse_name}}</td>
                       <td>{{s.out_storehouse_name}}</td>
@@ -202,7 +204,6 @@
                   </ul>
                 </div>
               </div>
-
             </div>
           </div>
         </sa-widget>
@@ -211,83 +212,5 @@
   </sa-widgets-grid>
 </div>
 
+<app-verify-frame [log_type]="log_type" [log_table_name]="log_table_name" [select_count]="select_count" [selects]="selects" [operate_type]="operate_type" [username]="sa_u_username" [order_number]="sa_order" [pr_id]="editStatusStockallotId" [create_user_id]="sa_u_id" [operate_button_type]="operate_button_type" [operate_button_type_is_more]="operate_button_type_is_more"  (operate_types)="getOperateTypes($event)" *ngIf="operate_type"></app-verify-frame>
 
-
-
-<div class="modal fade" id="audit" tabindex="-1" role="dialog">
-  <div class="modal-dialog" style="width:500px;">
-    <div class="modal-content text-center">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <!-- 标题 -->
-        <h3 class="modal-title " data-ng-bind='results.title'>提示</h3>
-      </div>
-      <div class="modal-body ">
-        <div class="row">
-          <div class="text-align-left pd-15">
-            <h4>某某的单据[CD180400004]需要您审批!</h4>
-            <h4>你确定要将单据[CD180400004]作废！</h4>
-            <h4>你确定要将单据[CD180400004]弃废！</h4>
-            <h4>您确认批量作废当前选中的[4]张单据吗？</h4>
-            <h4>您确认批量弃废当前选中的[4]张单据吗？</h4>
-            <h4>您确认批量审核当前选中的[4]张单据吗？</h4>
-          </div>
-          <form  class="smart-form" >
-            <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
-              <section>
-                <label class="textarea textarea-resizable">
-                  <textarea class="custom-scroll" rows="8" name="" placeholder="请输入你的意见"></textarea>
-                </label>
-              </section>
-            </div>
-          </form>
-        </div>
-      </div>
-
-      <div class="modal-footer text-center">
-        <button type="button" class="btn btn-success  btn-lg" data-dismiss="modal" data-toggle="modal" data-target="#audit-center">同意</button>
-        <button type="button" class="btn btn-danger  btn-lg" data-dismiss="modal">拒绝</button>
-        <button type="button" class="btn btn-primary  btn-lg" data-dismiss="modal" data-toggle="modal" data-target="#audit-center">确定</button>
-        <button type="button" class="btn btn-default  btn-lg" data-dismiss="modal">取消</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-
-<div class="modal fade" id="audit-center" tabindex="-1" role="dialog">
-  <div class="modal-dialog" style="width:500px;">
-    <div class="modal-content text-center">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <!-- 标题 -->
-        <h3 class="modal-title " data-ng-bind='results.title'>开始执行批量审核，请勿关闭</h3>
-        <h3 class="modal-title " data-ng-bind='results.title'>开始执行批量作废，请勿关闭</h3>
-        <h3 class="modal-title " data-ng-bind='results.title'>开始执行批量弃废，请勿关闭</h3>
-      </div>
-      <div class="pd-20">
-        <div class="text-center pd-20">
-          <div><span>单据[CD180400005]审核成功</span></div>
-          <div><span>单据[CD180400004]审核跳过，该单据已审核！</span></div>
-          <div><span>单据[CD180400004]审核跳过，你没有权限审核该单据！</span></div>
-          <div><span>批量审核结束</span></div>
-        </div>
-        <div class="text-center pd-20">
-          <div><span>单据[CD180400005]已作废</span></div>
-          <div><span>单据[CD180400002]作废跳过，该单据已作废，请弃废后再执行作废操作！</span></div>
-          <div><span>单据[CD180400004]作废跳过，你没有权限作废该单据！</span></div>
-          <div><span>批量审核结束</span></div>
-        </div>
-        <div class="text-center pd-20">
-          <div><span>单据[CD180400001]已弃废</span></div>
-          <div><span>单据[CD180400002]弃废跳过，该单据尚未作废，请作废再执行弃废操作！</span></div>
-          <div><span>单据[CD180400004]弃废跳过，你没有权限弃废该单据！</span></div>
-          <div><span>批量审核结束</span></div>
-        </div>
-      </div>
-      <div class="modal-footer text-center">
-        <button type="button" class="btn btn btn-primary  btn-lg" data-dismiss="modal">确定</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->

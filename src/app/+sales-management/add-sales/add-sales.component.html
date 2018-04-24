@@ -347,25 +347,25 @@
                     </section>
                   </div>
                   <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-20">
-                    <div class="label ">审批人<a class="txt-color-blue pd-10" (click)="showDetail('assign')">添加审批人</a></div>
-                    <ul  class="avatars">
+                    <div class="label ">审批人<a *ngIf="isDetail!='detail'" class="txt-color-blue pd-10" (click)="showDetail('assign')">添加审批人</a></div>
+                    <ul  class="avatars" *ngIf="approve_user">
                       <li *ngFor="let su of approve_user;let ind = index;">
-                        <a class="fa fa-times-circle picture-a" style="display:block;" (click)="removeUser(su.id,'assign')"></a>
-                        <a  class="portrait-size" title="{{su.u_username}}">
+                        <a *ngIf="isDetail!='detail'" class="fa fa-times-circle picture-a" style="display:block;" (click)="removeUser(su.id,'assign')"></a>
+                        <a class="portrait-size" title="{{su.u_username}}">
                           {{su.u_username}}
                         </a>
                         <div class="approval-arrow" *ngIf="ind < approve_user.length && ind != 0" >
-                          <img  src="assets/img/icon/arrow.png" >
+                          <img src="assets/img/icon/arrow.png" >
                         </div>
                       </li>
                     </ul>
                   </div>
                   <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-20">
-                    <div class="label ">抄送人<a class="txt-color-blue pd-10" (click)="showDetail('follower')">添加抄送人</a><span class="txt-color-blueLight pd-10">(审批通过后，通知抄送人)</span></div>
-                    <ul  class="avatars">
+                    <div class="label ">抄送人<a *ngIf="isDetail!='detail'" class="txt-color-blue pd-10" (click)="showDetail('follower')">添加抄送人</a><span class="txt-color-blueLight pd-10">(审批通过后，通知抄送人)</span></div>
+                    <ul  class="avatars" *ngIf="follower_user">
                       <li *ngFor="let su1 of follower_user;let ind1 = index;">
-                        <a class="fa fa-times-circle picture-a" style="display:block;" (click)="removeUser(su1.id,'follower')"></a>
-                        <a  class="portrait-size" title="{{su1.u_username}}">
+                        <a *ngIf="isDetail!='detail'" class="fa fa-times-circle picture-a" style="display:block;" (click)="removeUser(su1.id,'follower')"></a>
+                        <a class="portrait-size" title="{{su1.u_username}}">
                           {{su1.u_username}}
                         </a>
                       </li>
@@ -374,19 +374,19 @@
 
                 </fieldset>
                 <footer>
-                  <button type="button" class="btn btn-primary"  (click)="showDetail('transfer')" *ngIf="uid == purchaseInfo?.result?.pr_status" data-target="#myModal">
+                  <button type="button" class="btn btn-primary"  (click)="showDetail('transfer')" *ngIf="uid == purchaseInfo?.result?.pr_status">
                     转交
                   </button>
-                  <button type="button" class="btn btn-primary" (click)="showModal('urge','urge')" *ngIf="uid == purchaseInfo?.result?.u_id && purchaseInfo?.result?.pr_status != 'yes' && purchaseInfo?.result?.pr_status != 'no' && purchaseInfo?.result?.pr_status != 'cancel'" data-target="#cuiBan">
+                  <button type="button" class="btn btn-primary" (click)="showModal('urge','urge')" *ngIf="uid == purchaseInfo?.result?.u_id && purchaseInfo?.result?.pr_status != 'yes' && purchaseInfo?.result?.pr_status != 'no' && purchaseInfo?.result?.pr_status != 'cancel'">
                     催办
                   </button>
-                  <button type="button" class="btn btn-primary" (click)="showModal('operation','back_cancel')" *ngIf="uid == purchaseInfo?.result?.u_id && purchaseInfo?.result?.pr_status == 'cancel'" data-target="#audit">
+                  <button type="button" class="btn btn-primary" (click)="showModal('operation','back_cancel')" *ngIf="uid == purchaseInfo?.result?.u_id && purchaseInfo?.result?.pr_status == 'cancel'">
                     弃废
                   </button>
-                  <button type="button" class="btn btn-warning"  (click)="showModal('operation','cancel')" *ngIf="uid == purchaseInfo?.result?.u_id && purchaseInfo?.result?.pr_status != 'yes' && purchaseInfo?.result?.pr_status != 'no' && purchaseInfo?.result?.pr_status != 'cancel'" data-target="#audit">
+                  <button type="button" class="btn btn-warning"  (click)="showModal('operation','cancel')" *ngIf="uid == purchaseInfo?.result?.u_id && purchaseInfo?.result?.pr_status != 'yes' && purchaseInfo?.result?.pr_status != 'no' && purchaseInfo?.result?.pr_status != 'cancel'">
                     作废
                   </button>
-                  <button type="button" class="btn btn-warning" (click)="showModal('operation','operation')" *ngIf="uid == purchaseInfo?.result?.pr_status" data-target="#audit">
+                  <button type="button" class="btn btn-warning" (click)="showModal('operation','operation')" *ngIf="uid == purchaseInfo?.result?.pr_status">
                     审核
                   </button>
 
@@ -406,7 +406,6 @@
   </sa-widgets-grid>
 </div>
 
-<app-select-user (approve_users)="getData($event)" [is_show_detail]="is_show_detail" (is_show_details)="getShowStatus($event)" [approval_or_copy]="approval_or_copy" *ngIf="is_show_detail"></app-select-user>
 
 <div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -591,5 +590,6 @@
   </div>
 </div>
 
-<app-verify-frame [operate_type]="operate_type" [username]="purchaseInfo?.result?.u_username" [order_number]="purchaseInfo?.result?.pr_order" [pr_id]="pr_id" [create_user_id]="create_user_id" [operate_button_type_is_more]="operate_button_type_is_more" [operate_button_type]="operate_button_type" (operate_types)="getOperateTypes($event)"></app-verify-frame>
+<app-select-user (approve_users)="getData($event)" [is_show_detail]="is_show_detail" (is_show_details)="getShowStatus($event)" [approval_or_copy]="approval_or_copy" *ngIf="is_show_detail"></app-select-user>
+<app-verify-frame [log_type]="log_type" [log_table_name]="log_table_name" [operate_type]="operate_type" [username]="purchaseInfo?.result?.u_username" [order_number]="purchaseInfo?.result?.pr_order" [pr_id]="pr_id" [create_user_id]="create_user_id" [operate_button_type_is_more]="operate_button_type_is_more" [operate_button_type]="operate_button_type" (operate_types)="getOperateTypes($event)"></app-verify-frame>
 

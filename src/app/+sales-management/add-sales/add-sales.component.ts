@@ -64,6 +64,10 @@ export class AddSalesComponent implements OnInit {
     p_pur_prices : number = 0;
   url:string = '';
 
+
+    /**
+     * --------用作审核的变量------
+     */
     /**
      * 选中的审批者
      * @type {Array}
@@ -91,6 +95,8 @@ export class AddSalesComponent implements OnInit {
     operate_types : string = '';//操作弹框类型
     uid : any = 0;
     create_user_id: any = 0;
+    log_table_name:string = 'purchase';
+    log_type:string = 'purchase_sale';
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -103,16 +109,19 @@ export class AddSalesComponent implements OnInit {
     this.globalService.navEventEmitter.emit(nav);
     this.url = this.globalService.getDomain();
       this.uid = this.cookieStore.getCookie('uid');
-      this.pr_id = routInfo.snapshot.params['pr_id'];
-      if(this.pr_id != '' && this.pr_id != '0'){
-          let id = this.pr_id;
-          if(this.pr_id.indexOf('_') >= 0){
-              let pr_ids = this.pr_id.split('_');
-              id = pr_ids[0];
-              this.isDetail = pr_ids[1];
+      let pr_ids = routInfo.snapshot.params['pr_id'];
+      console.log(pr_ids);
+      if(pr_ids != '' && pr_ids != '0'){
+          if(pr_ids.indexOf('_') >= 0){
+              let pr_ids_ = pr_ids.split('_');
+              this.pr_id = pr_ids_[0];
+              this.isDetail = pr_ids_[1];
+          }else{
+              this.pr_id = pr_ids;
           }
-          this.getPurchaseInfo(id);
-          this.rollback_url += '/' + id;
+          console.log(this.pr_id);
+          this.getPurchaseInfo(this.pr_id);
+          this.rollback_url += '/' + pr_ids;
       }else{
           this.rollback_url += '/0';
       }
@@ -334,8 +343,6 @@ export class AddSalesComponent implements OnInit {
               }
           this.check = false;
         }
-        console.log('this.selects:----');
-        console.log(this.selects);
     });
   }
 
@@ -347,7 +354,7 @@ export class AddSalesComponent implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
             this.productDefault = data;
-            console.log(this.productDefault);
+            // console.log(this.productDefault);
             if(this.productDefault['status'] == 202){
                 alert(this.productDefault['msg']);
                 this.cookieStore.removeAll(this.rollback_url);
@@ -594,8 +601,8 @@ export class AddSalesComponent implements OnInit {
 
             this.http.post(this.globalService.getDomain()+'/api/v1/addLog',{
                 'other_id':this.pr_id,
-                'other_table_name':'purchase',
-                'log_type':'purchase_sale',
+                'other_table_name':this.log_table_name,
+                'log_type':this.log_type,
                 'log_operation_type':'transfer',
                 'log_uid':id,
                 'create_user_id':this.purchaseInfo['result']['u_id'],

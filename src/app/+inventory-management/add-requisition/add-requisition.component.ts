@@ -13,13 +13,12 @@ import {NotificationService} from "../../shared/utils/notification.service";
   templateUrl: './add-requisition.component.html',
 })
 export class AddRequisitionComponent implements OnInit {
-
-  formModel : FormGroup;
-  stock_allot_id : any = 0;
-  stockallotList : Array<any> = [];
-  stockallotInfo : Array<any> = [];
-  departmentInfo : Array<any> = [];//经手人所属部门信息
-  department : string = '';
+    formModel : FormGroup;
+    stock_allot_id : any = 0;
+    stockallotList : Array<any> = [];
+    stockallotInfo : Array<any> = [];
+    departmentInfo : Array<any> = [];//经手人所属部门信息
+    department : string = '';
 
     selectProductList :Array<any> = [];//[{"p_product_id": "0","p_qrcode": "0","category": "0","p_unit": "0","p_count": "0","p_price": "0","p_pur_price": "0","p_note": "","p_is": "1"}]; //选中后的商品列表
     searchProductList : Array<any> = [];//搜索出的商品列表信息
@@ -40,9 +39,9 @@ export class AddRequisitionComponent implements OnInit {
     prev : boolean = false;
     next : boolean = false;
 
-  isDetail : string = '';
-  keyword : string = '';
-  p_type : number = 2;//商品
+    isDetail : string = '';
+    keyword : string = '';
+    p_type : number = 2;//商品
 
     datePickerConfig = {
         locale: 'zh-CN',
@@ -50,11 +49,46 @@ export class AddRequisitionComponent implements OnInit {
         enableMonthSelector:true,
         showMultipleYearsNavigation:true,
     };
-  //默认选中值
-  user_u_id_default : number = 0; //经手人
+    //默认选中值
+    user_u_id_default : number = 0; //经手人
     out_storehouse_id_default : number = 0; //出库仓库id
     in_storehouse_id_default : number = 0; //入库仓库id
-  rollback_url : string = '/inventory-management/add-requisition';
+    rollback_url : string = '/inventory-management/add-requisition';
+
+
+    /**
+     * --------用作审核的变量------
+     */
+    /**
+     * 选中的审批者
+     * @type {Array}
+     */
+    approve_user : Array<any> = [];
+    /**
+     * 选中的关注者
+     * @type {Array}
+     */
+    follower_user : Array<any> = [];
+    /**
+     * 转交人
+     * @type {Array}
+     */
+    transfer_user : Array<any> = [];
+    remove_user_ids : Array<any> = [];
+    approval_or_copy : string = '';
+    is_show_detail : string = '';
+    is_show_details : string = '';
+    approve_users : Array<any> = [];
+
+    operate_type : string = '';//操作弹框类型
+    operate_button_type : string = '';//操作按钮类型
+    operate_button_type_is_more : string = '';//是否是批量操作
+    operate_types : string = '';//操作弹框类型
+    uid : any = 0;
+    create_user_id: any = 0;
+
+    log_type : string = 'stockallot';
+    log_table_name : string = 'stockallot';
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -65,6 +99,7 @@ export class AddRequisitionComponent implements OnInit {
       private notificationService: NotificationService) {
     let nav = '{"title":"添加调拨单","url":"/inventory-management/add-requisition/0","class_":"active"}';
     this.globalService.navEventEmitter.emit(nav);
+      this.uid = this.cookieStore.getCookie('uid');
     this.formModel = fb.group({
       stock_allot_id:[''],
       stock_allot_type:[''],
@@ -76,22 +111,24 @@ export class AddRequisitionComponent implements OnInit {
       department:[''],
         out_storehouse_id:[''],
         in_storehouse_id:[''],
+        //审核加入
+        stock_allot_assign:[''],
+        stock_allot_copy_person:[''],
     });
   }
 
   ngOnInit() {
-    this.stock_allot_id = this.routInfo.snapshot.params['stock_allot_id'];
-    if(this.stock_allot_id != '' && this.stock_allot_id != '0'){
-        let id = this.stock_allot_id;
-        if(this.stock_allot_id.indexOf('_') >= 0){
-            let stock_allot_ids = this.stock_allot_id.split('_');
-            id = stock_allot_ids[0];
-            this.isDetail = stock_allot_ids[1];
+    let stock_allot_ids = this.routInfo.snapshot.params['stock_allot_id'];
+    if(stock_allot_ids != '' && stock_allot_ids != '0'){
+        if(stock_allot_ids.indexOf('_') >= 0){
+            let stock_allot_ids_ = stock_allot_ids.split('_');
+            this.stock_allot_id = stock_allot_ids_[0];
+            this.isDetail = stock_allot_ids_[1];
+        }else{
+            this.stock_allot_id= stock_allot_ids;
         }
-        this.getStockallotInfo(id);
-        this.rollback_url += '/' + id;
-      // this.getStockallotInfo(this.stock_allot_id);
-      // this.rollback_url += '/' + this.stock_allot_id;
+        this.getStockallotInfo(this.stock_allot_id);
+        this.rollback_url += '/' + stock_allot_ids;
     }else{
       this.rollback_url += '/0';
     }
@@ -113,7 +150,15 @@ export class AddRequisitionComponent implements OnInit {
             stock_allot_remark:this.stockallotInfo['result']['stock_allot_remark'],
               out_storehouse_id:this.stockallotInfo['result']['out_storehouse_id'],
               in_storehouse_id:this.stockallotInfo['result']['in_storehouse_id'],
+              //审核加入
+              stock_allot_assign:this.stockallotInfo['result']['stock_allot_assign'],
+              stock_allot_copy_person:this.stockallotInfo['result']['stock_allot_copy_person'],
           });
+            //审核加入
+            this.create_user_id = this.stockallotInfo['result']['u_id'];//当前创建者
+            this.approve_user = this.stockallotInfo['result']['assign_user_name'];
+            this.follower_user = this.stockallotInfo['result']['copy_user'];
+
           this.user_u_id_default = this.stockallotInfo['result']['user_u_id']; //经手人
             this.out_storehouse_id_default = this.stockallotInfo['result']['out_storehouse_id']; //
             this.in_storehouse_id_default = this.stockallotInfo['result']['in_storehouse_id']; //
@@ -180,7 +225,17 @@ export class AddRequisitionComponent implements OnInit {
       alert('请填写调拨单号！');
       return false;
     }
-    this.http.post(this.globalService.getDomain()+'/api/v1/addStockallot',{
+
+      let approve_user_ids = [];
+      this.approve_user.forEach((val, idx, array) => {
+          approve_user_ids.push(val['id'].toString());
+      });
+      let follower_user_ids = [];
+      this.follower_user.forEach((val, idx, array) => {
+          follower_user_ids.push(val['id'].toString());
+      });
+
+      this.http.post(this.globalService.getDomain()+'/api/v1/addStockallot',{
       'stock_allot_id':this.formModel.value['stock_allot_id'],
       'stock_allot_type':this.formModel.value['stock_allot_type'],
       'stock_allot_number':this.formModel.value['stock_allot_number'],
@@ -188,7 +243,8 @@ export class AddRequisitionComponent implements OnInit {
       'user_u_id':this.formModel.value['user_u_id'],
       'stock_allot_qrcode':this.formModel.value['stock_allot_qrcode'],
       'stock_allot_remark':this.formModel.value['stock_allot_remark'],
-      'stock_allot_status':this.formModel.value['stock_allot_id'] ? 0 : 1,
+          'stock_allot_assign':JSON.stringify(approve_user_ids),
+          'stock_allot_copy_person':JSON.stringify(follower_user_ids),
       'product_detail' :JSON.stringify(this.selectProductList),
         'out_storehouse_id':this.formModel.value['out_storehouse_id'],
         'in_storehouse_id':this.formModel.value['in_storehouse_id'],
@@ -465,9 +521,105 @@ export class AddRequisitionComponent implements OnInit {
     }
     //移除商品
     removeInput(ind) {
-        // let i = this.selectProductList.indexOf(item);
         this.selectProductList.splice(ind, 1);
     }
+
+
+    //--------------弹框  选择审批人和关注者--------------
+    showDetail(type:string){
+        this.approval_or_copy = type;
+        setTimeout(()=>{
+            this.is_show_detail =  '1';
+        },500);
+    }
+
+    /**
+     * 获取任务通知点击后的状态
+     * @param value
+     */
+    getData(value:any){
+        let id = '';
+        if(this.approval_or_copy == 'assign'){
+            this.approve_user = JSON.parse(value);
+        }else if(this.approval_or_copy == 'follower'){
+            this.follower_user = JSON.parse(value);
+        }else if(this.approval_or_copy == 'transfer'){
+            this.transfer_user = JSON.parse(value);
+
+            this.transfer_user.forEach((val, idx, array) => {
+                id += '"'+val['id']+'",';
+            });
+
+            this.http.post(this.globalService.getDomain()+'/api/v1/addStockAllotLog',{
+                'other_id':this.stock_allot_id,
+                'other_table_name':this.log_table_name,
+                'log_type':this.log_type,
+                'log_operation_type':'transfer',
+                'log_uid':id,
+                'create_user_id':this.stockallotInfo['result']['u_id'],
+                'u_id':this.cookieStore.getCookie('uid'),
+                'sid':this.cookieStore.getCookie('sid')
+            }).subscribe((data)=>{
+                let info = JSON.parse(data['_body']);
+
+                if(info['status'] == 200) {
+                    this.getStockallotInfo(this.stock_allot_id);
+                }else if(info['status'] == 202){
+                    alert(info['msg']);
+                    this.cookieStore.removeAll(this.rollback_url);
+                    this.router.navigate(['/auth/login']);
+                }else if(info['status'] == 9999 || info['status'] == 201) {
+                    alert(info['msg']);
+                }
+            });
+
+        }
+    }
+
+    getShowStatus(value:any){
+        this.is_show_detail = value;
+    }
+
+    /**
+     * remove user
+     * @param ind
+     */
+    removeUser(ind:number,type:any){
+        this.remove_user_ids.push(ind);
+        let array_ : Array<any> = [];
+        if(type == 'assign') {
+            this.approve_user.forEach((val, idx, array) => {
+                if (val['id'] != ind) {
+                    array_.push(val);
+                }
+            });
+            this.approve_user = array_;
+        }else if(type == 'follower') {
+            this.follower_user.forEach((val1, idx1, array1) => {
+                if ( val1['id'] != ind) {
+                    array_.push(val1);
+                }
+            });
+            this.follower_user = array_;
+        }
+    }
+    //-----------审核按钮操作-------
+    /**
+     * 显示操作弹出框
+     * @param type
+     */
+    public showModal(type:string,type1:string): void {
+        this.operate_type = type;
+        this.operate_button_type = type1;
+        this.operate_button_type_is_more = '';
+    }
+
+    getOperateTypes(value:any){
+        this.operate_type = '';
+        this.operate_button_type = '';
+        this.getStockallotInfo(this.stock_allot_id);
+    }
+
 
     @ViewChild('lgModal') public lgModal:ModalDirective;
 

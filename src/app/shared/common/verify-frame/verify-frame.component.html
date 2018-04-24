@@ -22,7 +22,7 @@
 </div><!-- /.modal -->
 
 <!-- 审批 -->
-<div class="modal fade in" style="display: block" *ngIf="operate_type == 'operation'" id="audit" tabindex="-1" role="dialog">
+<div class="modal fade in" style="display: block" *ngIf="operate_type == 'operation' && is_show_result != 'ok'" id="audit" tabindex="-1" role="dialog">
   <div class="modal-dialog" style="width:500px;">
     <div class="modal-content text-center">
       <div class="modal-header">
@@ -34,7 +34,7 @@
         <div class="row">
           <div class="text-align-left pd-15">
             <h4 *ngIf="operate_button_type == 'operation' && operate_button_type_is_more == ''">{{username}}的单据[{{order_number}}]需要您审批!</h4>
-            <h4 *ngIf="operate_button_type == 'cancel' && operate_butoperate_button_type_is_moreton_type_ == ''">你确定要将单据[{{order_number}}]作废！</h4>
+            <h4 *ngIf="operate_button_type == 'cancel' && operate_button_type_is_more == ''">你确定要将单据[{{order_number}}]作废！</h4>
             <h4 *ngIf="operate_button_type == 'back_cancel' && operate_button_type_is_more == ''">你确定要将单据[{{order_number}}]弃废！</h4>
             <h4 *ngIf="operate_button_type == 'cancel' && operate_button_type_is_more == 'all'">您确认批量作废当前选中的[{{select_count}}]张单据吗？</h4>
             <h4 *ngIf="operate_button_type == 'back_cancel' && operate_button_type_is_more == 'all'">您确认批量弃废当前选中的[{{select_count}}]张单据吗？</h4>
@@ -63,7 +63,7 @@
 </div><!-- /.modal -->
 
 
-<div class="modal fade in" *ngIf="is_show_result">
+<div class="modal fade in" *ngIf="is_show_result" style="display: block;">
 <div class="modal-dialog" style="width:500px;">
 <div class="modal-content text-center">
 <div class="modal-header">
@@ -73,30 +73,11 @@
 <h3 class="modal-title " *ngIf="operate_button_type == 'cancel'">开始执行批量作废，请勿关闭</h3>
 <h3 class="modal-title " *ngIf="operate_button_type == 'back_cancel'">开始执行批量弃废，请勿关闭</h3>
 </div>
-<div class="pd-20" *ngIf="operate_button_type == 'operation'">
-  <div class="text-center pd-20" *ngFor="let ra of result_array">
-    <div><span>单据[CD180400005]审核成功</span></div>
-    <div><span>单据[CD180400004]审核跳过，该单据已审核！</span></div>
-    <div><span>单据[CD180400004]审核跳过，你没有权限审核该单据！</span></div>
-    <div><span>批量审核结束</span></div>
+<div class="pd-20">
+  <div class="text-center pd-20" *ngFor="let ra of result_array?.result">
+    <div><span>{{ra.msg}}</span></div>
   </div>
 </div>
-  <div class="pd-20" *ngIf="operate_button_type == 'operation'">
-    <div class="text-center pd-20" *ngFor="let ra of result_array">
-    <div><span>单据[CD180400005]已作废</span></div>
-    <div><span>单据[CD180400002]作废跳过，该单据已作废，请弃废后再执行作废操作！</span></div>
-    <div><span>单据[CD180400004]作废跳过，你没有权限作废该单据！</span></div>
-    <div><span>批量审核结束</span></div>
-    </div>
-  </div>
-  <div class="pd-20" *ngIf="operate_button_type == 'operation'">
-      <div class="text-center pd-20" *ngFor="let ra of result_array">
-      <div><span>单据[CD180400001]已弃废</span></div>
-      <div><span>单据[CD180400002]弃废跳过，该单据尚未作废，请作废再执行弃废操作！</span></div>
-      <div><span>单据[CD180400004]弃废跳过，你没有权限弃废该单据！</span></div>
-      <div><span>批量审核结束</span></div>
-      </div>
-  </div>
 <div class="modal-footer text-center">
 <button type="button" class="btn btn btn-primary  btn-lg" (click)="close()">确定</button>
 </div>
@@ -104,5 +85,5 @@
 </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<bs-modal-backdrop class="modal-backdrop fade in" *ngIf="operate_type == 'urge' || operate_type == 'operation'"> asdfads</bs-modal-backdrop><!--  *ngIf="is_show_detail"-->
+<bs-modal-backdrop class="modal-backdrop fade in" *ngIf="operate_type == 'urge' || operate_type == 'operation'"></bs-modal-backdrop><!--  *ngIf="is_show_detail"-->
 

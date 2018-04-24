@@ -11,6 +11,7 @@ export class GlobalService {
   adminID = 1;//超级管理员c_id
   medicalID = 65;//乐风医疗公司c_id
   sjfbID = 89;//三彭州市三界丰碑育苗合作社c_id
+  sjfbNumber = 'sanjiefengbei';//三彭州市三界丰碑育苗合作社c_number
 
   //顶部导航
   navEventEmitter:EventEmitter<any>;
@@ -54,6 +55,9 @@ export class GlobalService {
 
   getSjfbID() : number{
     return this.sjfbID;
+  }
+  getSjfbNumber() : string{
+    return this.sjfbNumber;
   }
   /**
    * 是演示账号
