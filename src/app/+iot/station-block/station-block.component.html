@@ -13,7 +13,7 @@
                 <i class="fa fa-cog"></i></a>
             </div>
             <div class="widget-toolbar">
-              <button class="btn btn-save"  routerLink="/equipment/station-chart">切换布局</button>
+              <button class="btn btn-save"  routerLink="/equipment/helmet-chart">切换布局</button>
 
             </div>
           </header>
@@ -25,9 +25,9 @@
                     <div class="collapse navbar-collapse" >
                       <form class="navbar-form navbar-left" role="search"  >
                         <div class="form-group">
-                          <input type="text" name="keyword" maxlength="15" class="form-control" placeholder="请输入搜索内容">
+                          <input type="text" name="keyword" [(ngModel)]="keyword" maxlength="15" class="form-control" placeholder="请输入搜索内容">
                         </div>
-                        <button type="submit" class="btn btn-default">
+                        <button type="button" (click)="searchKey()" class="btn btn-default">
                           <i class="glyphicon glyphicon-search"></i>
                           搜索
                         </button>
@@ -39,274 +39,41 @@
               <div class="row status-pd" >
 
                 <!--方案二-->
-                <div class="col-sm-4 col-lg-2 col-xs-6">
-                  <div class="panel panel-default" data-toggle="modal" data-target="#element">
-                    <div class="testing-data">
+                <div class="col-sm-4 col-lg-2 col-xs-6" *ngFor="let sjfb of i3otpList.result?.i3otpList;let ind = index;" >
+                  <div class="panel panel-default">
+                    <div class="testing-data" (click)="showDetail(sjfb.p_title,sjfb.detail.i3otp_pid,ind)">
                       <div class="header">
-                        <h2><i class="fa fa-location-arrow"></i> 四川省成都市下南大街59号世代锦江国际酒店25楼</h2>
-                        <h3 class="text-align-center"><span>设备名称<small>ID:2155454</small></span></h3>
+                        <h2><i class="fa fa-location-arrow"></i> {{sjfb.detail.i3otp_address}}</h2>
+                        <h3 class="text-align-center"><span>{{sjfb.detail.i3otp_name}}<small>ID:{{sjfb.detail.i3otp_pid}}</small></span></h3>
                       </div>
                       <div class="content no-padding">
                         <div class="fact-data text-center">
-                          <h3>血氧</h3>
-                          <h2>60%</h2>
+                          <h3>{{sjfb.p_title_zh}}</h3>
+                          <h2>{{sjfb.value}}</h2>
                         </div>
                         <div class="fact-data text-center">
                           <h3>状态</h3>
-                          <div class="">
-                            <h2 class="text-success">使用中</h2>
-                            <!--<h2  class="text-unknown">未激活</h2>-->
-                            <!--<h2  class="text-maintain">返厂维修</h2>-->
-                            <!--<h2  class="text-invalid">报废</h2>-->
+                          <div>
+                            <h2 class="text-success" *ngIf="sjfb.detail.i3otp_status == 0">激活</h2>
+                            <h2  class="text-unknown" *ngIf="sjfb.detail.i3otp_status == 1">未激活</h2>
+                            <h2  class="text-maintain" *ngIf="sjfb.detail.i3otp_status == 2">返厂维修</h2>
+                            <h2  class="text-invalid" *ngIf="sjfb.detail.i3otp_status == 3">报废</h2>
                           </div>
-
                         </div>
                       </div>
                     </div>
                     <div class="status">
                       <ul class="links">
                         <li>
-                          <a (click)="(null)"><i class="glyphicon glyphicon-plus"></i>添加对比</a>
+                          <a (click)="notificationExample2(sjfb.detail.i3otp_pid,sjfb.p_title)"><i class="glyphicon glyphicon-plus"></i>添加对比</a>
                         </li>
                       </ul>
                     </div>
                   </div>
                 </div>
-                <div class="col-sm-4 col-lg-2 col-xs-6">
-                  <div class="panel panel-default" data-toggle="modal" data-target="#element">
-                    <div class="testing-data">
-                      <div class="header">
-                        <h2><i class="fa fa-location-arrow"></i> 四川省成都市下南大街59号世代锦江国际酒店25楼</h2>
-                        <h3 class="text-align-center"><span>设备名称<small>ID:2155454</small></span></h3>
-                      </div>
-                      <div class="content no-padding">
-                        <div class="fact-data text-center">
-                          <h3>血氧</h3>
-                          <h2>60%</h2>
-                        </div>
-                        <div class="fact-data text-center">
-                          <h3>状态</h3>
-                          <div class="">
-                            <h2 class="text-success">使用中</h2>
-                            <!--<h2  class="text-unknown">未激活</h2>-->
-                            <!--<h2  class="text-maintain">返厂维修</h2>-->
-                            <!--<h2  class="text-invalid">报废</h2>-->
-                          </div>
-
-                        </div>
-                      </div>
-                    </div>
-                    <div class="status">
-                      <ul class="links">
-                        <li>
-                          <a (click)="(null)"><i class="glyphicon glyphicon-plus"></i>添加对比</a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-4 col-lg-2 col-xs-6">
-                  <div class="panel panel-default" data-toggle="modal" data-target="#element">
-                    <div class="testing-data">
-                      <div class="header">
-                        <h2><i class="fa fa-location-arrow"></i> 四川省成都市下南大街59号世代锦江国际酒店25楼</h2>
-                        <h3 class="text-align-center"><span>设备名称<small>ID:2155454</small></span></h3>
-                      </div>
-                      <div class="content no-padding">
-                        <div class="fact-data text-center">
-                          <h3>血氧</h3>
-                          <h2>60%</h2>
-                        </div>
-                        <div class="fact-data text-center">
-                          <h3>状态</h3>
-                          <div class="">
-                            <h2 class="text-success">使用中</h2>
-                            <!--<h2  class="text-unknown">未激活</h2>-->
-                            <!--<h2  class="text-maintain">返厂维修</h2>-->
-                            <!--<h2  class="text-invalid">报废</h2>-->
-                          </div>
-
-                        </div>
-                      </div>
-                    </div>
-                    <div class="status">
-                      <ul class="links">
-                        <li>
-                          <a (click)="(null)"><i class="glyphicon glyphicon-plus"></i>添加对比</a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-4 col-lg-2 col-xs-6">
-                  <div class="panel panel-default" data-toggle="modal" data-target="#element">
-                    <div class="testing-data">
-                      <div class="header">
-                        <h2><i class="fa fa-location-arrow"></i> 四川省成都市下南大街59号世代锦江国际酒店25楼</h2>
-                        <h3 class="text-align-center"><span>设备名称<small>ID:2155454</small></span></h3>
-                      </div>
-                      <div class="content no-padding">
-                        <div class="fact-data text-center">
-                          <h3>血氧</h3>
-                          <h2>60%</h2>
-                        </div>
-                        <div class="fact-data text-center">
-                          <h3>状态</h3>
-                          <div class="">
-                            <h2 class="text-success">使用中</h2>
-                            <!--<h2  class="text-unknown">未激活</h2>-->
-                            <!--<h2  class="text-maintain">返厂维修</h2>-->
-                            <!--<h2  class="text-invalid">报废</h2>-->
-                          </div>
-
-                        </div>
-                      </div>
-                    </div>
-                    <div class="status">
-                      <ul class="links">
-                        <li>
-                          <a (click)="(null)"><i class="glyphicon glyphicon-plus"></i>添加对比</a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-4 col-lg-2 col-xs-6">
-                  <div class="panel panel-default" data-toggle="modal" data-target="#element">
-                    <div class="testing-data">
-                      <div class="header">
-                        <h2><i class="fa fa-location-arrow"></i> 四川省成都市下南大街59号世代锦江国际酒店25楼</h2>
-                        <h3 class="text-align-center"><span>设备名称<small>ID:2155454</small></span></h3>
-                      </div>
-                      <div class="content no-padding">
-                        <div class="fact-data text-center">
-                          <h3>血氧</h3>
-                          <h2>60%</h2>
-                        </div>
-                        <div class="fact-data text-center">
-                          <h3>状态</h3>
-                          <div class="">
-                            <h2 class="text-success">使用中</h2>
-                            <!--<h2  class="text-unknown">未激活</h2>-->
-                            <!--<h2  class="text-maintain">返厂维修</h2>-->
-                            <!--<h2  class="text-invalid">报废</h2>-->
-                          </div>
-
-                        </div>
-                      </div>
-                    </div>
-                    <div class="status">
-                      <ul class="links">
-                        <li>
-                          <a (click)="(null)"><i class="glyphicon glyphicon-plus"></i>添加对比</a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-4 col-lg-2 col-xs-6">
-                  <div class="panel panel-default" data-toggle="modal" data-target="#element">
-                    <div class="testing-data">
-                      <div class="header">
-                        <h2><i class="fa fa-location-arrow"></i> 四川省成都市下南大街59号世代锦江国际酒店25楼</h2>
-                        <h3 class="text-align-center"><span>设备名称<small>ID:2155454</small></span></h3>
-                      </div>
-                      <div class="content no-padding">
-                        <div class="fact-data text-center">
-                          <h3>血氧</h3>
-                          <h2>60%</h2>
-                        </div>
-                        <div class="fact-data text-center">
-                          <h3>状态</h3>
-                          <div class="">
-                            <h2 class="text-success">使用中</h2>
-                            <!--<h2  class="text-unknown">未激活</h2>-->
-                            <!--<h2  class="text-maintain">返厂维修</h2>-->
-                            <!--<h2  class="text-invalid">报废</h2>-->
-                          </div>
-
-                        </div>
-                      </div>
-                    </div>
-                    <div class="status">
-                      <ul class="links">
-                        <li>
-                          <a (click)="(null)"><i class="glyphicon glyphicon-plus"></i>添加对比</a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-4 col-lg-2 col-xs-6">
-                  <div class="panel panel-default" data-toggle="modal" data-target="#element">
-                    <div class="testing-data">
-                      <div class="header">
-                        <h2><i class="fa fa-location-arrow"></i> 四川省成都市下南大街59号世代锦江国际酒店25楼</h2>
-                        <h3 class="text-align-center"><span>设备名称<small>ID:2155454</small></span></h3>
-                      </div>
-                      <div class="content no-padding">
-                        <div class="fact-data text-center">
-                          <h3>血氧</h3>
-                          <h2>60%</h2>
-                        </div>
-                        <div class="fact-data text-center">
-                          <h3>状态</h3>
-                          <div class="">
-                            <h2 class="text-success">使用中</h2>
-                            <!--<h2  class="text-unknown">未激活</h2>-->
-                            <!--<h2  class="text-maintain">返厂维修</h2>-->
-                            <!--<h2  class="text-invalid">报废</h2>-->
-                          </div>
-
-                        </div>
-                      </div>
-                    </div>
-                    <div class="status">
-                      <ul class="links">
-                        <li>
-                          <a (click)="(null)"><i class="glyphicon glyphicon-plus"></i>添加对比</a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-4 col-lg-2 col-xs-6">
-                  <div class="panel panel-default" data-toggle="modal" data-target="#element">
-                    <div class="testing-data">
-                      <div class="header">
-                        <h2><i class="fa fa-location-arrow"></i> 四川省成都市下南大街59号世代锦江国际酒店25楼</h2>
-                        <h3 class="text-align-center"><span>设备名称<small>ID:2155454</small></span></h3>
-                      </div>
-                      <div class="content no-padding">
-                        <div class="fact-data text-center">
-                          <h3>血氧</h3>
-                          <h2>60%</h2>
-                        </div>
-                        <div class="fact-data text-center">
-                          <h3>状态</h3>
-                          <div class="">
-                            <h2 class="text-success">使用中</h2>
-                            <!--<h2  class="text-unknown">未激活</h2>-->
-                            <!--<h2  class="text-maintain">返厂维修</h2>-->
-                            <!--<h2  class="text-invalid">报废</h2>-->
-                          </div>
-
-                        </div>
-                      </div>
-                    </div>
-                    <div class="status">
-                      <ul class="links">
-                        <li>
-                          <a (click)="(null)"><i class="glyphicon glyphicon-plus"></i>添加对比</a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-
-
-                <div class="col-sm-12 col-lg-12 col-xs-12">
+                <div (click)="sendPublishSjfb('i3ot00011','on',1)">dianji on</div>
+                <div (click)="sendPublishSjfb('i3ot00011','off',3)">dianji off</div>
+                <div class="col-sm-12 col-lg-12 col-xs-12" *ngIf="i3otpList.result?.i3otpList.length > 20">
                   <div class="text-center">
                     <button class="btn btn-loading btn-xs " (click)="update()">
                       <i class="fa fa-refresh" *ngIf="!loading"></i> <span class="hidden-mobile" *ngIf="!loading">加载更多</span>
@@ -322,50 +89,49 @@
         </sa-widget>
       </article>
     </div>
-
-
-
   </sa-widgets-grid>
 
   <!--数据对比-->
-  <div  class="bigBox animated fadeIn fast" style="border:6px solid #3276b1;" >
-    <h4 >设备数据对比 <i class="botClose fa fa-times" ></i></h4>
-    <ul >
-      <li> <i class="fa fa-times" ></i>ID: 4245</li>
+  <div  class="bigBox animated fadeIn fast" style="border:6px solid #3276b1;" *ngIf="isShowJoin">
+    <h4  (click)="closePid()" >设备数据对比 <i class="botClose fa fa-times" ></i></h4>
+    <ul *ngIf="join_pid.length > 0">
+      <li *ngFor="let p of join_pid;let pi = index;"> <i class="fa fa-times" (click)="outPid(pi)"></i>ID: {{p}} {{join_str[pi]}}</li>
     </ul>
-    <ul class="select-hidden">
+    <ul class="select-hidden" *ngIf="join_pid.length == 0">
       <li> 还没有可对比的数据！</li>
     </ul>
     <p class="text-align-center">
-      <a class="btn btn-info" >详情</a>
+      <a class="btn btn-info" (click)="showJoinPic();joinModal.show()">详情</a>
     </p>
   </div>
-
 
 </div>
 
 
-<div class="modal fade" id="element" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" bsModal #lgModal="bs-modal">
   <div class="modal-dialog">
-    <div class="modal-content">
+    <div class="modal-content" *ngFor="let si of showDetailInfo">
       <div class="modal-header">
         <!-- 关闭按钮 -->
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-          ×
-        </button>
+        <button type="button" class="close" (click)="hideModal()">×</button>
         <!-- 标题 -->
-        <h3 class="modal-title" data-ng-bind='results.title'><span>血氧——设备名称<small>ID:2155454</small></span></h3>
+        <h3 class="modal-title" data-ng-bind='results.title'><span>{{si.p_title_zh}}——{{si.detail.i3otp_name}}
+          <small>ID:{{si.detail.i3otp_pid}}</small></span></h3>
       </div>
       <div class="modal-body ">
         <div class="row">
           <div class="col-xs-12 text-align-center mb-20">
-            <h4>地址：四川省成都市下南大街59号世代锦江国际酒店25楼</h4>
+            <h4>地址：{{si.detail.i3otp_address}}</h4>
           </div>
         </div>
-        <div class="row">
-          <div class="col-xs-6" style="border: 1px solid #ccc;">
-            <div echarts [options]="chartOption" class="demo-chart-220" ></div>
+        <div class="row" *ngIf="chartOption">
+          <div class="col-xs-6" style="border: 1px solid #ccc;" *ngFor="let pc1 of chartOption[0];let pic1 = index;">
+            <h4 class="text-align-center" *ngIf="chartOption[0]['l'+pic1]== 0">
+              {{chartOption1[0][pic1].legend.data[0]}}无检测信息
+            </h4>
+            <div *ngIf="chartOption[0]['l'+pic1] > 0" echarts [options]="chartOption[0][pic1]" class="demo-chart-220" style="width:400px;" ></div>
           </div>
+
           <div class="col-xs-6 height-overflow-240">
             <table class="table table-hover table-striped table-bordered " >
               <thead>
@@ -376,45 +142,22 @@
               </tr>
               </thead>
               <tbody >
-              <tr class="text-align-center">
-                <td colspan="3" style="padding: 60px 0;"> spo2h无检测信息</td>
-
+              <tr class="text-align-center" *ngIf="!products['data'][0]['info'][products['data'][0]['name'][0]]['value']">
+                <td colspan="3" style="padding: 60px 0;">无检测信息</td>
               </tr>
-              <tr  >
-                <td>p10017</td>
-                <td>2017-0-19 16:00:00</td>
-                <td class="text-align-center">0.5</td>
-              </tr>
-              <tr  >
-                <td>p10017</td>
-                <td>2017-0-19 16:00:00</td>
-                <td class="text-align-center">0.5</td>
-              </tr>
-              <tr  >
-                <td>p10017</td>
-                <td>2017-0-19 16:00:00</td>
-                <td class="text-align-center">0.5</td>
-              </tr>
-              <tr  >
-                <td>p10017</td>
-                <td>2017-0-19 16:00:00</td>
-                <td class="text-align-center">0.5</td>
-              </tr>
-              <tr  >
-                <td>p10017</td>
-                <td>2017-0-19 16:00:00</td>
-                <td class="text-align-center">0.5</td>
+              <tr *ngFor="let entry of products['data'][0]['info'][products['data'][0]['name'][0]]['value'];let index1 = index;">
+                <td>{{products['data'][0]['pid']}}</td>
+                <td>{{products['data'][0]['time'][index1]}}</td>
+                <td>{{entry}}</td>
               </tr>
 
               </tbody>
             </table>
           </div>
-
         </div>
-
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-default" (click)="hideModal()">关闭</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal -->
@@ -422,4 +165,64 @@
 
 
 
+<div bsModal #joinModal="bs-modal" class="modal fade">
+  <div class="modal-dialog modal-lg">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="ngOnClose();joinModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">设备数据对比</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <sa-widget [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false">
+              <!--<header>-->
+                <!--<ul id="widget-tab-1" class="nav pull-left" [ngClass]="{'nav-tabs' : demoShowTabs, 'nav-pills': !demoShowTabs }">-->
+                  <!--<li class="success" *ngFor="let char of metric_title;let indet = index;">-->
+                    <!--<a data-toggle="tab" href="#hr{{indet+1}}">  <span class="hidden-mobile hidden-tablet"> {{char}}</span> </a>-->
+                  <!--</li>-->
+                <!--</ul>-->
+              <!--</header>-->
+              <!-- widget div-->
+              <div>
+                <!--加载中-->
+                <div class="row text-align-center" *ngIf="loadingJoin != ''">
+                  <img  src="assets/img/select2-spinner.gif" >
+                  <h4 class="txt-color-darken" >{{loadingJoin}}</h4>
+                </div>
+                <ul class="select-hidden" *ngIf="products2.data == ''">
+                  <li> 还没有可对比显示的数据！</li>
+                </ul>
+                <!-- widget content -->
+                <div class="widget-body no-padding">
+                  <!-- widget body text-->
+                  <div class="tab-content pd-10">
+                    <div *ngFor="let char of chartOption2;let inde = index;" id="hr{{inde+1}}"><!-- [ngClass]="{'tab-pane fade in success':inde == 0,'tab-pane fade':inde != 0}"-->
+                      <div *ngIf="chartOption2[inde].series[0].data.length != 0">
+                        <h4 class="alert alert-info"> {{metric_title[inde]}}对比图</h4>
+                        <div echarts [options]="chartOption2[inde]" style="width:600px;height: 400px;"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end widget body text-->
+                </div>
+                <!-- end widget content -->
+              </div>
+              <!-- end widget div -->
+            </sa-widget>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="ngOnClose();joinModal.hide()">
+          返回
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 

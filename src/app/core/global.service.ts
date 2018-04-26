@@ -13,6 +13,7 @@ export class GlobalService {
   sjfbID = 89;//三彭州市三界丰碑育苗合作社c_id
   sjfbNumber = 'sanjiefengbei';//三彭州市三界丰碑育苗合作社c_number
 
+
   //顶部导航
   navEventEmitter:EventEmitter<any>;
   constructor(

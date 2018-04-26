@@ -126,8 +126,10 @@ export class SettingDepartmentnewComponent implements OnInit {
                         this.prev = false;
                     }
                     this.selects = [];
-                    for (let entry of this.departmentList['result']['departmentList']['data']) {
-                        this.selects[entry['department_id']] = false;
+                    if(this.departmentList['result']['departmentList'].length > 0) {
+                        for (let entry of this.departmentList['result']['departmentList']['data']) {
+                            this.selects[entry['department_id']] = false;
+                        }
                     }
                     this.check = false;
                 }
