@@ -65,12 +65,14 @@ export class VerifyFrameComponent implements OnInit {
                 }
             });
             let url = '';
-            if(this.log_type == 'purchase_sale'){
+            if(this.log_type == 'purchase_sale' || this.log_type == 'purchase_cg_before' || this.log_type == 'purchase_cg_after'){
                 url = this.globalService.getDomain() + '/api/v1/addPurchaseLogForAll';
             }else if(this.log_type == 'stockallot'){
                 url = this.globalService.getDomain() + '/api/v1/addStockAllotLogForAll';
-            }else if(this.log_type == 'otherorder_in'){
+            }else if(this.log_type == 'otherorder_in' || this.log_type == 'otherorder_out'){
                 url = this.globalService.getDomain() + '/api/v1/addOtherorderLogForAll';
+            }else if(this.log_type == 'assets_ff' || this.log_type == 'assets_bf'){
+                url = this.globalService.getDomain() + '/api/v1/addAssetsLogForAll';
             }
             this.http.post(url, {
                 'other_ids': JSON.stringify(selects_user_ids),
@@ -103,10 +105,14 @@ export class VerifyFrameComponent implements OnInit {
             });
         }else {
             let url = '';
-            if(this.log_type == 'purchase_sale'){
+            if(this.log_type == 'purchase_sale' || this.log_type == 'purchase_cg_before' || this.log_type == 'purchase_cg_after'){
                 url = this.globalService.getDomain() + '/api/v1/addLog';
             }else if(this.log_type == 'stockallot'){
                 url = this.globalService.getDomain() + '/api/v1/addStockAllotLog';
+            }else if(this.log_type == 'otherorder_in' || this.log_type == 'otherorder_out'){
+                url = this.globalService.getDomain() + '/api/v1/addOtherorderLog';
+            }else if(this.log_type == 'assets_ff' || this.log_type == 'assets_bf'){
+                url = this.globalService.getDomain() + '/api/v1/addAssetsLog';
             }
             this.http.post(url, {
                 'other_id': this.pr_id,
@@ -119,7 +125,6 @@ export class VerifyFrameComponent implements OnInit {
                 'sid': this.cookieStore.getCookie('sid')
             }).subscribe((data) => {
                 let info = JSON.parse(data['_body']);
-
                 if (info['status'] == 200) {
                     this.operate_type = '';
                     this.operate_types.emit('');

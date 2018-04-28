@@ -261,26 +261,24 @@ export class SalesListComponent implements OnInit {
       'pr_type':this.type,
       'keyword':this.keyword.trim(),
       'sid':this.cookieStore.getCookie('sid')
-    }).subscribe(
-        (data)=>{
-          let info = JSON.parse(data['_body']);
-          alert(info['msg']);
-          if(info['status'] == 200) {
-            this.purchaseList = info;
+    }).subscribe((data)=>{
+        let info = JSON.parse(data['_body']);
+        alert(info['msg']);
+        if(info['status'] == 200) {
+          this.purchaseList = info;
 
-            this.selects = [];
-            for (let entry of this.purchaseList['result']['purchaseList']['data']) {
-              this.selects[entry['pr_id']] = false;
-            }
-            this.check = false;
-          }else if(info['status'] == 202){
-            this.cookieStore.removeAll(this.rollback_url);
-            this.router.navigate(['/auth/login']);
+          this.selects = [];
+          for (let entry of this.purchaseList['result']['purchaseList']['data']) {
+            this.selects[entry['pr_id']] = false;
           }
-          this.editStatusPurchaseId = 0;
-          this.isStatus = 0;
+          this.check = false;
+        }else if(info['status'] == 202){
+          this.cookieStore.removeAll(this.rollback_url);
+          this.router.navigate(['/auth/login']);
         }
-    );
+        this.editStatusPurchaseId = 0;
+        this.isStatus = 0;
+      });
   }
 
   /**

@@ -8,13 +8,14 @@
       <article class="col-sm-12">
         <sa-widget  [editbutton]="false" [deletebutton]="false" [colorbutton]="false">
           <header><span class="widget-icon"> <i class="fa fa-table"></i> </span>
-            <h2>员工传感数据</h2>
+            <h2 *ngIf="is_login_cid == cid">基站传感数据</h2>
+            <h2 *ngIf="is_login_cid != cid">员工传感数据</h2>
             <div class="jarviswidget-ctrls" role="menu">
               <a routerLink="/equipment/chart-setting" href="javascript:void(0);" class="button-icon jarviswidget-edit-btn" rel="tooltip" title="Edit" data-placement="bottom">
                 <i class="fa fa-cog"></i></a>
             </div>
 
-            <div class="widget-toolbar">
+            <div class="widget-toolbar" *ngIf="is_login_cid == cid">
               <button class="btn btn-save"  routerLink="/iot/station-block">切换布局</button>
 
             </div>
@@ -45,9 +46,10 @@
                   <thead>
                   <tr role="row">
                     <th class="details-control sorting_disabled percent-6"></th>
-                    <th class="percent-12">
-                      姓名
-                    </th>
+
+                    <th class="percent-12" *ngIf="is_login_cid != cid">
+                    姓名
+                  </th>
                     <th class="percent-12">
                       设备
                     </th>
@@ -72,7 +74,7 @@
                     </td>
                     <td class="percent-6" *ngIf="ll.i3otp_attribute1.length==0 "><!--&& ll.i3otp_attribute2.length==0 && ll.i3otp_attribute3.length==0-->
                     </td>
-                    <td class="percent-12">
+                    <td class="percent-12" *ngIf="is_login_cid != cid">
                       {{ll.u_username}}
                       <br>
                       <small class="text-muted">
@@ -112,7 +114,7 @@
                     </td>
                     <td class="percent-6" *ngIf="ll.i3otp_attribute1.length==0">
                     </td>
-                    <td class="percent-12">
+                    <td class="percent-12" *ngIf="is_login_cid != cid">
                       {{ll.u_username}}
                       <br>
                       <small class="text-muted">

@@ -33,28 +33,28 @@
                           <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailAssets('detail')">
                             <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
                         </div>
-                      <div class="form-group pdlr-4" >
-                        <a data-toggle="modal" data-target="#audit" class="btn default-btn btn-sm" >
+                      <div class="form-group pdlr-4" (click)="showModal('operation','operation','')" *ngIf="uid == pr_status">
+                        <a class="btn default-btn btn-sm" >
                           <span class="fa-fw fa fa-stop  mr-5 text-warning"></span>审核</a>
                       </div>
-
-                      <div class="form-group pdlr-4" >
-                        <a data-toggle="modal" data-target="#audit" class="btn default-btn btn-sm" >
+                      <div class="form-group pdlr-4" (click)="showModal('operation','cancel','')" *ngIf="uid == pr_u_id && pr_status != 'yes' && pr_status != 'no' && pr_status != 'cancel'">
+                        <a  class="btn default-btn btn-sm" >
                           <span class="fa-fw fa fa-trash-o mr-5 text-warning"></span>作废</a>
                       </div>
-                      <div class="form-group pdlr-4" >
-                        <a data-toggle="modal" data-target="#audit" class="btn default-btn btn-sm" >
+                      <div class="form-group pdlr-4" (click)="showModal('operation','back_cancel','')" *ngIf="uid == pr_u_id && pr_status == 'cancel'">
+                        <a class="btn default-btn btn-sm" >
                           <span class="fa-fw fa fa-mail-reply-all mr-5 text-primary"></span>弃废</a>
                       </div>
+
                         <div class="form-group btn-group pdlr-4">
                           <a class="btn default-btn btn-sm dropdown-toggle" (click)="showAllCheck()" data-toggle="dropdown">
                             <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
 
                           <ul class="dropdown-menu" role="menu">
-                            <li><a  data-toggle="modal" data-target="#audit"><span class="fa-fw fa  fa-stop  mr-5 text-warning"></span>批量审核</a></li>
+                            <li><a (click)="showModal('operation','operation','all')"><span class="fa-fw fa  fa-stop  mr-5 text-warning"></span>批量审核</a></li>
                             <li class="divider"></li>
-                            <li><a  data-toggle="modal" data-target="#audit"><span class="fa-fw fa fa-trash-o mr-5 text-warning"></span>批量作废</a></li>
-                            <li><a  data-toggle="modal" data-target="#audit"><span class="fa-fw fa fa-mail-reply-all mr-5 text-primary"></span>批量弃废</a></li>
+                            <li><a (click)="showModal('operation','cancel','all')"><span class="fa-fw fa fa-trash-o mr-5 text-warning"></span>批量作废</a></li>
+                            <li><a (click)="showModal('operation','back_cancel','all')"><span class="fa-fw fa fa-mail-reply-all mr-5 text-primary"></span>批量弃废</a></li>
                             <li class="divider"></li>
                             <li><a (click)="deleteAssets('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
                           </ul>
@@ -116,18 +116,14 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let a of assetsList.result?.assetsList?.data" (click)="isStatusShow(a.assets_id,a.assets_status)" [ngClass]="{'table-color':editStatusAssetsId == a.assets_id}"><!--class="table-color"-->
+                    <tr *ngFor="let a of assetsList.result?.assetsList?.data" (click)="isStatusShow(a.assets_id,a.assets_status,a.u_id,a.create_u_username,a.assets_number,a.assets_verify_status)" [ngClass]="{'table-color':editStatusAssetsId == a.assets_id}"><!--class="table-color"-->
                       <td>
                         <div>
-                          <span class="label-maintain maintain-style editor" data-toggle="modal" data-target="#audit"><i class="glyphicon glyphicon-exclamation-sign approval-icon" ></i>审核</span>
-                          <span class="label-unknown" >待审核</span>
-                          <span class="label-maintain" >审核中</span>
-                          <span class="label-normal">已同意</span>
-                          <span  class="label-full">已拒绝</span>
-                          <span  class="label-full">已作废</span>
-
+                          <span class="label-maintain" *ngIf="a.assets_verify_status != 'yes' && a.assets_verify_status != 'no' && a.assets_verify_status != 'cancel'">审核中</span>
+                          <span class="label-normal" *ngIf="a.assets_verify_status == 'yes'">已同意</span>
+                          <span  class="label-full" *ngIf="a.assets_verify_status == 'no'">已拒绝</span>
+                          <span  class="label-full" *ngIf="a.assets_verify_status == 'cancel'">已作废</span>
                         </div>
-
                       </td>
                       <td>
                         <span class="click-a"><a>{{a.assets_number}}</a></span>
@@ -137,19 +133,17 @@
                     </tbody>
                   </table>
                 </div>
-
                 <div [ngStyle]="{'padding': '0','z-index': '1','width':width_1,'float':'left'}" class="table-responsive">
                   <table class="table table-striped smart-form table-height-20">
                     <thead>
                     <tr>
-
                       <th>使用部门 </th>
                       <th>使用人 </th>
                       <th>发放日期 </th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let a1 of assetsList.result?.assetsList?.data" (click)="isStatusShow(a1.assets_id,a1.assets_status)" [ngClass]="{'table-color':editStatusAssetsId == a1.assets_id}"><!-- class="table-color"-->
+                    <tr *ngFor="let a1 of assetsList.result?.assetsList?.data" (click)="isStatusShow(a1.assets_id,a1.assets_status,a1.u_id,a1.create_u_username,a1.assets_number,a1.assets_verify_status)" [ngClass]="{'table-color':editStatusAssetsId == a1.assets_id}"><!-- class="table-color"-->
                       <td><span class="">{{a1.department_name}}</span></td>
                       <td>{{a1.u_username}}</td>
                       <td><span class="">{{a1.assets_date}}</span></td>
@@ -196,11 +190,11 @@
             <fieldset>
               <div class="picture-opacity" style="left: -24px; top: 38px;position: absolute;z-index: 999;">
                 <!--同意-->
-                <img class="" src="assets/img/chapter1.png">
+                <img src="assets/img/chapter1.png" *ngIf="assetsInfo?.result?.assets_verify_status == 'yes'">
                 <!--拒绝-->
-                <img  class="" src="assets/img/chapter2.png">
+                <img src="assets/img/chapter2.png" *ngIf="assetsInfo?.result?.assets_verify_status == 'no'">
                 <!--作废-->
-                <img  class="" src="assets/img/chapter4.png">
+                <img src="assets/img/chapter4.png" *ngIf="assetsInfo?.result?.assets_verify_status == 'cancel'">
               </div>
               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <section>
@@ -225,7 +219,6 @@
                   </label>
                 </section>
               </div>
-
               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <label class="label ">使用部门</label>
                 <section >
@@ -262,29 +255,53 @@
                   </label>
                 </section>
               </div>
+              <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-20">
+                <div class="label ">审批人<a *ngIf="assetsInfo?.result?.assets_verify_status != 'no' && assetsInfo?.result?.assets_verify_status != 'yes' && assetsInfo?.result?.assets_verify_status != 'cancel'" class="txt-color-blue pd-10" (click)="showDetail('assign')">添加审批人</a></div>
+                <ul  class="avatars" *ngIf="approve_user">
+                  <li *ngFor="let su of approve_user;let ind = index;">
+                    <a *ngIf="isDetail!='detail'" class="fa fa-times-circle picture-a" style="display:block;" (click)="removeUser(su.id,'assign')"></a>
+                    <a class="portrait-size" title="{{su.u_username}}">
+                      {{su.u_username}}
+                    </a>
+                    <div class="approval-arrow" *ngIf="ind < approve_user.length && ind != 0" >
+                      <img src="assets/img/icon/arrow.png" >
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-20">
+                <div class="label ">抄送人<a *ngIf="assetsInfo?.result?.assets_verify_status != 'no' && assetsInfo?.result?.assets_verify_status != 'yes' && assetsInfo?.result?.assets_verify_status != 'cancel'" class="txt-color-blue pd-10" (click)="showDetail('follower')">添加抄送人</a><span class="txt-color-blueLight pd-10">(审批通过后，通知抄送人)</span></div>
+                <ul  class="avatars" *ngIf="follower_user">
+                  <li *ngFor="let su1 of follower_user;let ind1 = index;">
+                    <a *ngIf="isDetail!='detail'" class="fa fa-times-circle picture-a" style="display:block;" (click)="removeUser(su1.id,'follower')"></a>
+                    <a class="portrait-size" title="{{su1.u_username}}">
+                      {{su1.u_username}}
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </fieldset>
           </form>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#audit">
-          审核
-        </button>
-        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#audit">
-          作废
-        </button>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#audit">
-          弃废
-        </button>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cuiBan">
-          催办
-        </button>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+        <button type="button" class="btn btn-primary"  (click)="showDetail('transfer')" *ngIf="uid == assetsInfo?.result?.assets_verify_status">
           转交
         </button>
-
-        <!--<button class="btn btn-success btn-sm" type="button"><span class="glyphicon glyphicon-plus"></span>保存并新增</button>-->
-        <button type="button" class="btn btn-primary" (click)="onSubmit()">保存</button>
+        <button type="button" class="btn btn-primary" (click)="showModal('urge','urge','add')" *ngIf="uid == assetsInfo?.result?.u_id && assetsInfo?.result?.assets_verify_status != 'yes' && assetsInfo?.result?.assets_verify_status != 'no' && assetsInfo?.result?.assets_verify_status != 'cancel'">
+          催办
+        </button>
+        <button type="button" class="btn btn-primary" (click)="showModal('operation','back_cancel','add')" *ngIf="uid == assetsInfo?.result?.u_id && assetsInfo?.result?.assets_verify_status == 'cancel'">
+          弃废
+        </button>
+        <button type="button" class="btn btn-warning"  (click)="showModal('operation','cancel','add')" *ngIf="uid == assetsInfo?.result?.u_id && assetsInfo?.result?.assets_verify_status != 'yes' && assetsInfo?.result?.assets_verify_status != 'no' && assetsInfo?.result?.assets_verify_status != 'cancel'">
+          作废
+        </button>
+        <button type="button" class="btn btn-warning" (click)="showModal('operation','operation','add')" *ngIf="uid == assetsInfo?.result?.assets_verify_status">
+          审核
+        </button>
+        <button *ngIf="assets_id==0" type="submit" class="btn btn-primary" (click)="onSubmit()">保存</button>
+        <button *ngIf="assets_id!=0 && assetsInfo?.result?.assets_verify_status != 'no' && assetsInfo?.result?.assets_verify_status != 'yes' && assetsInfo?.result?.assets_verify_status != 'cancel'" type="submit" class="btn btn-primary">修改</button>
         <button type="button" class="btn btn-default" (click)="clear_('add')">返回</button>
       </div>
     </div>
@@ -306,11 +323,11 @@
           <div class="col-sm-12">
             <div class="picture-opacity" style="left: -24px; top: 38px;position: absolute;z-index: 999;">
               <!--同意-->
-              <img class="" src="assets/img/chapter1.png">
+              <img src="assets/img/chapter1.png" *ngIf="assetsInfo?.result?.assets_verify_status == 'yes'">
               <!--拒绝-->
-              <img  class="" src="assets/img/chapter2.png">
+              <img src="assets/img/chapter2.png" *ngIf="assetsInfo?.result?.assets_verify_status == 'no'">
               <!--作废-->
-              <img  class="" src="assets/img/chapter4.png">
+              <img src="assets/img/chapter4.png" *ngIf="assetsInfo?.result?.assets_verify_status == 'cancel'">
             </div>
             <div class="" >
               <P class="alert alert-info">基本信息</P>
@@ -328,10 +345,6 @@
                   <td class="width-120">使用部门：</td>
                   <td class="">{{assetsInfo?.result?.department_name}}</td>
                 </tr>
-                <!--<tr>-->
-                  <!--<td class="width-120">修改时间:</td>-->
-                  <!--<td class="" colspan="3"></td>-->
-                <!--</tr>-->
                 <tr>
                   <td class="width-120">说明:</td>
                   <td class="" colspan="3">{{assetsInfo?.result?.assets_use_note}}</td>
@@ -349,321 +362,6 @@
   </div>
 </div>
 
+<app-select-user (approve_users)="getData($event)" [is_show_detail]="is_show_detail" (is_show_details)="getShowStatus($event)" [approval_or_copy]="approval_or_copy" *ngIf="is_show_detail"></app-select-user>
+<app-verify-frame [log_type]="log_type" [log_table_name]="log_table_name" [select_count]="select_count" [selects]="selects" [operate_type]="operate_type" [username]="pr_u_username" [order_number]="pr_order" [pr_id]="editStatusAssetsId" [create_user_id]="pr_u_id" [operate_button_type]="operate_button_type" [operate_button_type_is_more]="operate_button_type_is_more"  (operate_types)="getOperateTypes($event)" *ngIf="operate_type"></app-verify-frame>
 
-<div class="modal fade bg-transparent" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <!-- 关闭按钮 -->
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-          ×
-        </button>
-        <!-- 标题 -->
-        <h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>选择人</h3>
-      </div>
-      <div class="modal-body ">
-        <div  class="row">
-          <article  class="col-sm-12">
-            <div class="navbar navbar-default">
-              <div class="collapse navbar-collapse">
-
-                <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-                  <div class="form-group pdlr-4">
-                    <div class="form-group padding-left-10">
-                      <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15"   name="keyword_product" placeholder="请输入搜索内容" type="text">
-                    </div>
-                    <button class="btn btn-default" type="button" >
-                      <i  class="glyphicon glyphicon-search"></i>
-                      搜索
-                    </button>
-                  </div>
-
-                </form>
-              </div>
-            </div>
-          </article>
-        </div>
-        <div class="pt">
-          <div class="row margin-b50" style="padding:0 10px;">
-            <article class="form-group col col-xs-4 ">
-              <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
-                         [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
-                <div>
-                  <div class="widget-body no-padding">
-                    <alert type="info" class="no-margin">
-                      <i class="fa-fw fa fa-sitemap"></i>
-                      部门分类
-                    </alert>
-                    <div class="pd-10 border-overflow-320" style="margin-top: -11px;">
-                      <div class="widget-body">
-                        <div class="tree smart-form">
-                          <ul class="">
-                            <li class=" parent_li">
-                                  <span>
-                                    <label class="checkbox inline-block tree-label pt-12 ">
-                                          <input name="checkbox-inline" type="checkbox"><i></i>
-                                   </label>
-                                    <i class="fa fa-lg fa-folder-open"></i>矿易帮
-                                    <i class="sa-icon fa fa-lg fa-minus-circle"></i>
-                                  </span>
-                              <ul class="">
-                                <li class=" parent_li">
-                                        <span>
-                                          <label class="checkbox inline-block tree-label ">
-                                            <input name="checkbox-inline" type="checkbox">
-                                            <i></i>财务部
-                                            <em class="txt-color-blue">(0)</em>
-                                          </label>
-
-                                        </span>
-                                </li>
-                                <li class=" parent_li">
-                                        <span>
-                                          <label class="checkbox inline-block tree-label ">
-                                            <input name="checkbox-inline" type="checkbox">
-                                            <i></i>互联网部
-                                            <em class="txt-color-blue">(0)</em>
-                                          </label>
-
-                                        </span>
-                                </li>
-                                <li class=" parent_li">
-                                        <span>
-                                          <label class="checkbox inline-block tree-label ">
-                                            <input name="checkbox-inline" type="checkbox">
-                                            <i></i>行政部
-                                            <em class="txt-color-blue">(0)</em>
-                                          </label>
-                                           <i class="sa-icon fa fa-lg fa-plus-circle"></i>
-                                        </span>
-                                  <ul class="">
-                                    <li>
-                                            <span>
-                                              <label class="checkbox inline-block tree-label">
-                                                <input name="checkbox-inline" type="checkbox">
-                                                <i></i>财务部
-                                                <em class="txt-color-blue">(0)</em>
-                                              </label>
-                                            </span>
-                                    </li>
-                                  </ul>
-
-                                </li>
-                                <li class=" parent_li">
-                                        <span>
-                                          <label class="checkbox inline-block tree-label ">
-                                            <input name="checkbox-inline" type="checkbox">
-                                            <i></i>软件部
-                                            <em class="txt-color-blue">(2)</em>
-                                          </label>
-                                        </span>
-                                </li>
-                              </ul>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="dt-toolbar">
-                    </div>
-                  </div>
-                </div>
-              </sa-widget>
-
-            </article>
-            <article class="form-group col col-xs-8 ">
-              <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
-                         [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
-                <div>
-                  <div class="widget-body no-padding">
-                    <alert type="info" class="no-margin" >
-                      <i class="fa-fw fa fa-table"></i>
-                      员工列表
-                    </alert>
-                    <div class="mt-10 "  style="padding:0;">
-                      <div style="padding: 0;z-index: 1;" class="table-responsive border-overflow-320">
-                        <table class="table table-striped   smart-form table-height-20">
-                          <thead>
-                          <tr>
-                            <td>
-                              <label class="checkbox mt-8">
-                                <input type="checkbox" name="checkbox-inline" >
-                                <i></i>
-                              </label>
-                            </td>
-                            <th>员工ID </th>
-                            <th>姓名</th>
-                            <th>所属部门</th>
-                          </tr>
-                          </thead>
-                          <tbody>
-                          <tr >
-                            <td>
-                              <label class="checkbox mt-8" >
-                                <input type="checkbox"   />
-                                <i></i>
-                              </label>
-                            </td>
-                            <td>dgff</td>
-                            <td>dfgd</td>
-                            <td>dfgfd</td>
-                          </tr>
-                          <tr >
-                            <td>
-                              <label class="checkbox mt-8" >
-                                <input type="checkbox"   />
-                                <i></i>
-                              </label>
-                            </td>
-                            <td>dgff</td>
-                            <td>dfgd</td>
-                            <td>dfgfd</td>
-                          </tr>
-                          <tr >
-                            <td>
-                              <label class="checkbox mt-8" >
-                                <input type="checkbox"   />
-                                <i></i>
-                              </label>
-                            </td>
-                            <td>dgff</td>
-                            <td>dfgd</td>
-                            <td>dfgfd</td>
-                          </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                    <!-- 底部-（分页部分）-->
-                    <div class="dt-toolbar">
-                      <div class="col-xs-12 col-sm-6">
-                        <span>共5条</span>
-                      </div>
-                      <div class="hidden-xs right">
-                        <ul class="pagination pagination-sm">
-                          <li *ngFor="let p of searchProductList?.result?.page" class="{{p.class}}">
-                            <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
-                            <a *ngIf="p.method==''">{{p.text}}</a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </sa-widget>
-              <!-- end widget -->
-            </article>
-          </div>
-        </div>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-ng-click="ok()"><span class="glyphicon glyphicon-plus"></span>选入</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal" >返回</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- 催办-->
-<div class="modal fade bg-transparent" id="cuiBan" tabindex="-1" role="dialog">
-  <div class="modal-dialog" style="width:400px;">
-    <div class="modal-content text-center">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <!-- 标题 -->
-        <h3 class="modal-title " data-ng-bind='results.title'>提示</h3>
-      </div>
-      <div class="pd-20">
-        <div class="text-center pd-20">
-          <h4>你确定要发送催办消息吗？</h4>
-        </div>
-      </div>
-      <div class="modal-footer text-center">
-
-        <button type="button" class="btn btn btn-primary  btn-lg" data-dismiss="modal">确定</button>
-        <button type="button" class="btn btn-default  btn-lg" data-dismiss="modal">取消</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<!-- 审批 -->
-<div class="modal fade" id="audit" tabindex="-1" role="dialog">
-  <div class="modal-dialog" style="width:500px;">
-    <div class="modal-content text-center">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <!-- 标题 -->
-        <h3 class="modal-title " data-ng-bind='results.title'>提示</h3>
-      </div>
-      <div class="modal-body ">
-        <div class="row">
-          <div class="text-align-left pd-15">
-            <h4>某某的单据[CD180400004]需要您审批!</h4>
-            <h4>你确定要将单据[CD180400004]作废！</h4>
-            <h4>你确定要将单据[CD180400004]弃废！</h4>
-            <h4>您确认批量作废当前选中的[4]张单据吗？</h4>
-            <h4>您确认批量弃废当前选中的[4]张单据吗？</h4>
-            <h4>您确认批量审核当前选中的[4]张单据吗？</h4>
-          </div>
-          <form  class="smart-form" >
-            <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
-              <section>
-                <label class="textarea textarea-resizable">
-                  <textarea class="custom-scroll" rows="8" name="" placeholder="请输入你的意见"></textarea>
-                </label>
-              </section>
-            </div>
-          </form>
-        </div>
-      </div>
-
-      <div class="modal-footer text-center">
-        <button type="button" class="btn btn-success  btn-lg" data-dismiss="modal" data-toggle="modal" data-target="#audit-center">同意</button>
-        <button type="button" class="btn btn-danger  btn-lg" data-dismiss="modal">拒绝</button>
-        <button type="button" class="btn btn-primary  btn-lg" data-dismiss="modal" data-toggle="modal" data-target="#audit-center">确定</button>
-        <button type="button" class="btn btn-default  btn-lg" data-dismiss="modal">取消</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-
-<div class="modal fade" id="audit-center" tabindex="-1" role="dialog">
-  <div class="modal-dialog" style="width:500px;">
-    <div class="modal-content text-center">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <!-- 标题 -->
-        <h3 class="modal-title " data-ng-bind='results.title'>开始执行批量审核，请勿关闭</h3>
-        <h3 class="modal-title " data-ng-bind='results.title'>开始执行批量作废，请勿关闭</h3>
-        <h3 class="modal-title " data-ng-bind='results.title'>开始执行批量弃废，请勿关闭</h3>
-      </div>
-      <div class="pd-20">
-        <div class="text-center pd-20">
-          <div><span>单据[CD180400005]审核成功</span></div>
-          <div><span>单据[CD180400004]审核跳过，该单据已审核！</span></div>
-          <div><span>单据[CD180400004]审核跳过，你没有权限审核该单据！</span></div>
-          <div><span>批量审核结束</span></div>
-        </div>
-        <div class="text-center pd-20">
-          <div><span>单据[CD180400005]已作废</span></div>
-          <div><span>单据[CD180400002]作废跳过，该单据已作废，请弃废后再执行作废操作！</span></div>
-          <div><span>单据[CD180400004]作废跳过，你没有权限作废该单据！</span></div>
-          <div><span>批量审核结束</span></div>
-        </div>
-        <div class="text-center pd-20">
-          <div><span>单据[CD180400001]已弃废</span></div>
-          <div><span>单据[CD180400002]弃废跳过，该单据尚未作废，请作废再执行弃废操作！</span></div>
-          <div><span>单据[CD180400004]弃废跳过，你没有权限弃废该单据！</span></div>
-          <div><span>批量审核结束</span></div>
-        </div>
-      </div>
-      <div class="modal-footer text-center">
-        <button type="button" class="btn btn btn-primary  btn-lg" data-dismiss="modal">确定</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->

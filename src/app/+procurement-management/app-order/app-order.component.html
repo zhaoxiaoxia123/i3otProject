@@ -25,11 +25,11 @@
                   <input type="hidden" name="pr_id" formControlName="pr_id">
                   <div class="picture-opacity" style="left: -24px; top: 38px;position: absolute;z-index: 999;">
                     <!--同意-->
-                    <img class="" src="assets/img/chapter1.png">
+                    <img src="assets/img/chapter1.png" *ngIf="purchaseInfo?.result?.pr_status == 'yes'">
                     <!--拒绝-->
-                    <img  class="" src="assets/img/chapter2.png">
+                    <img src="assets/img/chapter2.png" *ngIf="purchaseInfo?.result?.pr_status == 'no'">
                     <!--作废-->
-                    <img  class="" src="assets/img/chapter4.png">
+                    <img src="assets/img/chapter4.png" *ngIf="purchaseInfo?.result?.pr_status == 'cancel'">
                   </div>
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
                     <section class="mb-6">
@@ -396,21 +396,46 @@
                       </label>
                     </section>
                   </div>
+                  <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-20">
+                    <div class="label ">审批人<a *ngIf="isDetail!='detail'" class="txt-color-blue pd-10" (click)="showDetail('assign')">添加审批人</a></div>
+                    <ul  class="avatars" *ngIf="approve_user">
+                      <li *ngFor="let su of approve_user;let ind = index;">
+                        <a *ngIf="isDetail!='detail'" class="fa fa-times-circle picture-a" style="display:block;" (click)="removeUser(su.id,'assign')"></a>
+                        <a class="portrait-size" title="{{su.u_username}}">
+                          {{su.u_username}}
+                        </a>
+                        <div class="approval-arrow" *ngIf="ind < approve_user.length && ind != 0" >
+                          <img src="assets/img/icon/arrow.png" >
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-20">
+                    <div class="label ">抄送人<a *ngIf="isDetail!='detail'" class="txt-color-blue pd-10" (click)="showDetail('follower')">添加抄送人</a><span class="txt-color-blueLight pd-10">(审批通过后，通知抄送人)</span></div>
+                    <ul  class="avatars" *ngIf="follower_user">
+                      <li *ngFor="let su1 of follower_user;let ind1 = index;">
+                        <a *ngIf="isDetail!='detail'" class="fa fa-times-circle picture-a" style="display:block;" (click)="removeUser(su1.id,'follower')"></a>
+                        <a class="portrait-size" title="{{su1.u_username}}">
+                          {{su1.u_username}}
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
                 </fieldset>
                 <footer>
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                  <button type="button" class="btn btn-primary"  (click)="showDetail('transfer')" *ngIf="uid == purchaseInfo?.result?.pr_status">
                     转交
                   </button>
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cuiBan">
+                  <button type="button" class="btn btn-primary" (click)="showModal('urge','urge')" *ngIf="uid == purchaseInfo?.result?.u_id && purchaseInfo?.result?.pr_status != 'yes' && purchaseInfo?.result?.pr_status != 'no' && purchaseInfo?.result?.pr_status != 'cancel'">
                     催办
                   </button>
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#audit">
+                  <button type="button" class="btn btn-primary" (click)="showModal('operation','back_cancel')" *ngIf="uid == purchaseInfo?.result?.u_id && purchaseInfo?.result?.pr_status == 'cancel'">
                     弃废
                   </button>
-                  <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#audit">
+                  <button type="button" class="btn btn-warning"  (click)="showModal('operation','cancel')" *ngIf="uid == purchaseInfo?.result?.u_id && purchaseInfo?.result?.pr_status != 'yes' && purchaseInfo?.result?.pr_status != 'no' && purchaseInfo?.result?.pr_status != 'cancel'">
                     作废
                   </button>
-                  <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#audit">
+                  <button type="button" class="btn btn-warning" (click)="showModal('operation','operation')" *ngIf="uid == purchaseInfo?.result?.pr_status">
                     审核
                   </button>
                   <button type="button" class="btn btn-default" [routerLink]="['/procurement-management/procurement-order']">
@@ -418,7 +443,7 @@
                   </button>
                   <!--<button type="button" class="btn btn-success btn-sm" ><span class="glyphicon glyphicon-plus"></span>保存并新增</button>-->
                   <button *ngIf="pr_id==0" type="submit" class="btn btn-primary">保存</button>
-                  <button *ngIf="isDetail!='detail' && pr_id!=0" type="submit" class="btn btn-primary">修改</button>
+                  <button *ngIf="isDetail!='detail' && pr_id!=0 && purchaseInfo?.result?.pr_status != 'no' && purchaseInfo?.result?.pr_status != 'yes' && purchaseInfo?.result?.pr_status != 'cancel'" type="submit" class="btn btn-primary">修改</button>
                 </footer>
               </form>
             </div>
@@ -609,280 +634,6 @@
   </div>
 </div>
 
+<app-select-user (approve_users)="getData($event)" [is_show_detail]="is_show_detail" (is_show_details)="getShowStatus($event)" [approval_or_copy]="approval_or_copy" *ngIf="is_show_detail"></app-select-user>
+<app-verify-frame [log_type]="log_type" [log_table_name]="log_table_name" [operate_type]="operate_type" [username]="purchaseInfo?.result?.u_username" [order_number]="purchaseInfo?.result?.pr_order" [pr_id]="pr_id" [create_user_id]="create_user_id" [operate_button_type_is_more]="operate_button_type_is_more" [operate_button_type]="operate_button_type" (operate_types)="getOperateTypes($event)"></app-verify-frame>
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <!-- 关闭按钮 -->
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-          ×
-        </button>
-        <!-- 标题 -->
-        <h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>选择人</h3>
-      </div>
-      <div class="modal-body ">
-        <div  class="row">
-          <article  class="col-sm-12">
-            <div class="navbar navbar-default">
-              <div class="collapse navbar-collapse">
-
-                <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-                  <div class="form-group pdlr-4">
-                    <div class="form-group padding-left-10">
-                      <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15"   name="keyword_product" placeholder="请输入搜索内容" type="text">
-                    </div>
-                    <button class="btn btn-default" type="button" >
-                      <i  class="glyphicon glyphicon-search"></i>
-                      搜索
-                    </button>
-                  </div>
-
-                </form>
-              </div>
-            </div>
-          </article>
-        </div>
-        <div class="pt">
-          <div class="row margin-b50" style="padding:0 10px;">
-            <article class="form-group col col-xs-4 ">
-              <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
-                         [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
-                <div>
-                  <div class="widget-body no-padding">
-                    <alert type="info" class="no-margin">
-                      <i class="fa-fw fa fa-sitemap"></i>
-                      部门分类
-                    </alert>
-                    <div class="pd-10 border-overflow-320" style="margin-top: -11px;">
-                      <div class="widget-body">
-                        <div class="tree smart-form">
-                          <ul class="">
-                            <li class=" parent_li">
-                                  <span>
-                                    <label class="checkbox inline-block tree-label pt-12 ">
-                                          <input name="checkbox-inline" type="checkbox"><i></i>
-                                   </label>
-                                    <i class="fa fa-lg fa-folder-open"></i>矿易帮
-                                    <i class="sa-icon fa fa-lg fa-minus-circle"></i>
-                                  </span>
-                              <ul class="">
-                                <li class=" parent_li">
-                                        <span>
-                                          <label class="checkbox inline-block tree-label ">
-                                            <input name="checkbox-inline" type="checkbox">
-                                            <i></i>财务部
-                                            <em class="txt-color-blue">(0)</em>
-                                          </label>
-
-                                        </span>
-                                </li>
-                                <li class=" parent_li">
-                                        <span>
-                                          <label class="checkbox inline-block tree-label ">
-                                            <input name="checkbox-inline" type="checkbox">
-                                            <i></i>互联网部
-                                            <em class="txt-color-blue">(0)</em>
-                                          </label>
-
-                                        </span>
-                                </li>
-                                <li class=" parent_li">
-                                        <span>
-                                          <label class="checkbox inline-block tree-label ">
-                                            <input name="checkbox-inline" type="checkbox">
-                                            <i></i>行政部
-                                            <em class="txt-color-blue">(0)</em>
-                                          </label>
-                                           <i class="sa-icon fa fa-lg fa-plus-circle"></i>
-                                        </span>
-                                  <ul class="">
-                                    <li>
-                                            <span>
-                                              <label class="checkbox inline-block tree-label">
-                                                <input name="checkbox-inline" type="checkbox">
-                                                <i></i>财务部
-                                                <em class="txt-color-blue">(0)</em>
-                                              </label>
-                                            </span>
-                                    </li>
-                                  </ul>
-
-                                </li>
-                                <li class=" parent_li">
-                                        <span>
-                                          <label class="checkbox inline-block tree-label ">
-                                            <input name="checkbox-inline" type="checkbox">
-                                            <i></i>软件部
-                                            <em class="txt-color-blue">(2)</em>
-                                          </label>
-                                        </span>
-                                </li>
-                              </ul>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="dt-toolbar">
-                    </div>
-                  </div>
-                </div>
-              </sa-widget>
-
-            </article>
-            <article class="form-group col col-xs-8 ">
-              <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
-                         [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
-                <div>
-                  <div class="widget-body no-padding">
-                    <alert type="info" class="no-margin" >
-                      <i class="fa-fw fa fa-table"></i>
-                      员工列表
-                    </alert>
-                    <div class="mt-10 "  style="padding:0;">
-                      <div style="padding: 0;z-index: 1;" class="table-responsive border-overflow-320">
-                        <table class="table table-striped   smart-form table-height-20">
-                          <thead>
-                          <tr>
-                            <td>
-                              <label class="checkbox mt-8">
-                                <input type="checkbox" name="checkbox-inline" >
-                                <i></i>
-                              </label>
-                            </td>
-                            <th>员工ID </th>
-                            <th>姓名</th>
-                            <th>所属部门</th>
-                          </tr>
-                          </thead>
-                          <tbody>
-                          <tr >
-                            <td>
-                              <label class="checkbox mt-8" >
-                                <input type="checkbox"   />
-                                <i></i>
-                              </label>
-                            </td>
-                            <td>dgff</td>
-                            <td>dfgd</td>
-                            <td>dfgfd</td>
-                          </tr>
-                          <tr >
-                            <td>
-                              <label class="checkbox mt-8" >
-                                <input type="checkbox"   />
-                                <i></i>
-                              </label>
-                            </td>
-                            <td>dgff</td>
-                            <td>dfgd</td>
-                            <td>dfgfd</td>
-                          </tr>
-                          <tr >
-                            <td>
-                              <label class="checkbox mt-8" >
-                                <input type="checkbox"   />
-                                <i></i>
-                              </label>
-                            </td>
-                            <td>dgff</td>
-                            <td>dfgd</td>
-                            <td>dfgfd</td>
-                          </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                    <!-- 底部-（分页部分）-->
-                    <div class="dt-toolbar">
-                      <div class="col-xs-12 col-sm-6">
-                        <span>共5条</span>
-                      </div>
-                      <div class="hidden-xs right">
-                        <ul class="pagination pagination-sm">
-                          <li *ngFor="let p of searchProductList?.result?.page" class="{{p.class}}">
-                            <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
-                            <a *ngIf="p.method==''">{{p.text}}</a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </sa-widget>
-              <!-- end widget -->
-            </article>
-          </div>
-        </div>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-ng-click="ok()"><span class="glyphicon glyphicon-plus"></span>选入</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal" >返回</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- 催办-->
-<div class="modal fade" id="cuiBan" tabindex="-1" role="dialog">
-  <div class="modal-dialog" style="width:400px;">
-    <div class="modal-content text-center">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <!-- 标题 -->
-        <h3 class="modal-title " data-ng-bind='results.title'>提示</h3>
-      </div>
-      <div class="pd-20">
-        <div class="text-center pd-20">
-          <h4>你确定要发送催办消息吗？</h4>
-        </div>
-      </div>
-      <div class="modal-footer text-center">
-
-        <button type="button" class="btn btn btn-primary  btn-lg" data-dismiss="modal">确定</button>
-        <button type="button" class="btn btn-default  btn-lg" data-dismiss="modal">取消</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<!-- 审批 -->
-<div class="modal fade" id="audit" tabindex="-1" role="dialog">
-  <div class="modal-dialog" style="width:500px;">
-    <div class="modal-content text-center">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <!-- 标题 -->
-        <h3 class="modal-title " data-ng-bind='results.title'>提示</h3>
-      </div>
-      <div class="modal-body ">
-        <div class="row">
-          <div class="text-align-left pd-15">
-            <h4>某某的单据[CD180400004]需要您审批!</h4>
-            <h4>你确定要将单据[CD180400004]作废！</h4>
-            <h4>你确定要将单据[CD180400004]弃废！</h4>
-          </div>
-          <form  class="smart-form" >
-            <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
-              <section>
-                <label class="textarea textarea-resizable">
-                  <textarea class="custom-scroll" rows="8" name="" placeholder="请输入你的意见"></textarea>
-                </label>
-              </section>
-            </div>
-          </form>
-        </div>
-      </div>
-
-      <div class="modal-footer text-center">
-        <button type="button" class="btn btn-success  btn-lg" data-dismiss="modal" >同意</button>
-        <button type="button" class="btn btn-danger  btn-lg" data-dismiss="modal">拒绝</button>
-        <button type="button" class="btn btn-primary  btn-lg" data-dismiss="modal" >确定</button>
-        <button type="button" class="btn btn-default  btn-lg" data-dismiss="modal">取消</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->

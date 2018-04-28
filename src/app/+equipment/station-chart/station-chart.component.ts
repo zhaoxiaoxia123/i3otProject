@@ -161,13 +161,8 @@ export class StationChartComponent implements OnInit {
             .map((res)=>res.json());
         this.dataSource1.subscribe(data=>{
             this.products1=data;
-
             this.chartOption1 = this.getValue(1);
-            console.log('this.chartOption1:-----');
-            console.log(this.chartOption1);
         });
-        // setTimeout(() => {
-        // }, 5*1000);
     }
 
     /**

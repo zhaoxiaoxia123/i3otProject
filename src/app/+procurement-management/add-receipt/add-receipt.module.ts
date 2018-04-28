@@ -9,6 +9,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CookieService} from 'angular2-cookie/core';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 import {DpDatePickerModule} from "ng2-date-picker";
+import {SelectUserModule} from "../../shared/common/select-user/select-user.module";
+import {VerifyFrameModule} from "../../shared/common/verify-frame/verify-frame.module";
 
 @NgModule({
   imports: [
@@ -18,6 +20,8 @@ import {DpDatePickerModule} from "ng2-date-picker";
     FormsModule,
     ReactiveFormsModule,
     DpDatePickerModule,
+    SelectUserModule,
+    VerifyFrameModule,
     AddReceiptRoutingModule
   ],
   declarations: [AddReceiptComponent],

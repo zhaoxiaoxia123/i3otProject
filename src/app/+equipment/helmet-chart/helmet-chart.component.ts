@@ -70,6 +70,7 @@ export class HelmetChartComponent implements OnInit {
     isShowJoin : boolean= false;
     rollback_url : string = '/equipment/helmet-chart';
     // request_count : number = 0;
+    is_login_cid : any = 0;
     constructor(
         fb:FormBuilder,
         private http: Http,
@@ -80,6 +81,7 @@ export class HelmetChartComponent implements OnInit {
     ) {
         let nav = '{"title":"员工传感数据","url":"/equipment/helmet-chart","class_":"active"}';
         this.globalService.navEventEmitter.emit(nav);
+        this.is_login_cid = this.globalService.getSjfbNumber()
         this.formModel = fb.group({
             keyword:[''],
         });
@@ -181,8 +183,7 @@ export class HelmetChartComponent implements OnInit {
         this.dataSource1.subscribe((data)=>{
             this.products1=data;
             this.chartOption1 = this.getValue(1);
-            console.log('this.chartOption1:-----');
-            console.log(this.chartOption1);
+
         });
     }
 

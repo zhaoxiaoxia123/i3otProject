@@ -64,6 +64,41 @@ export class AppOrderComponent implements OnInit {
   role : number = 3; //供应商角色
   p_property : number = 2; //采购商品
   rollback_url : string = '/procurement-management/app-order';
+
+
+  /**
+   * --------用作审核的变量------
+   */
+  /**
+   * 选中的审批者
+   * @type {Array}
+   */
+  approve_user : Array<any> = [];
+  /**
+   * 选中的关注者
+   * @type {Array}
+   */
+  follower_user : Array<any> = [];
+  /**
+   * 转交人
+   * @type {Array}
+   */
+  transfer_user : Array<any> = [];
+  remove_user_ids : Array<any> = [];
+  approval_or_copy : string = '';
+  is_show_detail : string = '';
+  is_show_details : string = '';
+  approve_users : Array<any> = [];
+
+  operate_type : string = '';//操作弹框类型
+  operate_button_type : string = '';//操作按钮类型
+  operate_button_type_is_more : string = '';//是否是批量操作
+  operate_types : string = '';//操作弹框类型
+  uid : any = 0;
+  create_user_id: any = 0;
+  log_table_name:string = 'purchase';
+  log_type:string = 'purchase_cg_before';
+
   constructor( fb:FormBuilder,
                private http:Http,
                private router : Router,
@@ -74,6 +109,7 @@ export class AppOrderComponent implements OnInit {
 
     let nav = '{"title":"添加采购订单","url":"/procurement-management/app-order/0","class_":"active"}';
     this.globalService.navEventEmitter.emit(nav);
+    this.uid = this.cookieStore.getCookie('uid');
     this.formModel = fb.group({
       pr_id:[''],
       pr_order:[''],
@@ -97,26 +133,29 @@ export class AppOrderComponent implements OnInit {
       pr_cost:[''],
       pr_account:[''],
       pr_payment_note:[''],
+      pr_assign:[''],
+      pr_copy_person:[''],
     });
-  }
 
-  ngOnInit() {
-    this.pr_id = this.routInfo.snapshot.params['pr_id'];
-    if(this.pr_id != '' && this.pr_id != '0'){
-      let id = this.pr_id;
-      if(this.pr_id.indexOf('_') >= 0){
-        let pr_ids = this.pr_id.split('_');
-        id = pr_ids[0];
-        this.isDetail = pr_ids[1];
+    let pr_ids = routInfo.snapshot.params['pr_id'];
+    if(pr_ids != '' && pr_ids != '0'){
+      if(pr_ids.indexOf('_') >= 0){
+        let pr_ids_ = pr_ids.split('_');
+        this.pr_id = pr_ids_[0];
+        this.isDetail = pr_ids_[1];
+      }else{
+        this.pr_id = pr_ids;
       }
-      this.getPurchaseInfo(id);
-      this.rollback_url += '/' + id;
-    // if(this.pr_id != 0){
-    //   this.getPurchaseInfo(this.pr_id);
-    //   this.rollback_url += '/' + this.pr_id;
+      this.getPurchaseInfo(this.pr_id);
+      this.rollback_url += '/' + pr_ids;
     }else{
       this.rollback_url += '/0';
     }
+
+
+  }
+
+  ngOnInit() {
     this.getPurchaseDefault('');
   }
 
@@ -149,6 +188,10 @@ export class AppOrderComponent implements OnInit {
             pr_cost:this.purchaseInfo['result']['pr_cost'],
             pr_payment_note:this.purchaseInfo['result']['pr_payment_note'],
             pr_account:this.purchaseInfo['result']['pr_account'],
+            //审核加入
+
+            pr_assign:this.purchaseInfo['result']['pr_assign'],
+            pr_copy_person:this.purchaseInfo['result']['pr_copy_person'],
           });
 
           this.pr_supplier_default = this.purchaseInfo['result']['pr_supplier']; //供应商
@@ -158,6 +201,10 @@ export class AppOrderComponent implements OnInit {
           this.pr_category_default =this.purchaseInfo['result']['pr_category']; //采购类型
           this.pr_transport_default = this.purchaseInfo['result']['pr_transport']; //运输方式
           this.pr_payment_method_default = this.purchaseInfo['result']['pr_payment_method']; //结算方式
+
+          //审核加入
+          this.approve_user = this.purchaseInfo['result']['assign_user_name'];
+          this.follower_user = this.purchaseInfo['result']['copy_user'];
 
           this.selectProductList = this.purchaseInfo['result']['detail'];
           this.p_prices = 0;
@@ -222,7 +269,16 @@ export class AppOrderComponent implements OnInit {
       alert('请填写单据号！');
       return false;
     }
-    // console.log(this.formModel.value['name']);
+
+    let approve_user_ids = [];
+    this.approve_user.forEach((val, idx, array) => {
+      approve_user_ids.push(val['id'].toString());
+    });
+    let follower_user_ids = [];
+    this.follower_user.forEach((val, idx, array) => {
+      follower_user_ids.push(val['id'].toString());
+    });
+
     this.http.post(this.globalService.getDomain()+'/api/v1/addPurchase',{
       'pr_id':this.formModel.value['pr_id'],
       'pr_order':this.formModel.value['pr_order'],
@@ -248,7 +304,9 @@ export class AppOrderComponent implements OnInit {
       'pr_cost':this.formModel.value['pr_cost'],
       'pr_payment_note':this.formModel.value['pr_payment_note'],
       'pr_account':this.formModel.value['pr_account'],
-      'pr_status':this.formModel.value['pr_id'] ? 0 : 1,
+      // 'pr_status':this.formModel.value['pr_id'] ? 0 : 1,
+      'pr_assign':JSON.stringify(approve_user_ids),
+      'pr_copy_person':JSON.stringify(follower_user_ids),
       'u_id':this.cookieStore.getCookie('uid'),
       'sid':this.cookieStore.getCookie('sid')
     }).subscribe(
@@ -538,6 +596,105 @@ export class AppOrderComponent implements OnInit {
         this.p_prices += parseInt(val['p_price']);
       });
     }
+  }
+
+
+  //--------------弹框  选择审批人和关注者--------------
+  showDetail(type:string){
+    this.approval_or_copy = type;
+    setTimeout(()=>{
+      this.is_show_detail =  '1';
+      console.log(this.is_show_detail);
+    },500);
+  }
+
+  /**
+   * 获取任务通知点击后的状态
+   * @param value
+   */
+  getData(value:any){
+    let id = '';
+    if(this.approval_or_copy == 'assign'){
+      this.approve_user = JSON.parse(value);
+    }else if(this.approval_or_copy == 'follower'){
+      this.follower_user = JSON.parse(value);
+    }else if(this.approval_or_copy == 'transfer'){
+      this.transfer_user = JSON.parse(value);
+
+      this.transfer_user.forEach((val, idx, array) => {
+        id += '"'+val['id']+'",';
+      });
+
+      this.http.post(this.globalService.getDomain()+'/api/v1/addLog',{
+        'other_id':this.pr_id,
+        'other_table_name':this.log_table_name,
+        'log_type':this.log_type,
+        'log_operation_type':'transfer',
+        'log_uid':id,
+        'create_user_id':this.purchaseInfo['result']['u_id'],
+        'u_id':this.cookieStore.getCookie('uid'),
+        'sid':this.cookieStore.getCookie('sid')
+      }).subscribe((data)=>{
+        let info = JSON.parse(data['_body']);
+
+        if(info['status'] == 200) {
+          this.getPurchaseInfo(this.pr_id);
+        }else if(info['status'] == 202){
+          alert(info['msg']);
+          this.cookieStore.removeAll(this.rollback_url);
+          this.router.navigate(['/auth/login']);
+        }else if(info['status'] == 9999 || info['status'] == 201) {
+          alert(info['msg']);
+        }
+      });
+
+    }
+  }
+
+  getShowStatus(value:any){
+    this.is_show_detail = value;
+  }
+
+  /**
+   * remove user
+   * @param ind
+   */
+  removeUser(ind:number,type:any){
+    this.remove_user_ids.push(ind);
+    let array_ : Array<any> = [];
+    if(type == 'assign') {
+      this.approve_user.forEach((val, idx, array) => {
+        if (val['id'] != ind) {
+          array_.push(val);
+        }
+      });
+      this.approve_user = array_;
+    }else if(type == 'follower') {
+      this.follower_user.forEach((val1, idx1, array1) => {
+        if ( val1['id'] != ind) {
+          array_.push(val1);
+        }
+      });
+      this.follower_user = array_;
+    }
+  }
+
+
+  //-----------审核按钮操作-------
+  /**
+   * 显示操作弹出框
+   * @param type
+   */
+  public showModal(type:string,type1:string): void {
+    this.operate_type = type;
+    this.operate_button_type = type1;
+    this.operate_button_type_is_more = '';
+  }
+
+  getOperateTypes(value:any){
+    this.operate_type = '';
+    this.operate_button_type = '';
+    this.getPurchaseInfo(this.pr_id);
   }
 
 

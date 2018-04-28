@@ -125,6 +125,7 @@ export class AccountCompanyComponent implements OnInit {
             }
             if(info['status'] == 200) {
                 this.customerInfo = info;
+                this.cookieStore.setCookie('c_name', this.formModel.value['c_name']);
                 this.lgModal.hide();
             }else if(info['status'] == 202){
                 this.cookieStore.removeAll(this.rollback_url);

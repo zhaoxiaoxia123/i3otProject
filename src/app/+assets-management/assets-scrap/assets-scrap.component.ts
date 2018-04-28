@@ -37,7 +37,7 @@ export class AssetsScrapComponent implements OnInit {
   //处理批量
   isAll : number = 0;
   width : string = '0%';
-  width_1 : string = '70%';
+  width_1 : string = '60%';
   isDetail : string = '';
 
   keyword : string = '';
@@ -47,6 +47,49 @@ export class AssetsScrapComponent implements OnInit {
   edit_assets_status_default : number = 3; //需更新为的资产清单状态 1：闲置 2：使用 3：报废
   edit_assets_type_default : number = 3; //需更新为的资产状态  1:归还 2:资产发放 3：资产报废
   rollback_url : string = '/assets-management/assets-scrap';
+
+
+  /**
+   * 用作审核的变量   ---列表 start----
+   */
+  pr_status : any = '';//当前选中的状态值
+  pr_u_id : any = '';//当前选中的创建者id
+  pr_u_username: any = '';//当前选中的创建者昵称
+  pr_order: any = '';//当前选中的单据号
+
+  select_count : any = '';//批量选中的操作条数
+  //------列表 end-----
+
+  /** --------用作审核的变量  添加修改页start------*/
+
+  assets_assign: string = '';
+  assets_copy_person: string = '';
+  /**选中的审批者*/
+  approve_user : Array<any> = [];
+  /**选中的关注者 */
+  follower_user : Array<any> = [];
+  /**转交人 */
+  transfer_user : Array<any> = [];
+  remove_user_ids : Array<any> = [];
+  approval_or_copy : string = '';
+  is_show_detail : string = '';
+  is_show_details : string = '';
+  approve_users : Array<any> = [];
+
+  create_user_id: any = 0;
+  //--------添加，修改页- end-----------------
+
+
+  showType: string = ''; //当前审批是列表操作还是修改页面操作
+
+  uid : any = '';//当前登录用户id
+  operate_type : string = '';//操作弹框类型
+  operate_button_type : string = '';//操作按钮类型
+  operate_button_type_is_more : string = '';//是否是批量操作
+  operate_types : string = '';//操作弹框类型
+  log_type:string = 'assets_bf';
+  log_table_name:string = 'assets';
+
   constructor(
       private http:Http,
       private router : Router,
@@ -55,6 +98,7 @@ export class AssetsScrapComponent implements OnInit {
       private notificationService: NotificationService) {
     let nav = '{"title":"资产报废","url":"/assets-management/assets-scrap","class_":"active"}';
     this.globalService.navEventEmitter.emit(nav);
+    this.uid = this.cookieStore.getCookie('uid');
     this.getAssetsList('1');
     window.scrollTo(0,0);
     this.super_admin_id = this.globalService.getAdminID();
@@ -169,6 +213,19 @@ export class AssetsScrapComponent implements OnInit {
       alert('请输入发送日期！');
       return false;
     }
+
+    let approve_user_ids = [];
+    if(this.approve_user.length > 0) {
+      this.approve_user.forEach((val, idx, array) => {
+        approve_user_ids.push(val['id'].toString());
+      });
+    }
+    let follower_user_ids = [];
+    if(this.follower_user.length > 0) {
+      this.follower_user.forEach((val, idx, array) => {
+        follower_user_ids.push(val['id'].toString());
+      });
+    }
     this.http.post(this.globalService.getDomain()+'/api/v1/addAssets',{
       'assets_id' : this.assets_id,
       'assets_date' : this.assets_date,
@@ -177,6 +234,8 @@ export class AssetsScrapComponent implements OnInit {
       'assets_use_note' : this.assets_use_note,
       'assets_status' : this.edit_assets_status_default,
       'assets_type' : this.edit_assets_type_default,
+      'assets_assign':JSON.stringify(approve_user_ids),
+      'assets_copy_person':JSON.stringify(follower_user_ids),
       'sid':this.cookieStore.getCookie('sid')
     }).subscribe(
         (data)=>{
@@ -219,17 +278,20 @@ export class AssetsScrapComponent implements OnInit {
    * 重置
    */
   clear_(type:any){
+    if(type == 'detail') {
+      this.detailModal.hide();
+    }else{
+      this.addModal.hide();
+    }
     this.assets_id = 0;
     this.assets_date = '';
     this.assets_name = '';
     this.assets_reason = '';
     this.assets_method = '';
     this.assets_use_note = '';
-    if(type == 'detail') {
-      this.detailModal.hide();
-    }else{
-      this.addModal.hide();
-    }
+    //审核加入
+    this.assets_assign = '';
+    this.assets_copy_person = '';
   }
 
   /**
@@ -242,12 +304,27 @@ export class AssetsScrapComponent implements OnInit {
     this.assets_reason = info['result']['assets_reason'];
     this.assets_method = info['result']['assets_method'];
     this.assets_use_note = info['result']['assets_use_note'];
+
+    //审核加入
+    this.assets_assign = info['result']['assets_assign'];
+    this.assets_copy_person = info['result']['assets_copy_person'];
+
+    //审核加入
+    this.create_user_id = info['result']['u_id'];//当前创建者
+    this.approve_user = info['result']['assign_user_name'];
+    this.follower_user = info['result']['copy_user'];
+
+    this.pr_u_id = info['result']['u_id'];
+    this.pr_status = info['result']['assets_verify_status'];
+    this.pr_u_username = info['result']['create_u_username'];
+    this.pr_order = info['result']['assets_number'];
   }
 
   /**
    *  type ： （ edit ：修改  ；  detail  ： 详情）
    */
   detailAssets(type:string){
+    this.showType = type; //审核加入
     if(type == 'add'){
       this.isStatus = 0;
       this.editStatusAssetsId = 0;
@@ -338,13 +415,18 @@ export class AssetsScrapComponent implements OnInit {
   /**
    * 顶部  启用. 无效
    */
-  isStatusShow(u_id:any,status:any){
-    this.editStatusAssetsId = u_id;
+  isStatusShow(a_id:any,status:any,u_id:any,create_u_username:string,pr_order:string,assets_verify_status:string){
+    this.editStatusAssetsId = a_id;
     this.isStatus = status;
+
+    this.pr_u_id = u_id;
+    this.pr_status = assets_verify_status;
+    this.pr_u_username = create_u_username;
+    this.pr_order = pr_order;
 
     this.isAll = 0;
     this.width = '0%';
-    this.width_1 ='70%';
+    this.width_1 ='60%';
     this.selects.forEach((val, idx, array) => {
       if(val == true){
         this.selects[idx] = false;
@@ -360,9 +442,130 @@ export class AssetsScrapComponent implements OnInit {
       this.editStatusAssetsId = 0;
       this.isStatus = 0;
       this.width = '10%';
-      this.width_1 = '60%';
+      this.width_1 = '50%';
     }
   }
+
+  //--------------弹框  选择审批人和关注者--------------
+  showDetail(type:string){
+    this.approval_or_copy = type;
+    setTimeout(()=>{
+      this.is_show_detail =  '1';
+    },500);
+  }
+
+  /**
+   * 获取任务通知点击后的状态
+   * @param value
+   */
+  getData(value:any){
+    let id = '';
+    if(this.approval_or_copy == 'assign'){
+      this.approve_user = JSON.parse(value);
+    }else if(this.approval_or_copy == 'follower'){
+      this.follower_user = JSON.parse(value);
+    }else if(this.approval_or_copy == 'transfer'){
+      this.transfer_user = JSON.parse(value);
+
+      this.transfer_user.forEach((val, idx, array) => {
+        id += '"'+val['id']+'",';
+      });
+
+      this.http.post(this.globalService.getDomain()+'/api/v1/addAssetsLog',{
+        'other_id':this.assets_id,
+        'other_table_name':this.log_table_name,
+        'log_type':this.log_type,
+        'log_operation_type':'transfer',
+        'log_uid':id,
+        'create_user_id':this.assetsInfo['result']['u_id'],
+        'u_id':this.cookieStore.getCookie('uid'),
+        'sid':this.cookieStore.getCookie('sid')
+      }).subscribe((data)=>{
+        let info = JSON.parse(data['_body']);
+
+        if(info['status'] == 200) {
+          this.detailAssets('edit');
+        }else if(info['status'] == 202){
+          alert(info['msg']);
+          this.cookieStore.removeAll(this.rollback_url);
+          this.router.navigate(['/auth/login']);
+        }else if(info['status'] == 9999 || info['status'] == 201) {
+          alert(info['msg']);
+        }
+      });
+    }
+  }
+
+  getShowStatus(value:any){
+    this.is_show_detail = value;
+  }
+
+  /**
+   * remove user
+   * @param ind
+   */
+  removeUser(ind:number,type:any){
+    this.remove_user_ids.push(ind);
+    let array_ : Array<any> = [];
+    if(type == 'assign') {
+      this.approve_user.forEach((val, idx, array) => {
+        if (val['id'] != ind) {
+          array_.push(val);
+        }
+      });
+      this.approve_user = array_;
+    }else if(type == 'follower') {
+      this.follower_user.forEach((val1, idx1, array1) => {
+        if ( val1['id'] != ind) {
+          array_.push(val1);
+        }
+      });
+      this.follower_user = array_;
+    }
+  }
+
+
+  //-----------审核按钮操作  list-------
+  /**
+   * 显示操作弹出框
+   * @param type
+   * is_more （all 表示多选操作）
+   */
+  public showModal(type:string,type1:string,is_more:string): void {
+    this.operate_type = type;
+    this.operate_button_type = type1;
+    if(is_more == 'add'){ //add and edit
+      this.operate_button_type_is_more = '';
+    }else {
+      this.operate_button_type_is_more = is_more;
+      let s = [];
+      let is_select = 0;
+      this.selects.forEach((val, idx, array) => {
+        if (val == true) {
+          s[idx] = val;
+          is_select += 1;
+        }
+      });
+      this.selects = s;
+      this.select_count = is_select;
+    }
+  }
+
+  getOperateTypes(value:any){
+    this.operate_type = '';
+    this.operate_button_type = '';
+    if(this.showType == 'edit'){ //add and edit
+      this.detailAssets('edit');
+    }else {
+      this.editStatusAssetsId = 0;
+      this.pr_u_id = '';
+      this.pr_status = '';
+      this.pr_u_username = '';
+      this.pr_order = '';
+      this.getAssetsList("1");
+    }
+  }
+
 
 
   @ViewChild('addModal') public addModal:ModalDirective;

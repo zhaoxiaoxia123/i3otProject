@@ -110,7 +110,6 @@ export class AddSalesComponent implements OnInit {
     this.url = this.globalService.getDomain();
       this.uid = this.cookieStore.getCookie('uid');
       let pr_ids = routInfo.snapshot.params['pr_id'];
-      console.log(pr_ids);
       if(pr_ids != '' && pr_ids != '0'){
           if(pr_ids.indexOf('_') >= 0){
               let pr_ids_ = pr_ids.split('_');
@@ -119,7 +118,6 @@ export class AddSalesComponent implements OnInit {
           }else{
               this.pr_id = pr_ids;
           }
-          console.log(this.pr_id);
           this.getPurchaseInfo(this.pr_id);
           this.rollback_url += '/' + pr_ids;
       }else{
@@ -154,7 +152,6 @@ export class AddSalesComponent implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.purchaseInfo = data;
-          console.log(this.purchaseInfo);
           this.formModel.patchValue({
             pr_id:this.purchaseInfo['result']['pr_id'],
             pr_order:this.purchaseInfo['result']['pr_order'],
@@ -169,6 +166,7 @@ export class AddSalesComponent implements OnInit {
             pr_qrcode:this.purchaseInfo['result']['pr_qrcode'],
             // pr_detail:this.purchaseInfo['result']['pr_detail'],
             pr_note:this.purchaseInfo['result']['pr_note'],
+              //审核加入
               pr_assign:this.purchaseInfo['result']['pr_assign'],
               pr_copy_person:this.purchaseInfo['result']['pr_copy_person'],
 
@@ -183,9 +181,10 @@ export class AddSalesComponent implements OnInit {
           if(this.purchaseInfo['result']['pr_department'] != 0){
             this.getUserList(this.purchaseInfo['result']['pr_department'],2);
           }
-          this.create_user_id = this.purchaseInfo['result']['u_id'];//当前创建者
 
-          this.approve_user = this.purchaseInfo['result']['assign_user_name'];
+            //审核加入
+            this.create_user_id = this.purchaseInfo['result']['u_id'];//当前创建者
+            this.approve_user = this.purchaseInfo['result']['assign_user_name'];
             this.follower_user = this.purchaseInfo['result']['copy_user'];
 
           this.selectProductList = this.purchaseInfo['result']['details'];
@@ -209,7 +208,6 @@ export class AddSalesComponent implements OnInit {
       id = obj;
     }
     let url = this.globalService.getDomain()+'/api/v1/getPurchaseUser';
-    console.log(id);
     if(id != 0){
       url += '?category_id='+id;
     }
@@ -234,8 +232,6 @@ export class AddSalesComponent implements OnInit {
     .map((res)=>res.json())
     .subscribe((data)=>{
       this.purchaseList = data;
-      console.log('this.purchaseList:----');
-      console.log(this.purchaseList);
       if(this.purchaseList['status'] == 202){
         alert(this.purchaseList['msg']);
         this.cookieStore.removeAll(this.rollback_url);
@@ -354,7 +350,6 @@ export class AddSalesComponent implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
             this.productDefault = data;
-            // console.log(this.productDefault);
             if(this.productDefault['status'] == 202){
                 alert(this.productDefault['msg']);
                 this.cookieStore.removeAll(this.rollback_url);
@@ -568,8 +563,6 @@ export class AddSalesComponent implements OnInit {
             this.selectProductList.forEach((val, idx, array) => {
                 this.p_pur_prices += parseInt(val['p_pur_price']);
             });
-            console.log('this.p_pur_prices:----');
-            console.log(this.p_pur_prices);
         }
     }
 
@@ -578,7 +571,6 @@ export class AddSalesComponent implements OnInit {
         this.approval_or_copy = type;
         setTimeout(()=>{
             this.is_show_detail =  '1';
-            console.log(this.is_show_detail);
         },500);
     }
 

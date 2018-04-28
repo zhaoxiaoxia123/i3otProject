@@ -371,10 +371,6 @@ export class SelectUserComponent implements OnInit {
         this.is_show_details.emit('');
         this.selected_user = [];
         this.submit_user_ids = [];
-        console.log('approve_user:------');
-        console.log(this.approve_user);
-        console.log(this.follower_user);
-        console.log(this.transfer_user);
     }
 
     closeSelectedUser(){
