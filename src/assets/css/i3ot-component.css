@@ -3045,7 +3045,7 @@ ul.ColVis_collection li label {
     overflow: hidden;
     text-overflow: ellipsis;
     border-top: 0;
-    border-bottom: 1px solid #ddd;
+    /*border-bottom: 1px solid #ddd;*/
 }
 @media screen and (max-width: 1920px) {
     .table-responsive {
@@ -5455,7 +5455,7 @@ ul.checkable.checkable--popboxmenu li a .label-name {
 }*/
 .cbp_tmtimeline > li .cbp_tmtime {
      display: block;
-     width: 25%;
+     width: 32%;
      padding-right: 100px;
      position: absolute;
  }

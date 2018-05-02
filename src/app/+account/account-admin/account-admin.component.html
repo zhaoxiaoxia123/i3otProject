@@ -1,0 +1,574 @@
+<div id="content">
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-sm-12 ">
+        <sa-widget [editbutton]="false" [deletebutton]="false" [colorbutton]="false">
+          <header>
+            <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+            <h2>账号列表</h2>
+          </header>
+
+          <div>
+            <div class="widget-body no-padding" >
+              <div  class="row">
+                <article  class="col-sm-12">
+                  <div class="navbar navbar-default">
+                    <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
+
+                      <div class="form-group pdlr-4">
+                        <a class="btn btn-success btn-sm"  data-toggle="modal" data-target="#myModal">
+                          <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
+                      </div>
+                      <div class="form-group pdlr-4">
+                        <a class="btn default-btn btn-sm"   data-toggle="modal" data-target="#myModal">
+                          <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
+                      </div>
+                      <div class="form-group pdlr-4">
+                        <a class="btn default-btn btn-sm" >
+                          <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
+                      </div>
+
+                      <div class="form-group btn-group pdlr-4">
+                        <a class="btn default-btn btn-sm dropdown-toggle"  data-toggle="dropdown">
+                          <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
+
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a ><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
+                        </ul>
+                      </div>
+                    </form>
+                    <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
+                      <div class="form-group pdlr-4">
+                        <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" name="" placeholder="请输入搜索内容" type="text">
+                      </div>
+                      <div class="form-group pdlr-4">
+                        <button class="btn btn-default" type="submit">
+                          <i  class="glyphicon glyphicon-search"></i>
+                          搜索
+                        </button>
+                      </div>
+                    </form>
+
+                  </div>
+                </article>
+              </div>
+              <div style="padding:0;">
+                <div style="padding: 0;z-index: 2;" class="table-responsive">
+                  <table class="table table-striped  smart-form">
+                    <thead>
+                    <tr >
+                      <td><label class="checkbox">
+                        <input type="checkbox" name="checkbox-inline" >
+                        <i></i>
+                      </label>
+                      </td>
+                      <th>账号编码</th>
+                      <th>公司名称</th>
+                      <th>登记日期</th>
+                      <th>所属行业</th>
+                      <th>公司地址</th>
+                      <th>公司电话</th>
+                      <th>状态</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="">
+                      <td>
+                        <label class="checkbox">
+                          <input type="checkbox" >
+                          <i></i>
+                        </label>
+                      </td>
+                      <td>1</td>
+                      <td>四川矿业有限公司</td>
+                      <td>2155</td>
+                      <td>2155</td>
+                      <td>2155</td>
+                      <td>2155</td>
+                      <td>
+                        <span >
+                          <span class="label-normal" >正常</span>
+                          <span class="label-unknown">隐藏</span>
+                        </span>
+                      </td>
+                    </tr>
+
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+              <!-- 底部-（分页部分）-->
+              <div class="dt-toolbar">
+                <div class="col-xs-12 col-sm-6">
+                  <span>共5条</span>
+                </div>
+                <div class="hidden-xs right">
+                  <ul class="pagination pagination-sm">
+                    <li *ngFor="let p of categoryList?.page" class="{{p.class}}">
+                      <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+                      <a *ngIf="p.method==''">{{p.text}}</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+            </div>
+
+
+
+
+
+          </div>
+
+        </sa-widget>
+      </article>
+    </div>
+  </sa-widgets-grid>
+
+
+
+</div>
+
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- 关闭按钮 -->
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          ×
+        </button>
+        <!-- 标题 -->
+        <h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>添加账号列表</h3>
+        <h3 class="modal-title  color-yellow" data-ng-bind='results.title'><i class="glyphicon glyphicon-pencil"></i>修改账号列表</h3>
+      </div>
+      <div class="modal-body">
+        <sa-widget [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+          <header>
+            <ul class="nav nav-tabs pull-left in">
+              <li [class.active]="state.tabs.demo3=='hr1'" class="active">
+                <a (click)="state.tabs.demo3 = 'hr1'">企业信息</a>
+              </li>
+              <li [class.active]="state.tabs.demo3=='hr2'" class="active">
+                <a (click)="state.tabs.demo3 = 'hr2'">用户信息</a>
+              </li>
+              <li [class.active]="state.tabs.demo3=='hr3'" class="active">
+                <a (click)="state.tabs.demo3 = 'hr3'">初始化角色</a>
+              </li>
+            </ul>
+          </header>
+          <div class="height-overflow-380">
+            <div class="widget-body mt-20">
+              <tabset>
+                <tab [active]="state.tabs.demo3 == 'hr1'">
+                  <tabset >
+                    <tab [active]="state.tabs.demo3 == 'hr1'">
+                      <div class="row">
+                        <form class="smart-form ">
+                          <fieldset>
+                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                              <section>
+                                <label class="label txt-color-blue">账号编码<span class="asterisk-color">*</span></label>
+                                <label class="input">
+                                  <input type="text" placeholder="账号编码" name="" >
+                                </label>
+                              </section>
+                            </div>
+                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                              <section>
+                                <label class="label ">公司名称</label>
+                                <label class="input">
+                                  <input type="text" placeholder="公司名称" name="" >
+                                </label>
+                              </section>
+                            </div>
+                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                              <section>
+                                <label class="label ">助记码</label>
+                                <label class="input">
+                                  <input type="text" placeholder="助记码" name="" >
+                                </label>
+                              </section>
+                            </div>
+                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                              <section>
+                                <label class="label">所属行业</label>
+                                <label class="select">
+                                  <select class="input-sm" name="" >
+                                    <option value="0" disabled="disabled">--请选择--</option>
+                                    <option value="" ></option>
+                                    <option value="" ></option>
+                                  </select> <i></i>
+                                </label>
+                              </section>
+                            </div>
+                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                              <section >
+                                <label class="label ">Email</label>
+                                <label class="input">
+                                  <input name=""  type="text" >
+                                </label>
+                              </section>
+                            </div>
+                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                              <div class="margin-left-15" >
+
+                                <section class="col col-4">
+                                  <label class="label">所在城市</label>
+                                  <label class="select ">
+                                    <select name=""  >
+                                      <option value="0">--请选择省--</option>
+                                      <option  value=""></option>
+                                    </select>
+                                    <i></i>
+                                  </label>
+                                </section>
+                                <section class="col col-8">
+                                  <label class="select margin-top-24">
+                                    <select name=""  >
+                                      <option value="0">--请选择市--</option>
+                                      <option  value=""></option>
+                                    </select> <i></i> </label>
+                                </section>
+                              </div>
+
+                            </div>
+
+                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                              <section>
+                                <label class="label">链接百度云密钥</label>
+                                <label class="input">
+                                  <input  name="" placeholder="请输入链接百度云密钥" type="text" >
+                                </label>
+                              </section>
+                            </div>
+                            <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                              <section>
+                                <label class="label">备注</label>
+                                <label class="textarea textarea-resizable">
+                                  <textarea class="custom-scroll" rows="2" name="" ></textarea>
+                                </label>
+                              </section>
+                            </div>
+
+
+
+
+
+
+
+
+                          </fieldset>
+                        </form>
+                      </div>
+                    </tab>
+                  </tabset>
+                </tab>
+                <tab [active]="state.tabs.demo3 == 'hr2'">
+                  <tabset >
+                    <tab [active]="state.tabs.demo3 == 'hr2'">
+                      <div class="row">
+                        <form   class="smart-form ">
+                          <fieldset>
+                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                              <section >
+                                <label class="label txt-color-blue">员工ID<span class="asterisk-color">*</span></label>
+                                <label class="input"> <i class="icon-append fa fa-user"></i>
+                                  <input type="text" name="" placeholder="请输入员工ID " />
+                                </label>
+                              </section>
+
+                            </div>
+
+                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                              <section>
+                                <label class="label">姓名</label>
+                                <label class="input"> <i class="icon-append fa fa-user"></i>
+                                  <input type="text" name="name" placeholder="请输入姓名 " />
+                                </label>
+                              </section>
+
+                            </div>
+                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                              <section>
+                                <label class="label txt-color-blue">密码<span class="asterisk-color">*</span></label>
+                                <label class="input"> <i class="icon-append fa fa-lock"></i>
+                                  <input type="text" name="password" placeholder="输入密码的最小长度为6"/>
+                                </label>
+                              </section>
+                            </div>
+
+                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                              <section >
+                                <label class="label">手机号码</label>
+                                <label class="input"> <i class="icon-append fa fa-phone"></i>
+                                  <input name=""  placeholder="请输入手机号码"  class="valid" >
+                                </label>
+                              </section>
+
+                            </div>
+                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                              <section >
+                                <label class="label">Email</label>
+                                <label class="input"> <i class="icon-append fa fa-envelope-o"></i>
+                                  <input name="email"  placeholder="请输入E-mail" type="email" >
+                                </label>
+                              </section>
+
+                            </div>
+
+
+                          </fieldset>
+                        </form>
+                      </div>
+                    </tab>
+                  </tabset>
+                </tab>
+                <tab [active]="state.tabs.demo3 == 'hr3'">
+                  <tabset >
+                    <tab [active]="state.tabs.demo3 == 'hr3'">
+                      <div class="row">
+                        <form   class="smart-form ">
+                          <div class="pd-10">
+                            <div class="widget-body">
+                              <div class="tree smart-form">
+                                <ul class="">
+                                  <li class=" parent_li">
+                                  <span>
+                                    <label class="checkbox inline-block tree-label pt-12 ">
+                                          <input name="checkbox-inline" type="checkbox"><i></i>
+                                   </label>
+                                    权限管理
+                                    <i class="sa-icon fa fa-lg fa-minus-circle"></i>
+                                  </span>
+                                    <ul class="">
+                                      <li class=" parent_li">
+                                        <span>
+                                          <label class="checkbox inline-block tree-label ">
+                                            <input name="checkbox-inline" type="checkbox">
+                                            <i></i>面板
+
+                                          </label>
+
+                                        </span>
+                                        <ul class="">
+                                          <li>
+                                            <span>
+                                              <label class="checkbox inline-block tree-label">
+                                                <input name="checkbox-inline" type="checkbox">
+                                                <i></i>动态墙
+                                              </label>
+                                            </span>
+                                          </li>
+                                        </ul>
+                                      </li>
+                                      <li class=" parent_li">
+                                        <span>
+                                          <label class="checkbox inline-block tree-label ">
+                                            <input name="checkbox-inline" type="checkbox">
+                                            <i></i>人力资源
+                                          </label>
+                                           <i class="sa-icon fa fa-lg fa-plus-circle"></i>
+                                        </span>
+                                        <ul class="" >
+                                          <li>
+                                            <span>
+                                              <label class="checkbox inline-block tree-label">
+                                                <input name="checkbox-inline" type="checkbox">
+                                                <i></i>员工档案
+                                              </label>
+                                              <i class="sa-icon fa fa-lg fa-plus-circle"></i>
+                                            </span>
+                                            <ul class="">
+                                              <li>
+                                                  <span>
+                                                    <label class="checkbox inline-block tree-label">
+                                                      <input name="checkbox-inline" type="checkbox">
+                                                      <i></i>添加
+                                                    </label>
+                                                  </span>
+                                              </li>
+                                              <li>
+                                                  <span>
+                                                    <label class="checkbox inline-block tree-label">
+                                                      <input name="checkbox-inline" type="checkbox">
+                                                      <i></i>修改
+                                                    </label>
+                                                  </span>
+                                              </li>
+                                              <li>
+                                                  <span>
+                                                    <label class="checkbox inline-block tree-label">
+                                                      <input name="checkbox-inline" type="checkbox">
+                                                      <i></i>删除
+                                                    </label>
+                                                  </span>
+                                              </li>
+                                              <li>
+                                                  <span>
+                                                    <label class="checkbox inline-block tree-label">
+                                                      <input name="checkbox-inline" type="checkbox">
+                                                      <i></i>详情
+                                                    </label>
+                                                  </span>
+                                              </li>
+                                            </ul>
+                                          </li>
+                                          <li>
+                                            <span>
+                                              <label class="checkbox inline-block tree-label">
+                                                <input name="checkbox-inline" type="checkbox">
+                                                <i></i>添加员工
+                                              </label>
+                                            </span>
+                                          </li>
+                                          <li>
+                                            <span>
+                                              <label class="checkbox inline-block tree-label">
+                                                <input name="checkbox-inline" type="checkbox">
+                                                <i></i>部门设置
+                                              </label>
+                                              <i class="sa-icon fa fa-lg fa-plus-circle"></i>
+                                            </span>
+                                            <ul class="">
+                                              <li>
+                                                  <span>
+                                                    <label class="checkbox inline-block tree-label">
+                                                      <input name="checkbox-inline" type="checkbox">
+                                                      <i></i>添加
+                                                    </label>
+                                                  </span>
+                                              </li>
+                                              <li>
+                                                  <span>
+                                                    <label class="checkbox inline-block tree-label">
+                                                      <input name="checkbox-inline" type="checkbox">
+                                                      <i></i>修改
+                                                    </label>
+                                                  </span>
+                                              </li>
+                                              <li>
+                                                  <span>
+                                                    <label class="checkbox inline-block tree-label">
+                                                      <input name="checkbox-inline" type="checkbox">
+                                                      <i></i>删除
+                                                    </label>
+                                                  </span>
+                                              </li>
+                                              <li>
+                                                  <span>
+                                                    <label class="checkbox inline-block tree-label">
+                                                      <input name="checkbox-inline" type="checkbox">
+                                                      <i></i>详情
+                                                    </label>
+                                                  </span>
+                                              </li>
+                                            </ul>
+                                          </li>
+                                          <li>
+                                            <span>
+                                              <label class="checkbox inline-block tree-label">
+                                                <input name="checkbox-inline" type="checkbox">
+                                                <i></i>职称设置
+                                              </label>
+                                              <i class="sa-icon fa fa-lg fa-plus-circle"></i>
+                                            </span>
+                                            <ul class="">
+                                              <li>
+                                                  <span>
+                                                    <label class="checkbox inline-block tree-label">
+                                                      <input name="checkbox-inline" type="checkbox">
+                                                      <i></i>修改
+                                                    </label>
+                                                  </span>
+                                              </li>
+                                              <li>
+                                                  <span>
+                                                    <label class="checkbox inline-block tree-label">
+                                                      <input name="checkbox-inline" type="checkbox">
+                                                      <i></i>删除
+                                                    </label>
+                                                  </span>
+                                              </li>
+                                            </ul>
+                                          </li>
+
+
+                                        </ul>
+
+                                      </li>
+
+                                    </ul>
+                                  </li>
+                                </ul>
+                              </div>
+
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </tab>
+                  </tabset>
+                </tab>
+              </tabset>
+            </div>
+          </div>
+        </sa-widget>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-success btn-sm" type="button"><span class="glyphicon glyphicon-plus"></span>保存并新增</button>
+        <button type="button" class="btn btn-primary" data-ng-click="ok()">保存</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="particulars" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- 关闭按钮 -->
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          ×
+        </button>
+        <!-- 标题 -->
+        <h3 class="modal-title" data-ng-bind='results.title'></h3>
+        <h4 class="modal-title">商品分类-编号</h4>
+      </div>
+      <div class="modal-body height-overflow-380">
+        <div class="row ">
+          <div class="col-sm-12">
+            <div class="" >
+              <P class="alert alert-info">基本信息</P>
+              <table class="table table-striped table-forum">
+                <tbody>
+                <tr>
+                  <td class="width-120">分类编号:</td>
+                  <td class=""></td>
+                  <td class="width-120">分类名称:</td>
+                  <td >
+                  </td>
+                </tr>
+                <tr>
+                  <td class="width-120">上级分类:</td>
+                  <td class="" colspan="3"></td>
+
+                </tr>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+      </div>
+    </div>
+  </div>
+</div>

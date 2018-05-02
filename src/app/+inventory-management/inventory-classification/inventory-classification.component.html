@@ -122,7 +122,7 @@
                           <div *ngIf="isAll != 0"  [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-scrolling">
                             <table class="table table-striped  smart-form table-height-20">
                               <thead>
-                              <tr style="height: 37px;">
+                              <tr style="">
                                 <td><label class="checkbox mt-8">
                                   <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)" >
                                   <i></i>
@@ -131,7 +131,7 @@
                               </tr>
                               </thead>
                               <tbody>
-                              <tr style="height: 34.5px;" *ngFor="let c of categoryList?.result?.categoryList?.data">
+                              <tr style="" *ngFor="let c of categoryList?.result?.categoryList?.data">
                                 <td>
                                   <label class="checkbox mt-8">
                                     <input type="checkbox" value="{{ c.category_id }}" [checked]="selects[c.category_id]" (change)="handle($event)" >
@@ -146,7 +146,7 @@
 
 
                           <div [ngStyle]="{'padding': '0','z-index': '1','width':width_1,'float':'left'}" class="table-responsive">
-                            <table class="table table-striped  smart-form">
+                            <table class="table table-striped  smart-form table-height-20">
                               <thead>
                               <tr >
                                 <th>分类编码</th>

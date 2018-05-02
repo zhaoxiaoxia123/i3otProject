@@ -258,6 +258,23 @@
             </ul>
           </li>
 
+          <li *ngIf="is_admin=='1'">
+            <a href="#"><i class="fa fa-lg fa-fw fa-suitcase"></i> <span
+                    class="menu-item-parent">{{'账号管理' | i18n}}</span></a>
+            <ul>
+              <li routerLinkActive="active">
+                <a routerLink="/account/account-menu">{{'企业配置' | i18n}}<span
+                        class="badge pull-right inbox-badge margin-right-13">菜单</span></a>
+              </li>
+              <li routerLinkActive="active">
+                <a routerLink="/account/account-admin">{{'账号列表' | i18n}}</a>
+              </li>
+              <!--<li routerLinkActive="active">
+                <a routerLink="/customer-management/customer-unit">{{'管理员列表' | i18n}}</a>
+              </li>-->
+            </ul>
+          </li>
+
         </ul>
       </li>
       <li>
@@ -283,7 +300,7 @@
             <a href="#">{{'设备基本设置' | i18n}}</a>
             <ul>
               <li routerLinkActive="active">
-                <a routerLink=""> {{'设备绑定' | i18n}}</a>
+                <a routerLink="/auth/form-binding" target="_blank">{{'设备绑定' | i18n}}</a>
               </li>
               <li routerLinkActive="active">
                 <a routerLink="/equipment/chart-setting">{{'图表设置' | i18n}}</a>
@@ -296,7 +313,7 @@
 
 
       <li>
-        <a href="#"><i class="fa fa-lg fa-fw  fa-inbox"><em>3</em></i> <span
+        <a href="#"><i class="fa fa-lg fa-fw  fa-inbox"></i> <span
                 class="menu-item-parent">{{'待办事项' | i18n}}</span></a>
         <ul>
           <li routerLinkActive="active">
@@ -343,10 +360,10 @@
           </li>
         </ul>
       </li>
-      <li>
-        <a href="http://www.i3ot.com/" target="_blank"><i class="fa fa-lg fa-fw fa-university"></i> <span
-                class="menu-item-parent">{{'i3ot物联网' | i18n}}</span></a>
-      </li>
+      <!--<li>-->
+        <!--<a href="http://www.i3ot.com/" target="_blank"><i class="fa fa-lg fa-fw fa-university"></i> <span-->
+                <!--class="menu-item-parent">{{'i3ot物联网' | i18n}}</span></a>-->
+      <!--</li>-->
 
       <li *ngIf="is_admin=='1'">
         <a href="#"><i class="fa fa-lg fa-fw  fa-th txt-color-blue"></i> <span

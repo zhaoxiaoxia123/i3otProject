@@ -95,10 +95,10 @@
                             </div>
                             <div style="padding:0;">
                               <div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-responsive">
-                                <table class="table table-striped  smart-form">
+                                <table class="table table-striped  smart-form table-height-20">
                                   <thead>
-                                  <tr style="height: 37px;">
-                                    <td><label class="checkbox">
+                                  <tr style="">
+                                    <td><label class="checkbox mt-8">
                                       <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)">
                                       <i></i>
                                     </label>
@@ -106,13 +106,13 @@
                                   </tr>
                                   </thead>
                                   <tbody>
-                                  <tr style="height: 34.5px;" *ngFor="let c of categoryList?.result?.categoryList?.data">
+                                  <tr style="" *ngFor="let c of categoryList?.result?.categoryList?.data">
                                     <td>
-                                      <label class="checkbox" *ngIf="cid != super_admin_id && cid != c.c_id" >
+                                      <label class="checkbox mt-8" *ngIf="cid != super_admin_id && cid != c.c_id" >
                                         <input type="checkbox" name="checkbox-inline" disabled="disabled">
                                         <i></i>
                                       </label>
-                                      <label class="checkbox" *ngIf="cid == super_admin_id || cid == c.c_id" >
+                                      <label class="checkbox mt-8" *ngIf="cid == super_admin_id || cid == c.c_id" >
                                         <input type="checkbox" name="checkbox-inline" value="{{ c.category_id }}" [checked]="selects[c.category_id]" (change)="handle($event)">
                                         <i></i>
                                       </label>
@@ -122,7 +122,7 @@
                                 </table>
                               </div>
                               <div [ngStyle]="{'padding': '0','z-index': '1','width':width_1,'float':'left'}" class="table-responsive">
-                                <table class="table table-striped  smart-form">
+                                <table class="table table-striped  smart-form table-height-20">
                                   <thead>
                                   <tr >
                                     <th>类型编码</th>

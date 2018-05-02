@@ -32,6 +32,16 @@ export const routes: Routes = [
         loadChildren: 'app/+account/personal-settings/personal-settings.module#PersonalSettingsModule',
         data: {pageTitle: 'PersonalSettings'}
     },
+    {
+        path: 'account-admin',
+        loadChildren: 'app/+account/account-admin/account-admin.module#AccountAdminModule',
+        data: {pageTitle: 'AccountAdmin'}
+    },
+    {
+        path: 'account-menu',
+        loadChildren: 'app/+account/account-menu/account-menu.module#AccountMenuModule',
+        data: {pageTitle: 'AccountMenu'}
+    },
 ];
 
 export const routing = RouterModule.forChild(routes);

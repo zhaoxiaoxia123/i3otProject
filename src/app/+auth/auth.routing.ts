@@ -20,6 +20,10 @@ export const routes:Routes = [
         path: 'homepage',
         loadChildren: './homepage/homepage.module#HomepageModule'
     },
+    {
+        path: 'form-binding',
+        loadChildren: './form-binding/form-binding.module#FormBindingModule'
+    },
   {
     path: 'locked',
     loadChildren: './+locked/locked.module#LockedModule'

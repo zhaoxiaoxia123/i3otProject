@@ -81,8 +81,8 @@
                   <table class="table table-striped   smart-form table-height-20">
                     <thead>
                     <tr  >
-                      <td><label class="checkbox padding-top-10" >
-                        <input type="checkbox " name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)" >
+                      <td><label class="checkbox mt-8" >
+                        <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)" >
                         <i></i>
                       </label>
                       </td>
@@ -92,11 +92,11 @@
                     <tr   *ngFor="let al of assetsList.result?.assetsList?.data">
                       <td >
                         <div class="">
-                          <label class="checkbox padding-top-10" *ngIf="cid != super_admin_id && cid != al.c_id" >
+                          <label class="checkbox mt-8" *ngIf="cid != super_admin_id && cid != al.c_id" >
                             <input type="checkbox" name="checkbox-inline" disabled="disabled">
                             <i></i>
                           </label>
-                          <label class="checkbox padding-top-10" *ngIf="cid == super_admin_id || cid == al.c_id" >
+                          <label class="checkbox mt-8" *ngIf="cid == super_admin_id || cid == al.c_id" >
                             <input type="checkbox" name="checkbox-inline" value="{{ al.assets_id }}" [checked]="selects[al.assets_id]" (change)="handle($event)">
                             <i></i>
                           </label>

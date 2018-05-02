@@ -1,4 +1,206 @@
 <div id="content">
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-sm-12 ">
+        <sa-widget [editbutton]="false" [deletebutton]="false" [colorbutton]="false">
+          <header>
+            <span class="widget-icon"> <i class="fa fa-spoon"></i> </span>
+            <h2>权限管理</h2>
+          </header>
+
+          <div>
+            <div class="widget-body no-padding" >
+              <div  class="row">
+                <article  class="col-sm-12">
+                  <div class="navbar navbar-default">
+                    <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
+
+                      <div class="form-group pdlr-4">
+                        <a class="btn btn-success btn-sm"  data-toggle="modal" data-target="#myModal">
+                          <span class="glyphicon glyphicon-plus mr-5"></span>添加角色</a>
+                      </div>
+                      <div class="form-group pdlr-4">
+                        <a class="btn default-btn btn-sm"   data-toggle="modal" data-target="#myModal">
+                          <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改角色</a>
+                      </div>
+                      <div class="form-group pdlr-4">
+                        <a class="btn default-btn btn-sm" >
+                          <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除角色</a>
+                      </div>
+                    </form>
+                  </div>
+                </article>
+
+
+              </div>
+              <div class="pt">
+                <article class="form-group col col-lg-6 col-md-6 col-sm-6  col-xs-6">
+                  <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                             [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+                    <div>
+                      <div class="widget-body no-padding">
+                        <alert type="info" class="no-margin" >
+                          <i class="fa-fw fa fa-table"></i>
+                          角色列表
+                        </alert>
+
+                        <div class="mt-10"  style="padding:0;">
+                          <div style="padding: 0;z-index: 2;" class="table-responsive">
+                            <table class="table table-striped   smart-form">
+                              <thead>
+                              <tr >
+                                <th>角色编号</th>
+                                <th>名称</th>
+                                <th></th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr >
+                                <td>001</td>
+                                <td>超级管理员</td>
+                                <td><span class="txt-color-grey">不可删除</span></td>
+                              </tr>
+                              <tr>
+                                <td>002</td>
+                                <td>管理员</td>
+                                <td></td>
+                              </tr>
+
+                              </tbody>
+                            </table>
+
+                          </div>
+                        </div>
+
+
+                        <!-- 底部-（分页部分）-->
+                        <div class="dt-toolbar">
+                          <div class="col-xs-12 col-sm-6">
+                            <div class="col-xs-12 col-sm-6">
+                              <span>共1条</span>
+                            </div>
+                          </div>
+                          <div class="hidden-xs right">
+                            <!--<ul class="pagination pagination-sm">
+                              <li *ngFor="let p of categoryList?.page" class="{{p.class}}">
+                                <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+                                <a *ngIf="p.method==''">{{p.text}}</a>
+                              </li>
+                            </ul>-->
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </sa-widget>
+                  <!-- end widget -->
+                </article>
+                <article class="form-group col col-lg-6 col-md-6 col-sm-6  col-xs-6">
+                  <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                             [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+                    <div>
+                      <div class="widget-body no-padding">
+                        <alert type="info" class="no-margin">
+                          <i class="fa-fw fa fa-sitemap"></i>
+                          角色授权
+                        </alert>
+                        <form   class="smart-form ">
+                          <div class="pd-10">
+                            <div class="widget-body">
+                              <div class="tree smart-form">
+                                <ul class="">
+                                  <li class=" parent_li">
+                                  <span>
+                                    <label class="checkbox inline-block tree-label pt-12 ">
+                                          <input name="checkbox-inline" type="checkbox"><i></i>
+                                   </label>
+                                    <i class="fa fa-lg fa-folder-open"></i>全部
+                                    <i class="sa-icon fa fa-lg fa-minus-circle"></i>
+                                  </span>
+                                    <ul class="">
+                                      <li class=" parent_li">
+                                        <span>
+                                          <label class="checkbox inline-block tree-label ">
+                                            <input name="checkbox-inline" type="checkbox">
+                                            <i></i>煤炭（焦煤）
+                                            <em class="txt-color-blue">(0)</em>
+                                          </label>
+
+                                        </span>
+                                      </li>
+                                      <li class=" parent_li">
+                                        <span>
+                                          <label class="checkbox inline-block tree-label ">
+                                            <input name="checkbox-inline" type="checkbox">
+                                            <i></i>煤炭
+                                            <em class="txt-color-blue">(0)</em>
+                                          </label>
+
+                                        </span>
+                                      </li>
+                                      <li class=" parent_li">
+                                        <span>
+                                          <label class="checkbox inline-block tree-label ">
+                                            <input name="checkbox-inline" type="checkbox">
+                                            <i></i>磷矿石
+                                            <em class="txt-color-blue">(0)</em>
+                                          </label>
+                                           <i class="sa-icon fa fa-lg fa-plus-circle"></i>
+                                        </span>
+                                        <ul class="">
+                                          <li>
+                                            <span>
+                                              <label class="checkbox inline-block tree-label">
+                                                <input name="checkbox-inline" type="checkbox">
+                                                <i></i>黄磷矿(25%)
+                                                <em class="txt-color-blue">(0)</em>
+                                              </label>
+                                            </span>
+                                          </li>
+                                        </ul>
+
+                                      </li>
+                                      <li class=" parent_li">
+                                        <span>
+                                          <label class="checkbox inline-block tree-label ">
+                                            <input name="checkbox-inline" type="checkbox">
+                                            <i></i>非金属矿
+                                            <em class="txt-color-blue">(2)</em>
+                                          </label>
+                                        </span>
+                                      </li>
+                                    </ul>
+                                  </li>
+                                </ul>
+                              </div>
+
+                            </div>
+                          </div>
+                          <footer>
+                            <button class="btn btn-primary" type="button">
+                              重置
+                            </button>
+                            <button class="btn btn-primary" type="button">
+                              保存
+                            </button>
+                          </footer>
+                        </form>
+
+
+
+                      </div>
+                    </div>
+                  </sa-widget>
+                </article>
+              </div>
+            </div>
+          </div>
+        </sa-widget>
+      </article>
+    </div>
+  </sa-widgets-grid>
+
+
   <div class="row">
     <div class="col-sm-12 col-md-12 col-lg-12">
       <div class="well well-light well-sm no-margin no-padding">
@@ -85,9 +287,9 @@
                           <i></i>账号管理<span>勾选该项即允许您的个人信息、公司信息、设置权限、管理下级账号、修改账号信息</span></label>
                       </li>
                     </ul>
-                      <button class="btn btn-primary pd-10 margin-top-26" type="submit">
-                        保存
-                      </button>
+                    <button class="btn btn-primary pd-10 margin-top-26" type="submit">
+                      保存
+                    </button>
 
                   </div>
 
