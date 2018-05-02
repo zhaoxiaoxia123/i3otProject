@@ -16,11 +16,11 @@
                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
 
                       <div class="form-group pdlr-4">
-                        <a class="btn btn-success btn-sm"  data-toggle="modal" data-target="#myModal">
+                        <a class="btn btn-success btn-sm"  data-toggle="modal" data-target="#role">
                           <span class="glyphicon glyphicon-plus mr-5"></span>添加角色</a>
                       </div>
                       <div class="form-group pdlr-4">
-                        <a class="btn default-btn btn-sm"   data-toggle="modal" data-target="#myModal">
+                        <a class="btn default-btn btn-sm"   data-toggle="modal" data-target="#role">
                           <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改角色</a>
                       </div>
                       <div class="form-group pdlr-4">
@@ -114,7 +114,7 @@
                                     <label class="checkbox inline-block tree-label pt-12 ">
                                           <input name="checkbox-inline" type="checkbox"><i></i>
                                    </label>
-                                    <i class="fa fa-lg fa-folder-open"></i>全部
+                                    权限管理
                                     <i class="sa-icon fa fa-lg fa-minus-circle"></i>
                                   </span>
                                     <ul class="">
@@ -122,53 +122,158 @@
                                         <span>
                                           <label class="checkbox inline-block tree-label ">
                                             <input name="checkbox-inline" type="checkbox">
-                                            <i></i>煤炭（焦煤）
-                                            <em class="txt-color-blue">(0)</em>
+                                            <i></i>面板
+
                                           </label>
 
-                                        </span>
-                                      </li>
-                                      <li class=" parent_li">
-                                        <span>
-                                          <label class="checkbox inline-block tree-label ">
-                                            <input name="checkbox-inline" type="checkbox">
-                                            <i></i>煤炭
-                                            <em class="txt-color-blue">(0)</em>
-                                          </label>
-
-                                        </span>
-                                      </li>
-                                      <li class=" parent_li">
-                                        <span>
-                                          <label class="checkbox inline-block tree-label ">
-                                            <input name="checkbox-inline" type="checkbox">
-                                            <i></i>磷矿石
-                                            <em class="txt-color-blue">(0)</em>
-                                          </label>
-                                           <i class="sa-icon fa fa-lg fa-plus-circle"></i>
                                         </span>
                                         <ul class="">
                                           <li>
                                             <span>
                                               <label class="checkbox inline-block tree-label">
                                                 <input name="checkbox-inline" type="checkbox">
-                                                <i></i>黄磷矿(25%)
-                                                <em class="txt-color-blue">(0)</em>
+                                                <i></i>动态墙
                                               </label>
                                             </span>
                                           </li>
                                         </ul>
-
                                       </li>
                                       <li class=" parent_li">
                                         <span>
                                           <label class="checkbox inline-block tree-label ">
                                             <input name="checkbox-inline" type="checkbox">
-                                            <i></i>非金属矿
-                                            <em class="txt-color-blue">(2)</em>
+                                            <i></i>人力资源
                                           </label>
+                                           <i class="sa-icon fa fa-lg fa-plus-circle"></i>
                                         </span>
+                                        <ul class="" >
+                                          <li>
+                                            <span>
+                                              <label class="checkbox inline-block tree-label">
+                                                <input name="checkbox-inline" type="checkbox">
+                                                <i></i>员工档案
+                                              </label>
+                                              <i class="sa-icon fa fa-lg fa-plus-circle"></i>
+                                            </span>
+                                            <ul class="">
+                                              <li>
+                                                  <span>
+                                                    <label class="checkbox inline-block tree-label">
+                                                      <input name="checkbox-inline" type="checkbox">
+                                                      <i></i>添加
+                                                    </label>
+                                                  </span>
+                                              </li>
+                                              <li>
+                                                  <span>
+                                                    <label class="checkbox inline-block tree-label">
+                                                      <input name="checkbox-inline" type="checkbox">
+                                                      <i></i>修改
+                                                    </label>
+                                                  </span>
+                                              </li>
+                                              <li>
+                                                  <span>
+                                                    <label class="checkbox inline-block tree-label">
+                                                      <input name="checkbox-inline" type="checkbox">
+                                                      <i></i>删除
+                                                    </label>
+                                                  </span>
+                                              </li>
+                                              <li>
+                                                  <span>
+                                                    <label class="checkbox inline-block tree-label">
+                                                      <input name="checkbox-inline" type="checkbox">
+                                                      <i></i>详情
+                                                    </label>
+                                                  </span>
+                                              </li>
+                                            </ul>
+                                          </li>
+                                          <li>
+                                            <span>
+                                              <label class="checkbox inline-block tree-label">
+                                                <input name="checkbox-inline" type="checkbox">
+                                                <i></i>添加员工
+                                              </label>
+                                            </span>
+                                          </li>
+                                          <li>
+                                            <span>
+                                              <label class="checkbox inline-block tree-label">
+                                                <input name="checkbox-inline" type="checkbox">
+                                                <i></i>部门设置
+                                              </label>
+                                              <i class="sa-icon fa fa-lg fa-plus-circle"></i>
+                                            </span>
+                                            <ul class="">
+                                              <li>
+                                                  <span>
+                                                    <label class="checkbox inline-block tree-label">
+                                                      <input name="checkbox-inline" type="checkbox">
+                                                      <i></i>添加
+                                                    </label>
+                                                  </span>
+                                              </li>
+                                              <li>
+                                                  <span>
+                                                    <label class="checkbox inline-block tree-label">
+                                                      <input name="checkbox-inline" type="checkbox">
+                                                      <i></i>修改
+                                                    </label>
+                                                  </span>
+                                              </li>
+                                              <li>
+                                                  <span>
+                                                    <label class="checkbox inline-block tree-label">
+                                                      <input name="checkbox-inline" type="checkbox">
+                                                      <i></i>删除
+                                                    </label>
+                                                  </span>
+                                              </li>
+                                              <li>
+                                                  <span>
+                                                    <label class="checkbox inline-block tree-label">
+                                                      <input name="checkbox-inline" type="checkbox">
+                                                      <i></i>详情
+                                                    </label>
+                                                  </span>
+                                              </li>
+                                            </ul>
+                                          </li>
+                                          <li>
+                                            <span>
+                                              <label class="checkbox inline-block tree-label">
+                                                <input name="checkbox-inline" type="checkbox">
+                                                <i></i>职称设置
+                                              </label>
+                                              <i class="sa-icon fa fa-lg fa-plus-circle"></i>
+                                            </span>
+                                            <ul class="">
+                                              <li>
+                                                  <span>
+                                                    <label class="checkbox inline-block tree-label">
+                                                      <input name="checkbox-inline" type="checkbox">
+                                                      <i></i>修改
+                                                    </label>
+                                                  </span>
+                                              </li>
+                                              <li>
+                                                  <span>
+                                                    <label class="checkbox inline-block tree-label">
+                                                      <input name="checkbox-inline" type="checkbox">
+                                                      <i></i>删除
+                                                    </label>
+                                                  </span>
+                                              </li>
+                                            </ul>
+                                          </li>
+
+
+                                        </ul>
+
                                       </li>
+
                                     </ul>
                                   </li>
                                 </ul>
@@ -309,4 +414,48 @@
   </div>
 
   <!-- end row -->
+</div>
+
+
+
+<div class="modal fade" id="role" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- 关闭按钮 -->
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          ×
+        </button>
+        <!-- 标题 -->
+        <h3 class="modal-title" data-ng-bind='results.title'></h3>
+        <h4 class="modal-title txt-color-blue"><i class="fa-fw fa fa-plus"></i>添加角色</h4>
+        <h4 class="modal-title color-yellow"><i class="glyphicon glyphicon-pencil"></i>修改角色</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row ">
+          <form   class="smart-form ">
+            <fieldset>
+              <section>
+                <label class="label txt-color-blue">角色编号<span class="asterisk-color">*</span></label>
+                <label class="input">
+                  <input type="text" placeholder="自动编码"  name="" >
+                </label>
+              </section>
+              <section>
+                <label class="label txt-color-blue">角色<span class="asterisk-color">*</span></label>
+                <label class="input">
+                  <input type="text" placeholder="请输角色"   name="" >
+                </label>
+              </section>
+            </fieldset>
+          </form>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" >保存</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+      </div>
+    </div>
+  </div>
 </div>
