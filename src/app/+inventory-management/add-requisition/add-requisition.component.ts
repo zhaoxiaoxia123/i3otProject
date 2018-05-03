@@ -20,25 +20,6 @@ export class AddRequisitionComponent implements OnInit {
     departmentInfo : Array<any> = [];//经手人所属部门信息
     department : string = '';
 
-    selectProductList :Array<any> = [];//[{"p_product_id": "0","p_qrcode": "0","category": "0","p_unit": "0","p_count": "0","p_price": "0","p_pur_price": "0","p_note": "","p_is": "1"}]; //选中后的商品列表
-    searchProductList : Array<any> = [];//搜索出的商品列表信息
-    productDefault : Array<any> = [];//弹框中商品分类
-    //弹框中左侧选中商品分类的id
-    select_category_ids: Array<any> = [];
-    category_type_product : number = 6; //商品分类
-    keyword_product  : string = '';
-    //左边展开和收起功能
-    showUl : number  = 1;//一级分类
-    showUlChild : number  = 0;//二级
-
-    //用作全选和反选
-    selects : Array<any> = [];
-    selects_index : Array<any> = [];
-    check : boolean = false;
-
-    prev : boolean = false;
-    next : boolean = false;
-
     isDetail : string = '';
     keyword : string = '';
     p_type : number = 2;//商品
@@ -51,34 +32,32 @@ export class AddRequisitionComponent implements OnInit {
     };
     //默认选中值
     user_u_id_default : number = 0; //经手人
-    out_storehouse_id_default : number = 0; //出库仓库id
-    in_storehouse_id_default : number = 0; //入库仓库id
+    // out_storehouse_id_default : number = 0; //出库仓库id
+    // in_storehouse_id_default : number = 0; //入库仓库id
     rollback_url : string = '/inventory-management/add-requisition';
 
+    /**--------用作选择库存产品的变量------*/
+    isShowProduct : string = '';
+    selectProductList :Array<any> = [];//[{"p_product_id": "0","p_qrcode": "0","category": "0","p_unit": "0","p_count": "0","p_price": "0","p_pur_price": "0","p_note": "","p_is": "1"}]; //选中后的商品列表
+    category_type_product : number = 6; //商品分类
+    searchProductList : Array<any> = [];//搜索出的商品列表信息
+    productDefault : Array<any> = [];//弹框中商品分类
+    // 弹框中左侧选中商品分类的id
+    select_category_ids: Array<any> = [];
 
-    /**
-     * --------用作审核的变量------
-     */
-    /**
-     * 选中的审批者
-     * @type {Array}
-     */
+
+    /**--------用作审核的变量------*/
+    approve_users : Array<any> = [];
+    /**选中的审批者*/
     approve_user : Array<any> = [];
-    /**
-     * 选中的关注者
-     * @type {Array}
-     */
+    /**选中的关注者*/
     follower_user : Array<any> = [];
-    /**
-     * 转交人
-     * @type {Array}
-     */
+    /**转交人*/
     transfer_user : Array<any> = [];
     remove_user_ids : Array<any> = [];
     approval_or_copy : string = '';
     is_show_detail : string = '';
     is_show_details : string = '';
-    approve_users : Array<any> = [];
 
     operate_type : string = '';//操作弹框类型
     operate_button_type : string = '';//操作按钮类型
@@ -109,8 +88,8 @@ export class AddRequisitionComponent implements OnInit {
       stock_allot_qrcode:[''],
       stock_allot_remark:[''],
       department:[''],
-        out_storehouse_id:[''],
-        in_storehouse_id:[''],
+        // out_storehouse_id:[''],
+        // in_storehouse_id:[''],
         //审核加入
         stock_allot_assign:[''],
         stock_allot_copy_person:[''],
@@ -148,8 +127,8 @@ export class AddRequisitionComponent implements OnInit {
             user_u_id:this.stockallotInfo['result']['user_u_id'],
             stock_allot_qrcode:this.stockallotInfo['result']['stock_allot_qrcode'],
             stock_allot_remark:this.stockallotInfo['result']['stock_allot_remark'],
-              out_storehouse_id:this.stockallotInfo['result']['out_storehouse_id'],
-              in_storehouse_id:this.stockallotInfo['result']['in_storehouse_id'],
+              // out_storehouse_id:this.stockallotInfo['result']['out_storehouse_id'],
+              // in_storehouse_id:this.stockallotInfo['result']['in_storehouse_id'],
               //审核加入
               stock_allot_assign:this.stockallotInfo['result']['stock_allot_assign'],
               stock_allot_copy_person:this.stockallotInfo['result']['stock_allot_copy_person'],
@@ -160,8 +139,8 @@ export class AddRequisitionComponent implements OnInit {
             this.follower_user = this.stockallotInfo['result']['copy_user'];
 
           this.user_u_id_default = this.stockallotInfo['result']['user_u_id']; //经手人
-            this.out_storehouse_id_default = this.stockallotInfo['result']['out_storehouse_id']; //
-            this.in_storehouse_id_default = this.stockallotInfo['result']['in_storehouse_id']; //
+            // this.out_storehouse_id_default = this.stockallotInfo['result']['out_storehouse_id']; //
+            // this.in_storehouse_id_default = this.stockallotInfo['result']['in_storehouse_id']; //
 
           this.selectProductList = this.stockallotInfo['result']['detail'];
           if(this.stockallotInfo['result']['user_u_id'] != 0){
@@ -225,31 +204,33 @@ export class AddRequisitionComponent implements OnInit {
       alert('请填写调拨单号！');
       return false;
     }
-
       let approve_user_ids = [];
-      this.approve_user.forEach((val, idx, array) => {
-          approve_user_ids.push(val['id'].toString());
-      });
+      if(this.approve_user.length > 0) {
+          this.approve_user.forEach((val, idx, array) => {
+              approve_user_ids.push(val['id'].toString());
+          });
+      }
       let follower_user_ids = [];
-      this.follower_user.forEach((val, idx, array) => {
-          follower_user_ids.push(val['id'].toString());
-      });
-
+      if(this.follower_user.length > 0) {
+          this.follower_user.forEach((val, idx, array) => {
+              follower_user_ids.push(val['id'].toString());
+          });
+      }
       this.http.post(this.globalService.getDomain()+'/api/v1/addStockallot',{
-      'stock_allot_id':this.formModel.value['stock_allot_id'],
-      'stock_allot_type':this.formModel.value['stock_allot_type'],
-      'stock_allot_number':this.formModel.value['stock_allot_number'],
-      'stock_allot_date':this.formModel.value['stock_allot_date'],
-      'user_u_id':this.formModel.value['user_u_id'],
-      'stock_allot_qrcode':this.formModel.value['stock_allot_qrcode'],
-      'stock_allot_remark':this.formModel.value['stock_allot_remark'],
-          'stock_allot_assign':JSON.stringify(approve_user_ids),
-          'stock_allot_copy_person':JSON.stringify(follower_user_ids),
-      'product_detail' :JSON.stringify(this.selectProductList),
-        'out_storehouse_id':this.formModel.value['out_storehouse_id'],
-        'in_storehouse_id':this.formModel.value['in_storehouse_id'],
-      'u_id':this.cookieStore.getCookie('uid'),
-      'sid':this.cookieStore.getCookie('sid')
+        'stock_allot_id':this.formModel.value['stock_allot_id'],
+        'stock_allot_type':this.formModel.value['stock_allot_type'],
+        'stock_allot_number':this.formModel.value['stock_allot_number'],
+        'stock_allot_date':this.formModel.value['stock_allot_date'],
+        'user_u_id':this.formModel.value['user_u_id'],
+        'stock_allot_qrcode':this.formModel.value['stock_allot_qrcode'],
+        'stock_allot_remark':this.formModel.value['stock_allot_remark'],
+        'stock_allot_assign':JSON.stringify(approve_user_ids),
+        'stock_allot_copy_person':JSON.stringify(follower_user_ids),
+        'product_detail' :JSON.stringify(this.selectProductList),
+        // 'out_storehouse_id':this.formModel.value['out_storehouse_id'],
+        // 'in_storehouse_id':this.formModel.value['in_storehouse_id'],
+        'u_id':this.cookieStore.getCookie('uid'),
+        'sid':this.cookieStore.getCookie('sid')
     }).subscribe(
         (data)=>{
           let info = JSON.parse(data['_body']);
@@ -264,16 +245,15 @@ export class AddRequisitionComponent implements OnInit {
     );
   }
 
-    //------------------------以下为弹框内的操作-----------------------------
+
+    //-----------搜索库存产品信息--------
 
     /**
-     * 搜索商品
+     * 搜索库存产品
      */
     searchKey(page:any){
-        let url = this.globalService.getDomain()+'/api/v1/getProductList?page='+page+'&p_type='+this.p_type+'&type=list&sid='+this.cookieStore.getCookie('sid');
-        if(this.keyword_product.trim() != '') {
-            url += '&keyword='+this.keyword_product.trim();
-        }else {
+        let url = this.globalService.getDomain()+'/api/v1/getStockProductList?page='+page+'&p_type='+this.p_type+'&type=list&sid='+this.cookieStore.getCookie('sid');
+        if(this.keyword.trim() != '') {
             url += '&keyword='+this.keyword.trim();
         }
         let category_ids = '';
@@ -291,26 +271,6 @@ export class AddRequisitionComponent implements OnInit {
                     alert(this.searchProductList['msg']);
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
-                }
-                if(!this.lgModal.isShown){
-                    this.lgModal.show();
-                }
-                if (this.searchProductList && this.searchProductList['result']['productList'].length > 0) {
-                    if (this.searchProductList['result']['productList']['current_page'] == this.searchProductList['result']['productList']['last_page']) {
-                        this.next = true;
-                    } else {
-                        this.next = false;
-                    }
-                    if (this.searchProductList['result']['productList']['current_page'] == 1) {
-                        this.prev = true;
-                    } else {
-                        this.prev = false;
-                    }
-
-                    for (let entry of this.searchProductList['result']['productList']['data']) {
-                        this.selects[entry['p_id']] = false;
-                    }
-                    this.check = false;
                 }
             });
     }
@@ -340,190 +300,23 @@ export class AddRequisitionComponent implements OnInit {
             });
     }
 
-    /**
-     * 搜索产品信息分页
-     * @param page
-     */
-    pagination(page : any) {
-        this.searchKey(page);
-    }
-
-    /**
-     * 左边选中所有
-     */
-    selectCategoryAll(){
-        if(this.select_category_ids[0] == true){
-            this.select_category_ids[0] = false;
-            this.productDefault['result']['categoryList'].forEach((val, idx, array) => {
-                this.select_category_ids[val['category_id']] = false;
-                if (val['has_child'] >= 1) {
-                    val['child'].forEach((val1, idx1, array1) => {
-                        this.select_category_ids[val1['category_id']] = false;
-                    });
-                }
-            });
-        }else {
-            this.select_category_ids[0] = true;
-            this.productDefault['result']['categoryList'].forEach((val, idx, array) => {
-                this.select_category_ids[val['category_id']] = true;
-                if (val['has_child'] >= 1) {
-                    val['child'].forEach((val1, idx1, array1) => {
-                        this.select_category_ids[val1['category_id']] = true;
-                    });
-                }
-            });
-        }
-        this.searchKey('1');
-    }
-    /**
-     * 左边展示效果
-     * @param bool
-     */
-    showLeftUl(bool:any){
-        this.showUl = bool;
-    }
-    showLeftUlChild(category_id:any){
-        this.showUlChild = category_id;
-    }
-
-    //全选，反全选
-    changeCheckAll(e){
-        let t = e.target;
-        let c = t.checked;
-        let i = 0;
-        this.selects.forEach((val, idx, array) => {
-            this.selects[idx] = c;
-            if(c == true){
-                this.selects_index[i] = idx;
-            }else{
-                this.selects_index[i] = idx+'_';
-            }
-            i++;
-        });
-        this.check = c;
-    }
-
-    //点击列表checkbox事件
-    handle(e,ind:number){
-        let t = e.target;
-        let v = t.value;
-        let c = t.checked;
-        this.selects[v] = c;
-        let isAll = 0;
-        for (let s of this.selects) {
-            if(s == false) {
-                isAll += 1;
-            }
-        }
-        if(c == true){
-            this.selects_index[ind] = v;
-        }else{
-            this.selects_index[ind] = v+'_';
-        }
-        if(isAll >= 1){
-            this.check = false;
-        }else{
-            this.check = true;
-        }
-    }
-
-    /**
-     * 左侧导航栏 选中显示列表
-     * @param category_id
-     * index 点击的父类 or子类 索引
-     * num  1：父类 2：子类
-     */
-    selectCategory(category_id:any,index:number,indexChild:number,num:number){
-        if(num == 1){//点击父类
-            if(this.select_category_ids[category_id] == true){
-                if(this.productDefault['result']['categoryList'][index]){
-                    if(this.productDefault['result']['categoryList'][index]['child_count'] >= 1){
-                        this.productDefault['result']['categoryList'][index]['child'].forEach((val, idx, array) => {
-                            this.select_category_ids[val['category_id']] = false;
-                        });
-                    }
-                }
-                this.select_category_ids[category_id] = false;
-            }else{
-                this.select_category_ids[category_id] = true;
-                if(this.productDefault['result']['categoryList'][index]){
-                    if(this.productDefault['result']['categoryList'][index]['child_count'] >= 1){
-                        this.productDefault['result']['categoryList'][index]['child'].forEach((val, idx, array) => {
-                            this.select_category_ids[val['category_id']] = true;
-                        });
-                    }
-                }
-            }
-        }else if(num != 1){//点击子类
-            if(this.select_category_ids[category_id] == true){
-                this.select_category_ids[num] = false;
-                this.select_category_ids[category_id] = false;
-            }else{
-                this.select_category_ids[category_id] = true;
-                let count = 0;
-                if(this.productDefault['result']['categoryList'][index]){
-                    if(this.productDefault['result']['categoryList'][index]['child_count'] >= 1){
-                        this.productDefault['result']['categoryList'][index]['child'].forEach((val, idx, array) => {
-                            if(this.select_category_ids[val['category_id']] == false ||  isUndefined(this.select_category_ids[val['category_id']])){
-                                count ++;
-                            }
-                        });
-                    }
-                }
-                if(count == 0){//若子类全是true则父类变为选中状态
-                    this.select_category_ids[num] = true;
-                }
-            }
-        }
-        this.searchKey('1');
-    }
-
-    /**
-     * 返回不选入
-     */
-    closeSubmit(){
-        let i = 0;
-        this.selects.forEach((val, idx, array) => {
-            this.selects[idx] = false;
-            this.selects_index[i] = idx+'_';
-            i++;
-        });
-        this.check = false;
-    }
-
-    //添加 并选入商品
-    addInput() {
-        let spl : Array<any> = [];
-        this.selectProductList.forEach((val1, idx1, array1) => {
-            spl.push(val1['p_id']);
-        });
-        if(spl.length > 0){
-            this.selects_index.forEach((val, idx, array) => {
-                let v1 = val.split('_');
-                if (val.indexOf('_') < 0 && !this.cookieStore.in_array(val, spl)) {
-                    this.selectProductList[this.selectProductList.length] = (this.searchProductList['result']['productList']['data'][idx]);
-                }else if(val.indexOf('_') >= 0 && this.cookieStore.in_array(v1[0], spl)) {
-                    this.selectProductList.forEach((valp, idxp, arrayp) => {
-                        if(v1[0] == valp['p_id']){
-                            this.selectProductList.splice(idxp, 1);
-                            return ;
-                        }
-                    });
-                }
-            });
-        }else{
-            this.selects_index.forEach((val, idx, array) => {
-                if (val.indexOf('_') < 0) {
-                    this.selectProductList.push(this.searchProductList['result']['productList']['data'][idx]);
-                }
-            });
-        }
-    }
     //移除商品
     removeInput(ind) {
         this.selectProductList.splice(ind, 1);
     }
+    //--------------弹框  选择库存产品--------------
+    showProduct(){
+        this.isShowProduct = 'stock'; //显示库存弹框
+        this.searchKey(1);
+    }
 
+    getProductData(value:any){
+        this.selectProductList = JSON.parse(value);
+    }
+
+    getShowProductStatus(value:any){
+        this.isShowProduct = value;
+    }
 
     //--------------弹框  选择审批人和关注者--------------
     showDetail(type:string){
@@ -545,11 +338,9 @@ export class AddRequisitionComponent implements OnInit {
             this.follower_user = JSON.parse(value);
         }else if(this.approval_or_copy == 'transfer'){
             this.transfer_user = JSON.parse(value);
-
             this.transfer_user.forEach((val, idx, array) => {
                 id += '"'+val['id']+'",';
             });
-
             this.http.post(this.globalService.getDomain()+'/api/v1/addStockAllotLog',{
                 'other_id':this.stock_allot_id,
                 'other_table_name':this.log_table_name,
@@ -561,7 +352,6 @@ export class AddRequisitionComponent implements OnInit {
                 'sid':this.cookieStore.getCookie('sid')
             }).subscribe((data)=>{
                 let info = JSON.parse(data['_body']);
-
                 if(info['status'] == 200) {
                     this.getStockallotInfo(this.stock_allot_id);
                 }else if(info['status'] == 202){
@@ -572,7 +362,6 @@ export class AddRequisitionComponent implements OnInit {
                     alert(info['msg']);
                 }
             });
-
         }
     }
 

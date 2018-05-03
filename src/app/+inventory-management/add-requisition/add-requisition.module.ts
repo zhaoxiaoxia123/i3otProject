@@ -11,6 +11,7 @@ import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 import {DpDatePickerModule} from "ng2-date-picker";
 import {SelectUserModule} from "../../shared/common/select-user/select-user.module";
 import {VerifyFrameModule} from "../../shared/common/verify-frame/verify-frame.module";
+import {SelectStockModule} from "../../shared/common/select-stock/select-stock.module";
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import {VerifyFrameModule} from "../../shared/common/verify-frame/verify-frame.m
     DpDatePickerModule,
     SelectUserModule,
     VerifyFrameModule,
+    SelectStockModule,
     AddRequisitionRoutingModule
   ],
   declarations: [AddRequisitionComponent],
