@@ -12,8 +12,9 @@
           <li routerLinkActive="active">
             <a routerLink="/dashboard/dynamic-wall">{{'动态墙' | i18n}}</a>
           </li>
-          <li routerLinkActive="active">
-            <a routerLink="">{{'I3oT产品' | i18n}}</a>
+          <li>
+          <a href="http://www.i3ot.com/" target="_blank"><span
+          class="menu-item-parent">{{'I3oT产品' | i18n}}</span></a>
           </li>
           <li routerLinkActive="active">
             <a routerLink="">{{'用户手册' | i18n}}</a>
@@ -123,9 +124,9 @@
         <a href="#"><i class="fa fa-lg fa-fw  fa-shopping-cart"></i> <span
                 class="menu-item-parent">{{'采购管理' | i18n}}</span></a>
         <ul>
-          <li routerLinkActive="active">
-            <a routerLink="/procurement-management/procurement-order">{{'采购订单' | i18n}}</a>
-          </li>
+          <!--<li routerLinkActive="active">-->
+            <!--<a routerLink="/procurement-management/procurement-order">{{'采购订单' | i18n}}</a>-->
+          <!--</li>-->
           <!--<li routerLinkActive="active">-->
             <!--<a routerLink="/procurement-management/app-order/0">{{'添加采购订单' | i18n}}</a>-->
           <!--</li>-->
@@ -378,6 +379,27 @@
             <a href="#"><i class="fa fa-lg fa-fw fa-unlock-alt"></i> <span
                     class="menu-item-parent">{{'V1' | i18n}}</span></a>
             <ul>
+              <li>
+                <a href="#"><i class="fa fa-lg fa-fw  fa-shopping-cart"></i> <span
+                        class="menu-item-parent">{{'采购管理' | i18n}}</span></a>RRRRRRRRRRRRRRRRRRRR
+                <ul>
+                  <li routerLinkActive="active">
+                    <a routerLink="/procurement-management/procurement-order">{{'采购订单' | i18n}}</a>
+                  </li>
+                  <!--<li routerLinkActive="active">-->
+                  <!--<a routerLink="/procurement-management/app-order/0">{{'添加采购订单' | i18n}}</a>-->
+                  <!--</li>-->
+                  <li routerLinkActive="active">
+                    <a routerLink="/procurement-management/procurement-receipt">{{'进货单' | i18n}}</a>
+                  </li>
+                  <!--<li routerLinkActive="active">-->
+                  <!--<a routerLink="/procurement-management/add-receipt/0">{{'添加进货单' | i18n}}</a>-->
+                  <!--</li>-->
+                  <li routerLinkActive="active">
+                    <a routerLink="/procurement-management/procurement-type">{{'采购类型' | i18n}}</a>
+                  </li>
+                </ul>
+              </li>
               <li>
                 <a href="#"><i class="fa fa-lg fa-fw fa-group"></i> <span
                         class="menu-item-parent">{{'人力资源' | i18n}}</span></a>
