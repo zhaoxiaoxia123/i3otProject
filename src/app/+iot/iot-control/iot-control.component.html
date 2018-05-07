@@ -1,0 +1,152 @@
+<div id="content">
+  <!--<div class="row">
+    <sa-big-breadcrumbs [items]="['物联网管理', '基站传感数据']" icon="file-text-o" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+  </div>-->
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-sm-12">
+        <sa-widget  [editbutton]="false" [deletebutton]="false" [colorbutton]="false">
+          <header><span class="widget-icon"> <i class="fa fa-table"></i></span>
+            <h2>设备设置</h2>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <div  class="table-responsive">
+                <table class="table table-striped  smart-form ">
+                  <tbody>
+                  <tr class="">
+                    <td colspan="7" class="text-center txt-color-blue"><h4><strong>一号棚风机控制</strong></h4></td>
+                  </tr>
+                  <tr class="">
+                    <td class="text-center">1</td>
+                    <td class="text-center">2</td>
+                    <td class="text-center">3</td>
+                    <td class="text-center">4</td>
+                    <td class="text-center">5</td>
+                    <td class="text-center">6</td>
+                    <td class="text-center">7</td>
+
+                  </tr>
+                  <tr>
+                    <td class="text-center">
+                      <div class="sorting_1">
+                            <span class="onoffswitch">
+                              <input type="checkbox" name="start_interval" class="onoffswitch-checkbox" id="st1">
+                              <label class="onoffswitch-label" for="st1">
+                                <span class="onoffswitch-inner" data-swchon-text="关" data-swchoff-text="开"></span>
+                                <span class="onoffswitch-switch"></span></label>
+                            </span>
+                      </div>
+
+                    </td>
+                    <td class="text-center">
+                      <div class="sorting_1">
+                            <span class="onoffswitch">
+                              <input type="checkbox" name="start_interval" class="onoffswitch-checkbox" id="st2">
+                              <label class="onoffswitch-label" for="st2">
+                                <span class="onoffswitch-inner" data-swchon-text="关" data-swchoff-text="开"></span>
+                                <span class="onoffswitch-switch"></span></label>
+                            </span>
+                      </div>
+
+                    </td>
+                    <td class="text-center">
+                      <div class="sorting_1">
+                            <span class="onoffswitch">
+                              <input type="checkbox" name="start_interval" class="onoffswitch-checkbox" id="st3">
+                              <label class="onoffswitch-label" for="st3">
+                                <span class="onoffswitch-inner" data-swchon-text="关" data-swchoff-text="开"></span>
+                                <span class="onoffswitch-switch"></span></label>
+                            </span>
+                      </div>
+
+                    </td>
+                    <td class="text-center">
+                      <div class="sorting_1">
+                            <span class="onoffswitch">
+                              <input type="checkbox" name="start_interval" class="onoffswitch-checkbox" id="st4">
+                              <label class="onoffswitch-label" for="st4">
+                                <span class="onoffswitch-inner" data-swchon-text="关" data-swchoff-text="开"></span>
+                                <span class="onoffswitch-switch"></span></label>
+                            </span>
+                      </div>
+
+                    </td>
+                    <td class="text-center">
+                      <div class="sorting_1">
+                            <span class="onoffswitch">
+                              <input type="checkbox" name="start_interval" class="onoffswitch-checkbox" id="st5">
+                              <label class="onoffswitch-label" for="st5">
+                                <span class="onoffswitch-inner" data-swchon-text="关" data-swchoff-text="开"></span>
+                                <span class="onoffswitch-switch"></span></label>
+                            </span>
+                      </div>
+
+                    </td>
+                    <td class="text-center">
+                      <div class="sorting_1">
+                            <span class="onoffswitch">
+                              <input type="checkbox" name="start_interval" class="onoffswitch-checkbox" id="st6">
+                              <label class="onoffswitch-label" for="st6">
+                                <span class="onoffswitch-inner" data-swchon-text="关" data-swchoff-text="开"></span>
+                                <span class="onoffswitch-switch"></span></label>
+                            </span>
+                      </div>
+
+                    </td>
+                    <td class="text-center">
+                      <div class="sorting_1">
+                            <span class="onoffswitch">
+                              <input type="checkbox" name="start_interval" class="onoffswitch-checkbox" id="st7">
+                              <label class="onoffswitch-label" for="st7">
+                                <span class="onoffswitch-inner" data-swchon-text="关" data-swchoff-text="开"></span>
+                                <span class="onoffswitch-switch"></span></label>
+                            </span>
+                      </div>
+
+                    </td>
+                  </tr>
+
+
+                  </tbody>
+                </table>
+
+              </div>
+
+              <!-- 底部-（分页部分）-->
+              <div class="dt-toolbar">
+                <div class="col-xs-12 col-sm-6">
+                  <span>共5条</span>
+                </div>
+                <div class="hidden-xs right">
+                  <ul class="pagination pagination-sm">
+                    <li *ngFor="let p of categoryList?.page" class="{{p.class}}">
+                      <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+                      <a *ngIf="p.method==''">{{p.text}}</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+
+
+
+
+
+
+            </div>
+
+          </div>
+        </sa-widget>
+      </article>
+    </div>
+
+
+
+  </sa-widgets-grid>
+
+
+
+</div>
+
+

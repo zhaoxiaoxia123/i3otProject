@@ -7,6 +7,11 @@ export const routes: Routes = [
         loadChildren: 'app/+iot/station-block/station-block.module#StationBlockModule',
         data: {pageTitle: 'StationBlock'}
     },
+    {
+        path: 'iot-control',
+        loadChildren: 'app/+iot/iot-control/iot-control.module#IotControlModule',
+        data: {pageTitle: 'IotControl'}
+    },
 
 ];
 
