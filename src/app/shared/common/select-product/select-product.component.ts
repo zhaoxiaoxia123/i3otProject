@@ -8,10 +8,10 @@ import {isUndefined} from "util";
 
 @FadeInTop()
 @Component({
-  selector: 'app-select-stock',
-  templateUrl: './select-stock.component.html',
+  selector: 'app-select-product',
+  templateUrl: './select-product.component.html',
 })
-export class SelectStockComponent implements OnInit {
+export class SelectProductComponent implements OnInit {
 
     //左边展开和收起功能
     showUl : number  = 1;//一级分类
@@ -56,7 +56,7 @@ export class SelectStockComponent implements OnInit {
      * 搜索商品
      */
     searchOpeninventory(page:any){
-        let url = this.globalService.getDomain()+'/api/v1/getStockProductList?page='+page+'&p_type='+this.p_type+'&type=list&p_property='+this.p_property+'&sid='+this.cookieStore.getCookie('sid');
+        let url = this.globalService.getDomain()+'/api/v1/getProductList?page='+page+'&p_type='+this.p_type+'&type=list&p_property='+this.p_property+'&sid='+this.cookieStore.getCookie('sid');
         if(this.keyword.trim() != '') {
             url += '&keyword='+this.keyword.trim();
         }

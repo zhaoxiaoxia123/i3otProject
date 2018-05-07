@@ -168,7 +168,6 @@ export class AddSalesComponent implements OnInit {
             this.follower_user = this.purchaseInfo['result']['copy_user'];
 
           this.selectProductList = this.purchaseInfo['result']['details'];
-
             this.sumPCount();
         });
 
@@ -272,11 +271,8 @@ export class AddSalesComponent implements OnInit {
         });
   }
 
-
     /**
      * 计算金额总数
-     * @param obj
-     * type   p_pur_price:销售金额
      */
     sumPCount(){
         this.p_pur_prices = 0;
@@ -290,6 +286,29 @@ export class AddSalesComponent implements OnInit {
         this.selectProductList.splice(ind, 1);
         this.sumPCount();
     }
+
+    //实时比较两个值大小
+    // canInput($event,openinginventory_surplus_count) {
+    //     if($event.target.value > openinginventory_surplus_count){
+    //         $event.target.value = $event.target.value.slice(0,$event.target.value.length - 1);
+    //     }
+    // }
+
+    canInput($event,count1,old_p_count,openinginventory_surplus_count){
+        let count_ = count1 - old_p_count;  //当前输入数量 - 老的数量= 增加或减少的数量
+        console.log(count1);
+        console.log(old_p_count);
+        console.log(count_);
+        if(count_ > openinginventory_surplus_count){
+            alert('库存不足,请修改使用数量在总数量以内。');
+            return false;
+        }
+        if($event.target.value > (openinginventory_surplus_count + old_p_count)){
+            $event.target.value = old_p_count;
+        }
+    }
+
+
 
     //-----------搜索库存产品信息--------
 

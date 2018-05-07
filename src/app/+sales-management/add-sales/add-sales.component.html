@@ -276,23 +276,24 @@
                               <th>条码</th>
                               <th>商品分类</th>
                               <th>单位</th>
+                              <th>剩余库存量</th>
                               <th class="txt-color-blue">数量</th>
                               <th class="txt-color-blue">单价</th>
                               <th class="txt-color-blue">销售金额</th>
                               <th class="txt-color-blue">备注</th>
-                              <!--<th class="txt-color-blue">是否赠品</th>-->
                             </tr>
                             </thead>
                             <tbody>
-                            <tr *ngFor="let p of selectProductList">
+                            <tr *ngFor="let p of selectProductList;let ind1 = index;">
                               <td>{{p.p_product_id}}</td>
                               <td>{{p.p_qrcode}}</td>
                               <td>{{p.category}}</td>
                               <td>{{p.p_unit}}</td>
+                              <td>{{p.openinginventory_surplus_count}}</td>
                               <td>
                                 <label  class="input wi-100">
                                   <input *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_count" value="{{p.p_count}}" type="number">
-                                  <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_count" value="{{p.p_count}}" type="number">
+                                  <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_count" value="{{p.p_count}}" type="number" (keyup)="canInput($event,p.p_count,p.old_p_count,p.openinginventory_surplus_count)">
                                 </label>
                               </td>
                               <td>
@@ -313,14 +314,11 @@
                                   <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_note" value="{{p.p_note}}" type="text">
                                 </label>
                               </td>
-                              <!--<td>-->
-                                <!--<input [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_is" [checked]="p.p_is == 1" value="1" type="radio"> 是-->
-                                <!--<input [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_is" [checked]="p.p_is != 1" value="2" type="radio"> 否-->
-                              <!--</td>-->
                             </tr>
                             </tbody>
                             <tfoot>
                             <tr class="he-40">
+                              <th></th>
                               <th></th>
                               <th></th>
                               <th></th>
@@ -347,10 +345,10 @@
                     </section>
                   </div>
                   <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-20">
-                    <div class="label ">审批人<a *ngIf="isDetail!='detail'" class="txt-color-blue pd-10" (click)="showDetail('assign')">添加审批人</a></div>
+                    <div class="label ">审批人<a *ngIf="isDetail!='detail' && pr_id==0" class="txt-color-blue pd-10" (click)="showDetail('assign')">添加审批人</a></div>
                     <ul  class="avatars" *ngIf="approve_user">
                       <li *ngFor="let su of approve_user;let ind = index;">
-                        <a *ngIf="isDetail!='detail'" class="fa fa-times-circle picture-a" style="display:block;" (click)="removeUser(su.id,'assign')"></a>
+                        <a *ngIf="isDetail!='detail' && pr_id==0" class="fa fa-times-circle picture-a" style="display:block;" (click)="removeUser(su.id,'assign')"></a>
                         <a class="portrait-size" title="{{su.u_username}}">
                           {{su.u_username}}
                         </a>
@@ -361,10 +359,10 @@
                     </ul>
                   </div>
                   <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-20">
-                    <div class="label ">抄送人<a *ngIf="isDetail!='detail'" class="txt-color-blue pd-10" (click)="showDetail('follower')">添加抄送人</a><span class="txt-color-blueLight pd-10">(审批通过后，通知抄送人)</span></div>
+                    <div class="label ">抄送人<a *ngIf="isDetail!='detail' && pr_id==0" class="txt-color-blue pd-10" (click)="showDetail('follower')">添加抄送人</a><span class="txt-color-blueLight pd-10">(审批通过后，通知抄送人)</span></div>
                     <ul  class="avatars" *ngIf="follower_user">
                       <li *ngFor="let su1 of follower_user;let ind1 = index;">
-                        <a *ngIf="isDetail!='detail'" class="fa fa-times-circle picture-a" style="display:block;" (click)="removeUser(su1.id,'follower')"></a>
+                        <a *ngIf="isDetail!='detail' && pr_id==0" class="fa fa-times-circle picture-a" style="display:block;" (click)="removeUser(su1.id,'follower')"></a>
                         <a class="portrait-size" title="{{su1.u_username}}">
                           {{su1.u_username}}
                         </a>

@@ -24,7 +24,7 @@ export class AddReceiptComponent implements OnInit {
   pr_supplier_default : number = 0; //供应商
   pr_department_default : number = 0; //采购部门
   pr_employee_default : number = 0; //采购员
-  storehouse_id_default : number = 0; //仓库
+  // storehouse_id_default : number = 0; //仓库
   pr_category_default: number = 0; //采购类型
   pr_transport_default: number = 0; //运输方式
   p_prices:number = 0;
@@ -40,10 +40,9 @@ export class AddReceiptComponent implements OnInit {
   category_type : number = 17; //采购类型
   p_type : number = 2;//商品
   role : number = 3; //供应商角色
-  p_property : number = 2; //采购商品
   rollback_url : string = '/procurement-management/add-receipt';
 
-  /**--------用作选择库存产品的变量------*/
+  /**--------用作选择商品的变量------*/
   isShowProduct : string = '';
   selectProductList :Array<any> = [];//[{"p_product_id": "0","p_qrcode": "0","category": "0","p_unit": "0","p_count": "0","p_price": "0","p_pur_price": "0","p_note": "","p_is": "1"}]; //选中后的商品列表
   category_type_product : number = 6; //商品分类
@@ -51,6 +50,7 @@ export class AddReceiptComponent implements OnInit {
   productDefault : Array<any> = [];//弹框中商品分类
   // 弹框中左侧选中商品分类的id
   select_category_ids: Array<any> = [];
+  p_property : number = 2; //采购商品
 
   /**--------用作审核的变量------*/
   /**选中的审批者*/
@@ -107,7 +107,7 @@ export class AddReceiptComponent implements OnInit {
       pr_supplier:[''],
       pr_department:[''],
       pr_employee:[''],
-      storehouse_id:[''],
+      // storehouse_id:[''],
       pr_category:[''],
       pr_transport:[''],
       pr_qrcode:[''],
@@ -135,7 +135,7 @@ export class AddReceiptComponent implements OnInit {
             pr_supplier:this.purchaseInfo['result']['pr_supplier'],
             pr_department:this.purchaseInfo['result']['pr_department'],
             pr_employee:this.purchaseInfo['result']['pr_employee'],
-            storehouse_id:this.purchaseInfo['result']['storehouse_id'],
+            // storehouse_id:this.purchaseInfo['result']['storehouse_id'],
             pr_category:this.purchaseInfo['result']['pr_category'],
             pr_transport:this.purchaseInfo['result']['pr_transport'],
             pr_qrcode:this.purchaseInfo['result']['pr_qrcode'],
@@ -149,7 +149,7 @@ export class AddReceiptComponent implements OnInit {
           this.pr_supplier_default = this.purchaseInfo['result']['pr_supplier']; //供应商
           this.pr_department_default = this.purchaseInfo['result']['pr_department']; //采购部门
           this.pr_employee_default = this.purchaseInfo['result']['pr_employee']; //采购员
-          this.storehouse_id_default =this.purchaseInfo['result']['storehouse_id']; //仓库
+          // this.storehouse_id_default =this.purchaseInfo['result']['storehouse_id']; //仓库
           this.pr_category_default =this.purchaseInfo['result']['pr_category']; //采购类型
           this.pr_transport_default = this.purchaseInfo['result']['pr_transport']; //运输方式
 
@@ -237,7 +237,7 @@ export class AddReceiptComponent implements OnInit {
       'pr_supplier':this.formModel.value['pr_supplier'],
       'pr_department':this.formModel.value['pr_department'],
       'pr_employee':this.formModel.value['pr_employee'],
-      'storehouse_id':this.formModel.value['storehouse_id'],
+      // 'storehouse_id':this.formModel.value['storehouse_id'],
       'pr_category':this.formModel.value['pr_category'],
       'pr_transport':this.formModel.value['pr_transport'],
       'pr_qrcode':this.formModel.value['pr_qrcode'],
@@ -271,7 +271,7 @@ export class AddReceiptComponent implements OnInit {
    * 搜索库存产品
    */
   searchKey(page:any){
-    let url = this.globalService.getDomain()+'/api/v1/getStockProductList?page='+page+'&p_type='+this.p_type+'&type=list&p_property='+this.p_property+'&sid='+this.cookieStore.getCookie('sid');
+    let url = this.globalService.getDomain()+'/api/v1/getProductList?page='+page+'&p_type='+this.p_type+'&type=list&p_property='+this.p_property+'&sid='+this.cookieStore.getCookie('sid');
     if(this.keyword.trim() != '') {
       url += '&keyword='+this.keyword.trim();
     }

@@ -29,6 +29,7 @@ export class VerifyFrameComponent implements OnInit {
     @Input() operate_type ;
     @Input() log_table_name ;
     @Input() log_type ;
+
     @Output() private operate_types = new EventEmitter();
     rollback_url : string = '';
 

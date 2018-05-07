@@ -106,40 +106,34 @@
                             </label>
                             </td>
                             <th>商品编号</th>
-                            <th>商品属性</th>
+                            <!--<th>商品属性</th>-->
                             <th>商品名称</th>
-                            <th>商品储量</th>
                             <th>商品分类</th>
                             <th>生产厂家</th>
                             <th>参考售价</th>
-                            <th>图片</th>
+                            <!--<th>图片</th>-->
                             <th>状态</th>
                           </tr>
                           </thead>
                           <tbody>
                           <tr  *ngFor="let p of searchProductList?.result?.productList?.data;let ind = index;"><!-- class="table-color"-->
                             <td>
-                              <label class="checkbox padding-top-10" *ngIf="p.openinginventory_surplus_count>0 ">
+                              <label class="checkbox padding-top-10">
                                 <input type="checkbox" name="checkbox-inline" value="{{ p.p_id }}" [checked]="selects[p.p_id]" (change)="handle($event,ind)">
-                                <i></i>
-                              </label>
-                              <label class="checkbox padding-top-10" *ngIf="p.openinginventory_surplus_count<=0" (click)="noClick()">
-                                <input type="checkbox" name="checkbox-inline" value="{{ p.p_id }}" disabled="disabled">
                                 <i></i>
                               </label>
                             </td>
                             <td>{{p.p_product_id}}</td>
-                            <td>{{p.p_property==1?'销售':'外购'}}</td>
+                            <!--<td>{{p.p_property==1?'销售':'外购'}}</td>-->
                             <td>{{p.p_name}}</td>
-                            <td>{{p.openinginventory_surplus_count}}</td>
                             <td>{{p.category}}</td>
                             <td>{{p.c_name}}</td>
                             <td>{{p.p_purchase_price}}</td>
-                            <td>
-                              <div style="height:auto;" >
-                                <img *ngFor="let img of p.imgs" alt="" height="22" width="22" class="img-picture" src="{{url}}{{img}}">
-                              </div>
-                            </td>
+                            <!--<td>-->
+                              <!--<div style="height:auto;" >-->
+                                <!--<img *ngFor="let img of p.imgs" alt="" height="22" width="22" class="img-picture" src="{{url}}{{img}}">-->
+                              <!--</div>-->
+                            <!--</td>-->
                             <td>
                               <span [ngSwitch]="p.p_status">
                                 <span class="label-normal" *ngSwitchCase="1">正常</span>

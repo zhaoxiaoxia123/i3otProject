@@ -115,7 +115,11 @@
                           <tbody>
                           <tr *ngFor="let ul of userList.result?.userList?.data">
                             <td>
-                              <label class="checkbox mt-8" >
+                              <label class="checkbox mt-8" *ngIf="cookie_u_id == ul.id && approval_or_copy != 'follower'">
+                                <input type="checkbox" value="{{ul.id}}" disabled="disabled"/>
+                                <i></i>
+                              </label>
+                              <label class="checkbox mt-8" *ngIf="cookie_u_id != ul.id || approval_or_copy == 'follower'">
                                 <input type="checkbox" value="{{ul.id}}" [checked]="selected_user[ul.id]" (change)="handle($event);" />
                                 <i></i>
                               </label>
