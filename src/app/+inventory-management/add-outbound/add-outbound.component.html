@@ -295,8 +295,9 @@
                   <button type="button" class="btn btn-default" [routerLink]="['/inventory-management/outbound']">
                     返回
                   </button>
-                  <button *ngIf="otherorder_id==0" type="submit" class="btn btn-primary">保存</button>
-                  <button *ngIf="isDetail!='detail' && otherorder_id!=0 && otherorderInfo?.result?.otherorder_status != 'no' && otherorderInfo?.result?.otherorder_status != 'yes' && otherorderInfo?.result?.otherorder_status != 'cancel'" type="submit" class="btn btn-primary">修改</button>
+                  <button class="btn btn-success" type="button">提交并新增</button>
+                  <button *ngIf="otherorder_id==0" type="submit" class="btn btn-primary">提交</button>
+                  <button *ngIf="isDetail!='detail' && otherorder_id!=0 && otherorderInfo?.result?.otherorder_status != 'no' && otherorderInfo?.result?.otherorder_status != 'yes' && otherorderInfo?.result?.otherorder_status != 'cancel'" type="submit" class="btn btn-primary">提交</button>
                 </footer>
               </form>
             </div>
