@@ -54,6 +54,28 @@
                     </form>
                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
                       <div class="form-group pdlr-4">
+                        <strong> 筛选：</strong>
+                      </div>
+                      <div class="form-group btn-group pdlr-4">
+                        <a class="btn default-btn btn-sm dropdown-toggle" data-toggle="dropdown">
+                          全部<i class="fa fa-fw fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a >全部</a></li>
+                          <li><a>销售</a></li>
+                          <li><a >外购</a></li>
+                        </ul>
+                      </div>
+                      <div class="form-group pdlr-4 smart-form">
+                        <section style="width: 80px;margin:0;">
+                          <label class="select" >
+                            <select name="gender">
+                              <option value="0" >全部</option>
+                              <option value="1">销售</option>
+                              <option value="1">外购</option>
+                            </select> <i></i> </label>
+                        </section>
+                      </div>
+                      <div class="form-group pdlr-4">
                         <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" [(ngModel)]="keyword"  name="keyword" placeholder="请输入搜索内容" type="text">
                       </div>
                       <div class="form-group pdlr-4">

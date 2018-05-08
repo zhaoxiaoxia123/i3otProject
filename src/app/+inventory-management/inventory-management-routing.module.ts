@@ -46,6 +46,11 @@ export const routes: Routes = [
         loadChildren: 'app/+inventory-management/storage/storage.module#StorageModule',
         data: {pageTitle: 'Storage'}
     },
+    {
+        path: 'inventory-number',
+        loadChildren: 'app/+inventory-management/inventory-number/inventory-number.module#InventoryNumberModule',
+        data: {pageTitle: 'InventoryNumber'}
+    },
 ];
 
 export const routing = RouterModule.forChild(routes);
