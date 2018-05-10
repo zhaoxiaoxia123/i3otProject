@@ -5,7 +5,7 @@ import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ModalDirective} from "ngx-bootstrap";
-import {isUndefined} from "util";
+import {isNull, isUndefined} from "util";
 import {NotificationService} from "../../shared/utils/notification.service";
 
 @Component({
@@ -306,6 +306,39 @@ export class AddOutboundComponent implements OnInit {
             });
     }
 
+
+    /**
+     * 计算金额总数
+     */
+    sumPCounts($event,index,count1,old_p_count,surplus_count){
+        if($event != 0) {
+            let count_ = count1 - old_p_count;  //当前输入数量 - 老的数量= 增加或减少的数量
+            if (count_ > surplus_count) {
+                alert('库存不足,请修改使用数量在总数量以内。');
+                return false;
+            }
+            if ($event.target.value > (surplus_count + old_p_count)) {
+                $event.target.value = old_p_count;
+            }
+        }
+        this.p_prices = 0;
+        this.selectProductList.forEach((val, idx, array) => {
+            if(idx == index) {
+                let p_count_ = val['p_count'];
+                if (isNull(p_count_)) {
+                    $event.target.value = 0;
+                }
+                let count_1 = parseInt(p_count_) - parseInt(val['old_p_count']);  //当前输入数量 - 老的数量= 增加或减少的数量
+                if (count_1 <= parseInt(val['openinginventory_surplus_count'])) {
+                    let price = parseInt(val['openinginventory_price']);
+                    if (isNaN(price)) {
+                        price = 0;
+                    }
+                    this.p_prices += price * parseInt(p_count_);
+                }
+            }
+        });
+    }
     /**
      * 计算金额总数
      */

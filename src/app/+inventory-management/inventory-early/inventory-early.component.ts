@@ -79,7 +79,9 @@ export class InventoryEarlyComponent implements OnInit {
    * 顶部  启用. 无效
    */
   isStatusShow(openinginventory_id:any,status:any){
-    if(status === 1){
+    console.log(status);
+    console.log(this.isDetail);
+    if(status === 1 && this.isDetail != 'edit'){
       this.isAll = 0;
       this.width = '0%';
       this.width_1 ='100%';
@@ -90,6 +92,7 @@ export class InventoryEarlyComponent implements OnInit {
       });
 
       this.editStatusOpeningInventoryId = openinginventory_id;
+      console.log(this.editStatusOpeningInventoryId);
     }
   }
   /**
@@ -116,6 +119,9 @@ export class InventoryEarlyComponent implements OnInit {
     if(type == 'detail'){
       this.detailModal.hide();
     }
+    if(type == 'edit'){
+      this.isDetail = '';
+    }
   }
   /**
    * 复制
@@ -139,6 +145,8 @@ export class InventoryEarlyComponent implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.productInfo = data;
+          console.log('this.productInfo');
+          console.log(this.productInfo);
           if(this.productInfo['status'] == 200) {
             this.setValue(this.productInfo);
             if(type == 'detail'){

@@ -19,7 +19,7 @@
                         <a class="btn btn-success btn-sm" (click)="showProduct()">
                           <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
                       </div>
-                      <div class="form-group pdlr-4">
+                      <div class="form-group pdlr-4" *ngIf="isDetail != 'edit'">
                         <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusOpeningInventoryId == 0}" (click)="detailOpeningInventory('edit')">
                           <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
                       </div>
@@ -27,15 +27,19 @@
                         <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusOpeningInventoryId == 0}" (click)="editOpeningInventory()">
                           <span class="fa fa-save mr-5 color-yellow"></span>保存</a>
                       </div>
-                      <div class="form-group pdlr-4">
+                      <div class="form-group pdlr-4" *ngIf="isDetail == 'edit'">
+                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusOpeningInventoryId == 0}" (click)="clear_('edit')">
+                          <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>取消</a>
+                      </div>
+                      <div class="form-group pdlr-4" *ngIf="isDetail != 'edit'">
                         <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusOpeningInventoryId == 0}" (click)="deleteOpeningInventory('id')">
                           <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
                       </div>
-                      <div class="form-group pdlr-4">
+                      <div class="form-group pdlr-4" *ngIf="isDetail != 'edit'">
                         <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusOpeningInventoryId == 0}" (click)="detailOpeningInventory('detail')">
                           <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
                       </div>
-                      <div class="form-group btn-group pdlr-4">
+                      <div class="form-group btn-group pdlr-4" *ngIf="isDetail != 'edit'">
                         <a class="btn default-btn btn-sm dropdown-toggle" (click)="showAllCheck()" data-toggle="dropdown">
                           <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
 
@@ -98,8 +102,8 @@
                       <th>仓库名称</th>
                       <th>单位</th>
                       <th>期初数量</th>
-                      <th>初期金额</th>
                       <th>成本单价</th>
+                      <th>初期金额</th>
                       <th>条码</th>
                       <th>状态</th>
                     </tr>
@@ -110,25 +114,27 @@
                       <td><span class="">{{p1.p_product_id}}</span></td>
                       <td><span class="">{{p1.p_specification}}</span></td>
                       <td>
-                        <span class="" *ngIf="isDetail != '' && p1.openinginventory_id == editStatusOpeningInventoryId">
+                        <span class="" *ngIf="isDetail == 'edit' && p1.openinginventory_id == editStatusOpeningInventoryId">
+                          <label class="select form-control border-0">
                           <select name="storehouse_id" [(ngModel)]="storehouse_id">
                             <option value="{{s.storehouse_id}}" *ngFor="let s of productDefault?.result?.storeHouseList">{{s.storehouse_name}}</option>
-                          </select>
+                          </select><i></i>
+                          </label>
                         </span>
-                        <span class="" *ngIf="isDetail == ''">{{p1.storehouse_name}}</span>
+                        <span class="" *ngIf="p1.openinginventory_id != editStatusOpeningInventoryId || isDetail == ''">{{p1.storehouse_name}}</span>
                       </td>
                       <td><span class="">{{p1.p_unit}}</span></td>
                       <td>
-                        <span class="" *ngIf="isDetail != '' && p1.openinginventory_id == editStatusOpeningInventoryId"><input type="text" name="p_count" [(ngModel)]="p_count"/></span>
-                        <span class="" *ngIf="isDetail == ''">{{p1.openinginventory_first_count}}</span>
+                        <span class="" *ngIf="isDetail == 'edit' && p1.openinginventory_id == editStatusOpeningInventoryId"><label class="input wi-100"><input type="text" name="p_count" [(ngModel)]="p_count"/></label></span>
+                        <span class="" *ngIf="p1.openinginventory_id != editStatusOpeningInventoryId || isDetail == ''">{{p1.openinginventory_first_count}}</span>
                       </td>
                       <td>
-                        <span class="" *ngIf="isDetail != '' && p1.openinginventory_id == editStatusOpeningInventoryId">{{p_count*p_price}}</span>
-                        <span class="" *ngIf="isDetail == ''">{{p1.openinginventory_price*p1.openinginventory_first_count}}</span>
+                        <span class="" *ngIf="isDetail == 'edit' && p1.openinginventory_id == editStatusOpeningInventoryId"><label class="input wi-100"><input class="ng-pristine ng-valid ng-touched" type="text" name="p_price" [(ngModel)]="p_price"/></label></span>
+                        <span class="" *ngIf="p1.openinginventory_id != editStatusOpeningInventoryId || isDetail == ''">{{p1.openinginventory_price}}</span>
                       </td>
-                        <td>
-                        <span class="" *ngIf="isDetail != '' && p1.openinginventory_id == editStatusOpeningInventoryId"><input class="ng-pristine ng-valid ng-touched" type="text" name="p_price" [(ngModel)]="p_price"/></span>
-                        <span class="" *ngIf="isDetail == ''">{{p1.openinginventory_price}}</span>
+                      <td>
+                        <span class="" *ngIf="isDetail == 'edit' && p1.openinginventory_id == editStatusOpeningInventoryId">{{p_count*p_price}}</span>
+                        <span class="" *ngIf="p1.openinginventory_id != editStatusOpeningInventoryId || isDetail == ''">{{p1.openinginventory_price*p1.openinginventory_first_count}}</span>
                       </td>
                       <td><span class="">{{p1.p_qrcode}}</span></td>
                       <td><span class="">{{p1.openinginventory_status == 1?'正常':'已删除'}}</span></td>

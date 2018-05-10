@@ -5,7 +5,7 @@ import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ModalDirective} from "ngx-bootstrap";
-import {isUndefined} from "util";
+import {isNull, isUndefined} from "util";
 import {NotificationService} from "../../shared/utils/notification.service";
 
 @Component({
@@ -51,6 +51,7 @@ export class AddStorageComponent implements OnInit {
     productDefault : Array<any> = [];//弹框中商品分类
     // 弹框中左侧选中商品分类的id
     select_category_ids: Array<any> = [];
+    p_property : number = 2; //采购商品
 
     /**--------用作审核的变量------*/
     /**选中的审批者*/
@@ -91,7 +92,7 @@ export class AddStorageComponent implements OnInit {
             otherorder_date:[''],
             otherorder_user_id:[''],
             otherorder_department_id:[''],
-            storehouse_id:[''],
+            // storehouse_id:[''],
             category_id:[''],
             otherorder_qrcode:[''],
             otherorder_detail:[''],
@@ -128,7 +129,7 @@ export class AddStorageComponent implements OnInit {
                     otherorder_date:this.otherorderInfo['result']['otherorder_date'],
                     otherorder_user_id:this.otherorderInfo['result']['otherorder_user_id'],
                     otherorder_department_id:this.otherorderInfo['result']['otherorder_department_id'],
-                    storehouse_id:this.otherorderInfo['result']['storehouse_id'],
+                    // storehouse_id:this.otherorderInfo['result']['storehouse_id'],
                     category_id:this.otherorderInfo['result']['category_id'],
                     otherorder_qrcode:this.otherorderInfo['result']['otherorder_qrcode'],
                     otherorder_detail:this.otherorderInfo['result']['otherorder_detail'],
@@ -148,7 +149,7 @@ export class AddStorageComponent implements OnInit {
 
                 this.selectProductList = this.otherorderInfo['result']['detail'];
 
-                this.sumPCount();
+                this.sumPCountPrice();
                 if(this.otherorderInfo['result']['otherorder_user_id'] != 0){
                     this.getDepartment(this.otherorderInfo['result']['otherorder_user_id'],2);
                 }
@@ -229,7 +230,7 @@ export class AddStorageComponent implements OnInit {
             'otherorder_date':this.formModel.value['otherorder_date'],
             'otherorder_user_id':this.formModel.value['otherorder_user_id'],
             'otherorder_department_id':this.formModel.value['otherorder_department_id'],
-            'storehouse_id':this.formModel.value['storehouse_id'],
+            // 'storehouse_id':this.formModel.value['storehouse_id'],
             'category_id':this.formModel.value['category_id'],
             'otherorder_qrcode':this.formModel.value['otherorder_qrcode'],
             'otherorder_detail' :JSON.stringify(this.selectProductList),
@@ -257,7 +258,8 @@ export class AddStorageComponent implements OnInit {
      * 搜索库存产品
      */
     searchKey(page:any){
-        let url = this.globalService.getDomain()+'/api/v1/getStockProductList?page='+page+'&p_type='+this.p_type+'&type=list&sid='+this.cookieStore.getCookie('sid');
+        // let url = this.globalService.getDomain()+'/api/v1/getStockProductList?page='+page+'&p_type='+this.p_type+'&type=list&sid='+this.cookieStore.getCookie('sid');
+        let url = this.globalService.getDomain()+'/api/v1/getProductList?page='+page+'&p_type='+this.p_type+'&type=list&p_property='+this.p_property+'&sid='+this.cookieStore.getCookie('sid');
         if(this.keyword.trim() != '') {
             url += '&keyword='+this.keyword.trim();
         }
@@ -308,7 +310,7 @@ export class AddStorageComponent implements OnInit {
     /**
      * 计算金额总数
      */
-    sumPCount(){
+    sumPCountPrice(){
         this.p_prices = 0;
         this.selectProductList.forEach((val, idx, array) => {
             this.p_prices += parseInt(val['p_price'])*parseInt(val['p_count']);
@@ -318,7 +320,7 @@ export class AddStorageComponent implements OnInit {
     //移除商品
     removeInput(ind) {
         this.selectProductList.splice(ind, 1);
-        this.sumPCount();
+        this.sumPCountPrice();
     }
 
     //--------------弹框  选择库存产品--------------

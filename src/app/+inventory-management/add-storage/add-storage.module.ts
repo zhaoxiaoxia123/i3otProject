@@ -9,7 +9,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DpDatePickerModule} from "ng2-date-picker";
 import {VerifyFrameModule} from "../../shared/common/verify-frame/verify-frame.module";
 import {SelectUserModule} from "../../shared/common/select-user/select-user.module";
-import {SelectStockModule} from "../../shared/common/select-stock/select-stock.module";
+import {SelectProductModule} from "../../shared/common/select-product/select-product.module";
 
 @NgModule({
   imports: [
@@ -21,7 +21,7 @@ import {SelectStockModule} from "../../shared/common/select-stock/select-stock.m
     DpDatePickerModule,
     SelectUserModule,
     VerifyFrameModule,
-    SelectStockModule,
+    SelectProductModule,
     AddStorageRoutingModule
   ],
   declarations: [AddStorageComponent]
