@@ -7,7 +7,6 @@
             <span class="widget-icon"> <i class="fa fa-table"></i> </span>
             <h2>商品入库管理</h2>
           </header>
-
           <div>
             <div class="widget-body no-padding" >
               <div  class="row">
@@ -125,7 +124,7 @@
                           <div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-scrolling">
                             <table class="table table-striped smart-form">
                               <thead>
-                              <tr style="height: 37px;">
+                              <tr>
                                 <td><label class="checkbox " >
                                   <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)" >
                                   <i></i>
@@ -134,7 +133,7 @@
                               </tr>
                               </thead>
                               <tbody>
-                              <tr style="height: 35px;" *ngFor="let p of productList.result?.productList?.data">
+                              <tr *ngFor="let p of productList.result?.productList?.data">
                                 <td >
                                   <div class="">
                                     <label class="checkbox padding-top-10">
@@ -155,7 +154,7 @@
                               </tr>
                               </thead>
                               <tbody>
-                              <tr style="height: 35px;" *ngFor="let p of productList.result?.productList?.data" (click)="isStatusShow(p.p_id,p.p_status)" [ngClass]="{'table-color':editStatusProductId == p.p_id}"><!--class="table-color"-->
+                              <tr *ngFor="let p of productList.result?.productList?.data" (click)="isStatusShow(p.p_id,p.p_status)" [ngClass]="{'table-color':editStatusProductId == p.p_id}"><!--class="table-color"-->
                                 <td><span class="">{{p.p_product_id}}</span></td>
                               </tr>
                               </tbody>
@@ -171,7 +170,7 @@
                                 <th>计量单位</th>
                                 <th>售价(元)</th>
                                 <th>入库时间</th>
-                                <th>备注</th>
+                                <!--<th>备注</th>-->
                               </tr>
                               </thead>
                               <tbody>
@@ -181,8 +180,8 @@
                                 <td><span class="">{{p1.p_quantity}}</span></td>
                                 <td><span class="">{{p1.p_unit}}</span></td>
                                 <td><span class="">{{p1.p_sales_price}}</span></td>
-                                <td>{{p1.p_storage_time}}  </td>
-                                <td> {{p1.p_notes}} </td>
+                                <td>{{p1.p_storage_time ? p1.p_storage_time:p1.created_at}}  </td>
+                                <!--<td> {{p1.p_notes}} </td>-->
                               </tr>
                               </tbody>
                             </table>

@@ -135,12 +135,15 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr *ngFor="let a1 of selectProductList;let ind1 = index;">
+                            <tr *ngFor="let a1 of selectProductList;let ind1 = index;" [ngStyle]="{'color':a1.assets_current_status == 'no'?'#ccc':'#666'}">
                               <td>{{a1.category_desc}}</td>
-                              <td>
+                              <td *ngIf="a1.assets_current_status == 'no'">
+                                {{a1.p_count}}
+                              </td>
+                              <td *ngIf="!a1.assets_current_status">
                                 <label  class="input wi-100">
-                                  <input *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="a1.p_count" value="{{a1.p_count}}" type="number">
-                                  <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="a1.p_count" value="{{a1.p_count}}" type="number" (keyup)="sumPCount(ind1,a1.p_count,a1.old_p_count,a1.assets_surplus_count)">
+                                  <input *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="a1.p_count" value="{{a1.p_count}}" type="text">
+                                  <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="a1.p_count" value="{{a1.p_count}}" type="text" (keyup)="sumPCount($event,ind1,a1.p_count,a1.old_p_count,a1.assets_surplus_count)">
                                 </label>
                               </td>
                               <td>{{a1.assets_unit}}</td>

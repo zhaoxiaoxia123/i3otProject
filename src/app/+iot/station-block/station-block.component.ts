@@ -62,6 +62,7 @@ export class StationBlockComponent implements OnInit {
     control : Array<any> = [];
     client;
 
+    pages : any = 1;
     private interval;
     rollback_url : string = '/iot/station-block';
   constructor(
@@ -86,6 +87,7 @@ export class StationBlockComponent implements OnInit {
      * @param number
      */
     getI3otpList(number:string) {
+        this.pages = number;
         let url = this.globalService.getDomain()+'/api/v1/getSjfbList?page='+number+'&i3otp_category='+this.globalService.getStation(1)+'&type=pic&sid='+this.cookieStore.getCookie('sid');
         if(this.keyword.trim() != ''){
             url += '&keyword='+this.keyword.trim();
@@ -94,6 +96,8 @@ export class StationBlockComponent implements OnInit {
             .map((res)=>res.json())
             .subscribe((data)=>{
                 this.i3otpList = data;
+                console.log('this.i3otpList:--' );
+                console.log(this.i3otpList );
                 if(this.i3otpList['status'] == 202){
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
@@ -396,21 +400,7 @@ export class StationBlockComponent implements OnInit {
         this.lgModal.hide();
     }
 
-    sendPublishSjfb(pid:string,type:string,val:any){
-        let url = this.globalService.getTsdbDomain()+'/examples/publishSjfb.php?pid='+pid;
-        if(type == 'on'){
-            url += '&on='+val;
-        }else if(type == 'off'){
-            url += '&off='+val;
-        }
-        this.http.get(url)
-            .map((res)=>res.json())
-            .subscribe((data)=>{
-                this.control = data;
-            });
-    }
-
-    update(){
+    update(pages:any){
         this.loading= true;
         setTimeout(()=>{
             this.lastUpdate = new Date().getFullYear()+'-'+
@@ -420,6 +410,8 @@ export class StationBlockComponent implements OnInit {
                 new Date().getMinutes();
             this.loading = false
         }, 1000)
+
+        this.getI3otpList(pages);
     }
 
 

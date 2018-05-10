@@ -5,7 +5,7 @@ import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ModalDirective} from "ngx-bootstrap";
-import {isUndefined} from "util";
+import {isNull, isUndefined} from "util";
 import {NotificationService} from "../../shared/utils/notification.service";
 
 @Component({
@@ -246,6 +246,7 @@ export class AddRequisitionComponent implements OnInit {
   }
 
 
+
     //-----------搜索库存产品信息--------
 
     /**
@@ -280,25 +281,50 @@ export class AddRequisitionComponent implements OnInit {
      */
     getProductDefault(){
         this.http.get(this.globalService.getDomain()+'/api/v1/getProductDefault?type=list&p_type='+this.p_type+'&category_type='+this.category_type_product+'&sid='+this.cookieStore.getCookie('sid'))
-            .map((res)=>res.json())
-            .subscribe((data)=>{
-                this.productDefault = data;
-                if(this.productDefault['status'] == 202){
-                    alert(this.productDefault['msg']);
-                    this.cookieStore.removeAll(this.rollback_url);
-                    this.router.navigate(['/auth/login']);
+        .map((res)=>res.json())
+        .subscribe((data)=>{
+            this.productDefault = data;
+            if(this.productDefault['status'] == 202){
+                alert(this.productDefault['msg']);
+                this.cookieStore.removeAll(this.rollback_url);
+                this.router.navigate(['/auth/login']);
+            }
+            this.select_category_ids[0] = true;
+            this.productDefault['result']['categoryList'].forEach((val, idx, array) => {
+                this.select_category_ids[val['category_id']] = true;
+                if(val['has_child'] >= 1){
+                    val['child'].forEach((val1, idx1, array1) => {
+                        this.select_category_ids[val1['category_id']] = true;
+                    });
                 }
-                this.select_category_ids[0] = true;
-                this.productDefault['result']['categoryList'].forEach((val, idx, array) => {
-                    this.select_category_ids[val['category_id']] = true;
-                    if(val['has_child'] >= 1){
-                        val['child'].forEach((val1, idx1, array1) => {
-                            this.select_category_ids[val1['category_id']] = true;
-                        });
-                    }
-                });
             });
+        });
     }
+
+    /**
+     * 计算金额总数
+     */
+    sumPCount($event,index,count1,old_p_count,surplus_count){
+        if($event != 0) {
+            let count_ = count1 - old_p_count;  //当前输入数量 - 老的数量= 增加或减少的数量
+            if (count_ > surplus_count) {
+                alert('库存不足,请修改使用数量在总数量以内。');
+                return false;
+            }
+            if ($event.target.value > (surplus_count + old_p_count)) {
+                $event.target.value = old_p_count;
+            }
+        }
+        this.selectProductList.forEach((val, idx, array) => {
+            if(idx == index) {
+                let p_count_ = val['p_count'];
+                if (isNull(p_count_)) {
+                    $event.target.value = 0;
+                }
+            }
+        });
+    }
+
 
     //移除商品
     removeInput(ind) {

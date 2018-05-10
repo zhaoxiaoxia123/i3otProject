@@ -18,10 +18,10 @@
                         <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailAssets('edit')">
                           <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
                       </div>
-                      <!--<div class="form-group pdlr-4">-->
-                        <!--<a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="deleteAssets('id')">-->
-                          <!--<span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>-->
-                      <!--</div>-->
+                      <div class="form-group pdlr-4">
+                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="deleteAssets('id')">
+                          <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
+                      </div>
                       <div class="form-group pdlr-4">
                         <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailAssets('detail')">
                           <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
@@ -37,16 +37,15 @@
                     </form>
                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
                       <div class="form-group pdlr-4">
-                        <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" [(ngModel)]="keyword" name="keyword" placeholder="请输入搜索内容" type="text">
+                        <input class="form-control ng-pristine ng-valid ng-touched" maxlength="15" [(ngModel)]="keyword" name="keyword" placeholder="请输入搜索内容" type="text">
                       </div>
                       <div class="form-group pdlr-4">
-                        <button class="btn btn-default" type="button" (click)="getAssetsList(1,0)">
-                          <i  class="glyphicon glyphicon-search"></i>
+                        <button class="btn btn-default" type="button" (click)="getAssetsList(1)">
+                          <i class="glyphicon glyphicon-search"></i>
                           搜索
                         </button>
                       </div>
                     </form>
-
                   </div>
                 </article>
               </div>
@@ -59,7 +58,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr style="height: 35px;" *ngFor="let a of assetsList.result?.assetsList?.data" (click)="isStatusShow(a.assets_id,a.assets_status)" [ngClass]="{'table-color':editStatusAssetsId == a.assets_id}"><!--class="table-color"-->
+                    <tr *ngFor="let a of assetsList?.result?.assetsList?.data" (click)="isStatusShow(a.assets_id,a.assets_status)" [ngClass]="{'table-color':editStatusAssetsId == a.assets_id}"><!--class="table-color"-->
                       <td>
                         <span class="click-a"><a>{{a.assets_number}}</a></span>
                       </td>
@@ -78,7 +77,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let a1 of assetsList.result?.assetsList?.data" (click)="isStatusShow(a1.assets_id,a1.assets_status)" [ngClass]="{'table-color':editStatusAssetsId == a1.assets_id}"><!-- class="table-color"-->
+                    <tr *ngFor="let a1 of assetsList?.result?.assetsList?.data" (click)="isStatusShow(a1.assets_id,a1.assets_status)" [ngClass]="{'table-color':editStatusAssetsId == a1.assets_id}"><!-- class="table-color"-->
                       <td><span class="">{{a1.assets_name}}</span></td>
                       <td><span class="">{{a1.category_desc}}</span></td>
                       <td><span class="">{{a1.assets_surplus_count}}</span></td>
@@ -91,10 +90,10 @@
               <!-- 底部-（分页部分）-->
               <div class="dt-toolbar">
                 <div class="col-xs-12 col-sm-6">
-                  <span>共{{assetsList.result?.assetsList?.total}}条</span>
+                  <span>共{{assetsList?.result?.assetsList?.total}}条</span>
                 </div>
                 <div class="hidden-xs right">
-                  <ul class="pagination pagination-sm">
+                  <ul class="pagination pagination-sm" *ngIf="assetsList?.result?.page">
                     <li *ngFor="let ap of assetsList?.result?.page" class="{{ap.class}}">
                       <a (click)="pagination(ap.value)" *ngIf="ap.method=='method'">{{ap.text}}</a>
                       <a *ngIf="ap.method==''">{{ap.text}}</a>

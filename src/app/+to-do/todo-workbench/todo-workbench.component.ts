@@ -165,7 +165,7 @@ export class TodoWorkbenchComponent implements OnInit {
             'project_id':project_id,
             'template_id':template_id,
             'todo_title':this.publish_todo_title[template_id],
-            'uid':this.uId,
+            'u_id':this.uId,
             'todo_type':this.todo_type+'_add',
             'workbench_project_id':this.workbench_project_id[template_id],
             'workbench_template_id':this.workbench_template_id[template_id],
@@ -290,7 +290,7 @@ export class TodoWorkbenchComponent implements OnInit {
                 'is_list':1,
                 'is_send_message':'true',
                 'todo_type':this.todo_type+'_add',
-                'uid':this.cookieStore.getCookie('uid'),
+                'u_id':this.cookieStore.getCookie('uid'),
                 'sid':this.cookieStore.getCookie('sid')
             }).subscribe((data)=>{
                 let info = JSON.parse(data['_body']);

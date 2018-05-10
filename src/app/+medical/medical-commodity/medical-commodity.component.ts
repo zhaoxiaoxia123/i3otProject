@@ -409,9 +409,9 @@ export class MedicalCommodityComponent implements OnInit {
         category_ids += idx + ',';
       }
     });
-    msg = '您确定要删除该信息吗？';
+    msg = '执行删除会连同此商品的库存信息一并删除，您确定要执行此删除操作吗？';
     if(confirm(msg)) {
-      let url = this.globalService.getDomain()+'/api/v1/deleteProductById?p_id=' + p_id + '&category_ids='+category_ids+'&p_type='+this.p_type+'&type='+type+'&sid=' + this.cookieStore.getCookie('sid');
+      let url = this.globalService.getDomain()+'/api/v1/deleteProductById?p_id=' + p_id + '&category_ids='+category_ids+'&p_type='+this.p_type+'&page_type=medical&type='+type+'&sid=' + this.cookieStore.getCookie('sid');
       this.http.delete(url)
           .map((res) => res.json())
           .subscribe((data) => {

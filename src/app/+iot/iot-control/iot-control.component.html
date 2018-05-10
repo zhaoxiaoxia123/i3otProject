@@ -25,128 +25,88 @@
                     <td class="text-center">5</td>
                     <td class="text-center">6</td>
                     <td class="text-center">7</td>
-
                   </tr>
                   <tr>
                     <td class="text-center">
                       <div class="sorting_1">
-                            <span class="onoffswitch">
-                              <input type="checkbox" name="start_interval" class="onoffswitch-checkbox" id="st1">
-                              <label class="onoffswitch-label" for="st1">
-                                <span class="onoffswitch-inner" data-swchon-text="关" data-swchoff-text="开"></span>
-                                <span class="onoffswitch-switch"></span></label>
-                            </span>
+                          <span class="onoffswitch">
+                            <input type="checkbox" name="start_interval" [(ngModel)]="control1" [checked]="control1" (ngModelChange)="changeStatus(8,16)" class="onoffswitch-checkbox" id="st1">
+                            <label class="onoffswitch-label" for="st1">
+                              <span class="onoffswitch-inner" data-swchon-text="关" data-swchoff-text="开"></span>
+                              <span class="onoffswitch-switch"></span></label>
+                          </span>
                       </div>
-
+                    </td>
+                    <td class="text-center">
+                      <div class="sorting_1">
+                          <span class="onoffswitch">
+                            <input type="checkbox" name="start_interval" [(ngModel)]="control2" [checked]="control2" (ngModelChange)="changeStatus(7,15)"  class="onoffswitch-checkbox" id="st2">
+                            <label class="onoffswitch-label" for="st2">
+                              <span class="onoffswitch-inner" data-swchon-text="关" data-swchoff-text="开"></span>
+                              <span class="onoffswitch-switch"></span></label>
+                          </span>
+                      </div>
+                    </td>
+                    <td class="text-center">
+                      <div class="sorting_1">
+                          <span class="onoffswitch">
+                            <input type="checkbox" name="start_interval" [(ngModel)]="control3" [checked]="control3" (ngModelChange)="changeStatus(6,14)" class="onoffswitch-checkbox" id="st3">
+                            <label class="onoffswitch-label" for="st3">
+                              <span class="onoffswitch-inner" data-swchon-text="关" data-swchoff-text="开"></span>
+                              <span class="onoffswitch-switch"></span></label>
+                          </span>
+                      </div>
+                    </td>
+                    <td class="text-center">
+                      <div class="sorting_1">
+                          <span class="onoffswitch">
+                            <input type="checkbox" name="start_interval" [(ngModel)]="control4" [checked]="control4" (ngModelChange)="changeStatus(5,13)"  class="onoffswitch-checkbox" id="st4">
+                            <label class="onoffswitch-label" for="st4">
+                              <span class="onoffswitch-inner" data-swchon-text="关" data-swchoff-text="开"></span>
+                              <span class="onoffswitch-switch"></span></label>
+                          </span>
+                      </div>
                     </td>
                     <td class="text-center">
                       <div class="sorting_1">
                             <span class="onoffswitch">
-                              <input type="checkbox" name="start_interval" class="onoffswitch-checkbox" id="st2">
-                              <label class="onoffswitch-label" for="st2">
-                                <span class="onoffswitch-inner" data-swchon-text="关" data-swchoff-text="开"></span>
-                                <span class="onoffswitch-switch"></span></label>
-                            </span>
-                      </div>
-
-                    </td>
-                    <td class="text-center">
-                      <div class="sorting_1">
-                            <span class="onoffswitch">
-                              <input type="checkbox" name="start_interval" class="onoffswitch-checkbox" id="st3">
-                              <label class="onoffswitch-label" for="st3">
-                                <span class="onoffswitch-inner" data-swchon-text="关" data-swchoff-text="开"></span>
-                                <span class="onoffswitch-switch"></span></label>
-                            </span>
-                      </div>
-
-                    </td>
-                    <td class="text-center">
-                      <div class="sorting_1">
-                            <span class="onoffswitch">
-                              <input type="checkbox" name="start_interval" class="onoffswitch-checkbox" id="st4">
-                              <label class="onoffswitch-label" for="st4">
-                                <span class="onoffswitch-inner" data-swchon-text="关" data-swchoff-text="开"></span>
-                                <span class="onoffswitch-switch"></span></label>
-                            </span>
-                      </div>
-
-                    </td>
-                    <td class="text-center">
-                      <div class="sorting_1">
-                            <span class="onoffswitch">
-                              <input type="checkbox" name="start_interval" class="onoffswitch-checkbox" id="st5">
+                              <input type="checkbox" name="start_interval" [(ngModel)]="control5" [checked]="control5" (ngModelChange)="changeStatus(4,12)"  class="onoffswitch-checkbox" id="st5">
                               <label class="onoffswitch-label" for="st5">
                                 <span class="onoffswitch-inner" data-swchon-text="关" data-swchoff-text="开"></span>
                                 <span class="onoffswitch-switch"></span></label>
                             </span>
                       </div>
-
                     </td>
                     <td class="text-center">
                       <div class="sorting_1">
                             <span class="onoffswitch">
-                              <input type="checkbox" name="start_interval" class="onoffswitch-checkbox" id="st6">
+                              <input type="checkbox" name="start_interval" [(ngModel)]="control6" [checked]="control6" (ngModelChange)="changeStatus(3,11)"  class="onoffswitch-checkbox" id="st6">
                               <label class="onoffswitch-label" for="st6">
                                 <span class="onoffswitch-inner" data-swchon-text="关" data-swchoff-text="开"></span>
                                 <span class="onoffswitch-switch"></span></label>
                             </span>
                       </div>
-
                     </td>
                     <td class="text-center">
                       <div class="sorting_1">
-                            <span class="onoffswitch">
-                              <input type="checkbox" name="start_interval" class="onoffswitch-checkbox" id="st7">
-                              <label class="onoffswitch-label" for="st7">
-                                <span class="onoffswitch-inner" data-swchon-text="关" data-swchoff-text="开"></span>
-                                <span class="onoffswitch-switch"></span></label>
-                            </span>
+                          <span class="onoffswitch">
+                            <input type="checkbox" name="start_interval" [(ngModel)]="control7" [checked]="control7" (ngModelChange)="changeStatus(2,10)"  class="onoffswitch-checkbox" id="st7">
+                            <label class="onoffswitch-label" for="st7">
+                              <span class="onoffswitch-inner" data-swchon-text="关" data-swchoff-text="开"></span>
+                              <span class="onoffswitch-switch"></span></label>
+                          </span>
                       </div>
-
                     </td>
                   </tr>
-
-
                   </tbody>
                 </table>
-
               </div>
-
-              <!-- 底部-（分页部分）-->
-              <div class="dt-toolbar">
-                <div class="col-xs-12 col-sm-6">
-                  <span>共5条</span>
-                </div>
-                <div class="hidden-xs right">
-                  <ul class="pagination pagination-sm">
-                    <li *ngFor="let p of categoryList?.page" class="{{p.class}}">
-                      <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
-                      <a *ngIf="p.method==''">{{p.text}}</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-
-
-
-
-
-
             </div>
-
           </div>
         </sa-widget>
       </article>
     </div>
-
-
-
   </sa-widgets-grid>
-
-
-
 </div>
 
 

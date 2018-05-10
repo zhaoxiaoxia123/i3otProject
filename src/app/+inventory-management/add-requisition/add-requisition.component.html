@@ -233,10 +233,11 @@
                             <thead>
                             <tr>
                               <th>商品编码</th>
-                              <th>商品分类</th>
+                              <!--<th>商品分类</th>-->
                               <th>规格型号</th>
                               <th>单位</th>
-                              <th class="txt-color-blue">调出仓库</th>
+                              <th>剩余库存量</th>
+                              <th>调出仓库</th>
                               <th class="txt-color-blue">调入仓库</th>
                               <th class="txt-color-blue">数量</th>
                               <th class="txt-color-blue">调拨单位成本</th>
@@ -245,29 +246,25 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr *ngFor="let p of selectProductList">
+                            <tr *ngFor="let p of selectProductList;let ind1 = index;">
                               <td>{{p.p_product_id}}</td>
-                              <td>{{p.p_category_id}}</td>
+                              <!--<td>{{p.p_category_id}}</td>-->
                               <td>{{p.p_specification}}</td>
                               <td>{{p.p_unit}}</td>
+                              <td>{{p.openinginventory_surplus_count}}</td>
+                              <td>{{p.storehouse_name}}</td>
                               <td>
                                 <span>
-                                  <label   class="select form-control border-0 wi-100">
-                                  <select  name="" >
-                                    <option  value="0">--请选择--</option>
-                                    <option  value="1">fgf</option>
-                                  </select><i></i>
-                                </label>
-                                </span>
-                              </td>
-                              <td>
-                                <span>
-                                  <label   class="select form-control border-0 wi-100">
-                                  <select  name="" >
-                                    <option  value="0">--请选择--</option>
-                                    <option  value="1">fgf</option>
-                                  </select><i></i>
-                                </label>
+                                  <label class="select form-control border-0 wi-100">
+                                    <select *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_storehouse_id">
+                                      <option [selected]="stock_allot_id == 0" value="0">--请选择--</option>
+                                      <option *ngFor="let s of stockallotList.result?.storehouse" value="{{ s.storehouse_id }}">{{s.storehouse_name}}</option>
+                                      </select>
+                                      <select *ngIf="isDetail!='detail'" [(ngModel)]="p.p_storehouse_id" [ngModelOptions]="{standalone: true}" >
+                                      <option [selected]="stock_allot_id == 0" value="0">--请选择--</option>
+                                      <option *ngFor="let s of stockallotList.result?.storehouse" value="{{ s.storehouse_id }}">{{s.storehouse_name}}</option>
+                                      </select><i></i>
+                                  </label>
                                 </span>
                               </td>
                               <!--<td>-->
@@ -283,7 +280,7 @@
                               <td>
                                 <label class="input wi-100">
                                   <input *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_count" value="{{p.p_count}}" type="number">
-                                  <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_count" value="{{p.p_count}}" type="number">
+                                  <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_count" value="{{p.p_count}}" type="number" (keyup)="sumPCount($event,ind1,p.p_count,p.old_p_count,p.openinginventory_surplus_count)">
                                 </label>
                               </td>
                               <td>

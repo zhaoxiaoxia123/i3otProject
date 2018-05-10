@@ -47,32 +47,32 @@
                       </label>
                     </section>
                   </div>
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <label class="label">默认仓库</label>
-                    <section>
-                      <div class="input-group">
-                        <label   class="select form-control border-0">
-                          <select *ngIf="isDetail=='detail'" disabled="disabled" name="storehouse_id" formControlName="storehouse_id" [(ngModel)]="storehouse_id_default">
-                            <option [selected]="this.otherorder_id == 0" value="0">--请选择--</option>
-                            <option *ngFor="let u of otherorderList?.result?.storehouse" [selected]="otherorderInfo.result?.storehouse_id == u.storehouse_id" value="{{ u.storehouse_id }}">{{u.storehouse_name}}</option>
-                          </select>
-                          <select *ngIf="isDetail!='detail'" name="storehouse_id" formControlName="storehouse_id" [(ngModel)]="storehouse_id_default">
-                            <option [selected]="this.otherorder_id == 0" value="0">--请选择--</option>
-                            <option *ngFor="let u of otherorderList?.result?.storehouse" [selected]="otherorderInfo.result?.storehouse_id == u.storehouse_id" value="{{ u.storehouse_id }}">{{u.storehouse_name}}</option>
-                          </select><i></i>
-                        </label>
-                        <div class="input-group-btn">
-                          <a  href="http://cn.i3ot.com/#/forms/inventory1/0" (click)="smartModEg1()" target="_blank"  class="btn btn-default btn-sm pb-6" type="button">
-                            <!-- <i class="fa fa-plus "></i>--> 添加
-                          </a>
-                          <a class="btn btn-default btn-sm pb-6" type="button" ><i class="fa fa-link"></i>
-                            刷新
-                          </a>
-                        </div>
-                      </div>
+                  <!--<div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">-->
+                    <!--<label class="label">默认仓库</label>-->
+                    <!--<section>-->
+                      <!--<div class="input-group">-->
+                        <!--<label   class="select form-control border-0">-->
+                          <!--<select *ngIf="isDetail=='detail'" disabled="disabled" name="storehouse_id" formControlName="storehouse_id" [(ngModel)]="storehouse_id_default">-->
+                            <!--<option [selected]="this.otherorder_id == 0" value="0">&#45;&#45;请选择&#45;&#45;</option>-->
+                            <!--<option *ngFor="let u of otherorderList?.result?.storehouse" [selected]="otherorderInfo.result?.storehouse_id == u.storehouse_id" value="{{ u.storehouse_id }}">{{u.storehouse_name}}</option>-->
+                          <!--</select>-->
+                          <!--<select *ngIf="isDetail!='detail'" name="storehouse_id" formControlName="storehouse_id" [(ngModel)]="storehouse_id_default">-->
+                            <!--<option [selected]="this.otherorder_id == 0" value="0">&#45;&#45;请选择&#45;&#45;</option>-->
+                            <!--<option *ngFor="let u of otherorderList?.result?.storehouse" [selected]="otherorderInfo.result?.storehouse_id == u.storehouse_id" value="{{ u.storehouse_id }}">{{u.storehouse_name}}</option>-->
+                          <!--</select><i></i>-->
+                        <!--</label>-->
+                        <!--<div class="input-group-btn">-->
+                          <!--<a  href="http://cn.i3ot.com/#/forms/inventory1/0" (click)="smartModEg1()" target="_blank"  class="btn btn-default btn-sm pb-6" type="button">-->
+                            <!--&lt;!&ndash; <i class="fa fa-plus "></i>&ndash;&gt; 添加-->
+                          <!--</a>-->
+                          <!--<a class="btn btn-default btn-sm pb-6" type="button" ><i class="fa fa-link"></i>-->
+                            <!--刷新-->
+                          <!--</a>-->
+                        <!--</div>-->
+                      <!--</div>-->
 
-                    </section>
-                  </div>
+                    <!--</section>-->
+                  <!--</div>-->
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
                     <label class="label">入库类别</label>
                     <section>
@@ -189,7 +189,7 @@
                               <th>商品分类</th>
                               <th>规格型号</th>
                               <th>单位</th>
-                              <!--<th>入库仓库</th>-->
+                              <th>入库仓库</th>
                               <th class="txt-color-blue">数量</th>
                               <th class="txt-color-blue">单价</th>
                               <th>金额</th>
@@ -202,10 +202,23 @@
                               <td>{{p.category}}</td>
                               <td>{{p.p_specification}}</td>
                               <td>{{p.p_unit}}</td>
-                              <!--<td>{{p.storehouse_name}} </td>-->
                               <td>
                                 <span>
-                                  <label  class="input wi-100">
+                                  <label class="select form-control border-0">
+                                    <select *ngIf="isDetail=='detail'" disabled="disabled" [(ngModel)]="p.p_storehouse_id" [ngModelOptions]="{standalone: true}" >
+                                      <option [selected]="this.otherorder_id == 0" value="0">--请选择--</option>
+                                      <option *ngFor="let u of otherorderList?.result?.storehouse" [selected]="otherorderInfo.result?.storehouse_id == u.storehouse_id" value="{{ u.storehouse_id }}">{{u.storehouse_name}}</option>
+                                    </select>
+                                    <select *ngIf="isDetail!='detail'" [(ngModel)]="p.p_storehouse_id" [ngModelOptions]="{standalone: true}" >
+                                      <option [selected]="this.otherorder_id == 0" value="0">--请选择--</option>
+                                      <option *ngFor="let u of otherorderList?.result?.storehouse" [selected]="otherorderInfo.result?.storehouse_id == u.storehouse_id" value="{{ u.storehouse_id }}">{{u.storehouse_name}}</option>
+                                    </select><i></i>
+                                  </label>
+                                </span>
+                              </td>
+                              <td>
+                                <span>
+                                  <label class="input wi-100">
                                     <input *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_count" value="{{p.p_count}}" type="number">
                                     <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_count" value="{{p.p_count}}" type="number" (blur)="sumPCount()">
                                   </label>

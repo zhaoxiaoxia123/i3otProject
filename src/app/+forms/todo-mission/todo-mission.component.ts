@@ -128,6 +128,7 @@ export class TodoMissionComponent implements OnInit {
         this.admin_id = this.globalService.getAdminID();
         this.cookie_c_id = this.cookieStore.getCookie('cid');
         this.cookie_u_id = this.cookieStore.getCookie('uid');
+
         this.domain_url = this.globalService.getDomain();
         // this.is_show_power[this.cookie_u_id] = true;
 

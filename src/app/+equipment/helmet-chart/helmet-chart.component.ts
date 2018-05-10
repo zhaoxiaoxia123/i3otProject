@@ -183,7 +183,6 @@ export class HelmetChartComponent implements OnInit {
         this.dataSource1.subscribe((data)=>{
             this.products1=data;
             this.chartOption1 = this.getValue(1);
-
         });
     }
 
@@ -236,24 +235,26 @@ export class HelmetChartComponent implements OnInit {
                 for (let entry of dataInfo['name']) {
                     this.seriesInfo1 = [];
                     this.seriesInfo1.push({
-                        name: entry,
+                        name: dataInfo['titles'][pic_i],
                         type: 'line', stack: '总量',
                         data: this.products1['data'][i]['info'][entry]['value']
                     });
-                    let value_n = this.products1['data'][i]['info'][entry]['value'][this.size - 1];
-                    let time_n = dataInfo['time'][this.size - 1];
+                    let length  = this.products1['data'][i]['info'][entry]['value'].length;
+                    let value_n = this.products1['data'][i]['info'][entry]['value'][length - 1];
+                    let time_n = dataInfo['time'][length - 1];
                     this.lastList1.push({
-                        name: entry,
+                        name: dataInfo['titles'][pic_i],//entry,
                         time: (time_n?time_n:'无'),//this.size - 1
                         // color: color_.color,
                         // up_color: color_.up_color,
                         value: (value_n?value_n:0)
                     });
+
                     if (this.lastList1 == []) {
                         pic[pic_i] =  [];
                         pic['l'+pic_i] = 0;
                     } else {
-                        pic[pic_i]= this.commonOne(this.seriesInfo1,  entry, dataInfo['time']);
+                        pic[pic_i]= this.commonOne(this.seriesInfo1,  dataInfo['titles'][pic_i], dataInfo['time']);//entry
                         pic['l'+pic_i] = this.products1['data'][i]['info'][entry]['value'].length;
                     }
                     pic_i ++;
@@ -283,19 +284,19 @@ export class HelmetChartComponent implements OnInit {
                 if(i < this.products2['data'].length) {
                     this.seriesInfo2 = [];
                     // this.lastList2 = [];
+                    let title_i : number = 0;
                     for (let entry of dataInfo['name']) {
                         this.seriesInfo2.push({
-                            name: entry,
+                            name: dataInfo['titles'][title_i],
                             type: 'line', stack: '总量',
                             data: this.products2['data'][i]['info'][entry]['value']
                         });
+                        title_i ++;
                     }
-                    result[i] = this.common(this.seriesInfo2, dataInfo['name'], dataInfo['selected'], dataInfo['time']);
+                    result[i] = this.common(this.seriesInfo2, dataInfo['titles'], dataInfo['selected'], dataInfo['time']);
                 }
                 i++;
             }
-            console.log('result:-------------');
-            console.log(result);
             return result;
         }
     }
@@ -468,15 +469,11 @@ export class HelmetChartComponent implements OnInit {
     }
 
     changeStatus(index:string,type:string){
-        console.log('this.status');
-        console.log(this.status);
-        console.log(type);
         if(type == '-'){
             this.status = this.status.replace(','+index +',','');
         }else{
             this.status += ','+index +',';
         }
-        console.log(this.status);
     }
 
     @ViewChild('lgModal') public lgModal:ModalDirective;

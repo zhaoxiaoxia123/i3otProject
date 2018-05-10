@@ -47,6 +47,7 @@ export class MedicalInventoryComponent implements OnInit {
   width_1 : string = '90%';
   isDetail : string = '';
 
+  page_type : any = 'medical';
   //用作全选和反选
   selectIds : Array<any> = [];
   checkId : boolean = false;
@@ -63,7 +64,7 @@ export class MedicalInventoryComponent implements OnInit {
       private globalService:GlobalService) {
     let nav = '{"title":"库存管理","url":"/medical/medical-inventory","class_":"active"}';
     this.globalService.navEventEmitter.emit(nav);
-    this.getAssetsList('1');
+
     window.scrollTo(0,0);
     this.super_admin_id = this.globalService.getAdminID();
     this.cid = this.cookieStore.getCookie('cid');
@@ -78,7 +79,7 @@ export class MedicalInventoryComponent implements OnInit {
    * @param number
    */
   getAssetsList(number:string) {
-    let url = this.globalService.getDomain()+'/api/v1/getAssetsOrder?page_type=medical&page='+number+'&sid='+this.cookieStore.getCookie('sid');
+    let url = this.globalService.getDomain()+'/api/v1/getAssetsOrder?page_type='+this.page_type+'&page='+number+'&sid='+this.cookieStore.getCookie('sid');
     if(this.keyword.trim() != '') {
       url += '&keyword='+this.keyword.trim();
     }
@@ -303,6 +304,65 @@ export class MedicalInventoryComponent implements OnInit {
       this.isStatus = 0;
       this.width = '10%';
       this.width_1 = '80%';
+    }
+  }
+
+
+  /**
+   * 删除信息
+   * type id:单挑  all :多条
+   */
+  deleteAssets(type:any){
+    if(this.globalService.demoAlert('','')){
+      return false;
+    }
+    let msg = '';
+    let assets_id : string = '';
+    if(type == 'id'){
+      assets_id = this.editStatusAssetsId;
+    } else if(type == 'all') {
+      let is_select = 0;
+      this.selects.forEach((val, idx, array) => {
+        if (val == true) {
+          assets_id += idx + ',';
+          is_select += 1;
+        }
+      });
+      if (is_select < 1) {
+        msg = '请确认已选中需要删除的信息！';
+        alert(msg);
+        return false;
+      }
+    }
+    msg = '执行删除会连同此库存的商品信息一并删除，您确定要执行此删除操作吗？';
+    if(confirm(msg)) {
+      let url = this.globalService.getDomain()+'/api/v1/deleteAssetsById?assets_id=' + assets_id + '&page_type=order&control_type='+this.page_type+'&type='+type+'&sid=' + this.cookieStore.getCookie('sid');
+      this.http.delete(url)
+          .map((res) => res.json())
+          .subscribe((data) => {
+            this.assetsList = data;
+            if(this.assetsList['status'] == 202){
+              this.cookieStore.removeAll(this.rollback_url);
+              this.router.navigate(['/auth/login']);
+            }
+            if(this.assetsList){
+              if (this.assetsList['result']['assetsList']['current_page'] == this.assetsList['result']['assetsList']['last_page']) {
+                this.next = true;
+              } else {
+                this.next = false;
+              }
+              if (this.assetsList['result']['assetsList']['current_page'] == 1) {
+                this.prev = true;
+              } else {
+                this.prev = false;
+              }
+              this.selects = [];
+              for (let entry of this.assetsList['result']['assetsList']['data']) {
+                this.selects[entry['assets_id']] = false;
+              }
+              this.check = false;
+            }
+          });
     }
   }
 

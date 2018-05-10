@@ -5,7 +5,7 @@ import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ModalDirective} from "ngx-bootstrap";
-import {isUndefined} from "util";
+import {isNull, isUndefined} from "util";
 import {NotificationService} from "../../shared/utils/notification.service";
 
 @Component({
@@ -291,14 +291,16 @@ export class MedicalBillingComponent implements OnInit {
             this.router.navigate(['/auth/login']);
           }
           this.select_category_ids[0] = true;
-          this.productDefault['result']['categoryList'].forEach((val, idx, array) => {
-            this.select_category_ids[val['category_id']] = true;
-            if(val['has_child'] >= 1){
-              val['child'].forEach((val1, idx1, array1) => {
-                this.select_category_ids[val1['category_id']] = true;
-              });
-            }
-          });
+          if(this.productDefault['result']['categoryList'].length > 0) {
+            this.productDefault['result']['categoryList'].forEach((val, idx, array) => {
+              this.select_category_ids[val['category_id']] = true;
+              if (val['has_child'] >= 1) {
+                val['child'].forEach((val1, idx1, array1) => {
+                  this.select_category_ids[val1['category_id']] = true;
+                });
+              }
+            });
+          }
         });
   }
 
@@ -484,41 +486,42 @@ export class MedicalBillingComponent implements OnInit {
   /**
    * 计算金额总数
    */
-  sumPCount(index,count1,old_p_count,surplus_count){
-    let count_ = count1 - old_p_count;  //当前输入数量 - 老的数量= 增加或减少的数量
-    if(count_ > surplus_count){
-      alert('库存不足,请修改使用数量在总数量以内。');
-      return false;
+  sumPCount($event,index,count1,old_p_count,surplus_count){
+    if($event != 0) {
+      let count_ = count1 - old_p_count;  //当前输入数量 - 老的数量= 增加或减少的数量
+      if (count_ > surplus_count) {
+        alert('库存不足,请修改使用数量在总数量以内。');
+        return false;
+      }
+      if ($event.target.value > (surplus_count + old_p_count)) {
+        $event.target.value = old_p_count;
+      }
     }
     this.p_sales_price = 0;
-    console.log('selectProductList:----');
-    console.log(this.selectProductList);
     this.selectProductList.forEach((val, idx, array) => {
-
-      console.log('valp_count:----');
-      console.log(val['p_count']);
-      console.log(val['old_p_count']);
-      let count_1 = parseInt(val['p_count']) - parseInt(val['old_p_count']);  //当前输入数量 - 老的数量= 增加或减少的数量
-
-      console.log(count_1);
-      console.log(parseInt(val['assets_surplus_count']));
-      if(count_1 <= parseInt(val['assets_surplus_count'])) {
-        let price  = parseInt(val['assets_price']);
-        if(isNaN(price)){
-          price  = 0;
+      if(idx == index) {
+        let p_count_ = val['p_count'];
+        if (isNull(p_count_)) {
+          $event.target.value = 0;
         }
-        this.p_sales_price += price * parseInt(val['p_count']);
+        let count_1 = parseInt(p_count_) - parseInt(val['old_p_count']);  //当前输入数量 - 老的数量= 增加或减少的数量
+
+        if (count_1 <= parseInt(val['assets_surplus_count'])) {
+          let price = parseInt(val['assets_price']);
+          if (isNaN(price)) {
+            price = 0;
+          }
+          this.p_sales_price += price * parseInt(p_count_);
+        }
       }
     });
-    console.log('this.p_sales_price:----');
-    console.log(this.p_sales_price);
   }
 
   //移除商品
   removeInput(ind) {
     // let i = this.selectProductList.indexOf(item);
     this.selectProductList.splice(ind, 1);
-    this.sumPCount(0,0,0,0);
+    this.sumPCount(0,0,0,0,0);
   }
 
 

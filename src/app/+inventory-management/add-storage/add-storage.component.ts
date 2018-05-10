@@ -22,7 +22,7 @@ export class AddStorageComponent implements OnInit {
     //默认选中值
     otherorder_user_id_default: number = 0;  //供应商
     department_name_default: any = '';  //采购部门
-    storehouse_id_default : number = 0; //仓库
+    // storehouse_id_default : number = 0; //仓库
     category_id_default : number = 0; //采购类型
 
     datePickerConfig = {
@@ -143,7 +143,7 @@ export class AddStorageComponent implements OnInit {
                 this.follower_user = this.otherorderInfo['result']['copy_user'];
 
                 this.otherorder_user_id_default = this.otherorderInfo['result']['otherorder_user_id']; //供应商
-                this.storehouse_id_default =this.otherorderInfo['result']['storehouse_id']; //仓库
+                // this.storehouse_id_default =this.otherorderInfo['result']['storehouse_id']; //仓库
                 this.category_id_default =this.otherorderInfo['result']['category_id']; //采购类型
 
                 this.selectProductList = this.otherorderInfo['result']['detail'];

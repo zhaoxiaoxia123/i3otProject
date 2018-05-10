@@ -56,6 +56,9 @@ export class SelectStockComponent implements OnInit {
      * 搜索商品
      */
     searchOpeninventory(page:any){
+        if(!this.p_property){
+            this.p_property = '';
+        }
         let url = this.globalService.getDomain()+'/api/v1/getStockProductList?page='+page+'&p_type='+this.p_type+'&type=list&p_property='+this.p_property+'&sid='+this.cookieStore.getCookie('sid');
         if(this.keyword.trim() != '') {
             url += '&keyword='+this.keyword.trim();
@@ -279,6 +282,8 @@ export class SelectStockComponent implements OnInit {
                 }
             });
         }
+        console.log('add input:---');
+        console.log(this.selectProductLists);
         this.selectProductList.emit(JSON.stringify(this.selectProductLists));
         this.isShowProducts.emit('');
     }

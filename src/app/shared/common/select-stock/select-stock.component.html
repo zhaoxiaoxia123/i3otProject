@@ -44,13 +44,14 @@
                         <div class="tree smart-form">
                           <ul class="">
                             <li class=" parent_li">
-                                  <span><label class="checkbox inline-block tree-label pt-12 ">
-                                          <input type="checkbox" name="checkbox-inline" [checked]="select_category_ids[0]" (click)="selectCategoryAll()"><i></i>
-                                        </label>
-                                    <i class="fa fa-lg fa-folder-open"></i>全部
-                                    <i class="sa-icon fa fa-lg fa-plus-circle" *ngIf="showUl == 0" (click)="showLeftUl(1)"></i>
-                                    <i class="sa-icon fa fa-lg fa-minus-circle" *ngIf="showUl == 1" (click)="showLeftUl(0)"></i>
-                                  </span>
+                                <span>
+                                  <label class="checkbox inline-block tree-label pt-12 ">
+                                    <input type="checkbox" name="checkbox-inline" [checked]="select_category_ids[0]" (click)="selectCategoryAll()"><i></i>
+                                  </label>
+                                  <i class="fa fa-lg fa-folder-open"></i>全部
+                                  <i class="sa-icon fa fa-lg fa-plus-circle" *ngIf="showUl == 0" (click)="showLeftUl(1)"></i>
+                                  <i class="sa-icon fa fa-lg fa-minus-circle" *ngIf="showUl == 1" (click)="showLeftUl(0)"></i>
+                                </span>
                               <ul class="" *ngIf="showUl == 1">
                                 <li class=" parent_li" *ngFor="let c of productDefault?.result?.categoryList;let ind = index;">
                                     <span>
@@ -108,11 +109,12 @@
                             <th>商品编号</th>
                             <th>商品属性</th>
                             <th>商品名称</th>
+                            <th>存放仓库</th>
                             <th>商品储量</th>
                             <th>商品分类</th>
                             <th>生产厂家</th>
                             <th>参考售价</th>
-                            <th>图片</th>
+                            <!--<th>图片</th>-->
                             <th>状态</th>
                           </tr>
                           </thead>
@@ -120,26 +122,27 @@
                           <tr  *ngFor="let p of searchProductList?.result?.productList?.data;let ind = index;"><!-- class="table-color"-->
                             <td>
                               <label class="checkbox padding-top-10" *ngIf="p.openinginventory_surplus_count>0 ">
-                                <input type="checkbox" name="checkbox-inline" value="{{ p.p_id }}" [checked]="selects[p.p_id]" (change)="handle($event,ind)">
+                                <input type="checkbox" name="checkbox-inline" value="{{ p.openinginventory_id }}" [checked]="selects[p.openinginventory_id]" (change)="handle($event,ind)">
                                 <i></i>
                               </label>
                               <label class="checkbox padding-top-10" *ngIf="p.openinginventory_surplus_count<=0" (click)="noClick()">
-                                <input type="checkbox" name="checkbox-inline" value="{{ p.p_id }}" disabled="disabled">
+                                <input type="checkbox" name="checkbox-inline" value="{{ p.openinginventory_id }}" disabled="disabled">
                                 <i></i>
                               </label>
                             </td>
                             <td>{{p.p_product_id}}</td>
                             <td>{{p.p_property==1?'销售':'外购'}}</td>
                             <td>{{p.p_name}}</td>
+                            <td>{{p.storehouse_name}}</td>
                             <td>{{p.openinginventory_surplus_count}}</td>
                             <td>{{p.category}}</td>
                             <td>{{p.c_name}}</td>
                             <td>{{p.p_purchase_price}}</td>
-                            <td>
-                              <div style="height:auto;" >
-                                <img *ngFor="let img of p.imgs" alt="" height="22" width="22" class="img-picture" src="{{url}}{{img}}">
-                              </div>
-                            </td>
+                            <!--<td>-->
+                              <!--<div style="height:auto;" >-->
+                                <!--<img *ngFor="let img of p.imgs" alt="" height="22" width="22" class="img-picture" src="{{url}}{{img}}">-->
+                              <!--</div>-->
+                            <!--</td>-->
                             <td>
                               <span [ngSwitch]="p.p_status">
                                 <span class="label-normal" *ngSwitchCase="1">正常</span>

@@ -39,7 +39,7 @@ export class AddSalesComponent implements OnInit {
     keyword : string = '';
     category_type : number = 22; //销售类型
     p_type : number = 2;//商品
-    p_property : number = 1; //销售商品
+    // p_property : number = 2; //销售商品  20180507修改此参数为销售库存和外购库存均能被销售，因为进入了库存表的商品均为可被销售的库存商品
     role : number = 4; //客户角色
     rollback_url : string = '/sales-management/add-sales';
     p_pur_prices : number = 0;
@@ -314,9 +314,12 @@ export class AddSalesComponent implements OnInit {
 
     /**
      * 搜索库存产品
+     *
+     * &p_property='+this.p_property+'
+     *
      */
     searchKey(page:any){
-        let url = this.globalService.getDomain()+'/api/v1/getStockProductList?page='+page+'&p_type='+this.p_type+'&type=list&p_property='+this.p_property+'&sid='+this.cookieStore.getCookie('sid');
+        let url = this.globalService.getDomain()+'/api/v1/getStockProductList?page='+page+'&p_type='+this.p_type+'&type=list&sid='+this.cookieStore.getCookie('sid');
         if(this.keyword.trim() != '') {
             url += '&keyword='+this.keyword.trim();
         }
@@ -372,6 +375,8 @@ export class AddSalesComponent implements OnInit {
 
     getProductData(value:any){
         this.selectProductList = JSON.parse(value);
+        console.log('this.selectProductList:----');
+        console.log(this.selectProductList);
     }
 
     getShowProductStatus(value:any){

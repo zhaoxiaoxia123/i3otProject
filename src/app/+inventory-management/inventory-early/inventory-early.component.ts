@@ -13,25 +13,14 @@ import {isUndefined} from "util";
 export class InventoryEarlyComponent implements OnInit {
   productList:Array<any> = [];
   productInfo:Array<any> = [];
-  selectProductList :Array<any> = [];//[{"p_product_id": "0","p_qrcode": "0","category": "0","p_unit": "0","p_count": "0","p_price": "0","p_pur_price": "0","p_note": "","p_is": "1"}]; //选中后的商品列表
-  searchProductList : Array<any> = [];//搜索出的商品列表信息
-  productDefault : Array<any> = [];//弹框中商品分类
-  //弹框中左侧选中商品分类的id
-  select_category_ids: Array<any> = [];
-  category_type_product : number = 6; //商品分类
-  keyword_product  : string = '';
-  //左边展开和收起功能
-  showUl : number  = 1;//一级分类
-  showUlChild : number  = 0;//二级
-
   //用作全选和反选
   selects : Array<any> = [];
-  selects_index : Array<any> = [];
   check : boolean = false;
 
   prev : boolean = false;
   next : boolean = false;
 
+  edit_p_id : number = 0;
   storehouse_id : number = 0;
   p_count : number = 0;
   p_price : any = 0;
@@ -47,6 +36,16 @@ export class InventoryEarlyComponent implements OnInit {
   keyword : string = '';
   p_type : number = 2;//商品
   rollback_url : string = '/inventory-management/inventory-early';
+
+  /**--------用作选择商品的变量------*/
+  isShowProduct : string = '';
+  selectProductList :Array<any> = [];//[{"p_product_id": "0","p_qrcode": "0","category": "0","p_unit": "0","p_count": "0","p_price": "0","p_pur_price": "0","p_note": "","p_is": "1"}]; //选中后的商品列表
+  category_type_product : number = 6; //商品分类
+  searchProductList : Array<any> = [];//搜索出的商品列表信息
+  productDefault : Array<any> = [];//弹框中商品分类
+  // 弹框中左侧选中商品分类的id
+  select_category_ids: Array<any> = [];
+  // p_property : number = 2; //采购商品
   constructor(
       private http:Http,
       private router : Router,
@@ -79,17 +78,19 @@ export class InventoryEarlyComponent implements OnInit {
   /**
    * 顶部  启用. 无效
    */
-  isStatusShow(openinginventory_id:any){
-    this.isAll = 0;
-    this.width = '0%';
-    this.width_1 ='100%';
-    this.selects.forEach((val, idx, array) => {
-      if(val == true){
-        this.selects[idx] = false;
-      }
-    });
+  isStatusShow(openinginventory_id:any,status:any){
+    if(status === 1){
+      this.isAll = 0;
+      this.width = '0%';
+      this.width_1 ='100%';
+      this.selects.forEach((val, idx, array) => {
+        if(val == true){
+          this.selects[idx] = false;
+        }
+      });
 
-    this.editStatusOpeningInventoryId = openinginventory_id;
+      this.editStatusOpeningInventoryId = openinginventory_id;
+    }
   }
   /**
    * 批量
@@ -109,6 +110,7 @@ export class InventoryEarlyComponent implements OnInit {
    */
   clear_(type:string=''){
     this.storehouse_id = 0;
+    this.edit_p_id = 0;
     this.p_count = 0;
     this.p_price = 0;
     if(type == 'detail'){
@@ -119,8 +121,9 @@ export class InventoryEarlyComponent implements OnInit {
    * 复制
    */
   setValue(info:Array<any>){
+    this.edit_p_id = info['result']['p_id'];
     this.storehouse_id = info['result']['storehouse_id'];
-    this.p_count = info['result']['openinginventory_count'];
+    this.p_count = info['result']['openinginventory_first_count'];
     this.p_price = info['result']['openinginventory_price'];
   }
 
@@ -140,13 +143,16 @@ export class InventoryEarlyComponent implements OnInit {
             this.setValue(this.productInfo);
             if(type == 'detail'){
               this.detailModal.show();
-            }else if(type == 'add'){
-              this.lgModal.show();
             }
+            // else if(type == 'add'){
+            //   this.lgModal.show();
+            // }
           }else if(this.productInfo['status'] == 202){
             alert(this.productInfo['msg']);
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
+          }else{
+            alert(this.productInfo['msg']);
           }
         });
   }
@@ -176,7 +182,7 @@ export class InventoryEarlyComponent implements OnInit {
         return false;
       }
     }
-    msg = '您确定要删除该信息吗？';
+    msg = '执行该操作可能导致库存数量不对应,您确定要执行删除操作吗？';
     if(confirm(msg)) {
       let url = this.globalService.getDomain()+'/api/v1/deleteOpeningInventoryById?openinginventory_id=' + oi_id + '&type='+type+'&sid=' + this.cookieStore.getCookie('sid');
       this.http.delete(url)
@@ -214,8 +220,9 @@ export class InventoryEarlyComponent implements OnInit {
   editOpeningInventory(){
       this.http.post(this.globalService.getDomain()+'/api/v1/addOpeningInventory',{
         'openinginventory_id':this.editStatusOpeningInventoryId,
+        'p_id':this.edit_p_id,
         'storehouse_id':this.storehouse_id,
-        'openinginventory_count':this.p_count,
+        'openinginventory_first_count':this.p_count,
         'openinginventory_price':this.p_price,
         'sid':this.cookieStore.getCookie('sid')
       }).subscribe((data)=>{
@@ -234,18 +241,20 @@ export class InventoryEarlyComponent implements OnInit {
 
   }
 
-  //------------------------以下为弹框内的操作-----------------------------
+
+
+
+
+  //-----------搜索库存产品信息--------
 
   /**
-   * 搜索商品
+   * 搜索库存产品
    */
   searchKey(page:any){
     let url = this.globalService.getDomain()+'/api/v1/getProductList?page='+page+'&p_type='+this.p_type+'&type=list&sid='+this.cookieStore.getCookie('sid');
-    // if(this.keyword_product.trim() != '') {
-    //   url += '&keyword='+this.keyword_product.trim();
-    // }else {
-    //   url += '&keyword='+this.keyword.trim();
-    // }
+    if(this.keyword.trim() != '') {
+      url += '&keyword='+this.keyword.trim();
+    }
     let category_ids = '';
     this.select_category_ids.forEach((val, idx, array) => {
       if(val == true) {
@@ -261,26 +270,6 @@ export class InventoryEarlyComponent implements OnInit {
             alert(this.searchProductList['msg']);
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
-          }
-          if(!this.lgModal.isShown){
-            this.lgModal.show();
-          }
-          if (this.searchProductList && this.searchProductList['result']['productList'].length > 0) {
-            if (this.searchProductList['result']['productList']['current_page'] == this.searchProductList['result']['productList']['last_page']) {
-              this.next = true;
-            } else {
-              this.next = false;
-            }
-            if (this.searchProductList['result']['productList']['current_page'] == 1) {
-              this.prev = true;
-            } else {
-              this.prev = false;
-            }
-
-            for (let entry of this.searchProductList['result']['productList']['data']) {
-              this.selects[entry['p_id']] = false;
-            }
-            this.check = false;
           }
         });
   }
@@ -310,65 +299,63 @@ export class InventoryEarlyComponent implements OnInit {
         });
   }
 
-  /**
-   * 搜索产品信息分页
-   * @param page
-   */
-  pagination(page : any) {
-    this.searchKey(page);
+  //移除商品
+  removeInput(ind) {
+    this.selectProductList.splice(ind, 1);
   }
 
-  /**
-   * 左边选中所有
-   */
-  selectCategoryAll(){
-    if(this.select_category_ids[0] == true){
-      this.select_category_ids[0] = false;
-      this.productDefault['result']['categoryList'].forEach((val, idx, array) => {
-        this.select_category_ids[val['category_id']] = false;
-        if (val['has_child'] >= 1) {
-          val['child'].forEach((val1, idx1, array1) => {
-            this.select_category_ids[val1['category_id']] = false;
-          });
-        }
-      });
-    }else {
-      this.select_category_ids[0] = true;
-      this.productDefault['result']['categoryList'].forEach((val, idx, array) => {
-        this.select_category_ids[val['category_id']] = true;
-        if (val['has_child'] >= 1) {
-          val['child'].forEach((val1, idx1, array1) => {
-            this.select_category_ids[val1['category_id']] = true;
-          });
-        }
-      });
+  //--------------弹框  选择库存产品--------------
+  showProduct(){
+    this.isShowProduct = 'stock'; //显示库存弹框
+    this.searchKey(1);
+  }
+
+  getProductData(value:any){
+    this.selectProductList = JSON.parse(value);
+
+    let p_ids = '';
+    this.selectProductList.forEach((val1, idx1, array1) => {
+      p_ids += val1['p_id']+',';
+    });
+    let storehouse_id = 0;
+    console.log(this.productDefault['result']['storeHouseList']);
+    if(this.productDefault['result']['storeHouseList'].length > 0){
+      storehouse_id = this.productDefault['result']['storeHouseList'][0]['storehouse_id'];
     }
-    this.searchKey('1');
+    if(storehouse_id == 0 ){
+      alert('请先确保仓库列表有至少一条仓库信息！');
+    }else {
+      this.http.post(this.globalService.getDomain() + '/api/v1/addOpeningInventory', {
+        'p_ids': p_ids,
+        'storehouse_id': storehouse_id,
+        'u_id': this.cookieStore.getCookie('uid'),
+        'sid': this.cookieStore.getCookie('sid')
+      }).subscribe((data) => {
+          let info = JSON.parse(data['_body']);
+          alert(info['msg']);
+          if (info['status'] == 200) {
+            this.productList = info;
+          } else if (info['status'] == 202) {
+            this.cookieStore.removeAll(this.rollback_url);
+            this.router.navigate(['/auth/login']);
+          }
+        });
+    }
   }
-  /**
-   * 左边展示效果
-   * @param bool
-   */
-  showLeftUl(bool:any){
-    this.showUl = bool;
+
+  getShowProductStatus(value:any){
+    this.isShowProduct = value;
   }
-  showLeftUlChild(category_id:any){
-    this.showUlChild = category_id;
-  }
+
+
 
   //全选，反全选
   changeCheckAll(e){
     let t = e.target;
     let c = t.checked;
-    let i = 0;
     this.selects.forEach((val, idx, array) => {
       this.selects[idx] = c;
-      if(c == true){
-        this.selects_index[i] = idx;
-      }else{
-        this.selects_index[i] = idx+'_';
-      }
-      i++;
+
     });
     this.check = c;
   }
@@ -385,11 +372,6 @@ export class InventoryEarlyComponent implements OnInit {
         isAll += 1;
       }
     }
-    if(c == true){
-      this.selects_index[ind] = v;
-    }else{
-      this.selects_index[ind] = v+'_';
-    }
     if(isAll >= 1){
       this.check = false;
     }else{
@@ -397,132 +379,6 @@ export class InventoryEarlyComponent implements OnInit {
     }
   }
 
-  /**
-   * 左侧导航栏 选中显示列表
-   * @param category_id
-   * index 点击的父类 or子类 索引
-   * num  1：父类 2：子类
-   */
-  selectCategory(category_id:any,index:number,indexChild:number,num:number){
-    if(num == 1){//点击父类
-      if(this.select_category_ids[category_id] == true){
-        if(this.productDefault['result']['categoryList'][index]){
-          if(this.productDefault['result']['categoryList'][index]['child_count'] >= 1){
-            this.productDefault['result']['categoryList'][index]['child'].forEach((val, idx, array) => {
-              this.select_category_ids[val['category_id']] = false;
-            });
-          }
-        }
-        this.select_category_ids[category_id] = false;
-      }else{
-        this.select_category_ids[category_id] = true;
-        if(this.productDefault['result']['categoryList'][index]){
-          if(this.productDefault['result']['categoryList'][index]['child_count'] >= 1){
-            this.productDefault['result']['categoryList'][index]['child'].forEach((val, idx, array) => {
-              this.select_category_ids[val['category_id']] = true;
-            });
-          }
-        }
-      }
-    }else if(num != 1){//点击子类
-      if(this.select_category_ids[category_id] == true){
-        this.select_category_ids[num] = false;
-        this.select_category_ids[category_id] = false;
-      }else{
-        this.select_category_ids[category_id] = true;
-        let count = 0;
-        if(this.productDefault['result']['categoryList'][index]){
-          if(this.productDefault['result']['categoryList'][index]['child_count'] >= 1){
-            this.productDefault['result']['categoryList'][index]['child'].forEach((val, idx, array) => {
-              if(this.select_category_ids[val['category_id']] == false ||  isUndefined(this.select_category_ids[val['category_id']])){
-                count ++;
-              }
-            });
-          }
-        }
-        if(count == 0){//若子类全是true则父类变为选中状态
-          this.select_category_ids[num] = true;
-        }
-      }
-    }
-    this.searchKey('1');
-  }
-
-  /**
-   * 返回不选入
-   */
-  closeSubmit(){
-    let i = 0;
-    this.selects.forEach((val, idx, array) => {
-      this.selects[idx] = false;
-      this.selects_index[i] = idx+'_';
-      i++;
-    });
-    this.check = false;
-
-    this.lgModal.hide();
-  }
-
-  //添加 并选入商品
-  addInput() {
-    let p_ids = '';
-    this.selects.forEach((val, idx, array) => {
-      if(val == true){
-        p_ids += idx+',';
-      }
-    });
-
-    this.http.post(this.globalService.getDomain()+'/api/v1/addOpeningInventory',{
-      'p_ids':p_ids,
-      'u_id':this.cookieStore.getCookie('uid'),
-      'sid':this.cookieStore.getCookie('sid')
-    }).subscribe(
-        (data)=>{
-          let info = JSON.parse(data['_body']);
-          alert(info['msg']);
-          if(info['status'] == 200) {
-            this.productList = info;
-          }else if(info['status'] == 202){
-            this.cookieStore.removeAll(this.rollback_url);
-            this.router.navigate(['/auth/login']);
-          }
-        }
-    );
-
-
-    // let spl : Array<any> = [];
-    // this.selectProductList.forEach((val1, idx1, array1) => {
-      // spl.push(val1['p_id']);
-    // });
-    // if(spl.length > 0){
-    //   this.selects_index.forEach((val, idx, array) => {
-    //     let v1 = val.split('_');
-    //     if (val.indexOf('_') < 0 && !this.cookieStore.in_array(val, spl)) {
-    //       this.selectProductList[this.selectProductList.length] = (this.searchProductList['result']['productList']['data'][idx]);
-    //     }else if(val.indexOf('_') >= 0 && this.cookieStore.in_array(v1[0], spl)) {
-    //       this.selectProductList.forEach((valp, idxp, arrayp) => {
-    //         if(v1[0] == valp['p_id']){
-    //           this.selectProductList.splice(idxp, 1);
-    //           return ;
-    //         }
-    //       });
-    //     }
-    //   });
-    // }else{
-    //   this.selects_index.forEach((val, idx, array) => {
-    //     if (val.indexOf('_') < 0) {
-    //       this.selectProductList.push(this.searchProductList['result']['productList']['data'][idx]);
-    //     }
-    //   });
-    // }
-  }
-  //移除商品
-  removeInput(ind) {
-    // let i = this.selectProductList.indexOf(item);
-    this.selectProductList.splice(ind, 1);
-  }
-
-  @ViewChild('lgModal') public lgModal:ModalDirective;
   @ViewChild('detailModal') public detailModal:ModalDirective;
 
 }
