@@ -7,21 +7,18 @@
             <span class="widget-icon"> <i class="fa fa-table"></i> </span>
             <h2>库存量查询</h2>
           </header>
-
           <div>
             <div class="widget-body no-padding" >
               <div  class="row">
                 <article  class="col-sm-12">
                   <div class="navbar navbar-default">
                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-
                       <div class="form-group pdlr-4">
-                        <a class="btn btn-success btn-sm" >
+                        <a class="btn btn-success btn-sm" (click)="refreshPage()">
                           <span class="fa fa-refresh  mr-5"></span>刷新</a>
                       </div>
-
                       <div class="form-group pdlr-4">
-                        <a class="btn default-btn btn-sm"  data-toggle="modal" data-target="#particulars" >
+                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusOpeningInventoryId == 0}" (click)="showDetail('detail')">
                           <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
                       </div>
                     </form>
@@ -31,35 +28,33 @@
                       </div>
                       <div class="form-group btn-group pdlr-4">
                         <a class="btn default-btn btn-sm dropdown-toggle" data-toggle="dropdown">
-                          全部<i class="fa fa-fw fa-chevron-down"></i></a>
+                          {{property_title}}<i class="fa fa-fw fa-chevron-down"></i></a>
                         <ul class="dropdown-menu" role="menu">
-                          <li><a >全部</a></li>
-                          <li><a>一号仓库</a></li>
-                          <li><a >二号仓库</a></li>
-                          <li><a >三号仓库</a></li>
+                          <li (click)="setProperty('','全部')"><a >全部</a></li>
+                          <li (click)="setProperty('1','销售')"><a>销售</a></li>
+                          <li (click)="setProperty('2','外购')"><a >外购</a></li>
                         </ul>
                       </div>
                       <div class="form-group pdlr-4 smart-form">
                         <section style="width: 80px;margin:0;">
                           <label class="select" >
-                            <select name="gender">
-                              <option value="0" >全部</option>
-                              <option value="1">一号仓库</option>
-                              <option value="1">二号仓库</option>
-                            </select> <i></i> </label>
+                            <select name="search_storehouse_id" [(ngModel)]="search_storehouse_id" (change)="setStorehouse($event)">
+                              <option value="0">全部</option>
+                              <option *ngFor="let sh of productDefault?.result?.storeHouseList" value="{{sh.storehouse_id}}" >{{sh.storehouse_name}}</option>
+                            </select> <i></i>
+                          </label>
                         </section>
                       </div>
                       <div class="form-group pdlr-4">
-                        <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" name="" placeholder="请输入搜索内容" type="text">
+                        <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" [(ngModel)]="keyword" name="keyword" placeholder="请输入搜索内容" type="text">
                       </div>
                       <div class="form-group pdlr-4">
-                        <button class="btn btn-default" type="submit">
+                        <button class="btn btn-default" type="button" (click)="searchOpeninventory(1)">
                           <i  class="glyphicon glyphicon-search"></i>
                           搜索
                         </button>
                       </div>
                     </form>
-
                   </div>
                 </article>
               </div>
@@ -80,64 +75,36 @@
                             <div class="tree smart-form">
                               <ul class="">
                                 <li class=" parent_li">
-                                  <span>
-                                    <label class="checkbox inline-block tree-label pt-12 ">
-                                          <input name="checkbox-inline" type="checkbox"><i></i>
-                                   </label>
-                                    <i class="fa fa-lg fa-folder-open"></i>全部
-                                    <i class="sa-icon fa fa-lg fa-minus-circle"></i>
-                                  </span>
-                                  <ul class="">
-                                    <li class=" parent_li">
+                                <span>
+                                  <label class="checkbox inline-block tree-label pt-12 ">
+                                    <input type="checkbox" name="checkbox-inline" [checked]="select_category_ids[0]" (click)="selectCategoryAll()"><i></i>
+                                  </label>
+                                  <i class="fa fa-lg fa-folder-open"></i>全部
+                                  <i class="sa-icon fa fa-lg fa-plus-circle" *ngIf="showUl == 0" (click)="showLeftUl(1)"></i>
+                                  <i class="sa-icon fa fa-lg fa-minus-circle" *ngIf="showUl == 1" (click)="showLeftUl(0)"></i>
+                                </span>
+                                  <ul class="" *ngIf="showUl == 1">
+                                    <li class=" parent_li" *ngFor="let c of productDefault?.result?.categoryList;let ind = index;">
+                                    <span>
+                                      <label class="checkbox inline-block tree-label ">
+                                        <input type="checkbox" name="checkbox-inline" [checked]="select_category_ids[c.category_id]" (click)="selectCategory(c.category_id,ind,0,1)">
+                                        <i></i>{{c.category_desc}}
+                                        <em class="txt-color-blue">({{c.child_count}})</em>
+                                      </label>
+                                      <i class="sa-icon fa fa-lg fa-minus-circle" *ngIf="showUlChild == c.category_id && c.has_child != 0" (click)="showLeftUlChild(0)"></i>
+                                      <i class="sa-icon fa fa-lg fa-plus-circle" *ngIf="showUlChild != c.category_id && c.has_child != 0" (click)="showLeftUlChild(c.category_id)"></i>
+                                    </span>
+                                      <ul class="" *ngIf="showUlChild == c.category_id">
+                                        <li *ngFor="let dc of c.child;let indChild = index;">
                                         <span>
-                                          <label class="checkbox inline-block tree-label ">
-                                            <input name="checkbox-inline" type="checkbox">
-                                            <i></i>煤炭（焦煤）
-                                            <em class="txt-color-blue">(0)</em>
+                                          <label class="checkbox inline-block tree-label">
+                                            <input type="checkbox" name="checkbox-inline" [checked]="select_category_ids[c.category_id] || select_category_ids[dc.category_id]" (click)="selectCategory(dc.category_id,ind,indChild,c.category_id)">
+                                            <i></i>{{dc.category_desc}}
+                                            <em class="txt-color-blue">({{c.child_count}})</em>
                                           </label>
-
                                         </span>
-                                    </li>
-                                    <li class=" parent_li">
-                                        <span>
-                                          <label class="checkbox inline-block tree-label ">
-                                            <input name="checkbox-inline" type="checkbox">
-                                            <i></i>煤炭
-                                            <em class="txt-color-blue">(0)</em>
-                                          </label>
-
-                                        </span>
-                                    </li>
-                                    <li class=" parent_li">
-                                        <span>
-                                          <label class="checkbox inline-block tree-label ">
-                                            <input name="checkbox-inline" type="checkbox">
-                                            <i></i>磷矿石
-                                            <em class="txt-color-blue">(0)</em>
-                                          </label>
-                                           <i class="sa-icon fa fa-lg fa-plus-circle"></i>
-                                        </span>
-                                      <ul class="">
-                                        <li>
-                                            <span>
-                                              <label class="checkbox inline-block tree-label">
-                                                <input name="checkbox-inline" type="checkbox">
-                                                <i></i>黄磷矿(25%)
-                                                <em class="txt-color-blue">(0)</em>
-                                              </label>
-                                            </span>
                                         </li>
                                       </ul>
-
-                                    </li>
-                                    <li class=" parent_li">
-                                        <span>
-                                          <label class="checkbox inline-block tree-label ">
-                                            <input name="checkbox-inline" type="checkbox">
-                                            <i></i>非金属矿
-                                            <em class="txt-color-blue">(2)</em>
-                                          </label>
-                                        </span>
                                     </li>
                                   </ul>
                                 </li>
@@ -165,47 +132,43 @@
                               <tr >
                                 <th>商品编号</th>
                                 <th>商品名称</th>
-                                <th>生产厂家</th>
-                                <th>仓库编号</th>
                                 <th>仓库名称</th>
+                                <th>总库存量</th>
+                                <th>剩余库存量</th>
                                 <th>商品分类</th>
+                                <th>商品属性</th>
                                 <th>规格型号</th>
                                 <th>单位</th>
-                                <th>库存单位</th>
-                                <th>现存量</th>
-                                <th>库存单位现存量</th>
+                                <th>生产厂家</th>
+                                <th>状态</th>
                               </tr>
                               </thead>
                               <tbody>
-                              <tr class="">
-                                <td>00327</td>
-                                <td>牛奶</td>
-                                <td>矿业碧昂</td>
-                                <td>001</td>
-                                <td>一号仓</td>
-                                <td>饮料</td>
-                                <td>dfasf</td>
-                                <td>瓶</td>
-                                <td>瓶</td>
-                                <td>398</td>
-                                <td>398</td>
+                              <tr *ngFor="let p of searchProductList?.result?.productList?.data" (click)="isStatusShow(p.openinginventory_id,p.openinginventory_status)" [ngClass]="{'table-color':editStatusOpeningInventoryId == p.openinginventory_id}">
+                                <td>{{p.p_product_id}}</td>
+                                <td>{{p.p_name}}</td>
+                                <td>{{p.storehouse_name}}</td>
+                                <td>{{p.openinginventory_count}}</td>
+                                <td>{{p.openinginventory_surplus_count}}</td>
+                                <td>{{p.category}}</td>
+                                <td>{{p.p_property==1?'销售':'外购'}}</td>
+                                <td>{{p.p_specification}}</td>
+                                <td>{{p.p_unit}}</td>
+                                <td>{{p.c_name}}</td>
+                                <td><span class="">{{p.openinginventory_status == 1?'正常':'已删除'}}</span></td>
                               </tr>
-
-
-
                               </tbody>
                             </table>
-
                           </div>
                         </div>
                         <!-- 底部-（分页部分）-->
                         <div class="dt-toolbar">
                           <div class="col-xs-12 col-sm-6">
-                            <span>共5条</span>
+                            <span>共{{ searchProductList?.result?.productList?.total}}条</span>
                           </div>
                           <div class="hidden-xs right">
-                            <ul class="pagination pagination-sm">
-                              <li *ngFor="let p of categoryList?.page" class="{{p.class}}">
+                            <ul class="pagination pagination-sm" *ngIf="searchProductList?.result?.page">
+                              <li *ngFor="let p of searchProductList?.result?.page" class="{{p.class}}">
                                 <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
                                 <a *ngIf="p.method==''">{{p.text}}</a>
                               </li>
@@ -218,38 +181,25 @@
                   <!-- end widget -->
                 </article>
               </div>
-
-
             </div>
-
-
-
-
-
           </div>
-
         </sa-widget>
       </article>
     </div>
   </sa-widgets-grid>
-
-
-
 </div>
 
-
-
-<div class="modal fade" id="particulars" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" bsModal #detailModal="bs-modal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <!-- 关闭按钮 -->
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+        <button type="button" class="close" (click)="clear_('detail')">
           ×
         </button>
         <!-- 标题 -->
         <h3 class="modal-title" data-ng-bind='results.title'></h3>
-        <h4 class="modal-title">商品名称-商品编号</h4>
+        <h4 class="modal-title">{{productInfo?.result?.p_name}}-{{productInfo?.result?.p_product_id}}</h4>
       </div>
       <div class="modal-body height-overflow-380">
         <div class="row ">
@@ -259,44 +209,28 @@
               <table class="table table-striped table-forum">
                 <tbody>
                 <tr>
-                  <td class="width-120">商品编号:</td>
-                  <td class=""></td>
                   <td class="width-120">商品名称:</td>
-                  <td >
-                  </td>
+                  <td class="">{{productInfo?.result?.p_name}}</td>
+                  <td class="width-120">商品编码:</td>
+                  <td >{{productInfo?.result?.p_product_id}}</td>
                 </tr>
                 <tr>
-                  <td class="width-120">生产厂家:</td>
-                  <td class=""></td>
-                  <td class="width-120">仓库编号:</td>
-                  <td >
-                  </td>
-                </tr>
-                <tr>
+                  <td class="width-120">商品型号:</td>
+                  <td class="">{{productInfo?.result?.p_specification}}</td>
                   <td class="width-120">仓库名称:</td>
-                  <td class=""></td>
-                  <td class="width-120">商品分类:</td>
-                  <td >
-                  </td>
+                  <td >{{productInfo?.result?.storehouse_name}}</td>
                 </tr>
                 <tr>
-                  <td class="width-120">规格型号:</td>
-                  <td class=""></td>
                   <td class="width-120">单位:</td>
-                  <td >
-                  </td>
+                  <td class="">{{productInfo?.result?.p_unit}}</td>
+                  <td class="width-120">总数量:</td>
+                  <td >{{productInfo?.result?.openinginventory_count}}</td>
                 </tr>
                 <tr>
-                  <td class="width-120">库存单位:</td>
-                  <td class=""></td>
-                  <td class="width-120">现存量:</td>
-                  <td >
-                  </td>
-                </tr>
-                <tr>
-                  <td class="width-120">库存单位现存量:</td>
-                  <td class="" colspan="3"></td>
-
+                  <td class="width-120">剩余库存量:</td>
+                  <td class="">{{productInfo?.result?.openinginventory_surplus_count}}</td>
+                  <td class="width-120">条码:</td>
+                  <td class="" colspan="3">{{productInfo?.result?.p_qrcode}}</td>
                 </tr>
                 </tbody>
               </table>
@@ -306,13 +240,11 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+        <button type="button" class="btn btn-default" (click)="clear_('detail')">返回</button>
       </div>
     </div>
   </div>
 </div>
-
-
 
 
 

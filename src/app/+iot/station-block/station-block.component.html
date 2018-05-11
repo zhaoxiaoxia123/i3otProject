@@ -40,7 +40,7 @@
               </div>
               <div class="row status-pd" >
                 <!--方案二-->
-                <div class="col-sm-4 col-lg-2 col-xs-6" *ngFor="let sjfb of i3otpList.result?.i3otpList;let ind = index;" >
+                <div class="col-sm-4 col-lg-2 col-xs-6" *ngFor="let sjfb of i3otpList?.result?.i3otpList;let ind = index;" >
                   <div class="panel panel-default">
                     <div class="testing-data" (click)="showDetail(sjfb.p_title,sjfb.detail.i3otp_pid,ind)">
                       <div class="header">
@@ -73,9 +73,9 @@
                   </div>
                 </div>
 
-                <div class="col-sm-12 col-lg-12 col-xs-12" *ngIf="i3otpList?.page.length> 3 && pages <= i3otpList?.page[i3otpList?.page.length-1].value">
+                <div class="col-sm-12 col-lg-12 col-xs-12" *ngIf="i3otpList?.page?.length> 3 && pages <= i3otpList?.page[i3otpList?.page?.length-1].value">
                   <div class="text-center">
-                    <button class="btn btn-loading btn-xs " (click)="update()">
+                    <button class="btn btn-loading btn-xs " (click)="update(i3otpList?.page[i3otpList?.page?.length-1].value)">
                       <i class="fa fa-refresh" *ngIf="!loading"></i> <span class="hidden-mobile" *ngIf="!loading">加载更多</span>
                       <i class="fa fa-refresh fa-spin" *ngIf="loading"></i> <span class="hidden-mobile" *ngIf="loading">加载更多</span>
                     </button>

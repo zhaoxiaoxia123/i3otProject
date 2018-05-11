@@ -88,14 +88,14 @@ export class StationBlockComponent implements OnInit {
      */
     getI3otpList(number:string) {
         this.pages = number;
-        let url = this.globalService.getDomain()+'/api/v1/getSjfbList?page='+number+'&i3otp_category='+this.globalService.getStation(1)+'&type=pic&sid='+this.cookieStore.getCookie('sid');
+        let url = this.globalService.getDomain()+'/api/v1/getSjfbList?page=1&pages='+number+'&i3otp_category='+this.globalService.getStation(1)+'&type=pic&sid='+this.cookieStore.getCookie('sid');
         if(this.keyword.trim() != ''){
             url += '&keyword='+this.keyword.trim();
         }
         this.http.get(url)
             .map((res)=>res.json())
             .subscribe((data)=>{
-                this.i3otpList = data;
+                this.i3otpList=data;
                 console.log('this.i3otpList:--' );
                 console.log(this.i3otpList );
                 if(this.i3otpList['status'] == 202){
@@ -401,6 +401,7 @@ export class StationBlockComponent implements OnInit {
     }
 
     update(pages:any){
+        this.pages  = pages;
         this.loading= true;
         setTimeout(()=>{
             this.lastUpdate = new Date().getFullYear()+'-'+
