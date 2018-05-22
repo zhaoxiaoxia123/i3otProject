@@ -52,7 +52,7 @@
                               </label>
                             </section>
                           </fieldset>
-                          <footer>
+                          <footer *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')">
                             <button class="btn btn-success" type="button" (click)="addCategory()">保存并新增</button>
                             <button  type="button" class="btn btn-primary" (click)="addCategory()"> 保存 </button>
                           </footer>

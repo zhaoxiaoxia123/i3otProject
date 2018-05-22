@@ -82,12 +82,11 @@
                                       <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusCategoryId == 0}" (click)="deleteCategory('id')">
                                         <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
                                     </div>
-                                    <div class="form-group btn-group pdlr-4">
+                                    <div class="form-group btn-group pdlr-4" *ngIf="isPermission(menu_id,'delete')">
                                       <a class="btn default-btn btn-sm dropdown-toggle" (click)="showAllCheck()" data-toggle="dropdown">
                                         <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
-
                                       <ul class="dropdown-menu" role="menu">
-                                        <li *ngIf="isPermission(menu_id,'delete')"><a (click)="deleteCategory('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
+                                        <li><a (click)="deleteCategory('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
                                       </ul>
                                     </div>
                                   </form>
