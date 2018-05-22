@@ -30,8 +30,8 @@ export class ListProductComponent implements OnInit {
               private cookiestore:CookieStoreService,
               private globalService:GlobalService
   ) {
-    let nav = '{"title":"产品列表","url":"/tables/product","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
     this.formModel = fb.group({
       keyword:[''],
     });

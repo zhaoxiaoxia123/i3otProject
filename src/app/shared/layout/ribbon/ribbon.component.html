@@ -4,7 +4,7 @@
     <div class="form-group col col-xs-9">
       <ul class="nav nav-pills beyond-pills">
         <li *ngFor="let n of navList;let ind = index;" class="{{n.class_}}">
-          <a routerLink="{{n.url}}"><i class="fa fa-lg fa-fw fa-home"></i> {{n.title}}
+          <a routerLink="{{n.url}}"><i class="fa fa-lg fa-fw {{n.icon}}"></i> {{n.title}}
             <span class="glyphicon glyphicon-remove" (click)="removeTopTab($event,ind,1)"></span>
           </a>
         </li>

@@ -67,8 +67,8 @@ export class MedicalBillingComponent implements OnInit {
       private cookieStore:CookieStoreService,
       private globalService:GlobalService,
       private notificationService: NotificationService) {
-    let nav = '{"title":"添加处方单","url":"/medical/medical-billing/0","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
     this.url = this.globalService.getDomain();
     this.pr_id = routInfo.snapshot.params['pr_id'];
     if(this.pr_id != '' && this.pr_id != '0'){

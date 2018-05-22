@@ -53,7 +53,6 @@ export class RegistrationFormComponent implements OnInit {
   address2_default : number;
   address3_default : number;
 
-  department_1 : string;
   url : string = this.globalService.getDomain();
   path:string = '';
 
@@ -64,25 +63,31 @@ export class RegistrationFormComponent implements OnInit {
     showMultipleYearsNavigation:true,
   };
 
+  
   name:string;
   data1:any;
   avatarSettings:CropperSettings;
   croppedWidth:number;
   croppedHeight:number;
-  rollback_url :string = '/forms/employees';
+
+  /**菜单id */
+  menu_id:any;
+  /** 权限 */
+  permissions : Array<any> = [];
+
+  rollback_url :string = '';
   @ViewChild('avatarCropper', undefined) avatarCropper:ImageCropperComponent;
   constructor(
       fb:FormBuilder,
       private http:Http,
       private router : Router,
-      private cookieStoreService:CookieStoreService,
+      private cookieStore:CookieStoreService,
       private routInfo : ActivatedRoute,
       private globalService:GlobalService,
       private notificationService: NotificationService
       // private uploader:FileUploaderOptions
   ) {
-    let nav = '{"title":"添加用户","url":"/forms/employees/0","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
+    
     this.formModel = fb.group({
       u_id:[''],
       employee_id:['',[Validators.required,Validators.minLength(1)]],
@@ -167,6 +172,13 @@ export class RegistrationFormComponent implements OnInit {
     }
     this.getUserDefault(1);
 
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
+    setTimeout(()=>{
+      this.menu_id = this.globalService.getMenuId();
+      this.rollback_url = this.globalService.getMenuUrl();
+      this.permissions = this.globalService.getPermissions();
+    },this.globalService.getMenuPermissionDelayTime())
     // //上传成功回调
     // this.uploader.onSuccessItem = (item, response, status, headers) => {
     //   if (status == 200) {
@@ -189,74 +201,164 @@ export class RegistrationFormComponent implements OnInit {
   // });
 
 
+  /**
+   * 是否有该元素
+   */
+  isPermission(menu_id,value){
+      let key = menu_id +'_'+value;
+      if(value == ''){
+        key = menu_id;
+      }
+      return this.cookieStore.in_array(key, this.permissions);
+  }
+
+  showPinyin(){
+    let name = this.formModel.value['name'];
+    if(name.trim() != ''){
+      this.http.get(this.globalService.getDomain()+'/api/v1/getPinyin?name='+name)
+          .map((res)=>res.json())
+          .subscribe((data)=>{
+            this.formModel.patchValue({
+              'u_shortcode': data['result']
+            });
+          });
+    }
+  }
+
   getUserInfo(u_id:number){
     this.http.get(this.globalService.getDomain()+'/api/v1/getUserInfo?u_id='+u_id)
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.user_info = data;
           console.log(this.user_info);
-          this.formModel.patchValue({
-            'u_id':this.user_info['result']['id'],
-            'employee_id':this.user_info['result']['name'],
-            'name':this.user_info['result']['u_username'],
-            'phone':this.user_info['result']['u_phone'],
-            // 'password':this.user_info['result']['passwords']['password'],
-            'role':this.user_info['result']['u_role'],
-            'gender':this.user_info['result']['u_gender'],
-            'age':this.user_info['result']['u_age'],
-            'department':this.user_info['result']['u_department'],
-            'title':this.user_info['result']['u_title'],
-            'notes':this.user_info['result']['u_notes'],
-            'enrol_time':this.user_info['result']['u_enrol_time'],
-            'position':this.user_info['result']['u_position'],
-            'contract_type':this.user_info['result']['u_contract_type'],
-            'birthplace1':this.user_info['result']['birthplace1'],
-            'birthplace2':this.user_info['result']['birthplace2'],
-            // 'birthplace':this.user_info['result']['birthplace1']+ ' '+this.user_info['result']['birthplace2'],
-            'id_card':this.user_info['result']['u_id_card'],
-            'nation':this.user_info['result']['u_nation'],
-            'marital_status':this.user_info['result']['u_marital_status'],
-            'graduate_institutions':this.user_info['result']['u_graduate_institutions'],
-            'study_major':this.user_info['result']['u_study_major'],
-            'study_diploma':this.user_info['result']['u_study_diploma'],
-            'study_category':this.user_info['result']['u_study_category'],
-            'email':this.user_info['result']['email'],
-            'emergency_contact':this.user_info['result']['u_emergency_contact'],
-            'emergency_phone':this.user_info['result']['u_emergency_phone'],
-            'u_emergency_address':this.user_info['result']['u_emergency_address'],
-            'u_zip_code':this.user_info['result']['u_zip_code'],
-            'u_home_phone':this.user_info['result']['u_home_phone'],
-            'u_shortcode':this.user_info['result']['u_shortcode'],
-            'u_birthday':this.user_info['result']['u_birthday'],
-            'address1':this.user_info['result']['address1'],
-            'address2':this.user_info['result']['address2'],
-            'address3':this.user_info['result']['address3'],
-            'address4':this.user_info['result']['address4'],
-            // 'address':this.user_info['result']['address1']+' '+this.user_info['result']['address2'] +' '+ this.user_info['result']['address3']+' '+this.user_info['result']['address4'],
-            'updated_at':this.user_info['result']['updated_at'],
-            'created_at':this.user_info['result']['created_at'],
-          });
-          this.path = this.user_info['result']['u_avatar'];
-          if(this.user_info['result']['birthplace1'] != 0){
-            this.getBrithplaceCity();
-          }
-          if(this.user_info['result']['address1'] != 0){
-            this.getCity();
-          }
-          if(this.user_info['result']['address2'] != 0){
-            this.getArea();
-          }
-          this.super_admin_id = this.user_info['super_admin_id'];
-          if(this.cookieStoreService.getCookie('cid') == this.super_admin_id){
-            this.formModel.patchValue({
-              'c_id': this.user_info['result']['c_id']
-            });
-            this.is_show = true;
-          }
-          this.passwordPlaceholder = '******';
+          this.setValue();
         });
   }
 
+  setValue(){
+    this.formModel.patchValue({
+      'u_id':this.user_info['result']['id'],
+      'employee_id':this.user_info['result']['name'],
+      'name':this.user_info['result']['u_username'],
+      'phone':this.user_info['result']['u_phone'],
+      // 'password':this.user_info['result']['passwords']['password'],
+      'role':this.user_info['result']['u_role'],
+      'gender':this.user_info['result']['u_gender'],
+      'age':this.user_info['result']['u_age'],
+      'department':this.user_info['result']['u_department'],
+      'title':this.user_info['result']['u_title'],
+      'notes':this.user_info['result']['u_notes'],
+      'enrol_time':this.user_info['result']['u_enrol_time'],
+      'position':this.user_info['result']['u_position'],
+      'contract_type':this.user_info['result']['u_contract_type'],
+      'birthplace1':this.user_info['result']['birthplace1'],
+      'birthplace2':this.user_info['result']['birthplace2'],
+      // 'birthplace':this.user_info['result']['birthplace1']+ ' '+this.user_info['result']['birthplace2'],
+      'id_card':this.user_info['result']['u_id_card'],
+      'nation':this.user_info['result']['u_nation'],
+      'marital_status':this.user_info['result']['u_marital_status'],
+      'graduate_institutions':this.user_info['result']['u_graduate_institutions'],
+      'study_major':this.user_info['result']['u_study_major'],
+      'study_diploma':this.user_info['result']['u_study_diploma'],
+      'study_category':this.user_info['result']['u_study_category'],
+      'email':this.user_info['result']['email'],
+      'emergency_contact':this.user_info['result']['u_emergency_contact'],
+      'emergency_phone':this.user_info['result']['u_emergency_phone'],
+      'u_emergency_address':this.user_info['result']['u_emergency_address'],
+      'u_zip_code':this.user_info['result']['u_zip_code'],
+      'u_home_phone':this.user_info['result']['u_home_phone'],
+      'u_shortcode':this.user_info['result']['u_shortcode'],
+      'u_birthday':this.user_info['result']['u_birthday'],
+      'address1':this.user_info['result']['address1'],
+      'address2':this.user_info['result']['address2'],
+      'address3':this.user_info['result']['address3'],
+      'address4':this.user_info['result']['address4'],
+      // 'address':this.user_info['result']['address1']+' '+this.user_info['result']['address2'] +' '+ this.user_info['result']['address3']+' '+this.user_info['result']['address4'],
+      'updated_at':this.user_info['result']['updated_at'],
+      'created_at':this.user_info['result']['created_at'],
+    });
+    this.path = this.user_info['result']['u_avatar'];
+    if(this.user_info['result']['birthplace1'] != 0){
+      this.getBrithplaceCity();
+    }
+    if(this.user_info['result']['address1'] != 0){
+      this.getCity();
+    }
+    if(this.user_info['result']['address2'] != 0){
+      this.getArea();
+    }
+    this.super_admin_id = this.user_info['super_admin_id'];
+    if(this.cookieStore.getCookie('cid') == this.super_admin_id){
+      this.formModel.patchValue({
+        'c_id': this.user_info['result']['c_id']
+      });
+      this.is_show = true;
+    }
+    this.passwordPlaceholder = '******';
+  }
+
+
+
+  clear_(){
+    this.formModel.patchValue({
+      'u_id':'',
+      'employee_id':'',
+      'name':'',
+      'phone':'',
+      'role':'',
+      'gender':'',
+      'age':'',
+      'department':'',
+      'title':'',
+      'notes':'',
+      'enrol_time':'',
+      'position':'',
+      'contract_type':'',
+      'birthplace1':'',
+      'birthplace2':'',
+      'id_card':'',
+      'nation':'',
+      'marital_status':'',
+      'graduate_institutions':'',
+      'study_major':'',
+      'study_diploma':'',
+      'study_category':'',
+      'email':'',
+      'emergency_contact':'',
+      'emergency_phone':'',
+      'u_emergency_address':'',
+      'u_zip_code':'',
+      'u_home_phone':'',
+      'u_shortcode':'',
+      'u_birthday':'',
+      'address1':'',
+      'address2':'',
+      'address3':'',
+      'address4':'',
+      'updated_at':'',
+      'created_at':'',
+      'c_id':'',
+      'password':''
+    });
+    this.path = '';
+
+    this.role_default = 0;
+    this.gender_default  = 0;
+    this.c_id_default = 0;
+    this.department_default  = '0';
+    this.title_default = 0;
+    this.contract_type_default  = 0;
+    this.birthplace1_default = 0;
+    this.birthplace2_default = 0;
+    this.nation_default = '';
+    this.marital_status_default  = 0;
+    this.study_diploma_default = 0;
+    this.study_category_default = 0;
+    this.address1_default = 0;
+    this.address2_default = 0;
+    this.address3_default = 0;
+    this.passwordPlaceholder = '';
+  }
   /**
    * 展开收起
    */
@@ -268,7 +370,7 @@ export class RegistrationFormComponent implements OnInit {
    * 获取添加员工的默认参数
    */
   getUserDefault(num:number) {
-    this.http.get(this.globalService.getDomain()+'/api/v1/getUserDefault?type=add&sid='+this.cookieStoreService.getCookie('sid'))
+    this.http.get(this.globalService.getDomain()+'/api/v1/getUserDefault?type=add&sid='+this.cookieStore.getCookie('sid'))
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.userList = data;
@@ -276,7 +378,7 @@ export class RegistrationFormComponent implements OnInit {
           console.log(this.userList);
           if(this.userList['status'] == 202) {
             alert(this.userList['msg']);
-            this.cookieStoreService.removeAll(this.rollback_url);
+            this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
           if(this.u_id == 0){
@@ -298,17 +400,14 @@ export class RegistrationFormComponent implements OnInit {
             this.address3_default = 0;
             this.super_admin_id = this.userList['super_admin_id'];
           }
-          if(this.cookieStoreService.getCookie('cid') == this.super_admin_id){
+          if(this.cookieStore.getCookie('cid') == this.super_admin_id){
             this.is_show = true;
-          }
-          if(num == 2){
-            this.lgModal.hide();
           }
         });
 
   }
 
-  onSubmit(){
+  onSubmit(num:number){
     if(this.formModel.value['employee_id'].trim() == ''){
       alert('请填写员工编号！');
       return false;
@@ -351,7 +450,7 @@ export class RegistrationFormComponent implements OnInit {
       'u_shortcode':this.formModel.value['u_shortcode'],
       'u_birthday':this.formModel.value['u_birthday'],
       'address':this.formModel.value['address1']+','+this.formModel.value['address2'] +','+ this.formModel.value['address3']+','+this.formModel.value['address4'],
-      'sid':this.cookieStoreService.getCookie('sid'),
+      'sid':this.cookieStore.getCookie('sid'),
       'c_id':this.formModel.value['c_id'],
       'avatar':this.path
     }).subscribe(
@@ -359,40 +458,14 @@ export class RegistrationFormComponent implements OnInit {
           let info = JSON.parse(data['_body']);
           alert(info['msg']);
           if(info['status'] == 200) {
-            this.cookieStoreService.setCookie('u_avatar', this.path);
-            this.router.navigateByUrl('/tables/staff');
+            if(num == 1) {
+              this.cookieStore.setCookie('u_avatar', this.path);
+              this.router.navigateByUrl('/tables/staff');
+            }else{
+              this.clear_();
+            }
           }else if(info['status'] == 202){
-            this.cookieStoreService.removeAll(this.rollback_url);
-            this.router.navigate(['/auth/login']);
-          }
-        },
-        response => {
-          console.log('PATCH call in error', response);
-        }
-    );
-  }
-
-  /**
-   * 添加部门
-   * @returns {boolean}
-   */
-  onSubmit_1(){
-    if(this.department_1.trim() == ''){
-      alert('请输入部门名称！');
-      return false;
-    }
-    this.http.post(this.globalService.getDomain()+'/api/v1/addCategory',{
-      'category_type':3,
-      'category_desc':this.department_1,
-      'sid':this.cookieStoreService.getCookie('sid')
-    }).subscribe(
-        (data)=>{
-          let info = JSON.parse(data['_body']);
-          alert(info['msg']);
-          if(info['status'] == 200) {
-            this.department_1 = '';
-          }else if(info['status'] == 202){
-            this.cookieStoreService.removeAll(this.rollback_url);
+            this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
         },
@@ -455,7 +528,6 @@ export class RegistrationFormComponent implements OnInit {
     request.send(formData);
   }
 
-  @ViewChild('lgModal') public lgModal:ModalDirective;
 
     //添加按钮
     smartModEg1() {
@@ -468,6 +540,7 @@ export class RegistrationFormComponent implements OnInit {
             }
         });
     }
+
 
 }
 

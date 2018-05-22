@@ -40,8 +40,8 @@ export class StationListComponent implements OnInit {
       private cookieStore:CookieStoreService,
       private globalService:GlobalService
   ) {
-    let nav = '{"title":"基站设备","url":"/equipment/station-list","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
     this.formModel = fb.group({
       keyword:[''],
     });

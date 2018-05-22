@@ -45,15 +45,18 @@ export class AssetsReturnComponent implements OnInit {
   assets_status_default : number = 2; //需查询的资产清单状态 1：闲置 2：使用 3：报废
   edit_assets_status_default : number = 1; //需更新为的资产清单状态 1：闲置 2：使用 3：报废
   edit_assets_type_default : number = 1; //需更新为的资产状态  1:归还 2:资产发放 3：资产报废
-  rollback_url : string = '/assets-management/assets-return';
+  rollback_url : string = '';
+  /**菜单id */
+  menu_id:any;
+  /** 权限 */
+  permissions : Array<any> = [];
+  menuInfos : Array<any> = [];
   constructor(
       private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
-      private globalService:GlobalService,
-      private notificationService: NotificationService) {
-    let nav = '{"title":"资产归还","url":"/assets-management/assets-return","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
+      private globalService:GlobalService) {
+
     this.getAssetsList('1');
     window.scrollTo(0,0);
     this.super_admin_id = this.globalService.getAdminID();
@@ -61,7 +64,28 @@ export class AssetsReturnComponent implements OnInit {
     this.getAssetsListDefault();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
+    setTimeout(()=>{
+      this.menu_id = this.globalService.getMenuId();
+      this.rollback_url = this.globalService.getMenuUrl();
+      this.permissions = this.globalService.getPermissions();
+      this.menuInfos = this.globalService.getMenuInfos();
+    },this.globalService.getMenuPermissionDelayTime())
+  }
+
+  /**
+   * 是否有该元素
+   */
+  isPermission(menu_id,value){
+    let key = menu_id +'_'+value;
+    if(value == ''){
+      key = menu_id;
+    }
+    return this.cookieStore.in_array(key, this.permissions);
+  }
 
   /**
    * 获取默认参数
@@ -157,7 +181,7 @@ export class AssetsReturnComponent implements OnInit {
   /**
    * 添加信息
    */
-  onSubmit(){
+  onSubmit(num:number){
     if(this.assets_id == 0){
       alert('请选择发放清单！');
       return false;
@@ -200,7 +224,9 @@ export class AssetsReturnComponent implements OnInit {
               this.check = false;
             }
             this.clear_('');
-            this.addModal.hide();
+            if(num == 1) {
+              this.addModal.hide();
+            }
           }else if(info['status'] == 202){
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);

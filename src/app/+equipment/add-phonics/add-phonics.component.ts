@@ -29,7 +29,11 @@ export class AddPhonicsComponent implements OnInit {
   //复选框
   color_i3otp_id : number = 0;
   div_show_i3otp : boolean = true;//传感器点击显示下拉框
-  rollback_url : string = '/equipment/phonics';
+  rollback_url : string = '';
+  /**菜单id */
+  menu_id:any;
+  /** 权限 */
+  permissions : Array<any> = [];
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -37,9 +41,6 @@ export class AddPhonicsComponent implements OnInit {
       private routInfo : ActivatedRoute,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
-
-    let nav = '{"title":"添加广播信息","url":"/equipment/phonics","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
     this.formModel = fb.group({
       b_id:[''],
       i3otp_pid:[''],
@@ -62,7 +63,27 @@ export class AddPhonicsComponent implements OnInit {
     }else{
       this.rollback_url += '/0';
     }
+
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
+    setTimeout(()=>{
+      this.menu_id = this.globalService.getMenuId();
+      this.rollback_url = this.globalService.getMenuUrl();
+      this.permissions = this.globalService.getPermissions();
+    },this.globalService.getMenuPermissionDelayTime())
   }
+
+  /**
+   * 是否有该元素
+   */
+  isPermission(menu_id,value){
+    let key = menu_id +'_'+value;
+    if(value == ''){
+      key = menu_id;
+    }
+    return this.cookieStore.in_array(key, this.permissions);
+  }
+
 
 
   /**
@@ -73,33 +94,29 @@ export class AddPhonicsComponent implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.broadcastInfo = data;
+          this.formModel.patchValue({
+            b_id:this.broadcastInfo['result']['b_id'],
+            // i3otp_pid:this.broadcastInfo['result']['i3otp_pid'],
+            // c_id:this.broadcastInfo['result']['c_id'],
+            // u_id:this.broadcastInfo['result']['u_id'],
+            b_info:this.broadcastInfo['result']['b_info'],
+            // b_loh:this.broadcastInfo['result']['b_loh'],
+            b_led:this.broadcastInfo['result']['b_led'],
+            b_buzzer:this.broadcastInfo['result']['b_buzzer'],
+          });
+          //显示的值
+          this.u_id_default = this.broadcastInfo['result']['u_id'];
+          this.c_id_default = this.broadcastInfo['result']['c_id'];
+          this.join_i3otp_category =  this.broadcastInfo['result']['i3otp_pids'];//传感器类型
+
+          for (let i3otpa of this.broadcastInfo['result']['type']) {
+            this.selects[i3otpa] = true;
+          }
+
+          if(this.c_id_default != 0){
+            this.getTheUserList(this.c_id_default,2);
+          }
         });
-    setTimeout(() => {
-      this.formModel.patchValue({
-        b_id:this.broadcastInfo['result']['b_id'],
-        // i3otp_pid:this.broadcastInfo['result']['i3otp_pid'],
-        // c_id:this.broadcastInfo['result']['c_id'],
-        // u_id:this.broadcastInfo['result']['u_id'],
-        b_info:this.broadcastInfo['result']['b_info'],
-        // b_loh:this.broadcastInfo['result']['b_loh'],
-        b_led:this.broadcastInfo['result']['b_led'],
-        b_buzzer:this.broadcastInfo['result']['b_buzzer'],
-      });
-      //显示的值
-      this.u_id_default = this.broadcastInfo['result']['u_id'];
-      this.c_id_default = this.broadcastInfo['result']['c_id'];
-      this.join_i3otp_category =  this.broadcastInfo['result']['i3otp_pids'];//传感器类型
-
-      for (let i3otpa of this.broadcastInfo['result']['type']) {
-        this.selects[i3otpa] = true;
-      }
-
-      if(this.c_id_default != 0){
-        this.getTheUserList(this.c_id_default,2);
-      }
-      console.log('this.selects:====');
-      console.log(this.selects);
-    }, 500);
   }
 
   /**
@@ -110,18 +127,16 @@ export class AddPhonicsComponent implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.broadcastList = data;
+          if(this.broadcastList['status'] == 202){
+            alert(this.broadcastList['msg']);
+            this.cookieStore.removeAll(this.rollback_url);
+            this.router.navigate(['/auth/login']);
+          }
+          if(this.b_id == 0) {
+            this.c_id_default = 0;
+            this.join_i3otp_category = this.broadcastList['result']['i3otpList'].length >= 1 ? [this.broadcastList['result']['i3otpList'][0]['i3otp_pid']] : [];//传感器类型
+          }
         });
-    setTimeout(() => {
-      if(this.broadcastList['status'] == 202){
-        alert(this.broadcastList['msg']);
-        this.cookieStore.removeAll(this.rollback_url);
-        this.router.navigate(['/auth/login']);
-      }
-      if(this.b_id == 0) {
-        this.c_id_default = 0;
-        this.join_i3otp_category = this.broadcastList['result']['i3otpList'].length >= 1 ? [this.broadcastList['result']['i3otpList'][0]['i3otp_pid']] : [];//传感器类型
-      }
-    }, 600);
   }
 
 
@@ -142,18 +157,16 @@ export class AddPhonicsComponent implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.broadcastListUser = data;
+          if(this.broadcastListUser['status'] == 202){
+            alert(this.broadcastListUser['msg']);
+            this.cookieStore.removeAll(this.rollback_url);
+            this.router.navigate(['/auth/login']);
+          }
+          if(this.b_id == 0) {
+            //默认选中值
+            this.u_id_default = 0;
+          }
         });
-    setTimeout(() => {
-      if(this.broadcastListUser['status'] == 202){
-        alert(this.broadcastListUser['msg']);
-        this.cookieStore.removeAll(this.rollback_url);
-        this.router.navigate(['/auth/login']);
-      }
-      if(this.b_id == 0) {
-        //默认选中值
-        this.u_id_default = 0;
-      }
-    }, 600);
   }
 
 
@@ -161,7 +174,7 @@ export class AddPhonicsComponent implements OnInit {
    * 提交信息
    * @returns {boolean}
    */
-  onSubmit(){
+  onSubmit(num:number){
     if(this.formModel.value['b_info'].trim() == ''){
       alert('请填写文字信息！');
       return false;
@@ -182,13 +195,31 @@ export class AddPhonicsComponent implements OnInit {
           let info = JSON.parse(data['_body']);
           alert(info['msg']);
           if(info['status'] == 200) {
-            this.router.navigateByUrl('/equipment/phonics-list');
+            if(num == 1) {
+              this.router.navigateByUrl('/equipment/phonics-list');
+            }else if(num == 2) {
+              this.clear_();
+            }
           }else if(info['status'] == 202) {
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
         }
     );
+  }
+
+  clear_(){
+    this.formModel.patchValue({
+      b_id:'',
+      b_info:'',
+      b_led:'',
+      b_buzzer:'',
+    });
+    //显示的值
+    this.u_id_default = 0;
+    this.c_id_default = 0;
+    this.join_i3otp_category = [];//传感器类型
+
   }
 
   /**
@@ -204,7 +235,6 @@ export class AddPhonicsComponent implements OnInit {
         }
       }
     }
-    console.log(this.join_i3otp_category);
   }
 
   /**
@@ -215,9 +245,6 @@ export class AddPhonicsComponent implements OnInit {
     let v = t.value;
     let c = t.checked;
     this.selects[v] = c;
-    console.log('this.selects');
-    console.log(this.selects);
-    console.log(stringify(this.selects));
   }
 
   //鼠标滑过修改样式
@@ -245,6 +272,5 @@ export class AddPhonicsComponent implements OnInit {
         this.join_i3otp_category.splice(s,1);
       }
     }
-    console.log(this.join_i3otp_category);
   }
 }

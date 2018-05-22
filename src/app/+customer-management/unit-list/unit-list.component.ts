@@ -71,38 +71,68 @@ export class UnitListComponent implements OnInit {
     super_admin_id : any = 0;//超级管理员所属公司id
     role : string = '3,4';
     category_type : number = 21;
-    rollback_url : string = '/customer-management/unit-list';
+    rollback_url : string = '';
+    /**菜单id */
+    menu_id:any;
+    /** 权限 */
+    permissions : Array<any> = [];
+    menuInfos : Array<any> = [];
     constructor(
         private http:Http,
         private router : Router,
-        private cookieStoreService:CookieStoreService,
+        private cookieStore:CookieStoreService,
         private globalService:GlobalService,
         private notificationService: NotificationService) {
-
-        let nav = '{"title":"往来客户或单位","url":"/customer-management/unit-list","class_":"active"}';
-        this.globalService.navEventEmitter.emit(nav);
-
         this.getCustomerList('1');
         window.scrollTo(0,0);
         this.super_admin_id = this.globalService.getAdminID();
-        this.cid = this.cookieStoreService.getCookie('cid');
+        this.cid = this.cookieStore.getCookie('cid');
         this.getCustomerDefault();
     }
 
     ngOnInit() {
+        //顶部菜单读取
+        this.globalService.getMenuInfo();
+        setTimeout(()=>{
+            this.menu_id = this.globalService.getMenuId();
+            this.rollback_url = this.globalService.getMenuUrl();
+            this.permissions = this.globalService.getPermissions();
+            this.menuInfos = this.globalService.getMenuInfos();
+        },this.globalService.getMenuPermissionDelayTime())
     }
 
+    /**
+     * 是否有该元素
+     */
+    isPermission(menu_id,value){
+        let key = menu_id +'_'+value;
+        if(value == ''){
+            key = menu_id;
+        }
+        return this.cookieStore.in_array(key, this.permissions);
+    }
+
+    showPinyin(){
+        let name = this.c_name;
+        if(name.trim() != ''){
+            this.http.get(this.globalService.getDomain()+'/api/v1/getPinyin?name='+name)
+                .map((res)=>res.json())
+                .subscribe((data)=>{
+                    this.c_name = data['result'];
+                });
+        }
+    }
     /**
      * 获取默认参数
      */
     getCustomerDefault(){
-        this.http.get(this.globalService.getDomain()+'/api/v1/getCustomerDefault?role='+this.role+'&category_type='+this.category_type+'&sid='+this.cookieStoreService.getCookie('sid'))
+        this.http.get(this.globalService.getDomain()+'/api/v1/getCustomerDefault?role='+this.role+'&category_type='+this.category_type+'&sid='+this.cookieStore.getCookie('sid'))
             .map((res)=>res.json())
             .subscribe((data)=>{
                 this.customerDefault = data;
                 if(this.customerDefault['status'] == 202){
                     alert(this.customerDefault['msg']);
-                    this.cookieStoreService.removeAll(this.rollback_url);
+                    this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
             });
@@ -112,7 +142,7 @@ export class UnitListComponent implements OnInit {
      * @param number
      */
     getCustomerList(number:string) {
-        let url = this.globalService.getDomain()+'/api/v1/getCustomerList?role='+this.role+'&page='+number+'&sid='+this.cookieStoreService.getCookie('sid');
+        let url = this.globalService.getDomain()+'/api/v1/getCustomerList?role='+this.role+'&page='+number+'&sid='+this.cookieStore.getCookie('sid');
         if(this.keyword.trim() != '') {
             url += '&keyword='+this.keyword.trim();
         }
@@ -121,7 +151,7 @@ export class UnitListComponent implements OnInit {
             .subscribe((data)=>{
                 this.customerList = data;
                 if(this.customerList['status'] == 202){
-                    this.cookieStoreService.removeAll(this.rollback_url);
+                    this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
 
@@ -192,7 +222,7 @@ export class UnitListComponent implements OnInit {
     /**
      * 添加信息
      */
-    onSubmit(){
+    onSubmit(num:number){
         if(this.c_number.trim() == ''){
             alert('请输入编号！');
             return false;
@@ -228,7 +258,7 @@ export class UnitListComponent implements OnInit {
             'c_discount_rate' : this.c_discount_rate,
             'c_credit_amount' : this.c_credit_amount,
             'c_status' : 1,
-            'sid':this.cookieStoreService.getCookie('sid')
+            'sid':this.cookieStore.getCookie('sid')
         }).subscribe(
             (data)=>{
                 let info = JSON.parse(data['_body']);
@@ -241,8 +271,11 @@ export class UnitListComponent implements OnInit {
                         this.selects[entry['c_id']] = false;
                     }
                     this.check = false;
+                    if(num == 1){
+                        this.lgModal.hide();
+                    }
                 }else if(info['status'] == 202){
-                    this.cookieStoreService.removeAll(this.rollback_url);
+                    this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
             }
@@ -328,7 +361,7 @@ export class UnitListComponent implements OnInit {
         }else{
             this.detailModal.show();
         }
-        this.http.get(this.globalService.getDomain()+'/api/v1/getCustomerInfo?c_id='+this.editStatusCustomerId+'&type='+type+'&role='+this.role+'&sid='+this.cookieStoreService.getCookie('sid'))
+        this.http.get(this.globalService.getDomain()+'/api/v1/getCustomerInfo?c_id='+this.editStatusCustomerId+'&type='+type+'&role='+this.role+'&sid='+this.cookieStore.getCookie('sid'))
             .map((res)=>res.json())
             .subscribe((data)=>{
                 this.customerInfo = data;
@@ -337,7 +370,7 @@ export class UnitListComponent implements OnInit {
                     this.setValue(this.customerInfo);
                 }else if(this.customerInfo['status'] == 202){
                     alert(this.customerInfo['msg']);
-                    this.cookieStoreService.removeAll(this.rollback_url);
+                    this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
                 if(this.customerInfo['result']['c_follow_user_id'] != 0){
@@ -374,14 +407,14 @@ export class UnitListComponent implements OnInit {
         }
         msg = '您确定要删除该信息吗？';
         if(confirm(msg)) {
-            let url = this.globalService.getDomain()+'/api/v1/deleteCustomerById?c_ids=' + c_id + '&role='+this.role+'&type='+type+'&sid=' + this.cookieStoreService.getCookie('sid');
+            let url = this.globalService.getDomain()+'/api/v1/deleteCustomerById?c_ids=' + c_id + '&role='+this.role+'&type='+type+'&sid=' + this.cookieStore.getCookie('sid');
             this.http.delete(url)
                 .map((res) => res.json())
                 .subscribe((data) => {
                     this.customerList = data;
 
                     if(this.customerList['status'] == 202){
-                        this.cookieStoreService.removeAll(this.rollback_url);
+                        this.cookieStore.removeAll(this.rollback_url);
                         this.router.navigate(['/auth/login']);
                     }
                     this.selects = [];
@@ -436,7 +469,7 @@ export class UnitListComponent implements OnInit {
             'type':type,
             'role':this.role,
             'keyword':this.keyword.trim(),
-            'sid':this.cookieStoreService.getCookie('sid')
+            'sid':this.cookieStore.getCookie('sid')
         }).subscribe(
             (data)=>{
                 let info = JSON.parse(data['_body']);
@@ -449,7 +482,7 @@ export class UnitListComponent implements OnInit {
                     }
                     this.check = false;
                 }else if(info['status'] == 202){
-                    this.cookieStoreService.removeAll(this.rollback_url);
+                    this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
                 this.editStatusCustomerId = 0;
@@ -485,7 +518,7 @@ export class UnitListComponent implements OnInit {
         }else{
             id = obj;
         }
-        let url = this.globalService.getDomain()+'/api/v1/getUnitCategoryList?category_type='+this.category_type+'&sid='+this.cookieStoreService.getCookie('sid');
+        let url = this.globalService.getDomain()+'/api/v1/getUnitCategoryList?category_type='+this.category_type+'&sid='+this.cookieStore.getCookie('sid');
         if(id != 0){
             url += '&category_tab='+id;
         }
@@ -496,7 +529,7 @@ export class UnitListComponent implements OnInit {
                 if(this.unitCategoryList['status'] == 201){
                     alert(this.unitCategoryList['msg']);
                 }else if(this.unitCategoryList['status'] == 202){
-                    this.cookieStoreService.removeAll(this.rollback_url);
+                    this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
             });

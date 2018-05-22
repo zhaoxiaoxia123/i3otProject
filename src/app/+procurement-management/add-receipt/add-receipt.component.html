@@ -18,7 +18,7 @@
           </header>
           <div>
             <div class="widget-body no-padding">
-              <form id="smart-form-register" class="smart-form" [formGroup]="formModel" (ngSubmit)="onSubmit()">
+              <form id="smart-form-register" class="smart-form" [formGroup]="formModel" ><!--(ngSubmit)="onSubmit()"-->
                 <fieldset>
                   <legend>基本信息</legend>
                   <input type="hidden" name="pr_id" formControlName="pr_id">
@@ -88,8 +88,6 @@
                           </a>
                         </div>
                       </div>
-
-
                     </section>
                   </div>
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
@@ -181,7 +179,6 @@
                             <option *ngFor="let ca of purchaseList.result?.category" [selected]="purchaseInfo.result?.pr_category == ca.category_id" value="{{ca.category_id }}">{{ca.category_desc}}</option>
                           </select><i></i>
                         </label>
-
                         <div class="input-group-btn">
                           <a  href="http://cn.i3ot.com/#/procurement-management/procurement-type" target="_blank" (click)="smartModEg1()" class="btn btn-default btn-sm pb-6" type="button">
                            <!-- <i class="fa fa-plus "></i> -->添加
@@ -189,10 +186,8 @@
                           <a class="btn btn-default btn-sm pb-6" type="button" (click)="getPurchaseDefault('refresh')"><i class="fa fa-link"></i>
                             刷新
                           </a>
-
                         </div>
                       </div>
-
                     </section>
                   </div>
                   <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
@@ -383,6 +378,7 @@
                   </div>
                 </fieldset>
                 <footer>
+                  <div *ngIf="isPermission(menu_id,'verify')">
                   <button type="button" class="btn btn-primary"  (click)="showDetail('transfer')" *ngIf="uid == purchaseInfo?.result?.pr_status">
                     转交
                   </button>
@@ -398,10 +394,15 @@
                   <button type="button" class="btn btn-warning" (click)="showModal('operation','operation')" *ngIf="uid == purchaseInfo?.result?.pr_status">
                     审核
                   </button>
+                  </div>
                   <button type="button" class="btn btn-default" [routerLink]="['/procurement-management/procurement-receipt']">返回</button>
-                  <!--<button type="button" class="btn btn-success btn-sm" ><span class="glyphicon glyphicon-plus"></span>保存并新增</button>-->
-                  <button *ngIf="pr_id==0" type="submit" class="btn btn-primary">保存</button>
-                  <button *ngIf="isDetail!='detail' && pr_id!=0 && purchaseInfo?.result?.pr_status != 'no' && purchaseInfo?.result?.pr_status != 'yes' && purchaseInfo?.result?.pr_status != 'cancel'" type="submit" class="btn btn-primary">修改</button>
+
+                  <div *ngIf="isPermission(menu_id,'add')">
+                    <button type="button" class="btn btn-success btn-sm" (click)="onSubmit(2)"><span class="glyphicon glyphicon-plus"></span>保存并新增</button>
+                    <button *ngIf="pr_id==0" type="button" (click)="onSubmit(1)" class="btn btn-primary">保存</button>
+                  </div>
+                  <button *ngIf="isPermission(menu_id,'edit') && isDetail!='detail' && pr_id!=0 && purchaseInfo?.result?.pr_status != 'no' && purchaseInfo?.result?.pr_status != 'yes' && purchaseInfo?.result?.pr_status != 'cancel'" type="button" (click)="onSubmit(1)" class="btn btn-primary">修改</button>
+
                 </footer>
               </form>
             </div>

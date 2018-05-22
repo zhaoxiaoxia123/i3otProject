@@ -62,8 +62,8 @@ export class TodoWorkbenchComponent implements OnInit {
         private cookieStore:CookieStoreService,
         private globalService:GlobalService,
         private tododetail:TododetailService) {
-        let nav = '{"title":"我的工作台","url":"/to-do/todo-workbench","class_":"active"}';
-        this.globalService.navEventEmitter.emit(nav);
+        //顶部菜单读取
+        this.globalService.getMenuInfo();
 
         this.uId = this.cookieStore.getCookie('uid');
         this.isHaveTemplate();

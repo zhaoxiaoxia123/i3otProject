@@ -35,8 +35,8 @@ export class MedicalSalesComponent implements OnInit {
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
 
-    let nav = '{"title":"销售列表","url":"/medical/medical-sales","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
     this.getPurchaseList('1');
     window.scrollTo(0,0);
   }

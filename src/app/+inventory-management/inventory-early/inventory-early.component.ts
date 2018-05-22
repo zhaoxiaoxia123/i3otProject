@@ -17,6 +17,7 @@ export class InventoryEarlyComponent implements OnInit {
   selects : Array<any> = [];
   check : boolean = false;
 
+  page : any;
   prev : boolean = false;
   next : boolean = false;
 
@@ -35,7 +36,7 @@ export class InventoryEarlyComponent implements OnInit {
 
   keyword : string = '';
   p_type : number = 2;//商品
-  rollback_url : string = '/inventory-management/inventory-early';
+  rollback_url : string = '';
 
   /**--------用作选择商品的变量------*/
   isShowProduct : string = '';
@@ -46,20 +47,41 @@ export class InventoryEarlyComponent implements OnInit {
   // 弹框中左侧选中商品分类的id
   select_category_ids: Array<any> = [];
   // p_property : number = 2; //采购商品
+  /**菜单id */
+  menu_id:any;
+  /** 权限 */
+  permissions : Array<any> = [];
+  menuInfos: Array<any> = [];
   constructor(
       private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
-    let nav = '{"title":"期初库存","url":"/inventory-management/inventory-early","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
     this.getOpeningInventoryList('');
     this.getProductDefault();
   }
 
   ngOnInit() {
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
+    setTimeout(()=>{
+      this.menu_id = this.globalService.getMenuId();
+      this.rollback_url = this.globalService.getMenuUrl();
+      this.permissions = this.globalService.getPermissions();
+      this.menuInfos = this.globalService.getMenuInfos();
+    },this.globalService.getMenuPermissionDelayTime())
   }
 
+  /**
+   * 是否有该元素
+   */
+  isPermission(menu_id,value){
+    let key = menu_id +'_'+value;
+    if(value == ''){
+      key = menu_id;
+    }
+    return this.cookieStore.in_array(key, this.permissions);
+  }
 
   getOpeningInventoryList(p_ids:any=''){
     this.http.get(this.globalService.getDomain()+'/api/v1/getOpeningInventoryList?p_ids='+p_ids+'&sid='+this.cookieStore.getCookie('sid'))
@@ -249,6 +271,15 @@ export class InventoryEarlyComponent implements OnInit {
 
   }
 
+
+  /**
+   * 页码分页
+   * @param page
+   */
+  pagination(page : any) {
+    this.page = page;
+    this.getOpeningInventoryList(this.page);
+  }
 
 
 

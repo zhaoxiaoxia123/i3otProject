@@ -62,8 +62,8 @@ export class MedicalInventoryComponent implements OnInit {
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
-    let nav = '{"title":"库存管理","url":"/medical/medical-inventory","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
 
     window.scrollTo(0,0);
     this.super_admin_id = this.globalService.getAdminID();

@@ -17,8 +17,8 @@ export class ProcessInitiateComponent implements OnInit {
       private globalService:GlobalService,
       private cookieStore : CookieStoreService
   ) {
-    let nav = '{"title":"发起审批","url":"/process/process-initiate","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
     this.c_id = this.cookieStore.getCookie('cid');
     this.superAdminId = this.globalService.getAdminID();
   }

@@ -4,8 +4,8 @@
       <article class="col-sm-12 ">
         <sa-widget [editbutton]="false" [deletebutton]="false" [colorbutton]="false">
           <header>
-            <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-            <h2>进货单</h2>
+            <span class="widget-icon"> <i class="fa {{menuInfos?.menu_icon}}"></i> </span>
+            <h2>{{menuInfos?.menu_name}}</h2>
           </header>
           <div>
             <div class="widget-body no-padding" >
@@ -13,19 +13,19 @@
                 <article  class="col-sm-12">
                   <div class="navbar navbar-default">
                       <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-                        <div class="form-group pdlr-4">
+                        <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'add')">
                           <a class="btn btn-success btn-sm" (click)="isDemo('/procurement-management/add-receipt','0','')">
                             <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
                         </div>
-                        <div class="form-group pdlr-4">
+                        <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'edit')">
                           <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="isDemo('/procurement-management/add-receipt','1','edit')">
                             <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
                         </div>
-                        <div class="form-group pdlr-4">
+                        <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'delete')">
                           <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="deletePurchase('id')">
                             <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
                         </div>
-                        <div class="form-group pdlr-4">
+                        <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'detail')">
                           <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="isDemo('/procurement-management/add-receipt','1','detail')" >
                             <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
                         </div>
@@ -37,6 +37,7 @@
                           <!--<a class="btn default-btn btn-sm" (click)="editStatus(2,'id')" >-->
                             <!--<span class="fa-fw fa fa-check-square-o mr-5 color-green"></span>审核</a>-->
                         <!--</div>-->
+                        <div *ngIf="isPermission(menu_id,'verify')">
                         <div class="form-group pdlr-4" (click)="showModal('operation','operation','')" *ngIf="uid == pr_status">
                           <a class="btn default-btn btn-sm" >
                             <span class="fa-fw fa fa-stop  mr-5 text-warning"></span>审核</a>
@@ -49,6 +50,7 @@
                           <a class="btn default-btn btn-sm" >
                             <span class="fa-fw fa fa-mail-reply-all mr-5 text-primary"></span>弃废</a>
                         </div>
+                        </div>
                         <div class="form-group btn-group pdlr-4">
                           <a class="btn default-btn btn-sm dropdown-toggle" (click)="showAllCheck()" data-toggle="dropdown">
                             <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
@@ -56,12 +58,12 @@
                             <!--<li><a (click)="editStatus(1,'all')"><span class="fa-fw fa fa-play mr-5 color-green"></span>批量设为启动</a></li>-->
                             <!--<li><a (click)="editStatus(2,'all')"><span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>批量设为无效</a></li>-->
                             <!--<li class="divider"></li>-->
-                            <li><a (click)="showModal('operation','operation','all')"><span class="fa-fw fa  fa-stop  mr-5 text-warning"></span>批量审核</a></li>
+                            <li *ngIf="isPermission(menu_id,'verify')"><a (click)="showModal('operation','operation','all')"><span class="fa-fw fa  fa-stop  mr-5 text-warning"></span>批量审核</a></li>
                             <li class="divider"></li>
-                            <li><a (click)="showModal('operation','cancel','all')"><span class="fa-fw fa fa-trash-o mr-5 text-warning"></span>批量作废</a></li>
-                            <li><a (click)="showModal('operation','back_cancel','all')"><span class="fa-fw fa fa-mail-reply-all mr-5 text-primary"></span>批量弃废</a></li>
+                            <li *ngIf="isPermission(menu_id,'verify')"><a (click)="showModal('operation','cancel','all')"><span class="fa-fw fa fa-trash-o mr-5 text-warning"></span>批量作废</a></li>
+                            <li *ngIf="isPermission(menu_id,'verify')"><a (click)="showModal('operation','back_cancel','all')"><span class="fa-fw fa fa-mail-reply-all mr-5 text-primary"></span>批量弃废</a></li>
                             <li class="divider"></li>
-                            <li><a (click)="deletePurchase('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
+                            <li *ngIf="isPermission(menu_id,'delete')"><a (click)="deletePurchase('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
                           </ul>
                         </div>
                       </form>
@@ -76,7 +78,6 @@
                         </button>
                     </div>
                     </form>
-
                   </div>
                 </article>
               </div>

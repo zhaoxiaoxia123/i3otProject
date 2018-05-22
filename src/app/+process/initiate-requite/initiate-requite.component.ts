@@ -80,8 +80,8 @@ export class InitiateRequiteComponent implements OnInit {
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
-    let nav = '{"title":"报销","url":"/process/initiate-requite","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
     this.uid = this.cookieStore.getCookie('uid');
     this.cid = this.cookieStore.getCookie('cid');
     this.domain_url = this.globalService.getDomain();

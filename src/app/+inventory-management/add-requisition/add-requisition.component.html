@@ -18,7 +18,7 @@
           <div>
             <!--小部件内容-->
             <div class="widget-body no-padding">
-              <form id="smart-form-register" class="smart-form" [formGroup]="formModel" (ngSubmit)="onSubmit()">
+              <form id="smart-form-register" class="smart-form" [formGroup]="formModel"><!--- (ngSubmit)="onSubmit()"--->
                 <fieldset>
                   <legend>基本信息</legend>
                   <input type="hidden" name="stock_allot_id" formControlName="stock_allot_id">
@@ -353,6 +353,7 @@
                   </div>
                 </fieldset>
                 <footer>
+                  <div *ngIf="isPermission(menu_id,'verify')">
                   <button type="button" class="btn btn-primary"  (click)="showDetail('transfer')" *ngIf="uid == stockallotInfo?.result?.stock_allot_status">
                     转交
                   </button>
@@ -368,13 +369,15 @@
                   <button type="button" class="btn btn-warning" (click)="showModal('operation','operation')" *ngIf="uid == stockallotInfo?.result?.stock_allot_status">
                     审核
                   </button>
-
+                  </div>
                   <button type="button" class="btn btn-default" [routerLink]="['/inventory-management/inventory-requisition']">
                     返回
                   </button>
-                  <button class="btn btn-success" type="button">提交并新增</button>
-                  <button *ngIf="stock_allot_id==0" type="submit" class="btn btn-primary">提交</button>
-                  <button *ngIf="isDetail!='detail' && stock_allot_id!=0 && stockallotInfo?.result?.stock_allot_status != 'no' && stockallotInfo?.result?.stock_allot_status != 'yes' && stockallotInfo?.result?.stock_allot_status != 'cancel'" type="submit" class="btn btn-primary">提交</button>
+                  <div *ngIf="isPermission(menu_id,'add')">
+                  <button class="btn btn-success" type="button" (click)="onSubmit(2)">提交并新增</button>
+                  <button *ngIf="stock_allot_id==0" type="button" class="btn btn-primary" (click)="onSubmit(1)">提交</button>
+                  </div>
+                  <button *ngIf="isPermission(menu_id,'edit') && isDetail!='detail' && stock_allot_id!=0 && stockallotInfo?.result?.stock_allot_status != 'no' && stockallotInfo?.result?.stock_allot_status != 'yes' && stockallotInfo?.result?.stock_allot_status != 'cancel'" type="button" class="btn btn-primary" (click)="onSubmit(1)">提交</button>
 
                 </footer>
               </form>

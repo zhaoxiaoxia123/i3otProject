@@ -26,7 +26,7 @@
           <div>
             <!--小部件内容-->
             <div class="widget-body no-padding">
-              <form id="smart-form-register" class="smart-form" [formGroup]="formModel" (ngSubmit)="onSubmit()">
+              <form id="smart-form-register" class="smart-form" [formGroup]="formModel" ><!---(ngSubmit)="onSubmit()"-->
                 <fieldset>
                   <legend>基本信息</legend>
                   <input type="hidden" name="pr_id" formControlName="pr_id">
@@ -372,6 +372,8 @@
 
                 </fieldset>
                 <footer>
+
+                <div *ngIf="isPermission(menu_id,'verify')">
                   <button type="button" class="btn btn-primary"  (click)="showDetail('transfer')" *ngIf="uid == purchaseInfo?.result?.pr_status">
                     转交
                   </button>
@@ -387,14 +389,15 @@
                   <button type="button" class="btn btn-warning" (click)="showModal('operation','operation')" *ngIf="uid == purchaseInfo?.result?.pr_status">
                     审核
                   </button>
-
+                </div>
                   <button type="button" class="btn btn-default" [routerLink]="['/sales-management/sales-list']">
                     返回
                   </button>
-                  <button class="btn btn-success" type="button">提交并新增</button>
-                  <button *ngIf="pr_id==0" type="submit" class="btn btn-primary">提交</button>
-
-                  <button *ngIf="isDetail!='detail' && pr_id!=0 && purchaseInfo?.result?.pr_status != 'no' && purchaseInfo?.result?.pr_status != 'yes' && purchaseInfo?.result?.pr_status != 'cancel'" type="submit" class="btn btn-primary">提交</button>
+                  <div *ngIf="isPermission(menu_id,'add')">
+                  <button class="btn btn-success" type="button" (click)="onSubmit(2)">提交并新增</button>
+                  <button *ngIf="pr_id==0" type="button" class="btn btn-primary" (click)="onSubmit(1)">提交</button>
+                  </div>
+                  <button *ngIf="isPermission(menu_id,'edit') && isDetail!='detail' && pr_id!=0 && purchaseInfo?.result?.pr_status != 'no' && purchaseInfo?.result?.pr_status != 'yes' && purchaseInfo?.result?.pr_status != 'cancel'" type="button" class="btn btn-primary" (click)="onSubmit(1)">提交</button>
                 </footer>
               </form>
             </div>

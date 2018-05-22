@@ -4,10 +4,9 @@
       <article class="col-sm-12 ">
         <sa-widget [editbutton]="false" [deletebutton]="false" [colorbutton]="false">
           <header>
-            <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-            <h2>商品分类</h2>
+            <span class="widget-icon"><i class="fa {{menuInfos?.menu_icon}}"></i> </span>
+            <h2>{{menuInfos?.menu_name}}</h2>
           </header>
-
           <div>
             <div class="widget-body no-padding" >
               <div  class="row">
@@ -15,15 +14,15 @@
                   <div class="navbar navbar-default">
                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
 
-                      <div class="form-group pdlr-4">
+                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'add')">
                         <a class="btn btn-success btn-sm" (click)="lgModal.show()">
                           <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
                       </div>
-                      <div class="form-group pdlr-4">
+                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'edit')">
                         <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusCategoryId == 0}" (click)="detailCategory('edit',0)">
                           <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
                       </div>
-                      <div class="form-group pdlr-4">
+                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'delete')">
                         <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusCategoryId == 0}" (click)="deleteCategory('id')">
                           <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
                       </div>
@@ -36,7 +35,7 @@
                           <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
 
                         <ul class="dropdown-menu" role="menu">
-                          <li><a (click)="deleteCategory('all')"><span class="fa-fw fa fa-trash-o color-red mr-5"></span>批量删除</a></li>
+                          <li *ngIf="isPermission(menu_id,'delete')"><a (click)="deleteCategory('all')"><span class="fa-fw fa fa-trash-o color-red mr-5"></span>批量删除</a></li>
                         </ul>
                       </div>
                     </form>
@@ -142,9 +141,6 @@
                               </tbody>
                             </table>
                           </div>
-
-
-
                           <div [ngStyle]="{'padding': '0','z-index': '1','width':width_1,'float':'left'}" class="table-responsive">
                             <table class="table table-striped  smart-form table-height-20">
                               <thead>
@@ -162,7 +158,6 @@
                               </tr>
                               </tbody>
                             </table>
-
                           </div>
                         </div>
                         <!-- 底部-（分页部分）-->
@@ -236,8 +231,10 @@
       </div>
       <div class="modal-footer">
         <!--<button class="btn btn-success btn-sm" type="button"><span class="glyphicon glyphicon-plus"></span>保存并新增</button>-->
-        <button type="button" class="btn btn-primary" (click)="onSubmit();">保存</button>
-        <button class="btn btn-success" type="button">保存并新增</button>
+        <div *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')">
+        <button type="button" class="btn btn-primary" (click)="onSubmit(1);">保存</button>
+        <button class="btn btn-success" type="button" (click)="onSubmit(2);">保存并新增</button>
+        </div>
         <button type="button" class="btn btn-default" (click)="clearSubmit();lgModal.hide()">返回</button>
       </div>
     </div>

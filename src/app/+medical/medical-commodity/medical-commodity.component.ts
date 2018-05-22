@@ -20,6 +20,9 @@ export class MedicalCommodityComponent implements OnInit {
   selects : Array<any> = [];
   check : boolean = false;
 
+  page : any;
+  prev : boolean = false;
+  next : boolean = false;
   datePickerConfig = {
     locale: 'zh-CN',
     format:'YYYY-MM-DD',
@@ -27,9 +30,6 @@ export class MedicalCommodityComponent implements OnInit {
     showMultipleYearsNavigation:true,
   };
 
-  page : any;
-  prev : boolean = false;
-  next : boolean = false;
 
   //商品规格型号改来跟商品走
   //默认值
@@ -73,8 +73,8 @@ export class MedicalCommodityComponent implements OnInit {
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
 
-    let nav = '{"title":"商品入库管理","url":"/medical/medical-commodity","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
     // this.getProductList('1',0);
     window.scrollTo(0,0);
     this.super_admin_id = this.globalService.getAdminID();

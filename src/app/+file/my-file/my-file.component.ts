@@ -12,8 +12,8 @@ export class MyFileComponent implements OnInit {
   constructor(
       private globalService:GlobalService,
   ) {
-    let nav = '{"title":"我的文档","url":"/file/my-file","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
   }
   ngOnInit() {
   }

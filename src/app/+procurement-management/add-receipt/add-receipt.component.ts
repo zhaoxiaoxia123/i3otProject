@@ -40,7 +40,7 @@ export class AddReceiptComponent implements OnInit {
   category_type : number = 17; //采购类型
   p_type : number = 2;//商品
   role : number = 3; //供应商角色
-  rollback_url : string = '/procurement-management/add-receipt';
+  rollback_url : string = '';
 
   /**--------用作选择商品的变量------*/
   isShowProduct : string = '';
@@ -73,6 +73,10 @@ export class AddReceiptComponent implements OnInit {
   create_user_id: any = 0;
   log_table_name:string = 'purchase';
   log_type:string = 'purchase_cg_after';
+  /**菜单id */
+  menu_id:any;
+  /** 权限 */
+  permissions : Array<any> = [];
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -81,8 +85,7 @@ export class AddReceiptComponent implements OnInit {
       private cookieStore:CookieStoreService,
       private globalService:GlobalService,
       private notificationService: NotificationService) {
-    let nav = '{"title":"添加进货单","url":"/procurement-management/add-receipt/0","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
+
     this.uid = this.cookieStore.getCookie('uid');
     let pr_ids = routInfo.snapshot.params['pr_id'];
     if(pr_ids != '' && pr_ids != '0'){
@@ -120,6 +123,25 @@ export class AddReceiptComponent implements OnInit {
 
   ngOnInit() {
     this.getPurchaseDefault('');
+
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
+    setTimeout(()=>{
+      this.menu_id = this.globalService.getMenuId();
+      this.rollback_url = this.globalService.getMenuUrl();
+      this.permissions = this.globalService.getPermissions();
+    },this.globalService.getMenuPermissionDelayTime())
+  }
+
+  /**
+   * 是否有该元素
+   */
+  isPermission(menu_id,value){
+    let key = menu_id +'_'+value;
+    if(value == ''){
+      key = menu_id;
+    }
+    return this.cookieStore.in_array(key, this.permissions);
   }
 
   getPurchaseInfo(pr_id:number){
@@ -211,7 +233,7 @@ export class AddReceiptComponent implements OnInit {
       }
   }
 
-  onSubmit(){
+  onSubmit(num :number){
     if(this.formModel.value['pr_date'].trim() == ''){
       alert('请填写单据日期！');
       return false;
@@ -254,13 +276,50 @@ export class AddReceiptComponent implements OnInit {
           let info = JSON.parse(data['_body']);
           alert(info['msg']);
           if(info['status'] == 200) {
-            this.router.navigate(['/procurement-management/procurement-receipt']);
+            if(num == 2){
+              this.clear_();
+            }else {
+              this.router.navigate(['/procurement-management/procurement-receipt']);
+            }
           }else if(info['status'] == 202){
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
         }
     );
+  }
+
+  clear_(){
+    this.formModel.patchValue({
+      pr_id:'',
+      pr_order:'',
+      pr_date:'',
+      pr_type:'',
+      pr_supplier:'',
+      pr_department:'',
+      pr_employee:'',
+      pr_category:'',
+      pr_transport:'',
+      pr_qrcode:'',
+      pr_detail:'',
+      pr_note:'',
+      //审核加入
+      pr_assign:'',
+      pr_copy_person:'',
+    });
+
+    this.pr_supplier_default = 0; //供应商
+    this.pr_department_default = 0; //采购部门
+    this.pr_employee_default = 0; //采购员
+    this.pr_category_default =0; //采购类型
+    this.pr_transport_default = 0; //运输方式
+
+    //审核加入
+    this.approve_user = [];
+    this.follower_user = [];
+    this.create_user_id = 0;//当前创建者
+
+    this.selectProductList = [];
   }
 
 

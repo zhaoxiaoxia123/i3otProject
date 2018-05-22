@@ -75,7 +75,7 @@ export class SettingArchivesComponent implements OnInit {
     cid : any = 0;//当前登录用户的所属公司id
     super_admin_id : any = 0;//超级管理员所属公司id
     category_type : number = 6;
-    rollback_url : string = '/management/setting-archives';
+    rollback_url : string = '';
 
     /**
      * 图片
@@ -88,6 +88,11 @@ export class SettingArchivesComponent implements OnInit {
     croppedWidth:number;
     croppedHeight:number;
     @ViewChild('cropper',undefined) cropper:ImageCropperComponent;
+
+    /**菜单id */
+    menu_id:any;
+    /** 权限 */
+    permissions : Array<any> = [];
     constructor(
         private http:Http,
         private router : Router,
@@ -95,9 +100,6 @@ export class SettingArchivesComponent implements OnInit {
         private globalService:GlobalService,
         private notificationService: NotificationService) {
 
-        let nav = '{"title":"商品档案","url":"/management/setting-archives","class_":"active"}';
-        this.globalService.navEventEmitter.emit(nav);
-        // this.getProductList('1',0);
         window.scrollTo(0,0);
         this.super_admin_id = this.globalService.getAdminID();
         this.cid = this.cookieStore.getCookie('cid');
@@ -128,8 +130,37 @@ export class SettingArchivesComponent implements OnInit {
 
 
     ngOnInit() {
+
+        //顶部菜单读取
+        this.globalService.getMenuInfo();
+        setTimeout(()=>{
+            this.menu_id = this.globalService.getMenuId();
+            this.rollback_url = this.globalService.getMenuUrl();
+            this.permissions = this.globalService.getPermissions();
+        },this.globalService.getMenuPermissionDelayTime())
     }
-    
+
+    /**
+     * 是否有该元素
+     */
+    isPermission(menu_id,value){
+        let key = menu_id +'_'+value;
+        if(value == ''){
+            key = menu_id;
+        }
+        return this.cookieStore.in_array(key, this.permissions);
+    }
+
+    showPinyin(){
+        let name = this.p_name;
+        if(name.trim() != ''){
+            this.http.get(this.globalService.getDomain()+'/api/v1/getPinyin?name='+name)
+                .map((res)=>res.json())
+                .subscribe((data)=>{
+                    this.p_name = data['result'];
+                });
+        }
+    }
     /**
      * 获取默认参数
      */
@@ -287,7 +318,7 @@ export class SettingArchivesComponent implements OnInit {
     /**
      * 添加信息
      */
-    onSubmit(){
+    onSubmit(num:number){
         if(this.p_product_id.trim() == ''){
             alert('请输入编号！');
             return false;
@@ -354,7 +385,9 @@ export class SettingArchivesComponent implements OnInit {
                         this.check = false;
                     }
                     this.clear_();
-                    this.lgModal.hide();
+                    if(num == 1){
+                        this.lgModal.hide();
+                    }
                 }else if(info['status'] == 202){
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);

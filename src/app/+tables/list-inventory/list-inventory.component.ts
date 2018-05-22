@@ -30,7 +30,12 @@ export class ListInventoryComponent implements OnInit {
   width_1 : string = '100%';
 
   storehouse_info : Array<any> = [];
-  rollback_url : string = '/tables/inventory';
+  rollback_url : string = '';
+  /**菜单id */
+  menu_id:any;
+  /** 权限 */
+  permissions : Array<any> = [];
+  menuInfos : Array<any> = [];
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -38,8 +43,6 @@ export class ListInventoryComponent implements OnInit {
       private cookieStore:CookieStoreService,
       private globalService:GlobalService
   ) {
-    let nav = '{"title":"仓库列表","url":"/tables/inventory","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
     this.formModel = fb.group({
       keyword:[''],
     });
@@ -48,7 +51,28 @@ export class ListInventoryComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
+    setTimeout(()=>{
+      this.menu_id = this.globalService.getMenuId();
+      this.rollback_url = this.globalService.getMenuUrl();
+      this.permissions = this.globalService.getPermissions();
+      this.menuInfos = this.globalService.getMenuInfos();
+    },this.globalService.getMenuPermissionDelayTime())
   }
+
+  /**
+   * 是否有该元素
+   */
+  isPermission(menu_id,value){
+    let key = menu_id +'_'+value;
+    if(value == ''){
+      key = menu_id;
+    }
+    return this.cookieStore.in_array(key, this.permissions);
+  }
+
   /**
    * 获取仓库列表
    * @param number

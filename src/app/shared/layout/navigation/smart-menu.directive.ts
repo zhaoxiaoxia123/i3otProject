@@ -27,45 +27,44 @@ export class SmartMenuDirective implements OnInit, AfterContentInit {
   }
 
   ngOnInit() {
+    setTimeout(()=>{ //xxx
+      this.layoutSub = this.layoutService.subscribe((store)=> {
+        this.processLayout(store)
+      });
+      this.routerSub = this.router.events.subscribe((event: any)=>{
+        setTimeout(()=>{
+          this.processLayout(this.layoutService.store)
+        }, 1);
+        this.routerSub.unsubscribe()
+      });
 
-    this.layoutSub = this.layoutService.subscribe((store)=> {
-      this.processLayout(store)
-
-    });
-
-    this.routerSub = this.router.events.subscribe((event: any)=>{
-
-      setTimeout(()=>{
-        this.processLayout(this.layoutService.store)
-      }, 1);
-      this.routerSub.unsubscribe()
-    });
-
-    $('[routerLink]', this.$menu).on('click',()=>{
-      if(this.layoutService.store.mobileViewActivated){
-        this.layoutService.onCollapseMenu()
-      }
-    })
-
+      $('[routerLink]', this.$menu).on('click',()=>{
+        if(this.layoutService.store.mobileViewActivated){
+          this.layoutService.onCollapseMenu()
+        }
+      })
+    }, 1000);//xxx
   }
 
   private togglersBinded = false;
   ngAfterContentInit() {
-    if(!this.togglersBinded){
-      this.$menu.find('li:has(> ul)').each((i, li)=> {
-        let $menuItem = $(li);
-        let $a = $menuItem.find('>a');
-        let sign = $('<b class="collapse-sign"><em class="fa fa-plus-square-o"/></b>');
+    setTimeout(()=>{//xxx
+      if(!this.togglersBinded){
+        this.$menu.find('li:has(> ul)').each((i, li)=> {
+          let $menuItem = $(li);
+          let $a = $menuItem.find('>a');
+          let sign = $('<b class="collapse-sign"><em class="fa fa-plus-square-o"/></b>');
 
-        $a.on('click', (e)=> {
-          this.toggle($menuItem);
-          e.stopPropagation();
-          return false;
-        }).append(sign);
-        
-      });
-      this.togglersBinded = true;
-    }
+          $a.on('click', (e)=> {
+            this.toggle($menuItem);
+            e.stopPropagation();
+            return false;
+          }).append(sign);
+
+        });
+        this.togglersBinded = true;
+      }
+    }, 1000);//xxx
   }
 
   ngOnDestroy() {

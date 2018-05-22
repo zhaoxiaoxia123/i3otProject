@@ -1,43 +1,39 @@
 <div id="content" >
-
   <sa-widgets-grid>
     <div class="row">
       <article class="col-sm-12 ">
         <sa-widget [editbutton]="false" [deletebutton]="false" [colorbutton]="false">
           <header>
-            <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-            <h2>往来客户或单位</h2>
+            <span class="widget-icon"> <i class="fa {{menuInfos?.menu_icon}}"></i> </span>
+            <h2>{{menuInfos?.menu_name}}</h2>
           </header>
-
           <div>
             <div class="widget-body no-padding" >
               <div  class="row">
                 <article  class="col-sm-12">
                   <div class="navbar navbar-default">
                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-
-                      <div class="form-group pdlr-4">
+                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'add')">
                         <a class="btn btn-success btn-sm" (click)="lgModal.show();">
                           <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
                       </div>
-                      <div class="form-group pdlr-4">
+                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'edit')">
                         <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailCustomer('edit')">
                           <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
                       </div>
-                      <div class="form-group pdlr-4">
+                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'delete')">
                         <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="deleteCustomer('id')">
                           <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
                       </div>
-                      <div class="form-group pdlr-4">
+                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'detail')">
                         <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailCustomer('detail')">
                           <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
                       </div>
-
-                      <div class="form-group pdlr-4" *ngIf="isStatus == 2">
+                      <div class="form-group pdlr-4" *ngIf="isStatus == 2 && isPermission(menu_id,'edit')">
                         <a class="btn default-btn btn-sm" (click)="editStatus(1,'id')">
                           <span class="fa-fw fa fa-play mr-5 color-green"></span>启用</a>
                       </div>
-                      <div class="form-group pdlr-4" *ngIf="isStatus == 1">
+                      <div class="form-group pdlr-4" *ngIf="isStatus == 1 && isPermission(menu_id,'edit')">
                         <a class="btn default-btn btn-sm" (click)="editStatus(2,'id')" >
                           <span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>无效</a>
                       </div>
@@ -45,13 +41,12 @@
                         <a class="btn default-btn btn-sm dropdown-toggle" (click)="showAllCheck()" data-toggle="dropdown">
                           <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
                         <ul class="dropdown-menu" role="menu">
-                          <li><a (click)="editStatus(1,'all')" ><span class="fa-fw fa fa-play mr-5 color-green"></span>批量设为启动</a></li>
-                          <li><a (click)="editStatus(2,'all')"><span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>批量设为无效</a></li>
+                          <li *ngIf="isPermission(menu_id,'edit')"><a (click)="editStatus(1,'all')" ><span class="fa-fw fa fa-play mr-5 color-green"></span>批量设为启动</a></li>
+                          <li *ngIf="isPermission(menu_id,'edit')"><a (click)="editStatus(2,'all')"><span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>批量设为无效</a></li>
                           <li class="divider"></li>
-                          <li><a (click)="deleteCustomer('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
+                          <li *ngIf="isPermission(menu_id,'delete')"><a (click)="deleteCustomer('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
                         </ul>
                       </div>
-
                     </form>
 
                     <form class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search">
@@ -65,7 +60,6 @@
                         </button>
                       </div>
                     </form>
-
                   </div>
                 </article>
               </div>
@@ -85,11 +79,7 @@
                     <tbody>
                     <tr style="height: 34.5px;" *ngFor="let c of customerList?.result?.customerList?.data">
                       <td *ngIf="isAll != 0">
-                        <label class="checkbox mt-8" *ngIf="cid != super_admin_id && cid != c.c_id" >
-                          <input type="checkbox" name="checkbox-inline" disabled="disabled">
-                          <i></i>
-                        </label>
-                        <label class="checkbox" *ngIf="cid == super_admin_id || cid == c.c_id" >
+                        <label class="checkbox" >
                           <input type="checkbox" name="checkbox-inline" value="{{ c.c_id }}" [checked]="selects[c.c_id]" (change)="handle($event)">
                           <i></i>
                         </label>
@@ -268,7 +258,7 @@
                               <section>
                                 <label class="label">助记码</label>
                                 <label class="input">
-                                  <input type="text" placeholder="助记码(或单位简称)" name="c_abbreviation" [(ngModel)]="c_abbreviation" >
+                                  <input type="text" placeholder="助记码(或单位简称)" disabled="disabled" (blur)="showPinyin()" name="c_abbreviation" [(ngModel)]="c_abbreviation" >
                                 </label>
                               </section>
                             </div>
@@ -290,10 +280,9 @@
                               <section>
                                 <label class="label">链接百度云密钥</label>
                                 <label class="input">
-                                  <input  name='iot_secret' placeholder="请输入链接百度云密钥" type="text" formControlName="iot_secret">
+                                  <input  name="c_secret" placeholder="请输入链接百度云密钥" type="text" [(ngModel)]="c_secret">
                                 </label>
                               </section>
-
                             </div>
                             <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
                               <section>
@@ -469,8 +458,10 @@
         </sa-widget>
       </div>
       <div class="modal-footer">
-        <!--<button class="btn btn-success btn-sm" type="button"><span class="glyphicon glyphicon-plus"></span>保存并新增</button>-->
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onSubmit();lgModal.hide()">保存</button>
+        <div  *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')">
+        <button class="btn btn-success btn-sm" type="button" (click)="onSubmit(2);"><span class="glyphicon glyphicon-plus"></span>保存并新增</button>
+        <button type="button" class="btn btn-primary" (click)="onSubmit(1);">保存</button>
+        </div>
         <button type="button" class="btn btn-default"  (click)="lgModal.hide()" aria-label="Close">返回</button>
       </div>
     </div>
@@ -480,17 +471,17 @@
 
 
 
-<div class="modal fade" id="particulars" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" bsModal #detailModal="bs-modal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <!-- 关闭按钮 -->
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+        <button type="button" class="close" (click)="detailModal.hide()">
           ×
         </button>
         <!-- 标题 -->
         <h3 class="modal-title" data-ng-bind='results.title'></h3>
-        <h4 class="modal-title">单位名称-编号</h4>
+        <h4 class="modal-title">{{customerInfo?.result?.c_name}}-{{customerInfo?.result?.c_number}}</h4>
       </div>
       <div class="modal-body height-overflow-380">
         <div class="row ">
@@ -501,33 +492,33 @@
                 <tbody>
                 <tr>
                   <td class="width-120">单位编号:</td>
-                  <td class=""></td>
+                  <td class="">{{customerInfo?.result?.c_number}}</td>
                   <td class="width-120">单位名称:</td>
                   <td >
-                    <span ></span>
+                    {{customerInfo?.result?.c_name}}
                   </td>
                 </tr>
                 <tr>
                   <td class="width-120">商户类型:</td>
-                  <td class=""></td>
+                  <td class="">{{customerInfo?.result?.c_role}}</td>
                   <td class="width-120">上级分类：</td>
-                  <td class=""></td>
+                  <td class="">{{customerInfo?.result?.c_category_id}}</td>
                 </tr>
                 <tr>
                   <td class="width-120">单位电话：</td>
-                  <td class=""></td>
+                  <td class="">{{customerInfo?.result?.c_phone}}</td>
                   <td class="width-120">单位地址:</td>
-                  <td class=""></td>
+                  <td class="">{{customerInfo?.result?.c_address}}</td>
                 </tr>
                 <tr>
                   <td class="width-120">助记码：</td>
-                  <td class=""></td>
-                  <td class="width-120">价格级别：</td>
+                  <td class="">{{customerInfo?.result?.c_abbreviation}}</td>
+                  <td class="width-120"></td>
                   <td class=""></td>
                 </tr>
                 <tr>
                   <td class="width-120">备注：</td>
-                  <td class=""></td>
+                  <td class="">{{customerInfo?.result?.c_notes}}</td>
                   <td class="width-120"></td>
                   <td class=""></td>
                 </tr>
@@ -599,7 +590,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+        <button type="button" class="btn btn-default" (click)="detailModal.hide()">返回</button>
       </div>
     </div>
   </div>

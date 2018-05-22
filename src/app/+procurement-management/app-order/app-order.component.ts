@@ -107,8 +107,8 @@ export class AppOrderComponent implements OnInit {
                private globalService:GlobalService,
                private notificationService: NotificationService) {
 
-    let nav = '{"title":"添加采购订单","url":"/procurement-management/app-order/0","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
     this.uid = this.cookieStore.getCookie('uid');
     this.formModel = fb.group({
       pr_id:[''],

@@ -85,8 +85,8 @@ export class InitiateLeaveComponent implements OnInit {
               private cookieStore:CookieStoreService,
               private globalService:GlobalService,
               private notificationService: NotificationService) {
-    let nav = '{"title":"请假","url":"/process/initiate-leave","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
     this.uid = this.cookieStore.getCookie('uid');
     this.cid = this.cookieStore.getCookie('cid');
     this.domain_url = this.globalService.getDomain();

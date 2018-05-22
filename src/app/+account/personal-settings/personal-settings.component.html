@@ -1,25 +1,16 @@
 <div id="content">
   <sa-widgets-grid>
-
     <div class="row">
-
-
       <article class="col-sm-12 ">
-
-
         <sa-widget [editbutton]="false" [deletebutton]="false" [colorbutton]="false">
-
           <header>
             <span class="widget-icon"> <i class="fa fa-cogs"></i> </span>
             <h2>个人设置 </h2>
           </header>
-
           <!-- widget div-->
           <div>
-
             <!-- widget content -->
             <div class="widget-body">
-
               <div class="tabs-left">
                 <ul class="nav nav-tabs tabs-left personal-lb" id="demo-pill-nav">
                   <li [class.active]="state.tabs.demo2=='tab-r1'" class="active">
@@ -37,34 +28,23 @@
                 </ul>
                 <tabset>
                   <tab [active]="state.tabs.demo2 == 'tab-r1'" class="personal-l">
-
-                    <app-account-personal [fromFatherValue]="userInfo"></app-account-personal>
+                    <app-account-personal [fromFatherValue]="userInfo" [rollback_url]="rollback_url" [menu_id]="menu_id" [permissions]="permissions"></app-account-personal>
                   </tab>
                   <tab [active]="state.tabs.demo2 == 'tab-r2'" class="personal-l">
-                    <app-account-password [fromFatherValue]="userInfo"></app-account-password>
+                    <app-account-password [fromFatherValue]="userInfo" [rollback_url]="rollback_url" [menu_id]="menu_id" [permissions]="permissions"></app-account-password>
                   </tab>
                   <tab [active]="state.tabs.demo2 == 'tab-r3'" class="personal-l">
-                    <app-account-binding [fromFatherValue]="userInfo"></app-account-binding>
+                    <app-account-binding [fromFatherValue]="userInfo" [rollback_url]="rollback_url" [menu_id]="menu_id" [permissions]="permissions"></app-account-binding>
                   </tab>
                 </tabset>
               </div>
-
             </div>
             <!-- end widget content -->
-
           </div>
           <!-- end widget div -->
-
         </sa-widget>
-
-
       </article>
-
-
     </div>
-
-
-
   </sa-widgets-grid>
 </div>
 

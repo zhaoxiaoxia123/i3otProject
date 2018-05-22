@@ -12,8 +12,8 @@ export class MyMailComponent implements OnInit {
   constructor(
       private globalService:GlobalService,
   ) {
-    let nav = '{"title":"我的邮件","url":"/mail/my-mail","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
   }
 
   ngOnInit() {

@@ -51,8 +51,8 @@ export class ProcurementOrderComponent implements OnInit {
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
-    let nav = '{"title":"采购订单","url":"/procurement-management/procurement-order","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
     this.uid = this.cookieStore.getCookie('uid');
     this.getPurchaseList('1');
     window.scrollTo(0,0);

@@ -36,8 +36,8 @@ export class AddCustomer1Component implements OnInit {
       private globalService:GlobalService
   ) {
 
-    let nav = '{"title":"添加CRM","url":"/forms/customer1/0","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
 
     this.formModel = fb.group({
       c_id:[''],

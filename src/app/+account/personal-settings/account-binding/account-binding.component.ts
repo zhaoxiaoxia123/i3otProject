@@ -23,7 +23,12 @@ export class AccountBindingComponent implements OnInit {
 
     uid : any = 0;//当前登录用户id
     domain_url : string;
-    rollback_url : string = '/account/personal-settings';
+
+    @Input() rollback_url: string = '';
+    /**菜单id */
+    @Input() menu_id:any;
+    /** 权限 */
+    @Input() permissions : Array<any> = [];
     constructor(
         private http:Http,
         private router : Router,

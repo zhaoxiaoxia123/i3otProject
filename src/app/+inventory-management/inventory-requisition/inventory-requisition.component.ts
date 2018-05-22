@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder} from "@angular/forms";
 import {Http} from "@angular/http";
 import {Router} from "@angular/router";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
@@ -29,8 +28,7 @@ export class InventoryRequisitionComponent implements OnInit {
   width_1 : string = '70%';
 
   keyword:string = '';
-  rollback_url : string = '/inventory-management/inventory-requisition';
-
+  rollback_url : string = '';
 
   /**
    * 用作审核的变量
@@ -41,7 +39,6 @@ export class InventoryRequisitionComponent implements OnInit {
   sa_u_username: any = '';//当前选中的创建者昵称
   sa_order: any = '';//当前选中的单据号
 
-
   operate_type : string = '';//操作弹框类型
   operate_button_type : string = '';//操作按钮类型
   operate_button_type_is_more : string = '';//是否是批量操作
@@ -49,20 +46,45 @@ export class InventoryRequisitionComponent implements OnInit {
   operate_types : string = '';//操作弹框类型
   log_type:string = 'stockallot';
   log_table_name:string = 'stockallot';
+  /**菜单id */
+  menu_id:any;
+  /** 权限 */
+  permissions : Array<any> = [];
+  menuInfos : Array<any> = [];
+
   constructor(
       private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
-    let nav = '{"title":"调拨单","url":"/inventory-management/inventory-requisition","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
     this.uid = this.cookieStore.getCookie('uid');
     this.getStockallotList('1');
     window.scrollTo(0,0);
   }
 
   ngOnInit() {
+
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
+    setTimeout(()=>{
+      this.menu_id = this.globalService.getMenuId();
+      this.rollback_url = this.globalService.getMenuUrl();
+      this.permissions = this.globalService.getPermissions();
+      this.menuInfos = this.globalService.getMenuInfos();
+    },this.globalService.getMenuPermissionDelayTime())
   }
+
+  /**
+   * 是否有该元素
+   */
+  isPermission(menu_id,value){
+    let key = menu_id +'_'+value;
+    if(value == ''){
+      key = menu_id;
+    }
+    return this.cookieStore.in_array(key, this.permissions);
+  }
+
 
   /**
    * 获取列表
@@ -281,7 +303,6 @@ export class InventoryRequisitionComponent implements OnInit {
   isStatusShow(sa_id:any,status:any,u_id:any,u_username:string,sa_order:string){
     this.editStatusStockallotId = sa_id;
     this.isStatus = status;
-
 
     this.sa_u_id = u_id;
     this.sa_status = status;

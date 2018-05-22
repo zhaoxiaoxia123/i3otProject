@@ -4,8 +4,8 @@
       <article class="col-sm-12 ">
         <sa-widget [editbutton]="false" [deletebutton]="false" [colorbutton]="false">
           <header>
-            <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-            <h2>往来客户或单位</h2>
+            <span class="widget-icon">  <i class="fa {{menuInfos?.menu_icon}}"></i> </span>
+            <h2>{{menuInfos?.menu_name}}</h2>
           </header>
 
           <div>
@@ -15,28 +15,28 @@
                   <div class="navbar navbar-default">
                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
 
-                      <div class="form-group pdlr-4">
+                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'add')">
                         <a class="btn btn-success btn-sm" (click)="lgModal.show();">
                           <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
                       </div>
-                      <div class="form-group pdlr-4">
+                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'edit')">
                         <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailCustomer('edit')">
                           <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
                       </div>
-                      <div class="form-group pdlr-4">
+                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'delete')">
                         <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="deleteCustomer('id')">
                           <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
                       </div>
-                      <div class="form-group pdlr-4">
+                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'detail')">
                         <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailCustomer('detail')">
                           <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
                       </div>
 
-                      <div class="form-group pdlr-4" *ngIf="isStatus == 2">
+                      <div class="form-group pdlr-4" *ngIf="isStatus == 2 || isPermission(menu_id,'edit')">
                         <a class="btn default-btn btn-sm" (click)="editStatus(1,'id')">
                           <span class="fa-fw fa fa-play mr-5 color-green"></span>启用</a>
                       </div>
-                      <div class="form-group pdlr-4" *ngIf="isStatus == 1">
+                      <div class="form-group pdlr-4" *ngIf="isStatus == 1 || isPermission(menu_id,'edit')">
                         <a class="btn default-btn btn-sm" (click)="editStatus(2,'id')" >
                           <span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>无效</a>
                       </div>
@@ -44,15 +44,13 @@
                         <a class="btn default-btn btn-sm dropdown-toggle" (click)="showAllCheck()" data-toggle="dropdown">
                           <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
                         <ul class="dropdown-menu" role="menu">
-                          <li><a (click)="editStatus(1,'all')" ><span class="fa-fw fa fa-play mr-5 color-green"></span>批量设为启动</a></li>
-                          <li><a (click)="editStatus(2,'all')"><span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>批量设为无效</a></li>
+                          <li *ngIf="isPermission(menu_id,'edit')"><a (click)="editStatus(1,'all')" ><span class="fa-fw fa fa-play mr-5 color-green"></span>批量设为启动</a></li>
+                          <li *ngIf="isPermission(menu_id,'edit')"><a (click)="editStatus(2,'all')"><span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>批量设为无效</a></li>
                           <li class="divider"></li>
-                          <li><a (click)="deleteCustomer('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
+                          <li *ngIf="isPermission(menu_id,'delete')"><a (click)="deleteCustomer('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
                         </ul>
                       </div>
-
                     </form>
-
                     <form class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search">
                       <div class="form-group pdlr-4">
                         <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" name="keyword" [(ngModel)]="keyword" placeholder="请输入搜索内容" type="text">
@@ -64,11 +62,9 @@
                         </button>
                       </div>
                     </form>
-
                   </div>
                 </article>
               </div>
-
               <div  class="padding0">
                 <div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-scrolling padding0">
                   <table class="table table-striped smart-form table-height-20">
@@ -285,7 +281,7 @@
                               <section>
                                 <label class="label">助记码</label>
                                 <label class="input">
-                                  <input type="text" placeholder="助记码(或单位简称)" name="c_abbreviation" [(ngModel)]="c_abbreviation" >
+                                  <input type="text" (blur)="showPinyin()" disabled="disabled" placeholder="助记码(或单位简称)" name="c_abbreviation" [(ngModel)]="c_abbreviation" >
                                 </label>
                               </section>
                             </div>
@@ -492,8 +488,10 @@
       </div>
       <div class="modal-footer">
         <!--<button class="btn btn-success btn-sm" type="button"><span class="glyphicon glyphicon-plus"></span>保存并新增</button>-->
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onSubmit();lgModal.hide()">保存</button>
-        <button class="btn btn-success" type="button">保存并新增</button>
+        <div *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onSubmit(1);">保存</button>
+        <button class="btn btn-success" type="button" (click)="onSubmit(2);">保存并新增</button>
+        </div>
         <button type="button" class="btn btn-default"  (click)="clear_();lgModal.hide()" aria-label="Close">返回</button>
       </div>
     </div>

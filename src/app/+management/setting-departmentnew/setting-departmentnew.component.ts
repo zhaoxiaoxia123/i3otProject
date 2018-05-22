@@ -53,17 +53,19 @@ export class SettingDepartmentnewComponent implements OnInit {
 
     customer_name : string = '';
     keyword:string = '';
-    rollback_url : string = '/management/setting-departmentnew';
+    rollback_url : string = '';
+
+    /**菜单id */
+    menu_id:any;
+    /** 权限 */
+    permissions : Array<any> = [];
   constructor(
       fb:FormBuilder,
       private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
-      let nav = '{"title":"部门设置","url":"/management/setting-departmentnew","class_":"active"}';
-      this.globalService.navEventEmitter.emit(nav);
 
-      // this.getDepartmentList('1',0);
       window.scrollTo(0,0);
       this.getDepartmentDefault();
       this.formModel = fb.group({
@@ -84,7 +86,39 @@ export class SettingDepartmentnewComponent implements OnInit {
 
   ngOnInit() {
       this.customer_name = this.cookieStore.getCookie('c_name');
+
+      //顶部菜单读取
+      this.globalService.getMenuInfo();
+      setTimeout(()=>{
+          this.menu_id = this.globalService.getMenuId();
+          this.rollback_url = this.globalService.getMenuUrl();
+          this.permissions = this.globalService.getPermissions();
+      },this.globalService.getMenuPermissionDelayTime())
   }
+
+    /**
+     * 是否有该元素
+     */
+    isPermission(menu_id,value){
+        let key = menu_id +'_'+value;
+        if(value == ''){
+            key = menu_id;
+        }
+        return this.cookieStore.in_array(key, this.permissions);
+    }
+
+    showPinyin(){
+        let name = this.formModel.value['department_name'];
+        if(name.trim() != ''){
+            this.http.get(this.globalService.getDomain()+'/api/v1/getPinyin?name='+name)
+                .map((res)=>res.json())
+                .subscribe((data)=>{
+                    this.formModel.patchValue({
+                        'department_shortcode': data['result']
+                    });
+                });
+        }
+    }
     /**
      * 获取部门列表
      * @param number
@@ -343,7 +377,7 @@ export class SettingDepartmentnewComponent implements OnInit {
     /**
      * 提交部门
      */
-    onSubmit(){
+    onSubmit(num:number){
         if(this.formModel.value['department_name'].trim() == ''){
             alert('请填写部门名称！');
             return false;
@@ -376,7 +410,9 @@ export class SettingDepartmentnewComponent implements OnInit {
                 alert(info['msg']);
                 if(info['status'] == 200) {
                     this.departmentList = info;
-                    this.lgModal.hide();
+                    if(num == 1) {
+                        this.lgModal.hide();
+                    }
                     if (this.departmentList && this.departmentList['result']['departmentList'].length > 0) {
                         if (this.departmentList['result']['departmentList']['current_page'] == this.departmentList['result']['departmentList']['last_page']) {
                             this.next = true;

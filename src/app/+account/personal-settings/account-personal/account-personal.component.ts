@@ -25,16 +25,18 @@ export class AccountPersonalComponent implements OnInit {
     cid : any = 0;//当前登录用户的所属公司id
     uid : any = 0;//当前登录用户id
     domain_url : string;
-    rollback_url : string = '/account/personal-settings';
+
+    @Input() rollback_url: string = '';
+    /**菜单id */
+    @Input() menu_id:any;
+    /** 权限 */
+    @Input() permissions : Array<any> = [];
     constructor(
         fb:FormBuilder,
         private http:Http,
         private router : Router,
         private cookieStore:CookieStoreService,
         private globalService:GlobalService) {
-        let nav = '{"title":"个人设置","url":"/account/personal-settings","class_":"active"}';
-        this.globalService.navEventEmitter.emit(nav);
-
         window.scrollTo(0,0);
         this.formModel = fb.group({
             c_number:[''],
@@ -54,30 +56,33 @@ export class AccountPersonalComponent implements OnInit {
         this.cid = this.cookieStore.getCookie('cid');
         this.uid = this.cookieStore.getCookie('uid');
         this.domain_url = this.globalService.getDomain();
-        // this.getUserDefault();
-
     }
 
   ngOnInit() {
         setTimeout(()=>{
             this.userInfo = this.fromFatherValue;
-            console.log('this.userInfo:---- ');
-            console.log(this.userInfo );
             this.setValue();
         },800);
   }
-    // /**
-    //  * 获取默认参数
-    //  */
-    // getUserDefault() {
-    //     this.http.get(this.globalService.getDomain()+'/api/v1/getUserInfo?u_id='+this.uid)
-    //         .map((res)=>res.json())
-    //         .subscribe((data)=>{
-    //             this.userInfo = data;
-    //             console.log(this.userInfo);
-    //            this.setValue();
-    //         });
-    // }
+
+    /**
+     * 是否有该元素
+     */
+    isPermission(menu_id,value){
+        let key = menu_id +'_'+value;
+        if(value == ''){
+            key = menu_id;
+        }
+        return this.cookieStore.in_array(key, this.permissions);
+    }
+
+
+    editPersonal(type:any){
+        if(this.isPermission(this.menu_id,type)){
+            this.lgModal.show();
+        }
+    }
+
     /**
      * 提交公司信息
      */

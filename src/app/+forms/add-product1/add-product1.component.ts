@@ -48,8 +48,8 @@ export class AddProduct1Component implements OnInit {
       private cookieStore:CookieStoreService,
       private globalService:GlobalService
   ) {
-    let nav = '{"title":"添加产品","url":"/forms/product1/0","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
 
     this.formModel = fb.group({
       p_id:[''],

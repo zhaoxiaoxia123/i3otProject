@@ -79,8 +79,8 @@ export class HelmetChartComponent implements OnInit {
         private globalService:GlobalService,
         private notificationService: NotificationService
     ) {
-        let nav = '{"title":"员工传感数据","url":"/equipment/helmet-chart","class_":"active"}';
-        this.globalService.navEventEmitter.emit(nav);
+        //顶部菜单读取
+        this.globalService.getMenuInfo();
         this.is_login_cid = this.globalService.getSjfbNumber()
         this.formModel = fb.group({
             keyword:[''],

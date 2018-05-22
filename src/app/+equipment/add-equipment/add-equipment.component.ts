@@ -39,7 +39,11 @@ export class AddEquipmentComponent implements OnInit {
   div_show_sensor : boolean = true;//传感器点击显示下拉框
   div_show_comm : boolean = true;//通讯方式点击显示下拉框
 
-  rollback_url : string = '/equipment/add-equipment';
+  rollback_url : string = '';
+  /**菜单id */
+  menu_id:any;
+  /** 权限 */
+  permissions : Array<any> = [];
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -47,9 +51,6 @@ export class AddEquipmentComponent implements OnInit {
       private routInfo : ActivatedRoute,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
-
-    let nav = '{"title":"添加设备","url":"/equipment/add-equipment","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
 
     this.formModel = fb.group({
       i3otp_id:[''],
@@ -89,6 +90,25 @@ export class AddEquipmentComponent implements OnInit {
       this.rollback_url += '/0';
     }
     this.getI3otpDefault();
+
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
+    setTimeout(()=>{
+      this.menu_id = this.globalService.getMenuId();
+      this.rollback_url = this.globalService.getMenuUrl();
+      this.permissions = this.globalService.getPermissions();
+    },this.globalService.getMenuPermissionDelayTime())
+  }
+
+  /**
+   * 是否有该元素
+   */
+  isPermission(menu_id,value){
+    let key = menu_id +'_'+value;
+    if(value == ''){
+      key = menu_id;
+    }
+    return this.cookieStore.in_array(key, this.permissions);
   }
 
   // getKeys(item){
@@ -102,52 +122,48 @@ export class AddEquipmentComponent implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.i3otp_info = data;
+          this.formModel.patchValue({
+            i3otp_id:this.i3otp_info['result']['i3otp_id'],
+            i3otp_pid:this.i3otp_info['result']['i3otp_pid'],
+            i3otp_c_pid:this.i3otp_info['result']['i3otp_c_pid'],
+            i3otp_category:this.i3otp_info['result']['i3otp_category'],
+            i3otp_name:this.i3otp_info['result']['i3otp_name'],
+            i3otp_address:this.i3otp_info['result']['i3otp_address'],
+            i3otp_communication:this.i3otp_info['result']['i3otp_communications'],
+            c_id:this.i3otp_info['result']['c_id'],
+            u_id:this.i3otp_info['result']['u_id'],
+            o_id:this.i3otp_info['result']['o_id'],
+            i3otp_spec:this.i3otp_info['result']['i3otp_spec'],
+            i3otp_sensor_intervan:this.i3otp_info['result']['i3otp_sensor_intervan'],
+            i3otp_qc_date:this.i3otp_info['result']['i3otp_qc_date'],
+            i3otp_activation:this.i3otp_info['result']['i3otp_activation'],
+            i3otp_status:this.i3otp_info['result']['i3otp_status'],
+            i3otp_p_origin:this.i3otp_info['result']['i3otp_p_origin'],
+            i3otp_p_export:this.i3otp_info['result']['i3otp_p_export'],
+            i3otp_hardware:this.i3otp_info['result']['i3otp_hardware'],
+            i3otp_firmware:this.i3otp_info['result']['i3otp_firmware'],
+            i3otp_f_update:this.i3otp_info['result']['i3otp_f_update'],
+            i3otp_mac_addr:this.i3otp_info['result']['i3otp_mac_addr'],
+            i3otp_sensor_category:this.i3otp_info['result']['i3otp_sensor_categorys'],
+            i3otp_production_date:this.i3otp_info['result']['i3otp_production_date'],
+          });
+
+          this.u_id_default = this.i3otp_info['result']['u_id'];
+          // this.o_id_default = this.i3otp_info['result']['o_id'];
+          this.c_id_default = this.i3otp_info['result']['c_id'];
+          this.i3otp_category_default = this.i3otp_info['result']['i3otp_category'];
+
+          this.join_sensor_category = this.i3otp_info['result']['i3otp_sensor_categorys'];//传感器类型
+          this.join_category = this.i3otp_info['result']['i3otp_communications'];
+
+          //显示的值
+          this.show_join_sensor_category =  this.i3otp_info['result']['show_join_sensor_category'];//传感器类型
+          this.show_join_category = this.i3otp_info['result']['show_join_category'];
+
+          if(this.c_id_default != 0){
+            this.getTheUserList(this.c_id_default,2);
+          }
         });
-    setTimeout(() => {
-      console.log('this.i3otp_info:---');
-      console.log(this.i3otp_info);
-      this.formModel.patchValue({
-        i3otp_id:this.i3otp_info['result']['i3otp_id'],
-        i3otp_pid:this.i3otp_info['result']['i3otp_pid'],
-        i3otp_c_pid:this.i3otp_info['result']['i3otp_c_pid'],
-        i3otp_category:this.i3otp_info['result']['i3otp_category'],
-        i3otp_name:this.i3otp_info['result']['i3otp_name'],
-        i3otp_address:this.i3otp_info['result']['i3otp_address'],
-        i3otp_communication:this.i3otp_info['result']['i3otp_communications'],
-        c_id:this.i3otp_info['result']['c_id'],
-        u_id:this.i3otp_info['result']['u_id'],
-        o_id:this.i3otp_info['result']['o_id'],
-        i3otp_spec:this.i3otp_info['result']['i3otp_spec'],
-        i3otp_sensor_intervan:this.i3otp_info['result']['i3otp_sensor_intervan'],
-        i3otp_qc_date:this.i3otp_info['result']['i3otp_qc_date'],
-        i3otp_activation:this.i3otp_info['result']['i3otp_activation'],
-        i3otp_status:this.i3otp_info['result']['i3otp_status'],
-        i3otp_p_origin:this.i3otp_info['result']['i3otp_p_origin'],
-        i3otp_p_export:this.i3otp_info['result']['i3otp_p_export'],
-        i3otp_hardware:this.i3otp_info['result']['i3otp_hardware'],
-        i3otp_firmware:this.i3otp_info['result']['i3otp_firmware'],
-        i3otp_f_update:this.i3otp_info['result']['i3otp_f_update'],
-        i3otp_mac_addr:this.i3otp_info['result']['i3otp_mac_addr'],
-        i3otp_sensor_category:this.i3otp_info['result']['i3otp_sensor_categorys'],
-        i3otp_production_date:this.i3otp_info['result']['i3otp_production_date'],
-      });
-
-      this.u_id_default = this.i3otp_info['result']['u_id'];
-      // this.o_id_default = this.i3otp_info['result']['o_id'];
-      this.c_id_default = this.i3otp_info['result']['c_id'];
-      this.i3otp_category_default = this.i3otp_info['result']['i3otp_category'];
-
-      this.join_sensor_category = this.i3otp_info['result']['i3otp_sensor_categorys'];//传感器类型
-      this.join_category = this.i3otp_info['result']['i3otp_communications'];
-
-      //显示的值
-      this.show_join_sensor_category =  this.i3otp_info['result']['show_join_sensor_category'];//传感器类型
-      this.show_join_category = this.i3otp_info['result']['show_join_category'];
-
-      if(this.c_id_default != 0){
-        this.getTheUserList(this.c_id_default,2);
-      }
-    }, 500);
   }
 
   /**
@@ -199,22 +215,19 @@ export class AddEquipmentComponent implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.i3otpListUser = data;
+          if(this.i3otpListUser['status'] == 202){
+            alert(this.i3otpListUser['msg']);
+            this.cookieStore.removeAll(this.rollback_url);
+            this.router.navigate(['/auth/login']);
+          }
+          if(this.i_id == 0) {
+            //默认选中值
+            this.u_id_default = 0;
+          }
         });
-    setTimeout(() => {
-      // console.log('this.i3otpListUser');
-      // console.log(this.i3otpListUser);
-      if(this.i3otpListUser['status'] == 202){
-        alert(this.i3otpListUser['msg']);
-        this.cookieStore.removeAll(this.rollback_url);
-        this.router.navigate(['/auth/login']);
-      }
-      if(this.i_id == 0) {
-        //默认选中值
-        this.u_id_default = 0;
-      }
-    }, 600);
+
   }
-  onSubmit(){
+  onSubmit(num:number){
     if(this.formModel.value['i3otp_pid'].trim() == ''){
       alert('请填写设备编号！');
       return false;
@@ -253,18 +266,58 @@ export class AddEquipmentComponent implements OnInit {
           let info = JSON.parse(data['_body']);
           alert(info['msg']);
           if(info['status'] == 200) {
+            if(num == 1){
               this.router.navigateByUrl('/equipment/equipment-list');
+            }else {
+              this.clear_();
+            }
           }else if(info['status'] == 202) {
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
-        },
-        response => {
-          console.log('PATCH call in error', response);
         }
     );
   }
 
+  clear_(){
+    this.formModel.patchValue({
+      i3otp_id:'',
+      i3otp_pid:'',
+      i3otp_c_pid:'',
+      i3otp_category:'',
+      i3otp_name:'',
+      i3otp_address:'',
+      i3otp_communication:'',
+      c_id:'',
+      u_id:'',
+      o_id:'',
+      i3otp_spec:'',
+      i3otp_sensor_intervan:'',
+      i3otp_qc_date:'',
+      i3otp_activation:'',
+      i3otp_status:'',
+      i3otp_p_origin:'',
+      i3otp_p_export:'',
+      i3otp_hardware:'',
+      i3otp_firmware:'',
+      i3otp_f_update:'',
+      i3otp_mac_addr:'',
+      i3otp_sensor_category:'',
+      i3otp_production_date:'',
+    });
+
+    this.u_id_default = 0;
+    this.c_id_default = 0;
+    this.i3otp_category_default = 0;
+
+    this.join_sensor_category = [];//传感器类型
+    this.join_category =[];
+
+    //显示的值
+    this.show_join_sensor_category =  [];//传感器类型
+    this.show_join_category = [];
+
+  }
 
   /**
    * 传感器类型多选

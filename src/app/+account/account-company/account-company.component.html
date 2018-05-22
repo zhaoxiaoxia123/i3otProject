@@ -6,11 +6,11 @@
           <div class="col-sm-12">
             <div class="air air-right pd-20 text-align-center">
               <!--<a href="" class="btn txt-color-white bg-color-teal btn-sm"><i class="fa fa-check"></i> 关注</a>&#xA0;-->
-              <a (click)="lgModal.show()" class="btn txt-color-white bg-color-lightBlue btn-sm"><!--<i class="fa fa-link"></i>--> 编辑公司信息</a>
+              <a *ngIf="isPermission(menu_id,'edit')" (click)="editCompany('edit')" class="btn txt-color-white bg-color-lightBlue btn-sm"><!--<i class="fa fa-link"></i>--> 编辑公司信息</a>
             </div>
             <h1 class="title-h1">{{customerInfo?.result?.customerInfo?.c_name}}<a class="padding-left-5" href="">({{customerInfo?.result?.customerInfo?.c_number}})</a></h1><hr />
           </div>
-          <div class="col-xs-8" (click)="lgModal.show()">
+          <div class="col-xs-8" (click)="editCompany('edit')">
               <div class="editor padding-left-20 line-2">
                 <h4 class="no-margin size-bold">{{customerInfo?.result?.customerInfo?.c_abbreviation}}</h4>
                 <p>{{customerInfo?.result?.customerInfo?.c_notes}}</p>

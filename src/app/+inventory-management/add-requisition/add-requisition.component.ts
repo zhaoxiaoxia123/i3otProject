@@ -34,7 +34,7 @@ export class AddRequisitionComponent implements OnInit {
     user_u_id_default : number = 0; //经手人
     // out_storehouse_id_default : number = 0; //出库仓库id
     // in_storehouse_id_default : number = 0; //入库仓库id
-    rollback_url : string = '/inventory-management/add-requisition';
+    rollback_url : string = '';
 
     /**--------用作选择库存产品的变量------*/
     isShowProduct : string = '';
@@ -68,6 +68,10 @@ export class AddRequisitionComponent implements OnInit {
 
     log_type : string = 'stockallot';
     log_table_name : string = 'stockallot';
+    /**菜单id */
+    menu_id:any;
+    /** 权限 */
+    permissions : Array<any> = [];
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -76,8 +80,7 @@ export class AddRequisitionComponent implements OnInit {
       private cookieStore:CookieStoreService,
       private globalService:GlobalService,
       private notificationService: NotificationService) {
-    let nav = '{"title":"添加调拨单","url":"/inventory-management/add-requisition/0","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
+
       this.uid = this.cookieStore.getCookie('uid');
     this.formModel = fb.group({
       stock_allot_id:[''],
@@ -112,9 +115,29 @@ export class AddRequisitionComponent implements OnInit {
       this.rollback_url += '/0';
     }
     this.getStockallotDefault('');
+
+      //顶部菜单读取
+      this.globalService.getMenuInfo();
+      setTimeout(()=>{
+          this.menu_id = this.globalService.getMenuId();
+          this.rollback_url = this.globalService.getMenuUrl();
+          this.permissions = this.globalService.getPermissions();
+      },this.globalService.getMenuPermissionDelayTime())
   }
 
-  getStockallotInfo(stock_allot_id:number){
+    /**
+     * 是否有该元素
+     */
+    isPermission(menu_id,value){
+        let key = menu_id +'_'+value;
+        if(value == ''){
+            key = menu_id;
+        }
+        return this.cookieStore.in_array(key, this.permissions);
+    }
+
+
+    getStockallotInfo(stock_allot_id:number){
     this.http.get(this.globalService.getDomain()+'/api/v1/getStockallotInfo?stock_allot_id='+stock_allot_id)
         .map((res)=>res.json())
         .subscribe((data)=>{
@@ -195,7 +218,7 @@ export class AddRequisitionComponent implements OnInit {
         }
   }
 
-  onSubmit(){
+  onSubmit(num :number){
     if(this.formModel.value['stock_allot_date'].trim() == ''){
       alert('请填写调拨单日期！');
       return false;
@@ -236,7 +259,11 @@ export class AddRequisitionComponent implements OnInit {
           let info = JSON.parse(data['_body']);
           alert(info['msg']);
           if(info['status'] == 200) {
-            this.router.navigate(['/inventory-management/inventory-requisition']);
+              if(num == 2){
+                  this.clear_();
+              }else {
+                  this.router.navigate(['/inventory-management/inventory-requisition']);
+              }
           }else if(info['status'] == 202){
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
@@ -245,6 +272,28 @@ export class AddRequisitionComponent implements OnInit {
     );
   }
 
+
+    clear_(){
+        this.formModel.patchValue({
+            stock_allot_id:'',
+            stock_allot_type:'',
+            stock_allot_number:'',
+            stock_allot_date:'',
+            user_u_id:'',
+            stock_allot_qrcode:'',
+            stock_allot_remark:'',
+            //审核加入
+            stock_allot_assign:'',
+            stock_allot_copy_person:'',
+        });
+        //审核加入
+        this.create_user_id = 0;//当前创建者
+        this.approve_user = [];
+        this.follower_user = [];
+
+        this.user_u_id_default = 0; //经手人
+        this.selectProductList = [];
+    }
 
 
     //-----------搜索库存产品信息--------

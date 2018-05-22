@@ -4,64 +4,77 @@
       <article class="col-sm-12 ">
         <sa-widget [editbutton]="false" [deletebutton]="false" [colorbutton]="false">
           <header>
-            <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-            <h2>账号列表</h2>
+            <span class="widget-icon"> <i class="fa {{menuInfos?.menu_icon}}"></i> </span>
+            <h2>{{menuInfos?.menu_name}}</h2>
           </header>
-
           <div>
             <div class="widget-body no-padding" >
               <div  class="row">
                 <article  class="col-sm-12">
                   <div class="navbar navbar-default">
                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-
-                      <div class="form-group pdlr-4">
-                        <a class="btn btn-success btn-sm"  data-toggle="modal" data-target="#myModal">
+                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'add')">
+                        <a class="btn btn-success btn-sm" (click)="editCustomer('add')">
                           <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
                       </div>
-                      <div class="form-group pdlr-4">
-                        <a class="btn default-btn btn-sm"   data-toggle="modal" data-target="#myModal">
+                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'edit')">
+                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="editCustomer('edit')">
                           <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
                       </div>
-                      <div class="form-group pdlr-4">
-                        <a class="btn default-btn btn-sm" >
+                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'delete')">
+                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}"  (click)="deleteCustomer('id')">
                           <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
                       </div>
-
-                      <div class="form-group btn-group pdlr-4">
-                        <a class="btn default-btn btn-sm dropdown-toggle"  data-toggle="dropdown">
+                      <div class="form-group btn-group pdlr-4" *ngIf="isPermission(menu_id,'delete')">
+                        <a class="btn default-btn btn-sm dropdown-toggle" (click)="showAllCheck()" data-toggle="dropdown">
                           <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
-
                         <ul class="dropdown-menu" role="menu">
-                          <li><a ><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
+                          <li><a (click)="deleteCustomer('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
                         </ul>
                       </div>
                     </form>
                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
                       <div class="form-group pdlr-4">
-                        <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" name="" placeholder="请输入搜索内容" type="text">
+                        <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" [(ngModel)]="keyword" name="keyword" placeholder="请输入搜索内容" type="text">
                       </div>
                       <div class="form-group pdlr-4">
-                        <button class="btn btn-default" type="submit">
+                        <button class="btn btn-default" type="button" (click)="getCustomerList(1)">
                           <i  class="glyphicon glyphicon-search"></i>
                           搜索
                         </button>
                       </div>
                     </form>
-
                   </div>
                 </article>
               </div>
               <div style="padding:0;">
-                <div style="padding: 0;z-index: 2;" class="table-responsive">
-                  <table class="table table-striped  smart-form">
+                <div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-responsive">
+                  <table class="table table-striped smart-form">
                     <thead>
-                    <tr >
+                    <tr style="height: 37px">
                       <td><label class="checkbox">
-                        <input type="checkbox" name="checkbox-inline" >
+                        <input type="checkbox" name="checkbox-inline"  [checked]="check" (change)="changeCheckAll($event)" >
                         <i></i>
                       </label>
                       </td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="height: 34px" *ngFor="let p of customerList?.result?.customerList?.data">
+                      <td>
+                        <label class="checkbox">
+                          <input type="checkbox" value="{{p.c_id}}" [checked]="selects[p.c_id]" (change)="handle($event)">
+                          <i></i>
+                        </label>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div [ngStyle]="{'padding': '0','z-index': '1','width':width_1,'float':'left'}" class="table-responsive">
+                  <table class="table table-striped  smart-form">
+                    <thead>
+                    <tr>
                       <th>账号编码</th>
                       <th>公司名称</th>
                       <th>登记日期</th>
@@ -72,77 +85,55 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="">
+                    <tr *ngFor="let m of customerList?.result?.customerList?.data" (click)="isStatusShow(m.c_id,m.c_status)" [ngClass]="{'table-color':editStatusCustomerId == m.c_id}">
+                      <td><span>{{m.c_number}}</span></td>
+                      <td><span>{{m.c_name}}</span></td>
+                      <td><span>{{m.created_at}}</span></td>
+                      <td>{{m.c_industry_category}}</td>
+                      <td>{{m.c_city}}</td>
+                      <td>{{m.c_phone}}</td>
                       <td>
-                        <label class="checkbox">
-                          <input type="checkbox" >
-                          <i></i>
-                        </label>
-                      </td>
-                      <td>1</td>
-                      <td>四川矿业有限公司</td>
-                      <td>2155</td>
-                      <td>2155</td>
-                      <td>2155</td>
-                      <td>2155</td>
-                      <td>
-                        <span >
-                          <span class="label-normal" >正常</span>
-                          <span class="label-unknown">隐藏</span>
+                        <span [ngSwitch]="m.c_status">
+                          <span class="label-normal" *ngSwitchCase="1">正常</span>
+                          <span class="label-unknown" *ngSwitchCase="2">隐藏</span>
                         </span>
                       </td>
                     </tr>
-
                     </tbody>
                   </table>
-
                 </div>
               </div>
               <!-- 底部-（分页部分）-->
               <div class="dt-toolbar">
                 <div class="col-xs-12 col-sm-6">
-                  <span>共5条</span>
+                  <span>共{{customerList?.result?.customerList?.total}}条</span>
                 </div>
                 <div class="hidden-xs right">
                   <ul class="pagination pagination-sm">
-                    <li *ngFor="let p of categoryList?.page" class="{{p.class}}">
+                    <li *ngFor="let p of customerList?.result?.page" class="{{p.class}}">
                       <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
                       <a *ngIf="p.method==''">{{p.text}}</a>
                     </li>
                   </ul>
                 </div>
               </div>
-
             </div>
-
-
-
-
-
           </div>
-
         </sa-widget>
       </article>
     </div>
   </sa-widgets-grid>
-
-
-
 </div>
 
-
-
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" bsModal #editModal="bs-modal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <!-- 关闭按钮 -->
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-          ×
-        </button>
+        <button type="button" class="close" (click)="clear_();">×</button>
         <!-- 标题 -->
-        <h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>添加账号列表</h3>
-        <h3 class="modal-title  color-yellow" data-ng-bind='results.title'><i class="glyphicon glyphicon-pencil"></i>修改账号列表</h3>
+        <h3 *ngIf="c_id == 0" class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>添加账号列表</h3>
+        <h3 *ngIf="c_id != 0" class="modal-title  color-yellow" data-ng-bind='results.title'><i class="glyphicon glyphicon-pencil"></i>修改账号列表</h3>
       </div>
       <div class="modal-body">
         <sa-widget [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
@@ -153,9 +144,6 @@
               </li>
               <li [class.active]="state.tabs.demo3=='hr2'" class="active">
                 <a (click)="state.tabs.demo3 = 'hr2'">用户信息</a>
-              </li>
-              <li [class.active]="state.tabs.demo3=='hr3'" class="active">
-                <a (click)="state.tabs.demo3 = 'hr3'">初始化角色</a>
               </li>
             </ul>
           </header>
@@ -172,7 +160,7 @@
                               <section>
                                 <label class="label txt-color-blue">账号编码<span class="asterisk-color">*</span></label>
                                 <label class="input">
-                                  <input type="text" placeholder="账号编码" name="" >
+                                  <input type="text" placeholder="账号编码" name="c_number" [(ngModel)]="c_number">
                                 </label>
                               </section>
                             </div>
@@ -180,15 +168,15 @@
                               <section>
                                 <label class="label ">公司名称</label>
                                 <label class="input">
-                                  <input type="text" placeholder="公司名称" name="" >
+                                  <input type="text" placeholder="公司名称" name="c_name" [(ngModel)]="c_name">
                                 </label>
                               </section>
                             </div>
                             <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                               <section>
-                                <label class="label ">助记码</label>
+                                <label class="label ">简称</label>
                                 <label class="input">
-                                  <input type="text" placeholder="助记码" name="" >
+                                  <input type="text" placeholder="简称" name="c_abbreviation" [(ngModel)]="c_abbreviation">
                                 </label>
                               </section>
                             </div>
@@ -196,11 +184,10 @@
                               <section>
                                 <label class="label">所属行业</label>
                                 <label class="select">
-                                  <select class="input-sm" name="" >
-                                    <option value="0" disabled="disabled">--请选择--</option>
-                                    <option value="" ></option>
-                                    <option value="" ></option>
-                                  </select> <i></i>
+                                  <select class="input-sm" name="c_industry_category" [(ngModel)]="c_industry_category">
+                                    <option *ngFor="let c of customerDefault.result?.industryCategoryList" [selected]="customer_info.result?.c_industry_category == c.category_id || this.c_id == 0" value="{{c.category_id}}">{{c.category_desc}}</option>
+                                  </select>
+                                  <i></i>
                                 </label>
                               </section>
                             </div>
@@ -208,39 +195,44 @@
                               <section >
                                 <label class="label ">Email</label>
                                 <label class="input">
-                                  <input name=""  type="text" >
+                                  <input name="c_email" [(ngModel)]="c_email" type="text" >
+                                </label>
+                              </section>
+                            </div>
+                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                              <section >
+                                <label class="label ">电话</label>
+                                <label class="input">
+                                  <input name="c_phone" [(ngModel)]="c_phone" type="text" >
                                 </label>
                               </section>
                             </div>
                             <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                               <div class="margin-left-15" >
-
                                 <section class="col col-4">
                                   <label class="label">所在城市</label>
                                   <label class="select ">
-                                    <select name=""  >
+                                    <select name="address1" [(ngModel)]="address1" (change)="getCity()">
                                       <option value="0">--请选择省--</option>
-                                      <option  value=""></option>
+                                      <option *ngFor="let p of province" [selected]="customer_info.result?.address1 == p" value="{{p}}">{{p}}</option>
                                     </select>
                                     <i></i>
                                   </label>
                                 </section>
                                 <section class="col col-8">
                                   <label class="select margin-top-24">
-                                    <select name=""  >
+                                    <select name="address2" [(ngModel)]="address2">
                                       <option value="0">--请选择市--</option>
-                                      <option  value=""></option>
+                                      <option *ngFor="let c of city" [selected]="customer_info.result?.address2 == c" value="{{c}}">{{c}}</option>
                                     </select> <i></i> </label>
                                 </section>
                               </div>
-
                             </div>
-
                             <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                               <section>
                                 <label class="label">链接百度云密钥</label>
                                 <label class="input">
-                                  <input  name="" placeholder="请输入链接百度云密钥" type="text" >
+                                  <input name="c_secret" [(ngModel)]="c_secret" placeholder="请输入链接百度云密钥" type="text" >
                                 </label>
                               </section>
                             </div>
@@ -248,18 +240,10 @@
                               <section>
                                 <label class="label">备注</label>
                                 <label class="textarea textarea-resizable">
-                                  <textarea class="custom-scroll" rows="2" name="" ></textarea>
+                                  <textarea class="custom-scroll" rows="2" name="c_notes" [(ngModel)]="c_notes"></textarea>
                                 </label>
                               </section>
                             </div>
-
-
-
-
-
-
-
-
                           </fieldset>
                         </form>
                       </div>
@@ -276,251 +260,68 @@
                               <section >
                                 <label class="label txt-color-blue">员工ID<span class="asterisk-color">*</span></label>
                                 <label class="input"> <i class="icon-append fa fa-user"></i>
-                                  <input type="text" name="" placeholder="请输入员工ID " />
+                                  <input type="text" name="name" [(ngModel)]="name" placeholder="请输入员工ID " />
                                 </label>
                               </section>
-
                             </div>
-
                             <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                               <section>
                                 <label class="label">姓名</label>
                                 <label class="input"> <i class="icon-append fa fa-user"></i>
-                                  <input type="text" name="name" placeholder="请输入姓名 " />
+                                  <input type="text" name="u_username" [(ngModel)]="u_username" placeholder="请输入姓名 " />
                                 </label>
                               </section>
-
                             </div>
                             <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                               <section>
                                 <label class="label txt-color-blue">密码<span class="asterisk-color">*</span></label>
                                 <label class="input"> <i class="icon-append fa fa-lock"></i>
-                                  <input type="text" name="password" placeholder="输入密码的最小长度为6"/>
+                                  <input type="text" name="password" [(ngModel)]="password" placeholder="******"/>
                                 </label>
                               </section>
                             </div>
-
                             <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                               <section >
                                 <label class="label">手机号码</label>
                                 <label class="input"> <i class="icon-append fa fa-phone"></i>
-                                  <input name=""  placeholder="请输入手机号码"  class="valid" >
+                                  <input name="u_phone" [(ngModel)]="u_phone" placeholder="请输入手机号码"  class="valid" >
                                 </label>
                               </section>
-
                             </div>
                             <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                               <section >
                                 <label class="label">Email</label>
                                 <label class="input"> <i class="icon-append fa fa-envelope-o"></i>
-                                  <input name="email"  placeholder="请输入E-mail" type="email" >
+                                  <input name="email" [(ngModel)]="email" placeholder="请输入E-mail" type="email" >
                                 </label>
                               </section>
-
                             </div>
-
-
+                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                              <section >
+                                <label class="label">角色</label>
+                                <label class="input"> <i class="icon-append fa fa-user"></i>
+                                  <input name="role" [(ngModel)]="role" disabled="disabled" type="text" >
+                                </label>
+                              </section>
+                            </div>
                           </fieldset>
                         </form>
                       </div>
                     </tab>
                   </tabset>
                 </tab>
-                <tab [active]="state.tabs.demo3 == 'hr3'">
-                  <tabset >
-                    <tab [active]="state.tabs.demo3 == 'hr3'">
-                      <div class="row">
-                        <form   class="smart-form ">
-                          <div class="pd-10">
-                            <div class="widget-body">
-                              <div class="tree smart-form">
-                                <ul class="">
-                                  <li class=" parent_li">
-                                  <span>
-                                    <label class="checkbox inline-block tree-label pt-12 ">
-                                          <input name="checkbox-inline" type="checkbox"><i></i>
-                                   </label>
-                                    权限管理
-                                    <i class="sa-icon fa fa-lg fa-minus-circle"></i>
-                                  </span>
-                                    <ul class="">
-                                      <li class=" parent_li">
-                                        <span>
-                                          <label class="checkbox inline-block tree-label ">
-                                            <input name="checkbox-inline" type="checkbox">
-                                            <i></i>面板
 
-                                          </label>
-
-                                        </span>
-                                        <ul class="">
-                                          <li>
-                                            <span>
-                                              <label class="checkbox inline-block tree-label">
-                                                <input name="checkbox-inline" type="checkbox">
-                                                <i></i>动态墙
-                                              </label>
-                                            </span>
-                                          </li>
-                                        </ul>
-                                      </li>
-                                      <li class=" parent_li">
-                                        <span>
-                                          <label class="checkbox inline-block tree-label ">
-                                            <input name="checkbox-inline" type="checkbox">
-                                            <i></i>人力资源
-                                          </label>
-                                           <i class="sa-icon fa fa-lg fa-plus-circle"></i>
-                                        </span>
-                                        <ul class="" >
-                                          <li>
-                                            <span>
-                                              <label class="checkbox inline-block tree-label">
-                                                <input name="checkbox-inline" type="checkbox">
-                                                <i></i>员工档案
-                                              </label>
-                                              <i class="sa-icon fa fa-lg fa-plus-circle"></i>
-                                            </span>
-                                            <ul class="">
-                                              <li>
-                                                  <span>
-                                                    <label class="checkbox inline-block tree-label">
-                                                      <input name="checkbox-inline" type="checkbox">
-                                                      <i></i>添加
-                                                    </label>
-                                                  </span>
-                                              </li>
-                                              <li>
-                                                  <span>
-                                                    <label class="checkbox inline-block tree-label">
-                                                      <input name="checkbox-inline" type="checkbox">
-                                                      <i></i>修改
-                                                    </label>
-                                                  </span>
-                                              </li>
-                                              <li>
-                                                  <span>
-                                                    <label class="checkbox inline-block tree-label">
-                                                      <input name="checkbox-inline" type="checkbox">
-                                                      <i></i>删除
-                                                    </label>
-                                                  </span>
-                                              </li>
-                                              <li>
-                                                  <span>
-                                                    <label class="checkbox inline-block tree-label">
-                                                      <input name="checkbox-inline" type="checkbox">
-                                                      <i></i>详情
-                                                    </label>
-                                                  </span>
-                                              </li>
-                                            </ul>
-                                          </li>
-                                          <li>
-                                            <span>
-                                              <label class="checkbox inline-block tree-label">
-                                                <input name="checkbox-inline" type="checkbox">
-                                                <i></i>添加员工
-                                              </label>
-                                            </span>
-                                          </li>
-                                          <li>
-                                            <span>
-                                              <label class="checkbox inline-block tree-label">
-                                                <input name="checkbox-inline" type="checkbox">
-                                                <i></i>部门设置
-                                              </label>
-                                              <i class="sa-icon fa fa-lg fa-plus-circle"></i>
-                                            </span>
-                                            <ul class="">
-                                              <li>
-                                                  <span>
-                                                    <label class="checkbox inline-block tree-label">
-                                                      <input name="checkbox-inline" type="checkbox">
-                                                      <i></i>添加
-                                                    </label>
-                                                  </span>
-                                              </li>
-                                              <li>
-                                                  <span>
-                                                    <label class="checkbox inline-block tree-label">
-                                                      <input name="checkbox-inline" type="checkbox">
-                                                      <i></i>修改
-                                                    </label>
-                                                  </span>
-                                              </li>
-                                              <li>
-                                                  <span>
-                                                    <label class="checkbox inline-block tree-label">
-                                                      <input name="checkbox-inline" type="checkbox">
-                                                      <i></i>删除
-                                                    </label>
-                                                  </span>
-                                              </li>
-                                              <li>
-                                                  <span>
-                                                    <label class="checkbox inline-block tree-label">
-                                                      <input name="checkbox-inline" type="checkbox">
-                                                      <i></i>详情
-                                                    </label>
-                                                  </span>
-                                              </li>
-                                            </ul>
-                                          </li>
-                                          <li>
-                                            <span>
-                                              <label class="checkbox inline-block tree-label">
-                                                <input name="checkbox-inline" type="checkbox">
-                                                <i></i>职称设置
-                                              </label>
-                                              <i class="sa-icon fa fa-lg fa-plus-circle"></i>
-                                            </span>
-                                            <ul class="">
-                                              <li>
-                                                  <span>
-                                                    <label class="checkbox inline-block tree-label">
-                                                      <input name="checkbox-inline" type="checkbox">
-                                                      <i></i>修改
-                                                    </label>
-                                                  </span>
-                                              </li>
-                                              <li>
-                                                  <span>
-                                                    <label class="checkbox inline-block tree-label">
-                                                      <input name="checkbox-inline" type="checkbox">
-                                                      <i></i>删除
-                                                    </label>
-                                                  </span>
-                                              </li>
-                                            </ul>
-                                          </li>
-
-
-                                        </ul>
-
-                                      </li>
-
-                                    </ul>
-                                  </li>
-                                </ul>
-                              </div>
-
-                            </div>
-                          </div>
-                        </form>
-                      </div>
-                    </tab>
-                  </tabset>
-                </tab>
               </tabset>
             </div>
           </div>
         </sa-widget>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-ng-click="ok()">保存</button>
-        <button class="btn btn-success" type="button">保存并新增</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+        <div *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')">
+        <button type="button" class="btn btn-primary" (click)="onSubmit(1);">保存</button>
+        <button class="btn btn-success" type="button" (click)="onSubmit(2);">保存并新增</button>
+        </div>
+        <button type="button" class="btn btn-default" (click)="clear_();">返回</button>
       </div>
     </div>
   </div>

@@ -53,30 +53,47 @@ export class UnitClassifyComponent implements OnInit {
     width : string = '0%';
     width_1 : string = '100%';
 
-  cid : any = 0;//当前登录用户的所属公司id
-  super_admin_id : any = 0;//超级管理员所属公司id
-  parentCategoryList:Array<any> = []; //用于绑定修改父类信息类表
   category_type : number = 21;
   keyword:string = '';
-  rollback_url : string = '/customer-management/unit-classify';
+  rollback_url : string = '';
+    /**菜单id */
+    menu_id:any;
+    /** 权限 */
+    permissions : Array<any> = [];
+    menuInfos : Array<any> = [];
   constructor(
       private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
-
-    let nav = '{"title":"单位分类","url":"/customer-management/unit-classify","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
-
     window.scrollTo(0,0);
-    this.super_admin_id = this.globalService.getAdminID();
-    this.cid = this.cookieStore.getCookie('cid');
     this.getCategoryDefault();
 
   }
 
   ngOnInit() {
+
+      //顶部菜单读取
+      this.globalService.getMenuInfo();
+      setTimeout(()=>{
+          this.menu_id = this.globalService.getMenuId();
+          this.rollback_url = this.globalService.getMenuUrl();
+          this.permissions = this.globalService.getPermissions();
+          this.menuInfos = this.globalService.getMenuInfos();
+      },this.globalService.getMenuPermissionDelayTime())
   }
+
+    /**
+     * 是否有该元素
+     */
+    isPermission(menu_id,value){
+        let key = menu_id +'_'+value;
+        if(value == ''){
+            key = menu_id;
+        }
+        return this.cookieStore.in_array(key, this.permissions);
+    }
+
 
     /**
      * 获取默认参数
@@ -131,7 +148,6 @@ export class UnitClassifyComponent implements OnInit {
                     }
                 }
                 this.check = false;
-                this.super_admin_id = this.categoryList['result']['categoryList']['super_admin_id'];
             });
     }
 
@@ -204,7 +220,7 @@ export class UnitClassifyComponent implements OnInit {
     /**
      * 提交部门
      */
-    onSubmit(){
+    onSubmit(num:number){
         if(this.category_number.trim() == ''){
             alert('请填写编号！');
             return false;
@@ -232,10 +248,12 @@ export class UnitClassifyComponent implements OnInit {
                     this.router.navigate(['/auth/login']);
                 }else if(this.categoryDefault['status'] == 200){
                     this.clearSubmit();
+                    if(num == 1){
+                        this.lgModal.hide();
+                    }
                 }
                 //重置数据
                 this.selectCategoryAll(2);
-
             }
         );
     }

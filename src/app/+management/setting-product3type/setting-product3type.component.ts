@@ -59,8 +59,8 @@ export class SettingProduct3typeComponent implements OnInit {
               private cookieStoreService : CookieStoreService,
               private globalService:GlobalService
   ) {
-      let nav = '{"title":"产品类型设置","url":"/management/product3type","class_":"active"}';
-      this.globalService.navEventEmitter.emit(nav);
+      //顶部菜单读取
+      this.globalService.getMenuInfo();
       this.formModel = fb.group({
           category_desc:[''],
           category_type:['6'],

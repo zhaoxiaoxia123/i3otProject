@@ -28,8 +28,8 @@ export class ListClientComponent implements OnInit {
       private cookiestore:CookieStoreService,
       private globalService:GlobalService
   ) {
-    let nav = '{"title":"客户列表","url":"/tables/client","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
 
     this.formModel = fb.group({
       keyword:[''],

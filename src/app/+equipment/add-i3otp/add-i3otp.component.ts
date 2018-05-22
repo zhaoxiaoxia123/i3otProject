@@ -34,8 +34,8 @@ export class AddI3otpComponent implements OnInit {
       private cookieStore:CookieStoreService,
       private globalService:GlobalService
   ) {
-    let nav = '{"title":"添加i3otp设备","url":"/equipment/i3otp","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
     this.formModel = fb.group({
       i3otp_id:[''],
       i3otp_pid:[''],

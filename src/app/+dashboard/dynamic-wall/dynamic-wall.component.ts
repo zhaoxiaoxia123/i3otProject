@@ -11,8 +11,8 @@ export class DynamicWallComponent implements OnInit {
 
   constructor(
       private globalService:GlobalService) {
-    let nav = '{"title":"动态面板","url":"/dashboard/dynamic-wall","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
   }
 
   ngOnInit() {

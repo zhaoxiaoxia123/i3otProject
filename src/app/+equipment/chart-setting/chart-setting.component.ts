@@ -41,8 +41,8 @@ export class ChartSettingComponent implements OnInit {
       private cookieStore:CookieStoreService,
       private globalService:GlobalService
   ) {
-      let nav = '{"title":"图表设置","url":"/equipment/chart-setting","class_":"active"}';
-      this.globalService.navEventEmitter.emit(nav);
+      //顶部菜单读取
+      this.globalService.getMenuInfo();
       /*#dff0d8
        #fcf8e3
        #f2dede */

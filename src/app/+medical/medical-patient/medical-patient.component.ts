@@ -64,8 +64,8 @@ export class MedicalPatientComponent implements OnInit {
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
 
-    let nav = '{"title":"病人管理","url":"/medical/medical-patient/0","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
 
     this.page_parent = routInfo.snapshot.params['info'];
     console.log(this.page_parent);

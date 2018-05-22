@@ -4,8 +4,8 @@
       <article class="col-sm-12 ">
         <sa-widget [editbutton]="false" [deletebutton]="false" [colorbutton]="false">
           <header>
-            <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-            <h2>期初库存</h2>
+            <span class="widget-icon"> <i class="fa {{menuInfos?.menu_icon}}"></i> </span>
+            <h2>{{menuInfos?.menu_name}}</h2>
           </header>
 
           <div>
@@ -15,36 +15,35 @@
                   <div class="navbar navbar-default">
                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
 
-                      <div class="form-group pdlr-4">
+                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'add')">
                         <a class="btn btn-success btn-sm" (click)="showProduct()">
                           <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
                       </div>
-                      <div class="form-group pdlr-4" *ngIf="isDetail != 'edit'">
+                      <div class="form-group pdlr-4" *ngIf="isDetail != 'edit' && isPermission(menu_id,'edit')">
                         <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusOpeningInventoryId == 0}" (click)="detailOpeningInventory('edit')">
                           <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
                       </div>
-                      <div class="form-group pdlr-4" *ngIf="isDetail == 'edit'">
+                      <div class="form-group pdlr-4" *ngIf="isDetail == 'edit' && isPermission(menu_id,'edit')">
                         <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusOpeningInventoryId == 0}" (click)="editOpeningInventory()">
                           <span class="fa fa-save mr-5 color-yellow"></span>保存</a>
                       </div>
-                      <div class="form-group pdlr-4" *ngIf="isDetail == 'edit'">
+                      <div class="form-group pdlr-4" *ngIf="isDetail == 'edit' && isPermission(menu_id,'edit')">
                         <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusOpeningInventoryId == 0}" (click)="clear_('edit')">
                           <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>取消</a>
                       </div>
-                      <div class="form-group pdlr-4" *ngIf="isDetail != 'edit'">
+                      <div class="form-group pdlr-4" *ngIf="isDetail != 'edit' && isPermission(menu_id,'delete')">
                         <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusOpeningInventoryId == 0}" (click)="deleteOpeningInventory('id')">
                           <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
                       </div>
-                      <div class="form-group pdlr-4" *ngIf="isDetail != 'edit'">
+                      <div class="form-group pdlr-4" *ngIf="isDetail != 'edit' && isPermission(menu_id,'detail')">
                         <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusOpeningInventoryId == 0}" (click)="detailOpeningInventory('detail')">
                           <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
                       </div>
                       <div class="form-group btn-group pdlr-4" *ngIf="isDetail != 'edit'">
                         <a class="btn default-btn btn-sm dropdown-toggle" (click)="showAllCheck()" data-toggle="dropdown">
                           <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
-
                         <ul class="dropdown-menu" role="menu">
-                          <li><a (click)="deleteOpeningInventory('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
+                          <li *ngIf="isPermission(menu_id,'delete')"><a (click)="deleteOpeningInventory('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
                         </ul>
                       </div>
                     </form>
@@ -59,7 +58,6 @@
                         </button>
                       </div>
                     </form>
-
                   </div>
                 </article>
               </div>

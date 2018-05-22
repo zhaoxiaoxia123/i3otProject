@@ -14,54 +14,68 @@
                 <article  class="col-sm-12">
                   <div class="navbar navbar-default">
                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-
-                      <div class="form-group pdlr-4">
-                        <a class="btn btn-success btn-sm"  data-toggle="modal" data-target="#myModal">
+                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_ids,'add')">
+                        <a class="btn btn-success btn-sm" (click)="editMenu('add')">
                           <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
                       </div>
-                      <div class="form-group pdlr-4">
-                        <a class="btn default-btn btn-sm"   data-toggle="modal" data-target="#myModal">
+                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_ids,'edit')">
+                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusMenuId == 0}" (click)="editMenu('edit')">
                           <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
                       </div>
-                      <div class="form-group pdlr-4">
-                        <a class="btn default-btn btn-sm" >
+                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_ids,'delete')">
+                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusMenuId == 0}" (click)="deleteMenu('id')">
                           <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
                       </div>
-
                       <div class="form-group btn-group pdlr-4">
-                        <a class="btn default-btn btn-sm dropdown-toggle"  data-toggle="dropdown">
+                        <a class="btn default-btn btn-sm dropdown-toggle" (click)="showAllCheck()" data-toggle="dropdown">
                           <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
-
                         <ul class="dropdown-menu" role="menu">
-                          <li><a ><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
+                          <li *ngIf="isPermission(menu_ids,'delete')"><a (click)="deleteMenu('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
                         </ul>
                       </div>
                     </form>
                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
                       <div class="form-group pdlr-4">
-                        <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" name="" placeholder="请输入搜索内容" type="text">
+                        <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" [(ngModel)]="keyword"  name="keyword" placeholder="请输入搜索内容" type="text">
                       </div>
                       <div class="form-group pdlr-4">
-                        <button class="btn btn-default" type="submit">
+                        <button class="btn btn-default" type="button" (click)="getMenuList(1)">
                           <i  class="glyphicon glyphicon-search"></i>
                           搜索
                         </button>
                       </div>
                     </form>
-
                   </div>
                 </article>
               </div>
               <div style="padding:0;">
-                <div style="padding: 0;z-index: 2;" class="table-responsive">
-                  <table class="table table-striped  smart-form">
+                <div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-responsive">
+                  <table class="table table-striped smart-form">
                     <thead>
-                    <tr >
+                    <tr style="height: 37px">
                       <td><label class="checkbox">
-                        <input type="checkbox" name="checkbox-inline" >
+                        <input type="checkbox" name="checkbox-inline"  [checked]="check" (change)="changeCheckAll($event)" >
                         <i></i>
                       </label>
                       </td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="height: 37px" *ngFor="let p of menuList?.result?.menuList?.data">
+                      <td>
+                        <label class="checkbox">
+                          <input type="checkbox" value="{{p.menu_id}}" [checked]="selects[p.menu_id]" (change)="handle($event)">
+                          <i></i>
+                        </label>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div [ngStyle]="{'padding': '0','z-index': '1','width':width_1,'float':'left'}" class="table-responsive">
+                  <table class="table table-striped smart-form">
+                    <thead>
+                    <tr>
                       <th>编码</th>
                       <th>标题</th>
                       <th>图标</th>
@@ -71,97 +85,55 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="">
+                    <tr *ngFor="let m of menuList?.result?.menuList?.data" (click)="isStatusShow(m.menu_id)" [ngClass]="{'table-color':editStatusMenuId == m.menu_id}">
+                      <td><span>{{m.menu_number}}</span></td>
+                      <td><span>{{m.menu_name}}</span></td>
+                      <td><span> <i class="fa {{m.menu_icon}}"></i> </span></td>
+                      <td>{{m.menu_url}}</td>
+                      <td>{{m.menu_weight}}</td>
                       <td>
-                        <label class="checkbox">
-                          <input type="checkbox" >
-                          <i></i>
-                        </label>
-                      </td>
-                      <td><span>001</span></td>
-                      <td><span>人力资源</span></td>
-                      <td><span> <i class="fa fa-group"></i> </span></td>
-                      <td><span>#</span></td>
-                      <td>1</td>
-                      <td>
-                        <span >
-                          <span class="label-normal" >正常</span>
-                          <span class="label-unknown">隐藏</span>
+                        <span [ngSwitch]="m.menu_status">
+                          <span class="label-normal" *ngSwitchCase="1">正常</span>
+                          <span class="label-unknown" *ngSwitchCase="2">隐藏</span>
                         </span>
                       </td>
-
                     </tr>
-                    <tr class="">
-                      <td>
-                        <label class="checkbox">
-                          <input type="checkbox" >
-                          <i></i>
-                        </label>
-                      </td>
-                      <td><span>002</span></td>
-                      <td><span>员工档案</span></td>
-                      <td><span> <i class="fa fa-table"></i> </span></td>
-                      <td><span>/tables/staff</span></td>
-                      <td>1</td>
-                      <td>
-                        <span >
-                          <span class="label-normal" >正常</span>
-                          <span class="label-unknown">隐藏</span>
-                        </span>
-                      </td>
-
-                    </tr>
-
                     </tbody>
                   </table>
-
                 </div>
               </div>
               <!-- 底部-（分页部分）-->
               <div class="dt-toolbar">
                 <div class="col-xs-12 col-sm-6">
-                  <span>共5条</span>
+                  <span>共{{menuList?.result?.menuList?.total}}条</span>
                 </div>
                 <div class="hidden-xs right">
                   <ul class="pagination pagination-sm">
-                    <li *ngFor="let p of categoryList?.page" class="{{p.class}}">
+                    <li *ngFor="let p of menuList?.result?.page" class="{{p.class}}">
                       <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
                       <a *ngIf="p.method==''">{{p.text}}</a>
                     </li>
                   </ul>
                 </div>
               </div>
-
             </div>
-
-
-
-
-
           </div>
-
         </sa-widget>
       </article>
     </div>
   </sa-widgets-grid>
-
-
-
 </div>
 
 
-
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" bsModal #editModal="bs-modal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <!-- 关闭按钮 -->
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-          ×
-        </button>
+        <button type="button" class="close" (click)="clear_();">×</button>
         <!-- 标题 -->
-        <h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>添加企业配置</h3>
-        <h3 class="modal-title  color-yellow" data-ng-bind='results.title'><i class="glyphicon glyphicon-pencil"></i>修改企业配置</h3>
+        <h3 *ngIf="editStatusMenuId == 0" class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>添加企业配置</h3>
+        <h3 *ngIf="editStatusMenuId != 0" class="modal-title  color-yellow" data-ng-bind='results.title'><i class="glyphicon glyphicon-pencil"></i>修改企业配置</h3>
       </div>
       <div class="modal-body">
        <div class="row">
@@ -171,7 +143,7 @@
                <section>
                  <label class="label txt-color-blue">编码<span class="asterisk-color">*</span></label>
                  <label class="input">
-                   <input type="text" placeholder="" name="" >
+                   <input type="text" name="menu_number" [(ngModel)]="menu_number">
                  </label>
                </section>
              </div>
@@ -179,12 +151,13 @@
                <section>
                  <label class="label">父级</label>
                  <label class="select">
-                   <select class="input-sm" name="" >
-                     <option value="0" >无</option>
-                     <option value="" >面板</option>
-                     <option value="" >人力资源</option>
-                     <option value="" >--员工档案</option>
-                     <option value="" >--部门设置</option>
+                   <select class="input-sm" name="menu_parent_id" [(ngModel)]="menu_parent_id">
+                     <option value="0">父级</option>
+                     <option *ngFor="let md of menuDefault?.result" value="{{md.menu_id}}">
+                       <strong *ngIf="md.child_depth == 1">{{md.menu_name}}</strong>
+                       <span *ngIf="md.child_depth == 2">--{{md.menu_name}}</span>
+                       <!--<span *ngIf="md.child_depth == 3">&#45;&#45;&#45;&#45;{{md.menu_name}}</span>-->
+                     </option>
                    </select> <i></i>
                  </label>
                </section>
@@ -193,7 +166,7 @@
                <section>
                  <label class="label txt-color-blue">规则<span class="asterisk-color">*</span></label>
                  <label class="input">
-                   <input type="text" placeholder="" name="" >
+                   <input type="text" name="menu_url" [(ngModel)]="menu_url">
                  </label>
                </section>
              </div>
@@ -201,7 +174,7 @@
                <section>
                  <label class="label txt-color-blue">标题<span class="asterisk-color">*</span></label>
                  <label class="input">
-                   <input type="text" placeholder="" name="" >
+                   <input type="text" name="menu_name" [(ngModel)]="menu_name">
                  </label>
                </section>
              </div>
@@ -209,7 +182,7 @@
                <section>
                  <label class="label ">图标</label>
                  <label class="input">
-                   <input type="text" placeholder="" name="" >
+                   <input type="text" name="menu_icon" [(ngModel)]="menu_icon">
                  </label>
                </section>
              </div>
@@ -217,7 +190,7 @@
                <section>
                  <label class="label ">权重</label>
                  <label class="input">
-                   <input type="number" placeholder="" name="" >
+                   <input type="number" name="menu_weight" [(ngModel)]="menu_weight">
                  </label>
                </section>
              </div>
@@ -225,26 +198,48 @@
                <section>
                  <label class="label ">状态</label>
                  <div class="inline-group">
-                     <label class="radio">
-                       <input type="radio" name="radio-inline" checked="checked">
-                       <i></i>正常</label>
-                     <label class="radio">
-                       <input type="radio" name="radio-inline">
-                       <i></i>隐藏</label>
-                   </div>
+                   <label class="radio">
+                     <input type="radio" name="menu_status" [(ngModel)]="menu_status" [checked]="menuInfo.result?.menu_status == 1 || this.menu_id == 0" [value]="1">
+                     <i></i>正常</label>
+                   <label class="radio">
+                     <input type="radio" name="menu_status" [(ngModel)]="menu_status" [checked]="menuInfo.result?.menu_status == 2 || this.menu_id == 0" [value]="2">
+                     <i></i>隐藏</label>
+                 </div>
                </section>
              </div>
 
+             <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
+               <section>
+                 <label class="label ">页面功能</label>
+                 <div class="inline-group">
+                   <label class="checkbox">
+                     <input type="checkbox" [checked]="menu_control['add']" (change)="handleControl($event)" value="add">
+                     <i></i>新增</label>
+                   <label class="checkbox">
+                     <input type="checkbox" [checked]="menu_control['edit']" (change)="handleControl($event)" value="edit">
+                     <i></i>修改</label>
+                   <label class="checkbox">
+                     <input type="checkbox" [checked]="menu_control['delete']" (change)="handleControl($event)" value="delete">
+                     <i></i>删除</label>
+                   <label class="checkbox">
+                     <input type="checkbox" [checked]="menu_control['detail']" (change)="handleControl($event)" value="detail">
+                     <i></i>详情</label>
+                   <label class="checkbox">
+                     <input type="checkbox" [checked]="menu_control['verify']" (change)="handleControl($event)" value="verify">
+                     <i></i>审核</label>
+                 </div>
+               </section>
+             </div>
            </fieldset>
-
-
          </form>
        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-ng-click="ok()">保存</button>
-        <button class="btn btn-success btn-sm" type="button">保存并新增</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+        <div *ngIf="isPermission(menu_ids,'add') || isPermission(menu_ids,'edit')">
+        <button type="button" class="btn btn-primary" (click)="onSubmit(1);">保存</button>
+        <button class="btn btn-success btn-sm" type="button" (click)="onSubmit(2);">保存并新增</button>
+        </div>
+        <button type="button" class="btn btn-default" (click)="clear_();">返回</button>
       </div>
     </div>
   </div>

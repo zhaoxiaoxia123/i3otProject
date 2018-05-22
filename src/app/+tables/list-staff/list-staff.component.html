@@ -4,8 +4,8 @@
       <article class="col-sm-12 ">
         <sa-widget [editbutton]="false" [deletebutton]="false" [colorbutton]="false" >
           <header>
-            <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-            <h2>员工档案</h2>
+            <span class="widget-icon"> <i class="fa {{menuInfos.menu_icon}}"></i> </span>
+            <h2>{{menuInfos.menu_name}}</h2>
           </header>
           <div>
             <div class="widget-body no-padding">
@@ -13,27 +13,27 @@
                 <article class="col-sm-12">
                   <div class="navbar navbar-default">
                     <form class="navbar-form navbar-left" role="search" novalidate>
-                      <div class="form-group pdlr-4">
+                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'add')">
                         <a class="btn btn-success btn-sm" (click)="isDemo('/forms/employees','0')">
                           <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
                       </div>
-                      <div class="form-group pdlr-4">
+                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'edit')">
                         <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="isDemo('/forms/employees','1')" >
                           <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
                       </div>
-                      <div class="form-group pdlr-4">
+                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'delete')">
                         <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="deleteUser('id')" >
                           <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
                       </div>
-                      <div class="form-group pdlr-4">
+                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'detail')">
                         <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="getUserInfo()">
                           <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
                       </div>
-                      <div class="form-group pdlr-4" *ngIf="isStatus == 2">
+                      <div class="form-group pdlr-4" *ngIf="isStatus == 2 && isPermission(menu_id,'edit')">
                         <a class="btn default-btn btn-sm" (click)="editStatus(1,'id')">
                           <span class="fa-fw fa fa-play mr-5 color-green"></span>启用</a>
                       </div>
-                      <div class="form-group pdlr-4" *ngIf="isStatus == 1">
+                      <div class="form-group pdlr-4" *ngIf="isStatus == 1 && isPermission(menu_id,'edit')">
                         <a class="btn default-btn btn-sm" (click)="editStatus(2,'id')" >
                           <span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>无效</a>
                       </div>
@@ -41,10 +41,10 @@
                         <a class="btn default-btn btn-sm dropdown-toggle"  data-toggle="dropdown" (click)="showAllCheck()">
                           <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
                         <ul class="dropdown-menu" role="menu">
-                          <li><a (click)="editStatus(1,'all')" ><span class="fa-fw fa fa-play mr-5 color-green"></span>批量设为启动</a></li>
-                          <li><a (click)="editStatus(2,'all')" ><span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>批量设为无效</a></li>
+                          <li *ngIf="isPermission(menu_id,'edit')"><a (click)="editStatus(1,'all')" ><span class="fa-fw fa fa-play mr-5 color-green"></span>批量设为启动</a></li>
+                          <li *ngIf="isPermission(menu_id,'edit')"><a (click)="editStatus(2,'all')" ><span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>批量设为无效</a></li>
                           <li class="divider"></li>
-                          <li><a (click)="deleteUser('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
+                          <li *ngIf="isPermission(menu_id,'delete')"><a (click)="deleteUser('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
                         </ul>
                       </div>
                     </form>
@@ -185,12 +185,13 @@
                               <tbody>
                               <tr *ngFor="let ul of userList.result?.userList?.data" (click)="isStatusShow(ul.id,ul.u_status)" [ngClass]="{'table-color':editStatusUserId == ul.id}">
                                 <td>
-                                  <span [ngSwitch]="ul.u_role">
-                                    <span *ngSwitchCase="1">超级管理员</span>
-                                    <span *ngSwitchCase="2">管理员</span>
-                                    <span *ngSwitchCase="3">员工</span>
-                                    <span *ngSwitchDefault>未知</span>
-                                  </span>
+                                  <!--<span [ngSwitch]="ul.u_role">-->
+                                    <!--<span *ngSwitchCase="1">超级管理员</span>-->
+                                    <!--<span *ngSwitchCase="2">管理员</span>-->
+                                    <!--<span *ngSwitchCase="3">员工</span>-->
+                                    <!--<span *ngSwitchDefault>未知</span>-->
+                                  <!--</span>-->
+                                  {{ul.category_desc}}
                                 </td>
                                 <td>{{ ul.u_position}}</td>
                                 <td>{{ ul.department_name}}</td>

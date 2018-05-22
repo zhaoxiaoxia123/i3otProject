@@ -7,21 +7,20 @@
             <article class="col-sm-12 ">
 
                 <sa-widget [editbutton]="false" [deletebutton]="false" >
-                    <header>
+                    <header *ngIf="b_id == 0" >
                         <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
                         <h2>添加广播信息</h2>
                     </header>
-
-                    <header >
+                    <header *ngIf="b_id != 0">
                         <span class="widget-icon"> <i class="glyphicon glyphicon-pencil"></i> </span>
                         <h2 >修改广播信息 </h2>
                     </header>
 
                     <div>
-                        <!--小部件内容-->
+                        <!--小部件内容(ngSubmit)="onSubmit()"-->
                         <div class="widget-body no-padding">
 
-                            <form id="smart-form-register" class="smart-form"  [formGroup]="formModel" (ngSubmit)="onSubmit()">
+                            <form id="smart-form-register" class="smart-form"  [formGroup]="formModel" >
                                 <fieldset>
 
                                     <input type="hidden" name="b_id" formControlName="b_id">
@@ -132,10 +131,12 @@
                                     <button type="button" class="btn btn-default" routerLink="/equipment/phonics-list">
                                         返回
                                     </button>
-                                    <button class="btn btn-success" type="button">保存并新增</button>
-                                    <button type="submit" class="btn btn-primary">
+                                    <div *ngIf="isPermission(menu_id,'add')">
+                                    <button class="btn btn-success" type="button" (ngSubmit)="onSubmit(2)">保存并新增</button>
+                                    <button type="button" class="btn btn-primary" (ngSubmit)="onSubmit(1)">
                                         保存
                                     </button>
+                                    </div>
                                 </footer>
                             </form>
                         </div>

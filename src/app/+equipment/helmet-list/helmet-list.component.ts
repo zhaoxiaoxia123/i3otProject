@@ -40,8 +40,8 @@ export class HelmetListComponent implements OnInit {
       private cookieStore:CookieStoreService,
       private globalService:GlobalService
   ) {
-    let nav = '{"title":"安全帽","url":"/equipment/helmet-list","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
     this.formModel = fb.group({
       keyword:[''],
     });

@@ -17,6 +17,11 @@ export class PersonalSettingsComponent implements OnInit {
     }
     userInfo : Array<any> = [];  //父类传值到子类
     uid : any = 0;//当前登录用户id
+    rollback_url : string = '';
+    /**菜单id */
+    menu_id:any;
+    /** 权限 */
+    permissions : Array<any> = [];
   constructor(
       private http:Http,
       private cookieStore:CookieStoreService,
@@ -26,12 +31,19 @@ export class PersonalSettingsComponent implements OnInit {
   }
 
   ngOnInit() {
-  }
 
+      //顶部菜单读取
+      this.globalService.getMenuInfo();
+      setTimeout(() => {
+          this.menu_id = this.globalService.getMenuId();
+          this.rollback_url = this.globalService.getMenuUrl();
+          this.permissions = this.globalService.getPermissions();
+      }, this.globalService.getMenuPermissionDelayTime());
+  }
     /**
      * 获取默认参数
      */
-    getUserDefault() {
+    getUserDefault(){
         this.http.get(this.globalService.getDomain()+'/api/v1/getUserInfo?u_id='+this.uid)
             .map((res)=>res.json())
             .subscribe((data)=>{

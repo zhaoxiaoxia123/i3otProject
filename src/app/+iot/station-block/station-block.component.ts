@@ -70,8 +70,8 @@ export class StationBlockComponent implements OnInit {
     private router:Router,
     private cookieStore:CookieStoreService,
     private globalService:GlobalService) {
-      let nav = '{"title":"传感数据","url":"/iot/station-block","class_":"active"}';
-      this.globalService.navEventEmitter.emit(nav);
+      //顶部菜单读取
+      this.globalService.getMenuInfo();
       this.lastUpdate = new Date();
   }
 

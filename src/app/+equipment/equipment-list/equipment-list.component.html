@@ -21,48 +21,30 @@
               <div class="row">
                 <article class="col-sm-12">
                   <div class="navbar navbar-default">
-                      <form class="navbar-form navbar-left" role="search" [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate >
-
-                        <div class="form-group pdlr-4">
+                      <form class="navbar-form navbar-left" role="search" novalidate >
+                        <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'add')">
                           <a class="btn btn-success btn-sm"  (click)="isDemo('/equipment/add-equipment','0')">
                             <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
                         </div>
-                        <div class="form-group pdlr-4">
-                          <a class="btn default-btn btn-sm"  >
+                        <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'edit')">
+                          <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusI3otpId == 0}" (click)="isDemo('/equipment/add-equipment','1','edit')">
                             <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
                         </div>
-                        <div class="form-group pdlr-4">
-                          <a class="btn default-btn btn-sm" >
+                        <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'delete')">
+                          <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusI3otpId == 0}" (click)="deleteI3otp('id')">
                             <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
                         </div>
-                        <div class="form-group pdlr-4">
-                          <a class="btn default-btn btn-sm"   >
+                        <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'detail')">
+                          <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusI3otpId == 0}" (click)="getI3otpInfo('detail')">
                             <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
                         </div>
                         <div class="form-group btn-group pdlr-4">
-                          <a class="btn default-btn btn-sm dropdown-toggle"  data-toggle="dropdown">
+                          <a class="btn default-btn btn-sm dropdown-toggle" (click)="showAllCheck()" data-toggle="dropdown">
                             <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
-
                           <ul class="dropdown-menu" role="menu">
-                            <!--<li><a ><span class="fa-fw fa fa-play mr-5 color-green"></span>批量设为启动</a></li>
-                            <li><a ><span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>批量设为无效</a></li>
-                            <li class="divider"></li>-->
-                            <li><a ><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
+                            <li *ngIf="isPermission(menu_id,'delete')"><a (click)="deleteI3otp('all')"><span class="fa-fw fa fa-trash-o color-red mr-5"></span>批量删除</a></li>
                           </ul>
-
                         </div>
-                       <!-- <div class="form-group pdlr-4">
-                          <a class="btn default-btn btn-sm"  >
-                            <span class="fa-fw fa fa-play mr-5 color-green"></span>启用</a>
-                        </div>
-                        <div class="form-group pdlr-4">
-                          <a class="btn default-btn btn-sm"  >
-                            <span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>无效</a>
-                        </div>-->
-
-
-
-
                       </form>
                     <form class="navbar-form navbar-left" role="search" [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate >
                       <div class="form-group pdlr-4">
@@ -79,17 +61,34 @@
                 </article>
               </div>
 
-
               <div style="padding:0;">
-                <div style="padding: 0;z-index: 2;" class="table-responsive">
+                <div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-responsive">
                   <table class="table table-striped smart-form">
                     <thead>
-                    <tr >
+                    <tr style="height:37px;">
                       <td><label class="checkbox">
-                        <input type="checkbox" name="checkbox-inline" >
+                        <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)" >
                         <i></i>
                       </label>
                       </td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let il of i3otpList.result?.i3otpList?.data" style="height:34px;">
+                      <td >
+                        <label class="checkbox">
+                          <input type="checkbox" value="{{ il.i3otp_id }}" [checked]="selects[il.i3otp_id]" (change)="handle($event)">
+                          <i></i>
+                        </label>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div [ngStyle]="{'padding': '0','z-index': '1','width':width_1,'float':'left'}" class="table-responsive">
+                  <table class="table table-striped smart-form">
+                    <thead>
+                    <tr >
                       <th>产品ID</th>
                       <th>产品名称</th>
                       <th>产品类别</th>
@@ -100,17 +99,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr style="display: none;">
-                      <td></td><td></td><td></td><td></td>
-                      <td></td><td></td>
-                    </tr>
-                    <tr *ngFor="let il of i3otpList.result?.i3otpList?.data">
-                      <td>
-                        <label class="checkbox">
-                          <input type="checkbox" value="{{ il.i3otp_id }}" [checked]="selects[il.i3otp_id]" (change)="handle($event)">
-                          <i></i>
-                        </label>
-                      </td>
+                    <tr *ngFor="let il of i3otpList.result?.i3otpList?.data" (click)="isStatusShow(il.i3otp_id)" [ngClass]="{'table-color':editStatusI3otpId == il.i3otp_id}">
                       <td>{{ il.i3otp_pid }}</td>
                       <td>{{ il.i3otp_name }}</td>
                       <td>{{ il.category_desc }}</td>
@@ -123,32 +112,19 @@
                         <span class="label-invalid" *ngSwitchCase="3">报废</span>
                         <span class="label-unknown" *ngSwitchDefault>未激活</span>
                       </td>
-
-                      <!--<td >
-                        <a class="btn btn-warning btn-xs" (click)="isDemo('/equipment/add-equipment',il.i3otp_id)"><span class="glyphicon glyphicon-pencil mr-5"></span>修改</a>
-                        <a class="btn btn-danger btn-xs" (click)="deleteI3otp(il.i3otp_id ,i3otpList.result?.i3otpList?.current_page)"><span class="glyphicon glyphicon-remove mr-5"></span>删除</a>
-                        <a class="btn btn-success btn-xs" (click)="getI3otpInfo(il.i3otp_id);lgModal.show();"><span class="glyphicon glyphicon-zoom-in mr-5"></span>详情</a>
-                      </td>-->
                     </tr>
-
                     </tbody>
                   </table>
-
                 </div>
               </div>
-
               <!-- 底部-（分页部分）-->
               <div class="dt-toolbar">
                 <div class="col-xs-12 col-sm-6">
-                  <span>共25条</span>
-                  <!--<button  class="btn btn-default" (click)="deleteI3otpAll(i3otpList.result?.current_page)" >
-                    <i class="fa fa-trash-o fa-lg"></i>
-                    删除所选
-                  </button>-->
+                  <span>共{{i3otpList.result?.i3otpList?.total}}条</span>
                 </div>
                 <div class="col-sm-6 col-xs-12 hidden-xs text-right">
                   <ul class="pagination pagination-sm">
-                    <li *ngFor="let p of i3otpList?.page" class="{{p.class}}">
+                    <li *ngFor="let p of i3otpList?.result?.page" class="{{p.class}}">
                       <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
                       <a *ngIf="p.method==''">{{p.text}}</a>
                     </li>

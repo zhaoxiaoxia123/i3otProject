@@ -8,8 +8,8 @@
       <article class="col-sm-12 ">
         <sa-widget [editbutton]="false" [deletebutton]="false" [colorbutton]="false">
           <header>
-            <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-            <h2>资产报废</h2>
+            <span class="widget-icon"> <i class="fa {{menuInfos?.menu_icon}}"></i> </span>
+            <h2>{{menuInfos?.menu_name}}</h2>
           </header>
 
           <div>
@@ -18,22 +18,23 @@
                 <article  class="col-sm-12">
                   <div class="navbar navbar-default">
                       <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate=""  >
-                        <div class="form-group pdlr-4">
+                        <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'add')">
                           <a class="btn btn-success btn-sm" (click)="detailAssets('add');">
                             <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
                         </div>
-                        <div class="form-group pdlr-4">
+                        <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'edit')">
                           <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailAssets('edit')">
                             <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
                         </div>
-                        <div class="form-group pdlr-4">
+                        <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'delete')">
                           <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="deleteAssets('id')">
                             <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
                         </div>
-                        <div class="form-group pdlr-4">
+                        <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'detail')">
                           <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailAssets('detail')">
                             <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
                         </div>
+                      <div *ngIf="isPermission(menu_id,'verify')">
                         <div class="form-group pdlr-4" (click)="showModal('operation','operation','')" *ngIf="uid == pr_status">
                           <a class="btn default-btn btn-sm" >
                             <span class="fa-fw fa fa-stop  mr-5 text-warning"></span>审核</a>
@@ -46,18 +47,18 @@
                           <a class="btn default-btn btn-sm" >
                             <span class="fa-fw fa fa-mail-reply-all mr-5 text-primary"></span>弃废</a>
                         </div>
-
+                      </div>
                         <div class="form-group btn-group pdlr-4">
                           <a class="btn default-btn btn-sm dropdown-toggle" (click)="showAllCheck()" data-toggle="dropdown">
                             <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
 
                           <ul class="dropdown-menu" role="menu">
-                            <li><a (click)="showModal('operation','operation','all')"><span class="fa-fw fa  fa-stop  mr-5 text-warning"></span>批量审核</a></li>
+                            <li *ngIf="isPermission(menu_id,'verify')"><a (click)="showModal('operation','operation','all')"><span class="fa-fw fa  fa-stop  mr-5 text-warning"></span>批量审核</a></li>
                             <li class="divider"></li>
-                            <li><a (click)="showModal('operation','cancel','all')"><span class="fa-fw fa fa-trash-o mr-5 text-warning"></span>批量作废</a></li>
-                            <li><a (click)="showModal('operation','back_cancel','all')"><span class="fa-fw fa fa-mail-reply-all mr-5 text-primary"></span>批量弃废</a></li>
+                            <li *ngIf="isPermission(menu_id,'verify')"><a (click)="showModal('operation','cancel','all')"><span class="fa-fw fa fa-trash-o mr-5 text-warning"></span>批量作废</a></li>
+                            <li *ngIf="isPermission(menu_id,'verify')"><a (click)="showModal('operation','back_cancel','all')"><span class="fa-fw fa fa-mail-reply-all mr-5 text-primary"></span>批量弃废</a></li>
                             <li class="divider"></li>
-                            <li><a (click)="deleteAssets('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
+                            <li *ngIf="isPermission(menu_id,'delete')"><a (click)="deleteAssets('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
                           </ul>
                         </div>
                       </form>
@@ -272,11 +273,10 @@
               </div>
             </fieldset>
           </form>
-
         </div>
-
       </div>
       <div class="modal-footer">
+      <div *ngIf="isPermission(menu_id,'verify')">
         <button type="button" class="btn btn-primary"  (click)="showDetail('transfer')" *ngIf="uid == assetsInfo?.result?.assets_verify_status">
           转交
         </button>
@@ -292,17 +292,17 @@
         <button type="button" class="btn btn-warning" (click)="showModal('operation','operation','add')" *ngIf="uid == assetsInfo?.result?.assets_verify_status">
           审核
         </button>
-        <!--<button class="btn btn-success btn-sm" type="button"><span class="glyphicon glyphicon-plus"></span>保存并新增</button>-->
-        <button *ngIf="assets_id==0" type="submit" class="btn btn-primary" (click)="onSubmit()">提交</button>
-        <button *ngIf="assets_id!=0 && assetsInfo?.result?.assets_verify_status != 'no' && assetsInfo?.result?.assets_verify_status != 'yes' && assetsInfo?.result?.assets_verify_status != 'cancel'" type="submit" class="btn btn-primary">提交</button>
-        <button class="btn btn-success" type="button">提交并新增</button>
-
+      </div>
+        <div *ngIf="isPermission(menu_id,'add')">
+          <button *ngIf="assets_id==0" type="submit" class="btn btn-primary" (click)="onSubmit(1)">提交</button>
+          <button class="btn btn-success" type="button" (click)="onSubmit(2)">提交并新增</button>
+        </div>
+        <button *ngIf="isPermission(menu_id,'edit') && assets_id!=0 && assetsInfo?.result?.assets_verify_status != 'no' && assetsInfo?.result?.assets_verify_status != 'yes' && assetsInfo?.result?.assets_verify_status != 'cancel'" type="submit" class="btn btn-primary" (click)="onSubmit(1)">提交</button>
         <button type="button" class="btn btn-default" (click)="clear_('add')">返回</button>
       </div>
     </div>
   </div>
 </div>
-
 
 <div class="modal fade" bsModal #detailModal="bs-modal">
   <div class="modal-dialog">

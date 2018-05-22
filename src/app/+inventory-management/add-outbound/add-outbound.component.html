@@ -16,9 +16,9 @@
             <h2 >详情 </h2>
           </header>
           <div>
-            <!--小部件内容-->
+            <!--小部件内容 (ngSubmit)="onSubmit()"-->
             <div class="widget-body no-padding">
-              <form id="smart-form-register" class="smart-form" [formGroup]="formModel" (ngSubmit)="onSubmit()">
+              <form id="smart-form-register" class="smart-form" [formGroup]="formModel">
                 <fieldset>
                   <legend>基本信息</legend>
                   <div class="picture-opacity" style="left: -24px; top: 38px;position: absolute;z-index: 999;">
@@ -295,6 +295,7 @@
                   </div>
                 </fieldset>
                 <footer>
+                  <div *ngIf="isPermission(menu_id,'verify')">
                   <button type="button" class="btn btn-primary"  (click)="showDetail('transfer')" *ngIf="isDetail!='detail' && uid == otherorderInfo?.result?.otherorder_status">
                     转交
                   </button>
@@ -310,12 +311,15 @@
                   <button type="button" class="btn btn-warning" (click)="showModal('operation','operation')" *ngIf="isDetail!='detail' && uid == otherorderInfo?.result?.otherorder_status">
                     审核
                   </button>
+                  </div>
                   <button type="button" class="btn btn-default" [routerLink]="['/inventory-management/outbound']">
                     返回
                   </button>
-                  <button class="btn btn-success" type="button">提交并新增</button>
-                  <button *ngIf="otherorder_id==0" type="submit" class="btn btn-primary">提交</button>
-                  <button *ngIf="isDetail!='detail' && otherorder_id!=0 && otherorderInfo?.result?.otherorder_status != 'no' && otherorderInfo?.result?.otherorder_status != 'yes' && otherorderInfo?.result?.otherorder_status != 'cancel'" type="submit" class="btn btn-primary">提交</button>
+                  <div *ngIf="isPermission(menu_id,'add')">
+                  <button class="btn btn-success" type="button" (click)="onSubmit(2)">提交并新增</button>
+                  <button *ngIf="otherorder_id==0" type="button" (click)="onSubmit(1)" class="btn btn-primary">提交</button>
+                  </div>
+                  <button *ngIf="isPermission(menu_id,'edit') && isDetail!='detail' && otherorder_id!=0 && otherorderInfo?.result?.otherorder_status != 'no' && otherorderInfo?.result?.otherorder_status != 'yes' && otherorderInfo?.result?.otherorder_status != 'cancel'" type="button" (click)="onSubmit(1)" class="btn btn-primary">提交</button>
                 </footer>
               </form>
             </div>

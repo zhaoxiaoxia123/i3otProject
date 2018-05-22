@@ -51,29 +51,51 @@ export class AssetsCategoryComponent implements OnInit {
   cid : any = 0;//当前登录用户的所属公司id
   super_admin_id : any = 0;//超级管理员所属公司id
   category_type : number = 23;//资产类别
-  rollback_url : string = '/assets-management/assets-category';
+  rollback_url : string = '';
+  /**菜单id */
+  menu_id:any;
+  /** 权限 */
+  permissions : Array<any> = [];
   constructor(
       private http:Http,
       private router : Router,
-      private cookieStoreService:CookieStoreService,
+      private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
-    let nav = '{"title":"资产类别","url":"/assets-management/assets-category","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
+
     this.getCategoryList('1');
     window.scrollTo(0,0);
     this.super_admin_id = this.globalService.getAdminID();
-    this.cid = this.cookieStoreService.getCookie('cid');
+    this.cid = this.cookieStore.getCookie('cid');
   }
 
   ngOnInit() {
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
+    setTimeout(()=>{
+      this.menu_id = this.globalService.getMenuId();
+      this.rollback_url = this.globalService.getMenuUrl();
+      this.permissions = this.globalService.getPermissions();
+    },this.globalService.getMenuPermissionDelayTime())
   }
+
+  /**
+   * 是否有该元素
+   */
+  isPermission(menu_id,value){
+    let key = menu_id +'_'+value;
+    if(value == ''){
+      key = menu_id;
+    }
+    return this.cookieStore.in_array(key, this.permissions);
+  }
+
 
   /**
    * 获取销售类型列表  this.category_type
    * @param number
    */
   getCategoryList(number:string) {
-    let url = this.globalService.getDomain()+'/api/v1/getCategory?category_type='+this.category_type+'&page='+number+'&sid='+this.cookieStoreService.getCookie('sid');
+    let url = this.globalService.getDomain()+'/api/v1/getCategory?category_type='+this.category_type+'&page='+number+'&sid='+this.cookieStore.getCookie('sid');
     if(this.keyword.trim() != '') {
       url += '&keyword='+this.keyword.trim();
     }
@@ -82,7 +104,7 @@ export class AssetsCategoryComponent implements OnInit {
         .subscribe((data)=>{
           this.categoryList = data;
           if(this.categoryList['status'] == 202){
-            this.cookieStoreService.removeAll(this.rollback_url);
+            this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
           if(this.categoryList) {
@@ -160,42 +182,38 @@ export class AssetsCategoryComponent implements OnInit {
       'category_desc' : this.category_desc,
       'category_tab':this.category_tab,
       'category_number' : this.category_number,
-      'sid':this.cookieStoreService.getCookie('sid')
-    }).subscribe(
-        (data)=>{
-          let info = JSON.parse(data['_body']);
-          if(info['status'] == 200) {
-            this.category_id = 0;
-            this.category_desc = '';
-            this.category_number = '';
-            this.category_tab = '';
-            this.categoryList = info;
+      'sid':this.cookieStore.getCookie('sid')
+    }).subscribe((data)=>{
+        let info = JSON.parse(data['_body']);
+        if(info['status'] == 200) {
+          this.category_id = 0;
+          this.category_desc = '';
+          this.category_number = '';
+          this.category_tab = '';
+          this.categoryList = info;
 
-            if (this.categoryList['result']['categoryList']['current_page'] == this.categoryList['result']['categoryList']['last_page']) {
-              this.next = true;
-            } else {
-              this.next = false;
-            }
-            if (this.categoryList['result']['categoryList']['current_page'] == 1) {
-              this.prev = true;
-            } else {
-              this.prev = false;
-            }
-            this.selects = [];
-            for (let entry of this.categoryList['result']['categoryList']['data']) {
-              this.selects[entry['category_id']] = false;
-            }
-            this.check = false;
-            this.editStatusCategoryId = 0;
-            this.lgModal.hide();
-          }else if(info['status'] == 202){
-            alert(info['msg']);
-            this.cookieStoreService.removeAll(this.rollback_url);
-            this.router.navigate(['/auth/login']);
+          if (this.categoryList['result']['categoryList']['current_page'] == this.categoryList['result']['categoryList']['last_page']) {
+            this.next = true;
+          } else {
+            this.next = false;
           }
-
+          if (this.categoryList['result']['categoryList']['current_page'] == 1) {
+            this.prev = true;
+          } else {
+            this.prev = false;
+          }
+          this.selects = [];
+          for (let entry of this.categoryList['result']['categoryList']['data']) {
+            this.selects[entry['category_id']] = false;
+          }
+          this.check = false;
+          this.editStatusCategoryId = 0;
+        }else if(info['status'] == 202){
+          alert(info['msg']);
+          this.cookieStore.removeAll(this.rollback_url);
+          this.router.navigate(['/auth/login']);
         }
-    );
+      });
   }
 
   /**
@@ -251,13 +269,13 @@ export class AssetsCategoryComponent implements OnInit {
     }
     msg = '您确定要删除该信息吗？';
     if(confirm(msg)) {
-      let url = this.globalService.getDomain()+'/api/v1/deleteCategory?category_id=' + category_id + '&type='+type+'&category_type='+this.category_type+'&sid=' + this.cookieStoreService.getCookie('sid');
+      let url = this.globalService.getDomain()+'/api/v1/deleteCategory?category_id=' + category_id + '&type='+type+'&category_type='+this.category_type+'&sid=' + this.cookieStore.getCookie('sid');
       this.http.delete(url)
           .map((res) => res.json())
           .subscribe((data) => {
             this.categoryList = data;
             if(this.categoryList['status'] == 202){
-              this.cookieStoreService.removeAll(this.rollback_url);
+              this.cookieStore.removeAll(this.rollback_url);
               this.router.navigate(['/auth/login']);
             }
             if(this.categoryList) {

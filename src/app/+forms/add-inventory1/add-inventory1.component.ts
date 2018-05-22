@@ -31,7 +31,11 @@ export class AddInventory1Component implements OnInit {
   address2_default : number;
   address3_default : number;
 
-  rollback_url : string = '/forms/inventory1';
+  rollback_url : string = '';
+  /**菜单id */
+  menu_id:any;
+  /** 权限 */
+  permissions : Array<any> = [];
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -41,9 +45,6 @@ export class AddInventory1Component implements OnInit {
       private globalService:GlobalService,
       private notificationService: NotificationService
   ) {
-    let nav = '{"title":"添加仓库","url":"/forms/inventory1/0","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
-
     this.province = getProvince(); //住址
     this.formModel = fb.group({
       storehouse_id:[''],
@@ -65,14 +66,45 @@ export class AddInventory1Component implements OnInit {
 
   ngOnInit() {
     this.storehouse_id = this.routInfo.snapshot.params['storehouse_id'];
-    if(this.storehouse_id != 0){
+    if (this.storehouse_id != 0) {
       this.getStorehouseInfo(this.storehouse_id);
       this.rollback_url += '/' + this.storehouse_id;
-    }else{
+    } else {
       this.rollback_url += '/0';
     }
     this.getStorehouseDefault();
+
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
+    setTimeout(() => {
+      this.menu_id = this.globalService.getMenuId();
+      this.rollback_url = this.globalService.getMenuUrl();
+      this.permissions = this.globalService.getPermissions();
+    }, this.globalService.getMenuPermissionDelayTime())
   }
+    /**
+     * 是否有该元素
+     */
+    isPermission(menu_id,value){
+      let key = menu_id +'_'+value;
+      if(value == ''){
+        key = menu_id;
+      }
+      return this.cookieStore.in_array(key, this.permissions);
+    }
+
+    showPinyin(){
+      let name = this.formModel.value['storehouse_name'];
+      if(name.trim() != ''){
+        this.http.get(this.globalService.getDomain()+'/api/v1/getPinyin?name='+name)
+            .map((res)=>res.json())
+            .subscribe((data)=>{
+              this.formModel.patchValue({
+                'storehouse_shortcode': data['result']
+              });
+            });
+      }
+    }
 
   getCity(){
     let pro = this.formModel.value['address1'];
@@ -136,7 +168,7 @@ export class AddInventory1Component implements OnInit {
       });
   }
 
-  onSubmit(){
+  onSubmit(num:number){
     if(this.formModel.value['storehouse_name'].trim() == ''){
       alert('请填写仓库名称！');
       return false;
@@ -157,12 +189,33 @@ export class AddInventory1Component implements OnInit {
           let info = JSON.parse(data['_body']);
           alert(info['msg']);
           if(info['status'] == 200) {
-            this.router.navigateByUrl('/tables/inventory');
+            if(num == 2){
+              this.clear_();
+            }else {
+              this.router.navigateByUrl('/tables/inventory');
+            }
           }else if(info['status'] == 202){
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
         });
+  }
+
+  clear_(){
+    this.formModel.patchValue({
+      storehouse_id:0,
+      storehouse_name:'',
+      storehouse_status:'',
+      u_id:'',
+      storehouse_phone:'',
+      storehouse_notes:'',
+      storehouse_number:'',
+      storehouse_address:'',
+      storehouse_shortcode:'',
+      address1:'',
+      address2:'',
+      address3:'',
+    });
   }
 
     //添加按钮

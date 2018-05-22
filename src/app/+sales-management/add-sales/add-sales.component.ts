@@ -41,7 +41,7 @@ export class AddSalesComponent implements OnInit {
     p_type : number = 2;//商品
     // p_property : number = 2; //销售商品  20180507修改此参数为销售库存和外购库存均能被销售，因为进入了库存表的商品均为可被销售的库存商品
     role : number = 4; //客户角色
-    rollback_url : string = '/sales-management/add-sales';
+    rollback_url : string = '';
     p_pur_prices : number = 0;
     url:string = '';
 
@@ -77,6 +77,10 @@ export class AddSalesComponent implements OnInit {
     create_user_id: any = 0;
     log_table_name:string = 'purchase';
     log_type:string = 'purchase_sale';
+    /**菜单id */
+    menu_id:any;
+    /** 权限 */
+    permissions : Array<any> = [];
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -85,9 +89,8 @@ export class AddSalesComponent implements OnInit {
       private cookieStore:CookieStoreService,
       private globalService:GlobalService,
       private notificationService: NotificationService) {
-    let nav = '{"title":"添加销售单","url":"/sales-management/add-sales/0","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
-    this.url = this.globalService.getDomain();
+
+      this.url = this.globalService.getDomain();
       this.uid = this.cookieStore.getCookie('uid');
       let pr_ids = routInfo.snapshot.params['pr_id'];
       if(pr_ids != '' && pr_ids != '0'){
@@ -125,7 +128,26 @@ export class AddSalesComponent implements OnInit {
   ngOnInit() {
 
     this.getPurchaseDefault('');
+
+      //顶部菜单读取
+      this.globalService.getMenuInfo();
+      setTimeout(()=>{
+          this.menu_id = this.globalService.getMenuId();
+          this.rollback_url = this.globalService.getMenuUrl();
+          this.permissions = this.globalService.getPermissions();
+      },this.globalService.getMenuPermissionDelayTime())
   }
+
+    /**
+     * 是否有该元素
+     */
+    isPermission(menu_id,value){
+        let key = menu_id +'_'+value;
+        if(value == ''){
+            key = menu_id;
+        }
+        return this.cookieStore.in_array(key, this.permissions);
+    }
 
   getPurchaseInfo(pr_id:number){
     this.http.get(this.globalService.getDomain()+'/api/v1/getPurchaseInfo?pr_id='+pr_id)
@@ -219,7 +241,7 @@ export class AddSalesComponent implements OnInit {
     }
   }
 
-  onSubmit(){
+  onSubmit(num :number){
     if(this.formModel.value['pr_date'].trim() == ''){
       alert('请填写单据日期！');
       return false;
@@ -263,12 +285,49 @@ export class AddSalesComponent implements OnInit {
           let info = JSON.parse(data['_body']);
           alert(info['msg']);
           if(info['status'] == 200) {
-            this.router.navigate(['/sales-management/sales-list']);
+              if(num == 2){
+                  this.clear_();
+              }else {
+                  this.router.navigate(['/sales-management/sales-list']);
+              }
           }else if(info['status'] == 202){
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
         });
+  }
+
+  clear_(){
+      this.formModel.patchValue({
+          pr_id:'',
+          pr_order:'',
+          pr_date:'',
+          pr_type:'',
+          pr_supplier:'',
+          pr_department:'',
+          pr_employee:'',
+          storehouse_id:'',
+          pr_category:'',
+          pr_transport:'',
+          pr_qrcode:'',
+          pr_note:'',
+          //审核加入
+          pr_assign:'',
+          pr_copy_person:'',
+      });
+      this.pr_supplier_default = 0; //供应商
+      this.pr_department_default = 0; //采购部门
+      this.pr_employee_default = 0; //采购员
+      this.storehouse_id_default =0; //仓库
+      this.pr_category_default =0; //采购类型
+      this.pr_transport_default = 0; //运输方式
+
+      //审核加入
+      this.create_user_id = 0;//当前创建者
+      this.approve_user = [];
+      this.follower_user = [];
+
+      this.selectProductList = [];
   }
 
     /**
@@ -296,9 +355,6 @@ export class AddSalesComponent implements OnInit {
 
     canInput($event,count1,old_p_count,openinginventory_surplus_count){
         let count_ = count1 - old_p_count;  //当前输入数量 - 老的数量= 增加或减少的数量
-        console.log(count1);
-        console.log(old_p_count);
-        console.log(count_);
         if(count_ > openinginventory_surplus_count){
             alert('库存不足,请修改使用数量在总数量以内。');
             return false;
@@ -375,8 +431,6 @@ export class AddSalesComponent implements OnInit {
 
     getProductData(value:any){
         this.selectProductList = JSON.parse(value);
-        console.log('this.selectProductList:----');
-        console.log(this.selectProductList);
     }
 
     getShowProductStatus(value:any){

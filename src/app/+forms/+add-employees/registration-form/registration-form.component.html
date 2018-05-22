@@ -1,5 +1,5 @@
 
-<form id="smart-form-register" class="smart-form"  [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate>
+<form id="smart-form-register" class="smart-form"  [formGroup]="formModel" novalidate><!-- (ngSubmit)="onSubmit()"-->
   <fieldset>
     <legend>基本信息</legend>
     <input type="hidden" name="u_id" formControlName="u_id">
@@ -24,7 +24,7 @@
       <section>
         <label class="label txt-color-blue">姓名<span class="asterisk-color">*</span></label>
         <label class="input"> <i class="icon-append fa fa-user"></i>
-          <input type="text" name="name" placeholder="请输入姓名 " maxlength="20" formControlName="name"/>
+          <input type="text" name="name" placeholder="请输入姓名 " maxlength="20" formControlName="name" (blur)="showPinyin()"/>
            </label>
       </section>
 
@@ -39,7 +39,6 @@
           </div>
         </label>
       </section>
-
     </div>
 
     <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
@@ -98,10 +97,8 @@
               <a class="btn btn-default btn-sm pb-6" type="button" (click)="getUserDefault(1)"><i class="fa fa-link"></i>
                 刷新
               </a>
-
             </div>
           </div>
-
         </section>
     </div>
     <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
@@ -117,13 +114,14 @@
         <label class="label">角色</label>
         <label class="select">
           <select name="role" formControlName="role" [(ngModel)]="role_default">
-            <option [value]="2" [selected]="user_info.result?.u_role == 2">管理员</option>
-            <option [value]="3" [selected]="user_info.result?.u_role == 3">客户部</option>
-            <option [value]="4" [selected]="user_info.result?.u_role == 4">人事部</option>
-            <option [value]="5" [selected]="user_info.result?.u_role == 5">产品部</option>
-            <option [value]="6" [selected]="user_info.result?.u_role == 6">库管部</option>
-            <option [value]="7" [selected]="user_info.result?.u_role == 7">销售部</option>
-            <option [value]="8" [selected]="user_info.result?.u_role == 8">自定义</option>
+            <option *ngFor="let r of userList.result?.roleList" [selected]="user_info.result?.u_role == r.category_id" value="{{r.category_id}}">{{r.category_desc}}</option>
+            <!--<option [value]="2" [selected]="user_info.result?.u_role == 2">管理员</option>-->
+            <!--<option [value]="3" [selected]="user_info.result?.u_role == 3">客户部</option>-->
+            <!--<option [value]="4" [selected]="user_info.result?.u_role == 4">人事部</option>-->
+            <!--<option [value]="5" [selected]="user_info.result?.u_role == 5">产品部</option>-->
+            <!--<option [value]="6" [selected]="user_info.result?.u_role == 6">库管部</option>-->
+            <!--<option [value]="7" [selected]="user_info.result?.u_role == 7">销售部</option>-->
+            <!--<option [value]="8" [selected]="user_info.result?.u_role == 8">自定义</option>-->
           </select> <i></i> </label>
       </section>
     </div>
@@ -174,7 +172,7 @@
       <section>
         <label class="label ">助记码</label>
         <label class="input">
-          <input type="text" name="u_shortcode" formControlName="u_shortcode" placeholder="手工录入或自动生成 " maxlength="20" />
+          <input type="text" disabled="disabled" name="u_shortcode" formControlName="u_shortcode" placeholder="手工录入或自动生成 " maxlength="20" />
         </label>
       </section>
     </div>
@@ -464,49 +462,14 @@
     <button type="button" class="btn btn-default" >
       返回
     </button>
-    <button class="btn btn-success" type="button">保存并新增</button>
-    <button type="submit" class="btn btn-primary">
+    <div *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')">
+    <button class="btn btn-success" type="button" (click)="onSubmit(2)">保存并新增</button>
+    <button type="button" class="btn btn-primary" (click)="onSubmit(1)">
       保存
     </button>
+    </div>
   </footer>
 </form>
-
-
-<div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-     aria-hidden="true">
-  <!--<form class="navbar-form " role="search" [formGroup]="formModel1" (ngSubmit)="onSubmit_1()" novalidate>-->
-
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" (click)="getUserDefault(2);" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <h4 class="modal-title">添加部门</h4>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="form-group">
-              <input type="text" name="department_1" [(ngModel)]="department_1" class="form-control" placeholder="请输入部门名称" required>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-success" type="button">保存并新增</button>
-        <button type="button" class="btn btn-default" (click)="getUserDefault(2);"><!--lgModal.hide()-->
-          返回
-        </button>
-        <button type="button" (click)="onSubmit_1();" class="btn btn-primary">
-          保存
-        </button>
-      </div>
-    </div>
-  </div>
-  <!--</form>-->
-</div>
-
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">

@@ -19,18 +19,29 @@ export class PhonicsListComponent implements OnInit {
   page : any;
   prev : boolean = false;
   next : boolean = false;
+
+//顶部启动 和无效是否启用显示
+  editStatusBId :number=0;
+  //处理批量
+  isAll : number = 0;
+  width : string = '0%';
+  width_1 : string = '100%';
+  
   broadcastInfo : Array<any> = [];
-  rollback_url : string = '/equipment/phonics-list';
+  rollback_url : string = '';
+  /**菜单id */
+  menu_id:any;
+  /** 权限 */
+  permissions : Array<any> = [];
+  menuInfos : Array<any> = [];
+
   constructor(
       fb:FormBuilder,
       private http:Http,
       private router : Router,
-      private cookiestore:CookieStoreService,
+      private cookieStore:CookieStoreService,
       private globalService:GlobalService
   ) {
-
-    let nav = '{"title":"广播信息列表","url":"/equipment/phonics-list","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
     this.formModel = fb.group({
       keyword:[''],
     });
@@ -38,14 +49,34 @@ export class PhonicsListComponent implements OnInit {
     window.scrollTo(0,0);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
+    setTimeout(()=>{
+      this.menu_id = this.globalService.getMenuId();
+      this.rollback_url = this.globalService.getMenuUrl();
+      this.permissions = this.globalService.getPermissions();
+      this.menuInfos = this.globalService.getMenuInfos();
+    },this.globalService.getMenuPermissionDelayTime())
+  }
+
+  /**
+   * 是否有该元素
+   */
+  isPermission(menu_id,value){
+    let key = menu_id +'_'+value;
+    if(value == ''){
+      key = menu_id;
+    }
+    return this.cookieStore.in_array(key, this.permissions);
+  }
 
   /**
    * 获取语音（文字）播报信息列表
    * @param number
    */
   getBroadcastList(number:string) {
-    let url = this.globalService.getDomain()+'/api/v1/getBroadcastList?page='+number+'&sid='+this.cookiestore.getCookie('sid');
+    let url = this.globalService.getDomain()+'/api/v1/getBroadcastList?page='+number+'&sid='+this.cookieStore.getCookie('sid');
     if(this.formModel.value['keyword'].trim() != ''){
       url += '&keyword='+this.formModel.value['keyword'].trim();
     }
@@ -53,32 +84,30 @@ export class PhonicsListComponent implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.broadcastList = data;
+          if(this.broadcastList['status'] == 202){
+            this.cookieStore.removeAll(this.rollback_url);
+            this.router.navigate(['/auth/login']);
+          }
+          if (this.broadcastList) {
+            if (this.broadcastList['result']['current_page'] == this.broadcastList['result']['last_page']) {
+              this.next = true;
+            } else {
+              this.next = false;
+            }
+            if (this.broadcastList['result']['current_page'] == 1) {
+              this.prev = true;
+            } else {
+              this.prev = false;
+            }
+          }
+
+          this.selects = [];
+          for (let entry of this.broadcastList['result']['data']) {
+            this.selects[entry['b_id']] = false;
+          }
+          this.check = false;
         });
 
-    setTimeout(() => {
-      if(this.broadcastList['status'] == 202){
-        this.cookiestore.removeAll(this.rollback_url);
-        this.router.navigate(['/auth/login']);
-      }
-      if (this.broadcastList) {
-        if (this.broadcastList['result']['current_page'] == this.broadcastList['result']['last_page']) {
-          this.next = true;
-        } else {
-          this.next = false;
-        }
-        if (this.broadcastList['result']['current_page'] == 1) {
-          this.prev = true;
-        } else {
-          this.prev = false;
-        }
-      }
-
-      this.selects = [];
-      for (let entry of this.broadcastList['result']['data']) {
-        this.selects[entry['b_id']] = false;
-      }
-      this.check = false;
-    }, 400);
   }
 
   /**
@@ -106,51 +135,15 @@ export class PhonicsListComponent implements OnInit {
    * 获取语音（文字）播报信息详情
    * @param b_id
    */
-  getBroadcastInfo(b_id:number){
-    this.http.get(this.globalService.getDomain()+'/api/v1/getBroadcastInfo?b_id='+b_id)
+  getBroadcastInfo(type:any){
+    if(this.editStatusBId == 0){
+      return false;
+    }
+    this.http.get(this.globalService.getDomain()+'/api/v1/getBroadcastInfo?b_id='+this.editStatusBId)
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.broadcastInfo = data;
         });
-    // setTimeout(() => {
-    //   console.log('this.broadcastInfo:-----');
-    //   console.log(this.broadcastInfo);
-    // },300);
-  }
-
-  /**
-   * 删除语音（文字）播报信息
-   */
-  deleteBroadcast (b_id:any,current_page:any){
-    if(this.globalService.demoAlert('','')){
-      return false;
-    }
-    if(confirm('您确定要删除该条信息吗？')) {
-      this.http.delete(this.globalService.getDomain()+'/api/v1/deleteBroadcastById?b_id=' + b_id + '&page=' + current_page+'&type=id&sid='+this.cookiestore.getCookie('sid'))
-          .map((res) => res.json())
-          .subscribe((data) => {
-            this.broadcastList = data;
-          });
-      setTimeout(() => {
-        // console.log(this.userList);
-        if(this.broadcastList['status'] == 202){
-          this.cookiestore.removeAll(this.rollback_url);
-          this.router.navigate(['/auth/login']);
-        }
-        if (this.broadcastList) {
-          if (this.broadcastList['result']['current_page'] == this.broadcastList['result']['last_page']) {
-            this.next = true;
-          } else {
-            this.next = false;
-          }
-          if (this.broadcastList['result']['current_page'] == 1) {
-            this.prev = true;
-          } else {
-            this.prev = false;
-          }
-        }
-      }, 300);
-    }
   }
 
   //点击列表checkbox事件
@@ -183,44 +176,61 @@ export class PhonicsListComponent implements OnInit {
   }
   /**
    * 全选删除
-   * @param current_page
    */
-  deleteBroadcastAll(current_page:any){
+  deleteBroadcastAll(type:any){
+    if(this.editStatusBId == 0 && type == 'id'){
+      return false;
+    }
     if(this.globalService.demoAlert('','')){
       return false;
     }
-    if(confirm('删除后将不可恢复，您确定要删除吗？')) {
-      let ids : string = '';
+    let msg = '';
+    let category_id : any = '';
+    if(type == 'id'){
+      category_id = this.editStatusBId;
+    } else if(type == 'all'){
+      let is_select = 0;
       this.selects.forEach((val, idx, array) => {
         if(val == true){
-          ids += idx+',';
+          category_id += idx+',';
+          is_select += 1;
         }
       });
+      if(is_select < 1){
+        msg = '请确认已选中需要删除的信息！';
+        alert(msg);
+        return false;
+      }
+    }
+    msg = '您确定要删除该信息吗？';
+    if(confirm(msg)) {
+      let url = this.globalService.getDomain()+'/api/v1/deleteBroadcastById?ids=' + category_id + '&page=1&type='+type+'&sid='+this.cookieStore.getCookie('sid');
+      if(this.formModel.value['keyword'].trim() != ''){
+        url += '&keyword='+this.formModel.value['keyword'].trim();
+      }
       //type :all 全选删除  id：单条删除
-      this.http.delete(this.globalService.getDomain()+'/api/v1/deleteBroadcastById?ids=' + ids + '&type=all&page=' + current_page+'&sid='+this.cookiestore.getCookie('sid'))
+      this.http.delete(url)
           .map((res) => res.json())
           .subscribe((data) => {
             this.broadcastList = data;
+            alert(this.broadcastList['msg']);
+            if(this.broadcastList['status'] == 202){
+              this.cookieStore.removeAll(this.rollback_url);
+              this.router.navigate(['/auth/login']);
+            }
+            if (this.broadcastList) {
+              if (this.broadcastList['result']['current_page'] == this.broadcastList['result']['last_page']) {
+                this.next = true;
+              } else {
+                this.next = false;
+              }
+              if (this.broadcastList['result']['current_page'] == 1) {
+                this.prev = true;
+              } else {
+                this.prev = false;
+              }
+            }
           });
-      setTimeout(() => {
-        alert(this.broadcastList['msg']);
-        if(this.broadcastList['status'] == 202){
-          this.cookiestore.removeAll(this.rollback_url);
-          this.router.navigate(['/auth/login']);
-        }
-        if (this.broadcastList) {
-          if (this.broadcastList['result']['current_page'] == this.broadcastList['result']['last_page']) {
-            this.next = true;
-          } else {
-            this.next = false;
-          }
-          if (this.broadcastList['result']['current_page'] == 1) {
-            this.prev = true;
-          } else {
-            this.prev = false;
-          }
-        }
-      }, 300);
     }
   }
 
@@ -232,4 +242,33 @@ export class PhonicsListComponent implements OnInit {
   isDemo(url:string,param:any){
     this.globalService.demoAlert(url,param);
   }
+
+  /**
+   * 顶部  启用. 无效
+   */
+  isStatusShow(b_id:any){
+    this.editStatusBId = b_id;
+
+    this.isAll = 0;
+    this.width = '0%';
+    this.width_1 ='100%';
+    this.selects.forEach((val, idx, array) => {
+      if(val == true){
+        this.selects[idx] = false;
+      }
+    });
+  }
+
+  /**
+   * 批量
+   */
+  showAllCheck(){
+    if(this.isAll == 0) {
+      this.isAll = 1;
+      this.editStatusBId = 0;
+      this.width = '10%';
+      this.width_1 = '90%';
+    }
+  }
+  
 }

@@ -59,8 +59,8 @@ export class ApprovalProcessComponent implements OnInit {
                 private routInfo : ActivatedRoute,
                 private cookieStore: CookieStoreService,
                 private globalService:GlobalService) {
-        let nav = '{"title":"审批流程","url":"/process/approval-process/0","class_":"active"}';
-        this.globalService.navEventEmitter.emit(nav);
+        //顶部菜单读取
+        this.globalService.getMenuInfo();
         this.domain = this.globalService.getDomain();
         this.uid = this.cookieStore.getCookie('uid');
         this.routInfo.params.subscribe((param : Params)=> {

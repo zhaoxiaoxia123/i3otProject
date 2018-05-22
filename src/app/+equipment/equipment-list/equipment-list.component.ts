@@ -19,17 +19,27 @@ export class EquipmentListComponent implements OnInit {
   page : any;
   prev : boolean = false;
   next : boolean = false;
+
+//顶部启动 和无效是否启用显示
+  editStatusI3otpId :number=0;
+  //处理批量
+  isAll : number = 0;
+  width : string = '0%';
+  width_1 : string = '100%';
+  
   i3otpInfo : Array<any> = [];
-  rollback_url : string = '/equipment/equipment-list';
+  rollback_url : string = '';
+  /**菜单id */
+  menu_id:any;
+  /** 权限 */
+  permissions : Array<any> = [];
   constructor(
       fb:FormBuilder,
       private http:Http,
       private router : Router,
-      private cookiestore:CookieStoreService,
+      private cookieStore:CookieStoreService,
       private globalService:GlobalService
   ) {
-    let nav = '{"title":"设备列表","url":"/equipment/equipment-list","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
     this.formModel = fb.group({
       keyword:[''],
     });
@@ -37,14 +47,33 @@ export class EquipmentListComponent implements OnInit {
     window.scrollTo(0,0);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
+    setTimeout(()=>{
+      this.menu_id = this.globalService.getMenuId();
+      this.rollback_url = this.globalService.getMenuUrl();
+      this.permissions = this.globalService.getPermissions();
+    },this.globalService.getMenuPermissionDelayTime())
+  }
+
+  /**
+   * 是否有该元素
+   */
+  isPermission(menu_id,value){
+    let key = menu_id +'_'+value;
+    if(value == ''){
+      key = menu_id;
+    }
+    return this.cookieStore.in_array(key, this.permissions);
+  }
 
   /**
    * 获取设备列表
    * @param number
    */
   getI3otpList(number:string) {
-    let url = this.globalService.getDomain()+'/api/v1/getI3otpList?page='+number+'&sid='+this.cookiestore.getCookie('sid');
+    let url = this.globalService.getDomain()+'/api/v1/getI3otpList?page='+number+'&sid='+this.cookieStore.getCookie('sid');
     if(this.formModel.value['keyword'].trim() != ''){
       url += '&keyword='+this.formModel.value['keyword'].trim();
     }
@@ -52,35 +81,29 @@ export class EquipmentListComponent implements OnInit {
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.i3otpList = data;
+          if(this.i3otpList['status'] == 202){
+            this.cookieStore.removeAll(this.rollback_url);
+            this.router.navigate(['/auth/login']);
+          }
+          if (this.i3otpList) {
+            if (this.i3otpList['result']['i3otpList']['current_page'] == this.i3otpList['result']['i3otpList']['last_page']) {
+              this.next = true;
+            } else {
+              this.next = false;
+            }
+            if (this.i3otpList['result']['i3otpList']['current_page'] == 1) {
+              this.prev = true;
+            } else {
+              this.prev = false;
+            }
+          }
+
+          this.selects = [];
+          for (let entry of this.i3otpList['result']['i3otpList']['data']) {
+            this.selects[entry['i3otp_id']] = false;
+          }
+          this.check = false;
         });
-
-    setTimeout(() => {
-      console.log('this.i3otpList:--');
-      console.log(this.i3otpList);
-
-      if(this.i3otpList['status'] == 202){
-        this.cookiestore.removeAll(this.rollback_url);
-        this.router.navigate(['/auth/login']);
-      }
-      if (this.i3otpList) {
-        if (this.i3otpList['result']['i3otpList']['current_page'] == this.i3otpList['result']['i3otpList']['last_page']) {
-          this.next = true;
-        } else {
-          this.next = false;
-        }
-        if (this.i3otpList['result']['i3otpList']['current_page'] == 1) {
-          this.prev = true;
-        } else {
-          this.prev = false;
-        }
-      }
-
-      this.selects = [];
-      for (let entry of this.i3otpList['result']['i3otpList']['data']) {
-        this.selects[entry['i3otp_id']] = false;
-      }
-      this.check = false;
-    }, 400);
   }
 
   /**
@@ -106,52 +129,79 @@ export class EquipmentListComponent implements OnInit {
 
   /**
    * 获取设备详情
-   * @param i3otp_id
    */
-  getI3otpInfo(i3otp_id:number){
-    this.http.get(this.globalService.getDomain()+'/api/v1/getI3otpInfo?i_id='+i3otp_id)
-        .map((res)=>res.json())
-        .subscribe((data)=>{
-          this.i3otpInfo = data;
-        });
-    setTimeout(() => {
-      console.log('this.i3otpInfo:-----');
-      console.log(this.i3otpInfo);
-    },300);
+getI3otpInfo(){
+  if(this.editStatusI3otpId == 0){
+    return false;
   }
+  this.http.get(this.globalService.getDomain()+'/api/v1/getI3otpInfo?i_id='+this.editStatusI3otpId)
+      .map((res)=>res.json())
+      .subscribe((data)=>{
+        this.i3otpInfo = data;
+        if(this.i3otpInfo['status'] == 200) {// && type == 'edit'
+        }else if(this.i3otpInfo['status'] == 202){
+          alert(this.i3otpInfo['msg']);
+          this.cookieStore.removeAll(this.rollback_url);
+          this.router.navigate(['/auth/login']);
+        }
+      });
+    }
 
   /**
    * 删除（安全帽）设备信息
    */
-  deleteI3otp (i3otp_id:any,current_page:any){
+  deleteI3otp(type:any){
+    if(this.editStatusI3otpId == 0 && type == 'id'){
+      return false;
+    }
     if(this.globalService.demoAlert('','')){
       return false;
     }
-    if(confirm('您确定要删除该条信息吗？')) {
-      this.http.delete(this.globalService.getDomain()+'/api/v1/deleteI3otpById?i_id=' + i3otp_id + '&page=' + current_page+'&type=id&sid='+this.cookiestore.getCookie('sid'))
+    let msg = '';
+    let category_id : any = '';
+    if(type == 'id'){
+      category_id = this.editStatusI3otpId;
+    } else if(type == 'all'){
+      let is_select = 0;
+      this.selects.forEach((val, idx, array) => {
+        if(val == true){
+          category_id += idx+',';
+          is_select += 1;
+        }
+      });
+      if(is_select < 1){
+        msg = '请确认已选中需要删除的信息！';
+        alert(msg);
+        return false;
+      }
+    }
+    msg = '您确定要删除该信息吗？';
+    if(confirm(msg)) {
+      let url = this.globalService.getDomain()+'/api/v1/deleteI3otpById?i_id=' + category_id + '&page=1&type='+type+'&sid='+this.cookieStore.getCookie('sid');
+      if(this.formModel.value['keyword'].trim() != ''){
+        url += '&keyword='+this.formModel.value['keyword'].trim();
+      }
+      this.http.delete(url)
           .map((res) => res.json())
           .subscribe((data) => {
             this.i3otpList = data;
+            if(this.i3otpList['status'] == 202){
+              this.cookieStore.removeAll(this.rollback_url);
+              this.router.navigate(['/auth/login']);
+            }
+            if (this.i3otpList) {
+              if (this.i3otpList['result']['i3otpList']['current_page'] == this.i3otpList['result']['i3otpList']['last_page']) {
+                this.next = true;
+              } else {
+                this.next = false;
+              }
+              if (this.i3otpList['result']['i3otpList']['current_page'] == 1) {
+                this.prev = true;
+              } else {
+                this.prev = false;
+              }
+            }
           });
-      setTimeout(() => {
-        // console.log(this.userList);
-        if(this.i3otpList['status'] == 202){
-          this.cookiestore.removeAll(this.rollback_url);
-          this.router.navigate(['/auth/login']);
-        }
-        if (this.i3otpList) {
-          if (this.i3otpList['result']['i3otpList']['current_page'] == this.i3otpList['result']['i3otpList']['last_page']) {
-            this.next = true;
-          } else {
-            this.next = false;
-          }
-          if (this.i3otpList['result']['i3otpList']['current_page'] == 1) {
-            this.prev = true;
-          } else {
-            this.prev = false;
-          }
-        }
-      }, 300);
     }
   }
 
@@ -199,30 +249,28 @@ export class EquipmentListComponent implements OnInit {
         }
       });
       //type :all 全选删除  id：单条删除
-      this.http.delete(this.globalService.getDomain()+'/api/v1/deleteI3otpById?ids=' + ids + '&type=all&page=' + current_page+'&sid='+this.cookiestore.getCookie('sid'))
+      this.http.delete(this.globalService.getDomain()+'/api/v1/deleteI3otpById?ids=' + ids + '&type=all&page=' + current_page+'&sid='+this.cookieStore.getCookie('sid'))
           .map((res) => res.json())
           .subscribe((data) => {
             this.i3otpList = data;
+            alert(this.i3otpList['msg']);
+            if(this.i3otpList['status'] == 202){
+              this.cookieStore.removeAll(this.rollback_url);
+              this.router.navigate(['/auth/login']);
+            }
+            if (this.i3otpList) {
+              if (this.i3otpList['result']['current_page'] == this.i3otpList['result']['last_page']) {
+                this.next = true;
+              } else {
+                this.next = false;
+              }
+              if (this.i3otpList['result']['current_page'] == 1) {
+                this.prev = true;
+              } else {
+                this.prev = false;
+              }
+            }
           });
-      setTimeout(() => {
-        alert(this.i3otpList['msg']);
-        if(this.i3otpList['status'] == 202){
-          this.cookiestore.removeAll(this.rollback_url);
-          this.router.navigate(['/auth/login']);
-        }
-        if (this.i3otpList) {
-          if (this.i3otpList['result']['current_page'] == this.i3otpList['result']['last_page']) {
-            this.next = true;
-          } else {
-            this.next = false;
-          }
-          if (this.i3otpList['result']['current_page'] == 1) {
-            this.prev = true;
-          } else {
-            this.prev = false;
-          }
-        }
-      }, 300);
     }
   }
 
@@ -234,4 +282,34 @@ export class EquipmentListComponent implements OnInit {
   isDemo(url:string,param:any){
     this.globalService.demoAlert(url,param);
   }
+
+
+  /**
+   * 顶部  启用. 无效
+   */
+  isStatusShow(i3otp_id:any){
+    this.editStatusI3otpId = i3otp_id;
+
+    this.isAll = 0;
+    this.width = '0%';
+    this.width_1 ='100%';
+    this.selects.forEach((val, idx, array) => {
+      if(val == true){
+        this.selects[idx] = false;
+      }
+    });
+  }
+
+  /**
+   * 批量
+   */
+  showAllCheck(){
+    if(this.isAll == 0) {
+      this.isAll = 1;
+      this.editStatusI3otpId = 0;
+      this.width = '10%';
+      this.width_1 = '90%';
+    }
+  }
+
 }

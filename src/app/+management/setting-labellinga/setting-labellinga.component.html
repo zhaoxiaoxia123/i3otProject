@@ -71,10 +71,8 @@
 
                                     <i class="fa fa-check txt-color-white"></i>
                                   </label>
-
                                   </div>
                                 </section>
-
                               </div>
                               <div class="form-group">
                                 <section>
@@ -82,7 +80,6 @@
                                   <input class="form-control" type="color" name="color" [(ngModel)]="color"/>
                                 </section>
                               </div>
-
                             </fieldset>
                             <footer>
                               <button  type="button" class="btn btn-primary" (click)="addCategory()">
@@ -103,102 +100,77 @@
                             <i class="fa-fw fa fa-table"></i>
                             项目标签
                           </alert>
-
                           <div  class="row mt-10">
                             <article  class="col-sm-12">
                               <div class="navbar navbar-default">
                                   <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-                                    <div class="form-group pdlr-4">
-                                      <a class="btn default-btn btn-sm" >
+                                    <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'edit')">
+                                      <a class="btn default-btn btn-sm" (click)="editCategory('edit')">
                                         <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
                                     </div>
-                                    <div class="form-group pdlr-4">
-                                      <a class="btn default-btn btn-sm" >
+                                    <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'delete')">
+                                      <a class="btn default-btn btn-sm" (click)="deleteCategory('id')">
                                         <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
                                     </div>
                                     <div class="form-group btn-group pdlr-4">
-                                      <a class="btn default-btn btn-sm dropdown-toggle"  data-toggle="dropdown">
+                                      <a class="btn default-btn btn-sm dropdown-toggle" (click)="showAllCheck()" data-toggle="dropdown">
                                         <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
-
                                       <ul class="dropdown-menu" role="menu">
-                                        <li><a ><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
+                                        <li *ngIf="isPermission(menu_id,'delete')"><a (click)="deleteCategory('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
                                       </ul>
                                     </div>
                                   </form>
                               </div>
                             </article>
                           </div>
-
-
                           <div style="padding:0;">
-                            <div style="padding: 0;z-index: 2;" class="table-responsive">
-                              <table class="table table-striped   smart-form">
+                            <div *ngIf="isAll != 0"  [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-responsive">
+                              <table class="table table-striped smart-form">
                                 <thead>
-                                <tr >
+                                <tr style="height:37px">
                                   <td><label class="checkbox">
-                                    <input type="checkbox" name="checkbox-inline" >
+                                    <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)" >
                                     <i></i>
                                   </label>
                                   </td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr style="height:46px" *ngFor="let c of categoryList?.result?.categoryList?.data">
+                                  <td><label class="checkbox">
+                                    <input type="checkbox" value="{{ c.category_id }}" [checked]="selects[c.category_id]" (change)="handle($event)" >
+                                    <i></i>
+                                  </label>
+                                  </td>
+                                </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                            <div  [ngStyle]="{'padding': '0','z-index': '1','width':width_1,'float':'left'}" class="table-responsive">
+                              <table class="table table-striped smart-form">
+                                <thead>
+                                <tr >
                                   <th>项目标签编码</th>
                                   <th>项目标签名称</th>
                                   <th>项目标签效果</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-
-                                <tr *ngFor="let c of categoryList?.result">
-                                  <td><label class="checkbox">
-                                    <input type="checkbox" name="checkbox-inline" >
-                                    <i></i>
-                                  </label>
+                                <tr *ngFor="let c of categoryList?.result?.categoryList?.data" (click)="isStatusShow(c.category_id)" [ngClass]="{'table-color':editStatusCategoryId == c.category_id}">
                                   <td>{{c.category_id}}</td>
                                   <td>{{c.category_desc}}</td><!--yellow-label-->
                                   <td><div class="task-badges"><span class="task-badge task-label " [ngStyle]="{'background-color':c.category_tab}" title="">{{c.category_desc}}</span></div></td>
-                                  <!--<td>
-                                    <div *ngIf="cid == super_admin_id || c.c_id == cid" >
-                                      <a class="btn btn-warning btn-xs" (click)="editCategory(c.category_id)"><span class="glyphicon glyphicon-pencil"></span>修改</a>
-                                      <a class="btn btn-danger btn-xs" (click)="deleteCategory(c.category_id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                    </div>
-                                    <div *ngIf="cid != super_admin_id && c.c_id != cid">无权操作</div>
-                                  </td>-->
-                                </tr>
-
-
-                                <tr *ngFor="let c of categoryList?.result">
-                                  <td><label class="checkbox">
-                                    <input type="checkbox" name="checkbox-inline" >
-                                    <i></i>
-                                  </label>
-                                  </td>
-                                  <td>{{c.category_number}}</td>
-                                  <td>{{c.category_desc}}</td>
-                                  <td>{{c.category_tab}}<br/>
-                                  </td>
                                 </tr>
                                 </tbody>
                               </table>
-
                             </div>
                           </div>
-
-
                           <!-- 底部-（分页部分）-->
                           <div class="dt-toolbar">
                             <div class="col-xs-12 col-sm-6">
-                              <span>共7条</span>
-                            </div>
-                            <div class="hidden-xs right">
-                              <!--<ul class="pagination pagination-sm">
-                                <li *ngFor="let p of categoryList?.page" class="{{p.class}}">
-                                  <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
-                                  <a *ngIf="p.method==''">{{p.text}}</a>
-                                </li>
-                              </ul>-->
+                              <span>共{{categoryList?.result?.categoryList?.total}}条</span>
                             </div>
                           </div>
-
-
                         </div>
                       </div>
                     </sa-widget>

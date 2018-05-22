@@ -45,18 +45,26 @@ export class InventoryNumberComponent implements OnInit {
   p_property : any = '';
   search_storehouse_id : any = 0;
 
-  rollback_url : string = '/inventory-management/inventory-number';
+  rollback_url : string = '';
+  menuInfos : Array<any> = [];
   constructor(
       private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService,) {
-    let nav = '{"title":"库存量查询","url":"/inventory-management/inventory-number","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
     this.getProductDefault();
   }
 
   ngOnInit() {
+
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
+    setTimeout(()=>{
+      this.rollback_url = this.globalService.getMenuUrl();
+      this.menuInfos = this.globalService.getMenuInfos();
+    },this.globalService.getMenuPermissionDelayTime())
   }
 
   /**

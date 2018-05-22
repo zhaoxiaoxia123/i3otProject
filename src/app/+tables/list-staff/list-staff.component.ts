@@ -45,8 +45,14 @@ export class ListStaffComponent implements OnInit {
   user_info : Array<any> = [];
   uRole : string = '';
   // pageHtml:SafeHtml;
-  rollback_url : string = '/tables/staff';
+  rollback_url : string = '';
   domain_url : string = '';
+
+  /**菜单id */
+  menu_id:any;
+  /** 权限 */
+  permissions : Array<any> = [];
+  menuInfos : Array<any> = [];
   constructor(
       private http:Http,
       fb:FormBuilder,
@@ -55,8 +61,6 @@ export class ListStaffComponent implements OnInit {
       private globalService:GlobalService,
       // private sanitizer: DomSanitizer
   ) {
-    let nav = '{"title":"员工列表","url":"/tables/staff","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
     this.formModel = fb.group({
       keyword:[''],
     });
@@ -69,6 +73,26 @@ export class ListStaffComponent implements OnInit {
 
   ngOnInit() {
     this.customer_name = this.cookieStore.getCookie('c_name');
+
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
+    setTimeout(()=>{
+      this.menu_id = this.globalService.getMenuId();
+      this.rollback_url = this.globalService.getMenuUrl();
+      this.permissions = this.globalService.getPermissions();
+      this.menuInfos = this.globalService.getMenuInfos();
+    },this.globalService.getMenuPermissionDelayTime())
+  }
+
+  /**
+   * 是否有该元素
+   */
+  isPermission(menu_id,value){
+    let key = menu_id +'_'+value;
+    if(value == ''){
+      key = menu_id;
+    }
+    return this.cookieStore.in_array(key, this.permissions);
   }
 
   /**

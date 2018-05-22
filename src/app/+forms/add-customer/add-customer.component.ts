@@ -35,8 +35,8 @@ export class AddCustomerComponent implements OnInit {
       private cookieStore:CookieStoreService,
       private globalService:GlobalService
   ) {
-    let nav = '{"title":"添加客户","url":"/forms/customer/0","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
 
     this.formModel = fb.group({
       c_id:[''],

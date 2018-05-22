@@ -46,8 +46,8 @@ export class SettingDepartmentComponent implements OnInit {
       private cookieStore:CookieStoreService,
       private globalService:GlobalService
   ) {
-      let nav = '{"title":"部门管理","url":"/management/department","class_":"active"}';
-      this.globalService.navEventEmitter.emit(nav);
+      //顶部菜单读取
+      this.globalService.getMenuInfo();
       this.formModel = fb.group({
           category_desc:[''],
           category_type:['3'],

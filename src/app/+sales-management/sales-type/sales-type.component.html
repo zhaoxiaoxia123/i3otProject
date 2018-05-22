@@ -49,15 +49,15 @@
                                   </section>
                                 </fieldset>
                                 <footer>
-                                  <button class="btn btn-success" type="button">保存并新增</button>
-                                  <button type="button" class="btn btn-primary" (click)="addCategory()">
+                                  <div *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')">
+                                  <button class="btn btn-success" type="button" (click)="addCategory(2)">保存并新增</button>
+                                  <button type="button" class="btn btn-primary" (click)="addCategory(1)">
                                     保存
                                   </button>
-
+                                  </div>
                                 </footer>
                               </form>
                             </div>
-
                           </div>
                         </div>
                       </sa-widget>
@@ -74,26 +74,23 @@
                             <div  class="row mt-10">
                               <article  class="col-sm-12">
                                 <div class="navbar navbar-default">
-
                                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-                                      <div class="form-group pdlr-4">
+                                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'edit')">
                                         <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusCategoryId == 0}" (click)="editCategory()">
                                           <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
                                       </div>
-                                      <div class="form-group pdlr-4">
+                                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'delete')">
                                         <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusCategoryId == 0}" (click)="deleteCategory('id')">
                                           <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
                                       </div>
                                       <div class="form-group btn-group pdlr-4">
                                         <a class="btn default-btn btn-sm dropdown-toggle" (click)="showAllCheck()" data-toggle="dropdown">
                                           <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
-
                                         <ul class="dropdown-menu" role="menu">
-                                          <li><a (click)="deleteCategory('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
+                                          <li *ngIf="isPermission(menu_id,'delete')"><a (click)="deleteCategory('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
                                         </ul>
                                       </div>
                                     </form>
-
                                 </div>
                               </article>
                             </div>

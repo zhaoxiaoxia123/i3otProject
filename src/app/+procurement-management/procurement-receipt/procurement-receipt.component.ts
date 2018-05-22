@@ -29,7 +29,7 @@ export class ProcurementReceiptComponent implements OnInit {
   
   keyword:string = '';
   type : number = 1;
-  rollback_url : string = '/procurement-management/procurement-receipt';
+  rollback_url : string = '';
 
   /**
    * 用作审核的变量
@@ -40,7 +40,6 @@ export class ProcurementReceiptComponent implements OnInit {
   pr_u_username: any = '';//当前选中的创建者昵称
   pr_order: any = '';//当前选中的单据号
 
-
   operate_type : string = '';//操作弹框类型
   operate_button_type : string = '';//操作按钮类型
   operate_button_type_is_more : string = '';//是否是批量操作
@@ -48,20 +47,45 @@ export class ProcurementReceiptComponent implements OnInit {
   operate_types : string = '';//操作弹框类型
   log_type:string = 'purchase_cg_after';
   log_table_name:string = 'purchase';
+  /**菜单id */
+  menu_id:any;
+  /** 权限 */
+  permissions : Array<any> = [];
+  menuInfos : Array<any> = [];
   constructor(
       private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
-    let nav = '{"title":"进货单","url":"/procurement-management/procurement-receipt","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
+
     this.uid = this.cookieStore.getCookie('uid');
     this.getPurchaseList('1');
     window.scrollTo(0,0);
   }
 
   ngOnInit() {
+
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
+    setTimeout(()=>{
+      this.menu_id = this.globalService.getMenuId();
+      this.rollback_url = this.globalService.getMenuUrl();
+      this.permissions = this.globalService.getPermissions();
+      this.menuInfos = this.globalService.getMenuInfos();
+    },this.globalService.getMenuPermissionDelayTime())
   }
+
+  /**
+   * 是否有该元素
+   */
+  isPermission(menu_id,value){
+    let key = menu_id +'_'+value;
+    if(value == ''){
+      key = menu_id;
+    }
+    return this.cookieStore.in_array(key, this.permissions);
+  }
+
 
   /**
    * 获取采购列表

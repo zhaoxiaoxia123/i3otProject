@@ -35,15 +35,17 @@ export class AccountCompanyComponent implements OnInit {
     category_type : number = 1;//所属行业
     cid : any = 0;//当前登录用户的所属公司id
     medical_c_id : number = 0;
-    rollback_url : string = '/account/account-company';
+    rollback_url : string = '';
+    /**菜单id */
+    menu_id:any;
+    /** 权限 */
+    permissions : Array<any> = [];
     constructor(
         fb:FormBuilder,
         private http:Http,
         private router : Router,
         private cookieStore:CookieStoreService,
         private globalService:GlobalService) {
-        let nav = '{"title":"公司信息","url":"/account/account-company","class_":"active"}';
-        this.globalService.navEventEmitter.emit(nav);
 
         window.scrollTo(0,0);
         this.formModel = fb.group({
@@ -71,6 +73,25 @@ export class AccountCompanyComponent implements OnInit {
     }
 
     ngOnInit() {
+
+        //顶部菜单读取
+        this.globalService.getMenuInfo();
+        setTimeout(()=>{
+            this.menu_id = this.globalService.getMenuId();
+            this.rollback_url = this.globalService.getMenuUrl();
+            this.permissions = this.globalService.getPermissions();
+        },this.globalService.getMenuPermissionDelayTime())
+    }
+
+    /**
+     * 是否有该元素
+     */
+    isPermission(menu_id,value){
+        let key = menu_id +'_'+value;
+        if(value == ''){
+            key = menu_id;
+        }
+        return this.cookieStore.in_array(key, this.permissions);
     }
     /**
      * 获取默认参数
@@ -87,6 +108,12 @@ export class AccountCompanyComponent implements OnInit {
                     this.getCity();
                 }
             });
+    }
+
+    editCompany(type:any){
+        if(this.isPermission(this.menu_id,type)){
+            this.lgModal.show();
+        }
     }
 
     getCity(){

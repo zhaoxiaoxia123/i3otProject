@@ -29,7 +29,7 @@ export class OutboundComponent implements OnInit {
 
   keyword:string = '';
   otherorder_type : number = 2;//出库类型
-  rollback_url : string = '/inventory-management/outbound';
+  rollback_url : string = '';
 
   /**
    * 用作审核的变量
@@ -47,20 +47,46 @@ export class OutboundComponent implements OnInit {
   operate_types : string = '';//操作弹框类型
   log_type:string = 'otherorder_out'; //出库单
   log_table_name:string = 'otherorder';
+  /**菜单id */
+  menu_id:any;
+  /** 权限 */
+  permissions : Array<any> = [];
+  menuInfos: Array<any> = [];
   constructor(
       private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
-    let nav = '{"title":"其他出库单","url":"/inventory-management/outbound","class_":"active"}';
-    this.globalService.navEventEmitter.emit(nav);
+
     this.uid = this.cookieStore.getCookie('uid');
     this.getOtherorderList('1');
     window.scrollTo(0,0);
   }
 
   ngOnInit() {
+
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
+    setTimeout(()=>{
+      this.menu_id = this.globalService.getMenuId();
+      this.rollback_url = this.globalService.getMenuUrl();
+      this.permissions = this.globalService.getPermissions();
+      this.menuInfos = this.globalService.getMenuInfos();
+    },this.globalService.getMenuPermissionDelayTime())
   }
+
+  /**
+   * 是否有该元素
+   */
+  isPermission(menu_id,value){
+    let key = menu_id +'_'+value;
+    if(value == ''){
+      key = menu_id;
+    }
+    return this.cookieStore.in_array(key, this.permissions);
+  }
+
+
 
   /**
    * 获取采购列表

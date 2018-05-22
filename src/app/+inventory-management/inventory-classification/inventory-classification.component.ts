@@ -52,16 +52,18 @@ export class InventoryClassificationComponent implements OnInit {
     // parentCategoryList:Array<any> = []; //用于绑定修改父类信息类表
     category_type : number = 6; //产品类型
     keyword:string = '';
-    rollback_url : string = '/inventory-management/inventory-classification';
+    rollback_url : string = '';
+    /**菜单id */
+    menu_id:any;
+    /** 权限 */
+    permissions : Array<any> = [];
+    menuInfos : Array<any> = [];
+
     constructor(
-        fb:FormBuilder,
         private http:Http,
         private router : Router,
         private cookieStore:CookieStoreService,
         private globalService:GlobalService) {
-
-        let nav = '{"title":"商品分类","url":"/inventory-management/inventory-classification","class_":"active"}';
-        this.globalService.navEventEmitter.emit(nav);
 
         this.getCategoryDefault();
         window.scrollTo(0,0);
@@ -69,6 +71,25 @@ export class InventoryClassificationComponent implements OnInit {
         this.cid = this.cookieStore.getCookie('cid');
     }
     ngOnInit() {
+        //顶部菜单读取
+        this.globalService.getMenuInfo();
+        setTimeout(()=>{
+            this.menu_id = this.globalService.getMenuId();
+            this.rollback_url = this.globalService.getMenuUrl();
+            this.permissions = this.globalService.getPermissions();
+            this.menuInfos = this.globalService.getMenuInfos();
+        },this.globalService.getMenuPermissionDelayTime())
+    }
+
+    /**
+     * 是否有该元素
+     */
+    isPermission(menu_id,value){
+        let key = menu_id +'_'+value;
+        if(value == ''){
+            key = menu_id;
+        }
+        return this.cookieStore.in_array(key, this.permissions);
     }
 
     /**
@@ -103,9 +124,6 @@ export class InventoryClassificationComponent implements OnInit {
                 });
                 this.getCategoryList('1',category_ids);
             });
-        setTimeout(() => {
-
-        }, 600);
     }
 
     /**
@@ -234,7 +252,7 @@ export class InventoryClassificationComponent implements OnInit {
     /**
      * 提交部门
      */
-    onSubmit(){
+    onSubmit(num:number){
         // if(this.category_number.trim() == ''){
         //     alert('请填写编号！');
         //     return false;
@@ -259,7 +277,9 @@ export class InventoryClassificationComponent implements OnInit {
                     // this.categoryList = info;
                     this.clearSubmit();
                     this.getCategoryDefault();
-                    this.lgModal.hide();
+                    if(num == 1) {
+                        this.lgModal.hide();
+                    }
                 }else if(info['status'] == 202){
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);

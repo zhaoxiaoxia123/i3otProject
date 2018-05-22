@@ -20,7 +20,8 @@
           <div>
             <!-- widget content -->
             <div class="widget-body no-padding">
-              <form id="smart-form-register" class="smart-form" [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate>
+              <!--(ngSubmit)="onSubmit()"-->
+              <form id="smart-form-register" class="smart-form" [formGroup]="formModel" novalidate>
                 <fieldset>
                   <legend>基本信息</legend>
                   <input type="hidden" name="storehouse_id" formControlName="storehouse_id" >
@@ -44,7 +45,7 @@
                     <section>
                       <label class="label ">助记码</label>
                       <label class="input">
-                        <input type="text" name="storehouse_shortcode" formControlName="storehouse_shortcode" placeholder="手工录入或自动生成 " maxlength="20" />
+                        <input type="text" (blur)="showPinyin()" disabled="disabled" name="storehouse_shortcode" formControlName="storehouse_shortcode" placeholder="手工录入或自动生成 " maxlength="20" />
                       </label>
                     </section>
                   </div>
@@ -157,10 +158,13 @@
                   <button type="button" class="btn btn-default" >
                     返回
                   </button>
-                  <button class="btn btn-success" type="button">保存并新增</button>
-                  <button type="submit" class="btn btn-primary">
+
+                  <div *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')">
+                  <button class="btn btn-success" type="button" (click)="onSubmit(2)">保存并新增</button>
+                  <button type="button" class="btn btn-primary" (click)="onSubmit(1)">
                     保存
                   </button>
+                  </div>
                 </footer>
               </form>
 

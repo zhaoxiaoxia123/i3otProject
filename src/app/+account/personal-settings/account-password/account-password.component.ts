@@ -19,7 +19,12 @@ export class AccountPasswordComponent implements OnInit {
 
   uid : any = 0;//当前登录用户id
   domain_url : string;
-  rollback_url : string = '/account/personal-settings';
+
+  @Input() rollback_url: string = '';
+  /**菜单id */
+  @Input() menu_id:any;
+  /** 权限 */
+  @Input() permissions : Array<any> = [];
   constructor(
       private http:Http,
       private router : Router,
@@ -37,6 +42,18 @@ export class AccountPasswordComponent implements OnInit {
       this.userInfo = this.fromFatherValue;
     },800);
   }
+
+  /**
+   * 是否有该元素
+   */
+  isPermission(menu_id,value){
+    let key = menu_id +'_'+value;
+    if(value == ''){
+      key = menu_id;
+    }
+    return this.cookieStore.in_array(key, this.permissions);
+  }
+
   // /**
   //  * 获取默认参数
   //  */

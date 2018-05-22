@@ -8,18 +8,18 @@
       <article class="col-sm-12 ">
         <!-- Widget ID (each widget will need unique ID)-->
         <sa-widget [editbutton]="false" [deletebutton]="false" >
-          <header>
+          <header *ngIf="i_id == 0">
             <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
             <h2>添加设备</h2>
           </header>
-          <header >
+          <header *ngIf="i_id != 0">
             <span class="widget-icon"> <i class="glyphicon glyphicon-pencil"></i> </span>
             <h2 >修改设备 </h2>
           </header>
           <div>
-            <!-- widget content -->
+            <!-- widget content (ngSubmit)="onSubmit()"-->
             <div class="widget-body no-padding">
-              <form id="smart-form-register" class="smart-form" [formGroup]="formModel" (ngSubmit)="onSubmit()">
+              <form id="smart-form-register" class="smart-form" [formGroup]="formModel" >
                <fieldset>
                  <input type="hidden" name="i3otp_id" formControlName="i3otp_id">
                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
@@ -264,8 +264,6 @@
                        </select>
                      </section>
                    </div> (mouseout)="outMouseColor()"-->
-
-
                    <!--<div class=" col col-6 col-sm-6">
                      <section>
                        <label>通信方式</label>
@@ -283,38 +281,26 @@
                        </select>
                      </section>
                    </div>(mouseout)="outMouseColor()"-->
-
-
                  </div>
-
                  <div class="row">
-
-
-
-
-
                    <!--<section class="col col-6">-->
                    <!--<label class="label">电池容量</label>-->
                    <!--<label class="input">-->
                    <!--<input type="text"  placeholder="请输入电池容量" maxlength="20" name="i3otp_activation" formControlName="i3otp_activation"/>-->
                    <!--</label>-->
                    <!--</section>-->
-
-
-
                  </div>
-
-
-
                </fieldset>
                 <footer>
                   <button type="button" class="btn btn-default" >
                     返回
                   </button>
-                  <button class="btn btn-success" type="button">提交并新增</button>
-                  <button type="submit" class="btn btn-primary">
+                  <div *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')">
+                  <button class="btn btn-success" type="button" (click)="onSubmit(2)">提交并新增</button>
+                  <button type="button" class="btn btn-primary" (click)="onSubmit(1)">
                     保存
                   </button>
+                  </div>
                 </footer>
               </form>
             </div>

@@ -40,7 +40,7 @@ export class AddStorageComponent implements OnInit {
     role : number = 3; //供应商角色
     // p_property : number = 2; //采购商品
     p_prices : number = 0;//合计成本
-    rollback_url : string = '/inventory-management/add-storage';
+    rollback_url : string = '';
 
 
     /**--------用作选择库存产品的变量------*/
@@ -75,6 +75,10 @@ export class AddStorageComponent implements OnInit {
 
     log_table_name:string = 'otherorder';
     log_type:string = 'otherorder_in';
+    /**菜单id */
+    menu_id:any;
+    /** 权限 */
+    permissions : Array<any> = [];
     constructor(
         fb:FormBuilder,
         private http:Http,
@@ -83,8 +87,7 @@ export class AddStorageComponent implements OnInit {
         private cookieStore:CookieStoreService,
         private globalService:GlobalService,
         private notificationService: NotificationService) {
-        let nav = '{"title":"添加其他入库单","url":"/inventory-management/add-storage/0","class_":"active"}';
-        this.globalService.navEventEmitter.emit(nav);
+
         this.uid = this.cookieStore.getCookie('uid');
         this.formModel = fb.group({
             // otherorder_id:[''],
@@ -116,7 +119,27 @@ export class AddStorageComponent implements OnInit {
             this.rollback_url += '/0';
         }
         this.getOtherorderDefault('');
+
+        //顶部菜单读取
+        this.globalService.getMenuInfo();
+        setTimeout(()=>{
+            this.menu_id = this.globalService.getMenuId();
+            this.rollback_url = this.globalService.getMenuUrl();
+            this.permissions = this.globalService.getPermissions();
+        },this.globalService.getMenuPermissionDelayTime())
     }
+
+    /**
+     * 是否有该元素
+     */
+    isPermission(menu_id,value){
+        let key = menu_id +'_'+value;
+        if(value == ''){
+            key = menu_id;
+        }
+        return this.cookieStore.in_array(key, this.permissions);
+    }
+
 
     getOtherorderInfo(otherorder_id:number){
         this.http.get(this.globalService.getDomain()+'/api/v1/getOtherorderInfo?otherorder_id='+otherorder_id)
@@ -201,7 +224,7 @@ export class AddStorageComponent implements OnInit {
         });
     }
 
-    onSubmit(){
+    onSubmit(num :number){
         if(this.formModel.value['otherorder_date'].trim() == ''){
             alert('请填写单据日期！');
             return false;
@@ -244,12 +267,44 @@ export class AddStorageComponent implements OnInit {
             let info = JSON.parse(data['_body']);
             alert(info['msg']);
             if(info['status'] == 200) {
-                this.router.navigate(['/inventory-management/storage']);
+                if(num == 2){
+                    this.clear_();
+                }else {
+                    this.router.navigate(['/inventory-management/storage']);
+                }
             }else if(info['status'] == 202){
                 this.cookieStore.removeAll(this.rollback_url);
                 this.router.navigate(['/auth/login']);
             }
         });
+    }
+
+    clear_(){
+        this.formModel.patchValue({
+            otherorder_id:'',
+            otherorder_order:'',
+            otherorder_date:'',
+            otherorder_user_id:'',
+            otherorder_department_id:'',
+            category_id:'',
+            otherorder_qrcode:'',
+            otherorder_detail:'',
+            otherorder_note:'',
+            //审核加入
+            otherorder_assign:'',
+            otherorder_copy_person:'',
+        });
+        //审核加入
+        this.create_user_id = 0;//当前创建者
+        this.approve_user = [];
+        this.follower_user = [];
+
+        this.otherorder_user_id_default = 0; //供应商
+        // this.storehouse_id_default =this.otherorderInfo['result']['storehouse_id']; //仓库
+        this.category_id_default =0; //采购类型
+
+        this.selectProductList = [];
+
     }
 
     //-----------搜索库存产品信息--------

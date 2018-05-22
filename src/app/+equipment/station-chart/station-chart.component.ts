@@ -76,8 +76,8 @@ export class StationChartComponent implements OnInit {
         private globalService:GlobalService,
         // private notificationService: NotificationService
     ) {
-        let nav = '{"title":"基站传感数据","url":"/equipment/station-chart","class_":"active"}';
-        this.globalService.navEventEmitter.emit(nav);
+        //顶部菜单读取
+        this.globalService.getMenuInfo();
         this.formModel = fb.group({
             keyword:[''],
         });
@@ -154,9 +154,9 @@ export class StationChartComponent implements OnInit {
     // }
 
     search_datapoint(){
-        this.size = 20;
+        this.size = 50;
         let str = JSON.stringify(this.selectedStr);
-        let url = this.globalService.getTsdbDomain()+'/tsdb/api/getDatapoint.php?size='+this.size+'&cid='+this.cid+'&metric='+this.metric+'&pid='+this.pid+'&selectedStr='+str;
+        let url = this.globalService.getTsdbDomain()+'/tsdb/api/getkybDatapoint.php?size='+this.size+'&cid='+this.cid+'&metric='+this.metric+'&pid='+this.pid+'&selectedStr='+str;
         this.dataSource1 = this.http.get(url)
             .map((res)=>res.json());
         this.dataSource1.subscribe(data=>{
@@ -457,7 +457,7 @@ export class StationChartComponent implements OnInit {
     }
 
     search_join_datapoint(){
-        this.size = 50;
+        this.size = 20;
         let join_metric = '';
         for(let a = 0;a < this.join_str.length;a++){
             if(a > 0){
@@ -465,7 +465,7 @@ export class StationChartComponent implements OnInit {
             }
             join_metric += this.join_str[a];
         }
-        let url = this.globalService.getTsdbDomain()+'/tsdb/api/getDatapoint.php?size='+this.size+'&cid='+this.cid+'&metric='+join_metric+'&pid='+this.join_pid+'&type=join';
+        let url = this.globalService.getTsdbDomain()+'/tsdb/api/getkybDatapoint.php?size='+this.size+'&cid='+this.cid+'&metric='+join_metric+'&pid='+this.join_pid+'&type=join';
         this.dataSource2 = this.http.get(url)
             .map((res)=>res.json());
         this.dataSource2.subscribe((data)=>{
