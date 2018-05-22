@@ -8,14 +8,33 @@
             <h2>{{menuInfos?.menu_name}}</h2>
           </header>
           <div>
+
             <div class="widget-body no-padding" >
+              <div  class="row" *ngIf="c_id == admin_c_id">
+                <article  class="col-sm-12">
+                  <div class="navbar navbar-default">
+                    <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
+                      <div class="form-group pdlr-4 smart-form" >
+                        <section style="width: 200px;margin:0;">
+                          <label class="select" >
+                            <select [(ngModel)]="customer_id" name="customer_id" (change)="getRole($event)">
+                              <option *ngFor="let cd of customerDefault?.result?.customerList" value="{{cd.c_id}}">{{cd.c_name}}</option>
+                            </select>
+                            <i></i>
+                          </label>
+                        </section>
+                      </div>
+                    </form>
+                  </div>
+                </article>
+              </div>
               <div class="pt">
 
-                <div *ngIf="c_id == admin_c_id">
-                  <select [(ngModel)]="customer_id" name="customer_id" (change)="getRole($event)">
-                    <option *ngFor="let cd of customerDefault?.result?.customerList" value="{{cd.c_id}}">{{cd.c_name}}</option>
-                  </select>
-                </div>
+                <!--<div *ngIf="c_id == admin_c_id">-->
+                  <!--<select [(ngModel)]="customer_id" name="customer_id" (change)="getRole($event)">-->
+                    <!--<option *ngFor="let cd of customerDefault?.result?.customerList" value="{{cd.c_id}}">{{cd.c_name}}</option>-->
+                  <!--</select>-->
+                <!--</div>-->
 
                 <article class="form-group col col-lg-6 col-md-6 col-sm-6  col-xs-6">
                   <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"

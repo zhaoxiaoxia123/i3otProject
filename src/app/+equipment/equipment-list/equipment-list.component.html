@@ -63,10 +63,10 @@
 
               <div style="padding:0;">
                 <div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-responsive">
-                  <table class="table table-striped smart-form">
+                  <table class="table table-striped smart-form table-height-20">
                     <thead>
-                    <tr style="height:37px;">
-                      <td><label class="checkbox">
+                    <tr >
+                      <td><label class="checkbox mt-8">
                         <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)" >
                         <i></i>
                       </label>
@@ -74,9 +74,9 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let il of i3otpList.result?.i3otpList?.data" style="height:34px;">
+                    <tr *ngFor="let il of i3otpList.result?.i3otpList?.data" >
                       <td >
-                        <label class="checkbox">
+                        <label class="checkbox mt-8">
                           <input type="checkbox" value="{{ il.i3otp_id }}" [checked]="selects[il.i3otp_id]" (change)="handle($event)">
                           <i></i>
                         </label>
@@ -86,7 +86,7 @@
                   </table>
                 </div>
                 <div [ngStyle]="{'padding': '0','z-index': '1','width':width_1,'float':'left'}" class="table-responsive">
-                  <table class="table table-striped smart-form">
+                  <table class="table table-striped smart-form table-height-20">
                     <thead>
                     <tr >
                       <th>产品ID</th>
