@@ -46,7 +46,7 @@
                           <span class="fa-fw fa fa-mail-reply-all mr-5 text-primary"></span>弃废</a>
                       </div>
                     </div>
-                        <div class="form-group btn-group pdlr-4">
+                        <div class="form-group btn-group pdlr-4" *ngIf="isPermission(menu_id,'verify') || isPermission(menu_id,'delete')">
                           <a class="btn default-btn btn-sm dropdown-toggle" (click)="showAllCheck()" data-toggle="dropdown">
                             <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
                           <ul class="dropdown-menu" role="menu">

@@ -60,7 +60,7 @@
                               <label class="label txt-color-orange">*模版格式：模版名称1:任务标题11,任务标题12,...;模版名称2:任务标题21,任务标题22,...;</label>
                             </section>
                           </fieldset>
-                          <footer>
+                          <footer *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')">
                             <button class="btn btn-success" type="button" (click)="addCategory()">保存并新增</button>
                             <button  type="button" class="btn btn-primary" (click)="addCategory()">
                               保存

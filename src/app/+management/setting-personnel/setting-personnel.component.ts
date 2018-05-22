@@ -45,14 +45,16 @@ export class SettingPersonnelComponent implements OnInit {
     cid : any = 0;//当前登录用户的所属公司id
     super_admin_id : any = 0;//超级管理员所属公司id
     category_type : number = 7;  //员工角色
-    rollback_url : string = '/management/setting-personnel';
+    rollback_url : string = '';
+    /**菜单id */
+    menu_id:any;
+    /** 权限 */
+    permissions : Array<any> = [];
     constructor(
         private http:Http,
         private router : Router,
         private cookieStore:CookieStoreService,
         private globalService:GlobalService) {
-        //顶部菜单读取
-        this.globalService.getMenuInfo();
         this.getCategoryList('1');
         window.scrollTo(0,0);
         this.super_admin_id = this.globalService.getAdminID();
@@ -60,6 +62,25 @@ export class SettingPersonnelComponent implements OnInit {
     }
 
     ngOnInit() {
+
+        //顶部菜单读取
+        this.globalService.getMenuInfo();
+        setTimeout(()=>{
+            this.menu_id = this.globalService.getMenuId();
+            this.rollback_url = this.globalService.getMenuUrl();
+            this.permissions = this.globalService.getPermissions();
+        },this.globalService.getMenuPermissionDelayTime())
+    }
+
+    /**
+     * 是否有该元素
+     */
+    isPermission(menu_id,value){
+        let key = menu_id +'_'+value;
+        if(value == ''){
+            key = menu_id;
+        }
+        return this.cookieStore.in_array(key, this.permissions);
     }
 
     /**
