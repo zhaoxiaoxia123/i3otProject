@@ -42,42 +42,33 @@ export class AccountMenuComponent implements OnInit {
     width_1 : string = '100%';
     
   rollback_url : string = '';
-    /**菜单id */
-    menu_ids:any;
-    /** 权限 */
-    permissions : Array<any> = [];
+    menuInfos: Array<any> = [];
   constructor(
       private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
         window.scrollTo(0,0);
-
-    this.getMenuDefault();
-    this.getMenuList(1);
+        this.getMenuDefault();
+        this.getMenuList(1);
   }
 
   ngOnInit() {
       //顶部菜单读取
       this.globalService.getMenuInfo();
       setTimeout(() => {
-          this.menu_ids = this.globalService.getMenuId();
           this.rollback_url = this.globalService.getMenuUrl();
-          this.permissions = this.globalService.getPermissions();
+          this.menuInfos = this.globalService.getMenuInfos();
       }, this.globalService.getMenuPermissionDelayTime());
   }
+
 
     /**
      * 是否有该元素
      */
-    isPermission(menu_id,value){
-        let key = menu_id +'_'+value;
-        if(value == ''){
-            key = menu_id;
-        }
-        return this.cookieStore.in_array(key, this.permissions);
+    isHave(menu_id){
+        return this.cookieStore.in_array(menu_id, this.menu_control);
     }
-
 
     /**
      * 页码分页
@@ -185,7 +176,6 @@ export class AccountMenuComponent implements OnInit {
         let t = e.target;
         let v = t.value;
         let c = t.checked;
-        console.log(v);
         if(c == true) {
             this.menu_control.push(v);
         }else{

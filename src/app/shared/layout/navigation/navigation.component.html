@@ -16,7 +16,7 @@
         <ul  *ngIf="c.child_count != 0">
           <li routerLinkActive="active"  *ngFor="let dc of c.child">
             <a routerLink="{{dc.menu_url}}" *ngIf="dc.child_count == 0">
-              <i class="fa fa-group"></i>{{dc.menu_name}}
+              {{dc.menu_name}}
             </a>
             <a *ngIf="dc.child_count != 0">
               <a href="#"><i class="fa fa-lg fa-fw fa-skype"></i>

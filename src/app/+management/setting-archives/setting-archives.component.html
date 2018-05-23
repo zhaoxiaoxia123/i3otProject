@@ -7,8 +7,8 @@
       <article class="col-sm-12 ">
         <sa-widget [editbutton]="false" [deletebutton]="false" [colorbutton]="false">
           <header>
-            <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-            <h2>商品档案</h2>
+            <span class="widget-icon"> <i class="fa {{menuInfos?.menu_icon}}"></i> </span>
+            <h2>{{menuInfos?.menu_name}}</h2>
           </header>
 
           <div>
@@ -18,7 +18,8 @@
                   <div class="navbar navbar-default">
                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
                       <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'add')">
-                        <a class="btn btn-success btn-sm" (click)="getAddProductDefault(0);">
+                        <!---->
+                        <a class="btn btn-success btn-sm" (click)="lgModal.show()">
                           <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
                       </div>
                       <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'edit')">
@@ -58,22 +59,12 @@
                       </div>
                       <div class="form-group btn-group pdlr-4">
                         <a class="btn default-btn btn-sm dropdown-toggle" data-toggle="dropdown">
-                          全部<i class="fa fa-fw fa-chevron-down"></i></a>
+                        {{property_title}}<i class="fa fa-fw fa-chevron-down"></i></a>
                         <ul class="dropdown-menu" role="menu">
-                          <li><a >全部</a></li>
-                          <li><a>销售</a></li>
-                          <li><a >外购</a></li>
+                          <li (click)="setProperty('','全部')"><a >全部</a></li>
+                          <li (click)="setProperty('1','销售')"><a>销售</a></li>
+                          <li (click)="setProperty('2','外购')"><a >外购</a></li>
                         </ul>
-                      </div>
-                      <div class="form-group pdlr-4 smart-form">
-                        <section style="width: 80px;margin:0;">
-                          <label class="select" >
-                            <select name="gender">
-                              <option value="0" >全部</option>
-                              <option value="1">销售</option>
-                              <option value="1">外购</option>
-                            </select> <i></i> </label>
-                        </section>
                       </div>
                       <div class="form-group pdlr-4">
                         <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" [(ngModel)]="keyword"  name="keyword" placeholder="请输入搜索内容" type="text">
@@ -168,11 +159,7 @@
                               <tr   *ngFor="let p of productList.result?.productList?.data">
                                 <td >
                                   <div class="">
-                                    <label class="checkbox padding-top-10" *ngIf="cid != super_admin_id && cid != p.c_id" >
-                                      <input type="checkbox" name="checkbox-inline" disabled="disabled">
-                                      <i></i>
-                                    </label>
-                                    <label class="checkbox padding-top-10" *ngIf="cid == super_admin_id || cid == p.c_id" >
+                                    <label class="checkbox padding-top-10" >
                                       <input type="checkbox" name="checkbox-inline" value="{{ p.p_id }}" [checked]="selects[p.p_id]" (change)="handle($event)">
                                       <i></i>
                                     </label>
@@ -315,16 +302,19 @@
                                 <section>
                                   <label class="label txt-color-blue">商品名称<span class="asterisk-color">*</span></label>
                                   <label class="input">
-                                    <input type="text" placeholder="商品名称"  name="p_name" [(ngModel)]="p_name" [disabled]="isDetail=='detail'">
+                                    <input type="text" placeholder="商品名称" (blur)="showPinyin()" name="p_name" [(ngModel)]="p_name" [disabled]="isDetail=='detail'">
                                   </label>
                                 </section>
                               </div>
-
                               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <section>
-                                  <label class="label">规格型号</label>
-                                  <label class="input">
-                                    <input type="text" placeholder=""  name="p_specification" [(ngModel)]="p_specification" [disabled]="isDetail=='detail'">
+                                  <label class="label">商品属性</label>
+                                  <label class="select">
+                                    <select class="input-sm" name="p_property" [(ngModel)]="p_property" (change)="getUnitCategoryList($event,1)" [disabled]="isDetail=='detail'">
+                                      <option value="0">--请选择--</option>
+                                      <option value="1">销售</option>
+                                      <option value="2">外购</option>
+                                    </select> <i></i>
                                   </label>
                                 </section>
                               </div>
@@ -335,7 +325,11 @@
                                     <label   class="select form-control border-0">
                                       <select class="input-sm" name="p_category_id" [(ngModel)]="p_category_id" [disabled]="isDetail=='detail'">
                                         <option [selected]="p_id == 0" value="0">--请选择--</option>
-                                        <option *ngFor="let c of addProductDefault?.result?.categoryListForAdd" [selected]="productInfo?.result?.p_category_id == c.category_id" value="{{ c.category_id }}" [disabled]="(c.category_depth == 0 && c.child_count > 0) ? 'disabled' : false" [ngStyle]="{'font-weight':((c.category_depth == 0) ? 'bold' : 'normal'),'color':((c.category_depth == 0 && c.child_count > 0) ? 'black' : '#404040')}">
+                                        <!--<option *ngFor="let c of addProductDefault?.result?.categoryListForAdd" [selected]="productInfo?.result?.p_category_id == c.category_id" value="{{ c.category_id }}" [disabled]="(c.category_depth == 0 && c.child_count > 0) ? 'disabled' : false" [ngStyle]="{'font-weight':((c.category_depth == 0) ? 'bold' : 'normal'),'color':((c.category_depth == 0 && c.child_count > 0) ? 'black' : '#404040')}">-->
+                                          <!--<strong *ngIf="c.category_depth == 0">{{c.category_desc}}</strong>-->
+                                          <!--<span *ngIf="c.category_depth != 0">&#45;&#45;{{c.category_desc}}</span>-->
+                                        <!--</option>-->
+                                        <option *ngFor="let c of unitCategoryList?.result?.categoryList" value="{{ c.category_id }}" [selected]="productInfo.result?.p_category_id == c.category_id" [disabled]="(c.category_depth == 0 && c.child_count > 0) ? 'disabled' : false" [ngStyle]="{'font-weight':((c.category_depth == 0) ? 'bold' : 'normal'),'color':((c.category_depth == 0 && c.child_count > 0) ? 'black' : '#404040')}">
                                           <strong *ngIf="c.category_depth == 0">{{c.category_desc}}</strong>
                                           <span *ngIf="c.category_depth != 0">--{{c.category_desc}}</span>
                                         </option>
@@ -345,35 +339,30 @@
                                       <a  href="http://cn.i3ot.com/#/inventory-management/inventory-classification" target="_blank" (click)="smartModEg1()" class="btn btn-default btn-sm pb-6" type="button">
                                         <!-- <i class="fa fa-plus "></i>--> 添加
                                       </a>
-                                      <a class="btn btn-default btn-sm pb-6" type="button" (click)="getAddProductDefault()"><i class="fa fa-link"></i>
+                                      <a class="btn btn-default btn-sm pb-6" type="button" (click)="getUnitCategoryList(0,2)"><i class="fa fa-link"></i>
                                         刷新
                                       </a>
-
                                     </div>
                                   </div>
-
+                                </section>
+                              </div>
+                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <section>
+                                  <label class="label">规格型号</label>
+                                  <label class="input">
+                                    <input type="text" placeholder=""  name="p_specification" [(ngModel)]="p_specification" [disabled]="isDetail=='detail'">
+                                  </label>
                                 </section>
                               </div>
                               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <section>
                                   <label class="label">助记码</label>
                                   <label class="input">
-                                    <input type="text" (blur)="showPinyin()" placeholder="助记码" name="p_shortcode" [(ngModel)]="p_shortcode" disabled="disabled">
+                                    <input type="text" placeholder="助记码" name="p_shortcode" [(ngModel)]="p_shortcode" disabled="disabled">
                                   </label>
                                 </section>
                               </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section>
-                                  <label class="label">商品属性</label>
-                                  <label class="select">
-                                    <select class="input-sm" name="p_property" [(ngModel)]="p_property" (change)="changePoperty($event)" [disabled]="isDetail=='detail'">
-                                      <option value="0">--请选择--</option>
-                                      <option value="1">销售</option>
-                                      <option value="2">外购</option>
-                                    </select> <i></i>
-                                  </label>
-                                </section>
-                              </div>
+
                               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <section>
                                   <label class="label">计量单位</label>
@@ -769,7 +758,6 @@
                                 </li>
                                 <li>
                                   <div class="c-file-upload">
-
                                     <a class="btn btn-default" data-toggle="modal" data-target="#mypicture"  style="width: 150px; height: 150px;border: 0;">
                                       <i class="fa fa-plus fa-2x" style="color: #ccc;  font-size: 152px;"></i>
                                     </a>
@@ -801,7 +789,6 @@
           </sa-widget>
         </div>
         <div class="modal-footer">
-          <!--<button type="button" class="btn btn-success btn-sm" ><span class="glyphicon glyphicon-plus"></span>保存并新增</button>-->
          <div *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')">
           <button [disabled]="isDetail=='detail'" type="button" class="btn btn-primary" (click)="onSubmit(1);">保存</button>
           <button class="btn btn-success" type="button" (click)="onSubmit(2);">保存并新增</button>

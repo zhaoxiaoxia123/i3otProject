@@ -4,8 +4,8 @@
       <article class="col-sm-12 ">
         <sa-widget [editbutton]="false" [deletebutton]="false" [colorbutton]="false">
           <header>
-            <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-            <h2>企业配置</h2>
+            <span class="widget-icon"> <i class="fa {{menuInfos?.menu_icon}}"></i> </span>
+            <h2>{{menuInfos?.menu_name}}</h2>
           </header>
 
           <div>
@@ -14,19 +14,19 @@
                 <article  class="col-sm-12">
                   <div class="navbar navbar-default">
                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_ids,'add')">
+                      <div class="form-group pdlr-4">
                         <a class="btn btn-success btn-sm" (click)="editMenu('add')">
                           <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
                       </div>
-                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_ids,'edit')">
+                      <div class="form-group pdlr-4">
                         <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusMenuId == 0}" (click)="editMenu('edit')">
                           <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
                       </div>
-                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_ids,'delete')">
+                      <div class="form-group pdlr-4">
                         <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusMenuId == 0}" (click)="deleteMenu('id')">
                           <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
                       </div>
-                      <div class="form-group btn-group pdlr-4" *ngIf="isPermission(menu_ids,'delete')">
+                      <div class="form-group btn-group pdlr-4">
                         <a class="btn default-btn btn-sm dropdown-toggle" (click)="showAllCheck()" data-toggle="dropdown">
                           <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
                         <ul class="dropdown-menu" role="menu">
@@ -213,19 +213,19 @@
                  <label class="label ">页面功能</label>
                  <div class="inline-group">
                    <label class="checkbox">
-                     <input type="checkbox" [checked]="menu_control['add']" (change)="handleControl($event)" value="add">
+                     <input type="checkbox" [checked]="isHave('add')" (change)="handleControl($event)" value="add">
                      <i></i>新增</label>
                    <label class="checkbox">
-                     <input type="checkbox" [checked]="menu_control['edit']" (change)="handleControl($event)" value="edit">
+                     <input type="checkbox" [checked]="isHave('edit')" (change)="handleControl($event)" value="edit">
                      <i></i>修改</label>
                    <label class="checkbox">
-                     <input type="checkbox" [checked]="menu_control['delete']" (change)="handleControl($event)" value="delete">
+                     <input type="checkbox" [checked]="isHave('delete')" (change)="handleControl($event)" value="delete">
                      <i></i>删除</label>
                    <label class="checkbox">
-                     <input type="checkbox" [checked]="menu_control['detail']" (change)="handleControl($event)" value="detail">
+                     <input type="checkbox" [checked]="isHave('detail')" (change)="handleControl($event)" value="detail">
                      <i></i>详情</label>
                    <label class="checkbox">
-                     <input type="checkbox" [checked]="menu_control['verify']" (change)="handleControl($event)" value="verify">
+                     <input type="checkbox" [checked]="isHave('verify')" (change)="handleControl($event)" value="verify">
                      <i></i>审核</label>
                  </div>
                </section>
@@ -235,10 +235,8 @@
        </div>
       </div>
       <div class="modal-footer">
-        <div *ngIf="isPermission(menu_ids,'add') || isPermission(menu_ids,'edit')">
         <button type="button" class="btn btn-primary" (click)="onSubmit(1);">保存</button>
         <button class="btn btn-success btn-sm" type="button" (click)="onSubmit(2);">保存并新增</button>
-        </div>
         <button type="button" class="btn btn-default" (click)="clear_();">返回</button>
       </div>
     </div>

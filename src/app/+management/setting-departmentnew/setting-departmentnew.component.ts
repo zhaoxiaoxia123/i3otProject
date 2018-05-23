@@ -59,6 +59,7 @@ export class SettingDepartmentnewComponent implements OnInit {
     menu_id:any;
     /** 权限 */
     permissions : Array<any> = [];
+    menuInfos : Array<any> = [];
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -93,6 +94,7 @@ export class SettingDepartmentnewComponent implements OnInit {
           this.menu_id = this.globalService.getMenuId();
           this.rollback_url = this.globalService.getMenuUrl();
           this.permissions = this.globalService.getPermissions();
+          this.menuInfos = this.globalService.getMenuInfos();
       },this.globalService.getMenuPermissionDelayTime())
   }
 

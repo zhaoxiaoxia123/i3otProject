@@ -16,6 +16,7 @@ export class InventoryClassificationComponent implements OnInit {
     categoryList : Array<any> = [];
     categoryDefault : Array<any> = [];
     categoryInfo : Array<any> = [];
+    unitCategoryList : Array<any> = [];// 选中类型的分类列表
 
     button_contrl_id : number = 0;
     index : number = 1;
@@ -25,6 +26,7 @@ export class InventoryClassificationComponent implements OnInit {
     category_number : string = '';
     category_desc : string = '';
     category_depth : number = 0;
+    category_tab : any = 0;
 
     page : any;
     prev : boolean = false;
@@ -47,8 +49,6 @@ export class InventoryClassificationComponent implements OnInit {
     width : string = '0%';
     width_1 : string = '100%';
 
-    cid : any = 0;//当前登录用户的所属公司id
-    super_admin_id : any = 0;//超级管理员所属公司id
     // parentCategoryList:Array<any> = []; //用于绑定修改父类信息类表
     category_type : number = 6; //产品类型
     keyword:string = '';
@@ -67,8 +67,6 @@ export class InventoryClassificationComponent implements OnInit {
 
         this.getCategoryDefault();
         window.scrollTo(0,0);
-        this.super_admin_id = this.globalService.getAdminID();
-        this.cid = this.cookieStore.getCookie('cid');
     }
     ngOnInit() {
         //顶部菜单读取
@@ -150,7 +148,6 @@ export class InventoryClassificationComponent implements OnInit {
             .map((res)=>res.json())
             .subscribe((data)=>{
                 this.categoryList = data;
-                console.log(this.categoryList);
                 if(this.categoryList['status'] == 202){
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
@@ -162,7 +159,6 @@ export class InventoryClassificationComponent implements OnInit {
                     }
                 }
                 this.check = false;
-                this.super_admin_id = this.categoryList['result']['categoryList']['super_admin_id'];
             });
     }
 
@@ -178,8 +174,37 @@ export class InventoryClassificationComponent implements OnInit {
     }
 
     /**
+     * 选中类型是 销售或外购
+     * @param $event
+     */
+    getUnitCategoryList(obj,num:number){
+        let id = 0;
+        if(num == 1){
+            id = obj.target.value;
+        }else{
+            id = obj;
+        }
+        let url = this.globalService.getDomain()+'/api/v1/getUnitCategoryList?category_type='+this.category_type+'&sid='+this.cookieStore.getCookie('sid');
+        if(id != 0){
+            url += '&category_tab='+id;
+
+        this.http.get(url)
+            .map((res)=>res.json())
+            .subscribe((data)=>{
+                this.unitCategoryList = data;
+                if(this.unitCategoryList['status'] == 201){
+                    alert(this.unitCategoryList['msg']);
+                }else if(this.unitCategoryList['status'] == 202){
+                    this.cookieStore.removeAll(this.rollback_url);
+                    this.router.navigate(['/auth/login']);
+                }
+            });
+        }
+    }
+
+
+    /**
      * 删除
-     * @param category_id
      */
     deleteCategory(type:any){
         if(this.editStatusCategoryId == 0 && type == 'id'){
@@ -266,6 +291,7 @@ export class InventoryClassificationComponent implements OnInit {
             'category_desc':this.category_desc,
             'category_number':this.category_number,
             'category_depth':this.category_depth,
+            'category_tab':this.category_tab,
             'category_type' : this.category_type,
             'u_id':this.cookieStore.getCookie('uid'),
             'sid':this.cookieStore.getCookie('sid')
@@ -296,6 +322,7 @@ export class InventoryClassificationComponent implements OnInit {
         this.category_number = '';
         this.category_desc = '';
         this.category_depth = 0;
+        this.category_tab = 0;
     }
 
     setValue(category_id:number){
@@ -303,6 +330,10 @@ export class InventoryClassificationComponent implements OnInit {
         this.category_desc=this.categoryInfo['result']['parent']['category_desc'];
         this.category_number=this.categoryInfo['result']['parent']['category_number'];
         this.category_depth=this.categoryInfo['result']['parent']['category_depth'];
+        this.category_tab = this.categoryInfo['result']['parent']['category_tab'];
+        if(this.category_tab != 0){
+            this.getUnitCategoryList(this.category_tab,2);
+        }
     }
     /**
      * 分页
