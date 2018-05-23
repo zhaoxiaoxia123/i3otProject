@@ -5576,6 +5576,7 @@ ul.checkable.checkable--popboxmenu li a .label-name {
 }
 .cbp_tmtimeline > li .cbp_tmlabel {
     margin: 0 0 15px 25%;
+    min-height:42px;
     background: #6AB9F4;
     color: #fff;
     padding: 1em;
