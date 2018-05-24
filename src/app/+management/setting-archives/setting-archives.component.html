@@ -7,8 +7,8 @@
       <article class="col-sm-12 ">
         <sa-widget [editbutton]="false" [deletebutton]="false" [colorbutton]="false">
           <header>
-            <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-            <h2>商品档案</h2>
+            <span class="widget-icon"> <i class="fa {{menuInfos?.menu_icon}}"></i> </span>
+            <h2>{{menuInfos?.menu_name}}</h2>
           </header>
 
           <div>
@@ -18,7 +18,8 @@
                   <div class="navbar navbar-default">
                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
                       <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'add')">
-                        <a class="btn btn-success btn-sm" (click)="getAddProductDefault(0);">
+                        <!---->
+                        <a class="btn btn-success btn-sm" (click)="lgModal.show()">
                           <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
                       </div>
                       <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'edit')">
@@ -58,22 +59,12 @@
                       </div>
                       <div class="form-group btn-group pdlr-4">
                         <a class="btn default-btn btn-sm dropdown-toggle" data-toggle="dropdown">
-                          全部<i class="fa fa-fw fa-chevron-down"></i></a>
+                        {{property_title}}<i class="fa fa-fw fa-chevron-down"></i></a>
                         <ul class="dropdown-menu" role="menu">
-                          <li><a >全部</a></li>
-                          <li><a>销售</a></li>
-                          <li><a >外购</a></li>
+                          <li (click)="setProperty('','全部')"><a >全部</a></li>
+                          <li (click)="setProperty('1','销售')"><a>销售</a></li>
+                          <li (click)="setProperty('2','外购')"><a >外购</a></li>
                         </ul>
-                      </div>
-                      <div class="form-group pdlr-4 smart-form">
-                        <section style="width: 80px;margin:0;">
-                          <label class="select" >
-                            <select name="gender">
-                              <option value="0" >全部</option>
-                              <option value="1">销售</option>
-                              <option value="1">外购</option>
-                            </select> <i></i> </label>
-                        </section>
                       </div>
                       <div class="form-group pdlr-4">
                         <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" [(ngModel)]="keyword"  name="keyword" placeholder="请输入搜索内容" type="text">
@@ -103,18 +94,65 @@
                             <div class="tree smart-form">
                               <ul class="">
                                 <li class=" parent_li">
-                                  <span><label class="checkbox inline-block tree-label pt-12 ">
-                                          <input type="checkbox" name="checkbox-inline" [checked]="select_category_ids[0]" (click)="selectCategoryAll()"><i></i>
-                                        </label>
+                                  <span>
+                                    <label class="checkbox inline-block tree-label pt-12 ">
+                                      <input type="checkbox" name="checkbox-inline" [checked]="select_category_ids[0]" (click)="selectCategoryAll()"><i></i>
+                                    </label>
                                     <i class="fa fa-lg fa-folder-open"></i>全部
-                                    <i class="sa-icon fa fa-lg fa-plus-circle" *ngIf="showUl == 0" (click)="showLeftUl(1)"></i>
-                                    <i class="sa-icon fa fa-lg fa-minus-circle" *ngIf="showUl == 1" (click)="showLeftUl(0)"></i>
+                                      <i class="sa-icon fa fa-lg fa-plus-circle" *ngIf="showUl == 0" (click)="showLeftUl(1)"></i>
+                                      <i class="sa-icon fa fa-lg fa-minus-circle" *ngIf="showUl == 1" (click)="showLeftUl(0)"></i>
                                   </span>
                                   <ul class="" *ngIf="showUl == 1">
-                                    <li class=" parent_li" *ngFor="let c of productDefault?.result?.categoryList;let ind = index;">
+                                    <li class=" parent_li" *ngIf="select_property == 1 || select_property == '0'">
+                                    <span>
+                                      <label class="checkbox inline-block tree-label pt-12 ">
+                                        <input type="checkbox" name="checkbox-inline" [checked]="select_category_ids_preporty[1]" (click)="selectPerptyAll(1)"><i></i>
+                                      </label>
+                                      <i class="fa fa-lg fa-folder-open"></i>销售
+                                      <i class="sa-icon fa fa-lg fa-plus-circle" *ngIf="showUlProperty == 2  && productDefault?.result?.categoryListProperty?.xs?.length != 0" (click)="showLeftUlProperty(1,0)"></i>
+                                      <i class="sa-icon fa fa-lg fa-minus-circle" *ngIf="showUlProperty == 1 && showUlProperty_ == 0" (click)="showLeftUlProperty(1,1)"></i>
+                                      <i class="sa-icon fa fa-lg fa-plus-circle" *ngIf="showUlProperty == 1 && showUlProperty_ == 1" (click)="showLeftUlProperty(1,0)"></i>
+                                    </span>
+                                    <ul *ngIf="showUlProperty == 1 && showUlProperty_ == 0">
+                                      <li class=" parent_li" *ngFor="let c of productDefault?.result?.categoryListProperty?.xs;let ind = index;">
+                                        <span>
+                                          <label class="checkbox inline-block tree-label ">
+                                            <input type="checkbox" name="checkbox-inline" [checked]="select_category_ids[c.category_id]" (click)="selectDepartment(c.category_id,ind,0,1,'xs')">
+                                            <i></i>{{c.category_desc}}
+                                            <em class="txt-color-blue">({{c.child_count}})</em>
+                                          </label>
+                                          <i class="sa-icon fa fa-lg fa-minus-circle" *ngIf="showUlChild == c.category_id && c.has_child != 0" (click)="showLeftUlChild(0)"></i>
+                                          <i class="sa-icon fa fa-lg fa-plus-circle" *ngIf="showUlChild != c.category_id && c.has_child != 0" (click)="showLeftUlChild(c.category_id)"></i>
+                                        </span>
+                                        <ul class="" *ngIf="showUlChild == c.category_id">
+                                          <li *ngFor="let dc of c.child;let indChild = index;">
+                                        <span>
+                                          <label class="checkbox inline-block tree-label">
+                                            <input type="checkbox" name="checkbox-inline" [checked]="select_category_ids[c.category_id] || select_category_ids[dc.category_id]" (click)="selectDepartment(dc.category_id,ind,indChild,c.category_id,'xs')">
+                                            <i></i>{{dc.category_desc}}
+                                            <em class="txt-color-blue">({{dc.child_count}})</em>
+                                          </label>
+                                        </span>
+                                          </li>
+                                        </ul>
+                                      </li>
+                                    </ul>
+                                  </li>
+                                  <li class=" parent_li" *ngIf="select_property == 2 || select_property == '0'">
+                                    <span>
+                                      <label class="checkbox inline-block tree-label pt-12 ">
+                                        <input type="checkbox" name="checkbox-inline" [checked]="select_category_ids_preporty[2]" (click)="selectPerptyAll(2)"><i></i>
+                                      </label>
+                                      <i class="fa fa-lg fa-folder-open"></i>外购
+                                      <i class="sa-icon fa fa-lg fa-plus-circle" *ngIf="showUlProperty == 1 && productDefault?.result?.categoryListProperty?.wg?.length != 0" (click)="showLeftUlProperty(2,1)"></i>
+                                      <i class="sa-icon fa fa-lg fa-plus-circle" *ngIf="showUlProperty == 2 && showUlProperty_ == 0" (click)="showLeftUlProperty(2,1)"></i>
+                                      <i class="sa-icon fa fa-lg fa-minus-circle" *ngIf="showUlProperty == 2 && showUlProperty_ == 1" (click)="showLeftUlProperty(2,0)"></i>
+                                    </span>
+                                  <ul *ngIf="showUlProperty == 2 && showUlProperty_ == 1">
+                                    <li class=" parent_li" *ngFor="let c of productDefault?.result?.categoryListProperty?.wg;let ind = index;">
                                     <span>
                                       <label class="checkbox inline-block tree-label ">
-                                        <input type="checkbox" name="checkbox-inline" [checked]="select_category_ids[c.category_id]" (click)="selectDepartment(c.category_id,ind,0,1)">
+                                        <input type="checkbox" name="checkbox-inline" [checked]="select_category_ids[c.category_id]" (click)="selectDepartment(c.category_id,ind,0,1,'wg')">
                                         <i></i>{{c.category_desc}}
                                         <em class="txt-color-blue">({{c.child_count}})</em>
                                       </label>
@@ -125,14 +163,17 @@
                                         <li *ngFor="let dc of c.child;let indChild = index;">
                                         <span>
                                           <label class="checkbox inline-block tree-label">
-                                            <input type="checkbox" name="checkbox-inline" [checked]="select_category_ids[c.category_id] || select_category_ids[dc.category_id]" (click)="selectDepartment(dc.category_id,ind,indChild,c.category_id)">
+                                            <input type="checkbox" name="checkbox-inline" [checked]="select_category_ids[c.category_id] || select_category_ids[dc.category_id]" (click)="selectDepartment(dc.category_id,ind,indChild,c.category_id,'wg')">
                                             <i></i>{{dc.category_desc}}
                                             <em class="txt-color-blue">({{dc.child_count}})</em>
                                           </label>
                                         </span>
                                         </li>
                                       </ul>
-                                    </li>
+                                      </li>
+                                    </ul>
+                                  </li>
+
                                   </ul>
                                 </li>
                               </ul>
@@ -168,11 +209,7 @@
                               <tr   *ngFor="let p of productList.result?.productList?.data">
                                 <td >
                                   <div class="">
-                                    <label class="checkbox padding-top-10" *ngIf="cid != super_admin_id && cid != p.c_id" >
-                                      <input type="checkbox" name="checkbox-inline" disabled="disabled">
-                                      <i></i>
-                                    </label>
-                                    <label class="checkbox padding-top-10" *ngIf="cid == super_admin_id || cid == p.c_id" >
+                                    <label class="checkbox padding-top-10" >
                                       <input type="checkbox" name="checkbox-inline" value="{{ p.p_id }}" [checked]="selects[p.p_id]" (change)="handle($event)">
                                       <i></i>
                                     </label>
@@ -315,16 +352,19 @@
                                 <section>
                                   <label class="label txt-color-blue">商品名称<span class="asterisk-color">*</span></label>
                                   <label class="input">
-                                    <input type="text" placeholder="商品名称"  name="p_name" [(ngModel)]="p_name" [disabled]="isDetail=='detail'">
+                                    <input type="text" placeholder="商品名称" (blur)="showPinyin()" name="p_name" [(ngModel)]="p_name" [disabled]="isDetail=='detail'">
                                   </label>
                                 </section>
                               </div>
-
                               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <section>
-                                  <label class="label">规格型号</label>
-                                  <label class="input">
-                                    <input type="text" placeholder=""  name="p_specification" [(ngModel)]="p_specification" [disabled]="isDetail=='detail'">
+                                  <label class="label">商品属性</label>
+                                  <label class="select">
+                                    <select class="input-sm" name="p_property" [(ngModel)]="p_property" (change)="getUnitCategoryList($event,1)" [disabled]="isDetail=='detail'">
+                                      <option value="0">--请选择--</option>
+                                      <option value="1">销售</option>
+                                      <option value="2">外购</option>
+                                    </select> <i></i>
                                   </label>
                                 </section>
                               </div>
@@ -335,7 +375,11 @@
                                     <label   class="select form-control border-0">
                                       <select class="input-sm" name="p_category_id" [(ngModel)]="p_category_id" [disabled]="isDetail=='detail'">
                                         <option [selected]="p_id == 0" value="0">--请选择--</option>
-                                        <option *ngFor="let c of addProductDefault?.result?.categoryListForAdd" [selected]="productInfo?.result?.p_category_id == c.category_id" value="{{ c.category_id }}" [disabled]="(c.category_depth == 0 && c.child_count > 0) ? 'disabled' : false" [ngStyle]="{'font-weight':((c.category_depth == 0) ? 'bold' : 'normal'),'color':((c.category_depth == 0 && c.child_count > 0) ? 'black' : '#404040')}">
+                                        <!--<option *ngFor="let c of addProductDefault?.result?.categoryListForAdd" [selected]="productInfo?.result?.p_category_id == c.category_id" value="{{ c.category_id }}" [disabled]="(c.category_depth == 0 && c.child_count > 0) ? 'disabled' : false" [ngStyle]="{'font-weight':((c.category_depth == 0) ? 'bold' : 'normal'),'color':((c.category_depth == 0 && c.child_count > 0) ? 'black' : '#404040')}">-->
+                                          <!--<strong *ngIf="c.category_depth == 0">{{c.category_desc}}</strong>-->
+                                          <!--<span *ngIf="c.category_depth != 0">&#45;&#45;{{c.category_desc}}</span>-->
+                                        <!--</option>-->
+                                        <option *ngFor="let c of unitCategoryList?.result?.categoryList" value="{{ c.category_id }}" [selected]="productInfo.result?.p_category_id == c.category_id" [disabled]="(c.category_depth == 0 && c.child_count > 0) ? 'disabled' : false" [ngStyle]="{'font-weight':((c.category_depth == 0) ? 'bold' : 'normal'),'color':((c.category_depth == 0 && c.child_count > 0) ? 'black' : '#404040')}">
                                           <strong *ngIf="c.category_depth == 0">{{c.category_desc}}</strong>
                                           <span *ngIf="c.category_depth != 0">--{{c.category_desc}}</span>
                                         </option>
@@ -345,35 +389,30 @@
                                       <a  href="http://cn.i3ot.com/#/inventory-management/inventory-classification" target="_blank" (click)="smartModEg1()" class="btn btn-default btn-sm pb-6" type="button">
                                         <!-- <i class="fa fa-plus "></i>--> 添加
                                       </a>
-                                      <a class="btn btn-default btn-sm pb-6" type="button" (click)="getAddProductDefault()"><i class="fa fa-link"></i>
+                                      <a class="btn btn-default btn-sm pb-6" type="button" (click)="getUnitCategoryList(0,2)"><i class="fa fa-link"></i>
                                         刷新
                                       </a>
-
                                     </div>
                                   </div>
-
+                                </section>
+                              </div>
+                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <section>
+                                  <label class="label">规格型号</label>
+                                  <label class="input">
+                                    <input type="text" placeholder=""  name="p_specification" [(ngModel)]="p_specification" [disabled]="isDetail=='detail'">
+                                  </label>
                                 </section>
                               </div>
                               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <section>
                                   <label class="label">助记码</label>
                                   <label class="input">
-                                    <input type="text" (blur)="showPinyin()" placeholder="助记码" name="p_shortcode" [(ngModel)]="p_shortcode" disabled="disabled">
+                                    <input type="text" placeholder="助记码" name="p_shortcode" [(ngModel)]="p_shortcode" disabled="disabled">
                                   </label>
                                 </section>
                               </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section>
-                                  <label class="label">商品属性</label>
-                                  <label class="select">
-                                    <select class="input-sm" name="p_property" [(ngModel)]="p_property" (change)="changePoperty($event)" [disabled]="isDetail=='detail'">
-                                      <option value="0">--请选择--</option>
-                                      <option value="1">销售</option>
-                                      <option value="2">外购</option>
-                                    </select> <i></i>
-                                  </label>
-                                </section>
-                              </div>
+
                               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <section>
                                   <label class="label">计量单位</label>
@@ -769,7 +808,6 @@
                                 </li>
                                 <li>
                                   <div class="c-file-upload">
-
                                     <a class="btn btn-default" data-toggle="modal" data-target="#mypicture"  style="width: 150px; height: 150px;border: 0;">
                                       <i class="fa fa-plus fa-2x" style="color: #ccc;  font-size: 152px;"></i>
                                     </a>
@@ -801,7 +839,6 @@
           </sa-widget>
         </div>
         <div class="modal-footer">
-          <!--<button type="button" class="btn btn-success btn-sm" ><span class="glyphicon glyphicon-plus"></span>保存并新增</button>-->
          <div *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')">
           <button [disabled]="isDetail=='detail'" type="button" class="btn btn-primary" (click)="onSubmit(1);">保存</button>
           <button class="btn btn-success" type="button" (click)="onSubmit(2);">保存并新增</button>

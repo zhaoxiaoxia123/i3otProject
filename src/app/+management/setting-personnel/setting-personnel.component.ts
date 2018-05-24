@@ -42,8 +42,7 @@ export class SettingPersonnelComponent implements OnInit {
     width : string = '0%';
     width_1 : string = '100%';
 
-    cid : any = 0;//当前登录用户的所属公司id
-    super_admin_id : any = 0;//超级管理员所属公司id
+    super_admin_role_id : any = 0;//超级管理员所属公司id
     category_type : number = 7;  //员工角色
     rollback_url : string = '';
     /**菜单id */
@@ -57,8 +56,7 @@ export class SettingPersonnelComponent implements OnInit {
         private globalService:GlobalService) {
         this.getCategoryList('1');
         window.scrollTo(0,0);
-        this.super_admin_id = this.globalService.getAdminID();
-        this.cid = this.cookieStore.getCookie('cid');
+        this.super_admin_role_id = this.globalService.getSuperAdminRoleID();
     }
 
     ngOnInit() {
@@ -233,15 +231,17 @@ export class SettingPersonnelComponent implements OnInit {
      * 顶部  启用. 无效
      */
     isStatusShow(category_id:any,status:any){
-        this.editStatusCategoryId = category_id;
-        this.isAll = 0;
-        this.width = '0%';
-        this.width_1 ='100%';
-        this.selects.forEach((val, idx, array) => {
-            if(val == true){
-                this.selects[idx] = false;
-            }
-        });
+        if( this.super_admin_role_id != category_id) {
+            this.editStatusCategoryId = category_id;
+            this.isAll = 0;
+            this.width = '0%';
+            this.width_1 = '100%';
+            this.selects.forEach((val, idx, array) => {
+                if (val == true) {
+                    this.selects[idx] = false;
+                }
+            });
+        }
     }
 
     /**

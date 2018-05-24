@@ -13,7 +13,6 @@
                 <article  class="col-sm-12">
                   <div class="navbar navbar-default">
                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-
                       <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'add')">
                         <a class="btn btn-success btn-sm" (click)="lgModal.show()">
                           <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
@@ -147,6 +146,7 @@
                               <tr >
                                 <th>分类编码</th>
                                 <th>分类名称</th>
+                                <th>分类属性</th>
                                 <th>上级分类</th>
                               </tr>
                               </thead>
@@ -154,6 +154,7 @@
                               <tr *ngFor="let cl of categoryList?.result?.categoryList?.data" (click)="isStatusShow(cl.category_id)" [ngClass]="{'table-color':editStatusCategoryId == cl.category_id}">
                                 <td>{{ cl.category_number }}</td>
                                 <td>{{ cl.category_desc }}</td>
+                                <td>{{(cl.category_tab == 1) ? '销售':'外购'}}</td>
                                 <td>{{ cl.parent_category }}</td>
                               </tr>
                               </tbody>
@@ -217,11 +218,25 @@
                 </label>
               </section>
               <section>
+                <label class="label ">分类属性</label>
+                <label class="select">
+                  <select name="category_tab" [(ngModel)]="category_tab" (change)="getUnitCategoryList($event,1)">
+                    <option value="0">--请选择--</option>
+                    <option value="1">销售</option>
+                    <option value="2">外购</option>
+                  </select><i></i>
+                </label>
+              </section>
+              <section>
                 <label class="label ">上级分类</label>
                 <label class="select">
                   <select name="category_depth" [(ngModel)]="category_depth">
                     <option [selected]="category_id == 0" value="0">一级分类</option>
-                    <option *ngFor="let c of categoryList?.result?.categoryList?.data" [selected]="categoryInfo.result?.category_depth == c.category_id" value="{{ c.category_id }}">{{c.category_desc}}</option>
+                    <!--<option *ngFor="let c of categoryList?.result?.categoryList?.data" [selected]="categoryInfo.result?.category_depth == c.category_id" value="{{ c.category_id }}">{{c.category_desc}}</option>-->
+                    <option *ngFor="let c of unitCategoryList?.result?.categoryList" value="{{ c.category_id }}" [selected]="categoryInfo.result?.category_depth == c.category_id" >
+                      <strong *ngIf="c.category_depth == 0">{{c.category_desc}}</strong>
+                      <span *ngIf="c.category_depth != 0">--{{c.category_desc}}</span>
+                    </option>
                   </select><i></i>
                 </label>
               </section>
@@ -230,11 +245,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <!--<button class="btn btn-success btn-sm" type="button"><span class="glyphicon glyphicon-plus"></span>保存并新增</button>-->
-        <div *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')">
-        <button type="button" class="btn btn-primary" (click)="onSubmit(1);">保存</button>
-        <button class="btn btn-success" type="button" (click)="onSubmit(2);">保存并新增</button>
-        </div>
+        <button *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')" type="button" class="btn btn-primary" (click)="onSubmit(1);">保存</button>
+        <button *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')" class="btn btn-success" type="button" (click)="onSubmit(2);">保存并新增</button>
         <button type="button" class="btn btn-default" (click)="clearSubmit();lgModal.hide()">返回</button>
       </div>
     </div>

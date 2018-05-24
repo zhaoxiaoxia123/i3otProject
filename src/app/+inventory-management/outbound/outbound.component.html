@@ -31,7 +31,7 @@
                           <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
                       </div>
 
-                      <div *ngIf="isPermission(menu_id,'verify')">
+                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'verify')">
                       <div class="form-group pdlr-4" (click)="showModal('operation','operation','')" *ngIf="uid == sa_status">
                         <a class="btn default-btn btn-sm" >
                           <span class="fa-fw fa fa-stop  mr-5 text-warning"></span>审核</a>

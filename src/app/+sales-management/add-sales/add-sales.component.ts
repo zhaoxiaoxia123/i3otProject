@@ -54,7 +54,7 @@ export class AddSalesComponent implements OnInit {
     productDefault : Array<any> = [];//弹框中商品分类
     // 弹框中左侧选中商品分类的id
     select_category_ids: Array<any> = [];
-
+    select_category_ids_preporty: Array<any> = [];
 
     /**--------用作审核的变量------*/
     approve_users : Array<any> = [];
@@ -402,7 +402,7 @@ export class AddSalesComponent implements OnInit {
      * 获取弹框左侧商品分类列表信息
      */
     getProductDefault(){
-        this.http.get(this.globalService.getDomain()+'/api/v1/getProductDefault?type=list&p_type='+this.p_type+'&category_type='+this.category_type_product+'&sid='+this.cookieStore.getCookie('sid'))
+        this.http.get(this.globalService.getDomain()+'/api/v1/getProductDefault?type=list&property=1&p_type='+this.p_type+'&category_type='+this.category_type_product+'&sid='+this.cookieStore.getCookie('sid'))
             .map((res)=>res.json())
             .subscribe((data)=>{
                 this.productDefault = data;
@@ -412,6 +412,8 @@ export class AddSalesComponent implements OnInit {
                     this.router.navigate(['/auth/login']);
                 }
                 this.select_category_ids[0] = true;
+                this.select_category_ids_preporty[1] = true;
+                this.select_category_ids_preporty[2] = true;
                 this.productDefault['result']['categoryList'].forEach((val, idx, array) => {
                     this.select_category_ids[val['category_id']] = true;
                     if(val['has_child'] >= 1){

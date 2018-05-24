@@ -33,6 +33,9 @@ export class AccountMenuComponent implements OnInit {
     menu_status:number=1;
     menu_control: Array<any> = [];
 
+    search_id: string='0';
+    search_title: string='全部';
+
     keyword : string = '';
     //顶部启动 和无效是否启用显示
     editStatusMenuId : any = 0;
@@ -42,42 +45,33 @@ export class AccountMenuComponent implements OnInit {
     width_1 : string = '100%';
     
   rollback_url : string = '';
-    /**菜单id */
-    menu_ids:any;
-    /** 权限 */
-    permissions : Array<any> = [];
+    menuInfos: Array<any> = [];
   constructor(
       private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
         window.scrollTo(0,0);
-
-    this.getMenuDefault();
-    this.getMenuList(1);
+        this.getMenuDefault();
+        this.getMenuList(1);
   }
 
   ngOnInit() {
       //顶部菜单读取
       this.globalService.getMenuInfo();
       setTimeout(() => {
-          this.menu_ids = this.globalService.getMenuId();
           this.rollback_url = this.globalService.getMenuUrl();
-          this.permissions = this.globalService.getPermissions();
+          this.menuInfos = this.globalService.getMenuInfos();
       }, this.globalService.getMenuPermissionDelayTime());
   }
+
 
     /**
      * 是否有该元素
      */
-    isPermission(menu_id,value){
-        let key = menu_id +'_'+value;
-        if(value == ''){
-            key = menu_id;
-        }
-        return this.cookieStore.in_array(key, this.permissions);
+    isHave(menu_id){
+        return this.cookieStore.in_array(menu_id, this.menu_control);
     }
-
 
     /**
      * 页码分页
@@ -89,7 +83,7 @@ export class AccountMenuComponent implements OnInit {
     }
 
   getMenuList(page:any){
-      let url = this.globalService.getDomain()+'/api/v1/getMenuList?page='+page+'&sid='+this.cookieStore.getCookie('sid');
+      let url = this.globalService.getDomain()+'/api/v1/getMenuList?page='+page+'&search_id='+this.search_id+'&sid='+this.cookieStore.getCookie('sid');
       if(this.keyword.trim() != '') {
           url += '&keyword='+this.keyword.trim();
       }
@@ -185,7 +179,6 @@ export class AccountMenuComponent implements OnInit {
         let t = e.target;
         let v = t.value;
         let c = t.checked;
-        console.log(v);
         if(c == true) {
             this.menu_control.push(v);
         }else{
@@ -196,7 +189,14 @@ export class AccountMenuComponent implements OnInit {
             });
         }
     }
-
+    /**
+     * 搜索筛选
+     */
+    setSearch(property:any,title:any){
+        this.search_id = property;
+        this.search_title = title;
+        this.getMenuList('1');
+    }
 
     /**
      * 顶部  启用. 无效

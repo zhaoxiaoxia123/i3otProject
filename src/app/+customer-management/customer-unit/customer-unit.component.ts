@@ -109,7 +109,7 @@ export class CustomerUnitComponent implements OnInit {
 
 
     showPinyin(){
-        let name = this.c_abbreviation;
+        let name = this.c_name;
         if(name.trim() != ''){
             this.http.get(this.globalService.getDomain()+'/api/v1/getPinyin?name='+name)
                 .map((res)=>res.json())

@@ -10,6 +10,7 @@ export class GlobalService {
   station2 = '2';//基站
   station1 = '3';//安全帽
   adminID = 1;//超级管理员c_id
+  superAdminRoleID = 1;//超级管理员角色id  category_id
   medicalID = 65;//乐风医疗公司c_id
   sjfbID = 89;//三彭州市三界丰碑育苗合作社c_id
   sjfbNumber = 'sanjiefengbei';//三彭州市三界丰碑育苗合作社c_number
@@ -54,6 +55,10 @@ export class GlobalService {
 
   getAdminID() : number{
     return this.adminID;
+  }
+
+  getSuperAdminRoleID() : number{
+    return this.superAdminRoleID;
   }
 
   getMedicalID() : number{

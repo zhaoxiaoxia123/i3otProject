@@ -33,7 +33,7 @@
       <section>
         <label class="label txt-color-blue">密码<span class="asterisk-color">*</span></label>
         <label class="input"> <i class="icon-append fa fa-lock"></i>
-          <input type="text" name="password" placeholder="{{passwordPlaceholder}}" id="password" maxlength="16" minlength="6" formControlName="password"/>
+          <input type="text" name="password" placeholder="{{passwordPlaceholder}}" maxlength="16" minlength="6" formControlName="password"/>
           <div [hidden]="!formModel.hasError('minlength','password')">
             输入密码的最小长度为6
           </div>

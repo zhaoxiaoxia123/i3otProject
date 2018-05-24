@@ -208,7 +208,7 @@
                               <section>
                                 <label class="label txt-color-blue">单位名称<span class="asterisk-color">*</span></label>
                                 <label class="input">
-                                  <input type="text" placeholder="" name="c_name" [(ngModel)]="c_name">
+                                  <input type="text" placeholder="" name="c_name" [(ngModel)]="c_name" (blur)="showPinyin()">
                                 </label>
                               </section>
                             </div>
@@ -258,7 +258,7 @@
                               <section>
                                 <label class="label">助记码</label>
                                 <label class="input">
-                                  <input type="text" placeholder="助记码(或单位简称)" disabled="disabled" (blur)="showPinyin()" name="c_abbreviation" [(ngModel)]="c_abbreviation" >
+                                  <input type="text" placeholder="助记码(或单位简称)" disabled="disabled" name="c_abbreviation" [(ngModel)]="c_abbreviation" >
                                 </label>
                               </section>
                             </div>

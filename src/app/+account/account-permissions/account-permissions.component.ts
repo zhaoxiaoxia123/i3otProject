@@ -3,7 +3,7 @@ import {GlobalService} from "../../core/global.service";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {Router} from "@angular/router";
 import {Http} from "@angular/http";
-import {isNumber, isUndefined} from "util";
+import {isArray, isNumber, isUndefined} from "util";
 
 @Component({
   selector: 'app-account-permissions',
@@ -27,11 +27,11 @@ export class AccountPermissionsComponent implements OnInit {
     showUlChild3 : number  = 0;//三级
     editStatusCategoryId : any = 0;
 
-    customer_id : number = 0;
+    customer_id : any = 0;
     role : number = 1;
     category_type : number = 7;
-    c_id : any;
-    admin_c_id : any;
+    login_user_role_id : any;
+    super_admin_role_id : any;
 
     rollback_url :string = '';
     /**菜单id */
@@ -45,11 +45,10 @@ export class AccountPermissionsComponent implements OnInit {
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
-      this.c_id = this.cookieStore.getCookie('cid');
-      this.admin_c_id = this.globalService.getAdminID();
-      if(this.c_id == this.admin_c_id){
-          this.getCustomerDefault();
-      }
+      this.login_user_role_id = this.cookieStore.getCookie('urole');
+      this.super_admin_role_id = this.globalService.getSuperAdminRoleID();
+
+      this.getCustomerDefault();
   }
 
   ngOnInit() {
@@ -78,8 +77,24 @@ export class AccountPermissionsComponent implements OnInit {
         if(value == ''){
             key = menu_id;
         }
-        return this.cookieStore.in_array(key, this.permissions);
+        if(isArray(this.permissions)){
+            return this.cookieStore.in_array(key, this.permissions);
+        }
+        return false;
     }
+
+    /**
+     * 是否有该元素
+     */
+    isHave(menu_id,val){
+        let key = menu_id +'_'+val;
+        if(val == ''){
+            key = menu_id;
+        }
+        return this.cookieStore.in_array(key, this.select_ids);
+    }
+
+
     /**
      * 获取客户列表
      */
@@ -93,8 +108,11 @@ export class AccountPermissionsComponent implements OnInit {
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
-                if(this.customerDefault['status'] = 200 && this.customerDefault['result']['customerList'].length > 0){
+                if(this.customerDefault['status'] == 200 && this.customerDefault['result']['customerList'].length > 0 && this.login_user_role_id == this.super_admin_role_id){
                     this.customer_id = this.customerDefault['result']['customerList'][0]['c_id'];
+                    this.getRole(this.customer_id);
+                }else{
+                    this.customer_id = parseInt(this.cookieStore.getCookie('cid'));
                     this.getRole(this.customer_id);
                 }
             });
@@ -211,16 +229,16 @@ export class AccountPermissionsComponent implements OnInit {
                             }
                         }
                     });
-                }else{
-                    if(val['controls'] != [] && val['controls'].length > 0) {
-                        val['controls'].forEach((valc, idxc, arrayc) => {
-                            this.select_ids.push(val['menu_id'] + '_' + valc);
-                        });
-                    }
                 }
+                // else{
+                //     if(val['controls'] != [] && val['controls'].length > 0) {
+                //         val['controls'].forEach((valc, idxc, arrayc) => {
+                //             this.select_ids.push(val['menu_id'] + '_' + valc);
+                //         });
+                //     }
+                // }
             });
         }
-        // console.log(this.select_ids);
     }
 
     /**
@@ -305,12 +323,11 @@ export class AccountPermissionsComponent implements OnInit {
                 }
             }
         }
-        // console.log(this.select_ids);
-        this.editStatusCategoryId = 0;
     }
 
     selectControl($event){
         let index_ = $event.target.value;
+        console.log(index_);
         if(this.cookieStore.in_array(index_,this.select_ids)){
             this.select_ids.forEach((val, idx, array) => {
                 if(val == index_){
@@ -321,18 +338,7 @@ export class AccountPermissionsComponent implements OnInit {
             this.select_ids.push(index_.toString());
 
         }
-        // console.log(this.select_ids);
-    }
-
-    /**
-     * 是否有该元素
-     */
-    isHave(menu_id,val){
-        let key = menu_id +'_'+val;
-        if(val == ''){
-            key = menu_id;
-        }
-        return this.cookieStore.in_array(key, this.select_ids);
+        console.log(this.select_ids);
     }
 
     /**
@@ -349,11 +355,23 @@ export class AccountPermissionsComponent implements OnInit {
         this.showUlChild3 = menu_id;
     }
 
-
-
     isStatusShow(category_id:any){
         this.editStatusCategoryId = category_id;
+
+        let url = this.globalService.getDomain()+'/api/v1/getCategoryById?category_id='+this.editStatusCategoryId+'&category_type='+this.category_type+'&number=3';
+        this.http.get(url)
+            .map((res)=>res.json())
+            .subscribe((data)=>{
+                this.permissions = data['result']['tabs'];
+                this.select_ids = [];
+                if(isArray(this.permissions)){
+                    this.permissions.forEach((val, idx, array) => {
+                        this.select_ids.push(val.toString());
+                    });
+                }
+            });
     }
+
 
     /**
      * 保存授权操作
@@ -363,7 +381,7 @@ export class AccountPermissionsComponent implements OnInit {
             alert('请选中要授权得角色！');
         }else{
             this.http.post(this.globalService.getDomain()+'/api/v1/addCategoryMenu',{
-                'category_id' :this.editStatusCategoryId,
+                'category_id' : this.editStatusCategoryId,
                 'category_tab' :JSON.stringify(this.select_ids),
                 'sid':this.cookieStore.getCookie('sid')
             }).subscribe((data)=>{
@@ -374,9 +392,12 @@ export class AccountPermissionsComponent implements OnInit {
                     this.router.navigate(['/auth/login']);
                 }else if(info['status'] == 200){
                     this.select_ids = [];
+                    this.editStatusCategoryId = 0;
                 }
             });
         }
     }
+
+
 
 }

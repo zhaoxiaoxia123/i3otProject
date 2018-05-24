@@ -118,7 +118,7 @@ export class UnitListComponent implements OnInit {
             this.http.get(this.globalService.getDomain()+'/api/v1/getPinyin?name='+name)
                 .map((res)=>res.json())
                 .subscribe((data)=>{
-                    this.c_name = data['result'];
+                    this.c_abbreviation = data['result'];
                 });
         }
     }
