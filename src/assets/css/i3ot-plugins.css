@@ -22,10 +22,13 @@ a:focus, a:hover {
     text-decoration: none;
 }
 
+
 .display-inline {
     display: inline-block!important
 }
-
+.display-initial{
+    display:initial!important;
+}
 .display-normal {
     display: inline!important
 }
