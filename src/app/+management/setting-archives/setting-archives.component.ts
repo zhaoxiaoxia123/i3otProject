@@ -57,11 +57,15 @@ export class SettingArchivesComponent implements OnInit {
     p_stop_use : string = '';
     p_stop_time : string = '';
 
+    select_property: any = '0';
     property_title : string = '全部';
     //左侧选中商品分类的id
     select_category_ids: Array<any> = [];
+    select_category_ids_preporty: Array<any> = [];
     //左边展开和收起功能
     showUl : number  = 1;//一级分类
+    showUlProperty : number  = 1;//销售和外购的选中状态记录
+    showUlProperty_ : number  = 0;//销售和外购的选中状态记录
     showUlChild : number  = 0;//二级
     //顶部启动 和无效是否启用显示
     editStatusProductId : any = 0;
@@ -164,7 +168,7 @@ export class SettingArchivesComponent implements OnInit {
      * 获取默认参数
      */
     getProductDefault(){
-        this.http.get(this.globalService.getDomain()+'/api/v1/getProductDefault?type=list&p_type='+this.p_type+'&category_type='+this.category_type+'&sid='+this.cookieStore.getCookie('sid'))
+        this.http.get(this.globalService.getDomain()+'/api/v1/getProductDefault?type=list&property=1&p_type='+this.p_type+'&category_type='+this.category_type+'&sid='+this.cookieStore.getCookie('sid'))
             .map((res)=>res.json())
             .subscribe((data)=>{
                 this.productDefault = data;
@@ -173,6 +177,8 @@ export class SettingArchivesComponent implements OnInit {
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
+                this.select_category_ids_preporty[1] = true;
+                this.select_category_ids_preporty[2] = true;
                 this.select_category_ids[0] = true;
                 this.productDefault['result']['categoryList'].forEach((val, idx, array) => {
                     this.select_category_ids[val['category_id']] = true;
@@ -197,10 +203,10 @@ export class SettingArchivesComponent implements OnInit {
      * @param number
      */
     getProductList(number:string,category_id:any) {
-        if(!this.p_property){
-            this.p_property = '0';
+        if(!this.select_property){
+            this.select_property = '0';
         }
-        let url = this.globalService.getDomain()+'/api/v1/getProductList?p_type='+this.p_type+'&p_property='+this.p_property+'&page='+number+'&sid='+this.cookieStore.getCookie('sid');
+        let url = this.globalService.getDomain()+'/api/v1/getProductList?p_type='+this.p_type+'&p_property='+this.select_property+'&page='+number+'&sid='+this.cookieStore.getCookie('sid');
         if(this.keyword.trim() != '') {
             url += '&keyword='+this.keyword.trim();
         }
@@ -310,7 +316,7 @@ export class SettingArchivesComponent implements OnInit {
      * @param property
      */
     setProperty(property:any,title:any){
-        this.p_property = property;
+        this.select_property = property;
         this.property_title = title;
         this.getProductList('1',0);
     }
@@ -340,6 +346,7 @@ export class SettingArchivesComponent implements OnInit {
                     }
                 });
         }
+        this.p_property_id = id;
     }
     /**
      * 添加信息
@@ -574,12 +581,12 @@ export class SettingArchivesComponent implements OnInit {
      * index 点击的父类 or子类 索引
      * num  1：父类 2：子类
      */
-    selectDepartment(category_id:any,index:number,indexChild:number,num:number){
+    selectDepartment(category_id:any,index:number,indexChild:number,num:number,type:string){
         if(num == 1){//点击父类
             if(this.select_category_ids[category_id] == true){
-                if(this.productDefault['result']['categoryList'][index]){
-                    if(this.productDefault['result']['categoryList'][index]['child_count'] >= 1){
-                        this.productDefault['result']['categoryList'][index]['child'].forEach((val, idx, array) => {
+                if(this.productDefault['result']['categoryListProperty'][type][index]){
+                    if(this.productDefault['result']['categoryListProperty'][type][index]['child_count'] >= 1){
+                        this.productDefault['result']['categoryListProperty'][type][index]['child'].forEach((val, idx, array) => {
                             this.select_category_ids[val['category_id']] = false;
                         });
                     }
@@ -587,9 +594,9 @@ export class SettingArchivesComponent implements OnInit {
                 this.select_category_ids[category_id] = false;
             }else{
                 this.select_category_ids[category_id] = true;
-                if(this.productDefault['result']['categoryList'][index]){
-                    if(this.productDefault['result']['categoryList'][index]['child_count'] >= 1){
-                        this.productDefault['result']['categoryList'][index]['child'].forEach((val, idx, array) => {
+                if(this.productDefault['result']['categoryListProperty'][type][index]){
+                    if(this.productDefault['result']['categoryListProperty'][type][index]['child_count'] >= 1){
+                        this.productDefault['result']['categoryListProperty'][type][index]['child'].forEach((val, idx, array) => {
                             this.select_category_ids[val['category_id']] = true;
                         });
                     }
@@ -603,9 +610,9 @@ export class SettingArchivesComponent implements OnInit {
                 this.select_category_ids[category_id] = true;
 
                 let count = 0;
-                if(this.productDefault['result']['categoryList'][index]){
-                    if(this.productDefault['result']['categoryList'][index]['child_count'] >= 1){
-                        this.productDefault['result']['categoryList'][index]['child'].forEach((val, idx, array) => {
+                if(this.productDefault['result']['categoryListProperty'][type][index]){
+                    if(this.productDefault['result']['categoryListProperty'][type][index]['child_count'] >= 1){
+                        this.productDefault['result']['categoryListProperty'][type][index]['child'].forEach((val, idx, array) => {
                             if(this.select_category_ids[val['category_id']] == false ||  isUndefined(this.select_category_ids[val['category_id']])){
                                 count ++;
                             }
@@ -734,6 +741,8 @@ export class SettingArchivesComponent implements OnInit {
     selectCategoryAll(){
         if(this.select_category_ids[0] == true){
             this.select_category_ids[0] = false;
+            this.select_category_ids_preporty[1] = false;
+            this.select_category_ids_preporty[2] = false;
             this.productDefault['result']['categoryList'].forEach((val, idx, array) => {
                 this.select_category_ids[val['category_id']] = false;
                 if (val['has_child'] >= 1) {
@@ -744,6 +753,8 @@ export class SettingArchivesComponent implements OnInit {
             });
         }else {
             this.select_category_ids[0] = true;
+            this.select_category_ids_preporty[1] = true;
+            this.select_category_ids_preporty[2] = true;
             this.productDefault['result']['categoryList'].forEach((val, idx, array) => {
                 this.select_category_ids[val['category_id']] = true;
                 if (val['has_child'] >= 1) {
@@ -768,8 +779,58 @@ export class SettingArchivesComponent implements OnInit {
     showLeftUl(bool:any){
         this.showUl = bool;
     }
+    showLeftUlProperty(bool:any,bool1:any){
+        this.showUlProperty = bool;
+        this.showUlProperty_ = bool1;
+    }
+
     showLeftUlChild(category_id:any){
         this.showUlChild = category_id;
+    }
+
+
+
+
+    selectPerptyAll(num:number){
+        if(this.select_category_ids_preporty[num] == true){
+            this.select_category_ids_preporty[num] = false;
+            this.productDefault['result']['categoryList'].forEach((val, idx, array) => {
+                if(val['category_tab'] == num){
+                    this.select_category_ids[val['category_id']] = false;
+                    if (val['has_child'] >= 1) {
+                        val['child'].forEach((val1, idx1, array1) => {
+                            this.select_category_ids[val1['category_id']] = false;
+                        });
+                    }
+                }
+            });
+        }else {
+            this.select_category_ids_preporty[num] = true;
+            this.productDefault['result']['categoryList'].forEach((val, idx, array) => {
+                if(val['category_tab'] == num) {
+                    this.select_category_ids[val['category_id']] = true;
+                    if (val['has_child'] >= 1) {
+                        val['child'].forEach((val1, idx1, array1) => {
+                            this.select_category_ids[val1['category_id']] = true;
+                        });
+                    }
+                }
+            });
+        }
+        let depart = '';
+        let i = 0;
+        this.select_category_ids.forEach((val, idx, array) => {
+            if(val == true) {
+                i++;
+                depart += idx + ',';
+            }
+        });
+        if(i == 1){
+            this.select_category_ids[0] = false;
+        }else{
+            this.select_category_ids[0] = true;
+        }
+        this.getProductList('1',depart);
     }
 
 

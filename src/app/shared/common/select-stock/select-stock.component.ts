@@ -15,6 +15,8 @@ export class SelectStockComponent implements OnInit {
 
     //左边展开和收起功能
     showUl : number  = 1;//一级分类
+    showUlProperty : number  = 1;//销售和外购的选中状态记录
+    showUlProperty_ : number  = 0;//销售和外购的选中状态记录
     showUlChild : number  = 0;//二级
 
     //用作全选和反选
@@ -26,6 +28,7 @@ export class SelectStockComponent implements OnInit {
     next : boolean = false;
 
     selectProductLists: Array<any> = [];
+    // select_category_ids_preporty : Array<any> = [];
 
     @Input() keyword ;
     @Input() p_type ;
@@ -33,6 +36,7 @@ export class SelectStockComponent implements OnInit {
     @Input() searchProductList ;
     @Input() productDefault ;
     @Input() select_category_ids ;
+    @Input() select_category_ids_preporty ;
 
     @Input() isShowProduct ;
     @Output() private isShowProducts = new EventEmitter();
@@ -111,12 +115,42 @@ export class SelectStockComponent implements OnInit {
         this.searchOpeninventory(page);
     }
 
+    // /**
+    //  * 左边选中所有
+    //  */
+    // selectCategoryAll(){
+    //     if(this.select_category_ids[0] == true){
+    //         this.select_category_ids[0] = false;
+    //         this.productDefault['result']['categoryList'].forEach((val, idx, array) => {
+    //             this.select_category_ids[val['category_id']] = false;
+    //             if (val['has_child'] >= 1) {
+    //                 val['child'].forEach((val1, idx1, array1) => {
+    //                     this.select_category_ids[val1['category_id']] = false;
+    //                 });
+    //             }
+    //         });
+    //     }else {
+    //         this.select_category_ids[0] = true;
+    //         this.productDefault['result']['categoryList'].forEach((val, idx, array) => {
+    //             this.select_category_ids[val['category_id']] = true;
+    //             if (val['has_child'] >= 1) {
+    //                 val['child'].forEach((val1, idx1, array1) => {
+    //                     this.select_category_ids[val1['category_id']] = true;
+    //                 });
+    //             }
+    //         });
+    //     }
+    //     this.searchOpeninventory('1');
+    // }
+
     /**
      * 左边选中所有
      */
     selectCategoryAll(){
         if(this.select_category_ids[0] == true){
             this.select_category_ids[0] = false;
+            this.select_category_ids_preporty[1] = false;
+            this.select_category_ids_preporty[2] = false;
             this.productDefault['result']['categoryList'].forEach((val, idx, array) => {
                 this.select_category_ids[val['category_id']] = false;
                 if (val['has_child'] >= 1) {
@@ -127,6 +161,8 @@ export class SelectStockComponent implements OnInit {
             });
         }else {
             this.select_category_ids[0] = true;
+            this.select_category_ids_preporty[1] = true;
+            this.select_category_ids_preporty[2] = true;
             this.productDefault['result']['categoryList'].forEach((val, idx, array) => {
                 this.select_category_ids[val['category_id']] = true;
                 if (val['has_child'] >= 1) {
@@ -138,12 +174,59 @@ export class SelectStockComponent implements OnInit {
         }
         this.searchOpeninventory('1');
     }
+
+    selectPerptyAll(num:number){
+        if(this.select_category_ids_preporty[num] == true){
+            this.select_category_ids_preporty[num] = false;
+            this.productDefault['result']['categoryList'].forEach((val, idx, array) => {
+                if(val['category_tab'] == num){
+                    this.select_category_ids[val['category_id']] = false;
+                    if (val['has_child'] >= 1) {
+                        val['child'].forEach((val1, idx1, array1) => {
+                            this.select_category_ids[val1['category_id']] = false;
+                        });
+                    }
+                }
+            });
+        }else {
+            this.select_category_ids_preporty[num] = true;
+            this.productDefault['result']['categoryList'].forEach((val, idx, array) => {
+                if(val['category_tab'] == num) {
+                    this.select_category_ids[val['category_id']] = true;
+                    if (val['has_child'] >= 1) {
+                        val['child'].forEach((val1, idx1, array1) => {
+                            this.select_category_ids[val1['category_id']] = true;
+                        });
+                    }
+                }
+            });
+        }
+        let depart = '';
+        let i = 0;
+        this.select_category_ids.forEach((val, idx, array) => {
+            if(val == true) {
+                i++;
+                depart += idx + ',';
+            }
+        });
+        if(i == 1){
+            this.select_category_ids[0] = false;
+        }else{
+            this.select_category_ids[0] = true;
+        }
+        this.searchOpeninventory('1');
+    }
+
     /**
      * 左边展示效果
      * @param bool
      */
     showLeftUl(bool:any){
         this.showUl = bool;
+    }
+    showLeftUlProperty(bool:any,bool1:any){
+        this.showUlProperty = bool;
+        this.showUlProperty_ = bool1;
     }
     showLeftUlChild(category_id:any){
         this.showUlChild = category_id;
@@ -190,18 +273,70 @@ export class SelectStockComponent implements OnInit {
         }
     }
 
+    // /**
+    //  * 左侧导航栏 选中显示列表
+    //  * @param category_id
+    //  * index 点击的父类 or子类 索引
+    //  * num  1：父类 2：子类
+    //  */
+    // selectCategory(category_id:any,index:number,indexChild:number,num:number){
+    //     if(num == 1){//点击父类
+    //         if(this.select_category_ids[category_id] == true){
+    //             if(this.productDefault['result']['categoryList'][index]){
+    //                 if(this.productDefault['result']['categoryList'][index]['child_count'] >= 1){
+    //                     this.productDefault['result']['categoryList'][index]['child'].forEach((val, idx, array) => {
+    //                         this.select_category_ids[val['category_id']] = false;
+    //                     });
+    //                 }
+    //             }
+    //             this.select_category_ids[category_id] = false;
+    //         }else{
+    //             this.select_category_ids[category_id] = true;
+    //             if(this.productDefault['result']['categoryList'][index]){
+    //                 if(this.productDefault['result']['categoryList'][index]['child_count'] >= 1){
+    //                     this.productDefault['result']['categoryList'][index]['child'].forEach((val, idx, array) => {
+    //                         this.select_category_ids[val['category_id']] = true;
+    //                     });
+    //                 }
+    //             }
+    //         }
+    //     }else if(num != 1){//点击子类
+    //         if(this.select_category_ids[category_id] == true){
+    //             this.select_category_ids[num] = false;
+    //             this.select_category_ids[category_id] = false;
+    //         }else{
+    //             this.select_category_ids[category_id] = true;
+    //             let count = 0;
+    //             if(this.productDefault['result']['categoryList'][index]){
+    //                 if(this.productDefault['result']['categoryList'][index]['child_count'] >= 1){
+    //                     this.productDefault['result']['categoryList'][index]['child'].forEach((val, idx, array) => {
+    //                         if(this.select_category_ids[val['category_id']] == false ||  isUndefined(this.select_category_ids[val['category_id']])){
+    //                             count ++;
+    //                         }
+    //                     });
+    //                 }
+    //             }
+    //             if(count == 0){//若子类全是true则父类变为选中状态
+    //                 this.select_category_ids[num] = true;
+    //             }
+    //         }
+    //     }
+    //     this.searchOpeninventory('1');
+    // }
+
+
     /**
      * 左侧导航栏 选中显示列表
      * @param category_id
      * index 点击的父类 or子类 索引
      * num  1：父类 2：子类
      */
-    selectCategory(category_id:any,index:number,indexChild:number,num:number){
+    selectCategory(category_id:any,index:number,indexChild:number,num:number,type:string){
         if(num == 1){//点击父类
             if(this.select_category_ids[category_id] == true){
-                if(this.productDefault['result']['categoryList'][index]){
-                    if(this.productDefault['result']['categoryList'][index]['child_count'] >= 1){
-                        this.productDefault['result']['categoryList'][index]['child'].forEach((val, idx, array) => {
+                if(this.productDefault['result']['categoryListProperty'][type][index]){
+                    if(this.productDefault['result']['categoryListProperty'][type][index]['child_count'] >= 1){
+                        this.productDefault['result']['categoryListProperty'][type][index]['child'].forEach((val, idx, array) => {
                             this.select_category_ids[val['category_id']] = false;
                         });
                     }
@@ -209,9 +344,9 @@ export class SelectStockComponent implements OnInit {
                 this.select_category_ids[category_id] = false;
             }else{
                 this.select_category_ids[category_id] = true;
-                if(this.productDefault['result']['categoryList'][index]){
-                    if(this.productDefault['result']['categoryList'][index]['child_count'] >= 1){
-                        this.productDefault['result']['categoryList'][index]['child'].forEach((val, idx, array) => {
+                if(this.productDefault['result']['categoryListProperty'][type][index]){
+                    if(this.productDefault['result']['categoryListProperty'][type][index]['child_count'] >= 1){
+                        this.productDefault['result']['categoryListProperty'][type][index]['child'].forEach((val, idx, array) => {
                             this.select_category_ids[val['category_id']] = true;
                         });
                     }
@@ -223,10 +358,11 @@ export class SelectStockComponent implements OnInit {
                 this.select_category_ids[category_id] = false;
             }else{
                 this.select_category_ids[category_id] = true;
+
                 let count = 0;
-                if(this.productDefault['result']['categoryList'][index]){
-                    if(this.productDefault['result']['categoryList'][index]['child_count'] >= 1){
-                        this.productDefault['result']['categoryList'][index]['child'].forEach((val, idx, array) => {
+                if(this.productDefault['result']['categoryListProperty'][type][index]){
+                    if(this.productDefault['result']['categoryListProperty'][type][index]['child_count'] >= 1){
+                        this.productDefault['result']['categoryListProperty'][type][index]['child'].forEach((val, idx, array) => {
                             if(this.select_category_ids[val['category_id']] == false ||  isUndefined(this.select_category_ids[val['category_id']])){
                                 count ++;
                             }
@@ -238,8 +374,10 @@ export class SelectStockComponent implements OnInit {
                 }
             }
         }
-        this.searchOpeninventory('1');
+
+            this.searchOpeninventory('1');
     }
+
 
     /**
      * 返回不选入

@@ -33,6 +33,9 @@ export class AccountMenuComponent implements OnInit {
     menu_status:number=1;
     menu_control: Array<any> = [];
 
+    search_id: string='0';
+    search_title: string='全部';
+
     keyword : string = '';
     //顶部启动 和无效是否启用显示
     editStatusMenuId : any = 0;
@@ -80,7 +83,7 @@ export class AccountMenuComponent implements OnInit {
     }
 
   getMenuList(page:any){
-      let url = this.globalService.getDomain()+'/api/v1/getMenuList?page='+page+'&sid='+this.cookieStore.getCookie('sid');
+      let url = this.globalService.getDomain()+'/api/v1/getMenuList?page='+page+'&search_id='+this.search_id+'&sid='+this.cookieStore.getCookie('sid');
       if(this.keyword.trim() != '') {
           url += '&keyword='+this.keyword.trim();
       }
@@ -186,7 +189,14 @@ export class AccountMenuComponent implements OnInit {
             });
         }
     }
-
+    /**
+     * 搜索筛选
+     */
+    setSearch(property:any,title:any){
+        this.search_id = property;
+        this.search_title = title;
+        this.getMenuList('1');
+    }
 
     /**
      * 顶部  启用. 无效

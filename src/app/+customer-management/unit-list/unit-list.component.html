@@ -32,11 +32,11 @@
                           <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
                       </div>
 
-                      <div class="form-group pdlr-4" *ngIf="isStatus == 2 || isPermission(menu_id,'edit')">
+                      <div class="form-group pdlr-4" *ngIf="isStatus == 2 && isPermission(menu_id,'edit')">
                         <a class="btn default-btn btn-sm" (click)="editStatus(1,'id')">
                           <span class="fa-fw fa fa-play mr-5 color-green"></span>启用</a>
                       </div>
-                      <div class="form-group pdlr-4" *ngIf="isStatus == 1 || isPermission(menu_id,'edit')">
+                      <div class="form-group pdlr-4" *ngIf="isStatus == 1 && isPermission(menu_id,'edit')">
                         <a class="btn default-btn btn-sm" (click)="editStatus(2,'id')" >
                           <span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>无效</a>
                       </div>

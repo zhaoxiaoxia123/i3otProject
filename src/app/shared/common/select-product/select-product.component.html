@@ -42,38 +42,123 @@
                     <div class="pd-10 border-overflow-320" style="margin-top: -11px;">
                       <div class="widget-body  ">
                         <div class="tree smart-form">
+                          <!--<ul class="">-->
+                            <!--<li class=" parent_li">-->
+                                  <!--<span><label class="checkbox inline-block tree-label pt-12 ">-->
+                                          <!--<input type="checkbox" name="checkbox-inline" [checked]="select_category_ids[0]" (click)="selectCategoryAll()"><i></i>-->
+                                        <!--</label>-->
+                                    <!--<i class="fa fa-lg fa-folder-open"></i>全部-->
+                                    <!--<i class="sa-icon fa fa-lg fa-plus-circle" *ngIf="showUl == 0" (click)="showLeftUl(1)"></i>-->
+                                    <!--<i class="sa-icon fa fa-lg fa-minus-circle" *ngIf="showUl == 1" (click)="showLeftUl(0)"></i>-->
+                                  <!--</span>-->
+                              <!--<ul class="" *ngIf="showUl == 1">-->
+                                <!--<li class=" parent_li" *ngFor="let c of productDefault?.result?.categoryList;let ind = index;">-->
+                                    <!--<span>-->
+                                      <!--<label class="checkbox inline-block tree-label ">-->
+                                        <!--<input type="checkbox" name="checkbox-inline" [checked]="select_category_ids[c.category_id]" (click)="selectCategory(c.category_id,ind,0,1)">-->
+                                        <!--<i></i>{{c.category_desc}}-->
+                                        <!--<em class="txt-color-blue">({{c.child_count}})</em>-->
+                                      <!--</label>-->
+                                      <!--<i class="sa-icon fa fa-lg fa-minus-circle" *ngIf="showUlChild == c.category_id && c.has_child != 0" (click)="showLeftUlChild(0)"></i>-->
+                                      <!--<i class="sa-icon fa fa-lg fa-plus-circle" *ngIf="showUlChild != c.category_id && c.has_child != 0" (click)="showLeftUlChild(c.category_id)"></i>-->
+                                    <!--</span>-->
+                                  <!--<ul class="" *ngIf="showUlChild == c.category_id">-->
+                                    <!--<li *ngFor="let dc of c.child;let indChild = index;">-->
+                                        <!--<span>-->
+                                          <!--<label class="checkbox inline-block tree-label">-->
+                                            <!--<input type="checkbox" name="checkbox-inline" [checked]="select_category_ids[c.category_id] || select_category_ids[dc.category_id]" (click)="selectCategory(dc.category_id,ind,indChild,c.category_id)">-->
+                                            <!--<i></i>{{dc.category_desc}}-->
+                                            <!--<em class="txt-color-blue">({{c.child_count}})</em>-->
+                                          <!--</label>-->
+                                        <!--</span>-->
+                                    <!--</li>-->
+                                  <!--</ul>-->
+                                <!--</li>-->
+                              <!--</ul>-->
+                            <!--</li>-->
+                          <!--</ul>-->
                           <ul class="">
                             <li class=" parent_li">
-                                  <span><label class="checkbox inline-block tree-label pt-12 ">
-                                          <input type="checkbox" name="checkbox-inline" [checked]="select_category_ids[0]" (click)="selectCategoryAll()"><i></i>
-                                        </label>
+                                  <span>
+                                    <label class="checkbox inline-block tree-label pt-12 ">
+                                      <input type="checkbox" name="checkbox-inline" [checked]="select_category_ids[0]" (click)="selectCategoryAll()"><i></i>
+                                    </label>
                                     <i class="fa fa-lg fa-folder-open"></i>全部
-                                    <i class="sa-icon fa fa-lg fa-plus-circle" *ngIf="showUl == 0" (click)="showLeftUl(1)"></i>
-                                    <i class="sa-icon fa fa-lg fa-minus-circle" *ngIf="showUl == 1" (click)="showLeftUl(0)"></i>
+                                      <i class="sa-icon fa fa-lg fa-plus-circle" *ngIf="showUl == 0" (click)="showLeftUl(1)"></i>
+                                      <i class="sa-icon fa fa-lg fa-minus-circle" *ngIf="showUl == 1" (click)="showLeftUl(0)"></i>
                                   </span>
                               <ul class="" *ngIf="showUl == 1">
-                                <li class=" parent_li" *ngFor="let c of productDefault?.result?.categoryList;let ind = index;">
+                                <li class=" parent_li" *ngIf="p_property == 1 || !p_property">
+                                    <span>
+                                      <label class="checkbox inline-block tree-label pt-12 ">
+                                        <input type="checkbox" name="checkbox-inline" [checked]="select_category_ids_preporty[1]" (click)="selectPerptyAll(1)"><i></i>
+                                      </label>
+                                      <i class="fa fa-lg fa-folder-open"></i>销售
+                                      <i class="sa-icon fa fa-lg fa-plus-circle" *ngIf="showUlProperty == 2  && productDefault?.result?.categoryListProperty?.xs?.length != 0" (click)="showLeftUlProperty(1,0)"></i>
+                                      <i class="sa-icon fa fa-lg fa-minus-circle" *ngIf="showUlProperty == 1 && showUlProperty_ == 0" (click)="showLeftUlProperty(1,1)"></i>
+                                      <i class="sa-icon fa fa-lg fa-plus-circle" *ngIf="showUlProperty == 1 && showUlProperty_ == 1" (click)="showLeftUlProperty(1,0)"></i>
+                                    </span>
+                                  <ul *ngIf="showUlProperty == 1 && showUlProperty_ == 0">
+                                    <li class=" parent_li" *ngFor="let c of productDefault?.result?.categoryListProperty?.xs;let ind = index;">
+                                        <span>
+                                          <label class="checkbox inline-block tree-label ">
+                                            <input type="checkbox" name="checkbox-inline" [checked]="select_category_ids[c.category_id]" (click)="selectCategory(c.category_id,ind,0,1,'xs')">
+                                            <i></i>{{c.category_desc}}
+                                            <em class="txt-color-blue">({{c.child_count}})</em>
+                                          </label>
+                                          <i class="sa-icon fa fa-lg fa-minus-circle" *ngIf="showUlChild == c.category_id && c.has_child != 0" (click)="showLeftUlChild(0)"></i>
+                                          <i class="sa-icon fa fa-lg fa-plus-circle" *ngIf="showUlChild != c.category_id && c.has_child != 0" (click)="showLeftUlChild(c.category_id)"></i>
+                                        </span>
+                                      <ul class="" *ngIf="showUlChild == c.category_id">
+                                        <li *ngFor="let dc of c.child;let indChild = index;">
+                                        <span>
+                                          <label class="checkbox inline-block tree-label">
+                                            <input type="checkbox" name="checkbox-inline" [checked]="select_category_ids[c.category_id] || select_category_ids[dc.category_id]" (click)="selectCategory(dc.category_id,ind,indChild,c.category_id,'xs')">
+                                            <i></i>{{dc.category_desc}}
+                                            <em class="txt-color-blue">({{dc.child_count}})</em>
+                                          </label>
+                                        </span>
+                                        </li>
+                                      </ul>
+                                    </li>
+                                  </ul>
+                                </li>
+                                <li class=" parent_li" *ngIf="p_property == 2 || !p_property">
+                                    <span>
+                                      <label class="checkbox inline-block tree-label pt-12 ">
+                                        <input type="checkbox" name="checkbox-inline" [checked]="select_category_ids_preporty[2]" (click)="selectPerptyAll(2)"><i></i>
+                                      </label>
+                                      <i class="fa fa-lg fa-folder-open"></i>外购
+                                      <i class="sa-icon fa fa-lg fa-plus-circle" *ngIf="showUlProperty == 1 && productDefault?.result?.categoryListProperty?.wg?.length != 0" (click)="showLeftUlProperty(2,1)"></i>
+                                      <i class="sa-icon fa fa-lg fa-plus-circle" *ngIf="showUlProperty == 2 && showUlProperty_ == 0" (click)="showLeftUlProperty(2,1)"></i>
+                                      <i class="sa-icon fa fa-lg fa-minus-circle" *ngIf="showUlProperty == 2 && showUlProperty_ == 1" (click)="showLeftUlProperty(2,0)"></i>
+                                    </span>
+                                  <ul *ngIf="showUlProperty == 2 && showUlProperty_ == 1">
+                                    <li class=" parent_li" *ngFor="let c of productDefault?.result?.categoryListProperty?.wg;let ind = index;">
                                     <span>
                                       <label class="checkbox inline-block tree-label ">
-                                        <input type="checkbox" name="checkbox-inline" [checked]="select_category_ids[c.category_id]" (click)="selectCategory(c.category_id,ind,0,1)">
+                                        <input type="checkbox" name="checkbox-inline" [checked]="select_category_ids[c.category_id]" (click)="selectCategory(c.category_id,ind,0,1,'wg')">
                                         <i></i>{{c.category_desc}}
                                         <em class="txt-color-blue">({{c.child_count}})</em>
                                       </label>
                                       <i class="sa-icon fa fa-lg fa-minus-circle" *ngIf="showUlChild == c.category_id && c.has_child != 0" (click)="showLeftUlChild(0)"></i>
                                       <i class="sa-icon fa fa-lg fa-plus-circle" *ngIf="showUlChild != c.category_id && c.has_child != 0" (click)="showLeftUlChild(c.category_id)"></i>
                                     </span>
-                                  <ul class="" *ngIf="showUlChild == c.category_id">
-                                    <li *ngFor="let dc of c.child;let indChild = index;">
+                                      <ul class="" *ngIf="showUlChild == c.category_id">
+                                        <li *ngFor="let dc of c.child;let indChild = index;">
                                         <span>
                                           <label class="checkbox inline-block tree-label">
-                                            <input type="checkbox" name="checkbox-inline" [checked]="select_category_ids[c.category_id] || select_category_ids[dc.category_id]" (click)="selectCategory(dc.category_id,ind,indChild,c.category_id)">
+                                            <input type="checkbox" name="checkbox-inline" [checked]="select_category_ids[c.category_id] || select_category_ids[dc.category_id]" (click)="selectCategory(dc.category_id,ind,indChild,c.category_id,'wg')">
                                             <i></i>{{dc.category_desc}}
-                                            <em class="txt-color-blue">({{c.child_count}})</em>
+                                            <em class="txt-color-blue">({{dc.child_count}})</em>
                                           </label>
                                         </span>
+                                        </li>
+                                      </ul>
                                     </li>
                                   </ul>
                                 </li>
+
                               </ul>
                             </li>
                           </ul>

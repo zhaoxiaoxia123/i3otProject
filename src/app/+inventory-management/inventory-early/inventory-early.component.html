@@ -226,4 +226,4 @@
 </div>
 
 <!--选择商品-->
-<app-select-product [productDefault]="productDefault"  [searchProductList]="searchProductList" [select_category_ids]="select_category_ids" [p_type]="p_type" [isShowProduct]="isShowProduct" [keyword]="keyword" (isShowProducts)="getShowProductStatus($event)" (selectProductList)="getProductData($event)" *ngIf="isShowProduct"></app-select-product>
+<app-select-product [productDefault]="productDefault"  [select_category_ids_preporty]="select_category_ids_preporty" [searchProductList]="searchProductList" [select_category_ids]="select_category_ids" [p_type]="p_type" [isShowProduct]="isShowProduct" [keyword]="keyword" (isShowProducts)="getShowProductStatus($event)" (selectProductList)="getProductData($event)" *ngIf="isShowProduct"></app-select-product>
