@@ -17,12 +17,22 @@ export class IotControlComponent implements OnInit {
   control7 : any = '';
   pid : string  = 'i3ot00011';
   control : Array<any> = [];
+  rollback_url : string = '';
+  menuInfos : Array<any> = [];
   constructor(
       private http: Http,
       private globalService:GlobalService) { }
 
   ngOnInit() {
+
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
+    setTimeout(()=>{
+      this.rollback_url = this.globalService.getMenuUrl();
+      this.menuInfos = this.globalService.getMenuInfos();
+    },this.globalService.getMenuPermissionDelayTime())
   }
+
 //$event
   changeStatus(num1,num2){
       if(this.control1 || this.control2 || this.control3 || this.control4 || this.control5 || this.control6 || this.control7){

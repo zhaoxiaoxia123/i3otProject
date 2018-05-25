@@ -6,8 +6,8 @@
     <div class="row">
       <article class="col-sm-12">
         <sa-widget  [editbutton]="false" [deletebutton]="false" [colorbutton]="false">
-          <header><span class="widget-icon"> <i class="fa fa-table"></i></span>
-            <h2>基站传感数据</h2>
+          <header><span class="widget-icon"> <i class="fa {{menuInfos?.menu_icon}}"></i> </span>
+            <h2>{{menuInfos?.menu_name}}</h2>
             <div class="jarviswidget-ctrls" role="menu">
               <a routerLink="/equipment/chart-setting" href="javascript:void(0);" class="button-icon jarviswidget-edit-btn" rel="tooltip" title="Edit" data-placement="bottom">
                 <i class="fa fa-cog"></i></a>

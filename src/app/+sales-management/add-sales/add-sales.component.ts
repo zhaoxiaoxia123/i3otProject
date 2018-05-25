@@ -45,7 +45,6 @@ export class AddSalesComponent implements OnInit {
     p_pur_prices : number = 0;
     url:string = '';
 
-
     /**--------用作选择库存产品的变量------*/
     isShowProduct : string = '';
     selectProductList :Array<any> = [];//[{"p_product_id": "0","p_qrcode": "0","category": "0","p_unit": "0","p_count": "0","p_price": "0","p_pur_price": "0","p_note": "","p_is": "1"}]; //选中后的商品列表

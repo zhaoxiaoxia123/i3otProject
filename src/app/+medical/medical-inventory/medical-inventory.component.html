@@ -4,8 +4,8 @@
       <article class="col-sm-12 ">
         <sa-widget [editbutton]="false" [deletebutton]="false" [colorbutton]="false">
           <header>
-            <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-            <h2>库存管理</h2>
+            <span class="widget-icon"> <i class="fa {{menuInfos?.menu_icon}}"></i> </span>
+            <h2>{{menuInfos?.menu_name}}</h2>
           </header>
           <div>
             <div class="widget-body no-padding" >
@@ -14,15 +14,15 @@
                   <div class="navbar navbar-default">
                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
 
-                      <div class="form-group pdlr-4">
+                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'edit')">
                         <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailAssets('edit')">
                           <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
                       </div>
-                      <div class="form-group pdlr-4">
+                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'delete')">
                         <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="deleteAssets('id')">
                           <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
                       </div>
-                      <div class="form-group pdlr-4">
+                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'detail')">
                         <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailAssets('detail')">
                           <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
                       </div>
@@ -186,8 +186,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <!--<button class="btn btn-success btn-sm" type="button"><span class="glyphicon glyphicon-plus"></span>保存并新增</button>-->
-        <button type="button" class="btn btn-primary" (click)="onSubmit()">保存</button>
+        <button *ngIf="isPermission(menu_id,'edit')" class="btn btn-success btn-sm" type="button" (click)="onSubmit(2)"><span class="glyphicon glyphicon-plus"></span>保存并新增</button>
+        <button *ngIf="isPermission(menu_id,'edit')" type="button" class="btn btn-primary" (click)="onSubmit(1)">保存</button>
         <button type="button" class="btn btn-default" (click)="clear_('edit')">返回</button>
       </div>
     </div>

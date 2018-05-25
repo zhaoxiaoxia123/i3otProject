@@ -156,7 +156,7 @@
                   <span>共{{assetsList.result?.assetsList?.total}}条</span>
                 </div>
                 <div class="hidden-xs right">
-                  <ul class="pagination pagination-sm">
+                  <ul class="pagination pagination-sm" *ngIf="assetsList?.result?.page">
                     <li *ngFor="let p of assetsList?.result?.page" class="{{p.class}}">
                       <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
                       <a *ngIf="p.method==''">{{p.text}}</a>
@@ -300,10 +300,8 @@
           审核
         </button>
         </div>
-        <div *ngIf="isPermission(menu_id,'add')">
-        <button *ngIf="assets_id==0" type="submit" class="btn btn-primary" (click)="onSubmit(1)">提交</button>
-        <button class="btn btn-success" type="button" (click)="onSubmit(2)">提交并新增</button>
-        </div>
+        <button *ngIf="assets_id==0 && isPermission(menu_id,'add')" type="submit" class="btn btn-primary" (click)="onSubmit(1)">提交</button>
+        <button *ngIf="assets_id==0 && isPermission(menu_id,'add')" class="btn btn-success" type="button" (click)="onSubmit(2)">提交并新增</button>
         <button *ngIf="isPermission(menu_id,'edit') && assets_id!=0 && assetsInfo?.result?.assets_verify_status != 'no' && assetsInfo?.result?.assets_verify_status != 'yes' && assetsInfo?.result?.assets_verify_status != 'cancel'" type="submit" class="btn btn-primary" (click)="onSubmit(1)">提交</button>
         <button type="button" class="btn btn-default" (click)="clear_('add')">返回</button>
       </div>

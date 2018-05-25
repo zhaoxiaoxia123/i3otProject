@@ -65,7 +65,12 @@ export class MedicalCommodityComponent implements OnInit {
   cid : any = 0;//当前登录用户的所属公司id
   super_admin_id : any = 0;//超级管理员所属公司id
   category_type : number = 6;
-  rollback_url : string = '/medical/medical-commodity';
+  rollback_url : string = '';
+  /**菜单id */
+  menu_id:any;
+  /** 权限 */
+  permissions : Array<any> = [];
+  menuInfos : Array<any> = [];
 
   constructor(
       private http:Http,
@@ -73,9 +78,6 @@ export class MedicalCommodityComponent implements OnInit {
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
 
-    //顶部菜单读取
-    this.globalService.getMenuInfo();
-    // this.getProductList('1',0);
     window.scrollTo(0,0);
     this.super_admin_id = this.globalService.getAdminID();
     this.cid = this.cookieStore.getCookie('cid');
@@ -83,7 +85,28 @@ export class MedicalCommodityComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
+    setTimeout(()=>{
+      this.menu_id = this.globalService.getMenuId();
+      this.rollback_url = this.globalService.getMenuUrl();
+      this.permissions = this.globalService.getPermissions();
+      this.menuInfos = this.globalService.getMenuInfos();
+    },this.globalService.getMenuPermissionDelayTime())
   }
+
+  /**
+   * 是否有该元素
+   */
+  isPermission(menu_id,value){
+    let key = menu_id +'_'+value;
+    if(value == ''){
+      key = menu_id;
+    }
+    return this.cookieStore.in_array(key, this.permissions);
+  }
+
 
   /**
    * 获取默认参数
@@ -231,7 +254,7 @@ export class MedicalCommodityComponent implements OnInit {
   /**
    * 添加信息
    */
-  onSubmit(){
+  onSubmit(num : number){
     if(this.p_name.trim() == ''){
       alert('请输入名称！');
       return false;
@@ -308,7 +331,9 @@ export class MedicalCommodityComponent implements OnInit {
               });
             }
             this.clear_();
-            this.lgModal.hide();
+            if(num == 1){
+              this.lgModal.hide();
+            }
           }else if(info['status'] == 202){
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);

@@ -45,33 +45,54 @@ export class MedicalEmployeesComponent implements OnInit {
   width_1 : string = '80%';
   uRole : string = '';
   page_type : string  = 'medical';
-  rollback_url : string = '/medical/medical-employees';
+  rollback_url : string = '';
   domain_url : string = '';
+  /**菜单id */
+  menu_id:any;
+  /** 权限 */
+  permissions : Array<any> = [];
+  menuInfos : Array<any> = [];
   constructor(
       private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService,) {
-
-    //顶部菜单读取
-    this.globalService.getMenuInfo();
-
     window.scrollTo(0,0);
     this.uRole = this.cookieStore.getCookie('urole');
     this.domain_url = this.globalService.getDomain();
-
     this.getUserList('1');
   }
 
   ngOnInit() {
+
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
+    setTimeout(()=>{
+      this.menu_id = this.globalService.getMenuId();
+      this.rollback_url = this.globalService.getMenuUrl();
+      this.permissions = this.globalService.getPermissions();
+      this.menuInfos = this.globalService.getMenuInfos();
+    },this.globalService.getMenuPermissionDelayTime())
   }
+
+  /**
+   * 是否有该元素
+   */
+  isPermission(menu_id,value){
+    let key = menu_id +'_'+value;
+    if(value == ''){
+      key = menu_id;
+    }
+    return this.cookieStore.in_array(key, this.permissions);
+  }
+
 
 
 
   /**
    * 添加信息
    */
-  onSubmit(){
+  onSubmit(num:number){
     if(this.u_number.trim() == ''){
       alert('请输入员工编号！');
       return false;
@@ -99,7 +120,9 @@ export class MedicalEmployeesComponent implements OnInit {
         if(info['status'] == 200) {
           this.clear_();
           this.getUserList('1');
-          this.lgModal.hide();
+          if(num == 1) {
+            this.lgModal.hide();
+          }
         }else if(info['status'] == 202){
           alert(info['msg']);
           this.cookieStore.removeAll(this.rollback_url);
