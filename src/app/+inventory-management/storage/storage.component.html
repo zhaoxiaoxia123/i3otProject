@@ -31,7 +31,7 @@
                           <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
                       </div>
 
-                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'verify')">
+                      <div class="form-group" *ngIf="isPermission(menu_id,'verify')">
                       <div class="form-group pdlr-4" (click)="showModal('operation','operation','')" *ngIf="uid == sa_status">
                         <a class="btn default-btn btn-sm" >
                           <span class="fa-fw fa fa-stop  mr-5 text-warning"></span>审核</a>
@@ -72,7 +72,7 @@
                   </div>
                 </article>
               </div>
-              <div style="padding:0;">
+              <div style="padding:0;" class="height-overflow">
                 <div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-scrolling padding0">
                   <table class="table table-striped   smart-form table-height-20">
                     <thead>

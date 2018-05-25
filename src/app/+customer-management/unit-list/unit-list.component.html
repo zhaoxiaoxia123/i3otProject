@@ -65,7 +65,7 @@
                   </div>
                 </article>
               </div>
-              <div  class="padding0">
+              <div  class="padding0 height-overflow" >
                 <div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-scrolling padding0">
                   <table class="table table-striped smart-form table-height-20">
                     <thead>
@@ -220,18 +220,6 @@
                               </section>
                             </div>
                             <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section>
-                                <label class="label">商户类型</label>
-                                <label class="select">
-                                  <select class="input-sm" name="c_role" [(ngModel)]="c_role" (change)="getUnitCategoryList($event,1)">
-                                    <option value="0" disabled="disabled">--请选择--</option>
-                                    <option value="3" >供应商</option>
-                                    <option value="4" >客户</option>
-                                  </select> <i></i>
-                                </label>
-                              </section>
-                            </div>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                               <label class="label txt-color-blue">上级分类<span class="asterisk-color">*</span></label>
                               <section>
                                 <div class="input-group">
@@ -261,6 +249,19 @@
 
                               </section>
                             </div>
+                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                              <section>
+                                <label class="label">商户类型</label>
+                                <label class="select">
+                                  <select class="input-sm" name="c_role" [(ngModel)]="c_role" (change)="getUnitCategoryList($event,1)">
+                                    <option value="0" disabled="disabled">--请选择--</option>
+                                    <option value="3" >供应商</option>
+                                    <option value="4" >客户</option>
+                                  </select> <i></i>
+                                </label>
+                              </section>
+                            </div>
+
                             <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                               <section >
                                 <label class="label">单位电话</label>
@@ -488,7 +489,7 @@
       </div>
       <div class="modal-footer">
         <!--<button class="btn btn-success btn-sm" type="button"><span class="glyphicon glyphicon-plus"></span>保存并新增</button>-->
-        <div *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')">
+        <div class="display-inline" *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')">
         <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onSubmit(1);">保存</button>
         <button class="btn btn-success" type="button" (click)="onSubmit(2);">保存并新增</button>
         </div>

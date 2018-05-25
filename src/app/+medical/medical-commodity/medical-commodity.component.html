@@ -63,7 +63,7 @@
                           <i class="fa-fw fa fa-sitemap"></i>
                           商品分类
                         </alert>
-                        <div class="pd-10">
+                        <div class="pd-10 mt-10 height-overflow">
                           <div class="widget-body">
                             <div class="tree smart-form">
                               <ul class="">
@@ -104,6 +104,8 @@
                             </div>
                           </div>
                         </div>
+                        <div class="dt-toolbar">
+                        </div>
                       </div>
                     </div>
                   </sa-widget>
@@ -117,7 +119,7 @@
                           <i class="fa-fw fa fa-table"></i>
                           商品列表
                         </alert>
-                        <div class="mt-10" style="padding:0;">
+                        <div class="mt-10 height-overflow" style="padding:0;">
                           <div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-scrolling">
                             <table class="table table-striped smart-form">
                               <thead>

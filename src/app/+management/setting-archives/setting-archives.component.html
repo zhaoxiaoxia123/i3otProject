@@ -89,7 +89,7 @@
                           <i class="fa-fw fa fa-sitemap"></i>
                           商品分类
                         </alert>
-                        <div class="pd-10">
+                        <div class="pd-10 mt-10 height-overflow">
                           <div class="widget-body">
                             <div class="tree smart-form">
                               <ul class="">
@@ -180,6 +180,8 @@
                             </div>
                           </div>
                         </div>
+                        <div class="dt-toolbar">
+                        </div>
                       </div>
                     </div>
                   </sa-widget>
@@ -193,7 +195,7 @@
                           <i class="fa-fw fa fa-table"></i>
                           商品列表
                         </alert>
-                        <div class="mt-10"  style="padding:0;">
+                        <div class="mt-10 height-overflow"  style="padding:0;">
                           <div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-scrolling">
                             <table class="table table-striped   smart-form table-height-32">
                               <thead>
@@ -356,18 +358,7 @@
                                   </label>
                                 </section>
                               </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section>
-                                  <label class="label">商品属性</label>
-                                  <label class="select">
-                                    <select class="input-sm" name="p_property" [(ngModel)]="p_property" (change)="getUnitCategoryList($event,1)" [disabled]="isDetail=='detail'">
-                                      <option value="0">--请选择--</option>
-                                      <option value="1">销售</option>
-                                      <option value="2">外购</option>
-                                    </select> <i></i>
-                                  </label>
-                                </section>
-                              </div>
+
                               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <label class="label txt-color-blue">商品分类<span class="asterisk-color">*</span></label>
                                 <section>
@@ -394,6 +385,18 @@
                                       </a>
                                     </div>
                                   </div>
+                                </section>
+                              </div>
+                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <section>
+                                  <label class="label">商品属性</label>
+                                  <label class="select">
+                                    <select class="input-sm" name="p_property" [(ngModel)]="p_property" (change)="getUnitCategoryList($event,1)" [disabled]="isDetail=='detail'">
+                                      <option value="0">--请选择--</option>
+                                      <option value="1">销售</option>
+                                      <option value="2">外购</option>
+                                    </select> <i></i>
+                                  </label>
                                 </section>
                               </div>
                               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -839,7 +842,7 @@
           </sa-widget>
         </div>
         <div class="modal-footer">
-         <div *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')">
+         <div class="display-inline" *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')">
           <button [disabled]="isDetail=='detail'" type="button" class="btn btn-primary" (click)="onSubmit(1);">保存</button>
           <button class="btn btn-success" type="button" (click)="onSubmit(2);">保存并新增</button>
          </div>

@@ -1167,6 +1167,7 @@ body.nooverflow {
 
 .navbar {
     margin-bottom: -6px;
+    min-height: 0;
 }
 .smart-form {
     margin: 0;

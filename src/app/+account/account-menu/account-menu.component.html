@@ -150,7 +150,7 @@
         <h3 *ngIf="editStatusMenuId == 0" class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>添加企业配置</h3>
         <h3 *ngIf="editStatusMenuId != 0" class="modal-title  color-yellow" data-ng-bind='results.title'><i class="glyphicon glyphicon-pencil"></i>修改企业配置</h3>
       </div>
-      <div class="modal-body">
+      <div class="modal-body height-overflow-380">
        <div class="row">
          <form class="smart-form ">
            <fieldset>
@@ -159,14 +159,6 @@
                  <label class="label txt-color-blue">编码<span class="asterisk-color">*</span></label>
                  <label class="input">
                    <input type="text" name="menu_number" [(ngModel)]="menu_number">
-                 </label>
-               </section>
-             </div>
-             <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-               <section>
-                 <label class="label txt-color-blue">标题<span class="asterisk-color">*</span></label>
-                 <label class="input">
-                   <input type="text" name="menu_name" [(ngModel)]="menu_name">
                  </label>
                </section>
              </div>
@@ -187,28 +179,38 @@
              </div>
              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                <section>
-                 <label class="label txt-color-blue">规则<span class="asterisk-color">*</span></label>
-                 <div class="input-group">
-                   <label class="input">
-                     <input type="text" name="menu_url" [(ngModel)]="menu_url">
-                   </label>
-                 </div>
-                 <div class="input-group-btn">
-                   <label class="checkbox">
-                     <input type="checkbox" value="1" name="menu_target" [(ngModel)]="menu_target">
-                     <i></i>是否跳转</label>
-                 </div>
+                 <label class="label txt-color-blue">标题<span class="asterisk-color">*</span></label>
+                 <label class="input">
+                   <input type="text" name="menu_name" [(ngModel)]="menu_name">
+                 </label>
                </section>
              </div>
-
              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                <section>
-                 <label class="label txt-color-blue">标题样式</label>
+                 <label class="label">标题样式</label>
                  <label class="input">
                    <input type="text" name="menu_name_class" [(ngModel)]="menu_name_class">
                  </label>
                </section>
              </div>
+             <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+               <div class="margin-left-15" >
+                 <section class="col col-8">
+                   <label class="label txt-color-blue">规则<span class="asterisk-color">*</span></label>
+                     <label class="input">
+                       <input type="text" name="menu_url" [(ngModel)]="menu_url">
+                     </label>
+                 </section>
+                 <section class="col col-4">
+                     <label class="checkbox margin-top-24">
+                       <input type="checkbox" value="1" name="menu_target" [(ngModel)]="menu_target">
+                       <i></i>是否跳转</label>
+                 </section>
+               </div>
+
+             </div>
+
+
              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                <section>
                  <label class="label ">图标</label>
@@ -244,40 +246,47 @@
                </section>
              </div>
              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
-               <section>
-                 <label class="label ">状态</label>
-                 <div class="inline-group">
-                   <label class="radio">
-                     <input type="radio" name="menu_status" [(ngModel)]="menu_status" [checked]="menuInfo.result?.menu_status == 1 || this.menu_id == 0" [value]="1">
-                     <i></i>正常</label>
-                   <label class="radio">
-                     <input type="radio" name="menu_status" [(ngModel)]="menu_status" [checked]="menuInfo.result?.menu_status == 2 || this.menu_id == 0" [value]="2">
-                     <i></i>隐藏</label>
-                 </div>
-               </section>
+               <div class="" style="margin-bottom:15px;">
+                 <section>
+                   <label class="label ">状态</label>
+                   <div class="inline-group">
+                     <label class="radio">
+                       <input type="radio" name="menu_status" [(ngModel)]="menu_status" [checked]="menuInfo.result?.menu_status == 1 || this.menu_id == 0" [value]="1">
+                       <i></i>正常</label>
+                     <label class="radio">
+                       <input type="radio" name="menu_status" [(ngModel)]="menu_status" [checked]="menuInfo.result?.menu_status == 2 || this.menu_id == 0" [value]="2">
+                       <i></i>隐藏</label>
+                   </div>
+                 </section>
+
+               </div>
+
              </div>
 
-             <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
-               <section>
-                 <label class="label ">页面功能</label>
-                 <div class="inline-group">
-                   <label class="checkbox">
-                     <input type="checkbox" [checked]="isHave('add')" (change)="handleControl($event)" value="add">
-                     <i></i>新增</label>
-                   <label class="checkbox">
-                     <input type="checkbox" [checked]="isHave('edit')" (change)="handleControl($event)" value="edit">
-                     <i></i>修改</label>
-                   <label class="checkbox">
-                     <input type="checkbox" [checked]="isHave('delete')" (change)="handleControl($event)" value="delete">
-                     <i></i>删除</label>
-                   <label class="checkbox">
-                     <input type="checkbox" [checked]="isHave('detail')" (change)="handleControl($event)" value="detail">
-                     <i></i>详情</label>
-                   <label class="checkbox">
-                     <input type="checkbox" [checked]="isHave('verify')" (change)="handleControl($event)" value="verify">
-                     <i></i>审核</label>
-                 </div>
-               </section>
+             <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+               <div class="" style="margin-bottom:15px;">
+                 <section>
+                   <label class="label ">页面功能</label>
+                   <div class="inline-group">
+                     <label class="checkbox">
+                       <input type="checkbox" [checked]="isHave('add')" (change)="handleControl($event)" value="add">
+                       <i></i>新增</label>
+                     <label class="checkbox">
+                       <input type="checkbox" [checked]="isHave('edit')" (change)="handleControl($event)" value="edit">
+                       <i></i>修改</label>
+                     <label class="checkbox">
+                       <input type="checkbox" [checked]="isHave('delete')" (change)="handleControl($event)" value="delete">
+                       <i></i>删除</label>
+                     <label class="checkbox">
+                       <input type="checkbox" [checked]="isHave('detail')" (change)="handleControl($event)" value="detail">
+                       <i></i>详情</label>
+                     <label class="checkbox">
+                       <input type="checkbox" [checked]="isHave('verify')" (change)="handleControl($event)" value="verify">
+                       <i></i>审核</label>
+                   </div>
+                 </section>
+               </div>
+
              </div>
            </fieldset>
          </form>
