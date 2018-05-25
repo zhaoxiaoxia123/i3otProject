@@ -56,15 +56,17 @@ export class MedicalInventoryComponent implements OnInit {
   cid : any = 0;//当前登录用户的所属公司id
   super_admin_id : any = 0;//超级管理员所属公司id
   category_type : number = 6; //资产类别  -》 医疗管理的类别用的是商品类别
-  rollback_url : string = '/medical/medical-inventory';
+  rollback_url : string = '';
+  /**菜单id */
+  menu_id:any;
+  /** 权限 */
+  permissions : Array<any> = [];
+  menuInfos : Array<any> = [];
   constructor(
       private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
-    //顶部菜单读取
-    this.globalService.getMenuInfo();
-
     window.scrollTo(0,0);
     this.super_admin_id = this.globalService.getAdminID();
     this.cid = this.cookieStore.getCookie('cid');
@@ -72,6 +74,26 @@ export class MedicalInventoryComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
+    setTimeout(()=>{
+      this.menu_id = this.globalService.getMenuId();
+      this.rollback_url = this.globalService.getMenuUrl();
+      this.permissions = this.globalService.getPermissions();
+      this.menuInfos = this.globalService.getMenuInfos();
+    },this.globalService.getMenuPermissionDelayTime())
+  }
+
+  /**
+   * 是否有该元素
+   */
+  isPermission(menu_id,value){
+    let key = menu_id +'_'+value;
+    if(value == ''){
+      key = menu_id;
+    }
+    return this.cookieStore.in_array(key, this.permissions);
   }
 
   /**
@@ -152,7 +174,7 @@ export class MedicalInventoryComponent implements OnInit {
   /**
    * 添加信息
    */
-  onSubmit(){
+  onSubmit(num:number){
     if(this.assets_number.trim() == ''){
       alert('请输入编号！');
       return false;
@@ -198,7 +220,9 @@ export class MedicalInventoryComponent implements OnInit {
               this.check = false;
             }
             this.clear_('');
-            this.addModal.hide();
+            if(num == 1) {
+              this.addModal.hide();
+            }
           }else if(info['status'] == 202){
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);

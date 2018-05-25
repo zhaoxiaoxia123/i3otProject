@@ -31,6 +31,11 @@ export class AccountMenuComponent implements OnInit {
     menu_icon: string='';
     menu_weight:number=0;
     menu_status:number=1;
+    menu_name_class: string='';
+    menu_target:number=0;
+    menu_tip_class: string='';
+    menu_tip: string='';
+
     menu_control: Array<any> = [];
 
     search_id: string='0';
@@ -43,7 +48,7 @@ export class AccountMenuComponent implements OnInit {
     isAll : number = 0;
     width : string = '0%';
     width_1 : string = '100%';
-    
+
   rollback_url : string = '';
     menuInfos: Array<any> = [];
   constructor(
@@ -128,6 +133,12 @@ export class AccountMenuComponent implements OnInit {
       this.menu_weight = obj['result']['menu_weight'];
       this.menu_status = obj['result']['menu_status'];
       this.menu_control = obj['result']['control_detail'];
+
+      this.menu_name_class = obj['result']['menu_name_class'];
+      this.menu_target = obj['result']['menu_target'];
+      this.menu_tip_class = obj['result']['menu_tip_class'];
+      this.menu_tip = obj['result']['menu_tip'];
+
   }
 
   clear_(){
@@ -140,6 +151,10 @@ export class AccountMenuComponent implements OnInit {
       this.menu_weight=0;
       this.menu_status=1;
       this.menu_control=[];
+      this.menu_name_class='';
+      this.menu_target=0;
+      this.menu_tip_class='';
+      this.menu_tip='';
       this.editModal.hide();
   }
 
@@ -247,7 +262,14 @@ export class AccountMenuComponent implements OnInit {
             'menu_icon' :this.menu_icon,
             'menu_weight' :this.menu_weight,
             'menu_status' :this.menu_status,
+            'menu_name_class' :this.menu_name_class,
+            'menu_target' :this.menu_target,
+            'menu_tip_class' :this.menu_tip_class,
+            'menu_tip' :this.menu_tip,
             'menu_control' : JSON.stringify(this.menu_control),
+            'search_id':this.search_id,
+            'page':this.page,
+            'keyword':this.keyword,
             'u_id' : this.cookieStore.getCookie('uid'),
             'sid':this.cookieStore.getCookie('sid')
         }).subscribe((data)=>{
@@ -331,7 +353,7 @@ export class AccountMenuComponent implements OnInit {
                     is_select += 1;
                 }
             });
-    
+
             if (is_select < 1) {
                 msg = '请确认已选中需要删除的信息！';
                 alert(msg);
@@ -369,7 +391,7 @@ export class AccountMenuComponent implements OnInit {
                 });
         }
     }
-    
+
 
     @ViewChild('editModal') public editModal:ModalDirective;
 }

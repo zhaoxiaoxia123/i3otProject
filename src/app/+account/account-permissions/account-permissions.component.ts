@@ -356,20 +356,22 @@ export class AccountPermissionsComponent implements OnInit {
     }
 
     isStatusShow(category_id:any){
-        this.editStatusCategoryId = category_id;
+        if(category_id != this.super_admin_role_id || this.login_user_role_id == this.super_admin_role_id ) {
+            this.editStatusCategoryId = category_id;
 
-        let url = this.globalService.getDomain()+'/api/v1/getCategoryById?category_id='+this.editStatusCategoryId+'&category_type='+this.category_type+'&number=3';
-        this.http.get(url)
-            .map((res)=>res.json())
-            .subscribe((data)=>{
-                this.permissions = data['result']['tabs'];
-                this.select_ids = [];
-                if(isArray(this.permissions)){
-                    this.permissions.forEach((val, idx, array) => {
-                        this.select_ids.push(val.toString());
-                    });
-                }
-            });
+            let url = this.globalService.getDomain() + '/api/v1/getCategoryById?category_id=' + this.editStatusCategoryId + '&category_type=' + this.category_type + '&number=3';
+            this.http.get(url)
+                .map((res) => res.json())
+                .subscribe((data) => {
+                    this.permissions = data['result']['tabs'];
+                    this.select_ids = [];
+                    if (isArray(this.permissions)) {
+                        this.permissions.forEach((val, idx, array) => {
+                            this.select_ids.push(val.toString());
+                        });
+                    }
+                });
+        }
     }
 
 
@@ -391,8 +393,8 @@ export class AccountPermissionsComponent implements OnInit {
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }else if(info['status'] == 200){
-                    this.select_ids = [];
-                    this.editStatusCategoryId = 0;
+                    // this.select_ids = [];
+                    // this.editStatusCategoryId = 0;
                 }
             });
         }

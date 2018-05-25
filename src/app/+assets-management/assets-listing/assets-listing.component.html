@@ -315,10 +315,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <div *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')">
-        <button type="button" class="btn btn-primary" (click)="onSubmit(1)">保存</button>
-        <button class="btn btn-success" type="button" (click)="onSubmit(2)">保存并新增</button>
-        </div>
+        <button *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')" type="button" class="btn btn-primary" (click)="onSubmit(1)">保存</button>
+        <button *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')" class="btn btn-success" type="button" (click)="onSubmit(2)">保存并新增</button>
         <button type="button" class="btn btn-default" (click)="clear_('add')">返回</button>
       </div>
     </div>

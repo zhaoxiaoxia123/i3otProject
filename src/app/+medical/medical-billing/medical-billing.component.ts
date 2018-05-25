@@ -56,9 +56,13 @@ export class MedicalBillingComponent implements OnInit {
   pr_type : number = 6;//医疗管理处方单
   role : number = 5; //医疗病人
   category_type = 6;//产品类型
-  rollback_url : string = '/medical/medical-billing';
+  rollback_url : string = '';
   p_sales_price : number = 0;
   url:string = '';
+  /**菜单id */
+  menu_id:any;
+  /** 权限 */
+  permissions : Array<any> = [];
   constructor(
       fb:FormBuilder,
       private http:Http,
@@ -67,8 +71,7 @@ export class MedicalBillingComponent implements OnInit {
       private cookieStore:CookieStoreService,
       private globalService:GlobalService,
       private notificationService: NotificationService) {
-    //顶部菜单读取
-    this.globalService.getMenuInfo();
+
     this.url = this.globalService.getDomain();
     this.pr_id = routInfo.snapshot.params['pr_id'];
     if(this.pr_id != '' && this.pr_id != '0'){
@@ -98,7 +101,27 @@ export class MedicalBillingComponent implements OnInit {
 
   ngOnInit() {
     this.getPurchaseDefault('');
+
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
+    setTimeout(()=>{
+      this.menu_id = this.globalService.getMenuId();
+      this.rollback_url = this.globalService.getMenuUrl();
+      this.permissions = this.globalService.getPermissions();
+    },this.globalService.getMenuPermissionDelayTime())
   }
+
+  /**
+   * 是否有该元素
+   */
+  isPermission(menu_id,value){
+    let key = menu_id +'_'+value;
+    if(value == ''){
+      key = menu_id;
+    }
+    return this.cookieStore.in_array(key, this.permissions);
+  }
+
 
   getCustomerInfo($event,type){
     let id = 0;

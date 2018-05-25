@@ -6,8 +6,8 @@
     <div class="row">
       <article class="col-sm-12">
         <sa-widget  [editbutton]="false" [deletebutton]="false" [colorbutton]="false">
-          <header><span class="widget-icon"> <i class="fa fa-table"></i></span>
-            <h2>设备设置</h2>
+          <header><span class="widget-icon"> <i class="fa {{menuInfos?.menu_icon}}"></i> </span>
+            <h2>{{menuInfos?.menu_name}}</h2>
           </header>
           <div>
             <div class="widget-body no-padding">

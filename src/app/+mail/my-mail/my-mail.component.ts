@@ -8,15 +8,21 @@ import {GlobalService} from "../../core/global.service";
 export class MyMailComponent implements OnInit {
 
 
-  rollback_url : string = '/mail/my-mail';
+  rollback_url : string = '';
+  menuInfos : Array<any> = [];
   constructor(
       private globalService:GlobalService,
   ) {
-    //顶部菜单读取
-    this.globalService.getMenuInfo();
   }
 
   ngOnInit() {
+
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
+    setTimeout(()=>{
+      this.rollback_url = this.globalService.getMenuUrl();
+      this.menuInfos = this.globalService.getMenuInfos();
+    },this.globalService.getMenuPermissionDelayTime())
   }
 
 }

@@ -64,21 +64,26 @@ export class StationBlockComponent implements OnInit {
 
     pages : any = 1;
     private interval;
-    rollback_url : string = '/iot/station-block';
+    rollback_url : string = '';
+    menuInfos : Array<any> = [];
   constructor(
     private http: Http,
     private router:Router,
     private cookieStore:CookieStoreService,
     private globalService:GlobalService) {
-      //顶部菜单读取
-      this.globalService.getMenuInfo();
       this.lastUpdate = new Date();
   }
 
 
   ngOnInit() {
       this.getI3otpList('1');
-      // this.getSeriesInfo();
+
+      //顶部菜单读取
+      this.globalService.getMenuInfo();
+      setTimeout(() => {
+          this.rollback_url = this.globalService.getMenuUrl();
+          this.menuInfos = this.globalService.getMenuInfos();
+      }, this.globalService.getMenuPermissionDelayTime())
   }
 
 

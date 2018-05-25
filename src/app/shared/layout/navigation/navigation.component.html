@@ -8,22 +8,32 @@
       <li *ngFor="let c of menuDefault?.result?.menuList">
         <a href="#" *ngIf="c.menu_url == '#' || c.menu_url == ''">
           <i class="fa fa-lg fa-fw {{c.menu_icon}}"></i>
-          <span class="menu-item-parent">{{c.menu_name}}</span>
+          <span class="menu-item-parent {{c.menu_name_class}}">{{c.menu_name}}</span>
         </a>
-        <a routerLink="{{c.menu_url}}" *ngIf="c.menu_url != '#' && c.menu_url != ''">
+        <a routerLink="{{c.menu_url}}" *ngIf="c.menu_url != '#' && c.menu_url != ''&& c.menu_target == 0">
+          <i class="fa fa-lg fa-fw {{c.menu_icon}}"></i>{{c.menu_name}}
+          <span class="{{c.menu_tip_class}}">{{c.menu_tip}}</span>
+        </a>
+        <a href="{{c.menu_url}}" target="_blank" *ngIf="c.menu_url != '#' && c.menu_url != ''&& c.menu_target == 1">
           <i class="fa fa-lg fa-fw {{c.menu_icon}}"></i>{{c.menu_name}}
         </a>
         <ul  *ngIf="c.child_count != 0">
           <li routerLinkActive="active"  *ngFor="let dc of c.child">
-            <a routerLink="{{dc.menu_url}}" *ngIf="dc.child_count == 0">
+            <a routerLink="{{dc.menu_url}}" *ngIf="dc.child_count == 0&& dc.menu_target == 0">
+              {{dc.menu_name}}<span class="{{dc.menu_tip_class}}">{{dc.menu_tip}}</span>
+            </a>
+            <a href="{{dc.menu_url}}" target="_blank" *ngIf="dc.child_count == 0&& dc.menu_target == 1">
               {{dc.menu_name}}
             </a>
             <a href="#" *ngIf="dc.child_count != 0"><i class="fa fa-lg fa-fw {{dc.menu_icon}}"></i>
-              <span class="menu-item-parent">{{dc.menu_name}}</span>
+              <span class="menu-item-parent {{dc.menu_name_class}}">{{dc.menu_name}}</span>
             </a>
             <ul *ngIf="dc.child_count != 0">
               <li routerLinkActive="active" *ngFor="let dc1 of dc.child">
-                <a routerLink="{{dc1.menu_url}}">{{dc1.menu_name}}</a>
+                <a routerLink="{{dc1.menu_url}}" *ngIf="dc1.menu_target == 0">{{dc1.menu_name}}
+                  <span class="{{dc1.menu_tip_class}}">{{dc1.menu_tip}}</span></a>
+                <a href="{{dc1.menu_url}}" target="_blank" *ngIf="dc1.menu_target == 1">{{dc1.menu_name}}
+                  <span class="{{dc1.menu_tip_class}}">{{dc1.menu_tip}}</span></a>
               </li>
             </ul>
           </li>
@@ -102,7 +112,7 @@
             <ul>
               <li>
                 <a href="#"><i class="fa fa-lg fa-fw  fa-shopping-cart"></i> <span
-                        class="menu-item-parent">{{'采购管理' | i18n}}</span></a>RRRRRRRRRRRRRRRRRRRR
+                        class="menu-item-parent">{{'采购管理' | i18n}}</span></a>
                 <ul>
                   <li routerLinkActive="active">
                     <a routerLink="/procurement-management/procurement-order">{{'采购订单' | i18n}}</a>
@@ -173,7 +183,7 @@
               </li>
               <li>
                 <a href="#"><i class="fa fa-lg fa-fw fa-skype"></i> <span
-                        class="menu-item-parent">{{'销售管理' | i18n}}</span></a>
+                        class="menu-item-parent ">{{'销售管理' | i18n}}</span></a>
                 <ul>
                   <li routerLinkActive="active">
                     <a routerLink="/tables/indent">{{'订单列表' | i18n}}</a>

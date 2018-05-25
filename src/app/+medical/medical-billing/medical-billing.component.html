@@ -199,8 +199,8 @@
                     打印预览
                   </button>
                   <!--<button type="button" class="btn btn-success btn-sm" ><span class="glyphicon glyphicon-plus"></span>保存并新增</button>-->
-                  <button *ngIf="pr_id==0" type="submit" class="btn btn-primary">保存</button>
-                  <button *ngIf="isDetail!='detail' && pr_id!=0" type="submit" class="btn btn-primary">修改</button>
+                  <button *ngIf="pr_id==0 && (isPermission(menu_id,'add') || isPermission(menu_id,'edit'))" type="submit" class="btn btn-primary">保存</button>
+                  <button *ngIf="isDetail!='detail' && pr_id!=0 && (isPermission(menu_id,'add') || isPermission(menu_id,'edit'))" type="submit" class="btn btn-primary">修改</button>
                   <button type="button" class="btn btn-default" [routerLink]="['/medical/medical-sales']">
                     返回
                   </button>
