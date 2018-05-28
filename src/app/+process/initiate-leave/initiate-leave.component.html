@@ -73,7 +73,7 @@
                     <div  class="picture mb-20">
                       <div  class="picture-list" *ngFor="let img of imgList;let ind = index;">
                         <a  class="fa fa-times-circle picture-a" style="display:block;" (click)="removeImg(ind)"></a>
-                        <img width="90px" height="90px" src="{{url}}{{img}}" data-toggle="modal" data-target="#image-details">
+                        <img width="90px" height="90px" src="{{url}}{{img}}" (click)="showBigPic(url+img)">
                       </div>
                     </div>
                   </div>
@@ -127,22 +127,10 @@
 
 <!--选择审批人和抄送人-->
 <app-select-user (approve_users)="getData($event)" [is_show_detail]="is_show_detail" (is_show_details)="getShowStatus($event)" [approval_or_copy]="approval_or_copy" *ngIf="is_show_detail"></app-select-user>
-<!--审批操作弹框-->
+<!--选不用裁剪的图片-->
 <app-select-file [select_type]="select_type" [imgList]="imgList" (select_types)="getSelectTypes()" (imgLists)="getImgLists($event)"></app-select-file>
+<!--查看大图-->
+<app-big-pic [select_type]="select_type" [show_big_pic]="show_big_pic" (select_types)="getSelectTypes()"></app-big-pic>
 
-
-<div class="modal fade bg-transparent" id="image-details" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="text-align-center">
-      <ul>
-        <li class="picture-normal">
-          <a class="fa fa-times-circle picture-normal-a" style="display:block;" data-dismiss="modal"></a>
-          <img  src="https://static.kuangyibang.com/wp/2016/12/careers-main2.jpg">
-        </li>
-      </ul>
-    </div>
-
-  </div><!-- /.modal -->
-</div>
 
 

@@ -11,6 +11,7 @@ import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {CookieService} from "angular2-cookie/core";
 import {SelectFileModule} from "../../shared/common/select-file/select-file.module";
 import {SelectUserModule} from "../../shared/common/select-user/select-user.module";
+import {BigPicModule} from "../../shared/common/big-pic/big-pic.module";
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import {SelectUserModule} from "../../shared/common/select-user/select-user.modu
   ReactiveFormsModule,
   DpDatePickerModule,
     SelectUserModule,
+    BigPicModule,
     SelectFileModule
 ],
 declarations: [InitiateLeaveComponent],

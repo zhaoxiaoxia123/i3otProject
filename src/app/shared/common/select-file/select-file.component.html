@@ -14,14 +14,14 @@
               <div class="clearfix pd-10" >
                 <span class="picture-list" *ngFor="let img of imgList;let ind = index;">
                 <a  class="fa fa-times-circle picture-a" style="display:block;" (click)="removeImg(ind)"></a>
-                <img width="90px" height="90px" src="{{url}}{{img}}">
+                <img width="90px" height="90px" src="{{img.url}}">
                 </span>
                 <div class="picture-list" *ngIf="imgCount < 10">
                   <div  class="c-file-upload" style="overflow: visible;">
                     <a class="btn btn-default"   style="width: 100px; height: 100px;">
                       <i class="fa fa-plus fa-2x" style="color: #ccc;  font-size: 90px;"></i>
                     </a>
-                    <input id="image-input" class="btn btn-default " type="file" ng2FileSelect [uploader]="uploader"/>
+                    <input id="image-input" class="btn btn-default " type="file" ng2FileSelect [uploader]="uploader" multiple (change)="selectedFileOnChanged(i)" />
                   </div>
                 </div>
               </div>
@@ -36,5 +36,6 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal -->
 </div>
+
 
 <bs-modal-backdrop class="modal-backdrop fade in" *ngIf="select_type == 'file'"></bs-modal-backdrop>

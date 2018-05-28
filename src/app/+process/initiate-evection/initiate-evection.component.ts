@@ -38,6 +38,7 @@ export class InitiateEvectionComponent implements OnInit {
 
   /**--------用选择图片的变量------*/
   select_type: string = '';
+  show_big_pic: string = '';
   /**图片 */
   imgList: Array<any> = [];
 
@@ -174,6 +175,10 @@ export class InitiateEvectionComponent implements OnInit {
     this.imgList = JSON.parse(value);
   }
 
+  showBigPic(imgUrl:string){
+    this.select_type = 'bigPic'
+    this.show_big_pic = imgUrl;
+  }
   //--------------弹框  选择审批人和关注者--------------
   showDetail(type: string) {
     this.approval_or_copy = type;

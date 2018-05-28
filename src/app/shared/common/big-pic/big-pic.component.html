@@ -1,0 +1,15 @@
+<!---大图查看-->
+<div class="modal fade bg-transparentfade in" style="display: block" *ngIf="select_type == 'bigPic'">
+  <div class="modal-dialog">
+    <div class="text-align-center">
+      <ul>
+        <li class="picture-normal">
+          <a class="fa fa-times-circle picture-normal-a" style="display:block;" (click)="hideBigPicModal()"></a>
+          <img src="{{show_big_pic}}">
+        </li>
+      </ul>
+    </div>
+  </div><!-- /.modal -->
+</div>
+
+<bs-modal-backdrop class="modal-backdrop fade in" *ngIf="select_type == 'bigPic'"></bs-modal-backdrop>

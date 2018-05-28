@@ -134,7 +134,7 @@
             <span>共{{processMyList?.result?.approvalList?.total}}条</span>
           </div>
           <div class="hidden-xs right">
-            <ul class="pagination pagination-sm">
+            <ul class="pagination pagination-sm" *ngIf="processMyList?.result?.page">
               <li *ngFor="let p of processMyList?.result?.page" class="{{p.class}}">
                 <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
                 <a *ngIf="p.method==''">{{p.text}}</a>
