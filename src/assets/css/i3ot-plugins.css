@@ -32,6 +32,10 @@ a:focus, a:hover {
 .display-normal {
     display: inline!important
 }
+.text-decoration{
+    text-decoration: line-through;
+    font-style: italic;
+}
 
 .cursor-pointer {
     cursor: pointer
