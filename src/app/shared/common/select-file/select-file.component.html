@@ -1,0 +1,40 @@
+<!---选择不用裁剪的图片-->
+<div class="modal fade in" style="display: block" *ngIf="select_type == 'file'">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="hideModal()">×</button>
+        <!-- 标题 -->
+        <h3 class="modal-title" data-ng-bind='results.title'>上传图片</h3>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-xs-12">
+            <div>
+              <div class="clearfix pd-10" >
+                <span class="picture-list" *ngFor="let img of imgList;let ind = index;">
+                <a  class="fa fa-times-circle picture-a" style="display:block;" (click)="removeImg(ind)"></a>
+                <img width="90px" height="90px" src="{{url}}{{img}}">
+                </span>
+                <div class="picture-list" *ngIf="imgCount < 10">
+                  <div  class="c-file-upload" style="overflow: visible;">
+                    <a class="btn btn-default"   style="width: 100px; height: 100px;">
+                      <i class="fa fa-plus fa-2x" style="color: #ccc;  font-size: 90px;"></i>
+                    </a>
+                    <input id="image-input" class="btn btn-default " type="file" ng2FileSelect [uploader]="uploader"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="uploadFile()" >确定上传</button>
+        <button type="button" class=" btn btn-default" (click)="hideModal()">关闭</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+</div>
+
+<bs-modal-backdrop class="modal-backdrop fade in" *ngIf="select_type == 'file'"></bs-modal-backdrop>

@@ -7,9 +7,9 @@ import {I3otpModule} from "../../shared/i3otp.module";
 import {I3otpEditorsModule} from "../../shared/forms/editors/i3otp-editors.module";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {CookieService} from "angular2-cookie/core";
-import {ImgCropperSelectModule} from "../../shared/img-cropper-select/img-cropper-select.module";
-import {ImageCropperModule} from "ng2-img-cropper";
 import {DpDatePickerModule} from "ng2-date-picker";
+import {SelectUserModule} from "../../shared/common/select-user/select-user.module";
+import {SelectFileModule} from "../../shared/common/select-file/select-file.module";
 
 @NgModule({
   imports: [
@@ -18,8 +18,8 @@ import {DpDatePickerModule} from "ng2-date-picker";
       I3otpEditorsModule,
     InitiateRequiteRoutingModule,
     DpDatePickerModule,
-    ImageCropperModule,
-    ImgCropperSelectModule
+    SelectUserModule,
+    SelectFileModule
   ],
   declarations: [InitiateRequiteComponent],
   providers:[ CookieService,CookieStoreService ]

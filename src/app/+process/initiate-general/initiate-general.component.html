@@ -32,16 +32,13 @@
                   </div>
 
                   <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
-                    <div class="label ">图片<a class="txt-color-blue pd-10" data-toggle="modal" data-target="#mypicture">添加图片</a><span class="txt-color-blueLight pd-10">(最多可以选择10张)</span></div>
+                    <div class="label ">图片<a class="txt-color-blue pd-10" (click)="showSelectFileDiv()">添加图片</a><span class="txt-color-blueLight pd-10">(最多可以选择10张)</span></div>
                     <div  class="picture mb-20">
                       <div  class="picture-list" *ngFor="let img of imgList;let ind = index;">
                         <a  class="fa fa-times-circle picture-a" style="display:block;" (click)="removeImg(ind)"></a>
                         <img width="90px" height="90px" src="{{url}}{{img}}" data-toggle="modal" data-target="#image-details">
                       </div>
                     </div>
-
-
-
                   </div>
 
                   <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-20">
@@ -49,27 +46,25 @@
                   </div>
 
                   <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-20">
-                    <div class="label ">审批人<a class="txt-color-blue pd-10" data-toggle="modal" data-target="#myModal" (click)="changeType('assign')">添加审批人</a></div>
-                    <ul  class="avatars">
+                    <div class="label ">审批人<a class="txt-color-blue pd-10" (click)="showDetail('assign')">添加审批人</a></div>
+                    <ul  class="avatars" *ngIf="approve_user">
                       <li *ngFor="let su of approve_user;let ind = index;">
                         <a class="fa fa-times-circle picture-a" style="display:block;" (click)="removeUser(su.id,'assign')"></a>
-                        <a  class="portrait-size" title="{{su.u_username}}">
+                        <a class="portrait-size" title="{{su.u_username}}">
                           {{su.u_username}}
                         </a>
-                        <div class="approval-arrow" *ngIf="ind < approve_user.length && ind != 0">
-                          <img  src="assets/img/icon/arrow.png" >
+                        <div class="approval-arrow" *ngIf="ind < approve_user.length && ind != 0" >
+                          <img src="assets/img/icon/arrow.png" >
                         </div>
                       </li>
                     </ul>
-
                   </div>
-
                   <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-20">
-                    <div class="label ">抄送人<a class="txt-color-blue pd-10" data-toggle="modal" data-target="#myModal" (click)="changeType('follower')">添加抄送人</a><span class="txt-color-blueLight pd-10">(审批通过后，通知抄送人)</span></div>
-                    <ul  class="avatars">
+                    <div class="label ">抄送人<a class="txt-color-blue pd-10" (click)="showDetail('follower')">添加抄送人</a><span class="txt-color-blueLight pd-10">(审批通过后，通知抄送人)</span></div>
+                    <ul  class="avatars" *ngIf="follower_user">
                       <li *ngFor="let su1 of follower_user;let ind1 = index;">
                         <a class="fa fa-times-circle picture-a" style="display:block;" (click)="removeUser(su1.id,'follower')"></a>
-                        <a  class="portrait-size" title="{{su1.u_username}}">
+                        <a class="portrait-size" title="{{su1.u_username}}">
                           {{su1.u_username}}
                         </a>
                       </li>
@@ -81,8 +76,8 @@
                   <button type="button" class="btn btn-default" >
                     返回
                   </button>
-                  <button class="btn btn-success" type="button">提交并新增</button>
-                  <button type="button" class="btn btn-primary" (click)="onSubmit()">
+                  <button class="btn btn-success" type="button" (click)="onSubmit(2)">提交并新增</button>
+                  <button  type="submit" class="btn btn-primary" (click)="onSubmit(1)">
                     提交
                   </button>
                 </footer>
@@ -95,226 +90,7 @@
   </sa-widgets-grid>
 </div>
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <!-- 关闭按钮 -->
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="closeSelectedUser()">×</button>
-        <!-- 标题 -->
-        <h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>选择人</h3>
-      </div>
-      <div class="modal-body ">
-        <div  class="row">
-          <article  class="col-sm-12">
-            <div class="navbar navbar-default">
-              <div class="collapse navbar-collapse">
-                <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-                  <div class="form-group pdlr-4">
-                    <div class="form-group padding-left-10">
-                      <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" [(ngModel)]="keyword" name="keyword" placeholder="请输入搜索内容" type="text">
-                    </div>
-                    <button class="btn btn-default" type="button" (click)="getUserList(1,0)">
-                      <i  class="glyphicon glyphicon-search"></i>
-                      搜索
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </article>
-        </div>
-        <div class="pt">
-          <div class="row margin-b50" style="padding:0 10px;">
-            <article class="form-group col col-xs-4 ">
-              <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
-                         [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
-                <div>
-                  <div class="widget-body no-padding">
-                    <alert type="info" class="no-margin">
-                      <i class="fa-fw fa fa-sitemap"></i>
-                      部门分类
-                    </alert>
-                    <div class="pd-10 mt-10 border-overflow-320" style="margin-top: -11px;">
-                      <div class="widget-body">
-                        <div class="tree smart-form">
-                          <ul class="">
-                            <li class=" parent_li">
-                                <span>
-                                  <label class="checkbox inline-block tree-label pt-12 ">
-                                      <input type="checkbox" name="checkbox-inline" [checked]="select_department_ids[0]" (click)="selectDepartmentAll()"><i></i>
-                                    </label>
-
-                                  <i class="fa fa-lg fa-folder-open"></i>{{customer_name}}
-                                  <i class="sa-icon fa fa-lg fa-plus-circle" *ngIf="showUl == 0" (click)="showLeftUl(1)"></i>
-                                  <i class="sa-icon fa fa-lg fa-minus-circle" *ngIf="showUl == 1" (click)="showLeftUl(0)"></i>
-                                </span>
-                              <ul *ngIf="showUl == 1">
-                                <li class=" parent_li" *ngFor="let d of userDefault?.result?.departmentList;let ind = index;">
-                                  <span>
-                                    <label class="checkbox inline-block tree-label ">
-                                      <input type="checkbox" name="checkbox-inline" [checked]="select_department_ids[d.department_id]" (click)="selectDepartment(d.department_id,ind,0,1)"><i></i>{{d.department_name}}
-                                      <em class="txt-color-blue">({{d.child_count}})</em>
-                                    </label>
-                                    <i class="sa-icon fa fa-lg fa-minus-circle" *ngIf="showUlChild == d.department_id && d.has_child != 0" (click)="showLeftUlChild(0)"></i>
-                                    <i class="sa-icon fa fa-lg fa-plus-circle" *ngIf="showUlChild != d.department_id && d.has_child != 0" (click)="showLeftUlChild(d.department_id)"></i>
-                                  </span>
-                                  <ul class="" *ngIf="showUlChild == d.department_id">
-                                    <li *ngFor="let dc of d.child;let indChild = index;">
-                                      <span>
-                                        <label class="checkbox inline-block tree-label">
-                                          <input type="checkbox" name="checkbox-inline" [checked]="select_department_ids[d.department_id] || select_department_ids[dc.department_id]" (click)="selectDepartment(dc.department_id,ind,indChild,d.department_id)">
-                                          <i></i>{{dc.department_name}}
-                                          <em class="txt-color-blue">({{dc.child_count}})</em>
-                                        </label>
-                                      </span>
-                                    </li>
-                                  </ul>
-                                </li>
-                              </ul>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="dt-toolbar">
-                    </div>
-                  </div>
-                </div>
-              </sa-widget>
-
-            </article>
-            <article class="form-group col col-xs-8 ">
-              <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
-                         [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
-                <div>
-                  <div class="widget-body no-padding">
-                    <alert type="info" class="no-margin" >
-                      <i class="fa-fw fa fa-table"></i>
-                      员工列表
-                    </alert>
-                    <div class="mt-10 height-overflow"  style="padding:0;">
-                      <div style="padding: 0;z-index: 1;" class="table-responsive border-overflow-320">
-                        <table class="table table-striped   smart-form table-height-20">
-                          <thead>
-                          <tr>
-                            <td>
-                              <label class="checkbox mt-8">
-                                <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)">
-                                <i></i>
-                              </label>
-                            </td>
-                            <th>员工ID </th>
-                            <th>姓名</th>
-                            <th>所属部门</th>
-                          </tr>
-                          </thead>
-                          <tbody>
-                          <tr *ngFor="let ul of userList.result?.userList?.data">
-                            <td>
-                              <label class="checkbox mt-8" >
-                                <input type="checkbox" value="{{ul.id}}" [checked]="selected_user[ul.id]" (change)="handle($event);" />
-                                <i></i>
-                              </label>
-                            </td>
-                            <td>{{ ul.name }}</td>
-                            <td>{{ ul.u_username }}</td>
-                            <td>{{ ul.department_name }}</td>
-                          </tr>
-                          </tbody>
-                        </table>
-                      </div>
-
-                    </div>
-                    <!-- 底部-（分页部分）-->
-                    <div class="dt-toolbar">
-                      <div class="col-xs-12 col-sm-6">
-                        <span>共{{userList.result?.userList?.total}}条</span>
-                      </div>
-                      <div class="hidden-xs right">
-                        <ul class="pagination pagination-sm" *ngIf="userList?.result?.page != ''">
-                          <li *ngFor="let p of userList?.result?.page" class="{{p.class}}">
-                            <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
-                            <a *ngIf="p.method==''">{{p.text}}</a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </sa-widget>
-              <!-- end widget -->
-            </article>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success btn-sm" data-ng-click="ok()" data-dismiss="modal" (click)="submitSelectedUser()"><span class="glyphicon glyphicon-plus"></span>选入</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="closeSelectedUser()">返回</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal -->
-</div>
-
-
-<div class="modal fade bg-transparent" id="mypicture" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-          ×
-        </button>
-        <!-- 标题 -->
-        <h3 class="modal-title" data-ng-bind='results.title'>上传图片</h3>
-
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-xs-12">
-            <div>
-              <ul class="clearfix pd-10"  >
-                <li class="picture-list" *ngFor="let img of imgList;let ind = index;">
-                  <a  class="fa fa-times-circle picture-a" style="display:block;" (click)="removeImg(ind)"></a>
-                  <img  width="90px" height="90px" src="{{url}}{{img}}">
-                </li>
-                <li>
-                  <img-cropper #cropper [image]="data1" [settings]="cropperSettings1" (onCrop)="cropped($event)"></img-cropper>
-                </li>
-                <li class="picture-list" *ngIf="imgCount < 10">
-                  <div  class="c-file-upload" style="overflow: visible;">
-                    <a class="btn btn-default"   style="width: 100px; height: 100px;">
-                      <i class="fa fa-plus fa-2x" style="color: #ccc;  font-size: 90px;"></i>
-                    </a>
-                    <input id="image-input" class="btn btn-default " type="file" c-img-cropper-select [cropper]="cropper">
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="postFile()" >确定上传</button>
-        <button type="button" class=" btn btn-default" data-dismiss="modal">关闭</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal -->
-</div>
-
-
-
-<div class="modal fade bg-transparent" id="image-details" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="text-align-center">
-      <ul>
-        <li class="picture-normal">
-          <a class="fa fa-times-circle picture-normal-a" style="display:block;" data-dismiss="modal"></a>
-          <img  src="https://static.kuangyibang.com/wp/2016/12/careers-main2.jpg">
-        </li>
-      </ul>
-    </div>
-
-  </div><!-- /.modal -->
-</div>
-
+<!--选择审批人和抄送人-->
+<app-select-user (approve_users)="getData($event)" [is_show_detail]="is_show_detail" (is_show_details)="getShowStatus($event)" [approval_or_copy]="approval_or_copy" *ngIf="is_show_detail"></app-select-user>
+<!--审批操作弹框-->
+<app-select-file [select_type]="select_type" [imgList]="imgList" (select_types)="getSelectTypes()" (imgLists)="getImgLists($event)"></app-select-file>

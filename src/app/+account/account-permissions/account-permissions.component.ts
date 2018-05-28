@@ -66,6 +66,7 @@ export class AccountPermissionsComponent implements OnInit {
           this.rollback_url = this.globalService.getMenuUrl();
           this.permissions = this.globalService.getPermissions();
           this.menuInfos = this.globalService.getMenuInfos();
+
       }, this.globalService.getMenuPermissionDelayTime());
   }
 
@@ -111,7 +112,7 @@ export class AccountPermissionsComponent implements OnInit {
                 if(this.customerDefault['status'] == 200 && this.customerDefault['result']['customerList'].length > 0 && this.login_user_role_id == this.super_admin_role_id){
                     this.customer_id = this.customerDefault['result']['customerList'][0]['c_id'];
                     this.getRole(this.customer_id);
-                }else{
+                } else{
                     this.customer_id = parseInt(this.cookieStore.getCookie('cid'));
                     this.getRole(this.customer_id);
                 }
@@ -215,14 +216,14 @@ export class AccountPermissionsComponent implements OnInit {
                             val1['child'].forEach((val2, idx2, array2) => {
                                 this.select_ids.push(val2['menu_id'].toString());
 
-                                if(val2['controls'] != [] && val2['controls'].length > 0) {
+                                if(val2['controls'] != [] && !isUndefined(val2['controls'])) {
                                     val2['controls'].forEach((valc, idxc, arrayc) => {
                                         this.select_ids.push(val2['menu_id'] + '_' + valc);
                                     });
                                 }
                             });
                         }else{
-                            if(val1['controls'] != [] && val1['controls'].length > 0) {
+                            if(val1['controls'] != [] && !isUndefined(val1['controls'])) {
                                 val1['controls'].forEach((valc, idxc, arrayc) => {
                                     this.select_ids.push(val1['menu_id'] + '_' + valc);
                                 });

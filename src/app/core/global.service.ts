@@ -158,19 +158,20 @@ export class GlobalService {
     if(url_array.length > 3){
       url_ = url_.substring(0,url_.lastIndexOf("/"));
     }
+    let category_id = this.cookieStore.getCookie('urole');
     this.setMenuUrl(url_);
-      this.http.get(this.getDomain()+'/api/v1/getMenuInfo?menu_url='+url_)
-          .map((res)=>res.json())
-          .subscribe((data)=>{
-            if(data['status'] == 200){
-              let nav = '{"title":"'+data['result']['menu_name']+'","url":"'+data['result']['menu_url']+'","class_":"active","icon":"'+data['result']['menu_icon']+'"}';
-              this.navEventEmitter.emit(nav);
-              this.setMenuId(data['result']['menu_id']);
-              this.setMenuInfos(data['result'])
-            }else{
-              this.setMenuId(0);
-            }
-          });
+    this.http.get(this.getDomain()+'/api/v1/getMenuInfo?menu_url='+url_+'&category_id='+category_id)
+        .map((res)=>res.json())
+        .subscribe((data)=>{
+          if(data['status'] == 200){
+            let nav = '{"title":"'+data['result']['menu_name']+'","url":"'+data['result']['menu_url']+'","class_":"active","icon":"'+data['result']['menu_icon']+'"}';
+            this.navEventEmitter.emit(nav);
+            this.setMenuId(data['result']['menu_id']);
+            this.setMenuInfos(data['result'])
+          }else{
+            this.setMenuId(0);
+          }
+        });
   }
 
 }

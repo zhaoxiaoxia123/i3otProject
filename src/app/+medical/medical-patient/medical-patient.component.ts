@@ -53,22 +53,22 @@ export class MedicalPatientComponent implements OnInit {
   cid : any = 0;//当前登录用户的所属公司id
   super_admin_id : any = 0;//超级管理员所属公司id
   // category_type : number = 21;
-  rollback_url : string = '/medical/medical-patient';
+  rollback_url : string = '';
 
   @ViewChild('lgModal') public lgModal:ModalDirective;
   @ViewChild('detailModal') public detailModal:ModalDirective;
+  /**菜单id */
+  menu_id:any;
+  /** 权限 */
+  permissions : Array<any> = [];
+  menuInfos : Array<any> = [];
   constructor(
       private http:Http,
       private router : Router,
       private routInfo : ActivatedRoute,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
-
-    //顶部菜单读取
-    this.globalService.getMenuInfo();
-
     this.page_parent = routInfo.snapshot.params['info'];
-    console.log(this.page_parent);
     if(this.page_parent == 'add'){
       this.rollback_url += '/' + this.page_parent;
     }else{
@@ -83,12 +83,30 @@ export class MedicalPatientComponent implements OnInit {
   }
 
   ngOnInit() {
+    //顶部菜单读取
+    this.globalService.getMenuInfo();
     setTimeout(()=>{
       if(this.page_parent == 'add') {
         this.lgModal.show();
       }
-    },500);
+      this.menu_id = this.globalService.getMenuId();
+      this.rollback_url = this.globalService.getMenuUrl();
+      this.permissions = this.globalService.getPermissions();
+      this.menuInfos = this.globalService.getMenuInfos();
+    },this.globalService.getMenuPermissionDelayTime())
   }
+
+  /**
+   * 是否有该元素
+   */
+  isPermission(menu_id,value){
+    let key = menu_id +'_'+value;
+    if(value == ''){
+      key = menu_id;
+    }
+    return this.cookieStore.in_array(key, this.permissions);
+  }
+
 
   /**
    * 获取默认参数
@@ -183,7 +201,7 @@ export class MedicalPatientComponent implements OnInit {
   /**
    * 添加信息
    */
-  onSubmit(){
+  onSubmit(num:number){
     if(this.c_name.trim() == ''){
       alert('请输入名称！');
       return false;
@@ -217,7 +235,9 @@ export class MedicalPatientComponent implements OnInit {
               this.selects[entry['c_id']] = false;
             }
             this.check = false;
-            this.lgModal.hide();
+            if(num == 1) {
+              this.lgModal.hide();
+            }
           }else if(info['status'] == 202){
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
