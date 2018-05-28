@@ -87,6 +87,13 @@
                           <span *ngSwitchCase="3">的外出</span>
                           <span *ngSwitchCase="4">的报销</span>
                           <span *ngSwitchCase="5">的通用审批</span>
+                          <span *ngSwitchCase="">的销售单申请</span>
+                          <span *ngSwitchCase="">的调拨单申请</span>
+                          <span *ngSwitchCase="">的其他入库单申请</span>
+                          <span *ngSwitchCase="">的其他出库单申请</span>
+                          <span *ngSwitchCase="">的进货单申请</span>
+                          <span *ngSwitchCase="">的资产发放申请</span>
+                          <span *ngSwitchCase="">的资产报废申请</span>
                         </span>
                     </a>
                     <p class="username" >{{approvalInfo?.result?.u_username}}</p>
@@ -102,6 +109,9 @@
                     <p class="text-primary" *ngIf="approvalInfo?.result?.approval_status == 'cancel'">
                         已撤销
                     </p>
+                    <p class="text-danger" >
+                        已作废
+                    </p>
                 </div>
                <!-- 已同意-->
                 <div class="approve-result agree pullout" *ngIf="approvalInfo?.result?.approval_status == 'yes'" ></div>
@@ -109,8 +119,29 @@
                 <div class="approve-result refuse pullout" *ngIf="approvalInfo?.result?.approval_status == 'no'"></div>
                 <!--已撤销-->
                 <div class="approve-result revoke pullout" *ngIf="approvalInfo?.result?.approval_status == 'cancel'"></div>
+                <!-- 已作废-->
+                <div class="approve-result invalid pullout" ></div>
 
                 <div [ngSwitch]="approvalInfo?.result?.approval_type">
+
+                    <!--请假-->
+                    <div class="approve-formschema" >
+
+                        <div class="line component-textareafield">
+                            <label class="label" >
+                                <span>单据号:</span>
+                                <span>资产编号:</span>
+                            </label>
+                            <span >1212222222</span>
+                        </div>
+                        <div class="line component-textfield">
+                            <a class="btn btn-primary   btn-block mb-20" >
+                                <strong>查看详情</strong> </a>
+
+                        </div>
+
+                    </div>
+
                     <!--请假-->
                     <div class="approve-formschema" *ngSwitchCase="1">
                         <!--<div class="line component-textfield" >-->

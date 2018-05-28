@@ -20,33 +20,77 @@
               <tab [active]="state.tabs.demo5 == 'iss1'">
                   <div class="row">
                       <!--没有消息的时候显示的内容-->
-                     <!-- <div class="col-xs-12">
+                    <div class="col-xs-12">
                           <div class="empty-panel text-center margin-bottom-40" ><i class="fa fa-bell"></i><br><br>
                               <span class="ng-binding">没有未读的消息</span>
                           </div>
-                      </div>-->
-                      <div class="col-xs-8">
+                      </div>
+
+
+
+                      <!--<div class="col-xs-4">-->
+                          <!--<div class="well">-->
+                              <!--<a class="btn btn-primary   btn-block mb-20" >-->
+                                  <!--<strong>全部标记为已读</strong> </a>-->
+                              <!--<h5 class="margin-top-0">按类型筛选</h5>-->
+                              <!--<div class="row">-->
+                                  <!--<div class="col-lg-12">-->
+                                      <!--<ul class="list-group no-margin editor">-->
+                                          <!--<li class="list-group-item table-color">-->
+                                              <!--<a  class="text-color-black"> <span class="badge pull-right">15</span> 全部 </a>-->
+                                          <!--</li>-->
+                                          <!--<li class="list-group-item">-->
+                                              <!--<a class="text-color-black"> <span class="badge pull-right">2</span> 分配给我 </a>-->
+                                          <!--</li>-->
+                                          <!--<li class="list-group-item">-->
+                                              <!--<a class="text-color-black"> <span class="badge pull-right">9</span> 提醒关注 </a>-->
+                                          <!--</li>-->
+                                          <!--<li class="list-group-item">-->
+                                              <!--<a class="text-color-black"> <span class="badge pull-right">4</span>评论</a>-->
+                                          <!--</li>-->
+                                      <!--</ul>-->
+                                  <!--</div>-->
+                              <!--</div>-->
+
+                          <!--</div>-->
+                      <!--</div>-->
+
+                  </div>
+                  <div class="row">
+                      <div class="col-xs-12">
+
+
+
                           <div class="well">
+                              <div class="navbar navbar-default">
+                                  <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
+                                      <div class="form-group pdlr-4">
+                                          <input  class="form-control ng-pristine ng-valid ng-touched" name="keyword" maxlength="15"  placeholder="请输入搜索内容" type="text">
+                                      </div>
+                                      <div class="form-group pdlr-4">
+                                          <button class="btn btn-default" type="button" >
+                                              <i  class="glyphicon glyphicon-search"></i>
+                                              搜索
+                                          </button>
+                                      </div>
+                                  </form>
+                              </div>
+
+
                               <div class="list-group contact-group">
                                   <a href="#" class="list-group-item">
                                       <div class="media">
-                                          <div class="pull-left">
-                                              <!--初始状态只有第一个显示，标记为待处理后样式为第二个显示在处理中，在处理中标记为已处理，在待处理中不显示-->
-                                              <a  class="fa fa-lg   fa-flag-o profile-io" placement="top" tooltip="标记为待处理"></a>
-                                              <a  class="fa fa-lg  fa-flag  profile-io"  placement="top"  tooltip="标记为已处理">
-                                              </a>
-                                          </div>
                                           <div class="pull-left">
                                               <img class="img-circle img-online online profile-img" src="assets/img/avatars/male.png" alt="..." style="width: 40px; height: auto;">
                                           </div>
                                           <div class="media-body">
                                               <h4 class="media-heading">
-                                                 <a>某某</a> 给你分配了新的任务 <small></small></h4>
+                                                  <a>某某</a> 给你分配了新的任务 <small></small></h4>
                                               <div class="media-content">
                                                   <i class="fa fa-check-square-o"></i>任务名
                                               </div>
                                               <div class="media-content">
-                                                 2017-12-25 15:51
+                                                  2017-12-25 15:51
                                               </div>
                                           </div>
                                       </div><!-- media -->
@@ -54,10 +98,6 @@
 
                                   <a href="#" class="list-group-item">
                                       <div class="media">
-                                          <div class="pull-left">
-                                              <a  class="fa fa-lg  fa-flag  profile-io"  placement="top"  tooltip="标记为已处理">
-                                              </a>
-                                          </div>
                                           <div class="pull-left">
                                               <img class="img-circle img-online online profile-img" src="assets/img/avatars/male.png" alt="...">
                                           </div>
@@ -68,16 +108,13 @@
                                                   <i class="fa fa-check-square-o"></i>任务名
                                               </div>
                                               <div class="media-content">
-                                                 2017-12-25 15:51
+                                                  2017-12-25 15:51
                                               </div>
                                           </div>
                                       </div><!-- media -->
                                   </a>
                                   <a href="#" class="list-group-item">
                                       <div class="media">
-                                          <div class="pull-left">
-                                              <a  class="fa fa-lg   fa-flag-o profile-io" placement="top" tooltip="标记为待处理"></a>
-                                          </div>
                                           <div class="pull-left">
                                               <img class="img-circle img-online online profile-img" src="assets/img/avatars/male.png" alt="...">
                                           </div>
@@ -93,11 +130,6 @@
                                   <a href="#" class="list-group-item">
                                       <div class="media">
                                           <div class="pull-left">
-
-                                              <a  class="fa fa-lg   fa-flag-o profile-io" placement="top" tooltip="标记为待处理"></a>
-
-                                          </div>
-                                          <div class="pull-left">
                                               <img class="img-circle img-online online profile-img" src="assets/img/avatars/male.png" alt="...">
                                           </div>
                                           <div class="media-body">
@@ -107,7 +139,7 @@
                                                   <i class="fa fa-comment-o"></i>评论内容
                                               </div>
                                               <div class="media-content">
-                                                 2017-12-25 15:51
+                                                  2017-12-25 15:51
                                               </div>
                                           </div>
                                       </div><!-- media -->
@@ -115,9 +147,6 @@
 
                                   <a href="#" class="list-group-item">
                                       <div class="media">
-                                          <div class="pull-left">
-                                              <a  class="fa fa-lg   fa-flag-o profile-io" placement="top" tooltip="标记为待处理"></a>
-                                          </div>
                                           <div class="pull-left">
                                               <img class="img-circle img-online online profile-img" src="assets/img/avatars/male.png" alt="...">
                                           </div>
@@ -128,7 +157,7 @@
                                                   <i class="fa fa-comment-o"></i> 回复了任务：任务内容
                                               </div>
                                               <div class="media-content">
-                                                 2017-12-25 15:51
+                                                  2017-12-25 15:51
                                               </div>
                                           </div>
                                       </div><!-- media -->
@@ -145,35 +174,10 @@
                                   </ul>
                               </div>
                           </div>
-                      </div>
-                      <div class="col-xs-4">
-                          <div class="well">
-                              <a class="btn btn-primary   btn-block mb-20" >
-                                  <strong>全部标记为已读</strong> </a>
-                              <h5 class="margin-top-0">按类型筛选</h5>
-                              <div class="row">
-                                  <div class="col-lg-12">
-                                      <ul class="list-group no-margin editor">
-                                          <li class="list-group-item table-color">
-                                              <a  class="text-color-black"> <span class="badge pull-right">15</span> 全部 </a>
-                                          </li>
-                                          <li class="list-group-item">
-                                              <a class="text-color-black"> <span class="badge pull-right">2</span> 分配给我 </a>
-                                          </li>
-                                          <li class="list-group-item">
-                                              <a class="text-color-black"> <span class="badge pull-right">9</span> 提醒关注 </a>
-                                          </li>
-                                          <li class="list-group-item">
-                                              <a class="text-color-black"> <span class="badge pull-right">4</span>评论</a>
-                                          </li>
-                                      </ul>
-                                  </div>
-                              </div>
 
-                          </div>
                       </div>
-
                   </div>
+
               </tab>
               <tab [active]="state.tabs.demo5 == 'iss2'">
                   <div class="row">
@@ -183,15 +187,28 @@
                                <span class="ng-binding">没有待处理的消息</span>
                            </div>
                        </div>-->
-                      <div class="col-xs-8">
+
+
+                  </div>
+                  <div class="row">
+                      <div class="col-xs-12">
                           <div class="well">
+                              <div class="navbar navbar-default">
+                                  <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
+                                      <div class="form-group pdlr-4">
+                                          <input  class="form-control ng-pristine ng-valid ng-touched" name="keyword" maxlength="15"  placeholder="请输入搜索内容" type="text">
+                                      </div>
+                                      <div class="form-group pdlr-4">
+                                          <button class="btn btn-default" type="button" >
+                                              <i  class="glyphicon glyphicon-search"></i>
+                                              搜索
+                                          </button>
+                                      </div>
+                                  </form>
+                              </div>
                               <div class="list-group contact-group">
                                   <a href="#" class="list-group-item">
                                       <div class="media">
-                                          <div class="pull-left">
-                                              <a  class="fa fa-lg  fa-flag  profile-io"  placement="top"  tooltip="标记为已处理">
-                                              </a>
-                                          </div>
                                           <div class="pull-left">
                                               <img class="img-circle img-online online profile-img" src="assets/img/avatars/male.png" alt="...">
                                           </div>
@@ -202,7 +219,7 @@
                                                   <i class="fa fa-check-square-o"></i>任务名
                                               </div>
                                               <div class="media-content">
-                                                 2017-12-25 15:51
+                                                  2017-12-25 15:51
                                               </div>
                                           </div>
                                       </div><!-- media -->
@@ -218,12 +235,6 @@
                                       <li class=""><a>下一页</a></li>
                                   </ul>
                               </div>
-                          </div>
-                      </div>
-                      <div class="col-xs-4">
-                          <div class="well">
-                              <a class="btn btn-primary   btn-block ">
-                                  <strong>全部标记为已处理</strong> </a>
                           </div>
                       </div>
                   </div>
@@ -236,15 +247,29 @@
                                <span class="ng-binding">没有已读的消息</span>
                            </div>
                        </div>-->
-                      <div class="col-xs-8">
+
+
+                  </div>
+                  <div class="row">
+
+                      <div class="col-xs-12">
                           <div class="well">
+                              <div class="navbar navbar-default">
+                                  <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
+                                      <div class="form-group pdlr-4">
+                                          <input  class="form-control ng-pristine ng-valid ng-touched" name="keyword" maxlength="15"  placeholder="请输入搜索内容" type="text">
+                                      </div>
+                                      <div class="form-group pdlr-4">
+                                          <button class="btn btn-default" type="button" >
+                                              <i  class="glyphicon glyphicon-search"></i>
+                                              搜索
+                                          </button>
+                                      </div>
+                                  </form>
+                              </div>
                               <div class="list-group contact-group">
                                   <a href="#" class="list-group-item">
                                       <div class="media">
-                                          <div class="pull-left">
-                                              <a  class="fa fa-lg  fa-flag  profile-io"  placement="top"  tooltip="标记为已处理">
-                                              </a>
-                                          </div>
                                           <div class="pull-left">
                                               <img class="img-circle img-online online profile-img" src="assets/img/avatars/male.png" alt="...">
                                           </div>
@@ -255,7 +280,7 @@
                                                   <i class="fa fa-check-square-o"></i>任务名
                                               </div>
                                               <div class="media-content">
-                                                 2017-12-25 15:51
+                                                  2017-12-25 15:51
                                               </div>
                                           </div>
                                       </div><!-- media -->
@@ -263,9 +288,6 @@
 
                                   <a href="#" class="list-group-item">
                                       <div class="media">
-                                          <div class="pull-left">
-                                              <a  class="fa fa-lg   fa-flag-o profile-io" placement="top" tooltip="标记为待处理"></a>
-                                          </div>
                                           <div class="pull-left">
                                               <img class="img-circle img-online online profile-img" src="assets/img/avatars/male.png" alt="...">
                                           </div>
@@ -276,17 +298,13 @@
                                                   <i class="fa fa-check-square-o"></i>任务名
                                               </div>
                                               <div class="media-content">
-                                                 2017-12-25 15:51
+                                                  2017-12-25 15:51
                                               </div>
                                           </div>
                                       </div><!-- media -->
                                   </a>
                                   <a href="#" class="list-group-item">
                                       <div class="media">
-                                          <div class="pull-left">
-                                              <a  class="fa fa-lg  fa-flag  profile-io"  placement="top"  tooltip="标记为已处理">
-                                              </a>
-                                          </div>
                                           <div class="pull-left">
                                               <img class="img-circle img-online online profile-img" src="assets/img/avatars/male.png" alt="...">
                                           </div>
@@ -302,10 +320,6 @@
                                   <a href="#" class="list-group-item">
                                       <div class="media">
                                           <div class="pull-left">
-                                              <a  class="fa fa-lg  fa-flag  profile-io"  placement="top"  tooltip="标记为已处理">
-                                              </a>
-                                          </div>
-                                          <div class="pull-left">
                                               <img class="img-circle img-online online profile-img" src="assets/img/avatars/male.png" alt="...">
                                           </div>
                                           <div class="media-body">
@@ -315,7 +329,7 @@
                                                   <i class="fa fa-comment-o"></i>评论内容
                                               </div>
                                               <div class="media-content">
-                                                 2017-12-25 15:51
+                                                  2017-12-25 15:51
                                               </div>
                                           </div>
                                       </div><!-- media -->
@@ -323,9 +337,6 @@
 
                                   <a href="#" class="list-group-item">
                                       <div class="media">
-                                          <div class="pull-left">
-                                              <a  class="fa fa-lg   fa-flag-o profile-io" placement="top" tooltip="标记为待处理"></a>
-                                          </div>
                                           <div class="pull-left">
                                               <img class="img-circle img-online online profile-img" src="assets/img/avatars/male.png" alt="...">
                                           </div>
@@ -336,7 +347,7 @@
                                                   <i class="fa fa-comment-o"></i> 回复了任务：任务内容
                                               </div>
                                               <div class="media-content">
-                                                 2017-12-25 15:51
+                                                  2017-12-25 15:51
                                               </div>
                                           </div>
                                       </div><!-- media -->
@@ -352,30 +363,6 @@
                                       <li class=""><a>下一页</a></li>
                                   </ul>
                               </div>
-                          </div>
-                      </div>
-                      <div class="col-xs-4">
-                          <div class="well">
-                              <h5 class="margin-top-0">按类型筛选</h5>
-                              <div class="row">
-                                  <div class="col-lg-12">
-                                      <ul class="list-group no-margin editor">
-                                          <li class="list-group-item table-color">
-                                              <a  class="text-color-black"> <span class="badge pull-right">15</span> 全部 </a>
-                                          </li>
-                                          <li class="list-group-item">
-                                              <a class="text-color-black"> <span class="badge pull-right">2</span> 分配给我 </a>
-                                          </li>
-                                          <li class="list-group-item">
-                                              <a class="text-color-black"> <span class="badge pull-right">9</span> 提醒关注 </a>
-                                          </li>
-                                          <li class="list-group-item">
-                                              <a class="text-color-black"> <span class="badge pull-right">4</span>评论</a>
-                                          </li>
-                                      </ul>
-                                  </div>
-                              </div>
-
                           </div>
                       </div>
                   </div>

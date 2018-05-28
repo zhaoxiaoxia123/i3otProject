@@ -5858,6 +5858,10 @@ ul.checkable.checkable--popboxmenu li a .label-name {
     background-image: url(../img/chapter3.png) ;
     background-size: contain;
 }
+.approve-result.invalid{
+    background-image: url(../img/chapter4.png) ;
+    background-size: contain;
+}
 .picture-opacity{
     opacity: 0.6;
     filter: alpha(opacity=60);

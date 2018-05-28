@@ -33,6 +33,40 @@
               </tr>
               </thead>
               <tbody>
+              <tr>
+                <td>
+                  某某的
+                  <span>
+                    <span >的销售单申请</span>
+                    <span >的调拨单申请</span>
+                    <span >的其他入库单申请</span>
+                    <span >的其他出库单申请</span>
+                    <span >的进货单申请</span>
+                    <span >的资产发放申请</span>
+                    <span >的资产报废申请</span>
+                  </span>
+                </td>
+                <td>
+                  <span>
+                    <span>单据号:</span>
+                    <span>资产编号:</span>
+                  </span>
+                </td>
+                <td>
+                  2018-04-08 16:33:56
+                </td>
+                <td>
+                  2018-04-08 16:33:56
+                </td>
+                <td>
+                  <span >审批完成<br/>同意</span>
+                  <span >审批完成<br/>拒绝</span>
+                  <span >审批完成<br/>已撤销</span>
+                  <span >审批中</span>
+                  <span >已作废</span>
+
+                </td>
+              </tr>
 
               <tr class="editor" *ngFor="let pa of processHadList?.result?.approvalList?.data" (click)="showDetail(pa.approval_id)">
                 <td>{{pa.u_username}}的
