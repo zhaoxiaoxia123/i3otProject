@@ -36,6 +36,8 @@ export class AccountPermissionsComponent implements OnInit {
     rollback_url :string = '';
     /**菜单id */
     menu_id:any;
+    /** 权限 */
+    permissions : Array<any> = [];
     menuInfos : Array<any> = [];
   constructor(
       private http:Http,
@@ -61,11 +63,25 @@ export class AccountPermissionsComponent implements OnInit {
       setTimeout(() => {
           this.menu_id = this.globalService.getMenuId();
           this.rollback_url = this.globalService.getMenuUrl();
+          this.permissions = this.globalService.getPermissions();
           this.menuInfos = this.globalService.getMenuInfos();
 
       }, this.globalService.getMenuPermissionDelayTime());
   }
-
+    /**
+     * 是否有该元素
+     */
+    isPermission(menu_id,value){
+        if(this.login_user_role_id == this.super_admin_role_id){
+            return true;
+        }else {
+            let key = menu_id + '_' + value;
+            if (value == '') {
+                key = menu_id;
+            }
+            return this.cookieStore.in_array(key, this.permissions);
+        }
+    }
     /**
      * 是否有该元素
      */
