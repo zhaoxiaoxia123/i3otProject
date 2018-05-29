@@ -51,56 +51,15 @@
         <div class="well no-padding">
 
           <ul id="myTab" class="nav nav-tabs text-align-center" >
-            <li class="active"  style="width: 50%;">
+            <li class="active" style="width: 50%;"><a href="#ios" data-toggle="tab" >企业登录</a></li>
+            <li   style="width: 50%;">
               <a href="#home" data-toggle="tab">
                 个人登录
               </a>
             </li>
-            <li style="width: 50%;"><a href="#ios" data-toggle="tab" >企业登录</a></li>
+
           </ul>
           <div id="myTabContent" class="tab-content">
-            <div class="tab-pane fade in active" id="home">
-              <form class="smart-form client-form" (ngSubmit)="onSubmit(myForm.value, myForm.valid)" #myForm="ngForm" novalidate>
-                <fieldset>
-
-                  <section>
-                    <label class="label">用户名或手机号码</label>
-                    <label class="input"> <i class="icon-append fa fa-user"></i>
-                      <input class="form-control" placeholder="请输入用户名或手机号码" type="text" minlength="1" ngModel required name="uNumber" disabled="disabled">
-                    </label>
-                  </section>
-
-                  <section>
-                    <label class="label">密码</label>
-                    <label class="input"> <i class="icon-append fa fa-lock"></i>
-                      <input class="form-control" disabled="disabled" placeholder="请输入密码" type="password" name="password" ngModel minlength="6" data-smart-validate-input="" data-required="" data-minlength="3"  >
-                      <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i>密码最小长度是6</b>
-
-                    </label>
-                    <div class="note">
-                      <a routerLink="/auth/forgot-password">找回密码</a>
-                    </div>
-                  </section>
-                  <section>
-                    <label class="checkbox">
-                      <input type="checkbox" name="remember" checked>
-                      <i></i>记住密码，下次自动登录</label>
-                  </section>
-
-                  <p class="txt-color-red">暂不开放</p>
-                </fieldset>
-
-
-
-
-                <footer>
-                  <button class="btn btn-primary" [disabled]="!myForm.form.valid">
-                    登录
-                  </button>
-                </footer>
-              </form>
-
-            </div>
             <div class="tab-pane fade" id="ios">
               <form class="smart-form client-form" (ngSubmit)="onSubmit(myForm.value, myForm.valid)" #myForm="ngForm" novalidate>
                 <fieldset>
@@ -143,6 +102,49 @@
                 </footer>
               </form>
             </div>
+            <div class="tab-pane fade in active" id="home">
+              <form class="smart-form client-form" (ngSubmit)="onSubmit(myForm.value, myForm.valid)" #myForm="ngForm" novalidate>
+                <fieldset>
+
+                  <section>
+                    <label class="label">用户名或手机号码</label>
+                    <label class="input"> <i class="icon-append fa fa-user"></i>
+                      <input class="form-control" placeholder="请输入用户名或手机号码" type="text" minlength="1" ngModel required name="uNumber" disabled="disabled">
+                    </label>
+                  </section>
+
+                  <section>
+                    <label class="label">密码</label>
+                    <label class="input"> <i class="icon-append fa fa-lock"></i>
+                      <input class="form-control" disabled="disabled" placeholder="请输入密码" type="password" name="password" ngModel minlength="6" data-smart-validate-input="" data-required="" data-minlength="3"  >
+                      <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i>密码最小长度是6</b>
+
+                    </label>
+                    <div class="note">
+                      <a routerLink="/auth/forgot-password">找回密码</a>
+                    </div>
+                  </section>
+                  <section>
+                    <label class="checkbox">
+                      <input type="checkbox" name="remember" checked>
+                      <i></i>记住密码，下次自动登录</label>
+                  </section>
+
+                  <p class="txt-color-red">暂不开放</p>
+                </fieldset>
+
+
+
+
+                <footer>
+                  <button class="btn btn-primary" [disabled]="!myForm.form.valid">
+                    登录
+                  </button>
+                </footer>
+              </form>
+
+            </div>
+
           </div>
         </div>
 
