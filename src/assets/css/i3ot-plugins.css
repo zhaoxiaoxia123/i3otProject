@@ -951,11 +951,17 @@ div.dataTables_paginate ul.pagination {
 .mt-10{
     margin-top:-10px;
 }
+.mt-13{
+    margin-top:-13px;
+}
 .mt-20{
     margin-top:-20px;
 }
 .mb-15{
-    margin-bottom:-15px!important;
+     margin-bottom:-15px!important;
+ }
+.mb-13{
+    margin-bottom:-13px!important;
 }
 .mb-6{
     margin-bottom:-6px!important;

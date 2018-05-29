@@ -1,47 +1,38 @@
-<article class="form-group col col-xs-12">
-  <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
-             [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
-    <div>
-      <div class="widget-body no-padding">
-        <!-- <alert type="info" class="no-margin" >
-           <i class="fa-fw fa fa-table"></i>
-           我已审批列表
-         </alert>-->
-        <div  class="row  mt-10">
-          <article  class="col-sm-12">
-            <div class="navbar navbar-default">
-              <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-                <div class="form-group pdlr-4">
-                  <input  class="form-control ng-pristine ng-valid ng-touched" name="keyword" maxlength="15" [(ngModel)]="keyword" placeholder="请输入搜索内容" type="text">
-                </div>
-                <div class="form-group pdlr-4">
-                  <button class="btn btn-default" type="button" (click)="onSubmit()">
-                    <i  class="glyphicon glyphicon-search"></i>
-                    搜索
-                  </button>
-                </div>
-              </form>
-
-            </div>
-          </article>
+<div  class="row">
+  <div  class="col-sm-12 mt-13">
+    <div class="navbar navbar-default">
+      <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
+        <div class="form-group pdlr-4">
+          <input  class="form-control ng-pristine ng-valid ng-touched" name="keyword" maxlength="15" [(ngModel)]="keyword" placeholder="请输入搜索内容" type="text">
         </div>
-        <div class="" style="padding:0;">
-          <div style="padding: 0;z-index: 2;" class="table-responsive">
-            <table class="table table-striped  smart-form table-hover">
-              <thead>
-              <tr >
-                <th>审批标题</th>
-                <th>审批摘要</th>
-                <th>发起时间</th>
-                <th>完成时间</th>
-                <th>状态</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr>
-                <td>
-                  某某的
-                  <span>
+        <div class="form-group pdlr-4">
+          <button class="btn btn-default" type="button" (click)="onSubmit()">
+            <i  class="glyphicon glyphicon-search"></i>
+            搜索
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+<div class="" style="padding:0;">
+  <div style="padding: 0;z-index: 2;" class="table-responsive">
+    <table class="table table-striped  smart-form table-hover">
+      <thead>
+      <tr >
+        <th>审批标题</th>
+        <th>审批摘要</th>
+        <th>发起时间</th>
+        <th>完成时间</th>
+        <th>状态</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>
+          某某的
+          <span>
                     <span >的销售单申请</span>
                     <span >的调拨单申请</span>
                     <span >的其他入库单申请</span>
@@ -50,45 +41,45 @@
                     <span >的资产发放申请</span>
                     <span >的资产报废申请</span>
                   </span>
-                </td>
-                <td>
+        </td>
+        <td>
                   <span>
                     <span>单据号:</span>
                     <span>资产编号:</span>
                   </span>
-                </td>
-                <td>
-                  2018-04-08 16:33:56
-                </td>
-                <td>
-                  2018-04-08 16:33:56
-                </td>
-                <td>
-                  <span >审批完成<br/>同意</span>
-                  <span >审批完成<br/>拒绝</span>
-                  <span >审批完成<br/>已撤销</span>
-                  <span >审批中</span>
-                  <span >已作废</span>
+        </td>
+        <td>
+          2018-04-08 16:33:56
+        </td>
+        <td>
+          2018-04-08 16:33:56
+        </td>
+        <td>
+          <span >审批完成<br/>同意</span>
+          <span >审批完成<br/>拒绝</span>
+          <span >审批完成<br/>已撤销</span>
+          <span >审批中</span>
+          <span >已作废</span>
 
-                </td>
-              </tr>
-              <tr class="editor" *ngFor="let pa of processCopyList?.result?.approvalList?.data" (click)="showDetail(pa.approval_id)">
-                <td>{{pa.u_username}}的
-                  <span [ngSwitch]="pa.approval_type">
+        </td>
+      </tr>
+      <tr class="editor" *ngFor="let pa of processCopyList?.result?.approvalList?.data" (click)="showDetail(pa.approval_id)">
+        <td>{{pa.u_username}}的
+          <span [ngSwitch]="pa.approval_type">
                   <span *ngSwitchCase="1">请假</span>
                   <span *ngSwitchCase="2">出差</span>
                   <span *ngSwitchCase="3">外出</span>
                   <span *ngSwitchCase="4">报销</span>
                   <span *ngSwitchCase="5">通用审批</span>
                 </span>
-                </td>
-                <td [ngSwitch]="pa.approval_type">
+        </td>
+        <td [ngSwitch]="pa.approval_type">
                   <span *ngSwitchCase="1">
                     请假类型：{{pa.detail.type}}<br/>
                     开始时间：{{pa.approval_start_date}}<br/>
                     结束时间：{{pa.approval_end_date}}<br/>
                   </span>
-                  <span *ngSwitchCase="2">
+          <span *ngSwitchCase="2">
                     <span *ngIf="pa.detail">
                     出差地点：
                     <span *ngFor="let dt of pa.detail.trip">
@@ -99,11 +90,11 @@
                     出差事由：{{pa.detail.reason}} <br/>
                   </span>
                   </span>
-                  <span *ngSwitchCase="3">
+          <span *ngSwitchCase="3">
                   开始时间：{{pa.approval_start_date}}<br/>
                   结束时间：{{pa.approval_end_date}}<br/>
                   </span>
-                  <span *ngSwitchCase="4">
+          <span *ngSwitchCase="4">
                     <span *ngFor="let d of pa.detail.detail">
                       报销金额（元）：{{d.price}}<br/>
                       报销类型:{{d.type}}<br/>
@@ -111,37 +102,32 @@
                     </span>
                     总报销金额（元）：{{pa.detail.total}}<br/>
                   </span>
-                  <span *ngSwitchCase="5">
+          <span *ngSwitchCase="5">
                   申请内容：{{pa.detail.title}} <br/>
                   申请详情：{{pa.detail.reason}}<br/>
                   </span>
-                </td>
-                <td>{{ pa.created_at }}</td>
-                <td>{{pa.approval_end_date}}</td>
-                <td><span>审批完成<br/>同意</span></td>
-              </tr>
-              </tbody>
-            </table>
+        </td>
+        <td>{{ pa.created_at }}</td>
+        <td>{{pa.approval_end_date}}</td>
+        <td><span>审批完成<br/>同意</span></td>
+      </tr>
+      </tbody>
+    </table>
 
-          </div>
-        </div>
-        <!-- 底部-（分页部分）-->
-        <div class="dt-toolbar">
-          <div class="col-xs-12 col-sm-6">
-            <span>共{{processCopyList?.result?.approvalList?.total}}条</span>
-          </div>
-          <div class="hidden-xs right">
-            <ul class="pagination pagination-sm">
-              <li *ngFor="let p of processCopyList?.result?.page" class="{{p.class}}">
-                <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
-                <a *ngIf="p.method==''">{{p.text}}</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </sa-widget>
-  <!-- end widget -->
-</article>
+  </div>
+</div>
+<!-- 底部-（分页部分）-->
+<div class="dt-toolbar mb-13">
+  <div class="col-xs-12 col-sm-6">
+    <span>共{{processCopyList?.result?.approvalList?.total}}条</span>
+  </div>
+  <div class="hidden-xs right">
+    <ul class="pagination pagination-sm">
+      <li *ngFor="let p of processCopyList?.result?.page" class="{{p.class}}">
+        <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+        <a *ngIf="p.method==''">{{p.text}}</a>
+      </li>
+    </ul>
+  </div>
+</div>
 
