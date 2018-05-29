@@ -55,12 +55,12 @@
                   </div>
                 </article>
               </div>
-              <div class="mt-10" style="padding:0;">
+              <div  class="padding0 height-overflow" >
                 <div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-scrolling">
-                  <table class="table table-striped smart-form">
+                  <table class="table table-striped smart-form table-height-20">
                     <thead>
-                    <tr style="height: 37px;">
-                      <td style="padding-top: 15px;">
+                    <tr >
+                      <td >
                         <label class="checkbox mt-8">
                           <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)">
                           <i></i>
@@ -69,8 +69,8 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr style="height: 35px;" *ngFor="let ul of userList.result?.userList?.data">
-                      <td style="padding-top: 15px;">
+                    <tr *ngFor="let ul of userList.result?.userList?.data">
+                      <td >
                         <label class="checkbox mt-8" >
                           <input type="checkbox" value="{{ul.id}}" [checked]="selects[ul.id]" (change)="handle($event);" />
                           <i></i>
@@ -80,8 +80,8 @@
                     </tbody>
                   </table>
                 </div>
-                <div style="padding: 0;z-index: 2;width:20%;float:left;" class="table-scrolling">
-                  <table class="table table-striped smart-form">
+                <div style="padding: 0;z-index: 2;width:20%;float:left;" class="table-scrolling padding0">
+                  <table class="table table-striped   smart-form table-height-20">
                     <thead>
                     <tr>
                       <th>员工编号</th>
@@ -95,7 +95,7 @@
                   </table>
                 </div>
                 <div class="table-responsive" [ngStyle]="{'padding': '0','z-index': '1','width':width_1,'float':'left'}">
-                  <table class="table table-striped  smart-form ">
+                  <table class="table table-striped smart-form table-height-20">
                     <thead>
                     <tr >
                       <th>姓名</th>
