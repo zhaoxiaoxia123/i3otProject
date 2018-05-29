@@ -12,9 +12,13 @@
           <div class="col-xs-12">
             <div>
               <div class="clearfix pd-10" >
-                <span class="picture-list" *ngFor="let img of imgList;let ind = index;">
-                <a  class="fa fa-times-circle picture-a" style="display:block;" (click)="removeImg(ind)"></a>
-                <img width="90px" height="90px" src="{{img.url}}">
+                <span class="picture-list" *ngFor="let img of selectedImageUrl;let ind = index;">
+                <a  class="fa fa-times-circle picture-a" style="display:block;" (click)="removeUpload(img.uploadID)"></a><!--removeImg(ind)--->
+                  <img width="90px" height="90px" src="{{img.url}}" >
+                </span>
+                <span class="picture-list" *ngFor="let img1 of imgList;let ind1 = index;">
+                <a  class="fa fa-times-circle picture-a" style="display:block;" (click)="removeImg(ind1)"></a><!--removeImg(ind)--->
+                  <img width="90px" height="90px" src="{{url}}{{img1}}" >
                 </span>
                 <div class="picture-list" *ngIf="imgCount < 10">
                   <div  class="c-file-upload" style="overflow: visible;">
