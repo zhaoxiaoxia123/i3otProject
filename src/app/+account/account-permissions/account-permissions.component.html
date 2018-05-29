@@ -8,7 +8,6 @@
             <h2>{{menuInfos?.menu_name}}</h2>
           </header>
           <div>
-
             <div class="widget-body no-padding" >
               <div  class="row" *ngIf="super_admin_role_id == login_user_role_id">
                 <article  class="col-sm-12">
@@ -80,7 +79,7 @@
                                   <li class=" parent_li">
                                     <span>
                                       <label class="checkbox inline-block tree-label pt-12 ">
-                                        <input name="checkbox-inline" type="checkbox" [checked]="isHave('0','') || isPermission('0','')" (click)="selectCategoryAll()"><i></i>
+                                        <input name="checkbox-inline" type="checkbox" [checked]="isHave('0','')" (click)="selectCategoryAll()"><i></i>
                                       </label>
                                       权限管理
                                     <i class="sa-icon fa fa-lg fa-plus-circle" *ngIf="showUl == 0" (click)="showLeftUl(1)"></i>
@@ -91,7 +90,7 @@
                                       <li class=" parent_li" *ngFor="let c of customerDefault?.result?.menuList;let ind = index;">
                                       <span>
                                         <label class="checkbox inline-block tree-label ">
-                                          <input type="checkbox" name="checkbox-inline" [checked]="isHave(c.menu_id,'') || isPermission(c.menu_id,'')" (click)="selectMenu(c.menu_id,ind,0,1)">
+                                          <input type="checkbox" name="checkbox-inline" [checked]="isHave(c.menu_id,'')" (click)="selectMenu(c.menu_id,ind,1)">
                                           <i></i>{{c.menu_name}}
                                         </label>
                                         <i class="sa-icon fa fa-lg fa-minus-circle" *ngIf="showUlChild == c.menu_id && c.child_count != 0" (click)="showLeftUlChild(0)"></i>
@@ -101,7 +100,7 @@
                                           <li *ngFor="let dc of c.child;let indChild = index;">
                                             <span>
                                               <label class="checkbox inline-block tree-label">
-                                                <input type="checkbox" name="checkbox-inline" [checked]="isHave(c.menu_id,'') || isHave(dc.menu_id,'') || isPermission(dc.menu_id,'') || isPermission(dc.menu_id,'')" (click)="selectMenu(dc.menu_id,ind,indChild,c.menu_id)">
+                                                <input type="checkbox" name="checkbox-inline" [checked]="isHave(dc.menu_id,'')" (click)="selectMenu(dc.menu_id,ind,2)">
                                                 <i></i>{{dc.menu_name}}
                                               </label>
                                               <i class="sa-icon fa fa-lg fa-minus-circle" *ngIf="showUlChild3 == dc.menu_id && dc.child_count != 0" (click)="showLeftUlChild3(0)"></i>
@@ -111,7 +110,7 @@
                                               <li *ngFor="let dc1 of dc.child;let indChild1 = index;">
                                                 <span>
                                                   <label class="checkbox inline-block tree-label">
-                                                    <input name="checkbox-inline" type="checkbox" [checked]="isHave(c.menu_id,'') || isHave(dc.menu_id,'') || isHave(dc1.menu_id,'') || isPermission(c.menu_id,'')|| isPermission(dc.menu_id,'')|| isPermission(dc1.menu_id,'')" (click)="selectMenu(dc1.menu_id,indChild,indChild1,dc.menu_id)">
+                                                    <input name="checkbox-inline" type="checkbox" [checked]=" isHave(dc1.menu_id,'')" (click)="selectMenu(dc1.menu_id,indChild,3)">
                                                     <i></i>{{dc1.menu_name}}
                                                   </label>
                                                 </span>
@@ -119,23 +118,23 @@
                                                   <li *ngFor="let dc2 of dc1.controls;let indChild2 = index;">
                                                 <span>
                                                   <label class="checkbox inline-block tree-label" *ngIf="dc2 == 'add'">
-                                                    <input name="checkbox-inline" type="checkbox" [checked]="isHave(dc1.menu_id,dc2) || isPermission(dc1.menu_id,dc2)" value="{{dc1.menu_id}}_{{dc2}}" (click)="selectControl($event)">
+                                                    <input name="checkbox-inline" type="checkbox" [checked]="isHave(dc1.menu_id,dc2)" value="{{dc1.menu_id}}_{{dc2}}" (click)="selectControl($event)">
                                                     <i></i>添加
                                                   </label>
                                                   <label class="checkbox inline-block tree-label" *ngIf="dc2 == 'edit'">
-                                                    <input name="checkbox-inline" type="checkbox" [checked]="isHave(dc1.menu_id,dc2) || isPermission(dc1.menu_id,dc2)" value="{{dc1.menu_id}}_{{dc2}}" (click)="selectControl($event)">
+                                                    <input name="checkbox-inline" type="checkbox" [checked]="isHave(dc1.menu_id,dc2)" value="{{dc1.menu_id}}_{{dc2}}" (click)="selectControl($event)">
                                                     <i></i>修改
                                                   </label>
                                                   <label class="checkbox inline-block tree-label" *ngIf="dc2 == 'detail'">
-                                                    <input name="checkbox-inline" type="checkbox" [checked]="isHave(dc1.menu_id,dc2) || isPermission(dc1.menu_id,dc2)" value="{{dc1.menu_id}}_{{dc2}}" (click)="selectControl($event)">
+                                                    <input name="checkbox-inline" type="checkbox" [checked]="isHave(dc1.menu_id,dc2)" value="{{dc1.menu_id}}_{{dc2}}" (click)="selectControl($event)">
                                                     <i></i>详情
                                                   </label>
                                                   <label class="checkbox inline-block tree-label" *ngIf="dc2 == 'delete'">
-                                                    <input name="checkbox-inline" type="checkbox" [checked]="isHave(dc1.menu_id,dc2) || isPermission(dc1.menu_id,dc2)" value="{{dc1.menu_id}}_{{dc2}}" (click)="selectControl($event)">
+                                                    <input name="checkbox-inline" type="checkbox" [checked]="isHave(dc1.menu_id,dc2)" value="{{dc1.menu_id}}_{{dc2}}" (click)="selectControl($event)">
                                                     <i></i>删除
                                                   </label>
                                                   <label class="checkbox inline-block tree-label" *ngIf="dc2 == 'verify'">
-                                                    <input name="checkbox-inline" type="checkbox" [checked]="isHave(dc1.menu_id,dc2) || isPermission(dc1.menu_id,dc2)" value="{{dc1.menu_id}}_{{dc2}}" (click)="selectControl($event)">
+                                                    <input name="checkbox-inline" type="checkbox" [checked]="isHave(dc1.menu_id,dc2)" value="{{dc1.menu_id}}_{{dc2}}" (click)="selectControl($event)">
                                                     <i></i>审核
                                                   </label>
                                                 </span>
@@ -149,23 +148,23 @@
                                               <li *ngFor="let dc1 of dc.controls;let indChild1 = index;">
                                                 <span>
                                                   <label class="checkbox inline-block tree-label" *ngIf="dc1 == 'add'">
-                                                    <input name="checkbox-inline" type="checkbox" [checked]="isHave(dc.menu_id,dc1) || isPermission(dc.menu_id,dc1)" value="{{dc.menu_id}}_{{dc1}}" (click)="selectControl($event)">
+                                                    <input name="checkbox-inline" type="checkbox" [checked]="isHave(dc.menu_id,dc1)" value="{{dc.menu_id}}_{{dc1}}" (click)="selectControl($event)">
                                                     <i></i>添加
                                                   </label>
                                                   <label class="checkbox inline-block tree-label" *ngIf="dc1 == 'edit'">
-                                                    <input name="checkbox-inline" type="checkbox" [checked]="isHave(dc.menu_id,dc1) || isPermission(dc.menu_id,dc1)" value="{{dc.menu_id}}_{{dc1}}" (click)="selectControl($event)">
+                                                    <input name="checkbox-inline" type="checkbox" [checked]="isHave(dc.menu_id,dc1)" value="{{dc.menu_id}}_{{dc1}}" (click)="selectControl($event)">
                                                     <i></i>修改
                                                   </label>
                                                   <label class="checkbox inline-block tree-label" *ngIf="dc1 == 'detail'">
-                                                    <input name="checkbox-inline" type="checkbox" [checked]="isHave(dc.menu_id,dc1) || isPermission(dc.menu_id,dc1)" value="{{dc.menu_id}}_{{dc1}}" (click)="selectControl($event)">
+                                                    <input name="checkbox-inline" type="checkbox" [checked]="isHave(dc.menu_id,dc1)" value="{{dc.menu_id}}_{{dc1}}" (click)="selectControl($event)">
                                                     <i></i>详情
                                                   </label>
                                                   <label class="checkbox inline-block tree-label" *ngIf="dc1 == 'delete'">
-                                                    <input name="checkbox-inline" type="checkbox" [checked]="isHave(dc.menu_id,dc1) || isPermission(dc.menu_id,dc1)" value="{{dc.menu_id}}_{{dc1}}" (click)="selectControl($event)">
+                                                    <input name="checkbox-inline" type="checkbox" [checked]="isHave(dc.menu_id,dc1)" value="{{dc.menu_id}}_{{dc1}}" (click)="selectControl($event)">
                                                     <i></i>删除
                                                   </label>
                                                   <label class="checkbox inline-block tree-label" *ngIf="dc1 == 'verify'">
-                                                    <input name="checkbox-inline" type="checkbox" [checked]="isHave(dc.menu_id,dc1) || isPermission(dc.menu_id,dc1)" value="{{dc.menu_id}}_{{dc1}}" (click)="selectControl($event)">
+                                                    <input name="checkbox-inline" type="checkbox" [checked]="isHave(dc.menu_id,dc1)" value="{{dc.menu_id}}_{{dc1}}" (click)="selectControl($event)">
                                                     <i></i>审核
                                                   </label>
                                                 </span>
@@ -178,23 +177,23 @@
                                           <li *ngFor="let dc1 of c.controls;let indChild1 = index;">
                                             <span>
                                               <label class="checkbox inline-block tree-label" *ngIf="dc1 == 'add'">
-                                                <input name="checkbox-inline" type="checkbox" [checked]="isHave(c.menu_id,dc1) || isPermission(c.menu_id,dc1)" value="{{c.menu_id}}_{{dc1}}" (click)="selectControl($event)">
+                                                <input name="checkbox-inline" type="checkbox" [checked]="isHave(c.menu_id,dc1)" value="{{c.menu_id}}_{{dc1}}" (click)="selectControl($event)">
                                                 <i></i>添加
                                               </label>
                                               <label class="checkbox inline-block tree-label" *ngIf="dc1 == 'edit'">
-                                                <input name="checkbox-inline" type="checkbox" [checked]="isHave(c.menu_id,dc1) || isPermission(c.menu_id,dc1)" value="{{c.menu_id}}_{{dc1}}" (click)="selectControl($event)">
+                                                <input name="checkbox-inline" type="checkbox" [checked]="isHave(c.menu_id,dc1)" value="{{c.menu_id}}_{{dc1}}" (click)="selectControl($event)">
                                                 <i></i>修改
                                               </label>
                                               <label class="checkbox inline-block tree-label" *ngIf="dc1 == 'detail'">
-                                                <input name="checkbox-inline" type="checkbox" [checked]="isHave(c.menu_id,dc1) || isPermission(c.menu_id,dc1)" value="{{c.menu_id}}_{{dc1}}" (click)="selectControl($event)">
+                                                <input name="checkbox-inline" type="checkbox" [checked]="isHave(c.menu_id,dc1)" value="{{c.menu_id}}_{{dc1}}" (click)="selectControl($event)">
                                                 <i></i>详情
                                               </label>
                                               <label class="checkbox inline-block tree-label" *ngIf="dc1 == 'delete'">
-                                                <input name="checkbox-inline" type="checkbox" [checked]="isHave(c.menu_id,dc1) || isPermission(c.menu_id,dc1)" value="{{c.menu_id}}_{{dc1}}" (click)="selectControl($event)">
+                                                <input name="checkbox-inline" type="checkbox" [checked]="isHave(c.menu_id,dc1)" value="{{c.menu_id}}_{{dc1}}" (click)="selectControl($event)">
                                                 <i></i>删除
                                               </label>
                                               <label class="checkbox inline-block tree-label" *ngIf="dc1 == 'verify'">
-                                                <input name="checkbox-inline" type="checkbox" [checked]="isHave(c.menu_id,dc1) || isPermission(c.menu_id,dc1)" value="{{c.menu_id}}_{{dc1}}" (click)="selectControl($event)">
+                                                <input name="checkbox-inline" type="checkbox" [checked]="isHave(c.menu_id,dc1)" value="{{c.menu_id}}_{{dc1}}" (click)="selectControl($event)">
                                                 <i></i>审核
                                               </label>
                                             </span>
@@ -211,9 +210,6 @@
                             </div>
                           </div>
                           <footer>
-                            <!--<button class="btn btn-primary" type="button"> *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')"-->
-                              <!--重置-->
-                            <!--</button>-->
                             <button class="btn btn-primary" type="button" (click)="submitControl()">
                               保存
                             </button>
