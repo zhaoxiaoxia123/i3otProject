@@ -47,12 +47,12 @@
                   </div>
                 </article>
               </div>
-              <div style="padding:0;" class="height-overflow">
+              <div  class="padding0 height-overflow">
                 <div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-responsive">
-                  <table class="table table-striped smart-form">
+                  <table class="table table-striped smart-form table-height-20">
                     <thead>
-                    <tr style="height: 37px">
-                      <td><label class="checkbox">
+                    <tr >
+                      <td><label class="checkbox mt-8">
                         <input type="checkbox" name="checkbox-inline"  [checked]="check" (change)="changeCheckAll($event)" >
                         <i></i>
                       </label>
@@ -60,9 +60,9 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr style="height: 34px" *ngFor="let p of customerList?.result?.customerList?.data">
+                    <tr  *ngFor="let p of customerList?.result?.customerList?.data">
                       <td>
-                        <label class="checkbox">
+                        <label class="checkbox mt-8">
                           <input type="checkbox" value="{{p.c_id}}" [checked]="selects[p.c_id]" (change)="handle($event)">
                           <i></i>
                         </label>
@@ -72,7 +72,7 @@
                   </table>
                 </div>
                 <div [ngStyle]="{'padding': '0','z-index': '1','width':width_1,'float':'left'}" class="table-responsive">
-                  <table class="table table-striped  smart-form">
+                  <table class="table table-striped   smart-form table-height-20">
                     <thead>
                     <tr>
                       <th>账号编码</th>
@@ -317,7 +317,7 @@
         </sa-widget>
       </div>
       <div class="modal-footer">
-        <div *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')">
+        <div class="display-inline" *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')">
         <button type="button" class="btn btn-primary" (click)="onSubmit(1);">保存</button>
         <button class="btn btn-success" type="button" (click)="onSubmit(2);">保存并新增</button>
         </div>
