@@ -360,6 +360,18 @@
                               </div>
 
                               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <section>
+                                  <label class="label">商品属性</label>
+                                  <label class="select">
+                                    <select class="input-sm" name="p_property" [(ngModel)]="p_property" (change)="getUnitCategoryList($event,1)" [disabled]="isDetail=='detail'">
+                                      <option value="0">--请选择--</option>
+                                      <option value="1">销售</option>
+                                      <option value="2">外购</option>
+                                    </select> <i></i>
+                                  </label>
+                                </section>
+                              </div>
+                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <label class="label txt-color-blue">商品分类<span class="asterisk-color">*</span></label>
                                 <section>
                                   <div class="input-group">
@@ -385,18 +397,6 @@
                                       </a>
                                     </div>
                                   </div>
-                                </section>
-                              </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section>
-                                  <label class="label">商品属性</label>
-                                  <label class="select">
-                                    <select class="input-sm" name="p_property" [(ngModel)]="p_property" (change)="getUnitCategoryList($event,1)" [disabled]="isDetail=='detail'">
-                                      <option value="0">--请选择--</option>
-                                      <option value="1">销售</option>
-                                      <option value="2">外购</option>
-                                    </select> <i></i>
-                                  </label>
                                 </section>
                               </div>
                               <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -799,7 +799,7 @@
                             <div>
                               <ul class="ace-thumbnails clearfix">
                                 <li class="canDel" *ngFor="let img of imgList;let ind = index;">
-                                  <a class="cboxElement" href="{{url}}{{img}}" data-toggle="modal" data-target="#image-details">
+                                  <a class="cboxElement" href="{{url}}{{img}}" (click)="showBigPic(url+img)">
                                     <img width="150" height="150" alt="150x150" src="{{url}}{{img}}">
                                   </a>
                                   <div class="tools tools-top" *ngIf="isDetail!='detail'">
@@ -811,24 +811,11 @@
                                 </li>
                                 <li>
                                   <div class="c-file-upload">
-                                    <a class="btn btn-default" data-toggle="modal" data-target="#mypicture"  style="width: 150px; height: 150px;border: 0;">
+                                    <a class="btn btn-default" (click)="showSelectFileDiv()" style="width: 150px; height: 150px;border: 0;">
                                       <i class="fa fa-plus fa-2x" style="color: #ccc;  font-size: 152px;"></i>
                                     </a>
                                   </div>
                                 </li>
-                                <!--<li *ngIf="isDetail!='detail'">-->
-                                  <!--<img-cropper #cropper [image]="data1" [settings]="cropperSettings1" (onCrop)="cropped($event)"></img-cropper>-->
-                                <!--</li>-->
-                                <!--<li *ngIf="isDetail!='detail'">-->
-                                  <!--<div  class="c-file-upload">-->
-                                    <!--&lt;!&ndash;<button class="btn btn-primary ">浏览图片</button>&ndash;&gt;-->
-                                    <!--<a class="btn btn-primary " style="width: 150px; height: 150px;" >-->
-                                      <!--<i class="fa fa-plus fa-2x" style="color: #ccc; padding-top: 7px; padding-left: 16px; font-size: 152px;"></i>-->
-                                    <!--</a>-->
-                                    <!--<input id="image-input" class="btn btn-primary " type="file" c-img-cropper-select [cropper]="cropper">-->
-                                  <!--</div>-->
-                                <!--</li>-->
-                                <!--<li *ngIf="isDetail!='detail'"><button type="button" class="btn btn-primary" (click)="postFile()">确认上传</button></li>-->
                               </ul>
                             </div>
                           </div>
@@ -852,73 +839,78 @@
     </div>
   </div>
 </div>
+<!--选不用裁剪的图片-->
+<app-select-file [select_type]="select_type" [imgList]="imgList" (select_types)="getSelectTypes()" (imgLists)="getImgLists($event)"></app-select-file>
+<!--查看大图-->
+<app-big-pic [select_type]="select_type" [show_big_pic]="show_big_pic" (select_types)="getSelectTypes()"></app-big-pic>
 
 
 
-<div class="modal fade bg-transparent" id="mypicture" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
 
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-          ×
-        </button>
-        <!-- 标题 -->
-        <h3 class="modal-title" data-ng-bind='results.title'>上传图片</h3>
+<!--<div class="modal fade bg-transparent" id="mypicture" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
+  <!--<div class="modal-dialog">-->
+    <!--<div class="modal-content">-->
+      <!--<div class="modal-header">-->
 
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-xs-12">
-            <div>
-              <ul class="ace-thumbnails clearfix">
-                <li class="canDel" *ngFor="let img of imgList;let ind = index;">
-                  <a class="cboxElement" href="{{url}}{{img}}"  data-toggle="modal" data-target="#image-details">
-                    <img width="150" height="150" alt="150x150" src="{{url}}{{img}}">
-                  </a>
-                  <div class="tools tools-top" *ngIf="isDetail!='detail'">
-                    <a class="pull-right" (click)="removeImg(ind)">
-                      <i class="ace-icon fa fa-times txt-color-red">
-                      </i>
-                    </a>
-                  </div>
-                </li>
+        <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">-->
+          <!--×-->
+        <!--</button>-->
+        <!--&lt;!&ndash; 标题 &ndash;&gt;-->
+        <!--<h3 class="modal-title" data-ng-bind='results.title'>上传图片</h3>-->
 
-                <li *ngIf="isDetail!='detail'">
-                  <img-cropper #cropper [image]="data1" [settings]="cropperSettings1" (onCrop)="cropped($event)"></img-cropper>
-                </li>
-                <li *ngIf="isDetail!='detail'">
-                  <div class="c-file-upload">
-                    <a class="btn btn-default" style="width: 150px;height: 150px;line-height: 128px;">
-                      <span class="" style="color: #646464;font-size:28px;">选择图片</span>
-                    </a>
-                    <input id="image-input" class="btn btn-default" type="file" c-img-cropper-select [cropper]="cropper">
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" *ngIf="isDetail!='detail'" (click)="postFile()" >确定上传</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal -->
-</div>
+      <!--</div>-->
+      <!--<div class="modal-body">-->
+        <!--<div class="row">-->
+          <!--<div class="col-xs-12">-->
+            <!--<div>-->
+              <!--<ul class="ace-thumbnails clearfix">-->
+                <!--<li class="canDel" *ngFor="let img of imgList;let ind = index;">-->
+                  <!--<a class="cboxElement" href="{{url}}{{img}}"  data-toggle="modal" data-target="#image-details">-->
+                    <!--<img width="150" height="150" alt="150x150" src="{{url}}{{img}}">-->
+                  <!--</a>-->
+                  <!--<div class="tools tools-top" *ngIf="isDetail!='detail'">-->
+                    <!--<a class="pull-right" (click)="removeImg(ind)">-->
+                      <!--<i class="ace-icon fa fa-times txt-color-red">-->
+                      <!--</i>-->
+                    <!--</a>-->
+                  <!--</div>-->
+                <!--</li>-->
+
+                <!--<li *ngIf="isDetail!='detail'">-->
+                  <!--<img-cropper #cropper [image]="data1" [settings]="cropperSettings1" (onCrop)="cropped($event)"></img-cropper>-->
+                <!--</li>-->
+                <!--<li *ngIf="isDetail!='detail'">-->
+                  <!--<div class="c-file-upload">-->
+                    <!--<a class="btn btn-default" style="width: 150px;height: 150px;line-height: 128px;">-->
+                      <!--<span class="" style="color: #646464;font-size:28px;">选择图片</span>-->
+                    <!--</a>-->
+                    <!--<input id="image-input" class="btn btn-default" type="file" c-img-cropper-select [cropper]="cropper">-->
+                  <!--</div>-->
+                <!--</li>-->
+              <!--</ul>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class="modal-footer">-->
+        <!--<button type="button" class="btn btn-primary" *ngIf="isDetail!='detail'" (click)="postFile()" >确定上传</button>-->
+        <!--<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>-->
+      <!--</div>-->
+    <!--</div>&lt;!&ndash; /.modal-content &ndash;&gt;-->
+  <!--</div>&lt;!&ndash; /.modal &ndash;&gt;-->
+<!--</div>-->
 
 
-<div class="modal fade bg-transparent" id="image-details" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="text-align-center">
-      <ul>
-        <li class="picture-normal">
-          <a class="fa fa-times-circle picture-normal-a" style="display:block;" data-dismiss="modal"></a>
-          <img src="https://static.kuangyibang.com/wp/2016/12/careers-main2.jpg">
-        </li>
-      </ul>
-    </div>
+<!--<div class="modal fade bg-transparent" id="image-details" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
+  <!--<div class="modal-dialog">-->
+    <!--<div class="text-align-center">-->
+      <!--<ul>-->
+        <!--<li class="picture-normal">-->
+          <!--<a class="fa fa-times-circle picture-normal-a" style="display:block;" data-dismiss="modal"></a>-->
+          <!--<img src="https://static.kuangyibang.com/wp/2016/12/careers-main2.jpg">-->
+        <!--</li>-->
+      <!--</ul>-->
+    <!--</div>-->
 
-  </div><!-- /.modal -->
-</div>
+  <!--</div>&lt;!&ndash; /.modal &ndash;&gt;-->
+<!--</div>-->

@@ -7,8 +7,10 @@ import {I3otpModule} from "../../shared/i3otp.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CookieService} from "angular2-cookie/core";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
-import {ImgCropperSelectModule} from "../../shared/img-cropper-select/img-cropper-select.module";
-import {ImageCropperModule} from "ng2-img-cropper";
+// import {ImgCropperSelectModule} from "../../shared/img-cropper-select/img-cropper-select.module";
+// import {ImageCropperModule} from "ng2-img-cropper";
+import {BigPicModule} from "../../shared/common/big-pic/big-pic.module";
+import {SelectFileModule} from "../../shared/common/select-file/select-file.module";
 
 @NgModule({
   imports: [
@@ -18,8 +20,10 @@ import {ImageCropperModule} from "ng2-img-cropper";
     FormsModule,
     ReactiveFormsModule,
     SettingArchivesRoutingModule,
-    ImageCropperModule,
-    ImgCropperSelectModule
+    // ImageCropperModule,
+    // ImgCropperSelectModule
+    BigPicModule,
+    SelectFileModule
   ],
   declarations: [
       SettingArchivesComponent,
