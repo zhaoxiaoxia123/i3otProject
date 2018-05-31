@@ -398,7 +398,7 @@
                   <button type="button" class="btn btn-default" [routerLink]="['/procurement-management/procurement-receipt']">返回</button>
 
                   <div *ngIf="isPermission(menu_id,'add')">
-                    <button type="button" class="btn btn-success btn-sm" (click)="onSubmit(2)"><span class="glyphicon glyphicon-plus"></span>保存并新增</button>
+                    <button *ngIf="pr_id==0" type="button" class="btn btn-success btn-sm" (click)="onSubmit(2)"><span class="glyphicon glyphicon-plus"></span>保存并新增</button>
                     <button *ngIf="pr_id==0" type="button" (click)="onSubmit(1)" class="btn btn-primary">保存</button>
                   </div>
                   <button *ngIf="isPermission(menu_id,'edit') && isDetail!='detail' && pr_id!=0 && purchaseInfo?.result?.pr_status != 'no' && purchaseInfo?.result?.pr_status != 'yes' && purchaseInfo?.result?.pr_status != 'cancel'" type="button" (click)="onSubmit(1)" class="btn btn-primary">修改</button>

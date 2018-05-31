@@ -161,12 +161,13 @@ export class TodoMissionComponent implements OnInit {
   }
 
     showDetail(todo_id:number,template_name:string,isRead:any){
+        console.log(todo_id+'--'+template_name);
         this.tododetail.showDetail(todo_id,template_name,isRead);
 
         setTimeout(()=>{
             this.is_show_detail =  this.tododetail.is_show_detail;
-            console.log('is_show_detail:---');
-            console.log(this.is_show_detail);
+            // console.log('is_show_detail:---');
+            // console.log(this.is_show_detail);
         },600);
     }
     /**

@@ -19,32 +19,14 @@ export class TodoMissionDetailComponent implements OnInit {
             demo3: 'hr1',
         },
     };
-
-
     @Input() todoList;
     @Input() selects ;
     @Input() is_show_detail ;
     @Output() private isEdit = new EventEmitter();//是否修改过详情里面的东西或是评论过该任务
 
-
     todoListPages : Array<any> = [];
-    // selects : Array<any> = [];
-
-
-    // //发布任务标题
-    // publish_todo_title : Array<any> = [];
-    // //重命名模版名称
-    // edit_template_name : Array<any> = [];
-    // is_show_publish_template : boolean = false;
-    // //发布新模版名称
-    // template_name : string = '';
-
-
 
     todo_info : Array<any> = [];
-    // todoList : Array<any> = [];
-    //是否展示详情  绑定当前点击的template_id
-    // is_show_detail : string = '';
     detail_template_name:string = '';
     //是否显示添加描述发布框
     is_show_publish_detail :number = 0;
@@ -70,7 +52,6 @@ export class TodoMissionDetailComponent implements OnInit {
     cookie_u_id : any = 0;
     admin_id : number = 0;
     domain_url : string = '';
-    // is_show_power : Array<any> = []; //是否有权限查看此任务
 
     /**
      * 以下为评论所需变量
@@ -102,11 +83,7 @@ export class TodoMissionDetailComponent implements OnInit {
     project_id:any = 0;
     todo_id:any = 0;
 
-    // isCheck:number=0;//切换布局  0：隐藏查看更多  1：查看更多
-    // dropTemplateId : any = '';//拽入模版编号
     rollback_url : string = '/forms/todo-mission';
-    // isEdit : number = 0; //是否修改过详情里面的东西或是评论过该任务
-
     constructor(
       private http:Http,
       private router : Router,
@@ -123,15 +100,18 @@ export class TodoMissionDetailComponent implements OnInit {
         this.cookie_c_id = this.cookieStore.getCookie('cid');
         this.cookie_u_id = this.cookieStore.getCookie('uid');
         this.domain_url = this.globalService.getDomain();
-        // this.is_show_power[this.cookie_u_id] = true;
 
         this.routInfo.params.subscribe((param : Params)=> {
             this.project_ids = param['project_id'];
         }); //这种获取方式是参数订阅，解决在本页传参不生效问题
 
+        // console.log(this.project_ids);
         if(this.project_ids) {
             this.todo_id = this.project_ids.split('_')[1];
             this.project_id = this.project_ids.split('_')[0];
+
+            // console.log('.project_id:---');
+            // console.log(this.project_id);
             if (this.project_id != 0) {
                 // this.getTodoDefault(this.project_id,0);
                 this.rollback_url += '/' + this.project_id + '_' + this.todo_id;
@@ -180,8 +160,8 @@ export class TodoMissionDetailComponent implements OnInit {
     }
 
     getInfo(){
-        console.log('info:-----');
         this.todo_info  = this.tododetail.todo_info;
+        // console.log(this.todo_info);
         if(this.todo_info['status'] == 202){
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
@@ -270,7 +250,7 @@ export class TodoMissionDetailComponent implements OnInit {
                 }
                 //服务器返回html正确解析输出
                 // this.pageHtml = this.sanitizer.bypassSecurityTrustHtml(this.userList['page']);
-                this.selected_user = [];
+                // this.selected_user = [];
                 if (this.userList) {
                     if (this.userList['result']['userList']['current_page'] == this.userList['result']['userList']['last_page']) {
                         this.next = true;
@@ -282,9 +262,29 @@ export class TodoMissionDetailComponent implements OnInit {
                     } else {
                         this.prev = false;
                     }
-                    if(this.userList['result']['userList']) {
-                        for (let entry of this.userList['result']['userList']['data']) {
-                            this.selected_user[entry['id']] = false;
+                    // if(this.userList['result']['userList']) {
+                    //     for (let entry of this.userList['result']['userList']['data']) {
+                    //
+                    //         this.selected_user[entry['id']] = false;
+                    //     }
+                    // }
+                    if(this.show_user_type == 1 && department_id != 0){
+                        let assign_list = this.todo_info['result']['assigns'];
+                        if(assign_list) {
+                            assign_list.forEach((val, idx, array) => {
+                                if (val != '') {
+                                    this.selected_user[val] = true;
+                                }
+                            });
+                        }
+                    }else if(this.show_user_type == 2 && department_id != 0){
+                        let followers_list = this.todo_info['result']['followers'];
+                        if(followers_list) {
+                            followers_list.forEach((val, idx, array) => {
+                                if (val != '') {
+                                    this.selected_user[val] = true;
+                                }
+                            });
                         }
                     }
                     this.check = false;
@@ -644,6 +644,7 @@ export class TodoMissionDetailComponent implements OnInit {
         let t = e.target;
         let v = t.value;
         let c = t.checked;
+        // console.log(v+'-'+c);
         this.selected_user[v] = c;
         let isAll = 0;
         for (let s of this.selected_user) {
@@ -666,6 +667,8 @@ export class TodoMissionDetailComponent implements OnInit {
      * 展示选择 1：分配人 2：关注人 3：审批人 的选择框
      */
     showUserListDiv(c_id:number,num:number){
+
+        // console.log(c_id+'__'+num);
         this.show_user_type = num;
         this.check = false;
         this.c_id = c_id;
@@ -711,8 +714,6 @@ export class TodoMissionDetailComponent implements OnInit {
      * 提交分配人 关注人的选择
      */
     submitSelectedUser(todo_id:any){
-        console.log('submitSelectedUser:--');
-        console.log(this.project_id);
         let data = {};
         if(this.show_user_type == 1){//分配人
             data ={
@@ -852,8 +853,6 @@ export class TodoMissionDetailComponent implements OnInit {
      * @param au1
      */
     removeUser(todo_id:number,id:number,type:string){
-        console.log('removeUser:--');
-        console.log(this.project_id);
         if(id == 0){
             alert('信息有误，无法移除该用户！');
             return false;

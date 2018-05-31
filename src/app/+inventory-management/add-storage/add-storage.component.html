@@ -311,7 +311,7 @@
                     返回
                   </button>
                   <div *ngIf="isPermission(menu_id,'add')">
-                  <button class="btn btn-success" type="button" (click)="onSubmit(2)">提交并新增</button>
+                  <button *ngIf="otherorder_id==0" class="btn btn-success" type="button" (click)="onSubmit(2)">提交并新增</button>
                   <button *ngIf="otherorder_id==0" type="button" class="btn btn-primary" (click)="onSubmit(1)">提交</button>
                   </div>
                   <button *ngIf="isPermission(menu_id,'edit') && isDetail!='detail' && otherorder_id!=0 && otherorderInfo?.result?.otherorder_status != 'no' && otherorderInfo?.result?.otherorder_status != 'yes' && otherorderInfo?.result?.otherorder_status != 'cancel'" type="button" class="btn btn-primary" (click)="onSubmit(1)">提交</button>

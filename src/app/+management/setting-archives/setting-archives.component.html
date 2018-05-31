@@ -305,9 +305,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <!-- 关闭按钮 -->
-          <button type="button" class="close"  (click)="clear_();lgModal.hide()">
-            ×
-          </button>
+          <button type="button" class="close"  (click)="clear_();lgModal.hide()">×</button>
           <!-- 标题 -->
           <h3 *ngIf="editStatusProductId == 0" class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>添加商品档案</h3>
           <h3 *ngIf="editStatusProductId != 0" class="modal-title  color-yellow" data-ng-bind='results.title'><i class="glyphicon glyphicon-pencil"></i>修改商品档案</h3>
@@ -325,9 +323,6 @@
                 <li [class.active]="state.tabs.demo3=='hr3'" class="active">
                   <a (click)="state.tabs.demo3 = 'hr3'">多单位</a>
                 </li>
-                <!--<li [class.active]="state.tabs.demo3=='hr4'" class="active">-->
-                  <!--<a (click)="state.tabs.demo3 = 'hr4'">多级价格</a>-->
-                <!--</li>-->
                 <li [class.active]="state.tabs.demo3=='hr5'" class="active">
                   <a (click)="state.tabs.demo3 = 'hr5'">图片信息</a>
                 </li>
@@ -699,98 +694,6 @@
                       </tab>
                     </tabset>
                   </tab>
-                  <!--<tab [active]="state.tabs.demo3 == 'hr4'">-->
-                    <!--<tabset >-->
-                      <!--<tab [active]="state.tabs.demo3 == 'hr4'">-->
-                        <!--<div class="row">-->
-                          <!--<form   class="smart-form ">-->
-                            <!--<fieldset>-->
-                              <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">-->
-                                <!--<section >-->
-                                  <!--<label class="label ">一级价</label>-->
-                                  <!--<label class="input">-->
-                                    <!--<input  name=""    type="text" >-->
-                                  <!--</label>-->
-                                <!--</section>-->
-                              <!--</div>-->
-                              <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">-->
-                                <!--<section >-->
-                                  <!--<label class="label ">二级价</label>-->
-                                  <!--<label class="input">-->
-                                    <!--<input  name=""    type="text" >-->
-                                  <!--</label>-->
-                                <!--</section>-->
-                              <!--</div>-->
-                              <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">-->
-                                <!--<section >-->
-                                  <!--<label class="label ">三级价</label>-->
-                                  <!--<label class="input">-->
-                                    <!--<input  name=""    type="text" >-->
-                                  <!--</label>-->
-                                <!--</section>-->
-                              <!--</div>-->
-                              <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">-->
-                                <!--<section >-->
-                                  <!--<label class="label ">市场价</label>-->
-                                  <!--<label class="input">-->
-                                    <!--<input  name=""    type="text" >-->
-                                  <!--</label>-->
-                                <!--</section>-->
-                              <!--</div>-->
-                              <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">-->
-                                <!--<section >-->
-                                  <!--<label class="label ">厉害价</label>-->
-                                  <!--<label class="input">-->
-                                    <!--<input  name=""    type="text" >-->
-                                  <!--</label>-->
-                                <!--</section>-->
-                              <!--</div>-->
-                              <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">-->
-                                <!--<section >-->
-                                  <!--<label class="label ">最高级</label>-->
-                                  <!--<label class="input">-->
-                                    <!--<input  name=""    type="text" >-->
-                                  <!--</label>-->
-                                <!--</section>-->
-                              <!--</div>-->
-                              <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">-->
-                                <!--<section >-->
-                                  <!--<label class="label ">参考价格</label>-->
-                                  <!--<label class="input">-->
-                                    <!--<input  name=""    type="text" >-->
-                                  <!--</label>-->
-                                <!--</section>-->
-                              <!--</div>-->
-                              <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">-->
-                                <!--<section >-->
-                                  <!--<label class="label ">跳楼价</label>-->
-                                  <!--<label class="input">-->
-                                    <!--<input  name=""    type="text" >-->
-                                  <!--</label>-->
-                                <!--</section>-->
-                              <!--</div>-->
-                              <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">-->
-                                <!--<section >-->
-                                  <!--<label class="label ">蹦极价</label>-->
-                                  <!--<label class="input">-->
-                                    <!--<input  name=""    type="text" >-->
-                                  <!--</label>-->
-                                <!--</section>-->
-                              <!--</div>-->
-                              <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">-->
-                                <!--<section >-->
-                                  <!--<label class="label ">十级价</label>-->
-                                  <!--<label class="input">-->
-                                    <!--<input  name=""    type="text" >-->
-                                  <!--</label>-->
-                                <!--</section>-->
-                              <!--</div>-->
-                            <!--</fieldset>-->
-                          <!--</form>-->
-                        <!--</div>-->
-                      <!--</tab>-->
-                    <!--</tabset>-->
-                  <!--</tab>-->
                   <tab [active]="state.tabs.demo3 == 'hr5'">
                     <tabset >
                       <tab [active]="state.tabs.demo3 == 'hr5'">
@@ -811,9 +714,12 @@
                                 </li>
                                 <li>
                                   <div class="c-file-upload">
-                                    <a class="btn btn-default" (click)="showSelectFileDiv()" style="width: 150px; height: 150px;border: 0;">
-                                      <i class="fa fa-plus fa-2x" style="color: #ccc;  font-size: 152px;"></i>
+                                    <a class="btn" (click)="showSelectFileDiv()" style="border: 0;">
+                                      点击选择上传图片
                                     </a>
+                                    <!--<a class="btn btn-default" (click)="showSelectFileDiv()" style="width: 150px; height: 150px;border: 0;">-->
+                                      <!--<i class="fa fa-plus fa-2x" style="color: #ccc;  font-size: 152px;"></i>-->
+                                    <!--</a>-->
                                   </div>
                                 </li>
                               </ul>
@@ -831,7 +737,7 @@
         <div class="modal-footer">
          <div class="display-inline" *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')">
           <button [disabled]="isDetail=='detail'" type="button" class="btn btn-primary" (click)="onSubmit(1);">保存</button>
-          <button class="btn btn-success" type="button" (click)="onSubmit(2);">保存并新增</button>
+          <button [disabled]="isDetail=='detail'" class="btn btn-success" type="button" (click)="onSubmit(2);">保存并新增</button>
          </div>
           <button type="button" class="btn btn-default"  (click)="clear_();lgModal.hide()">返回</button>
         </div>
@@ -843,74 +749,3 @@
 <app-select-file [select_type]="select_type" [imgList]="imgList" (select_types)="getSelectTypes()" (imgLists)="getImgLists($event)"></app-select-file>
 <!--查看大图-->
 <app-big-pic [select_type]="select_type" [show_big_pic]="show_big_pic" (select_types)="getSelectTypes()"></app-big-pic>
-
-
-
-
-<!--<div class="modal fade bg-transparent" id="mypicture" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
-  <!--<div class="modal-dialog">-->
-    <!--<div class="modal-content">-->
-      <!--<div class="modal-header">-->
-
-        <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">-->
-          <!--×-->
-        <!--</button>-->
-        <!--&lt;!&ndash; 标题 &ndash;&gt;-->
-        <!--<h3 class="modal-title" data-ng-bind='results.title'>上传图片</h3>-->
-
-      <!--</div>-->
-      <!--<div class="modal-body">-->
-        <!--<div class="row">-->
-          <!--<div class="col-xs-12">-->
-            <!--<div>-->
-              <!--<ul class="ace-thumbnails clearfix">-->
-                <!--<li class="canDel" *ngFor="let img of imgList;let ind = index;">-->
-                  <!--<a class="cboxElement" href="{{url}}{{img}}"  data-toggle="modal" data-target="#image-details">-->
-                    <!--<img width="150" height="150" alt="150x150" src="{{url}}{{img}}">-->
-                  <!--</a>-->
-                  <!--<div class="tools tools-top" *ngIf="isDetail!='detail'">-->
-                    <!--<a class="pull-right" (click)="removeImg(ind)">-->
-                      <!--<i class="ace-icon fa fa-times txt-color-red">-->
-                      <!--</i>-->
-                    <!--</a>-->
-                  <!--</div>-->
-                <!--</li>-->
-
-                <!--<li *ngIf="isDetail!='detail'">-->
-                  <!--<img-cropper #cropper [image]="data1" [settings]="cropperSettings1" (onCrop)="cropped($event)"></img-cropper>-->
-                <!--</li>-->
-                <!--<li *ngIf="isDetail!='detail'">-->
-                  <!--<div class="c-file-upload">-->
-                    <!--<a class="btn btn-default" style="width: 150px;height: 150px;line-height: 128px;">-->
-                      <!--<span class="" style="color: #646464;font-size:28px;">选择图片</span>-->
-                    <!--</a>-->
-                    <!--<input id="image-input" class="btn btn-default" type="file" c-img-cropper-select [cropper]="cropper">-->
-                  <!--</div>-->
-                <!--</li>-->
-              <!--</ul>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-      <!--</div>-->
-      <!--<div class="modal-footer">-->
-        <!--<button type="button" class="btn btn-primary" *ngIf="isDetail!='detail'" (click)="postFile()" >确定上传</button>-->
-        <!--<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>-->
-      <!--</div>-->
-    <!--</div>&lt;!&ndash; /.modal-content &ndash;&gt;-->
-  <!--</div>&lt;!&ndash; /.modal &ndash;&gt;-->
-<!--</div>-->
-
-
-<!--<div class="modal fade bg-transparent" id="image-details" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
-  <!--<div class="modal-dialog">-->
-    <!--<div class="text-align-center">-->
-      <!--<ul>-->
-        <!--<li class="picture-normal">-->
-          <!--<a class="fa fa-times-circle picture-normal-a" style="display:block;" data-dismiss="modal"></a>-->
-          <!--<img src="https://static.kuangyibang.com/wp/2016/12/careers-main2.jpg">-->
-        <!--</li>-->
-      <!--</ul>-->
-    <!--</div>-->
-
-  <!--</div>&lt;!&ndash; /.modal &ndash;&gt;-->
-<!--</div>-->

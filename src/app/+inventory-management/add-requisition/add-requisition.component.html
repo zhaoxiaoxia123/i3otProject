@@ -374,7 +374,7 @@
                     返回
                   </button>
                   <div *ngIf="isPermission(menu_id,'add')">
-                  <button class="btn btn-success" type="button" (click)="onSubmit(2)">提交并新增</button>
+                  <button *ngIf="stock_allot_id==0" class="btn btn-success" type="button" (click)="onSubmit(2)">提交并新增</button>
                   <button *ngIf="stock_allot_id==0" type="button" class="btn btn-primary" (click)="onSubmit(1)">提交</button>
                   </div>
                   <button *ngIf="isPermission(menu_id,'edit') && isDetail!='detail' && stock_allot_id!=0 && stockallotInfo?.result?.stock_allot_status != 'no' && stockallotInfo?.result?.stock_allot_status != 'yes' && stockallotInfo?.result?.stock_allot_status != 'cancel'" type="button" class="btn btn-primary" (click)="onSubmit(1)">提交</button>

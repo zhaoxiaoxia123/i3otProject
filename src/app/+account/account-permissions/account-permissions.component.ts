@@ -156,19 +156,20 @@ export class AccountPermissionsComponent implements OnInit {
      * num  1：父类 2：子类
      */
     selectMenu(menu_id:any,index:number,num:number){
+        // console.log(menu_id+'-'+index+'_'+num);
         if(num == 1){//点击父类
             if(this.cookieStore.in_array(menu_id,this.select_ids)){
                 if(this.customerDefault['result']['menuList'][index]){
                     if(this.customerDefault['result']['menuList'][index]['child_count'] >= 1){
-                        this.customerDefault['result']['menuList'][index]['child'].forEach((val, idx, array) => {
-                            this.select_ids.forEach((val11, idx11, array) => {
+                        this.customerDefault['result']['menuList'][index]['child'].forEach((val, idx) => {
+                            this.select_ids.forEach((val11, idx11) => {
                                 if(val11 == val['menu_id']){
                                     this.select_ids.splice(idx11,1);
                                 }
                             });
                             if(val['child_count'] >= 1){
-                                val['child'].forEach((val13, idx13, array13) => {
-                                    this.select_ids.forEach((val12, idx12, array12) => {
+                                val['child'].forEach((val13, idx13) => {
+                                    this.select_ids.forEach((val12, idx12) => {
                                         if(val12 == val13['menu_id']){
                                             this.select_ids.splice(idx12,1);
                                         }
@@ -218,12 +219,12 @@ export class AccountPermissionsComponent implements OnInit {
                 this.select_ids.push(menu_id.toString());
                 if(this.customerDefault['result']['menuList'][index]){
                     if(this.customerDefault['result']['menuList'][index]['child_count'] >= 1){
-                        this.customerDefault['result']['menuList'][index]['child'].forEach((val, idx, array) => {
+                        this.customerDefault['result']['menuList'][index]['child'].forEach((val, idx) => {
                             if(!this.cookieStore.in_array(val['menu_id'],this.select_ids)) {
                                 this.select_ids.push(val['menu_id'].toString());
                             }
                             if(val['child_count'] >= 1){
-                                val['child'].forEach((val13, idx13, array13) => {
+                                val['child'].forEach((val13, idx13) => {
                                     if(!this.cookieStore.in_array(val13['menu_id'],this.select_ids)) {
                                         this.select_ids.push(val13['menu_id'].toString());
                                     }
@@ -236,38 +237,64 @@ export class AccountPermissionsComponent implements OnInit {
         }else if(num != 1){//点击子类   return
             this.customerDefault['result']['return'].forEach((val, idx) => {
                 if (val['menu_id'] == menu_id) {
-                    if (val['child_count'] >= 1) {
-                        val['child'].forEach((valc, idxc) => {
-                            if(this.cookieStore.in_array(valc['menu_id'],this.select_ids)) {
+                    if(this.cookieStore.in_array(val['menu_id'],this.select_ids)) {
+                        this.select_ids.forEach((valc1, idxc1) => {
+                            if (valc1 == val['menu_id']) {
+                                this.select_ids.splice(idxc1, 1);
+                            }
+                        });
+                        if (val['child_count'] >= 1) {
+                            val['child'].forEach((valc, idxc) => {
                                 this.select_ids.forEach((valc1, idxc1) => {
                                     if (valc1 == valc['menu_id']) {
                                         this.select_ids.splice(idxc1, 1);
                                     }
                                 });
-                            }else{
-                                this.select_ids.push(valc['menu_id'].toString());
-                            }
-                        });
-                    } else{
-                        if(this.cookieStore.in_array(val['menu_id'],this.select_ids)) {
-                            this.select_ids.forEach((valc1, idxc1) => {
-                                if (valc1 == val['menu_id']) {
-                                    this.select_ids.splice(idxc1, 1);
+                                if(valc['controls'] != [] && !isUndefined(valc['controls'])){
+                                    valc['controls'].forEach((valcs, idxcs) => {
+                                        this.select_ids.forEach((valc1, idxc1) => {
+                                            if(valc1 == valc['menu_id']+'_'+valcs){
+                                                this.select_ids.splice(idxc1,1);
+                                            }
+                                        });
+                                    });
                                 }
                             });
-                        }else{
-                            this.select_ids.push(val['menu_id'].toString());
+                        } else{
+                            if(val['controls'] != [] && !isUndefined(val['controls'])){
+                                val['controls'].forEach((valc, idxc) => {
+                                    this.select_ids.forEach((valc1, idxc1) => {
+                                        if(valc1 == val['menu_id']+'_'+valc){
+                                            this.select_ids.splice(idxc1,1);
+                                        }
+                                    });
+                                });
+                            }
+                        }
+                    }else{
+                        this.select_ids.push(val['menu_id'].toString());
+                        if (val['child_count'] >= 1) {
+                            val['child'].forEach((valc, idxc) => {
+                                if(!this.cookieStore.in_array(valc['menu_id'],this.select_ids)) {
+                                    this.select_ids.push(valc['menu_id'].toString());
+                                }
+                            });
+                        } else{
+                            if(!this.cookieStore.in_array(val['menu_id'],this.select_ids)) {
+                                this.select_ids.push(val['menu_id'].toString());
+                            }
                         }
                     }
                 }
             });
         }
+
     }
 
     selectControl($event){
         let index_ = $event.target.value;
         if(this.cookieStore.in_array(index_,this.select_ids)){
-            this.select_ids.forEach((val, idx, array) => {
+            this.select_ids.forEach((val, idx) => {
                 if(val == index_){
                     this.select_ids.splice(idx,1);
                 }

@@ -5,7 +5,6 @@ import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
 import {ModalDirective} from "ngx-bootstrap";
 import {isUndefined} from "util";
-// import {ImageCropperComponent, CropperSettings, Bounds} from 'ng2-img-cropper';
 import {NotificationService} from "../../shared/utils/notification.service";
 
 @Component({
@@ -54,8 +53,8 @@ export class SettingArchivesComponent implements OnInit {
     p_cost: string = '';
     p_retail_method: string = '1';
     p_retail_amout: string = '';
-    p_stop_use : string = '';
-    p_stop_time : string = '';
+    // p_stop_use : string = '';
+    // p_stop_time : string = '';
 
     select_property: any = '0';
     property_title : string = '全部';
@@ -81,25 +80,12 @@ export class SettingArchivesComponent implements OnInit {
     category_type : number = 6;
     rollback_url : string = '';
 
-    // /**
-    //  * 图片
-    //  */
-    // imgList : Array<any> = [];
-    // path:string = '';
-    // data1:any;
-
-
     /**--------用选择图片的变量------*/
     select_type: string = '';
     show_big_pic: string = '';
     /**图片 */
     imgList : Array<any> = [];
     url : string = this.globalService.getDomain();
-
-    // cropperSettings1:CropperSettings;
-    // croppedWidth:number;
-    // croppedHeight:number;
-    // @ViewChild('cropper',undefined) cropper:ImageCropperComponent;
 
     /**菜单id */
     menu_id:any;
@@ -112,35 +98,11 @@ export class SettingArchivesComponent implements OnInit {
         private cookieStore:CookieStoreService,
         private globalService:GlobalService,
         private notificationService: NotificationService) {
-
         window.scrollTo(0,0);
         this.getProductDefault();
-
-        // this.cropperSettings1 = new CropperSettings();
-        // this.cropperSettings1.width = 150;
-        // this.cropperSettings1.height = 150;
-        // this.cropperSettings1.croppedWidth = 150;
-        // this.cropperSettings1.croppedHeight = 150;
-        // this.cropperSettings1.canvasWidth = 200;
-        // this.cropperSettings1.canvasHeight = 200;
-        // this.cropperSettings1.minWidth = 10;
-        // this.cropperSettings1.minHeight = 10;
-        // this.cropperSettings1.rounded = false;
-        // this.cropperSettings1.keepAspect = true;
-        // this.cropperSettings1.cropperDrawSettings.strokeColor = 'rgba(255,255,255,1)';
-        // this.cropperSettings1.cropperDrawSettings.strokeWidth = 2;
-        // this.data1 = {};
-
     }
 
-    // cropped(bounds:Bounds) {
-    //     this.croppedHeight =bounds.bottom-bounds.top;
-    //     this.croppedWidth = bounds.right-bounds.left;
-    // }
-
-
     ngOnInit() {
-
         //顶部菜单读取
         this.globalService.getMenuInfo();
         setTimeout(()=>{
@@ -295,30 +257,6 @@ export class SettingArchivesComponent implements OnInit {
         }
     }
 
-
-    // /**
-    //  * 获取添加页面的默认参数
-    //  */
-    // getAddProductDefault(type:number){
-    //     // if( this.addProductDefault.length <= 0) {
-    //     this.http.get(this.globalService.getDomain() + '/api/v1/getProductDefault?type=add&p_type=' + this.p_type + '&category_type=' + this.category_type + '&sid=' + this.cookieStore.getCookie('sid'))
-    //         .map((res) => res.json())
-    //         .subscribe((data) => {
-    //             this.addProductDefault = data;
-    //             if (this.addProductDefault['status'] == 202) {
-    //                 alert(this.addProductDefault['msg']);
-    //                 this.cookieStore.removeAll(this.rollback_url);
-    //                 this.router.navigate(['/auth/login']);
-    //             }
-    //             if(type == 0){
-    //                 this.editStatusProductId = 0;
-    //                 this.lgModal.show();
-    //             }
-    //         });
-    //     // }else{
-    //     //     this.lgModal.show();
-    //     // }
-    // }
     /**
      * 商品属性
      * @param property
@@ -341,7 +279,6 @@ export class SettingArchivesComponent implements OnInit {
         let url = this.globalService.getDomain()+'/api/v1/getUnitCategoryList?category_type='+this.category_type+'&sid='+this.cookieStore.getCookie('sid');
         if(id != 0){
             url += '&category_tab='+id;
-
             this.http.get(url)
                 .map((res)=>res.json())
                 .subscribe((data)=>{
@@ -368,7 +305,6 @@ export class SettingArchivesComponent implements OnInit {
             alert('请输入名称！');
             return false;
         }
-
         let category_ids = '';
         this.select_category_ids.forEach((val, idx, array) => {
             if(val == true) {
@@ -394,8 +330,8 @@ export class SettingArchivesComponent implements OnInit {
             'p_cost' : this.p_cost,
             'p_retail_method' : this.p_retail_method,
             'p_retail_amout' : this.p_retail_amout,
-            'p_stop_use' : this.p_stop_use,
-            'p_stop_time' : this.p_stop_time,
+            // 'p_stop_use' : this.p_stop_use,
+            // 'p_stop_time' : this.p_stop_time,
             'category_ids':category_ids,
             'u_id' : this.cookieStore.getCookie('uid'),
             'sid':this.cookieStore.getCookie('sid')
@@ -457,8 +393,8 @@ export class SettingArchivesComponent implements OnInit {
         this.p_cost = '';
         this.p_retail_method = '1';
         this.p_retail_amout = '';
-        this.p_stop_use  = '';
-        this.p_stop_time = '';
+        // this.p_stop_use  = '';
+        // this.p_stop_time = '';
     }
 
     /**
@@ -481,8 +417,8 @@ export class SettingArchivesComponent implements OnInit {
         this.p_cost = info['result']['p_cost'];
         this.p_retail_method = info['result']['p_retail_method'];
         this.p_retail_amout = info['result']['p_retail_amout'];
-        this.p_stop_use = info['result']['p_stop_use'];
-        this.p_stop_time = info['result']['p_stop_time'];
+        // this.p_stop_use = info['result']['p_stop_use'];
+        // this.p_stop_time = info['result']['p_stop_time'];
         this.imgList = info['result']['imgs'];
         this.p_property = info['result']['p_property'];
         if(this.p_property != 0){
@@ -632,14 +568,12 @@ export class SettingArchivesComponent implements OnInit {
                 }
             }
         }
-
         let depart = '';
         this.select_category_ids.forEach((val, idx, array) => {
             if(val == true) {
                 depart += idx + ',';
             }
         });
-
         this.editStatusProductId = 0;
         this.isStatus = 0;
         this.getProductList('1',depart);
@@ -796,9 +730,6 @@ export class SettingArchivesComponent implements OnInit {
         this.showUlChild = category_id;
     }
 
-
-
-
     selectPerptyAll(num:number){
         if(this.select_category_ids_preporty[num] == true){
             this.select_category_ids_preporty[num] = false;
@@ -860,43 +791,6 @@ export class SettingArchivesComponent implements OnInit {
         this.show_big_pic = imgUrl;
     }
 
-
-
-    // /**
-    //  * 上传文件
-    //  */
-    // postFile(){
-    //     var that = this;
-    //     var form=document.forms[0];
-    //     var formData : FormData = new FormData(form);
-    //     //convertBase64UrlToBlob函数是将base64编码转换为Blob
-    //     formData.append("uploadedfile",this.globalService.convertBase64UrlToBlob(this.data1.image),"product_"+ new Date().getTime() +".png");
-    //     //组建XMLHttpRequest 上传文件
-    //     var infos ;
-    //     var request = new XMLHttpRequest();
-    //     //上传连接地址
-    //     request.open("POST", this.globalService.getDomain() + "/api/v1/uploadFile");
-    //     request.onreadystatechange=function()
-    //     {
-    //         if (request.readyState==4)
-    //         {
-    //             if(request.status==200){
-    //                 infos = JSON.parse(request.response);
-    //                 if(infos['status']==200){
-    //                     that.path = infos['result'];
-    //                     alert("上传成功");
-    //                 }else{
-    //                     alert("上传失败，无法获取图片上传地址");
-    //                 }
-    //                 that.imgList.push(that.path);
-    //             }else{
-    //                 alert("上传失败,检查上传地址是否正确");
-    //             }
-    //         }
-    //     }
-    //     request.send(formData);
-    // }
-    //
     /**
      * remove img
      * @param ind
@@ -906,7 +800,6 @@ export class SettingArchivesComponent implements OnInit {
     }
 
     @ViewChild('lgModal') public lgModal:ModalDirective;
-    // @ViewChild('cropper', undefined) cropper:ImageCropperComponent;
 
     //添加按钮
     smartModEg1() {

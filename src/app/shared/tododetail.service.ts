@@ -30,7 +30,6 @@ export class TododetailService {
     this.http.get(url)
         .map((res)=>res.json())
         .subscribe((data)=>{
-          console.log(33423423);
           this.todo_info = data;
           this.is_show_detail = this.todo_info['result']['template_id'];
     });

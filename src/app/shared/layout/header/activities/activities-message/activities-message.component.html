@@ -11,26 +11,26 @@
 
           <span class="margin-bottom-5 from">
               <span>{{noti.messageTitle}}</span>
-        </span>
+          </span>
 
           <span [ngSwitch]="noti.approval_type">
               <span *ngSwitchCase="1">
                 <span class="subject">请假类型：<em class="note no-margin">{{noti.detail.type}}</em></span>
-                <span class="subject">开始时间：<em class="note no-margin">{{noti.approval_start_date}}</em></span>
-                <span class="subject">结束时间：<em class="note no-margin">{{noti.approval_end_date}}</em></span>
+                <span class="subject">开始时间：<em class="note no-margin">{{noti.approval_start_date | date:'yyyy-MM-dd HH:mm'}}</em></span>
+                <span class="subject">结束时间：<em class="note no-margin">{{noti.approval_end_date | date:'yyyy-MM-dd HH:mm'}}</em></span>
               </span>
               <span *ngSwitchCase="2">
                 <span *ngIf="noti.detail">
                     <span class="subject">出差地点：<em class="note no-margin" *ngFor="let dt of noti.detail.trip">
                               {{dt.address}}</em></span>
-                    <span class="subject">开始时间：<em class="note no-margin">{{noti.approval_start_date}}</em></span>
-                    <span class="subject">结束时间：<em class="note no-margin">{{noti.approval_end_date}}</em></span>
+                    <span class="subject">开始时间：<em class="note no-margin">{{noti.approval_start_date | date:'yyyy-MM-dd HH:mm'}}</em></span>
+                    <span class="subject">结束时间：<em class="note no-margin">{{noti.approval_end_date | date:'yyyy-MM-dd HH:mm'}}</em></span>
                     <span class="subject">出差事由：<em class="note no-margin">{{noti.detail.reason}}</em></span>
                 </span>
               </span>
               <span *ngSwitchCase="3">
-                  <span class="subject">开始时间：<em class="note no-margin">{{noti.approval_start_date}}</em></span>
-                  <span class="subject">结束时间：<em class="note no-margin">{{noti.approval_end_date}}</em></span>
+                  <span class="subject">开始时间：<em class="note no-margin">{{noti.approval_start_date | date:'yyyy-MM-dd HH:mm'}}</em></span>
+                  <span class="subject">结束时间：<em class="note no-margin">{{noti.approval_end_date | date:'yyyy-MM-dd HH:mm'}}</em></span>
               </span>
 
               <span *ngSwitchCase="4">
@@ -46,24 +46,26 @@
                 <span class="subject">申请详情：<em class="note no-margin">{{noti.detail.reason}} </em></span>
               </span>
             </span>
-
-          <span *ngIf="noti.approval_status == 'yes'" class="subject text-success">审批完成<br/>同意</span>
-          <span *ngIf="noti.approval_status == 'no'" class="subject text-danger">审批完成<br/>拒绝</span>
-          <span *ngIf="noti.approval_status == 'cancel'" class="subject text-primary">审批完成<br/>已撤销</span>
-          <span class="subject text-warning" *ngIf="noti.approval_status != 'no' && noti.approval_status != 'yes' && noti.approval_status != 'cancel'">审批中</span>
+          <span *ngIf="noti.order">
+              <span class="subject">单据号：<em class="note no-margin">{{noti.order}}</em></span>
+          </span>
+          <span *ngIf="noti.updated_date">
+              <span class="subject"><em class="note no-margin">{{noti.updated_date.date | date:'yyyy-MM-dd HH:mm'}}</em></span>
+          </span>
+          <span *ngIf="noti.approval_status == 'yes' || noti.status == 'yes'" class="subject text-success">审批完成<br/>同意</span>
+          <span *ngIf="noti.approval_status == 'no' || noti.status == 'no'" class="subject text-danger">审批完成<br/>拒绝</span>
+          <span *ngIf="noti.approval_status == 'cancel' || noti.status == 'cancel'" class="subject text-primary">审批完成<br/>已撤销</span>
+          <span class="subject text-warning" *ngIf="((noti.approval_status != 'no' && noti.approval_status != 'yes' && noti.approval_status != 'cancel') && noti.approval_status) || ((noti.status != 'no' && noti.status != 'yes' && noti.status != 'cancel') && noti.status)">审批中</span>
       </a>
     </span>
 </li>
-
 <!--未完成的审批-->
-
 <!--<li>-->
     <!--<div class="text-align-center mb6"><span>03-22 09:44:49</span></div>-->
     <!--<div class="approval-message badge-warning" >审批</div>-->
     <!--<span class="bar-holder">-->
       <!--<a>-->
           <!--<span class="subject">今天还有1个审批单待你处理</span>-->
-
           <!--<span class="margin-bottom-5 from">-->
               <!--<span>某某的请假，已等待10天</span>-->
         <!--</span>-->
@@ -79,12 +81,9 @@
           <!--<span class="margin-bottom-5 from">-->
               <!--<span>某某的通用审批，已等待8天；</span>-->
          <!--</span>-->
-
       <!--</a>-->
     <!--</span>-->
 <!--</li>-->
-
-
 <!--其他的审核-->
 <li>
     <div class="text-align-center mb6"><span>03-22 09:44:49</span></div>
@@ -92,26 +91,21 @@
     <span class="bar-holder">
       <a>
           <span class="subject">某某的（销售单、调拨单、其他入库单、其他出库单、采购订单、进货单、资产发放、资产报废）需要您审批</span>
-
         <span class="subject">单据号：<em class="note no-margin">2165454545 </em></span>
           <span class="margin-bottom-5 from">
               <span>2018-01-16 07:26:48</span>
             </span>
-
           <span class="subject text-warning">待审批</span>
           <span class="subject text-primary">已撤销</span>
       </a>
     </span>
 </li>
-
-
 <li>
     <div class="text-align-center mb6"><span>03-22 09:44:49</span></div>
     <div class="approval-message badge-warning" >审批</div>
     <span class="bar-holder">
       <a>
           <span class="subject">你的（销售单、调拨单、其他入库单、其他出库单、采购订单、进货单、资产发放、资产报废）已通过，请知晓</span>
-
         <span class="subject">单据号：<em class="note no-margin">2165454545 </em></span>
           <span class="margin-bottom-5 from">
               <span>2018-01-16 07:26:48</span>
@@ -121,16 +115,12 @@
       </a>
     </span>
 </li>
-
-
-
 <li>
     <div class="text-align-center mb6"><span>03-22 09:44:49</span></div>
     <div class="approval-message badge-warning" >审批</div>
     <span class="bar-holder">
       <a>
           <span class="subject">某某的提交的（销售单、调拨单、其他入库单、其他出库单、采购订单、进货单、资产发放、资产报废）申请已通过，抄送给你，请知晓</span>
-
         <span class="subject">单据号：<em class="note no-margin">2165454545 </em></span>
           <span class="margin-bottom-5 from">
               <span>2018-01-16 07:26:48</span>

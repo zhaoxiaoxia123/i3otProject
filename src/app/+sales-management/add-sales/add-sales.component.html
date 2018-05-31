@@ -394,7 +394,7 @@
                     返回
                   </button>
                   <div *ngIf="isPermission(menu_id,'add')">
-                  <button class="btn btn-success" type="button" (click)="onSubmit(2)">提交并新增</button>
+                  <button *ngIf="pr_id==0" class="btn btn-success" type="button" (click)="onSubmit(2)">提交并新增</button>
                   <button *ngIf="pr_id==0" type="button" class="btn btn-primary" (click)="onSubmit(1)">提交</button>
                   </div>
                   <button *ngIf="isPermission(menu_id,'edit') && isDetail!='detail' && pr_id!=0 && purchaseInfo?.result?.pr_status != 'no' && purchaseInfo?.result?.pr_status != 'yes' && purchaseInfo?.result?.pr_status != 'cancel'" type="button" class="btn btn-primary" (click)="onSubmit(1)">提交</button>
