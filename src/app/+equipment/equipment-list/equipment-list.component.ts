@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Http} from "@angular/http";
 import {Router} from "@angular/router";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
+import {ModalDirective} from "ngx-bootstrap";
 
 @Component({
   selector: 'app-equipment-list',
@@ -139,6 +140,7 @@ getI3otpInfo(){
       .subscribe((data)=>{
         this.i3otpInfo = data;
         if(this.i3otpInfo['status'] == 200) {// && type == 'edit'
+          this.lgModal.show();
         }else if(this.i3otpInfo['status'] == 202){
           alert(this.i3otpInfo['msg']);
           this.cookieStore.removeAll(this.rollback_url);
@@ -147,6 +149,7 @@ getI3otpInfo(){
       });
     }
 
+  @ViewChild('lgModal') public lgModal:ModalDirective;
   /**
    * 删除（安全帽）设备信息
    */

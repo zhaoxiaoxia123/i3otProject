@@ -4,7 +4,7 @@ import {Http} from "@angular/http";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {ModalDirective} from "ngx-bootstrap";
-import {isUndefined} from "util";
+import {isArray, isUndefined} from "util";
 import {ProcessAlreadyComponent} from "./process-already/process-already.component";
 
 
@@ -19,6 +19,7 @@ export class ApprovalProcessComponent implements OnInit {
         },
     };
 
+    tabs: Array<any> = [];
     /**
      * 选中的审批者
      * @type {Array}
@@ -50,17 +51,27 @@ export class ApprovalProcessComponent implements OnInit {
     operate_button_type : string = '';//操作按钮类型
     content_operation : string = ''; //同意 拒绝 评论
     content_urge : string = '';//催办
-    rollback_url: string = '/process/approval-process/0';
+    rollback_url: string = '';///process/approval-process/0
+
+    select_propertys : string = '';
 
     a_ids:any = '';
+    /**--------用选择图片的变量------*/
+    select_type: string = '';
+    show_big_pic: string = '';
+    /**图片 */
+    imgList : Array<any> = [];
 
+    /**菜单id */
+    menu_id: any;
+    /** 权限 */
+    permissions: Array<any> = [];
     constructor(private http: Http,
                 private router: Router,
                 private routInfo : ActivatedRoute,
                 private cookieStore: CookieStoreService,
                 private globalService:GlobalService) {
-        //顶部菜单读取
-        this.globalService.getMenuInfo();
+
         this.domain = this.globalService.getDomain();
         this.uid = this.cookieStore.getCookie('uid');
         this.routInfo.params.subscribe((param : Params)=> {
@@ -68,17 +79,26 @@ export class ApprovalProcessComponent implements OnInit {
         });
 
         if(this.a_ids != 0){
-            this.getStatus(this.a_ids);
+            this.getStatus(this.a_ids,1);
             this.rollback_url += '/'+this.a_ids;
         }else{
             this.rollback_url += '/0';
         }
 
+        this.tabs.push('iss1');
         this.getUserDefault();
     }
 
     ngOnInit() {
+        //顶部菜单读取
+        this.globalService.getMenuInfo();
+        setTimeout(() => {
+            this.menu_id = this.globalService.getMenuId();
+            this.rollback_url = this.globalService.getMenuUrl();
+            this.permissions = this.globalService.getPermissions();
+        }, this.globalService.getMenuPermissionDelayTime())
     }
+
 
 
     /**
@@ -121,9 +141,18 @@ export class ApprovalProcessComponent implements OnInit {
      */
     showTab(type:string){
         this.state.tabs.demo5 = type;
+        if(!this.cookieStore.in_array(type,this.tabs)){
+            this.tabs.push(type);
+        }
         // this.ProcessAlreadyComponent.getProcessHadList('1');
     }
 
+    /**
+     * 是否有该元素
+     */
+    isInTabs(key) {
+        return this.cookieStore.in_array(key, this.tabs);
+    }
     /**
      * 获取用户列表
      * @param number
@@ -177,15 +206,51 @@ export class ApprovalProcessComponent implements OnInit {
             });
     }
 
-
     getData(value:any){
         this.count_ = value;
     }
 
+    showPage(id){
+        let url = '';
+        if(this.select_propertys == 'purchase_sale') {
+            url = '/sales-management/add-sales/'+id+'_detail';
+        }else if(this.select_propertys == 'purchase_cg_after') {
+            url = '/procurement-management/add-receipt/'+id+'_detail';
+        }else if(this.select_propertys == 'otherorder_in') {
+            url = '/inventory-management/add-storage/'+id+'_detail';
+        }else if(this.select_propertys == 'otherorder_out') {
+            url = '/inventory-management/add-outbound/'+id+'_detail';
+        }else if(this.select_propertys == 'stockallot') {
+            url = '/inventory-management/add-requisition/'+id+'_detail';
+        }else if(this.select_propertys == 'assets_ff') {
+            url = '/assets-management/assets-issue';
+        }else if(this.select_propertys == 'assets_bf') {
+            url = '/assets-management/assets-scrap';
+        }
+        this.router.navigate([url]);
+    }
+
     //修改状态并获取详情
-    getStatus(value:any){
-        this.isShowDetail = value;
-        let url = this.globalService.getDomain() + '/api/v1/getApprovalInfo?approval_id='+value+'&sid=' + this.cookieStore.getCookie('sid');
+    getStatus(value:any,num){
+        if(num == 0){
+            let values = JSON.parse(value) ;
+            this.isShowDetail = values['id'];
+            this.select_propertys = values['property'];
+        }else{
+            this.isShowDetail = value;
+        }
+        let url = '';
+        if(this.select_propertys == 'approval') {
+            url = url = this.globalService.getDomain() + '/api/v1/getApprovalInfo?approval_id='+this.isShowDetail+'&sid=' + this.cookieStore.getCookie('sid');
+        }else if(this.select_propertys == 'purchase_cg_after' || this.select_propertys == 'purchase_sale') {
+            url = this.globalService.getDomain() + '/api/v1/getPurchaseInfo?pr_id=' + this.isShowDetail + '&select_property='+this.select_propertys+'&sid=' + this.cookieStore.getCookie('sid');
+        }else if(this.select_propertys == 'otherorder_in' || this.select_propertys == 'otherorder_out') {
+            url = this.globalService.getDomain() + '/api/v1/getOtherorderInfo?otherorder_id=' + this.isShowDetail + '&select_property='+this.select_propertys+'&sid=' + this.cookieStore.getCookie('sid');
+        }else if(this.select_propertys == 'stockallot') {
+            url = this.globalService.getDomain() + '/api/v1/getStockallotInfo?stock_allot_id=' + this.isShowDetail + '&select_property='+this.select_propertys+'&sid=' + this.cookieStore.getCookie('sid');
+        }else if(this.select_propertys == 'assets_ff' || this.select_propertys == 'assets_bf') {
+            url = this.globalService.getDomain() + '/api/v1/getAssetsInfo?assets_id=' + this.isShowDetail +'&select_property='+this.select_propertys+'&sid=' + this.cookieStore.getCookie('sid');
+        }
         this.http.get(url)
             .map((res) => res.json())
             .subscribe((data) => {
@@ -276,45 +341,87 @@ export class ApprovalProcessComponent implements OnInit {
      * @param type
      */
     setModal(){
-        let content = '';
-        let id = '';
-        if(this.operate_button_type == 'ok' || this.operate_button_type == 'no' || this.operate_button_type == 'comment'){
-            content = this.content_operation;
-        }else if(this.operate_button_type == 'urge'){
-            content = this.content_urge;
-        }else if(this.operate_button_type == 'transfer'){
 
-            this.submit_user_ids.forEach((val, idx, array) => {
-                if(val != true && val != false) {
-                    id += '"'+val+'",';
+        let content = '';
+        if (this.operate_button_type == 'ok' || this.operate_button_type == 'no' || this.operate_button_type == 'comment') {
+            content = this.content_operation;
+        }
+        if(this.select_propertys == 'approval') {
+            let id = '';
+            if (this.operate_button_type == 'transfer') {
+                this.submit_user_ids.forEach((val, idx, array) => {
+                    if (val != true && val != false) {
+                        id += '"' + val + '",';
+                    }
+                });
+            } else if (this.operate_button_type == 'urge') {
+                content = this.content_urge;
+            }
+
+            this.http.post(this.globalService.getDomain() + '/api/v1/addLog', {
+                'other_id': this.isShowDetail,
+                'other_table_name': 'approval',
+                'log_type': 'approval',
+                'log_operation_type': this.operate_button_type,
+                'log_detail': content,
+                'log_uid': id,
+                'create_user_id': this.approvalInfo_user_id,
+                'u_id': this.cookieStore.getCookie('uid'),
+                'sid': this.cookieStore.getCookie('sid')
+            }).subscribe((data) => {
+                let info = JSON.parse(data['_body']);
+
+                if (info['status'] == 200) {
+                    this.getStatus(this.isShowDetail,1);
+                    this.hideModal();
+                } else if (info['status'] == 202) {
+                    alert(info['msg']);
+                    this.cookieStore.removeAll(this.rollback_url);
+                    this.router.navigate(['/auth/login']);
+                } else if (info['status'] == 9999) {
+                    alert(info['msg']);
+                }
+            });
+        }else{
+            let url = '';
+            let other_table_name = '';
+            if(this.select_propertys == 'purchase_sale' || this.select_propertys == 'purchase_cg_after'){
+                url = this.globalService.getDomain() + '/api/v1/addLog';
+                other_table_name = 'purchase';
+            }else if(this.select_propertys == 'stockallot'){
+                url = this.globalService.getDomain() + '/api/v1/addStockAllotLog';
+                other_table_name = 'stockallot';
+            }else if(this.select_propertys == 'otherorder_in' || this.select_propertys == 'otherorder_out'){
+                url = this.globalService.getDomain() + '/api/v1/addOtherorderLog';
+                other_table_name = 'otherorder';
+            }else if(this.select_propertys == 'assets_ff' || this.select_propertys == 'assets_bf'){
+                url = this.globalService.getDomain() + '/api/v1/addAssetsLog';
+                other_table_name = 'assets';
+            }
+            this.http.post(url, {
+                'other_id': this.isShowDetail,
+                'other_table_name': other_table_name,
+                'log_type': this.select_propertys,
+                'log_operation_type': this.operate_button_type,
+                'log_detail': content,
+                'create_user_id': this.approvalInfo_user_id,
+                'u_id': this.cookieStore.getCookie('uid'),
+                'sid': this.cookieStore.getCookie('sid')
+            }).subscribe((data) => {
+                let info = JSON.parse(data['_body']);
+
+                if (info['status'] == 200) {
+                    this.getStatus(this.isShowDetail,1);
+                    this.hideModal();
+                } else if (info['status'] == 202) {
+                    alert(info['msg']);
+                    this.cookieStore.removeAll(this.rollback_url);
+                    this.router.navigate(['/auth/login']);
+                } else if (info['status'] == 9999) {
+                    alert(info['msg']);
                 }
             });
         }
-
-        this.http.post(this.globalService.getDomain()+'/api/v1/addLog',{
-            'other_id':this.isShowDetail,
-            'other_table_name':'approval',
-            'log_type':'approval',
-            'log_operation_type':this.operate_button_type,
-            'log_detail':content,
-            'log_uid':id,
-            'create_user_id':this.approvalInfo_user_id,
-            'u_id':this.cookieStore.getCookie('uid'),
-            'sid':this.cookieStore.getCookie('sid')
-        }).subscribe((data)=>{
-            let info = JSON.parse(data['_body']);
-
-            if(info['status'] == 200) {
-                this.getStatus(this.isShowDetail);
-                this.hideModal();
-            }else if(info['status'] == 202){
-                alert(info['msg']);
-                this.cookieStore.removeAll(this.rollback_url);
-                this.router.navigate(['/auth/login']);
-            }else if(info['status'] == 9999) {
-                alert(info['msg']);
-            }
-        });
     }
 
     /**
@@ -486,6 +593,27 @@ export class ApprovalProcessComponent implements OnInit {
     pagination(page : any) {
         this.page = page;
         this.getUserList(this.page,0);
+    }
+
+
+
+
+    //-----------------图片选择弹框 ---------------
+    showSelectFileDiv(){
+        this.select_type = 'file';
+    }
+
+    getSelectTypes(){
+        this.select_type = '';
+    }
+
+    getImgLists(value:any){
+        this.imgList = JSON.parse(value);
+    }
+
+    showBigPic(imgUrl:string){
+        this.select_type = 'bigPic'
+        this.show_big_pic = imgUrl;
     }
 
 }

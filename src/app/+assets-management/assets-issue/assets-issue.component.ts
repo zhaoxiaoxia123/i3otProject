@@ -601,6 +601,27 @@ export class AssetsIssueComponent implements OnInit {
     }
   }
 
+  showModalInList(type:string,type1:string,is_more:string,assets_id): void {
+    this.editStatusAssetsId = assets_id;
+    this.operate_type = type;
+    this.operate_button_type = type1;
+    if(is_more == 'add'){ //add and edit
+      this.operate_button_type_is_more = '';
+    }else {
+      this.operate_button_type_is_more = is_more;
+      let s = [];
+      let is_select = 0;
+      this.selects.forEach((val, idx, array) => {
+        if (val == true) {
+          s[idx] = val;
+          is_select += 1;
+        }
+      });
+      this.selects = s;
+      this.select_count = is_select;
+    }
+  }
+
   getOperateTypes(value:any){
     this.operate_type = '';
     this.operate_button_type = '';

@@ -106,16 +106,11 @@
                     </thead>
                     <tbody>
                     <tr *ngFor="let p2 of otherorderList?.result?.otherorderList?.data" (click)="isStatusShow(p2.otherorder_id,p2.otherorder_status,p2.u_id,p2.create_user_name,p2.otherorder_order)" [ngClass]="{'table-color':editStatusOtherorderId == p2.otherorder_id}">
-                      <!--<td>-->
-                        <!--<span [ngSwitch]="p2.otherorder_status">-->
-                          <!--<span class="button label-button blue" *ngSwitchCase="1">正常</span>-->
-                          <!--<span class="button label-button orange" *ngSwitchCase="2">无效</span>-->
-                          <!--<span class="button label-button gray" *ngSwitchDefault>未知</span>-->
-                        <!--</span>-->
-                      <!--</td>-->
                       <td>
                         <div>
-                          <span class="label-maintain" *ngIf="p2.otherorder_status != 'yes' && p2.otherorder_status != 'no' && p2.otherorder_status != 'cancel'">审核中</span>
+                          <span class="label-maintain" *ngIf="p2.otherorder_status != uid && p2.otherorder_status != 'yes' && p2.otherorder_status != 'no' && p2.otherorder_status != 'cancel'">审核中</span>
+                          <span class="label-maintain maintain-style" (click)="showModalInList('operation','operation','',p2.otherorder_id)" *ngIf="p2.otherorder_status == uid && p2.otherorder_status != 'yes' && p2.otherorder_status != 'no' && p2.otherorder_status != 'cancel'">审核中</span>
+
                           <span class="label-normal" *ngIf="p2.otherorder_status == 'yes'">已同意</span>
                           <span  class="label-full" *ngIf="p2.otherorder_status == 'no'">已拒绝</span>
                           <span  class="label-full" *ngIf="p2.otherorder_status == 'cancel'">已作废</span>

@@ -154,12 +154,12 @@ export class GlobalService {
   getMenuInfo() {
     let url = window.location.href;
     let url_ = url.split('#')[1];
+    this.setMenuUrl(url_);
     let url_array = url_.split('/');
     if(url_array.length > 3){
       url_ = url_.substring(0,url_.lastIndexOf("/"));
     }
     let category_id = this.cookieStore.getCookie('urole');
-    this.setMenuUrl(url_);
     this.http.get(this.getDomain()+'/api/v1/getMenuInfo?menu_url='+url_+'&category_id='+category_id)
         .map((res)=>res.json())
         .subscribe((data)=>{

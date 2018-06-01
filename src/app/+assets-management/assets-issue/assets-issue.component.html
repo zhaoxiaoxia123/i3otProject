@@ -117,7 +117,9 @@
                     <tr *ngFor="let a of assetsList.result?.assetsList?.data" (click)="isStatusShow(a.assets_id,a.assets_status,a.u_id,a.create_u_username,a.assets_number,a.assets_verify_status)" [ngClass]="{'table-color':editStatusAssetsId == a.assets_id}"><!--class="table-color"-->
                       <td>
                         <div>
-                          <span class="label-maintain" *ngIf="a.assets_verify_status != 'yes' && a.assets_verify_status != 'no' && a.assets_verify_status != 'cancel'">审核中</span>
+                          <span class="label-maintain" *ngIf="a.assets_verify_status != uid && a.assets_verify_status != 'yes' && a.assets_verify_status != 'no' && a.assets_verify_status != 'cancel'">审核中</span>
+                          <span class="label-maintain maintain-style" (click)="showModalInList('operation','operation','',a.assets_id)" *ngIf="a.assets_verify_status == uid && a.assets_verify_status != 'yes' && a.assets_verify_status != 'no' && a.assets_verify_status != 'cancel'">审核中</span>
+
                           <span class="label-normal" *ngIf="a.assets_verify_status == 'yes'">已同意</span>
                           <span  class="label-full" *ngIf="a.assets_verify_status == 'no'">已拒绝</span>
                           <span  class="label-full" *ngIf="a.assets_verify_status == 'cancel'">已作废</span>

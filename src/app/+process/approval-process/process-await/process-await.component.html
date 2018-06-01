@@ -2,7 +2,24 @@
   <div  class="col-sm-12 mt-13">
     <div class="navbar navbar-default">
       <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-        <div class="form-group pdlr-4">
+          <div class="form-group pdlr-4">
+              <strong> 筛选：</strong>
+          </div>
+          <div class="form-group btn-group pdlr-4">
+              <a class="btn default-btn btn-sm dropdown-toggle" data-toggle="dropdown">
+                  {{property_title}}<i class="fa fa-fw fa-chevron-down"></i></a>
+              <ul class="dropdown-menu" role="menu">
+                  <li (click)="setProperty('approval','流程审批')"><a >流程审批</a></li>
+                  <li (click)="setProperty('purchase_cg_after','采购审批')"><a >采购审批</a></li>
+                  <li (click)="setProperty('purchase_sale','销售审批')"><a >销售审批</a></li>
+                  <li (click)="setProperty('stockallot','调拨审批')"><a >调拨审批</a></li>
+                  <li (click)="setProperty('otherorder_in','其他入库审批')"><a >其他入库审批</a></li>
+                  <li (click)="setProperty('otherorder_out','其他出库审批')"><a >其他出库审批</a></li>
+                  <li (click)="setProperty('assets_ff','资产发放审批')"><a >资产发放审批</a></li>
+                  <li (click)="setProperty('assets_bf','资产报废审批')"><a >资产报废审批</a></li>
+              </ul>
+          </div>
+          <div class="form-group pdlr-4">
           <input  class="form-control ng-pristine ng-valid ng-touched" name="keyword" maxlength="15" [(ngModel)]="keyword" placeholder="请输入搜索内容" type="text">
         </div>
         <div class="form-group pdlr-4">
@@ -29,91 +46,130 @@
         <th>状态</th>
       </tr>
       </thead>
-      <tbody>
-      <tr>
-        <td>
-          某某的
-          <span>
-                    <span >的销售单申请</span>
-                    <span >的调拨单申请</span>
-                    <span >的其他入库单申请</span>
-                    <span >的其他出库单申请</span>
-                    <span >的进货单申请</span>
-                    <span >的资产发放申请</span>
-                    <span >的资产报废申请</span>
-                  </span>
-        </td>
-        <td>
-                  <span>
-                    <span>单据号:</span>
-                    <span>资产编号:</span>
-                  </span>
-        </td>
-        <td>
-          2018-04-08 16:33:56
-        </td>
-        <td>
-          2018-04-08 16:33:56
-        </td>
-        <td>
-          <span >审批完成<br/>同意</span>
-          <span >审批完成<br/>拒绝</span>
-          <span >审批完成<br/>已撤销</span>
-          <span >审批中</span>
-          <span >已作废</span>
-
-        </td>
-      </tr>
-
-      <tr class="editor" *ngFor="let pa of processAwaitList?.result?.approvalList?.data" (click)="showDetail(pa.approval_id)">
+      <tbody *ngIf="select_property == 'approval'">
+    <tr class="editor" *ngFor="let pa of processAwaitList?.result?.approvalList?.data" (click)="showDetail(pa.approval_id)">
         <td>{{pa.u_username}}的
           <span [ngSwitch]="pa.approval_type">
-                  <span *ngSwitchCase="1">请假</span>
-                  <span *ngSwitchCase="2">出差</span>
-                  <span *ngSwitchCase="3">外出</span>
-                  <span *ngSwitchCase="4">报销</span>
-                  <span *ngSwitchCase="5">通用审批</span>
-                </span>
+          <span *ngSwitchCase="1">请假</span>
+          <span *ngSwitchCase="2">出差</span>
+          <span *ngSwitchCase="3">外出</span>
+          <span *ngSwitchCase="4">报销</span>
+          <span *ngSwitchCase="5">通用审批</span>
+        </span>
         </td>
         <td [ngSwitch]="pa.approval_type">
-                  <span *ngSwitchCase="1">
-                    请假类型：{{pa.detail.type}}<br/>
-                    开始时间：{{pa.approval_start_date}}<br/>
-                    结束时间：{{pa.approval_end_date}}<br/>
-                  </span>
+          <span *ngSwitchCase="1">
+            请假类型：{{pa.detail.type}}<br/>
+            开始时间：{{pa.approval_start_date}}<br/>
+            结束时间：{{pa.approval_end_date}}<br/>
+          </span>
           <span *ngSwitchCase="2">
-                    <span *ngIf="pa.detail">
-                    出差地点：
-                    <span *ngFor="let dt of pa.detail.trip">
-                    {{dt.address}}&nbsp;&nbsp;
-                    </span><br/>
-                    开始时间：{{pa.approval_start_date}}<br/>
-                    结束时间：{{pa.approval_end_date}}<br/>
-                    出差事由：{{pa.detail.reason}} <br/>
-                  </span>
-                  </span>
+            <span *ngIf="pa.detail">
+            出差地点：
+            <span *ngFor="let dt of pa.detail.trip">
+            {{dt.address}}&nbsp;&nbsp;
+            </span><br/>
+            开始时间：{{pa.approval_start_date}}<br/>
+            结束时间：{{pa.approval_end_date}}<br/>
+            出差事由：{{pa.detail.reason}} <br/>
+          </span>
+          </span>
           <span *ngSwitchCase="3">
-                  开始时间：{{pa.approval_start_date}}<br/>
-                  结束时间：{{pa.approval_end_date}}<br/>
-                  </span>
+          开始时间：{{pa.approval_start_date}}<br/>
+          结束时间：{{pa.approval_end_date}}<br/>
+          </span>
           <span *ngSwitchCase="4">
-                    <span *ngFor="let d of pa.detail.detail">
-                      报销金额（元）：{{d.price}}<br/>
-                      报销类型:{{d.type}}<br/>
-                      费用明细：{{d.reason}}<br/>
-                    </span>
-                    总报销金额（元）：{{pa.detail.total}}<br/>
-                  </span>
+            <span *ngFor="let d of pa.detail.detail">
+              报销金额（元）：{{d.price}}<br/>
+              报销类型:{{d.type}}<br/>
+              费用明细：{{d.reason}}<br/>
+            </span>
+            总报销金额（元）：{{pa.detail.total}}<br/>
+          </span>
           <span *ngSwitchCase="5">
-                  申请内容：{{pa.detail.title}} <br/>
-                  申请详情：{{pa.detail.reason}}<br/>
-                  </span>
+          申请内容：{{pa.detail.title}} <br/>
+          申请详情：{{pa.detail.reason}}<br/>
+          </span>
         </td>
         <td>{{ pa.created_at }}</td>
         <td>{{pa.approval_end_date}}</td>
         <td><span>等待我审批...</span></td>
       </tr>
       </tbody>
+        <tbody *ngIf="select_property == 'purchase_cg_after'||select_property == 'purchase_sale'">
+        <tr *ngFor="let pa of processAwaitList?.result?.approvalList?.data" (click)="showDetail(pa.pr_id)">
+            <td>
+                {{pa.u_username}}
+                <span [ngSwitch]="pa.pr_type">
+                    <span *ngSwitchCase="1">的进货单申请</span>
+                    <span *ngSwitchCase="2">的进货单申请</span>
+                    <span *ngSwitchCase="4">的销售单申请</span>
+                    <span *ngSwitchCase="5">的销售单申请</span>
+                </span>
+            </td>
+            <td>
+              <span>
+                <span>单据号:{{pa.pr_order}}</span>
+              </span>
+            </td>
+            <td>{{ pa.created_at }}</td>
+            <td></td>
+            <td><span>等待我审批...</span></td>
+        </tr>
+        </tbody>
+        <tbody *ngIf="select_property == 'otherorder_in'||select_property == 'otherorder_out'">
+        <tr *ngFor="let pa of processAwaitList?.result?.approvalList?.data" (click)="showDetail(pa.otherorder_id)">
+            <td>
+                {{pa.u_username}}
+                <span [ngSwitch]="pa.otherorder_type">
+                    <span *ngSwitchCase="1">的其他入库单申请</span>
+                    <span *ngSwitchCase="2">的其他出库单申请</span>
+                </span>
+            </td>
+            <td>
+              <span>
+                <span>单据号:{{pa.otherorder_order}}</span>
+              </span>
+            </td>
+            <td>{{ pa.created_at }}</td>
+            <td></td>
+            <td><span>等待我审批...</span></td>
+        </tr>
+        </tbody>
+        <tbody *ngIf="select_property == 'stockallot'">
+        <tr *ngFor="let pa of processAwaitList?.result?.approvalList?.data" (click)="showDetail(pa.stock_allot_id)">
+            <td>
+                {{pa.u_username}}的调拨单申请
+            </td>
+            <td>
+              <span>
+                <span>单据号:{{pa.stock_allot_number}}</span>
+              </span>
+            </td>
+            <td>{{ pa.created_at }}</td>
+            <td></td>
+            <td><span>等待我审批...</span></td>
+        </tr>
+        </tbody>
+        <tbody *ngIf="select_property == 'assets_ff'||select_property == 'assets_bf'">
+        <tr *ngFor="let pa of processAwaitList?.result?.approvalList?.data" (click)="showDetail(pa.assets_id)">
+            <td>
+                {{pa.u_username}}
+                <span [ngSwitch]="pa.assets_type">
+                    <span *ngSwitchCase="2">的资产发放申请</span>
+                    <span *ngSwitchCase="3">的资产报废申请</span>
+                </span>
+            </td>
+            <td>
+              <span>
+                  <span>资产编号:{{pa.assets_number}}</span>
+              </span>
+            </td>
+            <td>{{ pa.created_at }}</td>
+            <td></td>
+            <td><span>等待我审批...</span></td>
+        </tr>
+        </tbody>
     </table>
 
   </div>
@@ -124,7 +180,7 @@
     <span>共{{processAwaitList?.result?.approvalList?.total}}条</span>
   </div>
   <div class="hidden-xs right">
-    <ul class="pagination pagination-sm">
+    <ul class="pagination pagination-sm" *ngIf="processAwaitList?.result?.page">
       <li *ngFor="let p of processAwaitList?.result?.page" class="{{p.class}}">
         <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
         <a *ngIf="p.method==''">{{p.text}}</a>
