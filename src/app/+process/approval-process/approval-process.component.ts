@@ -1,10 +1,10 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {GlobalService} from "../../core/global.service";
 import {Http} from "@angular/http";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
-import {ActivatedRoute, Params, Router} from "@angular/router";
+import {ActivatedRoute, Params, Router,NavigationStart,NavigationEnd} from "@angular/router";
 import {ModalDirective} from "ngx-bootstrap";
-import {isArray, isUndefined} from "util";
+import {isUndefined} from "util";
 import {ProcessAlreadyComponent} from "./process-already/process-already.component";
 
 
@@ -12,7 +12,7 @@ import {ProcessAlreadyComponent} from "./process-already/process-already.compone
   selector: 'app-approval-process',
   templateUrl: './approval-process.component.html',
 })
-export class ApprovalProcessComponent implements OnInit {
+export class ApprovalProcessComponent implements OnInit,AfterViewInit {
     public state: any = {
         tabs: {
             demo5: 'iss1',
@@ -20,10 +20,7 @@ export class ApprovalProcessComponent implements OnInit {
     };
 
     tabs: Array<any> = [];
-    /**
-     * 选中的审批者
-     * @type {Array}
-     */
+    /** 选中的审批者 */
     approve_user : Array<any> = [];
     submit_user_ids : Array<any> = [];
     selected_user : Array<any> = [];
@@ -39,7 +36,6 @@ export class ApprovalProcessComponent implements OnInit {
     showUl : number  = 1;//一级分类
     showUlChild : number  = 0;//二级
     keyword:string = '';
-
 
     approvalInfo : Array<any> = [];
     approvalInfo_user_id:any = 0; //当前申请的创建者
@@ -69,16 +65,17 @@ export class ApprovalProcessComponent implements OnInit {
     permissions: Array<any> = [];
     constructor(private http: Http,
                 private router: Router,
-                private routInfo : ActivatedRoute,
+                private routeInfo: ActivatedRoute,
                 private cookieStore: CookieStoreService,
                 private globalService:GlobalService) {
 
         this.domain = this.globalService.getDomain();
         this.uid = this.cookieStore.getCookie('uid');
-        this.routInfo.params.subscribe((param : Params)=> {
-            this.params = param['info'];
-        });
-console.log(this.params );
+    }
+
+    ngOnInit() {
+        //参数订阅,订阅后声明一个匿名函数来处理传递过来的参数，从参数取出id
+        this.routeInfo.params.subscribe((params:Params)=>this.params=params["info"]);
         if(this.params != '' && this.params != '0'){
             if(this.params.indexOf('-') >= 0){
                 let pr_ids_ = this.params.split('-');
@@ -93,14 +90,8 @@ console.log(this.params );
             this.rollback_url += '/0';
         }
 
-        console.log(this.a_ids);
-        console.log(this.select_propertys );
-        console.log(this.rollback_url);
         this.tabs.push('iss1');
         this.getUserDefault();
-    }
-
-    ngOnInit() {
         //顶部菜单读取
         this.globalService.getMenuInfo();
         setTimeout(() => {
@@ -111,38 +102,54 @@ console.log(this.params );
     }
 
 
+    //钩子
+    ngAfterViewInit(){
+        // 监听路由变化
+    this.router.events
+        .filter((event) => event instanceof NavigationEnd)
+        .subscribe((event:NavigationEnd) => {
+            let url = event['url'];
+            let param = url.split('/');
+            this.params = param[param.length - 1];
+            if (this.params != '' && this.params != '0') {
+                if (this.params.indexOf('-') >= 0) {
+                    let pr_ids_ = this.params.split('-');
+                    this.a_ids = pr_ids_[1];
+                    this.select_propertys = pr_ids_[0];
+                } else {
+                    this.a_ids = this.params;
+                }
+                this.getStatus(this.a_ids, 1);
+                this.rollback_url += '/' + this.params;
+            } else {
+                this.rollback_url += '/0';
+            }
+        });
+    }
 
     /**
      * 获取默认参数
      */
     getUserDefault() {
-            this.http.get(this.globalService.getDomain() + '/api/v1/getUserDefault?type=list&sid=' + this.cookieStore.getCookie('sid'))
-                .map((res) => res.json())
-                .subscribe((data) => {
-                    this.userDefault = data;
-                    if (this.userDefault['status'] == 202) {
-                        alert(this.userDefault['msg']);
-                        this.cookieStore.removeAll(this.rollback_url);
-                        this.router.navigate(['/auth/login']);
-                    }
-                    this.select_department_ids[0] = true;
-                    this.userDefault['result']['departmentList'].forEach((val, idx, array) => {
-                        this.select_department_ids[val['department_id']] = true;
-                        if (val['has_child'] >= 1) {
-                            val['child'].forEach((val1, idx1, array1) => {
-                                this.select_department_ids[val1['department_id']] = true;
-                            });
-                        }
+    this.http.get(this.globalService.getDomain() + '/api/v1/getUserDefault?type=list&sid=' + this.cookieStore.getCookie('sid'))
+        .map((res) => res.json())
+        .subscribe((data) => {
+            this.userDefault = data;
+            if (this.userDefault['status'] == 202) {
+                alert(this.userDefault['msg']);
+                this.cookieStore.removeAll(this.rollback_url);
+                this.router.navigate(['/auth/login']);
+            }
+            this.select_department_ids[0] = true;
+            this.userDefault['result']['departmentList'].forEach((val, idx, array) => {
+                this.select_department_ids[val['department_id']] = true;
+                if (val['has_child'] >= 1) {
+                    val['child'].forEach((val1, idx1, array1) => {
+                        this.select_department_ids[val1['department_id']] = true;
                     });
-
-                    // let depart = '';
-                    // this.select_department_ids.forEach((val, idx, array) => {
-                    //     if (val == true) {
-                    //         depart += idx + ',';
-                    //     }
-                    // });
-                    // this.getUserList('1', depart);
-                });
+                }
+            });
+        });
     }
 
     @ViewChild('ProcessAlreadyComponent')ProcessAlreadyComponent:ProcessAlreadyComponent;
@@ -169,7 +176,7 @@ console.log(this.params );
      * @param number
      */
     getUserList(number:string,department_id:any) {
-        if(this.userList.length == 0) {
+        if(this.userList.length == 0 && this.keyword.trim() == '') {
             let url = this.globalService.getDomain() + '/api/v1/getUserList?page=' + number + '&sid=' + this.cookieStore.getCookie('sid');
             if (this.keyword.trim() != '') {
                 url += '&keyword=' + this.keyword.trim();
@@ -245,10 +252,6 @@ console.log(this.params );
 
     //修改状态并获取详情
     getStatus(value:any,num){
-
-        console.log(num);
-        console.log(value);
-        console.log(this.select_propertys );
         if(num == 0){
             let values = JSON.parse(value) ;
             this.isShowDetail = values['id'];

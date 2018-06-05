@@ -1,0 +1,137 @@
+[
+  {
+    "title": "通知",
+    "name": "msgs",
+    "data": [
+      {
+        "title": "小黄",
+        "image": "assets/img/avatars/female.png",
+        "time": "10:47 2017-11-22",
+        "subject": "标题",
+        "message": "内容内容内容",
+        "status": "unread",
+        "type": "message"
+      },
+      {
+        "title": "Sonya Birthday",
+        "image": "assets/img/avatars/female.png",
+        "time": "10:47 2017-11-22",
+        "subject": "标题",
+        "message": "内容内容内容",
+        "status": "read",
+        "type": "message"
+      },
+      {
+        "title": "Cristina Algera",
+        "image": "assets/img/avatars/female.png",
+        "time": "10:47 2017-11-22",
+        "subject": "标题",
+        "message": "内容内容内容",
+        "status": "read",
+        "type": "message"
+      },
+      {
+        "title": "Lam Tampora",
+        "image": "assets/img/avatars/male.png",
+        "time": "10:47 2017-11-22",
+        "subject": "标题",
+        "message": "内容内容内容",
+        "status": "read",
+        "type": "message"
+      },
+      {
+        "title": "Project approved! ",
+        "image": "assets/img/avatars/male.png",
+        "time": "10:47 2017-11-22",
+        "subject": "标题",
+        "message": "...",
+        "status": "read",
+        "type": "message"
+      }
+    ]
+  },
+  {
+    "title": "预警",
+    "name": "notification",
+    "data": [
+      {
+        "icon": "fa-user",
+        "message": "预警内容内容内容内容内容内容内容内容内容",
+        "time": "10:47 2017-11-22",
+        "type": "notification"
+      },
+      {
+        "icon": "fa-facebook",
+        "message": "预警内容内容内容内容内容内容内容内容",
+        "time": "10:47 2017-11-22",
+        "type": "notification"
+      },
+      {
+        "icon": "fa-check",
+        "message": "预警内容内容内容内容内容内容内容内容",
+        "time": "10:47 2017-11-22",
+        "type": "notification"
+      }
+    ]
+  },
+  {
+    "title": "待办事项",
+    "name": "tasks",
+    "data": [
+      {
+        "status": "某某",
+        "type": "task",
+        "size": "progress-md progress-striped",
+        "title": "给你分配了一个新任务！",
+        "last_update": "12/12/2015",
+        "message": "任务名称",
+        "time": "2018-01-22 10:47 "
+
+      },
+      {
+        "status": "某某",
+        "type": "task",
+        "size": "progress-sm",
+        "title": "给你分配了一个新任务！",
+        "last_update": "12/12/2015",
+        "message": "任务名称",
+        "time": "未设置截止日期 "
+      },
+      {
+        "status": "某某",
+        "type": "task",
+        "size": "progress-xs",
+        "title": "给任务设置了截止日期",
+        "last_update": "12/12/2015",
+        "message": "任务名称",
+        "time": "2018-01-22 10:47 "
+      },
+      {
+        "status": "某某",
+        "type": "task",
+        "size": "progress-xs",
+        "title": "提醒你关注任务！",
+        "last_update": "12/12/2015",
+        "message": "任务名称",
+        "time": "2018-01-22 10:47 "
+      },
+      {
+        "status": "某某",
+        "type": "task",
+        "size": "progress-xs",
+        "title": "评论了任务",
+        "last_update": "12/12/2015",
+        "message": "任务名称",
+        "time": "2018-01-22 10:47 "
+      },
+      {
+        "status": "某某",
+        "type": "task",
+        "size": "progress-micro",
+        "title": "评论了任务",
+        "last_update": "12/12/2015",
+        "message": "任务名称"
+      }
+    ]
+  }
+]

@@ -1,4 +1,4 @@
-<li *ngFor="let noti of fromFatherValue?.result?.notice?.data;let indm = index;" (click)="readNotice(noti.message_id,noti.forUserId,noti.message_type,indm)">
+<li *ngFor="let noti of noticeMessageList?.data;let indm = index;" (click)="readNotice(noti.message_id,noti.forUserId,noti.message_type,indm)">
     <div class="text-align-center mb6"><span>{{noti.send_time | date:'yyyy-MM-dd HH:mm'}}</span></div>
     <div class="approval-message badge-warning" >审批</div>
     <span class="bar-holder">

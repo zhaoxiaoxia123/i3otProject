@@ -13,9 +13,10 @@ export class ActivitiesMessageComponent implements OnInit {
   @Input() item: any;
   @Input() lastUpdate: any;
 
-  @Input() fromFatherValue;
+  @Input() noticeMessageList;
   @Input() isShow ;
   @Output() private toParent = new EventEmitter();
+  @Output() private noticeMessageLists = new EventEmitter();
 
   constructor(
       private http:Http,
@@ -34,12 +35,14 @@ export class ActivitiesMessageComponent implements OnInit {
         .map((res) => res.json())
         .subscribe((data) => {
           if(data['status'] == 200){
-            console.log(this.isShow);
             this.isShow = 'none';
-            console.log('this.isShow child:--');
-            console.log(this.isShow);
+            this.noticeMessageList = data['result'];
+            this.noticeMessageLists.emit(JSON.stringify(data['result']));
+
             this.setData();
-            this.router.navigate(['/process/approval-process/'+message_type+'-'+message_id]);
+            // this.router.navigate(['/process/approval-process/'+message_type+'-'+message_id]);
+            // 携带id跳转至详细页
+            this.router.navigate(['/process/approval-process', message_type+'-'+message_id]);
           }
         });
   }
@@ -48,4 +51,5 @@ export class ActivitiesMessageComponent implements OnInit {
   {
     this.toParent.emit(this.isShow);
   }
+
 }

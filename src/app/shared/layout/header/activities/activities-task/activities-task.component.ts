@@ -12,9 +12,10 @@ export class ActivitiesTaskComponent implements OnInit {
   @Input() item: any;
   @Input() lastUpdate: any;
 
-  @Input() fromFatherValue;
+  @Input() taskMessageList;
   @Input() isShow ;
   @Output() private toParent = new EventEmitter();
+  @Output() private taskMessageLists = new EventEmitter();
 
   constructor(
       private http:Http,
@@ -22,7 +23,8 @@ export class ActivitiesTaskComponent implements OnInit {
       private globalService:GlobalService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   /**
    * 已读
@@ -33,12 +35,14 @@ export class ActivitiesTaskComponent implements OnInit {
         .map((res) => res.json())
         .subscribe((data) => {
           if(data['status'] == 200){
-            console.log(this.isShow);
             this.isShow = 'none';
-            console.log('this.isShow child:--');
-            console.log(this.isShow);
+            this.taskMessageList = data['result'];
+            console.log(this.taskMessageList );
+            this.taskMessageLists.emit(JSON.stringify(data['result']));
             this.setData();
-            this.router.navigate(['/forms/todo-mission/'+project_id+'_'+todo_id]);
+            // this.router.navigate(['/forms/todo-mission/'+project_id+'_'+todo_id]);
+            // 携带id跳转至详细页
+            this.router.navigate(['/forms/todo-mission', project_id+'_'+todo_id]);
           }
         });
   }
