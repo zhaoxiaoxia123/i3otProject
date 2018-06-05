@@ -29,8 +29,8 @@ export class ActivitiesMessageComponent implements OnInit {
   /**
    * 已读
    */
-  readNotice(message_id:any,userId:number){
-    this.http.get(this.globalService.getDomain() + '/api/v1/readMessage?u_id=' + userId +'&type=one&category=notice')
+  readNotice(message_id:any,userId:number,message_type:any,indm:number){
+    this.http.get(this.globalService.getDomain() + '/api/v1/readMessage?u_id=' + userId +'&type=one&category=notice&index='+indm)
         .map((res) => res.json())
         .subscribe((data) => {
           if(data['status'] == 200){
@@ -39,7 +39,7 @@ export class ActivitiesMessageComponent implements OnInit {
             console.log('this.isShow child:--');
             console.log(this.isShow);
             this.setData();
-            this.router.navigate(['/process/approval-process/'+message_id]);
+            this.router.navigate(['/process/approval-process/'+message_type+'-'+message_id]);
           }
         });
   }

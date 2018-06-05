@@ -1,4 +1,4 @@
-<li *ngFor="let noti of fromFatherValue?.result?.notice?.data" (click)="readNotice(noti.message_id,noti.forUserId)">
+<li *ngFor="let noti of fromFatherValue?.result?.notice?.data;let indm = index;" (click)="readNotice(noti.message_id,noti.forUserId,noti.message_type,indm)">
     <div class="text-align-center mb6"><span>{{noti.send_time | date:'yyyy-MM-dd HH:mm'}}</span></div>
     <div class="approval-message badge-warning" >审批</div>
     <span class="bar-holder">
@@ -85,47 +85,47 @@
     <!--</span>-->
 <!--</li>-->
 <!--其他的审核-->
-<li>
-    <div class="text-align-center mb6"><span>03-22 09:44:49</span></div>
-    <div class="approval-message badge-warning" >审批</div>
-    <span class="bar-holder">
-      <a>
-          <span class="subject">某某的（销售单、调拨单、其他入库单、其他出库单、采购订单、进货单、资产发放、资产报废）需要您审批</span>
-        <span class="subject">单据号：<em class="note no-margin">2165454545 </em></span>
-          <span class="margin-bottom-5 from">
-              <span>2018-01-16 07:26:48</span>
-            </span>
-          <span class="subject text-warning">待审批</span>
-          <span class="subject text-primary">已撤销</span>
-      </a>
-    </span>
-</li>
-<li>
-    <div class="text-align-center mb6"><span>03-22 09:44:49</span></div>
-    <div class="approval-message badge-warning" >审批</div>
-    <span class="bar-holder">
-      <a>
-          <span class="subject">你的（销售单、调拨单、其他入库单、其他出库单、采购订单、进货单、资产发放、资产报废）已通过，请知晓</span>
-        <span class="subject">单据号：<em class="note no-margin">2165454545 </em></span>
-          <span class="margin-bottom-5 from">
-              <span>2018-01-16 07:26:48</span>
-            </span>
-        <span class="subject text-success">已同意</span>
-        <span class="subject text-danger">已拒绝</span>
-      </a>
-    </span>
-</li>
-<li>
-    <div class="text-align-center mb6"><span>03-22 09:44:49</span></div>
-    <div class="approval-message badge-warning" >审批</div>
-    <span class="bar-holder">
-      <a>
-          <span class="subject">某某的提交的（销售单、调拨单、其他入库单、其他出库单、采购订单、进货单、资产发放、资产报废）申请已通过，抄送给你，请知晓</span>
-        <span class="subject">单据号：<em class="note no-margin">2165454545 </em></span>
-          <span class="margin-bottom-5 from">
-              <span>2018-01-16 07:26:48</span>
-            </span>
-        <span class="subject text-success">已同意</span>
-      </a>
-    </span>
-</li>
+<!--<li>-->
+    <!--<div class="text-align-center mb6"><span>03-22 09:44:49</span></div>-->
+    <!--<div class="approval-message badge-warning" >审批</div>-->
+    <!--<span class="bar-holder">-->
+      <!--<a>-->
+          <!--<span class="subject">某某的（销售单、调拨单、其他入库单、其他出库单、采购订单、进货单、资产发放、资产报废）需要您审批</span>-->
+        <!--<span class="subject">单据号：<em class="note no-margin">2165454545 </em></span>-->
+          <!--<span class="margin-bottom-5 from">-->
+              <!--<span>2018-01-16 07:26:48</span>-->
+            <!--</span>-->
+          <!--<span class="subject text-warning">待审批</span>-->
+          <!--<span class="subject text-primary">已撤销</span>-->
+      <!--</a>-->
+    <!--</span>-->
+<!--</li>-->
+<!--<li>-->
+    <!--<div class="text-align-center mb6"><span>03-22 09:44:49</span></div>-->
+    <!--<div class="approval-message badge-warning" >审批</div>-->
+    <!--<span class="bar-holder">-->
+      <!--<a>-->
+          <!--<span class="subject">你的（销售单、调拨单、其他入库单、其他出库单、采购订单、进货单、资产发放、资产报废）已通过，请知晓</span>-->
+        <!--<span class="subject">单据号：<em class="note no-margin">2165454545 </em></span>-->
+          <!--<span class="margin-bottom-5 from">-->
+              <!--<span>2018-01-16 07:26:48</span>-->
+            <!--</span>-->
+        <!--<span class="subject text-success">已同意</span>-->
+        <!--<span class="subject text-danger">已拒绝</span>-->
+      <!--</a>-->
+    <!--</span>-->
+<!--</li>-->
+<!--<li>-->
+    <!--<div class="text-align-center mb6"><span>03-22 09:44:49</span></div>-->
+    <!--<div class="approval-message badge-warning" >审批</div>-->
+    <!--<span class="bar-holder">-->
+      <!--<a>-->
+          <!--<span class="subject">某某的提交的（销售单、调拨单、其他入库单、其他出库单、采购订单、进货单、资产发放、资产报废）申请已通过，抄送给你，请知晓</span>-->
+        <!--<span class="subject">单据号：<em class="note no-margin">2165454545 </em></span>-->
+          <!--<span class="margin-bottom-5 from">-->
+              <!--<span>2018-01-16 07:26:48</span>-->
+            <!--</span>-->
+        <!--<span class="subject text-success">已同意</span>-->
+      <!--</a>-->
+    <!--</span>-->
+<!--</li>-->

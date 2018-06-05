@@ -1,7 +1,6 @@
 import {Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
 import {Http} from "@angular/http";
 import {Router} from "@angular/router";
-import {CookieStoreService} from "../../../../cookies/cookie-store.service";
 import {GlobalService} from "../../../../../core/global.service";
 
 @Component({
@@ -20,7 +19,6 @@ export class ActivitiesTaskComponent implements OnInit {
   constructor(
       private http:Http,
       private router : Router,
-      private cookieStore:CookieStoreService,
       private globalService:GlobalService
   ) {}
 
@@ -30,8 +28,8 @@ export class ActivitiesTaskComponent implements OnInit {
    * 已读
    * @param project_id
    */
-  readTask(project_id:any,todo_id:any,userId:number){
-    this.http.get(this.globalService.getDomain() + '/api/v1/readMessage?u_id=' + userId +'&type=one&category=task')
+  readTask(project_id:any,todo_id:any,userId:number,index:number){
+    this.http.get(this.globalService.getDomain() + '/api/v1/readMessage?u_id=' + userId +'&type=one&category=task&index='+index)
         .map((res) => res.json())
         .subscribe((data) => {
           if(data['status'] == 200){

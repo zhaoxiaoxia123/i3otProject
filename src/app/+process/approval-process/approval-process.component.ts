@@ -55,6 +55,7 @@ export class ApprovalProcessComponent implements OnInit {
 
     select_propertys : string = '';
 
+    params:any = '';
     a_ids:any = '';
     /**--------用选择图片的变量------*/
     select_type: string = '';
@@ -75,16 +76,26 @@ export class ApprovalProcessComponent implements OnInit {
         this.domain = this.globalService.getDomain();
         this.uid = this.cookieStore.getCookie('uid');
         this.routInfo.params.subscribe((param : Params)=> {
-            this.a_ids = param['info'];
+            this.params = param['info'];
         });
-
-        if(this.a_ids != 0){
+console.log(this.params );
+        if(this.params != '' && this.params != '0'){
+            if(this.params.indexOf('-') >= 0){
+                let pr_ids_ = this.params.split('-');
+                this.a_ids = pr_ids_[1];
+                this.select_propertys = pr_ids_[0];
+            }else{
+                this.a_ids = this.params;
+            }
             this.getStatus(this.a_ids,1);
-            this.rollback_url += '/'+this.a_ids;
+            this.rollback_url += '/' + this.params;
         }else{
             this.rollback_url += '/0';
         }
 
+        console.log(this.a_ids);
+        console.log(this.select_propertys );
+        console.log(this.rollback_url);
         this.tabs.push('iss1');
         this.getUserDefault();
     }
@@ -105,33 +116,33 @@ export class ApprovalProcessComponent implements OnInit {
      * 获取默认参数
      */
     getUserDefault() {
-        this.http.get(this.globalService.getDomain()+'/api/v1/getUserDefault?type=list&sid='+this.cookieStore.getCookie('sid'))
-            .map((res)=>res.json())
-            .subscribe((data)=>{
-                this.userDefault = data;
-                if(this.userDefault['status'] == 202){
-                    alert(this.userDefault['msg']);
-                    this.cookieStore.removeAll(this.rollback_url);
-                    this.router.navigate(['/auth/login']);
-                }
-                this.select_department_ids[0] = true;
-                this.userDefault['result']['departmentList'].forEach((val, idx, array) => {
-                    this.select_department_ids[val['department_id']] = true;
-                    if(val['has_child'] >= 1){
-                        val['child'].forEach((val1, idx1, array1) => {
-                            this.select_department_ids[val1['department_id']] = true;
-                        });
+            this.http.get(this.globalService.getDomain() + '/api/v1/getUserDefault?type=list&sid=' + this.cookieStore.getCookie('sid'))
+                .map((res) => res.json())
+                .subscribe((data) => {
+                    this.userDefault = data;
+                    if (this.userDefault['status'] == 202) {
+                        alert(this.userDefault['msg']);
+                        this.cookieStore.removeAll(this.rollback_url);
+                        this.router.navigate(['/auth/login']);
                     }
-                });
+                    this.select_department_ids[0] = true;
+                    this.userDefault['result']['departmentList'].forEach((val, idx, array) => {
+                        this.select_department_ids[val['department_id']] = true;
+                        if (val['has_child'] >= 1) {
+                            val['child'].forEach((val1, idx1, array1) => {
+                                this.select_department_ids[val1['department_id']] = true;
+                            });
+                        }
+                    });
 
-                let depart = '';
-                this.select_department_ids.forEach((val, idx, array) => {
-                    if(val == true) {
-                        depart += idx + ',';
-                    }
+                    // let depart = '';
+                    // this.select_department_ids.forEach((val, idx, array) => {
+                    //     if (val == true) {
+                    //         depart += idx + ',';
+                    //     }
+                    // });
+                    // this.getUserList('1', depart);
                 });
-                this.getUserList('1',depart);
-            });
     }
 
     @ViewChild('ProcessAlreadyComponent')ProcessAlreadyComponent:ProcessAlreadyComponent;
@@ -158,52 +169,54 @@ export class ApprovalProcessComponent implements OnInit {
      * @param number
      */
     getUserList(number:string,department_id:any) {
-        let url = this.globalService.getDomain()+'/api/v1/getUserList?page='+number+'&sid='+this.cookieStore.getCookie('sid');
-        if(this.keyword.trim() != ''){
-            url += '&keyword='+this.keyword.trim();
-        }
-        if(department_id != 0){
-            url += '&depart='+department_id;
-        }else{
-            let depart = '';
-            this.select_department_ids.forEach((val, idx, array) => {
-                if(val == true) {
-                    depart += idx + ',';
-                }
-            });
+        if(this.userList.length == 0) {
+            let url = this.globalService.getDomain() + '/api/v1/getUserList?page=' + number + '&sid=' + this.cookieStore.getCookie('sid');
+            if (this.keyword.trim() != '') {
+                url += '&keyword=' + this.keyword.trim();
+            }
+            if (department_id != 0) {
+                url += '&depart=' + department_id;
+            } else {
+                let depart = '';
+                this.select_department_ids.forEach((val, idx, array) => {
+                    if (val == true) {
+                        depart += idx + ',';
+                    }
+                });
 
-            url += '&depart='+depart;
-        }
-        this.http.get(url)
-            .map((res)=>res.json())
-            .subscribe((data)=>{
-                this.userList = data;
-                if(this.userList['status'] == 202){
-                    this.cookieStore.removeAll(this.rollback_url);
-                    this.router.navigate(['/auth/login']);
-                }
-                //服务器返回html正确解析输出
-                // this.pageHtml = this.sanitizer.bypassSecurityTrustHtml(this.userList['page']);
-                this.submit_user_ids = [];
-                if (this.userList) {
-                    if (this.userList['result']['userList']['current_page'] == this.userList['result']['userList']['last_page']) {
-                        this.next = true;
-                    } else {
-                        this.next = false;
+                url += '&depart=' + depart;
+            }
+            this.http.get(url)
+                .map((res) => res.json())
+                .subscribe((data) => {
+                    this.userList = data;
+                    if (this.userList['status'] == 202) {
+                        this.cookieStore.removeAll(this.rollback_url);
+                        this.router.navigate(['/auth/login']);
                     }
-                    if (this.userList['result']['userList']['current_page'] == 1) {
-                        this.prev = true;
-                    } else {
-                        this.prev = false;
-                    }
-                    if(this.userList['result']['userList']) {
-                        for (let entry of this.userList['result']['userList']['data']) {
-                            this.submit_user_ids[entry['id']] = false;
+                    //服务器返回html正确解析输出
+                    // this.pageHtml = this.sanitizer.bypassSecurityTrustHtml(this.userList['page']);
+                    this.submit_user_ids = [];
+                    if (this.userList) {
+                        if (this.userList['result']['userList']['current_page'] == this.userList['result']['userList']['last_page']) {
+                            this.next = true;
+                        } else {
+                            this.next = false;
                         }
+                        if (this.userList['result']['userList']['current_page'] == 1) {
+                            this.prev = true;
+                        } else {
+                            this.prev = false;
+                        }
+                        if (this.userList['result']['userList']) {
+                            for (let entry of this.userList['result']['userList']['data']) {
+                                this.submit_user_ids[entry['id']] = false;
+                            }
+                        }
+                        this.check = false;
                     }
-                    this.check = false;
-                }
-            });
+                });
+        }
     }
 
     getData(value:any){
@@ -232,6 +245,10 @@ export class ApprovalProcessComponent implements OnInit {
 
     //修改状态并获取详情
     getStatus(value:any,num){
+
+        console.log(num);
+        console.log(value);
+        console.log(this.select_propertys );
         if(num == 0){
             let values = JSON.parse(value) ;
             this.isShowDetail = values['id'];
@@ -251,6 +268,10 @@ export class ApprovalProcessComponent implements OnInit {
         }else if(this.select_propertys == 'assets_ff' || this.select_propertys == 'assets_bf') {
             url = this.globalService.getDomain() + '/api/v1/getAssetsInfo?assets_id=' + this.isShowDetail +'&select_property='+this.select_propertys+'&sid=' + this.cookieStore.getCookie('sid');
         }
+
+        console.log('url:----');
+        console.log(url);
+
         this.http.get(url)
             .map((res) => res.json())
             .subscribe((data) => {
@@ -295,6 +316,7 @@ export class ApprovalProcessComponent implements OnInit {
             this.urgeModel.show();
         }else if(type == 'transfer'){
             this.transferModel.show();
+            this.getUserList('1',0);
         }
     }
 
