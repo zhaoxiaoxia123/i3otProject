@@ -271,10 +271,6 @@ export class ApprovalProcessComponent implements OnInit,AfterViewInit {
         }else if(this.select_propertys == 'assets_ff' || this.select_propertys == 'assets_bf') {
             url = this.globalService.getDomain() + '/api/v1/getAssetsInfo?assets_id=' + this.isShowDetail +'&select_property='+this.select_propertys+'&sid=' + this.cookieStore.getCookie('sid');
         }
-
-        console.log('url:----');
-        console.log(url);
-
         this.http.get(url)
             .map((res) => res.json())
             .subscribe((data) => {

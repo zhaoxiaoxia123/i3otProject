@@ -30,7 +30,11 @@ export class ActivitiesMessageComponent implements OnInit {
   /**
    * 已读
    */
-  readNotice(message_id:any,userId:number,message_type:any,indm:number){
+  readNotice(message_id:any,userId:any,message_type:any,indm:number){
+    if(userId) {
+    }else{
+      userId = this.cookieStore.getCookie('uid');
+    }
     this.http.get(this.globalService.getDomain() + '/api/v1/readMessage?u_id=' + userId +'&type=one&category=notice&index='+indm)
         .map((res) => res.json())
         .subscribe((data) => {
