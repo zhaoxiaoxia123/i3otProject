@@ -7,10 +7,8 @@ import {Http} from '@angular/http';
 import {Router,ActivatedRoute} from '@angular/router';
 import {GlobalService} from '../../../core/global.service';
 import {FadeInTop} from '../../../shared/animations/fade-in-top.decorator';
-import {ModalDirective} from "ngx-bootstrap";
 import {ImageCropperComponent, CropperSettings, Bounds} from 'ng2-img-cropper';
 import {NotificationService} from "../../../shared/utils/notification.service";
-// import {FileItem, FileUploader, ParsedResponseHeaders} from "ng2-file-upload";
 
 @FadeInTop()
 @Component({
@@ -63,7 +61,6 @@ export class RegistrationFormComponent implements OnInit {
     showMultipleYearsNavigation:true,
   };
 
-  
   name:string;
   data1:any;
   avatarSettings:CropperSettings;

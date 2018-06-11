@@ -34,6 +34,9 @@
               <button class="btn btn-save" (click)="checkLayout()">切换布局</button>
 
             </div>
+            <div class="widget-toolbar">
+              <button class="btn btn-save" (click)="hideStatus()">{{button_name}}</button>
+            </div>
           </header>
           <div>
             <!--小部件内容-->
@@ -75,11 +78,10 @@
                           删除 </a>
                       </div>
                       <div [ngClass]="{'entry-task-panel wt-scroll':true, 'entries_panel_height':isCheck}">
-                        <div class="entry-tasks js-sortable ui-sortable" >
-
+                        <div class="entry-tasks js-sortable ui-sortable">
                           <div *ngFor="let tl1 of tl.todo_list;let indtl=index;">
                             <!-- isCheck为0 的切换模式--->
-                            <div *ngIf="((indtl < todoListPages[tl.key] && todoListPages[tl.key] == 5) || (todoListPages[tl.key] >= 10)) && isCheck == 0" (click)="showDetail(tl1.todo_id,tl.info,1);" [ngClass]="{'right_click_trigger slide-trigger js-popbox false task task_style task-':true,'task-selected':tl1.todo_status==2,'bo-color-orange':tl1.isAssign,'bo-color-info':tl1.isFollower,'bo-color-blue':tl1.u_id == cookie_u_id}" draggable [dragScope]="tl.d" [dragClass]="'drag-over'" [dragData]="tl1" (onDragEnd)="onDragList_(tl1.todo_id,tl1.project_id)"><!--tl1.template_id,-->
+                            <div *ngIf="((indtl < todoListPages[tl.key] && todoListPages[tl.key] == 5) || (todoListPages[tl.key] >= 10)) && isCheck == 0 && (is_hide == 1 || (is_hide == 2 && tl1.todo_status == 1))" (click)="showDetail(tl1.todo_id,tl.info,1);" [ngClass]="{'right_click_trigger slide-trigger js-popbox false task task_style task-':true,'task-selected':tl1.todo_status==2,'bo-color-orange':tl1.isAssign,'bo-color-info':tl1.isFollower,'bo-color-blue':tl1.u_id == cookie_u_id}" draggable [dragScope]="tl.d" [dragClass]="'drag-over'" [dragData]="tl1" (onDragEnd)="onDragList_(tl1.todo_id,tl1.project_id)"><!--tl1.template_id,-->
                               <div [ngClass]="{'entry-task-main':true,'task-completed-style':tl1.todo_status==2}">
                                 <a class="entry-task-check ng-scope" *ngIf="tl1.todo_status != 2" (click)="editStatus($event,2,tl1.todo_id,todoList?.result?.project_id)">
                                   <i class="fa fa-square-o"></i>
@@ -103,7 +105,7 @@
                               <!--</div>-->
                             </div>
                             <!-- isCheck为1 的切换模式--->
-                            <div *ngIf="isCheck == 1" (click)="showDetail(tl1.todo_id,tl.info,1);" [ngClass]="{'right_click_trigger slide-trigger js-popbox false task task_style task-':true,'task-selected':tl1.todo_status==2,'bo-color-orange':tl1.isAssign,'bo-color-info':tl1.isFollower,'bo-color-blue':tl1.u_id == cookie_u_id}" draggable [dragScope]="tl.d" [dragClass]="'drag-over'" [dragData]="tl1" (onDragEnd)="onDragList_(tl1.todo_id,tl1.project_id)"><!--tl1.template_id,-->
+                            <div *ngIf="isCheck == 1 && (is_hide == 1 || (is_hide == 2 && tl1.todo_status == 1))" (click)="showDetail(tl1.todo_id,tl.info,1);" [ngClass]="{'right_click_trigger slide-trigger js-popbox false task task_style task-':true,'task-selected':tl1.todo_status==2,'bo-color-orange':tl1.isAssign,'bo-color-info':tl1.isFollower,'bo-color-blue':tl1.u_id == cookie_u_id}" draggable [dragScope]="tl.d" [dragClass]="'drag-over'" [dragData]="tl1" (onDragEnd)="onDragList_(tl1.todo_id,tl1.project_id)"><!--tl1.template_id,-->
                               <div [ngClass]="{'entry-task-main':true,'task-completed-style':tl1.todo_status==2}">
                                 <a class="entry-task-check ng-scope" *ngIf="tl1.todo_status != 2" (click)="editStatus($event,2,tl1.todo_id,todoList?.result?.project_id)">
                                   <i class="fa fa-square-o"></i>
@@ -127,8 +129,8 @@
                               <!--</div>-->
                             </div>
                           </div>
-                          <a (click)="showTodoList(tl.key,1)" *ngIf="todoListPages[tl.key] <= 5 && tl.todo_list_count > 5 && isCheck== 0">查看更多</a><!-- (click)="getTodoDefault(project_id,tl.key)"-->
-                          <a (click)="showTodoList(tl.key,2)" *ngIf="todoListPages[tl.key] == 10 && tl.todo_list_count > 5 && isCheck== 0">隐藏</a>
+                          <a (click)="showTodoList(tl.key,1)" *ngIf="todoListPages[tl.key] <= 5 && tl.todo_list_count > 5 && isCheck== 0 && is_hide == 1">查看更多</a><!-- (click)="getTodoDefault(project_id,tl.key)"-->
+                          <a (click)="showTodoList(tl.key,2)" *ngIf="todoListPages[tl.key] == 10 && tl.todo_list_count > 5 && isCheck== 0 && is_hide == 1">隐藏</a>
                         </div>
                         <!--新建任务发布框-->
                         <div class="entry-add-bottom-composer entry-task-composer ng-isolate-scope" *ngIf="selects[tl.key]" >

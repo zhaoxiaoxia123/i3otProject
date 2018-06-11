@@ -263,8 +263,6 @@ export class MedicalBillingComponent implements OnInit {
         category_ids += idx + ',';
       }
     });
-    console.log('category_ids:----');
-    console.log(category_ids);
     url += '&category_ids='+category_ids;
     this.http.get(url)
         .map((res)=>res.json())
@@ -289,8 +287,6 @@ export class MedicalBillingComponent implements OnInit {
             } else {
               this.prev = false;
             }
-            console.log('this.selectProductList:------');
-            console.log(this.selectProductList);
             for (let entry of this.selectProductList) {
               this.selects[entry['assets_id']] = true;
             }

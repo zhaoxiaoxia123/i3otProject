@@ -337,7 +337,7 @@
                             <th>备注</th>
                           </tr>
                           </thead>
-                          <tbody>
+                          <tbody *ngIf="searchProductList?.result?.assetsList?.data">
                           <tr  *ngFor="let a of searchProductList?.result?.assetsList?.data;let ind = index;"><!-- class="table-color"-->
                             <td>
                               <label class="checkbox padding-top-10" >
@@ -365,7 +365,7 @@
                         <span>共{{ searchProductList?.result?.productList?.total}}条</span>
                       </div>
                       <div class="hidden-xs right">
-                        <ul class="pagination pagination-sm">
+                        <ul class="pagination pagination-sm" *ngIf="searchProductList?.result?.page">
                           <li *ngFor="let p of searchProductList?.result?.page" class="{{p.class}}">
                             <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
                             <a *ngIf="p.method==''">{{p.text}}</a>

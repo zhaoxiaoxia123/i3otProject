@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {FadeInTop} from "../../shared/animations/fade-in-top.decorator";
 import {Http} from "@angular/http";
 import {ActivatedRoute, Params, Router,NavigationStart,NavigationEnd} from "@angular/router";
@@ -62,6 +62,10 @@ export class TodoMissionComponent implements OnInit,AfterViewInit {
     isEdit : number = 0; //是否修改过详情里面的东西或是评论过该任务
     //是否展示详情  绑定当前点击的template_id
     is_show_detail : string = '';
+    is_hide : number = 1;
+    button_name : string = '隐藏已完成';
+
+    get_i : number = 0;//用来判断getTodoList是否被调用过
     constructor(
       private http:Http,
       private router : Router,
@@ -88,11 +92,10 @@ export class TodoMissionComponent implements OnInit,AfterViewInit {
         this.routInfo.params.subscribe((param : Params)=> {
             this.project_ids = param['project_id'];
         }); //这种获取方式是参数订阅，解决在本页传参不生效问题
-
         this.todo_id = this.project_ids.split('_')[1];
         this.project_id = this.project_ids.split('_')[0];
         if(this.project_id != 0){
-            this.getTodoDefault(this.project_id,0);
+            this.getTodoDefault(this.project_id, 0);
             this.rollback_url += '/'+this.project_id+'_'+this.todo_id;
         }else{
             this.rollback_url += '/0_0';
@@ -101,14 +104,18 @@ export class TodoMissionComponent implements OnInit,AfterViewInit {
             this.showDetail(this.todo_id,'来自消息提醒',2);
         }
 
+        let nav = '{"title":"任务列表","url":"'+this.rollback_url+'","class_":"active","icon":""}';
+        this.globalService.navEventEmitter.emit(nav);
         //     // $script("https://cdn.ckeditor.com/4.5.11/standard/ckeditor.js", ()=> {
   //     //     const CKEDITOR = window['CKEDITOR'];
   //     //     CKEDITOR.replace('ckeditor-showcase');
   //     // });
   }
+
     //钩子
     ngAfterViewInit(){
         // 监听路由变化
+        this.get_i = 0;
         this.router.events
             .filter((event) => event instanceof NavigationEnd)
             .subscribe((event:NavigationEnd) => {
@@ -118,14 +125,18 @@ export class TodoMissionComponent implements OnInit,AfterViewInit {
                 this.todo_id = this.project_ids.split('_')[1];
                 this.project_id = this.project_ids.split('_')[0];
                 if(this.project_id != 0){
-                    this.getTodoDefault(this.project_id,0);
+                    if(this.get_i == 0) {
+                        console.log(' project_id  ngAfterViewInit');
+                        this.getTodoDefault(this.project_id, 0);
+                        this.get_i ++;
+                    }
                     this.rollback_url += '/'+this.project_id+'_'+this.todo_id;
                 }else{
                     this.rollback_url += '/0_0';
                 }
-                if(this.todo_id != 0){
-                    this.showDetail(this.todo_id,'来自消息提醒',2);
-                }
+                // if(this.todo_id != 0){
+                //     this.showDetail(this.todo_id,'来自消息提醒',2);
+                // }
             });
     }
 
@@ -133,17 +144,43 @@ export class TodoMissionComponent implements OnInit,AfterViewInit {
         this.tododetail.showDetail(todo_id,template_name,isRead);
 
         setTimeout(()=>{
-            this.is_show_detail =  this.tododetail.is_show_detail;
-        },600);
+            if(this.tododetail.is_visited == 2){
+                alert('该任务可能正在被编辑，您暂时无法访问！');
+            }else{
+                this.is_show_detail =  this.tododetail.is_show_detail;
+            }
+        },800);
+    }
+
+    hideStatusFor2(){
+        // console.log('hideStatusFor2:---');
+        // console.log(this.todoList);
+        // console.log(this.todoListPages);
+        if(this.todoList['result']['template_list'] && this.is_hide == 2) {
+            for (let tl of this.todoList['result']['template_list']) {
+                this.todoListPages[tl['key']] = 10;
+            }
+        }
+    }
+
+    hideStatus(){
+        this.is_hide = (this.is_hide == 2) ? 1:2;
+        this.hideStatusFor2();
+        this.button_name = (this.is_hide == 2) ? '显示已完成':'隐藏已完成';
     }
     /**
      * 获取任务通知点击后的状态
      * @param value
      */
     getData(value:any){
+
+        console.log('getData');
         this.isEdit = value;
-        if(this.isEdit == 1) {
+        if(this.isEdit == 1 || this.isEdit == 2) {
             this.getTodoDefault(this.project_id, 0);
+        }
+        if(this.isEdit == 2){  //等于2时代表是删除操作过来的
+            this.is_show_detail = '';
         }
     }
     /**
@@ -176,6 +213,7 @@ export class TodoMissionComponent implements OnInit,AfterViewInit {
                     this.selects[entry['key']] = false;
                     this.publish_todo_title[entry['key']] = '';
                 }
+                this.hideStatusFor2();
             }else if(info['status'] == 202){
                 alert(info['msg']);
                 this.cookieStore.removeAll(this.rollback_url);
@@ -213,11 +251,14 @@ export class TodoMissionComponent implements OnInit,AfterViewInit {
                 }
                 this.todoListPages = this.todoList['result']['pages'];
                 this.selects = [];
-                for (let entry of this.todoList['result']['template_list']) {
-                    this.selects[entry['key']] = false;
-                    this.publish_todo_title[entry['key']] = '';
-                    this.edit_template_name[entry['key']] = '';
+                if(this.todoList['result']['template_list']) {
+                    for (let entry of this.todoList['result']['template_list']) {
+                        this.selects[entry['key']] = false;
+                        this.publish_todo_title[entry['key']] = '';
+                        this.edit_template_name[entry['key']] = '';
+                    }
                 }
+                this.hideStatusFor2();
                 // this.is_show_power = [];
                 // for (let entry1 of this.todoList['result']['user_id_list']) {
                 //     this.is_show_power[entry1] = true;
@@ -262,6 +303,7 @@ export class TodoMissionComponent implements OnInit,AfterViewInit {
                     //添加新的任务直接展开
                     this.todoListPages[template_id] = 10;
 
+                    this.hideStatusFor2();
                 }else if(info['status'] == 202){
                     alert(info['msg']);
                     this.cookieStore.removeAll(this.rollback_url);
@@ -304,6 +346,8 @@ export class TodoMissionComponent implements OnInit,AfterViewInit {
                         }
                         this.template_name = '';
                         this.is_show_publish_template = false;
+
+                        this.hideStatusFor2();
                     }else if(info['status'] == 202){
                         alert(info['msg']);
                         this.cookieStore.removeAll(this.rollback_url);
@@ -354,6 +398,8 @@ export class TodoMissionComponent implements OnInit,AfterViewInit {
                         this.publish_todo_title[entry['key']] = '';
                         this.edit_template_name[entry['key']] = '';
                     }
+
+                    this.hideStatusFor2();
                 }else if(info['status'] == 202){
                     alert(info['msg']);
                     this.cookieStore.removeAll(this.rollback_url);
@@ -383,7 +429,7 @@ export class TodoMissionComponent implements OnInit,AfterViewInit {
                 'is_list':1,
                 'is_send_message':'true',
                 'pages':JSON.stringify(this.todoListPages),
-                'u_id':this.cookieStore.getCookie('uid'),
+                'u_id':this.cookie_u_id,
                 'sid':this.cookieStore.getCookie('sid')
             }).subscribe(
                 (data)=>{
@@ -396,6 +442,8 @@ export class TodoMissionComponent implements OnInit,AfterViewInit {
                             this.selects[entry['key']] = false;
                             this.publish_todo_title[entry['key']] = '';
                         }
+
+                        this.hideStatusFor2();
                     }else if(info['status'] == 202){
                         alert(info['msg']);
                         this.cookieStore.removeAll(this.rollback_url);
