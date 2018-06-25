@@ -290,7 +290,7 @@
                   </div>
                 </fieldset>
                 <footer>
-                  <div *ngIf="isPermission(menu_id,'verify')">
+                  <div *ngIf="isPermission(menu_id,'verify') && isDetail!='detail'">
                   <button type="button" class="btn btn-primary"  (click)="showDetail('transfer')" *ngIf="isDetail!='detail' && uid == otherorderInfo?.result?.otherorder_status">
                     转交
                   </button>
@@ -310,7 +310,7 @@
                   <button type="button" class="btn btn-default" [routerLink]="['/inventory-management/storage']">
                     返回
                   </button>
-                  <div *ngIf="isPermission(menu_id,'add')">
+                  <div *ngIf="isPermission(menu_id,'add') && isDetail!='detail'">
                   <button *ngIf="otherorder_id==0" class="btn btn-success" type="button" (click)="onSubmit(2)">提交并新增</button>
                   <button *ngIf="otherorder_id==0" type="button" class="btn btn-primary" (click)="onSubmit(1)">提交</button>
                   </div>

@@ -40,7 +40,7 @@ export class TodoWorkbenchComponent implements OnInit {
     todoLists : Array<any> = [];//任务名列表
     selects : Array<any> = [];
     uId : any = 0;
-    rollback_url : string = '/to-do/todo-workbench';
+    rollback_url : string = '';//'/to-do/todo-workbench';
     //发布任务标题
     publish_todo_title : Array<any> = [];
     //发布任务所属的项目id
@@ -56,15 +56,16 @@ export class TodoWorkbenchComponent implements OnInit {
     //是否展示详情  绑定当前点击的template_id
     is_show_detail : string = '';
     // @ViewChild('mission_detail',undefined) mission_detail:TodoMissionDetailComponent;
+    /**菜单id */
+    menu_id:any;
+    /** 权限 */
+    permissions : Array<any> = [];
     constructor(
         private http:Http,
         private router : Router,
         private cookieStore:CookieStoreService,
         private globalService:GlobalService,
         private tododetail:TododetailService) {
-        //顶部菜单读取
-        this.globalService.getMenuInfo();
-
         this.uId = this.cookieStore.getCookie('uid');
         this.isHaveTemplate();
         window.scrollTo(0,0);
@@ -72,6 +73,13 @@ export class TodoWorkbenchComponent implements OnInit {
 
     ngOnInit() {
 
+        //顶部菜单读取
+        this.globalService.getMenuInfo();
+        setTimeout(()=>{
+            this.menu_id = this.globalService.getMenuId();
+            this.rollback_url = this.globalService.getMenuUrl();
+            this.permissions = this.globalService.getPermissions();
+        },this.globalService.getMenuPermissionDelayTime())
     }
 
     showDetail(todo_id:number,template_name:string,isRead:any){

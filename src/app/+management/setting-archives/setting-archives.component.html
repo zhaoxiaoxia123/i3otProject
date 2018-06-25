@@ -173,7 +173,6 @@
                                       </li>
                                     </ul>
                                   </li>
-
                                   </ul>
                                 </li>
                               </ul>
@@ -279,7 +278,7 @@
                             <span>共{{productList.result?.productList?.total}}条</span>
                           </div>
                           <div class="hidden-xs right">
-                            <ul class="pagination pagination-sm">
+                            <ul class="pagination pagination-sm" *ngIf="productList?.result?.page">
                               <li *ngFor="let p of productList?.result?.page" class="{{p.class}}">
                                 <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
                                 <a *ngIf="p.method==''">{{p.text}}</a>
@@ -308,7 +307,8 @@
           <button type="button" class="close"  (click)="clear_();lgModal.hide()">×</button>
           <!-- 标题 -->
           <h3 *ngIf="editStatusProductId == 0" class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>添加商品档案</h3>
-          <h3 *ngIf="editStatusProductId != 0" class="modal-title  color-yellow" data-ng-bind='results.title'><i class="glyphicon glyphicon-pencil"></i>修改商品档案</h3>
+          <h3 *ngIf="editStatusProductId != 0 && isDetail != 'detail'" class="modal-title  color-yellow" data-ng-bind='results.title'><i class="glyphicon glyphicon-pencil"></i>修改商品档案</h3>
+          <h3 *ngIf="editStatusProductId != 0 && isDetail == 'detail'" class="modal-title  color-yellow" data-ng-bind='results.title'>{{p_name}}-{{p_product_id}}</h3>
         </div>
         <div class="modal-body">
           <sa-widget [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
@@ -702,7 +702,7 @@
                             <div>
                               <ul class="ace-thumbnails clearfix">
                                 <li class="canDel" *ngFor="let img of imgList;let ind = index;">
-                                  <a class="cboxElement" href="{{url}}{{img}}" (click)="showBigPic(url+img)">
+                                  <a class="cboxElement" (click)="showBigPic(url+img)">
                                     <img width="150" height="150" alt="150x150" src="{{url}}{{img}}">
                                   </a>
                                   <div class="tools tools-top" *ngIf="isDetail!='detail'">
@@ -712,7 +712,7 @@
                                     </a>
                                   </div>
                                 </li>
-                                <li>
+                                <li *ngIf="isDetail!='detail'">
                                   <div class="c-file-upload">
                                     <a class="btn" (click)="showSelectFileDiv()" style="border: 0;">
                                       点击选择上传图片
@@ -735,7 +735,7 @@
           </sa-widget>
         </div>
         <div class="modal-footer">
-         <div class="display-inline" *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')">
+         <div class="display-inline" *ngIf="(isPermission(menu_id,'add') || isPermission(menu_id,'edit')) && isDetail!='detail'">
           <button [disabled]="isDetail=='detail'" type="button" class="btn btn-primary" (click)="onSubmit(1);">保存</button>
           <button [disabled]="isDetail=='detail'" class="btn btn-success" type="button" (click)="onSubmit(2);">保存并新增</button>
          </div>

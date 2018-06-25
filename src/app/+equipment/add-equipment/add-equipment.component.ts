@@ -4,8 +4,6 @@ import {Http} from "@angular/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
-import {stringify} from "querystring";
-
 
 @Component({
   selector: 'app-add-equipment',
@@ -21,11 +19,8 @@ export class AddEquipmentComponent implements OnInit {
 
   //默认选中值
   u_id_default : number;
-  // o_id_default : number;
   c_id_default : number = 0;
   i3otp_category_default : number;
-  // i3otp_communication_default:string;
-  // i3otp_sensor_category_default:string;
 
   //用以提交的
   join_sensor_category : Array<any> = [];//传感器类型

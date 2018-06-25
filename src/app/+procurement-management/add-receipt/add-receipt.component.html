@@ -378,7 +378,7 @@
                   </div>
                 </fieldset>
                 <footer>
-                  <div *ngIf="isPermission(menu_id,'verify')">
+                  <div *ngIf="isPermission(menu_id,'verify') && isDetail!='detail'">
                   <button type="button" class="btn btn-primary"  (click)="showDetail('transfer')" *ngIf="uid == purchaseInfo?.result?.pr_status">
                     转交
                   </button>
@@ -397,7 +397,7 @@
                   </div>
                   <button type="button" class="btn btn-default" [routerLink]="['/procurement-management/procurement-receipt']">返回</button>
 
-                  <div *ngIf="isPermission(menu_id,'add')">
+                  <div *ngIf="isPermission(menu_id,'add') && isDetail!='detail'">
                     <button *ngIf="pr_id==0" type="button" class="btn btn-success btn-sm" (click)="onSubmit(2)"><span class="glyphicon glyphicon-plus"></span>保存并新增</button>
                     <button *ngIf="pr_id==0" type="button" (click)="onSubmit(1)" class="btn btn-primary">保存</button>
                   </div>

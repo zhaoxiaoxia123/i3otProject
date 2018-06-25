@@ -109,7 +109,10 @@
 
                       <td>
                         <div>
-                          <span class="label-maintain" *ngIf="p2.otherorder_status != 'yes' && p2.otherorder_status != 'no' && p2.otherorder_status != 'cancel'">审核中</span>
+
+                          <span class="label-maintain" *ngIf="p2.otherorder_status != uid && p2.otherorder_status != 'yes' && p2.otherorder_status != 'no' && p2.otherorder_status != 'cancel'">审核中</span>
+                          <span class="label-maintain maintain-style" (click)="showModalInList('operation','operation','',p2.otherorder_id)" *ngIf="p2.otherorder_status == uid && p2.otherorder_status != 'yes' && p2.otherorder_status != 'no' && p2.otherorder_status != 'cancel'">审核中</span>
+
                           <span class="label-normal" *ngIf="p2.otherorder_status == 'yes'">已同意</span>
                           <span  class="label-full" *ngIf="p2.otherorder_status == 'no'">已拒绝</span>
                           <span  class="label-full" *ngIf="p2.otherorder_status == 'cancel'">已作废</span>

@@ -54,9 +54,9 @@ export class NavigationComponent implements OnInit {
                 if(this.menuDefault['status'] == 202){
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
+                }else if(this.menuDefault['status'] == 200){
+                    this.globalService.setPermissions(this.menuDefault['result']['categoryInfo']['tabs']);
                 }
-
-                this.globalService.setPermissions(this.menuDefault['result']['categoryInfo']['tabs']);
             });
     }
 

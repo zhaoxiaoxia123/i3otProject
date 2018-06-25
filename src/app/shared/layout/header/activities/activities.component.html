@@ -1,26 +1,26 @@
 <span class="activity-dropdown" id="activity" (click)="showMessageDiv('all')">
   <i class="fa fa-user"></i>
-  <b class="badge bg-color-red" *ngIf="messageList?.result?.task?.count != 0 || messageList?.result?.notice?.count != 0">{{messageList?.result?.task?.count+messageList?.result?.notice?.count}}</b>
+  <b class="badge bg-color-red" *ngIf="taskMessageList?.count != 0 || noticeMessageList?.count != 0">{{taskMessageList?.count+noticeMessageList?.count}}</b>
 </span>
 <div class="ajax-dropdown" [ngStyle]="{'z-index':'1051','display':isShow=='none'?'none':'block'}">
     <div class="btn-group btn-group-justified" data-toggle="buttons">
     <label [ngClass]="{'btn btn-default':true,'active':(isShow == 'notice' || isShow == 1)}" (click)="showMessageDiv('notice')">
         <input name="activity" type="radio">
-        通知 ({{messageList?.result?.notice?.count}})
+        通知 ({{noticeMessageList?.count}})
     </label>
     <label [ngClass]="{'btn btn-default':true,'active':(isShow == 'warning')}" (click)="showMessageDiv('warning')">
         <input name="activity" type="radio">
-        预警 ({{messageList?.result?.warning?.count}})
+        预警 ({{warningMessageList?.count}})
     </label>
     <label [ngClass]="{'btn btn-default':true,'active':isShow == 'task'}" (click)="showMessageDiv('task')" >
         <input name="activity" type="radio">
-        待办事项 ({{messageList?.result?.task?.count}})
+        待办事项 ({{taskMessageList?.count}})
     </label>
     </div>
     <div class="ajax-notifications custom-scroll">
-        <ul class="notification-body" activitiesMessage *ngIf="isShow == 'notice' || isShow == 1"  (toParent)="getData($event)" [fromFatherValue]="messageList" [isShow]="isShow" [ngStyle]="{'display':(isShow == 'notice' || isShow == 1)?'block':'none'}"></ul>
+        <ul class="notification-body" activitiesMessage *ngIf="isShow == 'notice' || isShow == 1"  (noticeMessageLists)="getNoticeMessageListsData($event)" (toParent)="getData($event)" [noticeMessageList]="noticeMessageList" [isShow]="isShow" [ngStyle]="{'display':(isShow == 'notice' || isShow == 1)?'block':'none'}"></ul>
         <ul class="notification-body" activitiesNotification [ngStyle]="{'display':(isShow == 'warning')?'block':'none'}"></ul>
-        <ul class="notification-body" activitiesTask (toParent)="getData($event)" [fromFatherValue]="messageList" [isShow]="isShow" [ngStyle]="{'display':(isShow == 'task')?'block':'none'}"></ul>
+        <ul class="notification-body" activitiesTask (toParent)="getData($event)" (taskMessageLists)="getTaskMessageListsData($event)" [taskMessageList]="taskMessageList" [isShow]="isShow" [ngStyle]="{'display':(isShow == 'task')?'block':'none'}"></ul>
     </div>
 
     <span> 最后更新的时间: {{lastUpdate}}

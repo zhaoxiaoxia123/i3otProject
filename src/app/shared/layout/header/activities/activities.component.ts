@@ -16,6 +16,9 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
   loading: boolean;
   uid:any;
   messageList : Array<any>[];
+  taskMessageList : Array<any>[];
+  noticeMessageList : Array<any>[];
+  warningMessageList : Array<any>[];
   isShow:any = 'none';
   constructor(
       private http:Http,
@@ -37,8 +40,9 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
         .map((res) => res.json())
         .subscribe((data) => {
           this.messageList = data;
-          console.log('this.messageList:---');
-          console.log(this.messageList);
+          this.taskMessageList = this.messageList['result']['task'];
+          this.noticeMessageList = this.messageList['result']['notice'];
+          this.warningMessageList = this.messageList['result']['warning'];
         });
   }
 
@@ -49,6 +53,15 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
   getData(value:any){
       this.isShow = value;
   }
+
+  getTaskMessageListsData(value:any){
+    this.taskMessageList = JSON.parse(value);
+  }
+
+  getNoticeMessageListsData(value:any){
+    this.noticeMessageList = JSON.parse(value);
+  }
+
   showMessageDiv(type:any) {
     if (type == 'all' ) {
       if(this.isShow == 'none') {
@@ -79,8 +92,6 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
       this.documentUnsub()
     }
   }
-
-
 
   update(){
     this.loading= true;

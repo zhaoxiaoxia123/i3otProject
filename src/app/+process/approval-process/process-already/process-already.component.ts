@@ -15,6 +15,8 @@ export class ProcessAlreadyComponent implements OnInit {
   prev : boolean = false;
   next : boolean = false;
 
+  select_property: any = 'approval';
+  property_title : string = '流程审批';
   keyword : string = '';
   @Input() rollback_url ;
   @Output() private isShowDetail = new EventEmitter();
@@ -46,26 +48,31 @@ export class ProcessAlreadyComponent implements OnInit {
   }
 
   /**
-   * 显示详情页
-   * @param approval_id
-   */
-  showDetail(approval_id){
-    this.isShowDetail.emit(approval_id);
-  }
-  /**
    * 获取客户列表
    * @param number
    */
   getProcessHadList(number:string) {
-    let url = this.globalService.getDomain()+'/api/v1/getApprovalList?page_type='+this.page_type+'&page='+number+'&sid='+this.cookieStore.getCookie('sid')+'&uid='+this.cookieStore.getCookie('uid');
-    if(this.keyword.trim() != ''){
-      url += '&keyword='+this.keyword.trim();
+    // if(this.processHadList.length == 0) {
+    let url = '';
+    if(this.select_property == 'approval') {
+      url = this.globalService.getDomain() + '/api/v1/getApprovalList?page_type=' + this.page_type + '&page=' + number + '&sid=' + this.cookieStore.getCookie('sid') + '&uid=' + this.cookieStore.getCookie('uid');
+    }else if(this.select_property == 'purchase_cg_after' || this.select_property == 'purchase_sale') {
+      url = this.globalService.getDomain() + '/api/v1/getPurchaseApprovalList?page_type=' + this.page_type + '&page=' + number + '&sid=' + this.cookieStore.getCookie('sid') + '&uid=' + this.cookieStore.getCookie('uid')+'&select_property='+this.select_property;
+    }else if(this.select_property == 'otherorder_in' || this.select_property == 'otherorder_out') {
+      url = this.globalService.getDomain() + '/api/v1/getOtherorderApprovalList?page_type=' + this.page_type + '&page=' + number + '&sid=' + this.cookieStore.getCookie('sid') + '&uid=' + this.cookieStore.getCookie('uid')+'&select_property='+this.select_property;
+    }else if(this.select_property == 'stockallot') {
+      url = this.globalService.getDomain() + '/api/v1/getStockallotApprovalList?page_type=' + this.page_type + '&page=' + number + '&sid=' + this.cookieStore.getCookie('sid') + '&uid=' + this.cookieStore.getCookie('uid');
+    }else if(this.select_property == 'assets_ff' || this.select_property == 'assets_bf') {
+      url = this.globalService.getDomain() + '/api/v1/getAssetsApprovalList?page_type=' + this.page_type + '&page=' + number + '&sid=' + this.cookieStore.getCookie('sid') + '&uid=' + this.cookieStore.getCookie('uid')+'&select_property='+this.select_property;
+    }
+    if (this.keyword.trim() != '') {
+      url += '&keyword=' + this.keyword.trim();
     }
     this.http.get(url)
-        .map((res)=>res.json())
-        .subscribe((data)=>{
+        .map((res) => res.json())
+        .subscribe((data) => {
           this.processHadList = data;
-          if(this.processHadList['status'] == 202){
+          if (this.processHadList['status'] == 202) {
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
@@ -82,7 +89,16 @@ export class ProcessAlreadyComponent implements OnInit {
             }
           }
         });
+    // }
+  }
 
+  /**
+   * 显示详情页
+   * @param approval_id
+   */
+  showDetail(approval_id){
+    let arr = '{"id":"'+approval_id+'","property":"'+this.select_property+'"}';
+    this.isShowDetail.emit(arr);
   }
 
   /**
@@ -92,5 +108,16 @@ export class ProcessAlreadyComponent implements OnInit {
   pagination(page : any) {
     this.page = page;
     this.getProcessHadList(this.page);
+  }
+
+
+  /**
+   * 列表属性
+   * @param property
+   */
+  setProperty(property:any,title:any){
+    this.select_property = property;
+    this.property_title = title;
+    this.getProcessHadList('1')
   }
 }

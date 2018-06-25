@@ -121,9 +121,8 @@
                     <tr *ngFor="let p of purchaseList.result?.purchaseList?.data" (click)="isStatusShow(p.pr_id,p.pr_status,p.u_id,p.u_username,p.pr_order)" [ngClass]="{'table-color':editStatusPurchaseId == p.pr_id}"><!--class="table-color" --->
                       <td>
                         <div>
-                          <!--<span class="label-maintain maintain-style editor" data-toggle="modal" data-target="#audit">-->
-                            <!--<i class="glyphicon glyphicon-exclamation-sign approval-icon" ></i>审核</span>-->
-                          <span class="label-maintain" *ngIf="p.pr_status != 'yes' && p.pr_status != 'no' && p.pr_status != 'cancel'">审核中</span>
+                          <span class="label-maintain" *ngIf="p.pr_status != uid && p.pr_status != 'yes' && p.pr_status != 'no' && p.pr_status != 'cancel'">审核中</span>
+                          <span class="label-maintain maintain-style" (click)="showModalInList('operation','operation','',p.pr_id)" *ngIf="p.pr_status == uid && p.pr_status != 'yes' && p.pr_status != 'no' && p.pr_status != 'cancel'">审核中</span>
                           <span class="label-normal" *ngIf="p.pr_status == 'yes'">已同意</span>
                           <span  class="label-full" *ngIf="p.pr_status == 'no'">已拒绝</span>
                           <span  class="label-full" *ngIf="p.pr_status == 'cancel'">已作废</span>

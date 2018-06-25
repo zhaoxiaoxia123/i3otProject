@@ -1,11 +1,10 @@
-import {Component, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {FadeInTop} from "../../shared/animations/fade-in-top.decorator";
 import {Http} from "@angular/http";
-import {ActivatedRoute, Params, Router} from "@angular/router";
+import {ActivatedRoute, Params, Router,NavigationStart,NavigationEnd} from "@angular/router";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
 import {TododetailService} from "../../shared/tododetail.service";
-
 // const $script = require('scriptjs');
 
 @FadeInTop()
@@ -34,55 +33,7 @@ import {TododetailService} from "../../shared/tododetail.service";
     `
     ]
 })
-export class TodoMissionComponent implements OnInit {
-
-
-    // todo_info : Array<any> = [];
-    // detail_template_name:string = '';
-    // //是否显示添加描述发布框
-    // is_show_publish_detail :number = 0;
-    // //用于绑定发布任务名称和描述
-    // todo_name : string = '';
-    // todo_content : string = '';
-    //是否显示标签添加框
-    // is_show_publish_tag : number = 0; //详情右上方标签添加框
-    //
-    // selected_tag:Array<any> = [];//标签状态
-    //是否显示编辑框
-    // is_expired_at : number = 0;
-    //过期日期
-    // expired_at : string = '';
-    // datePickerConfig = {
-    //     locale: 'zh-CN',
-    //     format:'YYYY-MM-DD'
-    // };
-    /**
-     * 以下为评论所需变量
-     * @type {Array}
-     */
-    // comment_list : Array<any> = [];
-    // replay_content : string = '';
-    // comment_content : string = '';
-    // comment_parent_id : number = 0;
-    // is_show_replay : number = 0;
-
-    //分配人 审批人 关注人
-    // show_user_type : number = 0;
-    // selected_user : Array<any> = [];
-    // check : boolean = false;
-    // userList : Array<any> = [];
-    // userDefault : Array<any> = [];
-    // page : any;
-    // prev : boolean = false;
-    // next : boolean = false;
-    //左侧选中部门的id
-    // select_department_ids: Array<any> = [];
-    //左边展开和收起功能
-    // showUl : number  = 1;//一级分类
-    // showUlChild : number  = 0;//二级
-    // keyword:string = '';
-
-
+export class TodoMissionComponent implements OnInit,AfterViewInit {
     todoList : Array<any> = [];
     todoListPages : Array<any> = [];
     selects : Array<any> = [];
@@ -104,7 +55,6 @@ export class TodoMissionComponent implements OnInit {
     cookie_u_id : any = 0;
     admin_id : number = 0;
     domain_url : string = '';
-    // is_show_power : Array<any> = []; //是否有权限查看此任务
 
     isCheck:number=0;//切换布局  0：隐藏查看更多  1：查看更多
     dropTemplateId : any = '';//拽入模版编号
@@ -112,7 +62,10 @@ export class TodoMissionComponent implements OnInit {
     isEdit : number = 0; //是否修改过详情里面的东西或是评论过该任务
     //是否展示详情  绑定当前点击的template_id
     is_show_detail : string = '';
-    // @ViewChild('mission_detail',undefined) mission_detail:TodoMissionDetailComponent;
+    is_hide : number = 1;
+    button_name : string = '隐藏已完成';
+
+    get_i : number = 0;//用来判断getTodoList是否被调用过
     constructor(
       private http:Http,
       private router : Router,
@@ -130,16 +83,19 @@ export class TodoMissionComponent implements OnInit {
         this.cookie_u_id = this.cookieStore.getCookie('uid');
 
         this.domain_url = this.globalService.getDomain();
-        // this.is_show_power[this.cookie_u_id] = true;
 
+        window.scrollTo(0,0);
+  }
+
+
+    ngOnInit() {
         this.routInfo.params.subscribe((param : Params)=> {
             this.project_ids = param['project_id'];
         }); //这种获取方式是参数订阅，解决在本页传参不生效问题
-
         this.todo_id = this.project_ids.split('_')[1];
         this.project_id = this.project_ids.split('_')[0];
         if(this.project_id != 0){
-            this.getTodoDefault(this.project_id,0);
+            this.getTodoDefault(this.project_id, 0);
             this.rollback_url += '/'+this.project_id+'_'+this.todo_id;
         }else{
             this.rollback_url += '/0_0';
@@ -147,37 +103,84 @@ export class TodoMissionComponent implements OnInit {
         if(this.todo_id != 0){
             this.showDetail(this.todo_id,'来自消息提醒',2);
         }
-        window.scrollTo(0,0);
 
-        // this.getUserDefault();
-  }
-
-
-    ngOnInit() {
-  //     // $script("https://cdn.ckeditor.com/4.5.11/standard/ckeditor.js", ()=> {
+        let nav = '{"title":"任务列表","url":"'+this.rollback_url+'","class_":"active","icon":""}';
+        this.globalService.navEventEmitter.emit(nav);
+        //     // $script("https://cdn.ckeditor.com/4.5.11/standard/ckeditor.js", ()=> {
   //     //     const CKEDITOR = window['CKEDITOR'];
   //     //     CKEDITOR.replace('ckeditor-showcase');
   //     // });
   }
 
+    //钩子
+    ngAfterViewInit(){
+        // 监听路由变化
+        this.get_i = 0;
+        this.router.events
+            .filter((event) => event instanceof NavigationEnd)
+            .subscribe((event:NavigationEnd) => {
+                let url =event['url'];
+                let param = url.split('/');
+                this.project_ids = param[param.length-1];
+                this.todo_id = this.project_ids.split('_')[1];
+                this.project_id = this.project_ids.split('_')[0];
+                if(this.project_id != 0){
+                    if(this.get_i == 0) {
+                        console.log(' project_id  ngAfterViewInit');
+                        this.getTodoDefault(this.project_id, 0);
+                        this.get_i ++;
+                    }
+                    this.rollback_url += '/'+this.project_id+'_'+this.todo_id;
+                }else{
+                    this.rollback_url += '/0_0';
+                }
+                // if(this.todo_id != 0){
+                //     this.showDetail(this.todo_id,'来自消息提醒',2);
+                // }
+            });
+    }
+
     showDetail(todo_id:number,template_name:string,isRead:any){
-        console.log(todo_id+'--'+template_name);
         this.tododetail.showDetail(todo_id,template_name,isRead);
 
         setTimeout(()=>{
-            this.is_show_detail =  this.tododetail.is_show_detail;
-            // console.log('is_show_detail:---');
-            // console.log(this.is_show_detail);
-        },600);
+            if(this.tododetail.is_visited == 2){
+                alert('该任务可能正在被编辑，您暂时无法访问！');
+            }else{
+                this.is_show_detail =  this.tododetail.is_show_detail;
+            }
+        },800);
+    }
+
+    hideStatusFor2(){
+        // console.log('hideStatusFor2:---');
+        // console.log(this.todoList);
+        // console.log(this.todoListPages);
+        if(this.todoList['result']['template_list'] && this.is_hide == 2) {
+            for (let tl of this.todoList['result']['template_list']) {
+                this.todoListPages[tl['key']] = 10;
+            }
+        }
+    }
+
+    hideStatus(){
+        this.is_hide = (this.is_hide == 2) ? 1:2;
+        this.hideStatusFor2();
+        this.button_name = (this.is_hide == 2) ? '显示已完成':'隐藏已完成';
     }
     /**
      * 获取任务通知点击后的状态
      * @param value
      */
     getData(value:any){
+
+        console.log('getData');
         this.isEdit = value;
-        if(this.isEdit == 1) {
+        if(this.isEdit == 1 || this.isEdit == 2) {
             this.getTodoDefault(this.project_id, 0);
+        }
+        if(this.isEdit == 2){  //等于2时代表是删除操作过来的
+            this.is_show_detail = '';
         }
     }
     /**
@@ -210,6 +213,7 @@ export class TodoMissionComponent implements OnInit {
                     this.selects[entry['key']] = false;
                     this.publish_todo_title[entry['key']] = '';
                 }
+                this.hideStatusFor2();
             }else if(info['status'] == 202){
                 alert(info['msg']);
                 this.cookieStore.removeAll(this.rollback_url);
@@ -247,11 +251,14 @@ export class TodoMissionComponent implements OnInit {
                 }
                 this.todoListPages = this.todoList['result']['pages'];
                 this.selects = [];
-                for (let entry of this.todoList['result']['template_list']) {
-                    this.selects[entry['key']] = false;
-                    this.publish_todo_title[entry['key']] = '';
-                    this.edit_template_name[entry['key']] = '';
+                if(this.todoList['result']['template_list']) {
+                    for (let entry of this.todoList['result']['template_list']) {
+                        this.selects[entry['key']] = false;
+                        this.publish_todo_title[entry['key']] = '';
+                        this.edit_template_name[entry['key']] = '';
+                    }
                 }
+                this.hideStatusFor2();
                 // this.is_show_power = [];
                 // for (let entry1 of this.todoList['result']['user_id_list']) {
                 //     this.is_show_power[entry1] = true;
@@ -296,6 +303,7 @@ export class TodoMissionComponent implements OnInit {
                     //添加新的任务直接展开
                     this.todoListPages[template_id] = 10;
 
+                    this.hideStatusFor2();
                 }else if(info['status'] == 202){
                     alert(info['msg']);
                     this.cookieStore.removeAll(this.rollback_url);
@@ -338,6 +346,8 @@ export class TodoMissionComponent implements OnInit {
                         }
                         this.template_name = '';
                         this.is_show_publish_template = false;
+
+                        this.hideStatusFor2();
                     }else if(info['status'] == 202){
                         alert(info['msg']);
                         this.cookieStore.removeAll(this.rollback_url);
@@ -388,6 +398,8 @@ export class TodoMissionComponent implements OnInit {
                         this.publish_todo_title[entry['key']] = '';
                         this.edit_template_name[entry['key']] = '';
                     }
+
+                    this.hideStatusFor2();
                 }else if(info['status'] == 202){
                     alert(info['msg']);
                     this.cookieStore.removeAll(this.rollback_url);
@@ -417,7 +429,7 @@ export class TodoMissionComponent implements OnInit {
                 'is_list':1,
                 'is_send_message':'true',
                 'pages':JSON.stringify(this.todoListPages),
-                'u_id':this.cookieStore.getCookie('uid'),
+                'u_id':this.cookie_u_id,
                 'sid':this.cookieStore.getCookie('sid')
             }).subscribe(
                 (data)=>{
@@ -430,6 +442,8 @@ export class TodoMissionComponent implements OnInit {
                             this.selects[entry['key']] = false;
                             this.publish_todo_title[entry['key']] = '';
                         }
+
+                        this.hideStatusFor2();
                     }else if(info['status'] == 202){
                         alert(info['msg']);
                         this.cookieStore.removeAll(this.rollback_url);

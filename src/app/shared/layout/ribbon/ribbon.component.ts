@@ -45,10 +45,10 @@ export class RibbonComponent implements OnInit {
     });
 
     this.globalService.navEventEmitter.subscribe((value: string) => {
-
         if (value) {
           let getValue = JSON.parse(value);
           let count: number = 0;
+          let count_name: number = 0;
           let beforeValue;
           if (this.navLists) {
             this.navLists.forEach((val, idx, array) => {
@@ -62,16 +62,29 @@ export class RibbonComponent implements OnInit {
                   this.navLists = this.globalService.insertToArray(this.navLists, getValue, (this.countN - 1));
                 }
               }
+              //主要用于  任务列表  这个导航栏
+              if (getValue.title == val.title) {
+                count_name++;
+                val.class_ = 'active';
+                if(getValue.title == '任务列表'){
+                  val.url = getValue.url;
+                }
+                if (idx > (this.countN - 1)) {
+                  beforeValue = val;
+                  this.navLists.splice(idx, 1);
+                  this.navLists = this.globalService.insertToArray(this.navLists, getValue, (this.countN - 1));
+                }
+              }
             });
           }
-          if (count == 0) {
+          if (count == 0 && count_name == 0) {
             if (this.navLists.length >= (this.countN)) {
               this.navLists = this.globalService.insertToArray(this.navLists, getValue, (this.countN - 1));
             } else {
               this.navLists.push(getValue);
             }
           }
-          if(count == 0 || beforeValue){
+          if((count == 0 && count_name == 0) || beforeValue){
             //再重置
             this.resetLists();
           }

@@ -132,9 +132,15 @@
                   <label class="label">选择模板</label>
 
                   <div class="inline-group">
-                    <label class="checkbox state-disabled">
-                      <input type="checkbox" [checked]="project_template" name="project_template" [(ngModel)]="project_template" >
-                      <i></i>通用模板</label>
+                    <!--<label class="checkbox state-disabled">-->
+                      <!--<input type="checkbox" [checked]="project_template" name="project_template" [(ngModel)]="project_template" >-->
+                      <!--<i></i>通用模板</label>-->
+                    <label class="radio state-disabled" *ngFor="let tc2 of projectDefault?.result?.categoryList2">
+                      <input type="radio" [checked]="project_template" value="{{tc2.category_id}}" name="project_template" [(ngModel)]="project_template">
+                      <i></i>
+                      <span *ngIf="tc2.category_desc == 'default'">通用模板</span>
+                      <span *ngIf="tc2.category_desc != 'default'">{{tc2.category_desc}}</span>
+                    </label>
                   </div>
                 </section>
               </div>

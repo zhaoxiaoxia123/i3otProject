@@ -508,7 +508,7 @@
         <button type="button" class="close" (click)="detailModal.hide()"> × </button>
         <!-- 标题 -->
         <h3 class="modal-title" data-ng-bind='results.title'></h3>
-        <h4 class="modal-title">单位名称-编号</h4>
+        <h4 class="modal-title">{{customerInfo?.result?.c_name}}-{{customerInfo?.result?.c_number}}</h4>
       </div>
       <div class="modal-body height-overflow-380">
         <div class="row ">

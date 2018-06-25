@@ -137,7 +137,9 @@
                       <!--</td>-->
                       <td>
                         <div>
-                          <span class="label-maintain" *ngIf="s.stock_allot_status != 'yes' && s.stock_allot_status != 'no' && s.stock_allot_status != 'cancel'">审核中</span>
+                          <span class="label-maintain" *ngIf="s.stock_allot_status != uid && s.stock_allot_status != 'yes' && s.stock_allot_status != 'no' && s.stock_allot_status != 'cancel'">审核中</span>
+                          <span class="label-maintain maintain-style" (click)="showModalInList('operation','operation','',s.stock_allot_id)" *ngIf="s.stock_allot_status == uid && s.stock_allot_status != 'yes' && s.stock_allot_status != 'no' && s.stock_allot_status != 'cancel'">审核中</span>
+
                           <span class="label-normal" *ngIf="s.stock_allot_status == 'yes'">已同意</span>
                           <span  class="label-full" *ngIf="s.stock_allot_status == 'no'">已拒绝</span>
                           <span  class="label-full" *ngIf="s.stock_allot_status == 'cancel'">已作废</span>

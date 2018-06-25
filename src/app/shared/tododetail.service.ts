@@ -9,6 +9,7 @@ export class TododetailService {
   todo_info : Array<any> = [];
   detail_template_name : string = '';
   todo_id : number = 0;
+  is_visited : number = 1;
   is_show_detail : string = '';
   constructor(
       private http:Http,
@@ -31,6 +32,7 @@ export class TododetailService {
         .map((res)=>res.json())
         .subscribe((data)=>{
           this.todo_info = data;
+          this.is_visited = this.todo_info['result']['todo_be_visited'];
           this.is_show_detail = this.todo_info['result']['template_id'];
     });
   }
