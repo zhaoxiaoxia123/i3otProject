@@ -459,6 +459,7 @@ div.dataTables_paginate ul.pagination {
 }
 .maintain-style{
     border: 1px solid #cc7f0e;
+    cursor:pointer;
     -webkit-box-shadow: 0 2px 0 #cb8620, 0 4px 2px rgba(0, 0, 0, 0.3);
     box-shadow: 0 2px 0 #cb8620, 0 4px 2px rgba(0, 0, 0, 0.3)
 }
@@ -1183,21 +1184,15 @@ h1,h2,h3,h4 {
 }
 .border-overflow-320::-webkit-scrollbar
 {
-    width: 12px;
-    height: 12px;
+    width: 4px;
+    height: 8px;
     /*background-color: #F5F5F5;*/
 }
-/*.border-overflow-320::-webkit-scrollbar-track*/
-/*{*/
-/*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);*/
-/*!*border-radius: 10px;*!*/
-/*background-color: #F5F5F5;*/
-/*}*/
+
 .border-overflow-320::-webkit-scrollbar-thumb
 {
-    border-radius: 4px;
     -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,.2);
-    background-color: #f5f5f5;
+    background-color: #ccc;
 }
 
 .height-overflow{
@@ -1209,15 +1204,14 @@ h1,h2,h3,h4 {
 }
 .height-overflow::-webkit-scrollbar
 {
-    width: 12px;
-    height: 12px;
+    width: 4px;
+    height: 8px;
     /*background-color: #F5F5F5;*/
 }
 .height-overflow::-webkit-scrollbar-thumb
 {
-    border-radius: 4px;
     -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,.2);
-    background-color: #f5f5f5;
+    background-color: #ccc;
 }
 
 /*按钮*/
@@ -1733,15 +1727,14 @@ time.icon span {
 }
 .select-y-auto::-webkit-scrollbar
 {
-    width: 12px;
-    height: 12px;
+    width: 4px;
+    height: 8px;
     /*background-color: #F5F5F5;*/
 }
 .select-y-auto::-webkit-scrollbar-thumb
 {
-    border-radius: 4px;
     -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,.2);
-    background-color: #f5f5f5;
+    background-color: #ccc;
 }
 .height-overflow-380{
     overflow: auto!important;
@@ -1749,21 +1742,15 @@ time.icon span {
 }
 .height-overflow-380::-webkit-scrollbar
 {
-    width: 12px;
-    height: 12px;
+    width: 4px;
+    height: 8px;
     /*background-color: #F5F5F5;*/
 }
-/*.height-overflow-380::-webkit-scrollbar-track*/
-/*{*/
-    /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);*/
-    /*!*border-radius: 10px;*!*/
-    /*background-color: #F5F5F5;*/
-/*}*/
+
 .height-overflow-380::-webkit-scrollbar-thumb
 {
-    border-radius: 4px;
     -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,.2);
-    background-color: #f5f5f5;
+    background-color: #ccc;
 }
 .height-overflow-240{
     overflow: auto!important;

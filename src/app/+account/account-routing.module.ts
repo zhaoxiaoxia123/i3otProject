@@ -42,6 +42,11 @@ export const routes: Routes = [
         loadChildren: 'app/+account/account-menu/account-menu.module#AccountMenuModule',
         data: {pageTitle: 'AccountMenu'}
     },
+    {
+        path: 'address-ip',
+        loadChildren: 'app/+account/address-ip/address-ip.module#AddressIpModule',
+        data: {pageTitle: 'AddressIp'}
+    },
 ];
 
 export const routing = RouterModule.forChild(routes);
