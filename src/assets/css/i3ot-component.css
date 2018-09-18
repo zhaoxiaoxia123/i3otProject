@@ -1562,6 +1562,7 @@ legend {
 .select2-container {
     margin: 0;
     border: 1px solid #bdbdbd;
+    min-height:32px;
     position: relative;
     display: inline-block;
     zoom:1;*display: inline;

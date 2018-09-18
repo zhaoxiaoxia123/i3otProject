@@ -126,6 +126,7 @@ img.away {
     border-left-color: #ffc40d!important
 }
 
+
 /*进度条*/
 .progress-micro {
     height: 3px!important;
@@ -1942,4 +1943,16 @@ span.input-icon {
 .empty-pay{
     height:400px;
     padding-top:200px;
+}
+
+
+/*删除线、上划线、下划线*/
+.line-through{
+    text-decoration:line-through;
+}
+.overline{
+    text-decoration: overline;
+}
+.underline{
+    text-decoration:underline;
 }
