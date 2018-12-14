@@ -1,5 +1,6 @@
 {
-  "/api":{
-    "target":"http://laravel.app"
+  "/ip":{
+    "target":"http://ifconfig.me",
+    "secure":false
   }
 }

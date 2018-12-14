@@ -29,8 +29,8 @@ export class LoginComponent implements OnInit {
     window.scrollTo(0,0);
   }
 
-  headers = new Headers({'Content-Type': 'application/x-www'});
-  options = new RequestOptions({headers: this.headers});
+  // headers = new Headers({'Content-Type': 'application/x-www'});
+  // options = new RequestOptions({headers: this.headers});
   ngOnInit() {
     if(this.cookieStoreService.getCookie('username')) {
       this.router.navigate(['/account/account-company']);
@@ -59,6 +59,7 @@ export class LoginComponent implements OnInit {
             this.username = info['result']['u_username'];
             this.uid = info['result']['id'];
             this.cid = info['result']['c_id'];
+            localStorage.setItem('access_token', info['success']['token']);
             if (this.cookieStoreService.getCookie('rollback')) {
               this.router.navigate([this.cookieStoreService.getCookie('rollback')]);
             }else {

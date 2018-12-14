@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { InitiateEvectionRoutingModule } from './initiate-evection-routing.module';
 import { InitiateEvectionComponent } from './initiate-evection.component';
 import {I3otpModule} from "../../shared/i3otp.module";
-import {I3otpEditorsModule} from "../../shared/forms/editors/i3otp-editors.module";
+//import {I3otpEditorsModule} from "../../shared/forms/editors/i3otp-editors.module";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {CookieService} from "angular2-cookie/core";
 
@@ -17,7 +17,7 @@ import {BigPicModule} from "../../shared/common/big-pic/big-pic.module";
   imports: [
     CommonModule,
       I3otpModule,
-      I3otpEditorsModule,
+      //I3otpEditorsModule,
     InitiateEvectionRoutingModule,
     DpDatePickerModule,
     SelectUserModule,

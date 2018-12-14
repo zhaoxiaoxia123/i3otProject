@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { Error404RoutingModule } from './error404-routing.module';
 import { Error404Component } from './error404.component';
 import {I3otpLayoutModule} from "../../shared/layout/layout.module";
-import {StatsModule} from "../../shared/stats/stats.module";
 
 @NgModule({
   imports: [
@@ -11,7 +10,6 @@ import {StatsModule} from "../../shared/stats/stats.module";
     Error404RoutingModule,
 
     I3otpLayoutModule,
-		StatsModule,
   ],
   declarations: [Error404Component]
 })

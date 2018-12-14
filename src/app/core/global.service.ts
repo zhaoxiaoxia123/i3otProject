@@ -5,6 +5,7 @@ import {Http} from "@angular/http";
 
 @Injectable()
 export class GlobalService {
+  nodeDomain ='http://127.0.0.1:8800';
   domain ='http://182.61.53.58:8080';
   tsdbDomain ='http://182.61.53.58:10088';
   station2 = '2';//基站
@@ -19,6 +20,8 @@ export class GlobalService {
   menu_id : any=0;
   menu_url : any='';
   menu_permission_delay_time : any=1000;
+  baidu_client_id : string = 'pPKtBivxCMCXN6Rou2GHRG7x';
+  baidu_client_secret : string = 'VsK25rucGZGs1qVzuR2t0XR5CUeW6BIE';
 
   //顶部导航
   navEventEmitter:EventEmitter<any>;
@@ -105,6 +108,12 @@ export class GlobalService {
     return this.menu_permission_delay_time;
   }
 
+  getClientId() : string{
+    return this.baidu_client_id;
+  }
+  getClientSecret() : string{
+    return this.baidu_client_secret;
+  }
 
 
   /**

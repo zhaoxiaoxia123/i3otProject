@@ -5,7 +5,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {MainLayoutComponent} from "./shared/layout/app-layouts/main-layout.component";
 import {AuthLayoutComponent} from "./shared/layout/app-layouts/auth-layout.component";
 import {ModuleWithProviders} from "@angular/core";
-import {HomeComponent} from './home/home.component';
+// import {HomeComponent} from './home/home.component';
 
 export const routes: Routes = [
   {
@@ -36,11 +36,6 @@ export const routes: Routes = [
             loadChildren: 'app/+management/management.module#ManagementModule',
             data: {pageTitle: 'Management'}
         },
-      {
-        path: 'graphs',
-        loadChildren: 'app/+graphs/graphs-showcase.module#GraphsShowcaseModule',
-        data: {pageTitle: 'Graphs'}
-      },
       {
         path: 'app-views',
         loadChildren: 'app/+app-views/app-views.module#AppViewsModule',
@@ -115,6 +110,11 @@ export const routes: Routes = [
             path: 'iot',
             loadChildren: 'app/+iot/iot.module#IotModule',
             data: {pageTitle: 'Iot'}
+        },
+        {
+            path: 'nfc',
+            loadChildren: 'app/+nfc/nfc.module#NfcModule',
+            data: {pageTitle: 'Nfc'}
         }
     ]
   },

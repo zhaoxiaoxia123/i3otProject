@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { AppOrderRoutingModule } from './app-order-routing.module';
 import { AppOrderComponent } from './app-order.component';
-import {I3otpEditorsModule} from "../../shared/forms/editors/i3otp-editors.module";
+//import {I3otpEditorsModule} from "../../shared/forms/editors/i3otp-editors.module";
 import {I3otpModule} from "../../shared/i3otp.module";
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CookieService} from 'angular2-cookie/core';
@@ -16,7 +16,7 @@ import {VerifyFrameModule} from "../../shared/common/verify-frame/verify-frame.m
   imports: [
     CommonModule,
       I3otpModule,
-      I3otpEditorsModule,
+     // I3otpEditorsModule,
     FormsModule,
     ReactiveFormsModule,
     DpDatePickerModule,

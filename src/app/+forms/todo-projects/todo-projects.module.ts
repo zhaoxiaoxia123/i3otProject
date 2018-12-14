@@ -5,7 +5,7 @@ import { TodoProjectsRoutingModule } from './todo-projects-routing.module';
 import { TodoProjectsComponent } from './todo-projects.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {I3otpModule} from "../../shared/i3otp.module";
-import {I3otpEditorsModule} from "../../shared/forms/editors/i3otp-editors.module";
+//import {I3otpEditorsModule} from "../../shared/forms/editors/i3otp-editors.module";
 
 
 @NgModule({
@@ -13,7 +13,7 @@ import {I3otpEditorsModule} from "../../shared/forms/editors/i3otp-editors.modul
     CommonModule,
       ReactiveFormsModule,
       I3otpModule,
-      I3otpEditorsModule,
+    //  I3otpEditorsModule,
     TodoProjectsRoutingModule
   ],
   declarations: [TodoProjectsComponent]

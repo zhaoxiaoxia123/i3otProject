@@ -43,7 +43,7 @@ export class SmartMenuDirective implements OnInit, AfterContentInit {
           this.layoutService.onCollapseMenu()
         }
       })
-    }, 1000);//xxx
+    }, 2000);//xxx
   }
 
   private togglersBinded = false;
@@ -64,11 +64,11 @@ export class SmartMenuDirective implements OnInit, AfterContentInit {
         });
         this.togglersBinded = true;
       }
-    }, 1000);//xxx
+    }, 2000);//xxx
   }
 
   ngOnDestroy() {
-    this.layoutSub.unsubscribe();
+    // this.layoutSub.unsubscribe();  //xxx  退出登录后报unsubscribe的错
   }
 
   private processLayout = (store)=>{

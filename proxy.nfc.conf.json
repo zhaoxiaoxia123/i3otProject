@@ -1,0 +1,21 @@
+{
+  "/open": {
+    "target": "http://127.0.0.1:8800",
+    "secure": false,
+    "pathRewrite": {
+      "^/open": ""
+    },
+    "changeOrigin": true
+  },
+  "/write": {
+    "target": "http://127.0.0.1:8800",
+    "secure": false,
+    "pathRewrite": {
+      "^/write": ""
+    },
+    "changeOrigin": true
+  }
+}
+
+
+//"server:dev": "ng serve --proxy-config proxy.conf.json",

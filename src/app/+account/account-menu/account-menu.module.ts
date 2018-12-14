@@ -4,14 +4,14 @@ import { CommonModule } from '@angular/common';
 import { AccountMenuRoutingModule } from './account-menu-routing.module';
 import { AccountMenuComponent } from './account-menu.component';
 import {I3otpModule} from "../../shared/i3otp.module";
-import {I3otpEditorsModule} from "../../shared/forms/editors/i3otp-editors.module";
+//import {I3otpEditorsModule} from "../../shared/forms/editors/i3otp-editors.module";
 import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   imports: [
     CommonModule,
       I3otpModule,
-      I3otpEditorsModule,
+     // I3otpEditorsModule,
     ReactiveFormsModule,
     AccountMenuRoutingModule
   ],

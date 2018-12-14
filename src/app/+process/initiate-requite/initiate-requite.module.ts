@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { InitiateRequiteRoutingModule } from './initiate-requite-routing.module';
 import { InitiateRequiteComponent } from './initiate-requite.component';
 import {I3otpModule} from "../../shared/i3otp.module";
-import {I3otpEditorsModule} from "../../shared/forms/editors/i3otp-editors.module";
+//import {I3otpEditorsModule} from "../../shared/forms/editors/i3otp-editors.module";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {CookieService} from "angular2-cookie/core";
 import {DpDatePickerModule} from "ng2-date-picker";
@@ -16,7 +16,7 @@ import {BigPicModule} from "../../shared/common/big-pic/big-pic.module";
   imports: [
     CommonModule,
       I3otpModule,
-      I3otpEditorsModule,
+     // I3otpEditorsModule,
     InitiateRequiteRoutingModule,
     DpDatePickerModule,
     SelectUserModule,

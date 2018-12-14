@@ -3,7 +3,6 @@ import {NgModule} from '@angular/core';
 import {I3otpModule} from '../shared/i3otp.module';
 
 import {routing} from './tables.routing';
-import {I3otpDatatableModule} from "../shared/ui/datatable/i3otp-datatable.module";
 import { ListStaffComponent } from './list-staff/list-staff.component';
 import { ListProductComponent } from './list-product/list-product.component';
 import {CookieService} from 'angular2-cookie/core';
@@ -18,21 +17,15 @@ import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
-
     ListStaffComponent,
-
     ListProductComponent,
-
     ListClientComponent,
     ListClient1Component,
-
     ListIndentComponent,
-
     ListInventoryComponent,
   ],
   imports: [
     I3otpModule,
-    I3otpDatatableModule,
     ReactiveFormsModule,
     routing
   ],

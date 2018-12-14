@@ -3,7 +3,7 @@ import {CookieStoreService} from '../../../shared/cookies/cookie-store.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {mobileAsyncValidator, mobileValidator, passwordValidator} from '../../../shared/common/validator';
 import {getProvince,getCity,getArea} from '../../../shared/common/area';
-import {Http} from '@angular/http';
+import {Http, Headers, RequestOptions} from '@angular/http';
 import {Router,ActivatedRoute} from '@angular/router';
 import {GlobalService} from '../../../core/global.service';
 import {FadeInTop} from '../../../shared/animations/fade-in-top.decorator';
@@ -197,6 +197,32 @@ export class RegistrationFormComponent implements OnInit {
   //
   // });
 
+  createAuthorizationHeader(headers:Headers) {
+    let token = localStorage.getItem('access_token');
+    headers.append('Authorization', 'Bearer ' +token);
+  }
+
+  /**
+   * header  测试测试
+   */
+  go(){
+    let headers = new Headers();
+    this.createAuthorizationHeader(headers);
+    headers.append('Accept', 'application/json'); // also tried other types to test if its working with other types, but no luck
+
+    let options = new RequestOptions({
+      headers: headers
+    });
+    let body = JSON.stringify({});
+    this.http.post(this.globalService.getDomain()+'/api/v1/details', body, options)
+        .subscribe((data)=>{
+      let info = JSON.parse(data['_body']);
+      console.log(info);
+    },
+    response => {
+      console.log('PATCH call in error', response);
+    });
+  }
 
   /**
    * 是否有该元素

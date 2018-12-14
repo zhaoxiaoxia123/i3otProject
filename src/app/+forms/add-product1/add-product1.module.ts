@@ -5,7 +5,7 @@ import { AddProduct1RoutingModule } from './add-product1-routing.module';
 import { AddProduct1Component } from './add-product1.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {I3otpModule} from '../../shared/i3otp.module';
-import {I3otpEditorsModule} from '../../shared/forms/editors/i3otp-editors.module';
+//import {I3otpEditorsModule} from '../../shared/forms/editors/i3otp-editors.module';
 import {CookieService} from 'angular2-cookie/core';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 import {DpDatePickerModule} from "ng2-date-picker";
@@ -15,7 +15,7 @@ import {DpDatePickerModule} from "ng2-date-picker";
     CommonModule,
       ReactiveFormsModule,
       I3otpModule,
-      I3otpEditorsModule,
+   //   I3otpEditorsModule,
     DpDatePickerModule,
     AddProduct1RoutingModule
   ],

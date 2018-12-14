@@ -190,3 +190,9 @@ App is configured for running end-to-end (via [Protractor](http://www.protractor
 
 ## remarks
 [1] If you, on some edging cases, can't build or run angular 2 projects, consider to try any virtual environment (i.e custom vagrant with some lightweight linux and nodejs@6.*.*)
+ng update @angular/cli
+ng update @angular/cli --migrate-only --from=1.7.4
+
+npm install --save rxjs-compat@^6.0.0
+
+

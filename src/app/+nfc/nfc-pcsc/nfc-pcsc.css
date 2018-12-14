@@ -1,0 +1,72 @@
+/** {*/
+  /*margin: 0;*/
+  /*padding: 0;*/
+/*}*/
+
+/*html, body {*/
+  /*height: 100%;*/
+  /*background: #f9f9f9;*/
+/*}*/
+
+body {
+  display: flex;
+  /*弹性布局,用来为盒状模型提供最大的灵活性。任何一个容器都可以指定为Flex布局。
+             子元素的float、clear和vertical-align属性将失效。http://blog.csdn.net/u011300580/article/details/56011564*/
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.veriface {
+  width: 800px;
+  height: 500px;
+  background-color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.veriface .capture {
+  display: block;
+  width: 760px;
+  height: 360px;
+  background-color: #222222;
+}
+
+.veriface .control {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 70px;
+}
+
+.veriface .control span {
+  width: 100px;
+  height: 45px;
+  background: #F9F9F9;
+  text-align: center;
+  line-height: 45px;
+  color: #222222;
+  font-size: 12px;
+  border-radius: 8px;
+  box-shadow: 0 0 4px #cccccc;
+  user-select: none;
+  cursor: pointer;
+  transition: 1s;
+}
+
+.veriface .control span:hover {
+  background-color: #e6e6e6;
+}
+
+.veriface h3.notice {
+  color: #336688;
+}
+.draw_img{
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+}
