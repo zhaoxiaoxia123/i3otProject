@@ -1,10 +1,6 @@
-
 import { NgModule } from '@angular/core';
-
 import { SmartadminModule } from '../shared/smartadmin.module'
-
 import { routing } from './outlook.routing';
-
 import {OutlookComponent} from "./outlook.component";
 import {FolderComponent} from "./folder/folder.component";
 import {DetailsComponent} from "./details/details.component";
@@ -21,7 +17,6 @@ import {I3otpModule} from "../shared/i3otp.module";
     DetailsComponent,
     ReplayComponent,
     ComposeComponent,
-
     MessageLabelsComponent,
   ],
   imports: [

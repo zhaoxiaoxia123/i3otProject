@@ -1,7 +1,5 @@
-import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {CustomerUnitComponent} from "./customer-unit.component";
-
 
 export const CustomerUnitRoutes: Routes = [{
     path: '',

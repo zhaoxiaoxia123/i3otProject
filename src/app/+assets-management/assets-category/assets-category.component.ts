@@ -1,5 +1,4 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Http} from "@angular/http";
 import {Router} from "@angular/router";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
@@ -25,8 +24,8 @@ export class AssetsCategoryComponent implements OnInit {
             demo10: 'is1'
         },
     };
-  categoryList : Array<any> = [];
-  categoryInfo : Array<any> = [];
+  categoryList : any = [];
+  categoryInfo : any = [];
   category_id:number = 0;
   category_desc:string = '';
   category_number:string = '';
@@ -57,7 +56,6 @@ export class AssetsCategoryComponent implements OnInit {
   /** 权限 */
   permissions : Array<any> = [];
   constructor(
-      private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
@@ -95,12 +93,11 @@ export class AssetsCategoryComponent implements OnInit {
    * @param number
    */
   getCategoryList(number:string) {
-    let url = this.globalService.getDomain()+'/api/v1/getCategory?category_type='+this.category_type+'&page='+number+'&sid='+this.cookieStore.getCookie('sid');
+    let url = 'getCategory?category_type='+this.category_type+'&page='+number+'&sid='+this.cookieStore.getCookie('sid');
     if(this.keyword.trim() != '') {
       url += '&keyword='+this.keyword.trim();
     }
-    this.http.get(url)
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get',url)
         .subscribe((data)=>{
           this.categoryList = data;
           if(this.categoryList['status'] == 202){
@@ -176,7 +173,7 @@ export class AssetsCategoryComponent implements OnInit {
       alert('请输入销售类型标题！');
       return false;
     }
-    this.http.post(this.globalService.getDomain()+'/api/v1/addCategory',{
+    this.globalService.httpRequest('post','addCategory',{
       'category_id' : this.category_id,
       'category_type' : this.category_type,
       'category_desc' : this.category_desc,
@@ -184,13 +181,12 @@ export class AssetsCategoryComponent implements OnInit {
       'category_number' : this.category_number,
       'sid':this.cookieStore.getCookie('sid')
     }).subscribe((data)=>{
-        let info = JSON.parse(data['_body']);
-        if(info['status'] == 200) {
+        if(data['status'] == 200) {
           this.category_id = 0;
           this.category_desc = '';
           this.category_number = '';
           this.category_tab = '';
-          this.categoryList = info;
+          this.categoryList = data;
 
           if (this.categoryList['result']['categoryList']['current_page'] == this.categoryList['result']['categoryList']['last_page']) {
             this.next = true;
@@ -208,8 +204,8 @@ export class AssetsCategoryComponent implements OnInit {
           }
           this.check = false;
           this.editStatusCategoryId = 0;
-        }else if(info['status'] == 202){
-          alert(info['msg']);
+        }else if(data['status'] == 202){
+          alert(data['msg']);
           this.cookieStore.removeAll(this.rollback_url);
           this.router.navigate(['/auth/login']);
         }
@@ -228,15 +224,13 @@ export class AssetsCategoryComponent implements OnInit {
     }else if(type == 'edit'){
       this.lgModal.show();
     }
-    this.http.get(this.globalService.getDomain()+'/api/v1/getCategoryById?category_id='+this.editStatusCategoryId+'&number=1')
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get','getCategoryById?category_id='+this.editStatusCategoryId+'&number=1')
         .subscribe((data)=>{
           this.categoryInfo = data;
           this.category_id = this.categoryInfo['result']['parent']['category_id'];
           this.category_desc = this.categoryInfo['result']['parent']['category_desc'];
           this.category_number = this.categoryInfo['result']['parent']['category_number'];
           this.category_tab = this.categoryInfo['result']['parent']['category_tab'];
-
           this.editStatusCategoryId = 0;
         });
   }
@@ -269,9 +263,8 @@ export class AssetsCategoryComponent implements OnInit {
     }
     msg = '您确定要删除该信息吗？';
     if(confirm(msg)) {
-      let url = this.globalService.getDomain()+'/api/v1/deleteCategory?category_id=' + category_id + '&type='+type+'&category_type='+this.category_type+'&sid=' + this.cookieStore.getCookie('sid');
-      this.http.delete(url)
-          .map((res) => res.json())
+      let url = 'deleteCategory?category_id=' + category_id + '&type='+type+'&category_type='+this.category_type+'&sid=' + this.cookieStore.getCookie('sid');
+      this.globalService.httpRequest('delete',url)
           .subscribe((data) => {
             this.categoryList = data;
             if(this.categoryList['status'] == 202){
@@ -317,7 +310,6 @@ export class AssetsCategoryComponent implements OnInit {
    */
   isStatusShow(category_id:any){
     this.editStatusCategoryId = category_id;
-
     this.isAll = 0;
     this.width = '0%';
     this.width_1 ='100%';
@@ -338,7 +330,6 @@ export class AssetsCategoryComponent implements OnInit {
     this.category_tab = '';
     this.editStatusCategoryId = 0;
   }
-
 
   @ViewChild('lgModal') public lgModal:ModalDirective;
   @ViewChild('detailModel') public detailModel:ModalDirective;

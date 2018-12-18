@@ -1,9 +1,8 @@
-import {Component, OnInit, ViewChild} from '@angular/core';//,Input, AfterViewInit, ViewEncapsulation
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {CookieStoreService} from '../../../shared/cookies/cookie-store.service';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {mobileAsyncValidator, mobileValidator, passwordValidator} from '../../../shared/common/validator';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {mobileAsyncValidator, mobileValidator} from '../../../shared/common/validator';
 import {getProvince,getCity,getArea} from '../../../shared/common/area';
-import {Http, Headers, RequestOptions} from '@angular/http';
 import {Router,ActivatedRoute} from '@angular/router';
 import {GlobalService} from '../../../core/global.service';
 import {FadeInTop} from '../../../shared/animations/fade-in-top.decorator';
@@ -26,10 +25,10 @@ export class RegistrationFormComponent implements OnInit {
   birthplace_province : string[] = [];
   birthplace_city : string[] = [];
   passwordPlaceholder:string = '请输入密码';
-  userList : Array<any> = [];
+  userList : any = [];
 
   u_id : number = 0;
-  user_info : Array<any> = [];
+  user_info : any = [];
 
   super_admin_id : any = 0;//超级管理员id
   is_show : boolean = false;
@@ -76,13 +75,11 @@ export class RegistrationFormComponent implements OnInit {
   @ViewChild('avatarCropper', undefined) avatarCropper:ImageCropperComponent;
   constructor(
       fb:FormBuilder,
-      private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private routInfo : ActivatedRoute,
       private globalService:GlobalService,
       private notificationService: NotificationService
-      // private uploader:FileUploaderOptions
   ) {
     
     this.formModel = fb.group({
@@ -93,10 +90,6 @@ export class RegistrationFormComponent implements OnInit {
       gender:[''],
       age:[''],
       password:['',[Validators.minLength(6)]],
-      // passwords : fb.group({
-      //   password:['',[Validators.minLength(6)]],
-      //   pconfirm:['']
-      // },{validator:passwordValidator}),
       phone:['',mobileValidator,mobileAsyncValidator],
       department:[''],
       title:[''],
@@ -130,10 +123,6 @@ export class RegistrationFormComponent implements OnInit {
       c_id:['']
     });
 
-    // for(var p in this.area1){
-    //   console.log(p);
-    //   console.log(this.area1[p]);
-    // }
     this.province = getProvince(); //家庭住址
     this.birthplace_province = getProvince();  //籍贯
 
@@ -157,7 +146,6 @@ export class RegistrationFormComponent implements OnInit {
   cropped(bounds:Bounds) {
     this.croppedHeight =bounds.bottom-bounds.top;
     this.croppedWidth = bounds.right-bounds.left;
-    // console.log(bounds);
   }
   ngOnInit() {
     this.u_id = this.routInfo.snapshot.params['u_id'];
@@ -176,45 +164,20 @@ export class RegistrationFormComponent implements OnInit {
       this.rollback_url = this.globalService.getMenuUrl();
       this.permissions = this.globalService.getPermissions();
     },this.globalService.getMenuPermissionDelayTime())
-    // //上传成功回调
-    // this.uploader.onSuccessItem = (item, response, status, headers) => {
-    //   if (status == 200) {
-    //     // 上传文件后获取服务器返回的数据
-    //     let tempRes = JSON.parse(response);
-    //     this.path= tempRes['result'];
-    //     // console.info('tempRes；------');
-    //     console.info(this.path);
-    //   }
-    //   // console.info(response+" for "+item.file.name + " status " + status);
-    // };
-  }
-  // // 初始化上次图片变量
-  // public uploader:FileUploader = new FileUploader({
-  //   url: this.globalService.getDomain() + "/api/v1/uploadFile",
-  //   method: "POST",
-  //   removeAfterUpload:true,
-  //   itemAlias: "uploadedfile",
-  //
-  // });
-
-  createAuthorizationHeader(headers:Headers) {
-    let token = localStorage.getItem('access_token');
-    headers.append('Authorization', 'Bearer ' +token);
   }
 
   /**
    * header  测试测试
    */
   go(){
-    let headers = new Headers();
-    this.createAuthorizationHeader(headers);
-    headers.append('Accept', 'application/json'); // also tried other types to test if its working with other types, but no luck
+    let token = localStorage.getItem('access_token');
+    let options = {
+      'Accept':'application/json',
+    'Authorization':'Bearer ' +token
+    };
 
-    let options = new RequestOptions({
-      headers: headers
-    });
     let body = JSON.stringify({});
-    this.http.post(this.globalService.getDomain()+'/api/v1/details', body, options)
+    this.globalService.httpRequest('post','details', body, options)
         .subscribe((data)=>{
       let info = JSON.parse(data['_body']);
       console.log(info);
@@ -238,8 +201,7 @@ export class RegistrationFormComponent implements OnInit {
   showPinyin(){
     let name = this.formModel.value['name'];
     if(name.trim() != ''){
-      this.http.get(this.globalService.getDomain()+'/api/v1/getPinyin?name='+name)
-          .map((res)=>res.json())
+      this.globalService.httpRequest('get','getPinyin?name='+name)
           .subscribe((data)=>{
             this.formModel.patchValue({
               'u_shortcode': data['result']
@@ -249,8 +211,7 @@ export class RegistrationFormComponent implements OnInit {
   }
 
   getUserInfo(u_id:number){
-    this.http.get(this.globalService.getDomain()+'/api/v1/getUserInfo?u_id='+u_id)
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get','getUserInfo?u_id='+u_id)
         .subscribe((data)=>{
           this.user_info = data;
           console.log(this.user_info);
@@ -264,7 +225,6 @@ export class RegistrationFormComponent implements OnInit {
       'employee_id':this.user_info['result']['name'],
       'name':this.user_info['result']['u_username'],
       'phone':this.user_info['result']['u_phone'],
-      // 'password':this.user_info['result']['passwords']['password'],
       'role':this.user_info['result']['u_role'],
       'gender':this.user_info['result']['u_gender'],
       'age':this.user_info['result']['u_age'],
@@ -276,7 +236,6 @@ export class RegistrationFormComponent implements OnInit {
       'contract_type':this.user_info['result']['u_contract_type'],
       'birthplace1':this.user_info['result']['birthplace1'],
       'birthplace2':this.user_info['result']['birthplace2'],
-      // 'birthplace':this.user_info['result']['birthplace1']+ ' '+this.user_info['result']['birthplace2'],
       'id_card':this.user_info['result']['u_id_card'],
       'nation':this.user_info['result']['u_nation'],
       'marital_status':this.user_info['result']['u_marital_status'],
@@ -296,7 +255,6 @@ export class RegistrationFormComponent implements OnInit {
       'address2':this.user_info['result']['address2'],
       'address3':this.user_info['result']['address3'],
       'address4':this.user_info['result']['address4'],
-      // 'address':this.user_info['result']['address1']+' '+this.user_info['result']['address2'] +' '+ this.user_info['result']['address3']+' '+this.user_info['result']['address4'],
       'updated_at':this.user_info['result']['updated_at'],
       'created_at':this.user_info['result']['created_at'],
     });
@@ -319,8 +277,6 @@ export class RegistrationFormComponent implements OnInit {
     }
     this.passwordPlaceholder = '******';
   }
-
-
 
   clear_(){
     this.formModel.patchValue({
@@ -393,12 +349,9 @@ export class RegistrationFormComponent implements OnInit {
    * 获取添加员工的默认参数
    */
   getUserDefault(num:number) {
-    this.http.get(this.globalService.getDomain()+'/api/v1/getUserDefault?type=add&sid='+this.cookieStore.getCookie('sid'))
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get','getUserDefault?type=add&sid='+this.cookieStore.getCookie('sid'))
         .subscribe((data)=>{
           this.userList = data;
-          console.log('this.userList:----');
-          console.log(this.userList);
           if(this.userList['status'] == 202) {
             alert(this.userList['msg']);
             this.cookieStore.removeAll(this.rollback_url);
@@ -427,7 +380,6 @@ export class RegistrationFormComponent implements OnInit {
             this.is_show = true;
           }
         });
-
   }
 
   onSubmit(num:number){
@@ -439,9 +391,7 @@ export class RegistrationFormComponent implements OnInit {
       alert('请填写员工姓名！');
       return false;
     }
-    // console.log(this.formModel.value['passwords']['password']);
-    // console.log(this.formModel.value['name']);
-    this.http.post(this.globalService.getDomain()+'/api/v1/addUser',{
+    this.globalService.httpRequest('post','addUser',{
       'u_id':this.formModel.value['u_id'],
       'employee_id':this.formModel.value['employee_id'],
       'name':this.formModel.value['name'],
@@ -476,18 +426,16 @@ export class RegistrationFormComponent implements OnInit {
       'sid':this.cookieStore.getCookie('sid'),
       'c_id':this.formModel.value['c_id'],
       'avatar':this.path
-    }).subscribe(
-        (data)=>{
-          let info = JSON.parse(data['_body']);
-          alert(info['msg']);
-          if(info['status'] == 200) {
+    }).subscribe( (data)=>{
+          alert(data['msg']);
+          if(data['status'] == 200) {
             if(num == 1) {
               this.cookieStore.setCookie('u_avatar', this.path);
               this.router.navigateByUrl('/tables/staff');
             }else{
               this.clear_();
             }
-          }else if(info['status'] == 202){
+          }else if(data['status'] == 202){
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
@@ -563,21 +511,4 @@ export class RegistrationFormComponent implements OnInit {
             }
         });
     }
-
-
 }
-
-
-// import { Pipe, PipeTransform } from '@angular/core';
-//
-// @Pipe({name: 'keys'})
-// export class KeysPipe implements PipeTransform
-// {
-//   transform(value:any, args:string[]): any {
-//     let keys:any[] = [];
-//     for (let key in value) {
-//       keys.push({key: key, value: value[key]});
-//     }
-//     return keys;
-//   }
-// }

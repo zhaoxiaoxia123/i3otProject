@@ -1,9 +1,7 @@
-import {Component, OnInit, ViewChild,Pipe, PipeTransform} from '@angular/core';
-
+import {Component, OnInit,Pipe, PipeTransform} from '@angular/core';
 import {Router} from "@angular/router";
 import {FadeInTop} from '../../shared/animations/fade-in-top.decorator';
 import {Observable} from "rxjs/Observable";
-import {Http} from "@angular/http";
 import "rxjs/Rx";
 import {GlobalService} from "../../core/global.service";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";  // 用于map方法是用
@@ -15,13 +13,13 @@ import {CookieStoreService} from "../../shared/cookies/cookie-store.service";  /
 })
 export class DataMapComponent implements OnInit {
     dataSource: Observable<any>;
-    products: Array<any> = [];
+    products: any = [];
 
     dataSource1: Observable<any>;
-    products1: Array<any> = [];
+    products1: any = [];
 
     is_show_products : number = 0;
-    customerDefault : Array<any> = [];
+    customerDefault : any = [];
     company:string = 'all';
 
     private interval;
@@ -45,11 +43,10 @@ export class DataMapComponent implements OnInit {
     is_show_2 : string = 'block';
 
     //颜色设置列表信息
-    colorShow  : Array<any> = [];
+    colorShow  : any = [];
     count : number = 0;
     rollback_url : string = '/equipment/data-map';
     constructor(
-        private http : Http,
         private router:Router,
         private globalService : GlobalService,
         private cookiestore : CookieStoreService
@@ -65,27 +62,21 @@ export class DataMapComponent implements OnInit {
         this.interval = setInterval(() => {
             this.search_datapoint();//请求http数据
         }, 3*60*1000);
-
     }
 
     /**
      * 阶段颜色显示
      */
     getColorShow(){
-        let url = this.globalService.getDomain()+'/api/v1/getSettingsInfo?sid='+this.cookiestore.getCookie('sid');
-        this.http.get(url)
-            .map((res)=>res.json())
+        let url = 'getSettingsInfo?sid='+this.cookiestore.getCookie('sid');
+        this.globalService.httpRequest('get',url)
             .subscribe((data)=>{
                 this.colorShow = data;
-            });
-        setTimeout(() => {
-            console.log('this.colorShow:--');
-            console.log(this.colorShow);
             if(this.colorShow['status'] == 202){
                 this.cookiestore.removeAll(this.rollback_url);
                 this.router.navigate(['/auth/login']);
             }
-        }, 500);
+        });
     }
 
     /**
@@ -125,8 +116,7 @@ export class DataMapComponent implements OnInit {
 
 
     getDefault(){
-        this.http.get(this.globalService.getDomain()+'/api/v1/getCustomerInfo?c_role=1&sid='+this.cookiestore.getCookie('sid'))
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get','getCustomerInfo?c_role=1&sid='+this.cookiestore.getCookie('sid'))
             .subscribe((data)=>{
                 this.customerDefault = data;
                 console.log('this.customerDefault:-----');
@@ -156,8 +146,8 @@ export class DataMapComponent implements OnInit {
             // 'up_color':'#ebcccc'
         };
         that.size = 5;
-        that.dataSource = that.http.get(that.globalService.getTsdbDomain()+'/tsdb/api/getDatapoint.php?size='+that.size+'&cid='+that.company+'&index=1')
-            .map((res)=>res.json());
+
+        that.dataSource = this.globalService.httpRequest('getTsdb','getDatapoint.php?size='+that.size+'&cid='+that.company+'&index=1');
         that.dataSource.subscribe(data=>{
             console.log('this.products  data:-----');
             console.log(data);
@@ -209,8 +199,7 @@ export class DataMapComponent implements OnInit {
     search_datapoint1(color_){
         let that = this;
         that.size = 5;
-        that.dataSource1 = that.http.get(that.globalService.getTsdbDomain()+'/tsdb/api/getDatapoint.php?size='+that.size+'&cid='+that.company+'&index=2')
-            .map((res)=>res.json());
+        that.dataSource1 =  this.globalService.httpRequest('getTsdb','getDatapoint.php?size='+that.size+'&cid='+that.company+'&index=2');
         that.dataSource1.subscribe(data=>{
             that.products1=data;
             console.log('this.products1:-----');
@@ -278,10 +267,8 @@ export class DataMapComponent implements OnInit {
 
     search_datapoint_pic(value:string){
         this.size = 50;
-        this.dataSource_ = this.http.get(this.globalService.getTsdbDomain()+'/tsdb/api/getDatapoint.php?size='+this.size+'&metric='+value+'&cid='+this.company)
-            .map((res)=>res.json());
+        this.dataSource_ =  this.globalService.httpRequest('getTsdb','getDatapoint.php?size='+this.size+'&metric='+value+'&cid='+this.company);
         this.dataSource_.subscribe((data)=>this.products_=data);
-
         setTimeout(() => {
             this.getSeriesInfo_pic(value);
         }, 3000);
@@ -340,7 +327,6 @@ export class DataMapComponent implements OnInit {
         };
     }
 
-
     /**
      * 日平均报表
      */
@@ -362,10 +348,8 @@ export class DataMapComponent implements OnInit {
     }
 
     search_datapoint_day(m_type:string,m_category:number){
-        this.dataSource_day = this.http.get(this.globalService.getDomain()+'/api/v1/getMeanList?m_type='+m_type+'&m_category='+m_category+'&c_id='+this.company+'&m_sensor='+this.showMetric)
-            .map((res)=>res.json());
+        this.dataSource_day =  this.globalService.httpRequest('get','getMeanList?m_type='+m_type+'&m_category='+m_category+'&c_id='+this.company+'&m_sensor='+this.showMetric);
         this.dataSource_day.subscribe((data)=>this.products_day=data);
-
         setTimeout(() => {
             this.getSeriesInfo_day(m_type,m_category);
         }, 2000);
@@ -384,7 +368,6 @@ export class DataMapComponent implements OnInit {
                 data: this.products_day['result']['value']
             });
         }
-
         this.chartOption_day = {
             title: {
                 text: '设备检测数据'
@@ -420,9 +403,6 @@ export class DataMapComponent implements OnInit {
             }],
             series: this.seriesInfo_day
         };
-
-        // console.log('chartOption_day');
-        // console.log(this.chartOption_day);
     }
 
     /**
@@ -439,10 +419,7 @@ export class DataMapComponent implements OnInit {
         this.is_show_2 = "block";
         this.isClear &&  clearInterval(this.isClear);
     }
-
 }
-
-import {any} from "codelyzer/util/function";
 
 @Pipe({name: 'keys'})
 export class KeysPipe implements PipeTransform

@@ -1,6 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FadeInTop} from "../../shared/animations/fade-in-top.decorator";
-import {Http} from "@angular/http";
 import {Router} from "@angular/router";
 import {GlobalService} from "../../core/global.service";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
@@ -12,10 +11,10 @@ import {ModalDirective} from "ngx-bootstrap";
   templateUrl: './todo-projects.component.html'
 })
 export class TodoProjectsComponent implements OnInit {
-  projectList : Array<any> = [];
-  projectDefault : Array<any> = [];
-  projectInfo : Array<any> = [];
-  categoryList : Array<any> = [];
+  projectList :any= [];
+  projectDefault :any = [];
+  projectInfo :any = [];
+  categoryList :any = [];
 
   isShowButton : any = 0;
 
@@ -28,7 +27,6 @@ export class TodoProjectsComponent implements OnInit {
   uId : any = 0;
   rollback_url : string = '/forms/todo-projects';
   constructor(
-      private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
@@ -48,9 +46,8 @@ export class TodoProjectsComponent implements OnInit {
    * 获取发布和修改项目信息的默认数据
    */
   getProjectDefault(){
-    let url = this.globalService.getDomain()+'/api/v1/getProjectDefault?sid='+this.cookieStore.getCookie('sid');
-    this.http.get(url)
-        .map((res)=>res.json())
+    let url = 'getProjectDefault?sid='+this.cookieStore.getCookie('sid');
+      this.globalService.httpRequest('get',url)
         .subscribe((data)=>{
           this.projectDefault = data;
           if(this.projectDefault['status'] == 202){
@@ -75,8 +72,7 @@ export class TodoProjectsComponent implements OnInit {
     deleteProjectById($event:Event,project_id:number){
         $event.stopPropagation();
         if(confirm("您确定要删除该项目，以及该项目下的所有任务信息吗？")) {
-        this.http.delete(this.globalService.getDomain()+'/api/v1/deleteProjectById?project_id=' + project_id + '&type=id&sid='+this.cookieStore.getCookie('sid'))
-            .map((res) => res.json())
+            this.globalService.httpRequest('delete','deleteProjectById?project_id=' + project_id + '&type=id&sid='+this.cookieStore.getCookie('sid'))
             .subscribe((data) => {
                 this.projectList = data;
                 if (this.projectList['status'] == 202) {
@@ -94,9 +90,8 @@ export class TodoProjectsComponent implements OnInit {
    * @param number
    */
   getProjectList(number:string) {
-    let url = this.globalService.getDomain()+'/api/v1/getProjectList?page='+number+'&uId='+this.uId+'&sid='+this.cookieStore.getCookie('sid');
-    this.http.get(url)
-        .map((res)=>res.json())
+    let url = 'getProjectList?page='+number+'&uId='+this.uId+'&sid='+this.cookieStore.getCookie('sid');
+      this.globalService.httpRequest('get',url)
         .subscribe((data)=>{
             this.projectList = data;
             if(this.projectList['status'] == 202){
@@ -116,9 +111,8 @@ export class TodoProjectsComponent implements OnInit {
     this.edit_project_id = project_id;
     if(project_id != 0){
       $event.stopPropagation();
-      let url = this.globalService.getDomain()+'/api/v1/getProjectInfo?project_id='+project_id;
-      this.http.get(url)
-          .map((res)=>res.json())
+      let url = 'getProjectInfo?project_id='+project_id;
+        this.globalService.httpRequest('get',url)
           .subscribe((data)=>{
             this.projectInfo = data;
             if(this.projectInfo['status'] == 202){
@@ -149,22 +143,20 @@ export class TodoProjectsComponent implements OnInit {
       msg = '确定要取消标记该项目吗？';
     }
     if(confirm(msg)) {
-      this.http.post(this.globalService.getDomain()+'/api/v1/addCommonProject',{
+        this.globalService.httpRequest('post','addCommonProject',{
         'project_id' : project_id,
         'project_status':project_status,
         'uId':this.uId,
         'sid':this.cookieStore.getCookie('sid')
-      }).subscribe(
-          (data)=>{
-            let info = JSON.parse(data['_body']);
-            if(info['status'] == 201) {
-              alert(info['msg']);
-            }else if(info['status'] == 202){
-              alert(info['msg']);
+      }).subscribe( (data)=>{
+            if(data['status'] == 201) {
+              alert(data['msg']);
+            }else if(data['status'] == 202){
+              alert(data['msg']);
               this.cookieStore.removeAll(this.rollback_url);
               this.router.navigate(['/auth/login']);
             }
-            this.projectList = info;
+            this.projectList = data;
           }
       );
     }
@@ -179,7 +171,7 @@ export class TodoProjectsComponent implements OnInit {
       alert('请输入项目标题！');
       return false;
     }
-    this.http.post(this.globalService.getDomain()+'/api/v1/addProject',{
+      this.globalService.httpRequest('post','addProject',{
       'edit_project_id' : this.edit_project_id,
       'project_owner' : this.project_owner,
       'project_title' : this.project_title,
@@ -188,20 +180,18 @@ export class TodoProjectsComponent implements OnInit {
       'project_template' : this.project_template,
       'u_id' : this.cookieStore.getCookie('uid'),
       'sid':this.cookieStore.getCookie('sid')
-    }).subscribe(
-        (data)=>{
-          let info = JSON.parse(data['_body']);
-          if(info['status'] == 200) {
-            this.router.navigate(['/forms/todo-mission/'+info['result']['last_project_id']+'_0']);
+    }).subscribe((data)=>{
+          if(data['status'] == 200) {
+            this.router.navigate(['/forms/todo-mission/'+data['result']['last_project_id']+'_0']);
             this.edit_project_id = 0;
             this.project_owner = 0;
             this.project_title = '';
             this.project_content = '';
             this.project_publicity = 0;
 
-          this.projectList = info['result']['projectList'];
-          }else if(info['status'] == 202){
-            alert(info['msg']);
+          this.projectList = data['result']['projectList'];
+          }else if(data['status'] == 202){
+            alert(data['msg']);
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
@@ -218,8 +208,7 @@ export class TodoProjectsComponent implements OnInit {
     }else{
       value =obj;
     }
-    this.http.get(this.globalService.getDomain()+'/api/v1/getProjectPublicity?category_id='+value+'&sid='+this.cookieStore.getCookie('sid'))
-        .map((res)=>res.json())
+      this.globalService.httpRequest('get','getProjectPublicity?category_id='+value+'&sid='+this.cookieStore.getCookie('sid'))
         .subscribe((data)=>{
           this.categoryList = data;
           if(this.categoryList['status'] == 202){

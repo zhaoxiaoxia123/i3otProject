@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {Http} from "@angular/http";
 import {Router} from "@angular/router";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
@@ -9,8 +8,8 @@ import {GlobalService} from "../../core/global.service";
   templateUrl: './outbound.component.html',
 })
 export class OutboundComponent implements OnInit {
-  otherorderList : Array<any> = [];
-  otherorderInfo : Array<any> = [];
+  otherorderList : any = [];
+  otherorderInfo : any = [];
   page : any;
   prev : boolean = false;
   next : boolean = false;
@@ -53,7 +52,6 @@ export class OutboundComponent implements OnInit {
   permissions : Array<any> = [];
   menuInfos: Array<any> = [];
   constructor(
-      private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
@@ -93,12 +91,11 @@ export class OutboundComponent implements OnInit {
    * @param number
    */
   getOtherorderList(number:string) {
-    let url = this.globalService.getDomain()+'/api/v1/getOtherorderList?otherorder_type='+this.otherorder_type+'&page='+number+'&sid='+this.cookieStore.getCookie('sid');
+    let url = 'getOtherorderList?otherorder_type='+this.otherorder_type+'&page='+number+'&sid='+this.cookieStore.getCookie('sid');
     if(this.keyword.trim() != '') {
       url += '&keyword='+this.keyword.trim();
     }
-    this.http.get(url)
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get',url)
         .subscribe((data)=>{
           this.otherorderList = data;
           if(this.otherorderList['status'] == 202){
@@ -182,9 +179,8 @@ export class OutboundComponent implements OnInit {
     }
     msg = '您确定要删除该信息吗？';
     if(confirm(msg)) {
-      let url = this.globalService.getDomain()+'/api/v1/deleteOtherorderById?otherorder_id=' + otherorder_id + '&otherorder_type=' + this.otherorder_type + '&type='+type+'&sid=' + this.cookieStore.getCookie('sid');
-      this.http.delete(url)
-          .map((res) => res.json())
+      let url = 'deleteOtherorderById?otherorder_id=' + otherorder_id + '&otherorder_type=' + this.otherorder_type + '&type='+type+'&sid=' + this.cookieStore.getCookie('sid');
+      this.globalService.httpRequest('delete',url)
           .subscribe((data) => {
             this.otherorderList = data;
             if(this.otherorderList['status'] == 202){

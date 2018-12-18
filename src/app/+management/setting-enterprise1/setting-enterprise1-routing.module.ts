@@ -1,7 +1,5 @@
-import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {SettingEnterprise1Component} from './setting-enterprise1.component';
-
 
 export const settingEnterprise1Routes: Routes = [{
     path: '',

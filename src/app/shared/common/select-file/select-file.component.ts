@@ -3,7 +3,6 @@ import {FadeInTop} from "../../animations/fade-in-top.decorator";
 import {GlobalService} from "../../../core/global.service";
 import { FileUploader} from "ng2-file-upload";
 import {isUndefined} from "util";
-import {read} from "fs";
 
 @FadeInTop()
 @Component({

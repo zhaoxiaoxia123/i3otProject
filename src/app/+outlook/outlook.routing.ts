@@ -1,5 +1,3 @@
-
-import {ModuleWithProviders} from "@angular/core"
 import {Routes, RouterModule} from "@angular/router";
 import {OutlookComponent} from "./outlook.component";
 import {FolderComponent} from "./folder/folder.component";

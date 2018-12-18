@@ -1,6 +1,5 @@
 import {Component, OnInit, Input} from '@angular/core';
 
-
 @Component({
   selector: 'message-labels',
   template: '<span *ngFor="let label of message.labels" class="label bg-color-{{LABELS[label].color}}">{{LABELS[label].name}}</span>',

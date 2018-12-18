@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FadeInTop} from '../../shared/animations/fade-in-top.decorator';
 import {JsonApiService} from "../../core/api/json-api.service";
-
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {Http} from '@angular/http';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 import {Router} from '@angular/router';
 import {GlobalService} from '../../core/global.service';
@@ -16,16 +14,7 @@ export class SettingProduct3typeComponent implements OnInit {
     public states: Array<any>;
     public state: any = {
         tabs: {
-            demo1: 0,
             demo2: 'tab-r1',
-            demo3: 'hr1',
-            demo4: 'AA',
-            demo5: 'iss1',
-            demo6: 'l1',
-            demo7: 'tab1',
-            demo8: 'hb1',
-            demo9: 'A1',
-            demo10: 'is1'
         },
     };
     public demo2: any;
@@ -43,10 +32,10 @@ export class SettingProduct3typeComponent implements OnInit {
     is_edit : boolean = false;
     category_desc_s :string;
 
-    categoryList : Array<any> = [];
+    categoryList : any = [];
     button_contrl_id : number = 0;
     index : number = 1;
-    edit_category_info : Array<any> = [];//用于编辑的绑定信息
+    edit_category_info : any = [];//用于编辑的绑定信息
 
     cid : any = 0;//当前登录用户的所属公司id
     super_admin_id : any = 0;//超级管理员所属公司id
@@ -54,7 +43,6 @@ export class SettingProduct3typeComponent implements OnInit {
     rollback_url : string = '/management/product3type';
   constructor(private jsonApiService:JsonApiService,
               fb:FormBuilder,
-              private http:Http,
               private router:Router,
               private cookieStoreService : CookieStoreService,
               private globalService:GlobalService
@@ -75,14 +63,10 @@ export class SettingProduct3typeComponent implements OnInit {
      * 获取右边的默认列表信息
      */
     getCategory(){
-        this.http.get(this.globalService.getDomain()+'/api/v1/getCategory?category_type=6&sid='+this.cookieStoreService.getCookie('sid'))
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get','getCategory?category_type=6&sid='+this.cookieStoreService.getCookie('sid'))
             .subscribe((data)=>{
                 this.categoryList = data;
-            });
-        setTimeout(() => {
-            // console.log('categoryList:----');
-            // console.log(this.categoryList);
+
             if(this.categoryList['status'] == 202){
                 this.cookieStoreService.removeAll(this.rollback_url);
                 this.router.navigate(['/auth/login']);
@@ -95,7 +79,7 @@ export class SettingProduct3typeComponent implements OnInit {
                     this.parentCategoryList.push(val);
                 }
             });
-        }, 300);
+        });
     }
 
     /**
@@ -115,22 +99,20 @@ export class SettingProduct3typeComponent implements OnInit {
       if(number == 1){  //发布一级类型
           console.log(this.category_desc1);
           if(this.is_edit == true){ //修改二级类型的父类信息
-              this.http.post(this.globalService.getDomain()+'/api/v1/changeCategoryParentId',{
+              this.globalService.httpRequest('post','changeCategoryParentId',{
                   'category_type':6,
                   'category_depth':this.category_desc_s,
                   'category_id':this.category_id2,
                   'sid':this.cookieStoreService.getCookie('sid')
-              }).subscribe(
-                  (data)=>{
-                      let info =JSON.parse(data['_body']);
-                      if(info['status'] == 202){
+              }).subscribe((data)=>{
+                      if(data['status'] == 202){
                           this.cookieStoreService.removeAll(this.rollback_url);
                           this.router.navigate(['/auth/login']);
                       }
-                      alert(info['msg']);
-                      this.categoryList = info;
+                      alert(data['msg']);
+                      this.categoryList = data;
                       this.category_desc1='';
-                      this.category_depth2 = info['category_id'];//二级信息的父类id
+                      this.category_depth2 = data['category_id'];//二级信息的父类id
                       this.child_style = 'block';
                       //刷新父类修改下拉选择
                       let arr : Array<any> = this.categoryList['result'];
@@ -149,25 +131,23 @@ export class SettingProduct3typeComponent implements OnInit {
                   alert("请输入要添加的信息！");
                   return false;
               }
-              this.http.post(this.globalService.getDomain()+'/api/v1/addCategory',{
+              this.globalService.httpRequest('post','addCategory',{
                   'category_desc':this.category_desc1,
                   'category_type':6,
                   'category_depth':0,
                   'category_id':this.category_id1,
                   'sid':this.cookieStoreService.getCookie('sid')
-              }).subscribe(
-                  (data)=>{
-                      let info =JSON.parse(data['_body']);
-                      alert(info['msg']);
-                      if(info['status'] == 202){
+              }).subscribe((data)=>{
+                      alert(data['msg']);
+                      if(data['status'] == 202){
                           this.cookieStoreService.removeAll(this.rollback_url);
                           this.router.navigate(['/auth/login']);
                       }
-                      if(info['status'] == 203){
+                      if(data['status'] == 203){
                           return false;
                       }
-                      this.categoryList = info;
-                      this.category_depth2 = info['category_id'];//二级信息的父类id
+                      this.categoryList = data;
+                      this.category_depth2 = data['category_id'];//二级信息的父类id
                       this.child_style = 'block';
                       //刷新父类修改下拉选择
                       let arr : Array<any>= this.categoryList['result'];
@@ -188,27 +168,25 @@ export class SettingProduct3typeComponent implements OnInit {
               alert("请输入要添加的信息！");
               return false;
           }
-          this.http.post(this.globalService.getDomain()+'/api/v1/addCategory',{
+          this.globalService.httpRequest('post','addCategory',{
               'category_desc':this.category_desc2,
               'category_type':6,
               'category_depth':this.category_depth2,
               'category_id':this.category_id2,
               'sid':this.cookieStoreService.getCookie('sid')
-          }).subscribe(
-              (data)=>{
-                  let info =JSON.parse(data['_body']);
-                  alert(info['msg']);
-                  if(info['status'] == 202){
+          }).subscribe((data)=>{
+                  alert(data['msg']);
+                  if(data['status'] == 202){
                       this.cookieStoreService.removeAll(this.rollback_url);
                       this.router.navigate(['/auth/login']);
                   }
-                  if(info['status'] == 203){
+                  if(data['status'] == 203){
                       return false;
                   }
-                  this.categoryList = info;
+                  this.categoryList = data;
                   this.category_desc1='';
                   this.category_desc2 = '';
-                  this.category_depth2 = info['category_id'];//二级信息的父类id
+                  this.category_depth2 = data['category_id'];//二级信息的父类id
                   this.category_id2 = 0;
                   //刷新父类修改下拉选择
                   let arr : Array<any> = this.categoryList['result'];
@@ -247,12 +225,10 @@ export class SettingProduct3typeComponent implements OnInit {
      * @param category_id
      */
     editCategory(number:number,category_id:number){
-        this.http.get(this.globalService.getDomain()+'/api/v1/getCategoryById?category_id='+category_id+'&number='+number)
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get','getCategoryById?category_id='+category_id+'&number='+number)
             .subscribe((data)=>{
             this.edit_category_info = data;
-            });
-        setTimeout(() => {
+
             if(number == 1){
                 this.child_style = 'none';
                 this.button1_title = '修改';
@@ -274,9 +250,7 @@ export class SettingProduct3typeComponent implements OnInit {
                 this.category_depth2 = this.edit_category_info['result']['child']['category_depth'];
             }
 
-            console.log( 'this.category_depth2');
-            console.log( this.category_depth2);
-        }, 500);
+        });
     }
 
     /**
@@ -285,14 +259,11 @@ export class SettingProduct3typeComponent implements OnInit {
     deleteCategory(number:number,category_id:number){
         let msg = (number == 1) ?'您确定要删除该条信息及其所属信息吗？':'您确定要删除该条信息吗？';
         if(confirm(msg)) {
-            let url = this.globalService.getDomain()+'/api/v1/deleteCategory?category_id=' + category_id + '&number=' + number + '&category_type=6&sid=' + this.cookieStoreService.getCookie('sid');
-            this.http.delete(url)
-                .map((res) => res.json())
+            let url = 'deleteCategory?category_id=' + category_id + '&number=' + number + '&category_type=6&sid=' + this.cookieStoreService.getCookie('sid');
+            this.globalService.httpRequest('delete',url)
                 .subscribe((data) => {
                     this.categoryList = data;
-                });
 
-            setTimeout(() => {
                 //刷新父类修改下拉选择
                 let arr : Array<any> = this.categoryList['result'];
                 arr.forEach((val, idx, array) => {
@@ -304,7 +275,7 @@ export class SettingProduct3typeComponent implements OnInit {
                     this.cookieStoreService.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
-            }, 300);
+            });
         }
     }
 

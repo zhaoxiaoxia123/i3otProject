@@ -1,7 +1,5 @@
-import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {AssetsScrapComponent} from "./assets-scrap.component";
-
 
 export const assetsScrapRoutes: Routes = [{
     path: '',

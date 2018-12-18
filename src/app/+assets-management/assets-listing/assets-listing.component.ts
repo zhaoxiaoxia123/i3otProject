@@ -1,6 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ModalDirective} from "ngx-bootstrap";
-import {Http} from "@angular/http";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
 import {NotificationService} from "../../shared/utils/notification.service";
@@ -15,10 +14,10 @@ export class AssetsListingComponent implements OnInit {
   prev : boolean = false;
   next : boolean = false;
 
-  assetsDefault : Array<any> = [];
-  assetsList : Array<any> = [];
-  userList : Array<any> = [];
-  assetsInfo : Array<any> = [];
+  assetsDefault : any = [];
+  assetsList : any = [];
+  userList : any = [];
+  assetsInfo : any = [];
   //用作全选和反选
   selects : Array<any> = [];
   check : boolean = false;
@@ -59,7 +58,6 @@ export class AssetsListingComponent implements OnInit {
   checkId : boolean = false;
 
   keyword : string = '';
-
   category_type : number = 23; //资产类别
   rollback_url : string = '';
   /**菜单id */
@@ -69,7 +67,6 @@ export class AssetsListingComponent implements OnInit {
   menuInfos : Array<any> = [];
 
   constructor(
-      private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService,
@@ -108,8 +105,7 @@ export class AssetsListingComponent implements OnInit {
    * 获取默认参数
    */
   getAssetsDefault(){
-    this.http.get(this.globalService.getDomain()+'/api/v1/getAssetsDefault?type=category_type&category_type='+this.category_type+'&sid='+this.cookieStore.getCookie('sid'))
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get','getAssetsDefault?type=category_type&category_type='+this.category_type+'&sid='+this.cookieStore.getCookie('sid'))
         .subscribe((data)=>{
           this.assetsDefault = data;
           if(this.assetsDefault['status'] == 202){
@@ -122,44 +118,19 @@ export class AssetsListingComponent implements OnInit {
             this.selectIds[entry['category_id']] = false;
           }
           this.checkId = false;
-
         });
   }
 
-  /**
-   * 获取使用人
-   */
-  // geteUserList(obj,type:number) {
-  //   let department_id = 0;
-  //   if(type == 1) {
-  //      department_id = obj.target.value;
-  //   }else{
-  //      department_id = obj;
-  //   }
-  //   if(department_id != 0) {
-  //     this.http.get(this.globalService.getDomain() + '/api/v1/getAssetsDefault?type=user&department_id=' + department_id + '&sid=' + this.cookieStore.getCookie('sid'))
-  //         .map((res) => res.json())
-  //         .subscribe((data) => {
-  //           this.userList = data;
-  //           if (this.userList['status'] == 202) {
-  //             alert(this.userList['msg']);
-  //             this.cookieStore.removeAll(this.rollback_url);
-  //             this.router.navigate(['/auth/login']);
-  //           }
-  //         });
-  //   }
-  // }
   /**
    * 获取产品列表
    * @param number
    */
   getAssetsList(number:string) {
-    let url = this.globalService.getDomain()+'/api/v1/getAssetsOrder?page='+number+'&sid='+this.cookieStore.getCookie('sid');
+    let url = 'getAssetsOrder?page='+number+'&sid='+this.cookieStore.getCookie('sid');
     if(this.keyword.trim() != '') {
       url += '&keyword='+this.keyword.trim();
     }
-    this.http.get(url)
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get',url)
         .subscribe((data)=>{
           this.assetsList = data;
           if(this.assetsList['status'] == 202){
@@ -245,7 +216,7 @@ export class AssetsListingComponent implements OnInit {
       alert('请输入名称！');
       return false;
     }
-    this.http.post(this.globalService.getDomain()+'/api/v1/addAssets',{
+    this.globalService.httpRequest('post','addAssets',{
       'assets_id' : this.assets_id,
       'assets_name' : this.assets_name,
       'assets_number' : this.assets_number,
@@ -262,14 +233,12 @@ export class AssetsListingComponent implements OnInit {
       'assets_note' : this.assets_note,
       'u_id' : this.cookieStore.getCookie('uid'),
       'sid':this.cookieStore.getCookie('sid')
-    }).subscribe(
-        (data)=>{
-          let info = JSON.parse(data['_body']);
-          if(info['status'] == 201){
-            alert(info['msg']);
+    }).subscribe((data)=>{
+          if(data['status'] == 201){
+            alert(data['msg']);
             return false;
-          }else if(info['status'] == 200) {
-            this.assetsList = info;
+          }else if(data['status'] == 200) {
+            this.assetsList = data;
             if(this.assetsList){
               if (this.assetsList['result']['assetsList']['current_page'] == this.assetsList['result']['assetsList']['last_page']) {
                 this.next = true;
@@ -291,7 +260,7 @@ export class AssetsListingComponent implements OnInit {
               this.addModal.hide();
             }
             this.clear_('');
-          }else if(info['status'] == 202){
+          }else if(data['status'] == 202){
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
@@ -342,12 +311,8 @@ export class AssetsListingComponent implements OnInit {
     this.assets_buy_date = info['result']['assets_buy_date'];
     this.assets_status = info['result']['assets_status'];
     this.assets_check_address = info['result']['assets_check_address'];
-    // this.assets_department_id = info['result']['assets_department_id'];
-    // this.assets_user_id = info['result']['assets_user_id'];
     this.assets_note = info['result']['assets_note'];
-    // if(this.assets_department_id){
-    //   this.geteUserList(this.assets_department_id,2);
-    // }
+
     this.selectIds = [];
     let selectIds_ = info['result']['selectIds'];
     this.category_type_name = '';
@@ -370,8 +335,7 @@ export class AssetsListingComponent implements OnInit {
       return false;
     }
     this.isDetail = type;
-    this.http.get(this.globalService.getDomain()+'/api/v1/getAssetsInfo?type='+type+'&assets_id='+this.editStatusAssetsId+'&sid='+this.cookieStore.getCookie('sid'))
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get','getAssetsInfo?type='+type+'&assets_id='+this.editStatusAssetsId+'&sid='+this.cookieStore.getCookie('sid'))
         .subscribe((data)=>{
           this.assetsInfo = data;
           if(this.assetsInfo['status'] == 200) {
@@ -417,9 +381,8 @@ export class AssetsListingComponent implements OnInit {
     }
     msg = '您确定要删除该信息吗？';
     if(confirm(msg)) {
-      let url = this.globalService.getDomain()+'/api/v1/deleteAssetsById?assets_id=' + assets_id + '&type='+type+'&page_type=order&sid=' + this.cookieStore.getCookie('sid');
-      this.http.delete(url)
-          .map((res) => res.json())
+      let url = 'deleteAssetsById?assets_id=' + assets_id + '&type='+type+'&page_type=order&sid=' + this.cookieStore.getCookie('sid');
+      this.globalService.httpRequest('delete',url)
           .subscribe((data) => {
             this.assetsList = data;
             if(this.assetsList['status'] == 202){
@@ -485,7 +448,7 @@ export class AssetsListingComponent implements OnInit {
       alert('请确保已选中需要操作的项！');
       return false;
     }
-    this.http.post(this.globalService.getDomain()+'/api/v1/addAssets',{
+    this.globalService.httpRequest('post','addAssets',{
       'assets_id':assets_id,
       'assets_status':status,
       'type':type,
@@ -493,10 +456,9 @@ export class AssetsListingComponent implements OnInit {
       'sid':this.cookieStore.getCookie('sid')
     }).subscribe(
         (data)=>{
-          let info = JSON.parse(data['_body']);
-          alert(info['msg']);
-          if(info['status'] == 200) {
-            this.assetsList = info;
+          alert(data['msg']);
+          if(data['status'] == 200) {
+            this.assetsList = data;
             if(this.assetsList){
               if (this.assetsList['result']['assetsList']['current_page'] == this.assetsList['result']['assetsList']['last_page']) {
                 this.next = true;
@@ -514,7 +476,7 @@ export class AssetsListingComponent implements OnInit {
               }
               this.check = false;
             }
-          }else if(info['status'] == 202){
+          }else if(data['status'] == 202){
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
@@ -544,20 +506,6 @@ export class AssetsListingComponent implements OnInit {
     this.searchModal.show();
 
   }
-
-  // /**
-  //  * 选中类别
-  //  * @param id
-  //  */
-  // selectId(id:any) {
-  //   let ids = this.selectTypeIds.split(',');
-  //   if(this.cookieStore.in_array(id,ids)) {
-  //     this.selectTypeIds = this.selectTypeIds.replace(id+',','');
-  //   }else{
-  //     this.selectTypeIds += id+',';
-  //   }
-  // }
-
 
   //选择资产类别   start
 

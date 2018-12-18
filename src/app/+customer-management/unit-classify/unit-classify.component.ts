@@ -1,5 +1,4 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-// import {FormBuilder, FormGroup} from "@angular/forms";
 import {Http} from "@angular/http";
 import {Router} from "@angular/router";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
@@ -12,18 +11,13 @@ import {ModalDirective} from "ngx-bootstrap";
   templateUrl: './unit-classify.component.html',
 })
 export class UnitClassifyComponent implements OnInit {
-  // formModel : FormGroup;
-  categoryList : Array<any> = [];
-  categoryDefault : Array<any> = [];
-  categoryInfo : Array<any> = [];
-    categoryTabList : Array<any> = [];//商户类型下的分类列表信息
+  categoryList : any = [];
+  categoryDefault : any = [];
+  categoryInfo : any = [];
+  categoryTabList : any = [];//商户类型下的分类列表信息
 
   button_contrl_id : number = 0;
   index : number = 1;
-
-  // //默认值
-  // category_tab_default : any = '0';
-  // category_depth_default : number = 0;
 
     //默认值
     category_id : number = 0;
@@ -53,26 +47,23 @@ export class UnitClassifyComponent implements OnInit {
     width : string = '0%';
     width_1 : string = '100%';
 
-  category_type : number = 21;
-  keyword:string = '';
-  rollback_url : string = '';
+    category_type : number = 21;
+    keyword:string = '';
+    rollback_url : string = '';
     /**菜单id */
     menu_id:any;
     /** 权限 */
     permissions : Array<any> = [];
     menuInfos : Array<any> = [];
   constructor(
-      private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
     window.scrollTo(0,0);
     this.getCategoryDefault();
-
   }
 
   ngOnInit() {
-
       //顶部菜单读取
       this.globalService.getMenuInfo();
       setTimeout(()=>{
@@ -99,8 +90,7 @@ export class UnitClassifyComponent implements OnInit {
      * 获取默认参数
      */
     getCategoryDefault() {
-        this.http.get(this.globalService.getDomain()+'/api/v1/getCategory?category_type='+this.category_type+'&type=left&sid='+this.cookieStore.getCookie('sid'))
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get','getCategory?category_type='+this.category_type+'&type=left&sid='+this.cookieStore.getCookie('sid'))
             .subscribe((data)=>{
                 this.categoryDefault = data;
                 if(this.categoryDefault['status'] == 202){
@@ -118,7 +108,7 @@ export class UnitClassifyComponent implements OnInit {
      * @param number
      */
     getCategoryList(number:string,category_ids:any) {
-        let url = this.globalService.getDomain()+'/api/v1/getCategory?category_type='+this.category_type+'&type=right&page='+number+'&sid='+this.cookieStore.getCookie('sid');
+        let url = 'getCategory?category_type='+this.category_type+'&type=right&page='+number+'&sid='+this.cookieStore.getCookie('sid');
         if(this.keyword.trim() != '') {
             url += '&keyword='+this.keyword.trim();
         }
@@ -133,8 +123,7 @@ export class UnitClassifyComponent implements OnInit {
             });
             url += '&category_ids='+cate;
         }
-        this.http.get(url)
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get',url)
             .subscribe((data)=>{
                 this.categoryList = data;
                 if(this.categoryList['status'] == 202){
@@ -198,12 +187,11 @@ export class UnitClassifyComponent implements OnInit {
                     depart += idx + ',';
                 }
             });
-            let url = this.globalService.getDomain()+'/api/v1/deleteCategory?category_id=' + category_id + '&category_ids=' + depart + '&category_type='+this.category_type+'&number=1&sid=' + this.cookieStore.getCookie('sid');
+            let url = 'deleteCategory?category_id=' + category_id + '&category_ids=' + depart + '&category_type='+this.category_type+'&number=1&sid=' + this.cookieStore.getCookie('sid');
             if(this.keyword.trim() != ''){
                 url += '&keyword='+this.keyword.trim();
             }
-            this.http.delete(url)
-                .map((res) => res.json())
+            this.globalService.httpRequest('delete',url)
                 .subscribe((data) => {
                     this.categoryDefault = data;
                     if(this.categoryDefault['status'] == 202){
@@ -228,7 +216,7 @@ export class UnitClassifyComponent implements OnInit {
             alert('请填写名称！');
             return false;
         }
-        this.http.post(this.globalService.getDomain()+'/api/v1/addCategory',{
+        this.globalService.httpRequest('post','addCategory',{
             'category_id':this.category_id,
             'category_desc':this.category_desc,
             'category_number':this.category_number,
@@ -237,10 +225,8 @@ export class UnitClassifyComponent implements OnInit {
             'category_type' : this.category_type,
             'u_id':this.cookieStore.getCookie('uid'),
             'sid':this.cookieStore.getCookie('sid')
-        }).subscribe(
-            (data)=>{
-                let info = JSON.parse(data['_body']);
-                this.categoryDefault = info;
+        }).subscribe((data)=>{
+                this.categoryDefault = data;
                 alert(this.categoryDefault['msg']);
                 if(this.categoryDefault['status'] == 202){
                     alert(this.categoryDefault['msg']);
@@ -287,12 +273,11 @@ export class UnitClassifyComponent implements OnInit {
         }else{
             id = obj;
         }
-        let url = this.globalService.getDomain()+'/api/v1/getUnitCategoryList?category_type='+this.category_type+'&type=addCategory&sid='+this.cookieStore.getCookie('sid');
+        let url = 'getUnitCategoryList?category_type='+this.category_type+'&type=addCategory&sid='+this.cookieStore.getCookie('sid');
         if(id != 0){
             url += '&category_tab='+id;
         }
-        this.http.get(url)
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get',url)
             .subscribe((data)=>{
                 this.categoryTabList = data;
                 if(this.categoryTabList['status'] == 201){
@@ -358,8 +343,7 @@ export class UnitClassifyComponent implements OnInit {
         if(id != 0){
             ids = id;
         }
-        this.http.get(this.globalService.getDomain()+'/api/v1/getCategoryById?category_id='+ids+'&number=1&sid='+this.cookieStore.getCookie('sid'))
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get','getCategoryById?category_id='+ids+'&number=1&sid='+this.cookieStore.getCookie('sid'))
             .subscribe((data)=>{
                 this.categoryInfo = data;
                 if(this.categoryInfo['status'] == 200 && (type == 'edit' || type == 'detail')){

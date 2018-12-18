@@ -1,7 +1,5 @@
-import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {AssetsIssueComponent} from "./assets-issue.component";
-
 
 export const assetsIssueRoutes: Routes = [{
     path: '',

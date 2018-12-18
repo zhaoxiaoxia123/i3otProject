@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FadeInTop} from '../../shared/animations/fade-in-top.decorator';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Http} from '@angular/http';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 import {GlobalService} from '../../core/global.service';
@@ -28,15 +27,14 @@ export class ChartSettingComponent implements OnInit {
         },
     };
     formModel : FormGroup;
-    settingsList : Array<any> = [];
-    settings_info : Array<any> = [];
+    settingsList : any = [];
+    settings_info : any = [];
     //默认选中值
     s_name_default : string;
     s_id : number = 0;
     rollback_url : string = '/equipment/chart-setting';
   constructor(
       fb:FormBuilder,
-      private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService
@@ -74,20 +72,15 @@ export class ChartSettingComponent implements OnInit {
      * @param number
      */
     getSettingsList(number:string) {
-        let url = this.globalService.getDomain()+'/api/v1/getSettingsList?page='+number+'&sid='+this.cookieStore.getCookie('sid');
-        this.http.get(url)
-            .map((res)=>res.json())
+        let url = 'getSettingsList?page='+number+'&sid='+this.cookieStore.getCookie('sid');
+        this.globalService.httpRequest('get',url)
             .subscribe((data)=>{
                 this.settingsList = data;
-            });
-        setTimeout(() => {
-            console.log('this.settingsList:--');
-            console.log(this.settingsList);
             if(this.settingsList['status'] == 202){
                 this.cookieStore.removeAll(this.rollback_url);
                 this.router.navigate(['/auth/login']);
             }
-        }, 300);
+        });
     }
     /**
      * 恢复默认值
@@ -96,19 +89,17 @@ export class ChartSettingComponent implements OnInit {
     toDefault(s_id:number){
         let msg ='该区间的设置颜色恢复默认后将不能撤销，是否继续？';
         if(confirm(msg)) {
-            this.http.post(this.globalService.getDomain()+'/api/v1/editSettings',{
+            this.globalService.httpRequest('post','editSettings',{
                 's_id':s_id,
                 's_color1':'#dff0d8',
                 's_color2':'#fcf8e3',
                 's_color3':'#f2dede',
                 'sid':this.cookieStore.getCookie('sid')
-            }).subscribe(
-                (data)=>{
-                    let info = JSON.parse(data['_body']);
-                    alert(info['msg']);
-                    if(info['status'] == 200) {
-                        this.settingsList = info
-                    }else if(info['status'] == 202){
+            }).subscribe( (data)=>{
+                    alert(data['msg']);
+                    if(data['status'] == 200) {
+                        this.settingsList = data
+                    }else if(data['status'] == 202){
                         this.cookieStore.removeAll(this.rollback_url);
                         this.router.navigate(['/auth/login']);
                     }
@@ -121,14 +112,9 @@ export class ChartSettingComponent implements OnInit {
      * @param s_id
      */
     getSettingsInfo(s_id:number){
-        this.http.get(this.globalService.getDomain()+'/api/v1/getSettingsInfo?s_id='+s_id)
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get','getSettingsInfo?s_id='+s_id)
             .subscribe((data)=>{
                 this.settings_info = data;
-            });
-        setTimeout(() => {
-            console.log('this.settings_info:---');
-            console.log(this.settings_info);
             this.formModel.patchValue({
                 s_id:this.settings_info['result']['s_id'],
                 s_name:this.settings_info['result']['s_name'],
@@ -147,7 +133,7 @@ export class ChartSettingComponent implements OnInit {
             });
             this.s_name_default = this.settings_info['result']['s_name'];
             this.s_id = this.settings_info['result']['s_id'];
-        }, 500);
+        });
     }
 
     /**
@@ -171,7 +157,7 @@ export class ChartSettingComponent implements OnInit {
             alert('请填写第三阶段区间值！');
             return false;
         }
-        this.http.post(this.globalService.getDomain()+'/api/v1/addSettings',{
+        this.globalService.httpRequest('post','addSettings',{
             's_id':this.formModel.value['s_id'],
             's_name':this.formModel.value['s_name'],
             's_interval1_1':this.formModel.value['s_interval1_1'],
@@ -187,12 +173,10 @@ export class ChartSettingComponent implements OnInit {
             's_color3':this.formModel.value['s_color3'],
             // 's_up_color3':this.formModel.value['s_up_color3'],
             'sid':this.cookieStore.getCookie('sid')
-        }).subscribe(
-            (data)=>{
-                let info = JSON.parse(data['_body']);
-                alert(info['msg']);
-                if(info['status'] == 200) {
-                    this.settingsList = info;
+        }).subscribe((data)=>{
+                alert(data['msg']);
+                if(data['status'] == 200) {
+                    this.settingsList = data;
                     this.formModel.patchValue({
                         s_id:0,
                         s_name:'',
@@ -207,7 +191,7 @@ export class ChartSettingComponent implements OnInit {
                         s_color3:'#f2dede',
                     });
                     this.s_id = 0;
-                }else if(info['status'] == 202){
+                }else if(data['status'] == 202){
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
@@ -223,20 +207,16 @@ export class ChartSettingComponent implements OnInit {
     deleteSettings(s_id:number){
         let msg ='您确定要删除该条信息吗？';
         if(confirm(msg)) {
-            let url = this.globalService.getDomain()+'/api/v1/deleteSettingsById?s_id=' + s_id + '&type=id&sid=' + this.cookieStore.getCookie('sid');
-            this.http.delete(url)
-                .map((res) => res.json())
+            let url = 'deleteSettingsById?s_id=' + s_id + '&type=id&sid=' + this.cookieStore.getCookie('sid');
+            this.globalService.httpRequest('delete',url)
                 .subscribe((data) => {
                     this.settingsList = data;
-                });
-            setTimeout(() => {
                 if(this.settingsList['status'] == 202){
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
-            }, 300);
+            });
         }
     }
-
 
 }

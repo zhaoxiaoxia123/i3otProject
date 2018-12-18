@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import {OutlookMessage} from "../shared/outlook-message.class";
-import {OutlookService} from "../shared/outlook.service";
-
 import {FadeInLeft} from "../../shared/animations/fade-in-left.decorator";
 
 
@@ -22,9 +20,8 @@ export class ComposeComponent implements OnInit {
 
   public sending:boolean = false;
 
-  constructor(private route:ActivatedRoute,
-              private router:Router,
-              private service:OutlookService) {
+  constructor(
+              private router:Router) {
 
   }
 

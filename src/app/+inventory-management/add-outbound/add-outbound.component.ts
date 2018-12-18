@@ -1,11 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Http} from "@angular/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {ModalDirective} from "ngx-bootstrap";
-import {isNull, isUndefined} from "util";
+import {isNull} from "util";
 import {NotificationService} from "../../shared/utils/notification.service";
 
 @Component({
@@ -15,9 +14,9 @@ import {NotificationService} from "../../shared/utils/notification.service";
 export class AddOutboundComponent implements OnInit {
     formModel : FormGroup;
     otherorder_id : any = '';
-    otherorderList : Array<any> = [];
-    userList : Array<any> = [];
-    otherorderInfo : Array<any> = [];
+    otherorderList : any = [];
+    userList : any = [];
+    otherorderInfo : any = [];
 
     //默认选中值
     otherorder_user_id_default: number = 0;  //供应商
@@ -42,13 +41,12 @@ export class AddOutboundComponent implements OnInit {
     p_prices : number = 0;//合计成本
     rollback_url : string = '';
 
-
     /**--------用作选择库存产品的变量------*/
     isShowProduct : string = '';
-    selectProductList :Array<any> = [];//[{"p_product_id": "0","p_qrcode": "0","category": "0","p_unit": "0","p_count": "0","p_price": "0","p_pur_price": "0","p_note": "","p_is": "1"}]; //选中后的商品列表
+    selectProductList :any = [];//[{"p_product_id": "0","p_qrcode": "0","category": "0","p_unit": "0","p_count": "0","p_price": "0","p_pur_price": "0","p_note": "","p_is": "1"}]; //选中后的商品列表
     category_type_product : number = 6; //商品分类
-    searchProductList : Array<any> = [];//搜索出的商品列表信息
-    productDefault : Array<any> = [];//弹框中商品分类
+    searchProductList : any = [];//搜索出的商品列表信息
+    productDefault : any = [];//弹框中商品分类
     // 弹框中左侧选中商品分类的id
     select_category_ids: Array<any> = [];
     select_category_ids_preporty: Array<any> = [];
@@ -81,7 +79,6 @@ export class AddOutboundComponent implements OnInit {
     permissions : Array<any> = [];
     constructor(
         fb:FormBuilder,
-        private http:Http,
         private router : Router,
         private routInfo : ActivatedRoute,
         private cookieStore:CookieStoreService,
@@ -90,7 +87,6 @@ export class AddOutboundComponent implements OnInit {
 
         this.uid = this.cookieStore.getCookie('uid');
         this.formModel = fb.group({
-            // otherorder_id:[''],
             otherorder_order:[''],
             otherorder_date:[''],
             otherorder_user_id:[''],
@@ -140,10 +136,8 @@ export class AddOutboundComponent implements OnInit {
         return this.cookieStore.in_array(key, this.permissions);
     }
 
-
     getOtherorderInfo(otherorder_id:number){
-        this.http.get(this.globalService.getDomain()+'/api/v1/getOtherorderInfo?otherorder_id='+otherorder_id)
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get','getOtherorderInfo?otherorder_id='+otherorder_id)
             .subscribe((data)=>{
                 this.otherorderInfo = data;
                 this.formModel.patchValue({
@@ -166,13 +160,9 @@ export class AddOutboundComponent implements OnInit {
                 this.create_user_id = this.otherorderInfo['result']['u_id'];//当前创建者
                 this.approve_user = this.otherorderInfo['result']['assign_user_name'];
                 this.follower_user = this.otherorderInfo['result']['copy_user'];
-
                 this.otherorder_user_id_default = this.otherorderInfo['result']['otherorder_user_id']; //供应商
-                // this.storehouse_id_default =this.otherorderInfo['result']['storehouse_id']; //仓库
                 this.category_id_default =this.otherorderInfo['result']['category_id']; //采购类型
-
                 this.selectProductList = this.otherorderInfo['result']['detail'];
-
                 this.sumPCount();
                 if(this.otherorderInfo['result']['otherorder_user_id'] != 0){
                     this.getDepartment(this.otherorderInfo['result']['otherorder_user_id'],2);
@@ -185,8 +175,7 @@ export class AddOutboundComponent implements OnInit {
      * type ： refresh 局部刷新
      */
     getOtherorderDefault(type:any) {
-        this.http.get(this.globalService.getDomain()+'/api/v1/getOtherorderDefault?category_tab='+this.category_tab+'&category_type='+this.category_type+'&sid='+this.cookieStore.getCookie('sid'))
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get','getOtherorderDefault?category_tab='+this.category_tab+'&category_type='+this.category_type+'&sid='+this.cookieStore.getCookie('sid'))
             .subscribe((data)=>{
                 this.otherorderList = data;
                 if(this.otherorderList['status'] == 202){
@@ -209,12 +198,11 @@ export class AddOutboundComponent implements OnInit {
         }else{
             id = obj;
         }
-        let url = this.globalService.getDomain()+'/api/v1/getDepartment';
+        let url = 'getDepartment';
         if(id != 0){
             url += '?u_id='+id;
         }
-        this.http.get(url)
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get',url)
             .subscribe((data)=>{
                 if(data['status'] == 201){
                     alert(data['msg']);
@@ -247,7 +235,7 @@ export class AddOutboundComponent implements OnInit {
                 follower_user_ids.push(val['id'].toString());
             });
         }
-        this.http.post(this.globalService.getDomain()+'/api/v1/addOtherorder',{
+        this.globalService.httpRequest('post','addOtherorder',{
             'otherorder_id':this.otherorder_id,
             'otherorder_type':this.otherorder_type,
             'otherorder_order':this.formModel.value['otherorder_order'],
@@ -265,15 +253,14 @@ export class AddOutboundComponent implements OnInit {
             'u_id':this.cookieStore.getCookie('uid'),
             'sid':this.cookieStore.getCookie('sid')
         }).subscribe((data)=>{
-            let info = JSON.parse(data['_body']);
-            alert(info['msg']);
-            if(info['status'] == 200) {
+            alert(data['msg']);
+            if(data['status'] == 200) {
                 if(num == 2){
                     this.clear_();
                 }else {
                     this.router.navigate(['/inventory-management/outbound']);
                 }
-            }else if(info['status'] == 202){
+            }else if(data['status'] == 202){
                 this.cookieStore.removeAll(this.rollback_url);
                 this.router.navigate(['/auth/login']);
             }
@@ -299,10 +286,8 @@ export class AddOutboundComponent implements OnInit {
         this.create_user_id = 0;//当前创建者
         this.approve_user = [];
         this.follower_user = [];
-
         this.otherorder_user_id_default = 0; //供应商
         this.category_id_default =0; //采购类型
-
         this.selectProductList = [];
     }
     //-----------搜索库存产品信息--------
@@ -311,7 +296,7 @@ export class AddOutboundComponent implements OnInit {
      * 搜索库存产品
      */
     searchKey(page:any){
-        let url = this.globalService.getDomain()+'/api/v1/getStockProductList?page='+page+'&p_type='+this.p_type+'&type=list&sid='+this.cookieStore.getCookie('sid');
+        let url = 'getStockProductList?page='+page+'&p_type='+this.p_type+'&type=list&sid='+this.cookieStore.getCookie('sid');
         if(this.keyword.trim() != '') {
             url += '&keyword='+this.keyword.trim();
         }
@@ -322,8 +307,7 @@ export class AddOutboundComponent implements OnInit {
             }
         });
         url += '&category_ids='+category_ids;
-        this.http.get(url)
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get',url)
             .subscribe((data)=>{
                 this.searchProductList = data;
                 if(this.searchProductList['status'] == 202){
@@ -338,8 +322,7 @@ export class AddOutboundComponent implements OnInit {
      * 获取弹框左侧商品分类列表信息
      */
     getProductDefault(){
-        this.http.get(this.globalService.getDomain()+'/api/v1/getProductDefault?type=list&property=1&p_type='+this.p_type+'&category_type='+this.category_type_product+'&sid='+this.cookieStore.getCookie('sid'))
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get','getProductDefault?type=list&property=1&p_type='+this.p_type+'&category_type='+this.category_type_product+'&sid='+this.cookieStore.getCookie('sid'))
             .subscribe((data)=>{
                 this.productDefault = data;
                 if(this.productDefault['status'] == 202){
@@ -449,7 +432,7 @@ export class AddOutboundComponent implements OnInit {
                 id += '"'+val['id']+'",';
             });
 
-            this.http.post(this.globalService.getDomain()+'/api/v1/addOtherorderLog',{
+            this.globalService.httpRequest('post','addOtherorderLog',{
                 'other_id':this.otherorder_id,
                 'other_table_name':this.log_table_name,
                 'log_type':this.log_type,
@@ -459,16 +442,14 @@ export class AddOutboundComponent implements OnInit {
                 'u_id':this.cookieStore.getCookie('uid'),
                 'sid':this.cookieStore.getCookie('sid')
             }).subscribe((data)=>{
-                let info = JSON.parse(data['_body']);
-
-                if(info['status'] == 200) {
+                if(data['status'] == 200) {
                     this.getOtherorderInfo(this.otherorder_id);
-                }else if(info['status'] == 202){
-                    alert(info['msg']);
+                }else if(data['status'] == 202){
+                    alert(data['msg']);
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
-                }else if(info['status'] == 9999 || info['status'] == 201) {
-                    alert(info['msg']);
+                }else if(data['status'] == 9999 || data['status'] == 201) {
+                    alert(data['msg']);
                 }
             });
 

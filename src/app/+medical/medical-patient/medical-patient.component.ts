@@ -1,5 +1,4 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Http} from "@angular/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
@@ -14,9 +13,9 @@ export class MedicalPatientComponent implements OnInit {
   prev : boolean = false;
   next : boolean = false;
 
-  customerDefault : Array<any> = [];
-  customerList : Array<any> = [];
-  customerInfo : Array<any> = [];
+  customerDefault : any = [];
+  customerList : any = [];
+  customerInfo : any = [];
   //用作全选和反选
   selects : Array<any> = [];
   check : boolean = false;
@@ -63,7 +62,6 @@ export class MedicalPatientComponent implements OnInit {
   permissions : Array<any> = [];
   menuInfos : Array<any> = [];
   constructor(
-      private http:Http,
       private router : Router,
       private routInfo : ActivatedRoute,
       private cookieStore:CookieStoreService,
@@ -112,8 +110,7 @@ export class MedicalPatientComponent implements OnInit {
    * 获取默认参数
    */
   getCustomerDefault(){
-    this.http.get(this.globalService.getDomain()+'/api/v1/getCustomerDefault?role='+this.role+'&sid='+this.cookieStore.getCookie('sid'))
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get','getCustomerDefault?role='+this.role+'&sid='+this.cookieStore.getCookie('sid'))
         .subscribe((data)=>{
           this.customerDefault = data;
           if(this.customerDefault['status'] == 202){
@@ -128,19 +125,17 @@ export class MedicalPatientComponent implements OnInit {
    * @param number
    */
   getCustomerList(number:string) {
-    let url = this.globalService.getDomain()+'/api/v1/getCustomerList?role='+this.role+'&page='+number+'&sid='+this.cookieStore.getCookie('sid');
+    let url = 'getCustomerList?role='+this.role+'&page='+number+'&sid='+this.cookieStore.getCookie('sid');
     if(this.keyword.trim() != '') {
       url += '&keyword='+this.keyword.trim();
     }
-    this.http.get(url)
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get',url)
         .subscribe((data)=>{
           this.customerList = data;
           if(this.customerList['status'] == 202){
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
-
           this.selects = [];
           for (let entry of this.customerList['result']['customerList']['data']) {
             this.selects[entry['c_id']] = false;
@@ -206,7 +201,7 @@ export class MedicalPatientComponent implements OnInit {
       alert('请输入名称！');
       return false;
     }
-    this.http.post(this.globalService.getDomain()+'/api/v1/addCustomer',{
+    this.globalService.httpRequest('post','addCustomer',{
       'c_id' : this.c_id,
       'number' : this.c_number,
       'name' : this.c_name,
@@ -223,13 +218,11 @@ export class MedicalPatientComponent implements OnInit {
       'c_id_card' : this.c_id_card,
       'c_status' : 1,
       'sid':this.cookieStore.getCookie('sid')
-    }).subscribe(
-        (data)=>{
-          let info = JSON.parse(data['_body']);
-          alert(info['msg']);
-          if(info['status'] == 200) {
+    }).subscribe((data)=>{
+          alert(data['msg']);
+          if(data['status'] == 200) {
             this.clear_();
-            this.customerList = info;
+            this.customerList = data;
             this.selects = [];
             for (let entry of this.customerList['result']['customerList']['data']) {
               this.selects[entry['c_id']] = false;
@@ -238,7 +231,7 @@ export class MedicalPatientComponent implements OnInit {
             if(num == 1) {
               this.lgModal.hide();
             }
-          }else if(info['status'] == 202){
+          }else if(data['status'] == 202){
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
@@ -299,8 +292,7 @@ export class MedicalPatientComponent implements OnInit {
     }else{
       this.detailModal.show();
     }
-    this.http.get(this.globalService.getDomain()+'/api/v1/getCustomerInfo?c_id='+this.editStatusCustomerId+'&type='+type+'&role='+this.role+'&sid='+this.cookieStore.getCookie('sid'))
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get','getCustomerInfo?c_id='+this.editStatusCustomerId+'&type='+type+'&role='+this.role+'&sid='+this.cookieStore.getCookie('sid'))
         .subscribe((data)=>{
           this.customerInfo = data;
           this.c_id = 0;
@@ -342,12 +334,10 @@ export class MedicalPatientComponent implements OnInit {
     }
     msg = '您确定要删除该信息吗？';
     if(confirm(msg)) {
-      let url = this.globalService.getDomain()+'/api/v1/deleteCustomerById?c_ids=' + c_id + '&role='+this.role+'&type='+type+'&sid=' + this.cookieStore.getCookie('sid');
-      this.http.delete(url)
-          .map((res) => res.json())
+      let url = 'deleteCustomerById?c_ids=' + c_id + '&role='+this.role+'&type='+type+'&sid=' + this.cookieStore.getCookie('sid');
+      this.globalService.httpRequest('delete',url)
           .subscribe((data) => {
             this.customerList = data;
-
             if(this.customerList['status'] == 202){
               this.cookieStore.removeAll(this.rollback_url);
               this.router.navigate(['/auth/login']);

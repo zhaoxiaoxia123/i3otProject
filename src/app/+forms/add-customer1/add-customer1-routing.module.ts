@@ -1,4 +1,3 @@
-
 import { Routes, RouterModule } from '@angular/router';
 import { AddCustomer1Component } from './add-customer1.component';
 

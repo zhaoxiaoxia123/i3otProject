@@ -1,5 +1,4 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Http} from "@angular/http";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {Router} from "@angular/router";
 import {GlobalService} from "../../core/global.service";
@@ -12,10 +11,10 @@ import {ModalDirective} from "ngx-bootstrap";
 })
 export class MedicalCommodityComponent implements OnInit {
 
-  productDefault : Array<any> = [];
-  addProductDefault : Array<any> = [];
-  productList : Array<any> = [];
-  productInfo : Array<any> = [];
+  productDefault : any = [];
+  addProductDefault : any = [];
+  productList : any = [];
+  productInfo : any = [];
   //用作全选和反选
   selects : Array<any> = [];
   check : boolean = false;
@@ -73,7 +72,6 @@ export class MedicalCommodityComponent implements OnInit {
   menuInfos : Array<any> = [];
 
   constructor(
-      private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
@@ -112,8 +110,7 @@ export class MedicalCommodityComponent implements OnInit {
    * 获取默认参数
    */
   getProductDefault(){
-    this.http.get(this.globalService.getDomain()+'/api/v1/getProductDefault?type=list&p_type='+this.p_type+'&category_type='+this.category_type+'&sid='+this.cookieStore.getCookie('sid'))
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get','getProductDefault?type=list&p_type='+this.p_type+'&category_type='+this.category_type+'&sid='+this.cookieStore.getCookie('sid'))
         .subscribe((data)=>{
           this.productDefault = data;
           console.log(this.productDefault);
@@ -146,7 +143,7 @@ export class MedicalCommodityComponent implements OnInit {
    * @param number
    */
   getProductList(number:string,category_id:any) {
-    let url = this.globalService.getDomain()+'/api/v1/getProductList?p_type='+this.p_type+'&page='+number+'&sid='+this.cookieStore.getCookie('sid');
+    let url = 'getProductList?p_type='+this.p_type+'&page='+number+'&sid='+this.cookieStore.getCookie('sid');
     if(this.keyword.trim() != '') {
       url += '&keyword='+this.keyword.trim();
     }
@@ -161,8 +158,7 @@ export class MedicalCommodityComponent implements OnInit {
       });
       url += '&category_ids='+category_ids;
     }
-    this.http.get(url)
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get',url)
         .subscribe((data)=>{
           this.productList = data;
           console.log(this.productList);
@@ -193,9 +189,7 @@ export class MedicalCommodityComponent implements OnInit {
    * 获取添加页面的默认参数
    */
   getAddProductDefault(type:number){
-    // if( this.addProductDefault.length <= 0) {
-    this.http.get(this.globalService.getDomain() + '/api/v1/getProductDefault?type=add&p_type=' + this.p_type + '&category_type=' + this.category_type + '&sid=' + this.cookieStore.getCookie('sid'))
-        .map((res) => res.json())
+    this.globalService.httpRequest('get','getProductDefault?type=add&p_type=' + this.p_type + '&category_type=' + this.category_type + '&sid=' + this.cookieStore.getCookie('sid'))
         .subscribe((data) => {
           this.addProductDefault = data;
           console.log(this.addProductDefault);
@@ -209,9 +203,6 @@ export class MedicalCommodityComponent implements OnInit {
             this.lgModal.show();
           }
         });
-    // }else{
-    //     this.lgModal.show();
-    // }
   }
   /**
    * 页码分页
@@ -265,7 +256,7 @@ export class MedicalCommodityComponent implements OnInit {
         category_ids += idx + ',';
       }
     });
-    this.http.post(this.globalService.getDomain()+'/api/v1/addProduct',{
+    this.globalService.httpRequest('post','addProduct',{
       'p_id' : this.p_id,
       'product_id' : this.p_product_id,
       'name' : this.p_name,
@@ -281,14 +272,12 @@ export class MedicalCommodityComponent implements OnInit {
       'u_id' : this.cookieStore.getCookie('uid'),
       'sid':this.cookieStore.getCookie('sid')
     }).subscribe((data)=>{
-          let info = JSON.parse(data['_body']);
-          console.log(info['status']);
-          if(info['status'] == 201){
-            alert(info['msg']);
+          if(data['status'] == 201){
+            alert(data['msg']);
             return false;
-          }else if(info['status'] == 200) {
-            this.productList = info;
-            this.last_product_id = info['msg'];//此处msg返回的是最后插入的那条商品id
+          }else if(data['status'] == 200) {
+            this.productList = data;
+            this.last_product_id = data['msg'];//此处msg返回的是最后插入的那条商品id
             if(this.productList){
               if (this.productList['result']['productList']['current_page'] == this.productList['result']['productList']['last_page']) {
                 this.next = true;
@@ -307,7 +296,7 @@ export class MedicalCommodityComponent implements OnInit {
               this.check = false;
             }
             if(this.p_id == 0) {
-              this.http.post(this.globalService.getDomain() + '/api/v1/addAssets', {
+              this.globalService.httpRequest('post','addAssets', {
                 'p_id': this.last_product_id,
                 'assets_name': this.p_name,
                 'assets_number': this.p_product_id,
@@ -323,9 +312,8 @@ export class MedicalCommodityComponent implements OnInit {
                 'u_id': this.cookieStore.getCookie('uid'),
                 'sid': this.cookieStore.getCookie('sid')
               }).subscribe((data) => {
-                let info = JSON.parse(data['_body']);
-                if (info['status'] == 201) {
-                  alert(info['msg']);
+                if (data['status'] == 201) {
+                  alert(data['msg']);
                   return false;
                 }
               });
@@ -334,7 +322,7 @@ export class MedicalCommodityComponent implements OnInit {
             if(num == 1){
               this.lgModal.hide();
             }
-          }else if(info['status'] == 202){
+          }else if(data['status'] == 202){
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
@@ -386,8 +374,7 @@ export class MedicalCommodityComponent implements OnInit {
     this.getAddProductDefault(1);
     this.isDetail = type;
     this.lgModal.show();
-    this.http.get(this.globalService.getDomain()+'/api/v1/getProductInfo?p_id='+this.editStatusProductId+'&p_type='+this.p_type+'&sid='+this.cookieStore.getCookie('sid'))
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get','getProductInfo?p_id='+this.editStatusProductId+'&p_type='+this.p_type+'&sid='+this.cookieStore.getCookie('sid'))
         .subscribe((data)=>{
           this.productInfo = data;
           if(this.productInfo['status'] == 200) {// && type == 'edit'
@@ -436,9 +423,8 @@ export class MedicalCommodityComponent implements OnInit {
     });
     msg = '执行删除会连同此商品的库存信息一并删除，您确定要执行此删除操作吗？';
     if(confirm(msg)) {
-      let url = this.globalService.getDomain()+'/api/v1/deleteProductById?p_id=' + p_id + '&category_ids='+category_ids+'&p_type='+this.p_type+'&page_type=medical&type='+type+'&sid=' + this.cookieStore.getCookie('sid');
-      this.http.delete(url)
-          .map((res) => res.json())
+      let url ='deleteProductById?p_id=' + p_id + '&category_ids='+category_ids+'&p_type='+this.p_type+'&page_type=medical&type='+type+'&sid=' + this.cookieStore.getCookie('sid');
+      this.globalService.httpRequest('delete',url)
           .subscribe((data) => {
             this.productList = data;
 
@@ -577,7 +563,7 @@ export class MedicalCommodityComponent implements OnInit {
       alert('请确保已选中需要操作的项！');
       return false;
     }
-    this.http.post(this.globalService.getDomain()+'/api/v1/addProduct',{
+    this.globalService.httpRequest('post','addProduct',{
       'p_id':p_id,
       'p_status':status,
       'type':type,
@@ -585,12 +571,10 @@ export class MedicalCommodityComponent implements OnInit {
       'category_ids':category_ids,
       'keyword':this.keyword.trim(),
       'sid':this.cookieStore.getCookie('sid')
-    }).subscribe(
-        (data)=>{
-          let info = JSON.parse(data['_body']);
-          alert(info['msg']);
-          if(info['status'] == 200) {
-            this.productList = info;
+    }).subscribe((data)=>{
+          alert(data['msg']);
+          if(data['status'] == 200) {
+            this.productList = data;
             if(this.productList){
               if (this.productList['result']['productList']['current_page'] == this.productList['result']['productList']['last_page']) {
                 this.next = true;
@@ -608,7 +592,7 @@ export class MedicalCommodityComponent implements OnInit {
               }
               this.check = false;
             }
-          }else if(info['status'] == 202){
+          }else if(data['status'] == 202){
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }

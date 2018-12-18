@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Http} from "@angular/http";
 import {Router} from "@angular/router";
 import {FadeInTop} from "../../animations/fade-in-top.decorator";
 import {CookieStoreService} from "../../cookies/cookie-store.service";
@@ -43,7 +42,6 @@ export class SelectProductComponent implements OnInit {
     rollback_url : string = '';
 
     constructor(
-      private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService,
@@ -57,7 +55,7 @@ export class SelectProductComponent implements OnInit {
      * 搜索商品
      */
     searchOpeninventory(page:any){
-        let url = this.globalService.getDomain()+'/api/v1/getProductList?page='+page+'&p_type='+this.p_type+'&type=list&p_property='+this.p_property+'&sid='+this.cookieStore.getCookie('sid');
+        let url = 'getProductList?page='+page+'&p_type='+this.p_type+'&type=list&p_property='+this.p_property+'&sid='+this.cookieStore.getCookie('sid');
         if(this.keyword.trim() != '') {
             url += '&keyword='+this.keyword.trim();
         }
@@ -68,8 +66,7 @@ export class SelectProductComponent implements OnInit {
             }
         });
         url += '&category_ids='+category_ids;
-        this.http.get(url)
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get',url)
             .subscribe((data)=>{
                 this.searchProductList = data;
                 if(this.searchProductList['status'] == 202){
@@ -77,10 +74,6 @@ export class SelectProductComponent implements OnInit {
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
-                // if(!this.lgModal.isShown){
-                //     this.lgModal.show();
-                // }
-
                 if (this.searchProductList && this.searchProductList['result']['productList']['data'].length > 0) {
                     if (this.searchProductList['result']['productList']['current_page'] == this.searchProductList['result']['productList']['last_page']) {
                         this.next = true;
@@ -108,34 +101,6 @@ export class SelectProductComponent implements OnInit {
     pagination(page : any) {
         this.searchOpeninventory(page);
     }
-
-    // /**
-    //  * 左边选中所有
-    //  */
-    // selectCategoryAll(){
-    //     if(this.select_category_ids[0] == true){
-    //         this.select_category_ids[0] = false;
-    //         this.productDefault['result']['categoryList'].forEach((val, idx, array) => {
-    //             this.select_category_ids[val['category_id']] = false;
-    //             if (val['has_child'] >= 1) {
-    //                 val['child'].forEach((val1, idx1, array1) => {
-    //                     this.select_category_ids[val1['category_id']] = false;
-    //                 });
-    //             }
-    //         });
-    //     }else {
-    //         this.select_category_ids[0] = true;
-    //         this.productDefault['result']['categoryList'].forEach((val, idx, array) => {
-    //             this.select_category_ids[val['category_id']] = true;
-    //             if (val['has_child'] >= 1) {
-    //                 val['child'].forEach((val1, idx1, array1) => {
-    //                     this.select_category_ids[val1['category_id']] = true;
-    //                 });
-    //             }
-    //         });
-    //     }
-    //     this.searchOpeninventory('1');
-    // }
 
     /**
      * 左边选中所有
@@ -267,59 +232,6 @@ export class SelectProductComponent implements OnInit {
             this.check = true;
         }
     }
-
-    // /**
-    //  * 左侧导航栏 选中显示列表
-    //  * @param category_id
-    //  * index 点击的父类 or子类 索引
-    //  * num  1：父类 2：子类
-    //  */
-    // selectCategory(category_id:any,index:number,indexChild:number,num:number){
-    //     if(num == 1){//点击父类
-    //         if(this.select_category_ids[category_id] == true){
-    //             if(this.productDefault['result']['categoryList'][index]){
-    //                 if(this.productDefault['result']['categoryList'][index]['child_count'] >= 1){
-    //                     this.productDefault['result']['categoryList'][index]['child'].forEach((val, idx, array) => {
-    //                         this.select_category_ids[val['category_id']] = false;
-    //                     });
-    //                 }
-    //             }
-    //             this.select_category_ids[category_id] = false;
-    //         }else{
-    //             this.select_category_ids[category_id] = true;
-    //             if(this.productDefault['result']['categoryList'][index]){
-    //                 if(this.productDefault['result']['categoryList'][index]['child_count'] >= 1){
-    //                     this.productDefault['result']['categoryList'][index]['child'].forEach((val, idx, array) => {
-    //                         this.select_category_ids[val['category_id']] = true;
-    //                     });
-    //                 }
-    //             }
-    //         }
-    //     }else if(num != 1){//点击子类
-    //         if(this.select_category_ids[category_id] == true){
-    //             this.select_category_ids[num] = false;
-    //             this.select_category_ids[category_id] = false;
-    //         }else{
-    //             this.select_category_ids[category_id] = true;
-    //             let count = 0;
-    //             if(this.productDefault['result']['categoryList'][index]){
-    //                 if(this.productDefault['result']['categoryList'][index]['child_count'] >= 1){
-    //                     this.productDefault['result']['categoryList'][index]['child'].forEach((val, idx, array) => {
-    //                         if(this.select_category_ids[val['category_id']] == false ||  isUndefined(this.select_category_ids[val['category_id']])){
-    //                             count ++;
-    //                         }
-    //                     });
-    //                 }
-    //             }
-    //             if(count == 0){//若子类全是true则父类变为选中状态
-    //                 this.select_category_ids[num] = true;
-    //             }
-    //         }
-    //     }
-    //     this.searchOpeninventory('1');
-    // }
-
-
     /**
      * 左侧导航栏 选中显示列表
      * @param category_id

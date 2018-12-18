@@ -1,5 +1,4 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Http} from "@angular/http";
 import {Router} from "@angular/router";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
@@ -10,9 +9,9 @@ import {ModalDirective} from "ngx-bootstrap";
   templateUrl: './medical-employees.component.html',
 })
 export class MedicalEmployeesComponent implements OnInit {
-  userList : Array<any> = [];
-  userDefault : Array<any> = [];
-  userInfo : Array<any> = [];
+  userList : any = [];
+  userDefault : any = [];
+  userInfo : any = [];
   page : any;
   prev : boolean = false;
   next : boolean = false;
@@ -53,7 +52,6 @@ export class MedicalEmployeesComponent implements OnInit {
   permissions : Array<any> = [];
   menuInfos : Array<any> = [];
   constructor(
-      private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService,) {
@@ -101,7 +99,7 @@ export class MedicalEmployeesComponent implements OnInit {
       alert('请输入员工姓名！');
       return false;
     }
-    this.http.post(this.globalService.getDomain()+'/api/v1/addUser',{
+    this.globalService.httpRequest('post','addUser',{
       'u_id' : this.id,
       'u_number' : this.u_number,
       'password':this.u_password,
@@ -116,19 +114,18 @@ export class MedicalEmployeesComponent implements OnInit {
       'u_status' : 1,
       'sid':this.cookieStore.getCookie('sid')
     }).subscribe( (data)=>{
-        let info = JSON.parse(data['_body']);
-        if(info['status'] == 200) {
+        if(data['status'] == 200) {
           this.clear_();
           this.getUserList('1');
           if(num == 1) {
             this.lgModal.hide();
           }
-        }else if(info['status'] == 202){
-          alert(info['msg']);
+        }else if(data['status'] == 202){
+          alert(data['msg']);
           this.cookieStore.removeAll(this.rollback_url);
           this.router.navigate(['/auth/login']);
-        }else if(info['status'] == 201){
-          alert(info['msg']);
+        }else if(data['status'] == 201){
+          alert(data['msg']);
         }
       });
   }
@@ -138,12 +135,11 @@ export class MedicalEmployeesComponent implements OnInit {
  * @param number
  */
 getUserList(number:string) {
-  let url = this.globalService.getDomain()+'/api/v1/getUserList?page_type=medical&page='+number+'&sid='+this.cookieStore.getCookie('sid');
+  let url = 'getUserList?page_type=medical&page='+number+'&sid='+this.cookieStore.getCookie('sid');
   if(this.keyword.trim() != ''){
     url += '&keyword='+this.keyword.trim();
   }
-  this.http.get(url)
-      .map((res)=>res.json())
+    this.globalService.httpRequest('get',url)
       .subscribe((data)=>{
         this.userList = data;
         if(this.userList['status'] == 202){
@@ -238,12 +234,11 @@ pagination(page : any) {
     }
     msg = '删除后将不可恢复，您确定要删除吗？';
     if(confirm(msg)) {
-      let url = this.globalService.getDomain() + '/api/v1/deleteUserById?page_type=medical&page=1&type='+type+'&u_id='+u_id+'&sid='+this.cookieStore.getCookie('sid');
+      let url = 'deleteUserById?page_type=medical&page=1&type='+type+'&u_id='+u_id+'&sid='+this.cookieStore.getCookie('sid');
       if(this.keyword.trim() != ''){
         url += '&keyword='+this.keyword.trim();
       }
-      this.http.delete(url)
-          .map((res) => res.json())
+      this.globalService.httpRequest('delete',url)
           .subscribe((data) => {
             this.userList = data;
             if(this.userList['status'] == 202){
@@ -280,8 +275,7 @@ pagination(page : any) {
     }else{
       this.detailModal.show();
     }
-    this.http.get(this.globalService.getDomain()+'/api/v1/getUserInfo?u_id='+this.editStatusUserId+'&type='+type)
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get','getUserInfo?u_id='+this.editStatusUserId+'&type='+type)
         .subscribe((data)=>{
           this.userInfo = data;
           this.id = 0;

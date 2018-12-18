@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {Http} from "@angular/http";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
 import {Router} from "@angular/router";
@@ -19,9 +18,8 @@ export class TodoMessageComponent implements OnInit {
     keyword_unread:string = '';
     keyword_read:string = '';
     category:string = 'task';
-    unreadMessageList : Array<any>[];
-    doMessageList : Array<any>[];
-    readMessageList : Array<any>[];
+    unreadMessageList : any=[];
+    readMessageList : any=[];
     uid:any;
 
     page_unread : number = 1;
@@ -30,7 +28,6 @@ export class TodoMessageComponent implements OnInit {
     /**菜单id */
     menu_id:any;
   constructor(
-      private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
@@ -39,9 +36,7 @@ export class TodoMessageComponent implements OnInit {
   }
 
   ngOnInit() {
-
-      this.http.get(this.globalService.getDomain() + '/api/v1/getNewMessages?u_id=' + this.uid+'&category='+this.category+'&page='+this.page_unread)
-          .map((res) => res.json())
+      this.globalService.httpRequest('get','getNewMessages?u_id=' + this.uid+'&category='+this.category+'&page='+this.page_unread)
           .subscribe((data) => {
               this.unreadMessageList = data;
           });
@@ -59,24 +54,22 @@ export class TodoMessageComponent implements OnInit {
         let url = '';
         if(this.state.tabs.demo5 == 'iss1'){
             this.page_unread = page;
-            url = this.globalService.getDomain() + '/api/v1/getNewMessages?u_id=' + this.uid+'&category='+this.category+'&page='+this.page_unread;
+            url = 'getNewMessages?u_id=' + this.uid+'&category='+this.category+'&page='+this.page_unread;
             if(this.keyword_unread.trim() != ''){
                 url += '&keyword='+this.keyword_unread;
             }
-            this.http.get(url)
-                .map((res) => res.json())
+            this.globalService.httpRequest('get',url)
                 .subscribe((data) => {
                     this.unreadMessageList = data;
                 });
         }else if(this.state.tabs.demo5 == 'iss2'){
         }else if(this.state.tabs.demo5 == 'iss3'){
             this.page_read = page;
-            url = this.globalService.getDomain() + '/api/v1/getOldMessages?u_id=' + this.uid+'&category='+this.category+'&page='+this.page_read;
+            url = 'getOldMessages?u_id=' + this.uid+'&category='+this.category+'&page='+this.page_read;
             if(this.keyword_read.trim() != ''){
                 url += '&keyword='+this.keyword_read;
             }
-            this.http.get(url)
-                .map((res) => res.json())
+            this.globalService.httpRequest('get',url)
                 .subscribe((data) => {
                     this.readMessageList = data;
                 });
@@ -88,8 +81,7 @@ export class TodoMessageComponent implements OnInit {
      * @param project_id
      */
     readTask(project_id:any,todo_id:any,userId:number,index:number){
-        this.http.get(this.globalService.getDomain() + '/api/v1/readMessage?u_id=' + userId +'&type=one&category=task&index='+index)
-            .map((res) => res.json())
+        this.globalService.httpRequest('get','readMessage?u_id=' + userId +'&type=one&category=task&index='+index)
             .subscribe((data) => {
                 if(data['status'] == 200){
                     this.router.navigate(['/forms/todo-mission/'+project_id+'_'+todo_id]);

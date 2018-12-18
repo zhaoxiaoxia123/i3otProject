@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable} from "rxjs/Observable";
-import {Http} from "@angular/http";
 
 @Component({
   selector: 'app-panel-storehouse',
@@ -15,7 +14,7 @@ export class PanelStorehouseComponent implements OnInit {
     chartOption;
     seriesInfo: Array<any> = [];
 
-    constructor(private http:Http) {
+    constructor() {
     }
 
 

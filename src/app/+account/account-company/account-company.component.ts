@@ -1,7 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FadeInTop} from "../../shared/animations/fade-in-top.decorator";
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {Http} from "@angular/http";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
 import {Router} from "@angular/router";
@@ -22,7 +21,7 @@ export class AccountCompanyComponent implements OnInit {
     }
     formModel : FormGroup;
     formModel1 : FormGroup;
-    customerInfo : Array<any> = [];
+    customerInfo : any = [];
 
     //所在城市
     province : string[] = [];
@@ -42,11 +41,9 @@ export class AccountCompanyComponent implements OnInit {
     permissions : Array<any> = [];
     constructor(
         fb:FormBuilder,
-        private http:Http,
         private router : Router,
         private cookieStore:CookieStoreService,
         private globalService:GlobalService) {
-
         window.scrollTo(0,0);
         this.formModel = fb.group({
             c_name:[''],
@@ -64,16 +61,13 @@ export class AccountCompanyComponent implements OnInit {
             c_email:[''],
             c_phone:['']
         });
-
         this.province = getProvince(); //
         this.cid = this.cookieStore.getCookie('cid');
         this.medical_c_id = this.globalService.getMedicalID();
-
         this.getCustomerDefault();
     }
 
     ngOnInit() {
-
         //顶部菜单读取
         this.globalService.getMenuInfo();
         setTimeout(()=>{
@@ -97,13 +91,11 @@ export class AccountCompanyComponent implements OnInit {
      * 获取默认参数
      */
     getCustomerDefault() {
-        this.http.get(this.globalService.getDomain()+'/api/v1/getCustomerInfo?c_id='+this.cid+'&type=company&category_type='+this.category_type)
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get','getCustomerInfo?c_id='+this.cid+'&type=company&category_type='+this.category_type)
             .subscribe((data)=>{
                 this.customerInfo = data;
                 console.log(this.customerInfo);
                 this.setValue();
-
                 if(this.customerInfo['result']['c_city1'] != 0){
                     this.getCity();
                 }
@@ -128,7 +120,7 @@ export class AccountCompanyComponent implements OnInit {
             alert('请填写名称！');
             return false;
         }
-        this.http.post(this.globalService.getDomain()+'/api/v1/addCustomer',{
+        this.globalService.httpRequest('post','addCustomer',{
             'c_id':this.cid,
             'name':this.formModel.value['c_name'],
             'number':this.formModel.value['c_number'],
@@ -146,15 +138,14 @@ export class AccountCompanyComponent implements OnInit {
             'u_id':this.cookieStore.getCookie('uid'),
             'sid':this.cookieStore.getCookie('sid')
         }).subscribe((data)=>{
-            let info = JSON.parse(data['_body']);
-            if(info['status'] != 200){
-                alert(info['msg']);
+            if(data['status'] != 200){
+                alert(data['msg']);
             }
-            if(info['status'] == 200) {
-                this.customerInfo = info;
+            if(data['status'] == 200) {
+                this.customerInfo = data;
                 this.cookieStore.setCookie('c_name', this.formModel.value['c_name']);
                 this.lgModal.hide();
-            }else if(info['status'] == 202){
+            }else if(data['status'] == 202){
                 this.cookieStore.removeAll(this.rollback_url);
                 this.router.navigate(['/auth/login']);
             }

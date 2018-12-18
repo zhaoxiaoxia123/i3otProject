@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Http} from "@angular/http";
 import {Router} from "@angular/router";
 import {CookieStoreService} from "../../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../../core/global.service";
@@ -10,7 +9,7 @@ import {GlobalService} from "../../../core/global.service";
 })
 export class ProcessAlreadyComponent implements OnInit {
 
-  processHadList : Array<any> = [];
+  processHadList : any = [];
   page : any;
   prev : boolean = false;
   next : boolean = false;
@@ -23,7 +22,6 @@ export class ProcessAlreadyComponent implements OnInit {
 
   page_type : string = 'had_assign'; //我审批的
   constructor(
-      private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
@@ -52,24 +50,22 @@ export class ProcessAlreadyComponent implements OnInit {
    * @param number
    */
   getProcessHadList(number:string) {
-    // if(this.processHadList.length == 0) {
     let url = '';
     if(this.select_property == 'approval') {
-      url = this.globalService.getDomain() + '/api/v1/getApprovalList?page_type=' + this.page_type + '&page=' + number + '&sid=' + this.cookieStore.getCookie('sid') + '&uid=' + this.cookieStore.getCookie('uid');
+      url = 'getApprovalList?page_type=' + this.page_type + '&page=' + number + '&sid=' + this.cookieStore.getCookie('sid') + '&uid=' + this.cookieStore.getCookie('uid');
     }else if(this.select_property == 'purchase_cg_after' || this.select_property == 'purchase_sale') {
-      url = this.globalService.getDomain() + '/api/v1/getPurchaseApprovalList?page_type=' + this.page_type + '&page=' + number + '&sid=' + this.cookieStore.getCookie('sid') + '&uid=' + this.cookieStore.getCookie('uid')+'&select_property='+this.select_property;
+      url = 'getPurchaseApprovalList?page_type=' + this.page_type + '&page=' + number + '&sid=' + this.cookieStore.getCookie('sid') + '&uid=' + this.cookieStore.getCookie('uid')+'&select_property='+this.select_property;
     }else if(this.select_property == 'otherorder_in' || this.select_property == 'otherorder_out') {
-      url = this.globalService.getDomain() + '/api/v1/getOtherorderApprovalList?page_type=' + this.page_type + '&page=' + number + '&sid=' + this.cookieStore.getCookie('sid') + '&uid=' + this.cookieStore.getCookie('uid')+'&select_property='+this.select_property;
+      url = 'getOtherorderApprovalList?page_type=' + this.page_type + '&page=' + number + '&sid=' + this.cookieStore.getCookie('sid') + '&uid=' + this.cookieStore.getCookie('uid')+'&select_property='+this.select_property;
     }else if(this.select_property == 'stockallot') {
-      url = this.globalService.getDomain() + '/api/v1/getStockallotApprovalList?page_type=' + this.page_type + '&page=' + number + '&sid=' + this.cookieStore.getCookie('sid') + '&uid=' + this.cookieStore.getCookie('uid');
+      url = 'getStockallotApprovalList?page_type=' + this.page_type + '&page=' + number + '&sid=' + this.cookieStore.getCookie('sid') + '&uid=' + this.cookieStore.getCookie('uid');
     }else if(this.select_property == 'assets_ff' || this.select_property == 'assets_bf') {
-      url = this.globalService.getDomain() + '/api/v1/getAssetsApprovalList?page_type=' + this.page_type + '&page=' + number + '&sid=' + this.cookieStore.getCookie('sid') + '&uid=' + this.cookieStore.getCookie('uid')+'&select_property='+this.select_property;
+      url = 'getAssetsApprovalList?page_type=' + this.page_type + '&page=' + number + '&sid=' + this.cookieStore.getCookie('sid') + '&uid=' + this.cookieStore.getCookie('uid')+'&select_property='+this.select_property;
     }
     if (this.keyword.trim() != '') {
       url += '&keyword=' + this.keyword.trim();
     }
-    this.http.get(url)
-        .map((res) => res.json())
+    this.globalService.httpRequest('get',url)
         .subscribe((data) => {
           this.processHadList = data;
           if (this.processHadList['status'] == 202) {
@@ -89,7 +85,6 @@ export class ProcessAlreadyComponent implements OnInit {
             }
           }
         });
-    // }
   }
 
   /**

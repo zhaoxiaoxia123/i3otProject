@@ -1,5 +1,4 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Http} from "@angular/http";
 import {Router} from "@angular/router";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
@@ -31,13 +30,13 @@ export class InventoryNumberComponent implements OnInit {
 
   //顶部启动 和无效是否启用显示
   editStatusOpeningInventoryId : any = 0;
-  productInfo: Array<any> = [];//详情
+  productInfo: any = [];//详情
   keyword : string ='';
   p_type : number = 2;//商品
   category_type_product : number = 6; //商品分类
-  selectProductLists: Array<any> = [];
-  searchProductList : Array<any> = [];//搜索出的商品列表信息
-  productDefault : Array<any> = [];//弹框中商品分类
+  selectProductLists: any = [];
+  searchProductList : any = [];//搜索出的商品列表信息
+  productDefault : any = [];//弹框中商品分类
   // 弹框中左侧选中商品分类的id
   select_category_ids: Array<any> = [];
 
@@ -48,7 +47,6 @@ export class InventoryNumberComponent implements OnInit {
   rollback_url : string = '';
   menuInfos : Array<any> = [];
   constructor(
-      private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService,) {
@@ -84,8 +82,7 @@ export class InventoryNumberComponent implements OnInit {
    * 获取弹框左侧商品分类列表信息
    */
   getProductDefault(){
-    this.http.get(this.globalService.getDomain()+'/api/v1/getProductDefault?type=list&p_type='+this.p_type+'&category_type='+this.category_type_product+'&sid='+this.cookieStore.getCookie('sid'))
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get','getProductDefault?type=list&p_type='+this.p_type+'&category_type='+this.category_type_product+'&sid='+this.cookieStore.getCookie('sid'))
         .subscribe((data)=>{
           this.productDefault = data;
           if(this.productDefault['status'] == 202){
@@ -123,7 +120,7 @@ export class InventoryNumberComponent implements OnInit {
     if(!this.p_property){
       this.p_property = '';
     }
-    let url = this.globalService.getDomain()+'/api/v1/getStockProductList?page='+page+'&p_type='+this.p_type+'&type=list&p_property='+this.p_property+'&search_storehouse_id='+this.search_storehouse_id+'&sid='+this.cookieStore.getCookie('sid');
+    let url = 'getStockProductList?page='+page+'&p_type='+this.p_type+'&type=list&p_property='+this.p_property+'&search_storehouse_id='+this.search_storehouse_id+'&sid='+this.cookieStore.getCookie('sid');
     if(this.keyword.trim() != '') {
       url += '&keyword='+this.keyword.trim();
     }
@@ -134,8 +131,7 @@ export class InventoryNumberComponent implements OnInit {
       }
     });
     url += '&category_ids='+category_ids;
-    this.http.get(url)
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get',url)
         .subscribe((data)=>{
           this.searchProductList = data;
           if(this.searchProductList['status'] == 202){
@@ -143,9 +139,6 @@ export class InventoryNumberComponent implements OnInit {
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
-          // if(!this.lgModal.isShown){
-          //     this.lgModal.show();
-          // }
 
           if (this.searchProductList && this.searchProductList['result']['productList'].length > 0) {
             if (this.searchProductList['result']['productList']['current_page'] == this.searchProductList['result']['productList']['last_page']) {
@@ -324,9 +317,7 @@ export class InventoryNumberComponent implements OnInit {
     if(this.editStatusOpeningInventoryId == 0){
       return false;
     }
-
-    this.http.get(this.globalService.getDomain()+'/api/v1/getOpeningInventoryInfo?openinginventory_id='+this.editStatusOpeningInventoryId+'&type=detail&sid='+this.cookieStore.getCookie('sid'))
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get','getOpeningInventoryInfo?openinginventory_id='+this.editStatusOpeningInventoryId+'&type=detail&sid='+this.cookieStore.getCookie('sid'))
         .subscribe((data)=>{
           this.productInfo = data;
           if(this.productInfo['status'] == 200) {

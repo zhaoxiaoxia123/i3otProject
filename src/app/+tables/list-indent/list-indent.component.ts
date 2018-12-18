@@ -1,7 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ModalDirective} from 'ngx-bootstrap';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {Http} from '@angular/http';
 import {Router} from '@angular/router';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 import {GlobalService} from '../../core/global.service';
@@ -12,7 +11,7 @@ import {GlobalService} from '../../core/global.service';
 })
 export class ListIndentComponent implements OnInit {
 
-  orderList : Array<any> = [];
+  orderList : any = [];
   page : any;
   prev : boolean = false;
   next : boolean = false;
@@ -21,19 +20,17 @@ export class ListIndentComponent implements OnInit {
   selects : Array<any> = [];
   check : boolean = false;
 
-  order_info : Array<any> = [];
+  order_info : any = [];
   rollback_url : string = '/tables/client';
   constructor(
       fb:FormBuilder,
       private router : Router,
-      private http:Http,
       private cookiestore:CookieStoreService,
       private globalService:GlobalService
   ) {
 
     //顶部菜单读取
     this.globalService.getMenuInfo();
-
     this.formModel = fb.group({
       keyword:[''],
     });
@@ -49,18 +46,14 @@ export class ListIndentComponent implements OnInit {
    * @param number
    */
   getOrderList(number:string) {
-    let url = this.globalService.getDomain()+'/api/v1/getOrderList?role=1&page='+number+'&sid='+this.cookiestore.getCookie('sid');
+    let url = 'getOrderList?role=1&page='+number+'&sid='+this.cookiestore.getCookie('sid');
     if(this.formModel.value['keyword'].trim() != ''){
       url += '&keyword='+this.formModel.value['keyword'].trim();
     }
-    this.http.get(url)
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get',url)
         .subscribe((data)=>{
           this.orderList = data;
-        });
 
-    setTimeout(() => {
-      console.log(this.orderList);
       if(this.orderList['status'] == 202){
         this.cookiestore.removeAll(this.rollback_url);
         this.router.navigate(['/auth/login']);
@@ -83,7 +76,7 @@ export class ListIndentComponent implements OnInit {
         this.check = false;
         console.log(this.selects);
       }
-    }, 300);
+    });
   }
 
   //全选，反全选
@@ -114,16 +107,6 @@ export class ListIndentComponent implements OnInit {
     }
   }
 
-  /**
-   * 分页
-   * @param url
-   */
-  // pagination(url : string) {
-  //   if(url) {
-  //     this.page = url.substring((url.lastIndexOf('=') + 1), url.length);
-  //     this.getOrderList(this.page);
-  //   }
-  // }
   pagination(page : string) {
     this.page = page;
       this.getOrderList(this.page);
@@ -137,17 +120,13 @@ export class ListIndentComponent implements OnInit {
       return false;
     }
     if(confirm('您确定要删除该条信息吗？')) {
-      let url = this.globalService.getDomain()+'/api/v1/deleteOrderById?o_id=' + oid + '&type=id&page=' + current_page+'&sid='+this.cookiestore.getCookie('sid');
+      let url = 'deleteOrderById?o_id=' + oid + '&type=id&page=' + current_page+'&sid='+this.cookiestore.getCookie('sid');
       if(this.formModel.value['keyword'].trim() != ''){
         url += '&keyword='+this.formModel.value['keyword'].trim();
       }
-      this.http.delete(url)
-          .map((res) => res.json())
+      this.globalService.httpRequest('delete',url)
           .subscribe((data) => {
             this.orderList = data;
-          });
-      setTimeout(() => {
-        // console.log(this.userList);
 
         if(this.orderList['status'] == 202){
           this.cookiestore.removeAll(this.rollback_url);
@@ -165,7 +144,7 @@ export class ListIndentComponent implements OnInit {
             this.prev = false;
           }
         }
-      }, 300);
+      });
     }
   }
 
@@ -184,17 +163,13 @@ export class ListIndentComponent implements OnInit {
           ids += idx+',';
         }
       });
-      let url = this.globalService.getDomain()+'/api/v1/deleteOrderById?ids=' + ids + '&type=all&page=' + current_page +'&sid='+this.cookiestore.getCookie('sid');
+      let url = 'deleteOrderById?ids=' + ids + '&type=all&page=' + current_page +'&sid='+this.cookiestore.getCookie('sid');
       if(this.formModel.value['keyword'].trim() != ''){
         url += '&keyword='+this.formModel.value['keyword'].trim();
       }
-      this.http.delete(url)
-          .map((res) => res.json())
+      this.globalService.httpRequest('delete',url)
           .subscribe((data) => {
             this.orderList = data;
-          });
-      setTimeout(() => {
-        // console.log(this.userList);
 
         if(this.orderList['status'] == 202){
           this.cookiestore.removeAll(this.rollback_url);
@@ -212,7 +187,7 @@ export class ListIndentComponent implements OnInit {
             this.prev = false;
           }
         }
-      }, 300);
+      });
     }
   }
 
@@ -233,17 +208,10 @@ export class ListIndentComponent implements OnInit {
    * @param o_id
    */
   getOrderInfo(o_id:number){
-    this.http.get(this.globalService.getDomain()+'/api/v1/getOrderInfo?o_id='+o_id+'&type=detail')
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get','getOrderInfo?o_id='+o_id+'&type=detail')
         .subscribe((data)=>{
           this.order_info = data;
         });
-
-    setTimeout(() => {
-      console.log('this.order_info:-----');
-      console.log(this.order_info);
-    },300);
-
   }
 
   @ViewChild('lgModal') public lgModal: ModalDirective;

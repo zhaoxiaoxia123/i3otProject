@@ -1,5 +1,4 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Http} from "@angular/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
@@ -16,16 +15,16 @@ export class MedicalBillingComponent implements OnInit {
 
   formModel : FormGroup;
   pr_id : any = '';
-  purchaseList : Array<any> = [];
-  userList : Array<any> = [];
-  purchaseInfo : Array<any> = [];
-  customerInfo : Array<any> = [];
+  purchaseList : any = [];
+  userList : any = [];
+  purchaseInfo : any = [];
+  customerInfo : any = [];
 
-  selectProductList :Array<any> = [];//[{"p_product_id": "0","p_qrcode": "0","category": "0","p_unit": "0","p_count": "0","p_price": "0","p_pur_price": "0","p_note": "","p_is": "1"}]; //选中后的商品列表
-  searchProductList : Array<any> = [];//搜索出的商品列表信息
-  productDefault : Array<any> = [];//弹框中商品分类
+  selectProductList :any = [];//[{"p_product_id": "0","p_qrcode": "0","category": "0","p_unit": "0","p_count": "0","p_price": "0","p_pur_price": "0","p_note": "","p_is": "1"}]; //选中后的商品列表
+  searchProductList : any = [];//搜索出的商品列表信息
+  productDefault : any = [];//弹框中商品分类
   //弹框中左侧选中商品分类的id
-  select_category_ids: Array<any> = [];
+  select_category_ids: any = [];
   keyword_product  : string = '';
   //左边展开和收起功能
   showUl : number  = 1;//一级分类
@@ -65,7 +64,6 @@ export class MedicalBillingComponent implements OnInit {
   permissions : Array<any> = [];
   constructor(
       fb:FormBuilder,
-      private http:Http,
       private router : Router,
       private routInfo : ActivatedRoute,
       private cookieStore:CookieStoreService,
@@ -130,8 +128,7 @@ export class MedicalBillingComponent implements OnInit {
     }else{
       id = $event;
     }
-    this.http.get(this.globalService.getDomain()+'/api/v1/getCustomerInfo?c_id='+id)
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get','getCustomerInfo?c_id='+id)
         .subscribe((data)=>{
           this.customerInfo = data;
           console.log(this.customerInfo['result']['c_age']);
@@ -144,8 +141,7 @@ export class MedicalBillingComponent implements OnInit {
   }
 
   getPurchaseInfo(pr_id:number){
-    this.http.get(this.globalService.getDomain()+'/api/v1/getPurchaseInfo?pr_id='+pr_id)
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get','getPurchaseInfo?pr_id='+pr_id)
         .subscribe((data)=>{
           this.purchaseInfo = data;
           console.log(this.purchaseInfo);
@@ -187,9 +183,8 @@ export class MedicalBillingComponent implements OnInit {
    *  type  : refresh 局部刷新  ‘’ 默认调用
    */
   getPurchaseDefault(type:any) {
-    let url = this.globalService.getDomain()+'/api/v1/getPurchaseDefault?type=medical&role='+this.role+'&sid='+this.cookieStore.getCookie('sid');
-    this.http.get(url)
-        .map((res)=>res.json())
+    let url = 'getPurchaseDefault?type=medical&role='+this.role+'&sid='+this.cookieStore.getCookie('sid');
+    this.globalService.httpRequest('get',url)
         .subscribe((data)=>{
           this.purchaseList = data;
           console.log('this.purchaseList:----');
@@ -210,11 +205,7 @@ export class MedicalBillingComponent implements OnInit {
       alert('请填写单据日期！');
       return false;
     }
-    // if(this.formModel.value['pr_order'].trim() == ''){
-    //   alert('请填写单据号！');
-    //   return false;
-    // }
-    this.http.post(this.globalService.getDomain()+'/api/v1/addPurchase',{
+    this.globalService.httpRequest('post','addPurchase',{
       'pr_id':this.formModel.value['pr_id'],
       'pr_order':this.formModel.value['pr_order'],
       'pr_date':this.formModel.value['pr_date'],
@@ -226,13 +217,11 @@ export class MedicalBillingComponent implements OnInit {
       'pr_total_price' :this.p_sales_price,
       'u_id':this.cookieStore.getCookie('uid'),
       'sid':this.cookieStore.getCookie('sid')
-    }).subscribe(
-        (data)=>{
-          let info = JSON.parse(data['_body']);
-          alert(info['msg']);
-          if(info['status'] == 200) {
+    }).subscribe((data)=>{
+          alert(data['msg']);
+          if(data['status'] == 200) {
             this.router.navigate(['/medical/medical-sales']);
-          }else if(info['status'] == 202){
+          }else if(data['status'] == 202){
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
@@ -251,7 +240,7 @@ export class MedicalBillingComponent implements OnInit {
    * @param number
    */
   searchKey(number:any){
-    let url = this.globalService.getDomain()+'/api/v1/getAssetsOrder?page_type=medical&page='+number+'&sid='+this.cookieStore.getCookie('sid');
+    let url = 'getAssetsOrder?page_type=medical&page='+number+'&sid='+this.cookieStore.getCookie('sid');
     if(this.keyword_product.trim() != '') {
       url += '&keyword='+this.keyword_product.trim();
     }else {
@@ -264,8 +253,7 @@ export class MedicalBillingComponent implements OnInit {
       }
     });
     url += '&category_ids='+category_ids;
-    this.http.get(url)
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get',url)
         .subscribe((data)=>{
           this.searchProductList = data;
           if(this.searchProductList['status'] == 202){
@@ -299,8 +287,7 @@ export class MedicalBillingComponent implements OnInit {
    * 获取弹框左侧商品分类列表信息
    */
   getProductDefault(){
-    this.http.get(this.globalService.getDomain()+'/api/v1/getMedicalDefault?category_type='+this.category_type+'&sid='+this.cookieStore.getCookie('sid'))
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get','getMedicalDefault?category_type='+this.category_type+'&sid='+this.cookieStore.getCookie('sid'))
         .subscribe((data)=>{
           this.productDefault = data;
           console.log(this.productDefault);

@@ -1,6 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';// Pipe, PipeTransform,
 import {Observable} from "rxjs/Observable";
-import {Http} from "@angular/http";
 import {FadeInTop} from "../../shared/animations/fade-in-top.decorator";
 import {Router} from "@angular/router";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
@@ -24,7 +23,7 @@ export class StationBlockComponent implements OnInit {
 
 
     //--------我的
-    i3otpList : Array<any> = [];
+    i3otpList : any = [];
     keyword:string = '';
     //加入以进行对比的数据
     join_infos : Array<any> = [];
@@ -67,7 +66,6 @@ export class StationBlockComponent implements OnInit {
     rollback_url : string = '';
     menuInfos : Array<any> = [];
   constructor(
-    private http: Http,
     private router:Router,
     private cookieStore:CookieStoreService,
     private globalService:GlobalService) {
@@ -93,12 +91,12 @@ export class StationBlockComponent implements OnInit {
      */
     getI3otpList(number:string) {
         this.pages = number;
-        let url = this.globalService.getDomain()+'/api/v1/getSjfbList?page=1&pages='+number+'&i3otp_category='+this.globalService.getStation(1)+'&type=pic&sid='+this.cookieStore.getCookie('sid');
+        let url = 'getSjfbList?page=1&pages='+number+'&i3otp_category='+this.globalService.getStation(1)+'&type=pic&sid='+this.cookieStore.getCookie('sid');
         if(this.keyword.trim() != ''){
             url += '&keyword='+this.keyword.trim();
         }
-        this.http.get(url)
-            .map((res)=>res.json())
+
+        this.globalService.httpRequest('get', url)
             .subscribe((data)=>{
                 this.i3otpList=data;
                 console.log('this.i3otpList:--' );
@@ -186,9 +184,8 @@ export class StationBlockComponent implements OnInit {
             }
             join_metric += this.join_str[a];
         }
-        let url = this.globalService.getTsdbDomain()+'/tsdb/api/getsjfbDatapoint.php?size='+this.size+'&cid='+this.cid+'&metric='+join_metric+'&pid='+this.join_pid+'&type=join';
-        this.dataSource2 = this.http.get(url)
-            .map((res)=>res.json());
+        let url = 'getsjfbDatapoint.php?size='+this.size+'&cid='+this.cid+'&metric='+join_metric+'&pid='+this.join_pid+'&type=join';
+        this.dataSource2 = this.globalService.httpRequest('getTsdb',url);
         this.dataSource2.subscribe((data)=>{
             this.products2=data;
             this.chartOption2 = this.getValue(2);
@@ -207,8 +204,7 @@ export class StationBlockComponent implements OnInit {
         let that = this;
 
         that.size = size;
-        that.dataSource = that.http.get(that.globalService.getTsdbDomain()+'/tsdb/api/getsjfbDatapoint.php?size='+that.size+'&cid='+that.cid+'&metric='+p_title+'&pid='+i3otp_pid)
-            .map((res)=>res.json());
+        that.dataSource = this.globalService.httpRequest('getTsdb','getsjfbDatapoint.php?size='+that.size+'&cid='+that.cid+'&metric='+p_title+'&pid='+i3otp_pid);
         that.dataSource.subscribe(data=>{
             that.products=data;
             if(size == 1) {
@@ -275,11 +271,6 @@ export class StationBlockComponent implements OnInit {
                     }
                     pic_i++;
                 }
-                // if (this.lastList1 == []) {
-                //     result[i] = [];
-                // } else {
-                //     result[i] = this.common(this.seriesInfo, dataInfo['name'], dataInfo['selected'], dataInfo['time']);
-                // }
                 result[i] = pic;
                 this.newList[i] = this.lastList1;
                 i++;
@@ -425,15 +416,3 @@ export class StationBlockComponent implements OnInit {
     @ViewChild('joinModal') public joinModal:ModalDirective;
 
 }
-//
-// @Pipe({name: 'keys'})
-// export class KeysPipe implements PipeTransform
-// {
-//     transform(value:any, args:string[]): any {
-//         let keys:any[] = [];
-//         for (let key in value) {
-//             keys.push({key: key, value: value[key]});
-//         }
-//         return keys;
-//     }
-// }

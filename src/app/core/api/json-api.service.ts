@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import {Http, Response} from "@angular/http";
+// import {Http, Response} from "@angular/http";
+import {HttpClient,HttpResponseBase} from '@angular/common/http';
 
 import {config} from '../../shared/i3otp.config';
 import {Observable} from "rxjs/Rx";
@@ -12,37 +13,16 @@ import 'rxjs/add/operator/do';
 @Injectable()
 export class JsonApiService {
 
-  constructor(private http: Http) {}
+  constructor(private http: HttpClient) {}
 
   public fetch(url): Observable<any>{
-    return this.http.get(this.getBaseUrl() + config.API_URL + url)
-      .delay(100)
-      .map(this.extractData)
-      .catch(this.handleError)
+    return this.http.get(this.getBaseUrl() + config.API_URL + url);
+
   }
 
   private getBaseUrl(){
     return location.protocol + '//' + location.hostname + (location.port ? ':'+location.port : '') + '/'
   }
-
-  private extractData(res:Response) {
-    let body = res.json();
-    if (body){
-      return body.data || body
-    } else {
-      return {}
-    }
-  }
-
-  private handleError(error:any) {
-    // In a real world app, we might use a remote logging infrastructure
-    // We'd also dig deeper into the error to get a better message
-    let errMsg = (error.message) ? error.message :
-      error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-    console.error(errMsg); // log to console instead
-    return Observable.throw(errMsg);
-  }
-
 }
 
 

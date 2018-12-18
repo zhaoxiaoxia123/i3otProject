@@ -1,6 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Http} from "@angular/http";
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {ActivatedRoute, Router} from "@angular/router";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
@@ -11,11 +10,11 @@ import {GlobalService} from "../../core/global.service";
 })
 export class AddEquipmentComponent implements OnInit {
   formModel : FormGroup;
-  i3otpList : Array<any> = [];
-  i3otpListUser : Array<any> = [];
+  i3otpList : any = [];
+  i3otpListUser : any = [];
 
   i_id : number = 0;
-  i3otp_info : Array<any> = [];
+  i3otp_info : any = [];
 
   //默认选中值
   u_id_default : number;
@@ -41,7 +40,6 @@ export class AddEquipmentComponent implements OnInit {
   permissions : Array<any> = [];
   constructor(
       fb:FormBuilder,
-      private http:Http,
       private router : Router,
       private routInfo : ActivatedRoute,
       private cookieStore:CookieStoreService,
@@ -106,15 +104,8 @@ export class AddEquipmentComponent implements OnInit {
     return this.cookieStore.in_array(key, this.permissions);
   }
 
-  // getKeys(item){
-  //   return Object.keys(item);
-  // }
-//   for (let key of this.getKeys(i3otpa)) {
-//   this.selects[key] = i3otpa[key];
-// }
   getI3otpInfo(i_id:number){
-    this.http.get(this.globalService.getDomain()+'/api/v1/getI3otpInfo?i_id='+i_id)
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get','getI3otpInfo?i_id='+i_id)
         .subscribe((data)=>{
           this.i3otp_info = data;
           this.formModel.patchValue({
@@ -144,13 +135,10 @@ export class AddEquipmentComponent implements OnInit {
           });
 
           this.u_id_default = this.i3otp_info['result']['u_id'];
-          // this.o_id_default = this.i3otp_info['result']['o_id'];
           this.c_id_default = this.i3otp_info['result']['c_id'];
           this.i3otp_category_default = this.i3otp_info['result']['i3otp_category'];
-
           this.join_sensor_category = this.i3otp_info['result']['i3otp_sensor_categorys'];//传感器类型
           this.join_category = this.i3otp_info['result']['i3otp_communications'];
-
           //显示的值
           this.show_join_sensor_category =  this.i3otp_info['result']['show_join_sensor_category'];//传感器类型
           this.show_join_category = this.i3otp_info['result']['show_join_category'];
@@ -165,32 +153,25 @@ export class AddEquipmentComponent implements OnInit {
    * 获取添加客户的默认参数
    */
   getI3otpDefault() {
-    this.http.get(this.globalService.getDomain()+'/api/v1/getI3otpDefault?sid='+this.cookieStore.getCookie('sid'))
-        .map((res)=>res.json())
-        .subscribe((data)=>{
+    this.globalService.httpRequest('get','getI3otpDefault?sid='+this.cookieStore.getCookie('sid'))
+        .subscribe((data)=> {
           this.i3otpList = data;
-        });
-    setTimeout(() => {
-      console.log('this.i3otpList');
-      console.log(this.i3otpList);
-      if(this.i3otpList['status'] == 202){
-        alert(this.i3otpList['msg']);
-        this.cookieStore.removeAll(this.rollback_url);
-        this.router.navigate(['/auth/login']);
-      }
-      if(this.i_id == 0) {
-        //默认选中值
-        // this.u_id_default = this.i3otpList['result']['userList'].length >= 1 ? this.i3otpList['result']['userList'][0]['name'] : 0;
-        // this.o_id_default = this.i3otpList['result']['orderList'].length >= 1 ? this.i3otpList['result']['orderList'][0]['o_order'] : 0;
-        this.c_id_default = 0;
-        this.i3otp_category_default = 0;
-        this.join_sensor_category = this.i3otpList['result']['sensorCategoryList'].length >= 1 ? [this.i3otpList['result']['sensorCategoryList'][0]['category_id']] : [];//传感器类型
-        this.show_join_sensor_category = this.i3otpList['result']['sensorCategoryList'].length >= 1 ? [this.i3otpList['result']['sensorCategoryList'][0]['category_desc']] : [];//传感器类型
 
-        this.join_category = this.i3otpList['result']['communicationList'].length >= 1 ? [this.i3otpList['result']['communicationList'][0]['category_id']] : [];
-        this.show_join_category = this.i3otpList['result']['communicationList'].length >= 1 ? [this.i3otpList['result']['communicationList'][0]['category_desc']] : [];//通讯方式
-      }
-    }, 600);
+          if (this.i3otpList['status'] == 202) {
+            alert(this.i3otpList['msg']);
+            this.cookieStore.removeAll(this.rollback_url);
+            this.router.navigate(['/auth/login']);
+          }
+          if (this.i_id == 0) {
+            this.c_id_default = 0;
+            this.i3otp_category_default = 0;
+            this.join_sensor_category = this.i3otpList['result']['sensorCategoryList'].length >= 1 ? [this.i3otpList['result']['sensorCategoryList'][0]['category_id']] : [];//传感器类型
+            this.show_join_sensor_category = this.i3otpList['result']['sensorCategoryList'].length >= 1 ? [this.i3otpList['result']['sensorCategoryList'][0]['category_desc']] : [];//传感器类型
+
+            this.join_category = this.i3otpList['result']['communicationList'].length >= 1 ? [this.i3otpList['result']['communicationList'][0]['category_id']] : [];
+            this.show_join_category = this.i3otpList['result']['communicationList'].length >= 1 ? [this.i3otpList['result']['communicationList'][0]['category_desc']] : [];//通讯方式
+          }
+        });
   }
 
   /**
@@ -198,16 +179,13 @@ export class AddEquipmentComponent implements OnInit {
    * @param $event
    */
   getTheUserList(obj,type:number){
-    // console.log('obj.target.value:-----');
-    // console.log(obj.target.value);
     let value = 0;
     if(type == 1){
       value = obj.target.value;
     }else{
       value =obj;
     }
-    this.http.get(this.globalService.getDomain()+'/api/v1/getTheUserList?c_id='+value)
-        .map((res)=>res.json())
+      this.globalService.httpRequest('get','getTheUserList?c_id='+value)
         .subscribe((data)=>{
           this.i3otpListUser = data;
           if(this.i3otpListUser['status'] == 202){
@@ -231,7 +209,7 @@ export class AddEquipmentComponent implements OnInit {
       alert('请填写设备名称！');
       return false;
     }
-    this.http.post(this.globalService.getDomain()+'/api/v1/addI3otp',{
+      this.globalService.httpRequest('post','addI3otp',{
       'i3otp_id':this.formModel.value['i3otp_id'],
       'i3otp_pid':this.formModel.value['i3otp_pid'],
       'i3otp_c_pid':this.formModel.value['i3otp_c_pid'],
@@ -256,17 +234,15 @@ export class AddEquipmentComponent implements OnInit {
       'i3otp_production_date':this.formModel.value['i3otp_production_date'],
       'i3otp_sensor_category':this.join_sensor_category,//this.formModel.value['i3otp_sensor_category'],
       'sid':this.cookieStore.getCookie('sid')
-    }).subscribe(
-        (data)=>{
-          let info = JSON.parse(data['_body']);
-          alert(info['msg']);
-          if(info['status'] == 200) {
+    }).subscribe((data)=>{
+          alert(data['msg']);
+          if(data['status'] == 200) {
             if(num == 1){
               this.router.navigateByUrl('/equipment/equipment-list');
             }else {
               this.clear_();
             }
-          }else if(info['status'] == 202) {
+          }else if(data['status'] == 202) {
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }

@@ -1,7 +1,5 @@
-import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {OutboundComponent} from "./outbound.component";
-
 
 export const OutboundRoutes: Routes = [{
     path: '',

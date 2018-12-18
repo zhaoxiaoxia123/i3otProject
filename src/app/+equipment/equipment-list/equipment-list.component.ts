@@ -1,6 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {Http} from "@angular/http";
 import {Router} from "@angular/router";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
@@ -16,7 +15,7 @@ export class EquipmentListComponent implements OnInit {
   //用作全选和反选
   selects : Array<any> = [];
   check : boolean = false;
-  i3otpList : Array<any> = [];
+  i3otpList : any = [];
   page : any;
   prev : boolean = false;
   next : boolean = false;
@@ -28,7 +27,7 @@ export class EquipmentListComponent implements OnInit {
   width : string = '0%';
   width_1 : string = '100%';
   
-  i3otpInfo : Array<any> = [];
+  i3otpInfo : any = [];
   rollback_url : string = '';
   /**菜单id */
   menu_id:any;
@@ -36,7 +35,6 @@ export class EquipmentListComponent implements OnInit {
   permissions : Array<any> = [];
   constructor(
       fb:FormBuilder,
-      private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService
@@ -74,12 +72,11 @@ export class EquipmentListComponent implements OnInit {
    * @param number
    */
   getI3otpList(number:string) {
-    let url = this.globalService.getDomain()+'/api/v1/getI3otpList?page='+number+'&sid='+this.cookieStore.getCookie('sid');
+    let url ='getI3otpList?page='+number+'&sid='+this.cookieStore.getCookie('sid');
     if(this.formModel.value['keyword'].trim() != ''){
       url += '&keyword='+this.formModel.value['keyword'].trim();
     }
-    this.http.get(url)
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get',url)
         .subscribe((data)=>{
           this.i3otpList = data;
           if(this.i3otpList['status'] == 202){
@@ -135,8 +132,7 @@ getI3otpInfo(){
   if(this.editStatusI3otpId == 0){
     return false;
   }
-  this.http.get(this.globalService.getDomain()+'/api/v1/getI3otpInfo?i_id='+this.editStatusI3otpId)
-      .map((res)=>res.json())
+    this.globalService.httpRequest('get','getI3otpInfo?i_id='+this.editStatusI3otpId)
       .subscribe((data)=>{
         this.i3otpInfo = data;
         if(this.i3otpInfo['status'] == 200) {// && type == 'edit'
@@ -180,12 +176,11 @@ getI3otpInfo(){
     }
     msg = '您确定要删除该信息吗？';
     if(confirm(msg)) {
-      let url = this.globalService.getDomain()+'/api/v1/deleteI3otpById?i_id=' + category_id + '&page=1&type='+type+'&sid='+this.cookieStore.getCookie('sid');
+      let url = 'deleteI3otpById?i_id=' + category_id + '&page=1&type='+type+'&sid='+this.cookieStore.getCookie('sid');
       if(this.formModel.value['keyword'].trim() != ''){
         url += '&keyword='+this.formModel.value['keyword'].trim();
       }
-      this.http.delete(url)
-          .map((res) => res.json())
+      this.globalService.httpRequest('delete',url)
           .subscribe((data) => {
             this.i3otpList = data;
             if(this.i3otpList['status'] == 202){
@@ -252,8 +247,7 @@ getI3otpInfo(){
         }
       });
       //type :all 全选删除  id：单条删除
-      this.http.delete(this.globalService.getDomain()+'/api/v1/deleteI3otpById?ids=' + ids + '&type=all&page=' + current_page+'&sid='+this.cookieStore.getCookie('sid'))
-          .map((res) => res.json())
+      this.globalService.httpRequest('delete','deleteI3otpById?ids=' + ids + '&type=all&page=' + current_page+'&sid='+this.cookieStore.getCookie('sid'))
           .subscribe((data) => {
             this.i3otpList = data;
             alert(this.i3otpList['msg']);

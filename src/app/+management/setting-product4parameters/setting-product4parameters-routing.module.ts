@@ -1,7 +1,5 @@
-import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {SettingProduct4parametersComponent} from './setting-product4parameters.component';
-
 
 export const settingProduct4parametersRoutes: Routes = [{
     path: '',

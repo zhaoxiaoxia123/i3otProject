@@ -1,7 +1,5 @@
-import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {AssetsListingComponent} from "./assets-listing.component";
-
 
 export const assetsListingRoutes: Routes = [{
     path: '',

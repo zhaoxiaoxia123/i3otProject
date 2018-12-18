@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {Http} from "@angular/http";
 import {Router} from "@angular/router";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
@@ -9,8 +8,8 @@ import {GlobalService} from "../../core/global.service";
   templateUrl: './sales-list.component.html',
 })
 export class SalesListComponent implements OnInit {
-  purchaseList : Array<any> = [];
-  purchaseInfo : Array<any> = [];
+  purchaseList : any = [];
+  purchaseInfo : any = [];
   page : any;
   prev : boolean = false;
   next : boolean = false;
@@ -39,7 +38,6 @@ export class SalesListComponent implements OnInit {
   pr_u_username: any = '';//当前选中的创建者昵称
   pr_order: any = '';//当前选中的单据号
 
-
   operate_type : string = '';//操作弹框类型
   operate_button_type : string = '';//操作按钮类型
   operate_button_type_is_more : string = '';//是否是批量操作
@@ -53,7 +51,6 @@ export class SalesListComponent implements OnInit {
   permissions : Array<any> = [];
   menuInfos : Array<any> = [];
   constructor(
-      private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
@@ -90,12 +87,11 @@ export class SalesListComponent implements OnInit {
    * @param number
    */
   getPurchaseList(number:string) {
-    let url = this.globalService.getDomain()+'/api/v1/getPurchaseList?pr_type='+this.type+'&page='+number+'&sid='+this.cookieStore.getCookie('sid');
+    let url = 'getPurchaseList?pr_type='+this.type+'&page='+number+'&sid='+this.cookieStore.getCookie('sid');
     if(this.keyword.trim() != '') {
       url += '&keyword='+this.keyword.trim();
     }
-    this.http.get(url)
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get',url)
         .subscribe((data)=>{
           this.purchaseList = data;
           if(this.purchaseList['status'] == 202){
@@ -181,9 +177,8 @@ export class SalesListComponent implements OnInit {
     }
     msg = '您确定要删除该信息吗？';
     if(confirm(msg)) {
-      let url = this.globalService.getDomain()+'/api/v1/deletePurchaseById?pr_id=' + pr_id + '&type='+type+'&pr_type='+this.type+'&sid=' + this.cookieStore.getCookie('sid');
-      this.http.delete(url)
-          .map((res) => res.json())
+      let url = 'deletePurchaseById?pr_id=' + pr_id + '&type='+type+'&pr_type='+this.type+'&sid=' + this.cookieStore.getCookie('sid');
+      this.globalService.httpRequest('delete',url)
           .subscribe((data) => {
             this.purchaseList = data;
             if(this.purchaseList['status'] == 202){
@@ -276,7 +271,7 @@ export class SalesListComponent implements OnInit {
       alert('请确保已选中需要操作的项！');
       return false;
     }
-    this.http.post(this.globalService.getDomain()+'/api/v1/addPurchase',{
+    this.globalService.httpRequest('post','addPurchase',{
       'pr_id':pr_id,
       'pr_status':status,
       'type':type,
@@ -284,17 +279,16 @@ export class SalesListComponent implements OnInit {
       'keyword':this.keyword.trim(),
       'sid':this.cookieStore.getCookie('sid')
     }).subscribe((data)=>{
-        let info = JSON.parse(data['_body']);
-        alert(info['msg']);
-        if(info['status'] == 200) {
-          this.purchaseList = info;
+        alert(data['msg']);
+        if(data['status'] == 200) {
+          this.purchaseList = data;
 
           this.selects = [];
           for (let entry of this.purchaseList['result']['purchaseList']['data']) {
             this.selects[entry['pr_id']] = false;
           }
           this.check = false;
-        }else if(info['status'] == 202){
+        }else if(data['status'] == 202){
           this.cookieStore.removeAll(this.rollback_url);
           this.router.navigate(['/auth/login']);
         }

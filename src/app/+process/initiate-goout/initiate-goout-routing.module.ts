@@ -1,4 +1,3 @@
-import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {InitiateGooutComponent} from "./initiate-goout.component";
 

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {GlobalService} from "../../core/global.service";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {Router} from "@angular/router";
-import {Http} from "@angular/http";
 import {isArray, isNumber, isUndefined} from "util";
 
 @Component({
@@ -16,8 +15,8 @@ export class AccountPermissionsComponent implements OnInit {
         },
     };
 
-    customerDefault : Array<any> = [];
-    roleList : Array<any> = [];
+    customerDefault : any = [];
+    roleList : any = [];
 
     //左侧选中商品分类的id
     select_ids: Array<any> = [];
@@ -40,7 +39,6 @@ export class AccountPermissionsComponent implements OnInit {
     permissions : Array<any> = [];
     menuInfos : Array<any> = [];
   constructor(
-      private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
@@ -51,13 +49,6 @@ export class AccountPermissionsComponent implements OnInit {
   }
 
   ngOnInit() {
-      // interface IArray {
-      //     [index: number]: string;
-      // }
-      // let arr: IArray= {'1第三方','323阿尔额'};
-      // let ant: string = arr[0];
-      // console.log(ant);
-
       //顶部菜单读取
       this.globalService.getMenuInfo();
       setTimeout(() => {
@@ -98,9 +89,8 @@ export class AccountPermissionsComponent implements OnInit {
      * 获取客户列表
      */
     getCustomerDefault() {
-        let url = this.globalService.getDomain()+'/api/v1/getPermissionCustomerDefault?role='+this.role+'&sid='+this.cookieStore.getCookie('sid');
-        this.http.get(url)
-            .map((res)=>res.json())
+        let url = 'getPermissionCustomerDefault?role='+this.role+'&sid='+this.cookieStore.getCookie('sid');
+        this.globalService.httpRequest('get',url)
             .subscribe((data)=>{
                 this.customerDefault = data;
                 if(this.customerDefault['status'] == 202){
@@ -122,9 +112,8 @@ export class AccountPermissionsComponent implements OnInit {
         if(! isNumber(cid)){
             cid = $event.target.value;
         }
-        let url = this.globalService.getDomain()+'/api/v1/getCategoryByType?c_id='+cid+'&category_type='+this.category_type;
-        this.http.get(url)
-            .map((res)=>res.json())
+        let url = 'getCategoryByType?c_id='+cid+'&category_type='+this.category_type;
+        this.globalService.httpRequest('get',url)
             .subscribe((data)=>{
                 this.roleList = data;
                 if(this.roleList['status'] == 202){
@@ -156,7 +145,6 @@ export class AccountPermissionsComponent implements OnInit {
      * num  1：父类 2：子类
      */
     selectMenu(menu_id:any,index:number,num:number){
-        // console.log(menu_id+'-'+index+'_'+num);
         if(num == 1){//点击父类
             if(this.cookieStore.in_array(menu_id,this.select_ids)){
                 if(this.customerDefault['result']['menuList'][index]){
@@ -174,7 +162,6 @@ export class AccountPermissionsComponent implements OnInit {
                                             this.select_ids.splice(idx12,1);
                                         }
                                     });
-
                                     if(val13['controls'] != [] && !isUndefined(val13['controls'])){
                                         val13['controls'].forEach((valc, idxc) => {
                                             this.select_ids.forEach((valc1, idxc1) => {
@@ -321,9 +308,8 @@ export class AccountPermissionsComponent implements OnInit {
     isStatusShow(category_id:any){
         if(category_id != this.super_admin_role_id || this.login_user_role_id == this.super_admin_role_id ) {
             this.editStatusCategoryId = category_id;
-            let url = this.globalService.getDomain() + '/api/v1/getCategoryById?category_id=' + this.editStatusCategoryId + '&category_type=' + this.category_type + '&number=3';
-            this.http.get(url)
-                .map((res) => res.json())
+            let url = 'getCategoryById?category_id=' + this.editStatusCategoryId + '&category_type=' + this.category_type + '&number=3';
+            this.globalService.httpRequest('get',url)
                 .subscribe((data) => {
                     this.select_ids = [];
                     if (isArray(data['result']['tabs'])) {
@@ -345,17 +331,16 @@ export class AccountPermissionsComponent implements OnInit {
         if(this.editStatusCategoryId == 0){
             alert('请选中要授权得角色！');
         }else{
-            this.http.post(this.globalService.getDomain()+'/api/v1/addCategoryMenu',{
+            this.globalService.httpRequest('post','addCategoryMenu',{
                 'category_id' : this.editStatusCategoryId,
                 'category_tab' :JSON.stringify(this.select_ids),
                 'sid':this.cookieStore.getCookie('sid')
             }).subscribe((data)=>{
-                let info = JSON.parse(data['_body']);
-                alert(info['msg']);
-                if(info['status'] == 202){
+                alert(data['msg']);
+                if(data['status'] == 202){
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
-                }else if(info['status'] == 200){
+                }else if(data['status'] == 200){
                     // this.select_ids = [];
                     // this.editStatusCategoryId = 0;
                 }

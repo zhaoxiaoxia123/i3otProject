@@ -1,7 +1,5 @@
-import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {SettingProduct3typeComponent} from './setting-product3type.component';
-
 
 export const settingProduct3typeRoutes: Routes = [{
     path: '',

@@ -1,7 +1,5 @@
-import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {SettingDepartmentnewComponent} from "./setting-departmentnew.component";
-
 
 export const settingDepartmentnewRoutes: Routes = [{
     path: '',

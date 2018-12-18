@@ -1,7 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FadeInTop} from '../../shared/animations/fade-in-top.decorator';
 import {ModalDirective} from 'ngx-bootstrap';
-import {Http} from '@angular/http';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 import {Router} from '@angular/router';
 import {GlobalService} from '../../core/global.service';
@@ -13,7 +12,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
   templateUrl: './list-product.component.html',
 })
 export class ListProductComponent implements OnInit {
-  productList : Array<any> = [];
+  productList : any = [];
   page : any;
   prev : boolean = false;
   next : boolean = false;
@@ -22,9 +21,9 @@ export class ListProductComponent implements OnInit {
   //用作全选和反选
   selects : Array<any> = [];
   check : boolean = false;
-  product_info : Array<any> = [];
+  product_info : any = [];
   rollback_url : string = '/tables/product';
-  constructor(private http:Http,
+  constructor(
               fb:FormBuilder,
               private router : Router,
               private cookiestore:CookieStoreService,
@@ -60,22 +59,18 @@ export class ListProductComponent implements OnInit {
    * @param number
    */
   getProductList(number:string) {
-    let url = this.globalService.getDomain()+'/api/v1/getProductList?sid='+this.cookiestore.getCookie('sid')+'&page='+number;
+    let url = 'getProductList?sid='+this.cookiestore.getCookie('sid')+'&page='+number;
     if(this.formModel.value['keyword'].trim() != ''){
       url += '&keyword='+this.formModel.value['keyword'].trim();
     }
-    this.http.get(url)
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get',url)
         .subscribe((data)=>{
           this.productList = data;
-        });
 
-    setTimeout(() => {
       if(this.productList['status'] == 202){
         this.cookiestore.removeAll(this.rollback_url);
         this.router.navigate(['/auth/login']);
       }
-      // console.log(typeof (this.productList));
       console.log(this.productList);
       if (this.productList) {
         if (this.productList['result']['current_page'] == this.productList['result']['last_page']) {
@@ -95,7 +90,7 @@ export class ListProductComponent implements OnInit {
         }
         this.check = false;
       }
-    }, 300);
+    });
   }
 
   //全选，反全选
@@ -147,16 +142,11 @@ export class ListProductComponent implements OnInit {
     if(this.globalService.demoAlert('','')){
       return false;
     }
-    // console.log('current_page-----');
-    // console.log(current_page);
     if(confirm('您确定要删除该条信息吗？')) {
-      this.http.delete(this.globalService.getDomain()+'/api/v1/deleteProductById?pid=' + uid + '&page=' + current_page+'&type=id&sid='+this.cookiestore.getCookie('sid'))
-          .map((res) => res.json())
+      this.globalService.httpRequest('delete','deleteProductById?pid=' + uid + '&page=' + current_page+'&type=id&sid='+this.cookiestore.getCookie('sid'))
           .subscribe((data) => {
             this.productList = data;
-          });
-      setTimeout(() => {
-        // console.log(this.productList);
+
         alert(this.productList['msg']);
         if(this.productList['status'] == 202){
           this.cookiestore.removeAll(this.rollback_url);
@@ -174,7 +164,7 @@ export class ListProductComponent implements OnInit {
             this.prev = false;
           }
         }
-      }, 300);
+      });
     }
   }
 
@@ -193,13 +183,10 @@ export class ListProductComponent implements OnInit {
           ids += idx+',';
         }
       });
-      this.http.delete(this.globalService.getDomain()+'/api/v1/deleteProductById?ids=' + ids + '&page=' + current_page+'&type=all&sid='+this.cookiestore.getCookie('sid'))
-          .map((res) => res.json())
+      this.globalService.httpRequest('delete','deleteProductById?ids=' + ids + '&page=' + current_page+'&type=all&sid='+this.cookiestore.getCookie('sid'))
           .subscribe((data) => {
             this.productList = data;
-          });
-      setTimeout(() => {
-        // console.log(this.productList);
+
         alert(this.productList['msg']);
         if(this.productList['status'] == 202){
           this.cookiestore.removeAll(this.rollback_url);
@@ -217,7 +204,7 @@ export class ListProductComponent implements OnInit {
             this.prev = false;
           }
         }
-      }, 300);
+      });
     }
   }
 
@@ -227,20 +214,11 @@ export class ListProductComponent implements OnInit {
    * @param id
    */
   getProductInfo(id){
-    this.http.get(this.globalService.getDomain()+'/api/v1/getProductInfo?p_id='+id+'&type=detail')
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get','getProductInfo?p_id='+id+'&type=detail')
         .subscribe((data)=>{
           this.product_info = data;
         });
-
-    setTimeout(() => {
-      console.log('this.product_info:-----');
-      console.log(this.product_info);
-    },300);
   }
-
-
-
 
   @ViewChild('lgModal') public lgModal:ModalDirective;
 

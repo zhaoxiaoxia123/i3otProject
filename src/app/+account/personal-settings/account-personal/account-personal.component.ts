@@ -1,6 +1,5 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {Http} from "@angular/http";
 import {Router} from "@angular/router";
 import {CookieStoreService} from "../../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../../core/global.service";
@@ -19,7 +18,7 @@ export class AccountPersonalComponent implements OnInit {
 
     formModel : FormGroup;
     formModel1 : FormGroup;
-    userInfo : Array<any> = [];
+    userInfo : any = [];
     @Input() fromFatherValue;
     //默认
     cid : any = 0;//当前登录用户的所属公司id
@@ -33,7 +32,6 @@ export class AccountPersonalComponent implements OnInit {
     @Input() permissions : Array<any> = [];
     constructor(
         fb:FormBuilder,
-        private http:Http,
         private router : Router,
         private cookieStore:CookieStoreService,
         private globalService:GlobalService) {
@@ -52,7 +50,6 @@ export class AccountPersonalComponent implements OnInit {
             u_notes:['']
         });
 
-        // this.province = getProvince(); //
         this.cid = this.cookieStore.getCookie('cid');
         this.uid = this.cookieStore.getCookie('uid');
         this.domain_url = this.globalService.getDomain();
@@ -91,12 +88,10 @@ export class AccountPersonalComponent implements OnInit {
             alert('请填写名称！');
             return false;
         }
-        this.http.post(this.globalService.getDomain()+'/api/v1/addUser',{
+        this.globalService.httpRequest('post','addUser',{
             'u_id':this.uid,
             'name':this.formModel.value['u_username'],
             'employee_id':this.formModel.value['employee_id'],
-            // 'department':this.formModel.value['u_department'],
-            // 'position':this.formModel.value['u_position'],
             'phone':this.formModel1.value['u_phone'],
             'email':this.formModel1.value['email'],
             'address':this.formModel1.value['u_address'],
@@ -104,14 +99,13 @@ export class AccountPersonalComponent implements OnInit {
             'type':'company',
             'sid':this.cookieStore.getCookie('sid')
         }).subscribe((data)=>{
-            let info = JSON.parse(data['_body']);
-            if(info['status'] != 200){
-                alert(info['msg']);
+            if(data['status'] != 200){
+                alert(data['msg']);
             }
-            if(info['status'] == 200) {
-                this.userInfo = info;
+            if(data['status'] == 200) {
+                this.userInfo = data;
                 this.lgModal.hide();
-            }else if(info['status'] == 202){
+            }else if(data['status'] == 202){
                 this.cookieStore.removeAll(this.rollback_url);
                 this.router.navigate(['/auth/login']);
             }

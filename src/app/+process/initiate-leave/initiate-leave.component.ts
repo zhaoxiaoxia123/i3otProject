@@ -1,13 +1,9 @@
-import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {GlobalService} from "../../core/global.service";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Http} from "@angular/http";
-import {isUndefined} from "util";
 import {FadeInTop} from "../../shared/animations/fade-in-top.decorator";
-// import {ImageCropperComponent, CropperSettings, Bounds} from 'ng2-img-cropper';
-// import {stringify} from "querystring";
-// import { FileUploader} from "ng2-file-upload";
 import {Router} from "@angular/router";
 
 @FadeInTop()
@@ -57,7 +53,6 @@ export class InitiateLeaveComponent implements OnInit {
   /** 权限 */
   permissions : Array<any> = [];
   constructor(fb:FormBuilder,
-              private http:Http,
               private router : Router,
               private cookieStore:CookieStoreService,
               private globalService:GlobalService) {
@@ -113,7 +108,7 @@ export class InitiateLeaveComponent implements OnInit {
       this.follower_user.forEach((val, idx, array) => {
         follower_user_ids.push((val['id']).toString());
       });
-    this.http.post(this.globalService.getDomain()+'/api/v1/addApproval',{
+    this.globalService.httpRequest('post','addApproval',{
       'approval_id':this.formModel.value['approval_id'],
       'type':this.formModel.value['type'],
       'approval_start_date':this.approval_start_date,
@@ -124,20 +119,17 @@ export class InitiateLeaveComponent implements OnInit {
       'approval_assign':JSON.stringify(approve_user_ids),
       'approval_copy_person':JSON.stringify(follower_user_ids),
       'approval_type':this.type,
-      // 'approval_or_copy':this.approval_or_copy, //用以删除用户信息
-      // 'remove_u_id':stringify(this.remove_user_ids),
       'u_id':this.cookieStore.getCookie('uid'),
       'sid':this.cookieStore.getCookie('sid')
     }).subscribe((data)=>{
-          let info = JSON.parse(data['_body']);
-          alert(info['msg']);
-          if(info['status'] == 200) {
+          alert(data['msg']);
+          if(data['status'] == 200) {
             if(num == 1){
               this.router.navigate(['/process/approval-process/0']);
             }else {
               this.clear_();
             }
-          }else if(info['status'] == 202){
+          }else if(data['status'] == 202){
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }

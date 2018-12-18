@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FadeInTop} from "../../shared/animations/fade-in-top.decorator";
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {Http} from "@angular/http";
 import {Router} from "@angular/router";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
-
 
 @FadeInTop()
 @Component({
@@ -16,28 +14,19 @@ export class SettingEquipmentComponent implements OnInit {
     public states: Array<any>;
     public state: any = {
         tabs: {
-            demo1: 0,
-            demo2: 'tab-r1',
             demo3: 'hr1',
-            demo4: 'AA',
-            demo5: 'iss1',
-            demo6: 'l1',
-            demo7: 'tab1',
-            demo8: 'hb1',
-            demo9: 'A1',
-            demo10: 'is1'
         },
     };
 
     //设备类型
     formModel : FormGroup;
-    i3otpList : Array<any> = [];
+    i3otpList : any = [];
     //传感器
     formModelSensor : FormGroup;
-    sensorList : Array<any> = [];
+    sensorList : any = [];
     //通讯方式
     formModelCommunication : FormGroup;
-    communicationList : Array<any> = [];
+    communicationList : any = [];
 
     //修改标题显示
     category_id1 : any = 0;//设备类型
@@ -64,7 +53,6 @@ export class SettingEquipmentComponent implements OnInit {
     permissions : Array<any> = [];
   constructor(
       fb:FormBuilder,
-      private http:Http,
       private router:Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService
@@ -95,7 +83,6 @@ export class SettingEquipmentComponent implements OnInit {
   }
 
   ngOnInit() {
-
       //顶部菜单读取
       this.globalService.getMenuInfo();
       setTimeout(()=>{
@@ -127,8 +114,7 @@ export class SettingEquipmentComponent implements OnInit {
 
     // 10：设备类型 11：传感器 12 ：通讯方式 矿易帮添加。不用考虑权限读取，所有用户客户均可读取
     getCategory(category_type:number,number:any){
-        this.http.get(this.globalService.getDomain()+'/api/v1/getIndustryCategory?category_type='+category_type+'&page='+number+'&sid='+this.cookieStore.getCookie('sid'))
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get','getIndustryCategory?category_type='+category_type+'&page='+number+'&sid='+this.cookieStore.getCookie('sid'))
             .subscribe((data)=>{
                 if(category_type == 10) {
                     this.i3otpList = data;
@@ -187,7 +173,7 @@ export class SettingEquipmentComponent implements OnInit {
                 'sid':this.cookieStore.getCookie('sid')
             };
         }
-        this.http.post(this.globalService.getDomain()+'/api/v1/addCategory',data)
+        this.globalService.httpRequest('post','addCategory',data)
             .subscribe((data)=>{
                 if(categoryType == 10) {
                     this.formModel.setValue({category_number:'',category_desc: '', category_type: '10', category_id: ''});
@@ -231,8 +217,7 @@ export class SettingEquipmentComponent implements OnInit {
         if(this.editStatusCategoryId == 0){
             return false;
         }
-        this.http.get(this.globalService.getDomain()+'/api/v1/getCategoryById?category_id='+this.editStatusCategoryId+'&number=1')
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get','getCategoryById?category_id='+this.editStatusCategoryId+'&number=1')
             .subscribe((data)=>{
                 if(category_type == 10) {
                     this.formModel.patchValue({
@@ -289,9 +274,8 @@ export class SettingEquipmentComponent implements OnInit {
         }
         msg = '您确定要删除该信息吗？';
         if(confirm(msg)) {
-            let url = this.globalService.getDomain()+'/api/v1/deleteIndustryCategory?category_id=' + category_id + '&type='+type+'&category_type='+category_type+'&sid=' + this.cookieStore.getCookie('sid');
-            this.http.delete(url)
-                .map((res)=>res.json())
+            let url = 'deleteIndustryCategory?category_id=' + category_id + '&type='+type+'&category_type='+category_type+'&sid=' + this.cookieStore.getCookie('sid');
+            this.globalService.httpRequest('delete',url)
                 .subscribe((data)=>{
                     if(category_type == 10) {
                         this.i3otpList = data;
@@ -378,6 +362,4 @@ export class SettingEquipmentComponent implements OnInit {
             this.check = true;
         }
     }
-
-
 }

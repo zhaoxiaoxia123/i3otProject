@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {Http} from "@angular/http";
 import {Router} from "@angular/router";
 import {GlobalService} from "../../core/global.service";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
@@ -12,21 +11,11 @@ export class SettingPersonnelComponent implements OnInit {
     public states: Array<any>;
     public state: any = {
         tabs: {
-            demo1: 0,
-            demo2: 'tab-r1',
-            demo3: 'hr1',
             demo4: 'AA',
-            demo5: 'iss1',
-            demo6: 'l1',
-            demo7: 'tab1',
-            demo8: 'hb1',
-            demo9: 'A1',
-            demo10: 'is1'
         },
     };
-
-    categoryList : Array<any> = [];
-    categoryInfo : Array<any> = [];
+    categoryList : any = [];
+    categoryInfo : any = [];
     category_id:number = 0;
     category_desc:string = '';
     category_number:string = '';
@@ -50,7 +39,6 @@ export class SettingPersonnelComponent implements OnInit {
     /** 权限 */
     permissions : Array<any> = [];
     constructor(
-        private http:Http,
         private router : Router,
         private cookieStore:CookieStoreService,
         private globalService:GlobalService) {
@@ -86,9 +74,8 @@ export class SettingPersonnelComponent implements OnInit {
      * @param number
      */
     getCategoryList(number:string) {
-        let url = this.globalService.getDomain()+'/api/v1/getCategory?category_type='+this.category_type+'&page='+number+'&sid='+this.cookieStore.getCookie('sid');
-        this.http.get(url)
-            .map((res)=>res.json())
+        let url = 'getCategory?category_type='+this.category_type+'&page='+number+'&sid='+this.cookieStore.getCookie('sid');
+        this.globalService.httpRequest('get',url)
             .subscribe((data)=>{
                 this.categoryList = data;
                 if(this.categoryList['status'] == 202){
@@ -144,24 +131,23 @@ export class SettingPersonnelComponent implements OnInit {
             alert('请输入角色名称！');
             return false;
         }
-        this.http.post(this.globalService.getDomain()+'/api/v1/addCategory',{
+        this.globalService.httpRequest('post','addCategory',{
             'category_id' : this.category_id,
             'category_type' : this.category_type,
             'category_number' : this.category_number,
             'category_desc' : this.category_desc,
             'sid':this.cookieStore.getCookie('sid')
         }).subscribe( (data)=>{
-                let info = JSON.parse(data['_body']);
-                if(info['status'] == 200) {
+                if(data['status'] == 200) {
                     this.category_id = 0;
                     this.category_desc = '';
                     this.category_number = '';
-                    this.categoryList = info;
-                }else if(info['status'] == 202){
+                    this.categoryList = data;
+                }else if(data['status'] == 202){
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
-                }else if(info['status'] != 200){
-                    alert(info['msg']);
+                }else if(data['status'] != 200){
+                    alert(data['msg']);
                 }
             }
         );
@@ -175,8 +161,7 @@ export class SettingPersonnelComponent implements OnInit {
         if(this.editStatusCategoryId == 0){
             return false;
         }
-        this.http.get(this.globalService.getDomain()+'/api/v1/getCategoryById?category_id='+this.editStatusCategoryId+'&number=1')
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get','getCategoryById?category_id='+this.editStatusCategoryId+'&number=1')
             .subscribe((data)=>{
                 this.categoryInfo = data;
                 this.category_id = this.categoryInfo['result']['parent']['category_id'];
@@ -214,9 +199,8 @@ export class SettingPersonnelComponent implements OnInit {
         }
         msg = '删除后将不可恢复，您确定要删除吗？';
         if(confirm(msg)) {
-            let url = this.globalService.getDomain()+'/api/v1/deleteCategory?category_id=' + category_id + '&type='+type+'&number=1&category_type='+this.category_type+'&sid=' + this.cookieStore.getCookie('sid');
-            this.http.delete(url)
-                .map((res) => res.json())
+            let url = 'deleteCategory?category_id=' + category_id + '&type='+type+'&number=1&category_type='+this.category_type+'&sid=' + this.cookieStore.getCookie('sid');
+            this.globalService.httpRequest('delete',url)
                 .subscribe((data) => {
                     this.categoryList = data;
                     if(this.categoryList['status'] == 202){

@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {FadeInTop} from '../../shared/animations/fade-in-top.decorator';
 import {JsonApiService} from '../../core/api/json-api.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {Http} from '@angular/http';
 import {GlobalService} from '../../core/global.service';
 import {Router} from '@angular/router';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
@@ -17,29 +16,20 @@ export class SettingEnterpriseComponent implements OnInit {
     public states: Array<any>;
     public state: any = {
         tabs: {
-            demo1: 0,
-            demo2: 'tab-r1',
             demo3: 'hr1',
-            demo4: 'AA',
-            demo5: 'iss1',
-            demo6: 'l1',
-            demo7: 'tab1',
-            demo8: 'hb1',
-            demo9: 'A1',
-            demo10: 'is1'
         },
     };
     public demo2: any;
     public nestable2DemoOutput: any;
 
     formModel : FormGroup;
-    industryCategoryList : Array<any> = [];
+    industryCategoryList : any = [];
     pageI : any;
     prevI : boolean = false;
     nextI : boolean = false;
 
     formModelSource : FormGroup;
-    sourceList : Array<any> = [];
+    sourceList : any = [];
 
     //修改标题显示
     category_id1 : any = 0;//行业
@@ -64,7 +54,6 @@ export class SettingEnterpriseComponent implements OnInit {
     constructor(
         private jsonApiService:JsonApiService,
         fb:FormBuilder,
-        private http:Http,
         private router:Router,
         private cookieStore:CookieStoreService,
         private globalService:GlobalService
@@ -115,8 +104,7 @@ export class SettingEnterpriseComponent implements OnInit {
 
     // 1：客户所属行业 2：客户来源  矿易帮添加。不用考虑权限读取，所有用户客户均可读取
     getIndustryCategory(category_type:number,number:any){
-        this.http.get(this.globalService.getDomain()+'/api/v1/getIndustryCategory?category_type='+category_type+'&page='+number+'&sid='+this.cookieStore.getCookie('sid'))
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get','getIndustryCategory?category_type='+category_type+'&page='+number+'&sid='+this.cookieStore.getCookie('sid'))
             .subscribe((data)=>{
                 if(category_type == 1) {
                     this.industryCategoryList = data;
@@ -166,17 +154,17 @@ export class SettingEnterpriseComponent implements OnInit {
      * 提交所属行业
      */
     onSubmitIndustryCategory() {
-        this.http.post(this.globalService.getDomain()+'/api/v1/addCategory',{
+        this.globalService.httpRequest('post','addCategory',{
             'category_number':this.formModel.value['category_number'],
             'category_desc':this.formModel.value['category_desc'],
             'category_type':this.formModel.value['category_type'],
             'category_id':this.formModel.value['category_id'],
             'sid':this.cookieStore.getCookie('sid')
         }).subscribe((data)=>{
-            alert(JSON.parse(data['_body'])['msg']);
+            alert(data['msg']);
             this.formModel.setValue({category_number:'',category_desc:'',category_type:'1',category_id:''});
             // this.formModel.reset();
-            this.industryCategoryList = JSON.parse(data['_body']);
+            this.industryCategoryList = data;
             if(this.industryCategoryList['status'] == 202){
                 this.cookieStore.removeAll(this.rollback_url);
                 this.router.navigate(['/auth/login']);
@@ -190,37 +178,26 @@ export class SettingEnterpriseComponent implements OnInit {
      * 提交客户来源
      */
     onSubmitSource() {
-        this.http.post(this.globalService.getDomain()+'/api/v1/addCategory',{
+        this.globalService.httpRequest('post','addCategory',{
             'category_number':this.formModelSource.value['category_number'],
             'category_desc':this.formModelSource.value['category_desc'],
             'category_type':this.formModelSource.value['category_type'],
             'category_id':this.formModelSource.value['category_id'],
             'sid':this.cookieStore.getCookie('sid')
-        }).subscribe(
-            (data)=>{
-                alert(JSON.parse(data['_body'])['msg']);
+        }).subscribe((data)=>{
+                alert(data['msg']);
                 this.formModelSource.setValue({category_number:'',category_desc:'',category_type:'2',category_id:''});
                 // this.formModel.reset();
-                this.sourceList = JSON.parse(data['_body']);
+                this.sourceList = data;
                 if(this.sourceList['status'] == 202){
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
-
                 this.category_id2 = 0;
             }
         );
     }
 
-    /**
-     * 所属行业分页
-     * @param url
-    pagination(category_type:number,url : string) {
-        if(url) {
-            this.pageI = url.substring((url.lastIndexOf('=') + 1), url.length);
-            this.getIndustryCategory(category_type,this.pageI);
-        }
-    } */
     /**
      * 所属行业分页
      * @param page
@@ -237,8 +214,7 @@ export class SettingEnterpriseComponent implements OnInit {
         if(this.editStatusCategoryId == 0){
             return false;
         }
-        this.http.get(this.globalService.getDomain()+'/api/v1/getCategoryById?category_id='+this.editStatusCategoryId+'&number=1')
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get','getCategoryById?category_id='+this.editStatusCategoryId+'&number=1')
             .subscribe((data)=>{
             if(category_type == 1) {
                 this.formModel.patchValue({
@@ -288,9 +264,8 @@ export class SettingEnterpriseComponent implements OnInit {
         }
         msg = '您确定要删除该信息吗？';
         if(confirm(msg)) {
-            let url = this.globalService.getDomain()+'/api/v1/deleteIndustryCategory?category_id=' + category_id + '&type='+type+'&category_type='+category_type+'&sid=' + this.cookieStore.getCookie('sid');
-            this.http.delete(url)
-                .map((res)=>res.json())
+            let url = 'deleteIndustryCategory?category_id=' + category_id + '&type='+type+'&category_type='+category_type+'&sid=' + this.cookieStore.getCookie('sid');
+            this.globalService.httpRequest('delete',url)
                 .subscribe((data)=>{
                     if(category_type == 1){
                         this.industryCategoryList = data;

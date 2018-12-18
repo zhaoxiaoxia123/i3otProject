@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable} from "rxjs/Observable";
-import {Http} from "@angular/http";
 
 @Component({
   selector: 'app-panel-sell',
@@ -14,9 +13,8 @@ export class PanelSellComponent implements OnInit {
     chartOption;
     seriesInfo: Array<any> = [];
 
-    constructor(private http:Http) {
+    constructor() {
     }
-
 
     ngOnInit() {
         this.getSeriesInfo();

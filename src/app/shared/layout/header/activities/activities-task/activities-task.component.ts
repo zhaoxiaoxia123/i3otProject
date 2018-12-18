@@ -1,5 +1,4 @@
 import {Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
-import {Http} from "@angular/http";
 import {Router} from "@angular/router";
 import {GlobalService} from "../../../../../core/global.service";
 import {CookieStoreService} from "../../../../cookies/cookie-store.service";
@@ -19,7 +18,6 @@ export class ActivitiesTaskComponent implements OnInit {
   @Output() private taskMessageLists = new EventEmitter();
 
   constructor(
-      private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService
@@ -37,8 +35,7 @@ export class ActivitiesTaskComponent implements OnInit {
     }else{
       userId = this.cookieStore.getCookie('uid');
     }
-      this.http.get(this.globalService.getDomain() + '/api/v1/readMessage?u_id=' + userId + '&type=one&category=task&index=' + index)
-          .map((res) => res.json())
+    this.globalService.httpRequest('get','readMessage?u_id=' + userId + '&type=one&category=task&index=' + index)
           .subscribe((data) => {
             if (data['status'] == 200) {
               this.isShow = 'none';

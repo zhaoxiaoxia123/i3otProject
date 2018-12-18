@@ -1,7 +1,5 @@
-import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {AddIndent1Component} from './add-indent1.component';
-
 
 export const addIndent1Routes: Routes = [{
     path: '',

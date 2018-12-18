@@ -1,7 +1,6 @@
 import { NgModule }   from '@angular/core';
 import { CommonModule }       from '@angular/common';
 import {BigPicComponent} from "./big-pic.component";
-//import {I3otpEditorsModule} from "../../forms/editors/i3otp-editors.module";
 import {I3otpModule} from "../../i3otp.module";
 
 @NgModule({
@@ -9,7 +8,6 @@ import {I3otpModule} from "../../i3otp.module";
         [
             CommonModule,
             I3otpModule,
-       //     I3otpEditorsModule,
     ],
     declarations: [BigPicComponent],
     exports: [BigPicComponent],

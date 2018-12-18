@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FadeInTop} from '../../shared/animations/fade-in-top.decorator';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Http} from '@angular/http';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {Router,ActivatedRoute} from '@angular/router';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 import {GlobalService} from '../../core/global.service';
@@ -15,10 +14,10 @@ import ownKeys = Reflect.ownKeys;
 })
 export class AddI3otpComponent implements OnInit {
   formModel : FormGroup;
-  i3otpList : Array<any> = [];
+  i3otpList : any = [];
 
   i_id : number = 0;
-  i3otp_info : Array<any> = [];
+  i3otp_info : any = [];
 
   //默认选中值
   u_id_default : number;
@@ -28,7 +27,6 @@ export class AddI3otpComponent implements OnInit {
   rollback_url : string = '/equipment/i3otp';
   constructor(
       fb:FormBuilder,
-      private http:Http,
       private router : Router,
       private routInfo : ActivatedRoute,
       private cookieStore:CookieStoreService,
@@ -61,9 +59,6 @@ export class AddI3otpComponent implements OnInit {
     let v = t.value;
     let c = t.checked;
     this.selects[v] = c;
-    console.log('this.selects');
-    console.log(this.selects);
-    console.log(stringify(this.selects));
   }
 
 
@@ -82,14 +77,9 @@ export class AddI3otpComponent implements OnInit {
     return Object.keys(item);
   }
   getI3otpInfo(i_id:number){
-    this.http.get(this.globalService.getDomain()+'/api/v1/getI3otpInfo?i_id='+i_id)
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get','getI3otpInfo?i_id='+i_id)
         .subscribe((data)=>{
           this.i3otp_info = data;
-        });
-    setTimeout(() => {
-      console.log('this.i3otp_info:---');
-      console.log(this.i3otp_info);
       this.formModel.patchValue({
         i3otp_id:this.i3otp_info['result']['i3otp_id'],
         i3otp_pid:this.i3otp_info['result']['i3otp_pid'],
@@ -114,21 +104,16 @@ export class AddI3otpComponent implements OnInit {
           this.selects[key] = i3otpa[key];
         }
       }
-    }, 500);
+    });
   }
 
   /**
    * 获取添加客户的默认参数
    */
   getI3otpDefault() {
-      this.http.get(this.globalService.getDomain()+'/api/v1/getI3otpDefault?sid='+this.cookieStore.getCookie('sid'))
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get','getI3otpDefault?sid='+this.cookieStore.getCookie('sid'))
         .subscribe((data)=>{
           this.i3otpList = data;
-      });
-    setTimeout(() => {
-      console.log('this.i3otpList');
-      console.log(this.i3otpList);
       if(this.i3otpList['status'] == 202){
         alert(this.i3otpList['msg']);
         this.cookieStore.removeAll(this.rollback_url);
@@ -140,7 +125,7 @@ export class AddI3otpComponent implements OnInit {
         this.o_id_default = this.i3otpList['result']['orderList'].length >= 1 ? this.i3otpList['result']['orderList'][0]['o_id'] : 0;
         this.i3otp_category_default = 1;
       }
-    }, 500);
+    });
   }
 
   onSubmit(){
@@ -152,7 +137,7 @@ export class AddI3otpComponent implements OnInit {
       alert('请填写设备名称！');
       return false;
     }
-    this.http.post(this.globalService.getDomain()+'/api/v1/addI3otp',{
+    this.globalService.httpRequest('post','addI3otp',{
       'i3otp_id':this.formModel.value['i3otp_id'],
       'i3otp_pid':this.formModel.value['i3otp_pid'],
       'i3otp_category':this.formModel.value['i3otp_category'],
@@ -167,17 +152,16 @@ export class AddI3otpComponent implements OnInit {
       'o_id':this.formModel.value['o_id'],
       'i3otp_activation':this.formModel.value['i3otp_activation'],
       'sid':this.cookieStore.getCookie('sid')
-    }).subscribe(
-        (data)=>{
-          let info = JSON.parse(data['_body']);
-          alert(info['msg']);
-          if(info['status'] == 200) {
-            if(info['result'] == 1) {
+    }).subscribe( (data)=>{
+          alert(data['msg']);
+          if(data['status'] == 200) {
+            if(data['result'] == 1) {
               this.router.navigateByUrl('/equipment/helmet-list');
-            } else if(info['result'] == 2) {
+            } else if(data['result'] == 2) {
               this.router.navigateByUrl('/equipment/station-list');
             }
-          }else if(info['status'] == 202){
+          }else if(data['status'] == 202){
+          }else if(data['status'] == 202){
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }

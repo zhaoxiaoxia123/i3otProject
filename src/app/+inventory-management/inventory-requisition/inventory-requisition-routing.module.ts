@@ -1,7 +1,5 @@
-import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {InventoryRequisitionComponent} from "./inventory-requisition.component";
-
 
 export const inventoryRequisitionRoutes: Routes = [{
     path: '',

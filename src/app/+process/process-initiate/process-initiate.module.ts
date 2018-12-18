@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { ProcessInitiateRoutingModule } from './process-initiate-routing.module';
 import { ProcessInitiateComponent } from './process-initiate.component';
 import { InitiateLeaveComponent } from './initiate-leave/initiate-leave.component';
@@ -9,13 +8,11 @@ import { InitiateGooutComponent } from './initiate-goout/initiate-goout.componen
 import { InitiateRequiteComponent } from './initiate-requite/initiate-requite.component';
 import { InitiateGeneralComponent } from './initiate-general/initiate-general.component';
 import {I3otpModule} from "../../shared/i3otp.module";
-//import {I3otpEditorsModule} from "../../shared/forms/editors/i3otp-editors.module";
 
 @NgModule({
   imports: [
     CommonModule,
-      I3otpModule,
-  //    I3otpEditorsModule,
+    I3otpModule,
     ProcessInitiateRoutingModule
   ],
   declarations: [ProcessInitiateComponent]

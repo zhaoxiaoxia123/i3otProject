@@ -1,5 +1,4 @@
-import {Component, OnInit, Inject, ViewContainerRef, ViewChild} from '@angular/core';
-import {VoiceControlService} from "./voice-control.service";
+import {Component, OnInit, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'sa-commands-help',

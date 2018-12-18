@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {Http} from '@angular/http';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 import {Router} from '@angular/router';
 import {GlobalService} from '../../core/global.service';
@@ -11,7 +10,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 })
 export class ListClient1Component implements OnInit {
 
-  customerList : Array<any> = [];
+  customerList : any = [];
   page : any;
   prev : boolean = false;
   next : boolean = false;
@@ -19,11 +18,10 @@ export class ListClient1Component implements OnInit {
   //用作全选和反选
   selects : Array<any> = [];
   check : boolean = false;
-  customer_info : Array<any> = [];
+  customer_info : any = [];
   rollback_url : string = '/tables/client1';
   constructor(
       fb:FormBuilder,
-      private http:Http,
       private router : Router,
       private cookiestore:CookieStoreService,
       private globalService:GlobalService
@@ -60,18 +58,14 @@ export class ListClient1Component implements OnInit {
    */
   getCustomerList(number:string) {
 
-    let url = this.globalService.getDomain()+'/api/v1/getCustomerList?role=2&page='+number+'&sid='+this.cookiestore.getCookie('sid');
+    let url = 'getCustomerList?role=2&page='+number+'&sid='+this.cookiestore.getCookie('sid');
     if(this.formModel.value['keyword'].trim() != ''){
       url += '&keyword='+this.formModel.value['keyword'].trim();
     }
-    this.http.get(url)
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get',url)
         .subscribe((data)=>{
           this.customerList = data;
-        });
 
-    setTimeout(() => {
-      console.log(this.customerList);
       if(this.customerList['status'] == 202){
         this.cookiestore.removeAll(this.rollback_url);
         this.router.navigate(['/auth/login']);
@@ -93,7 +87,7 @@ export class ListClient1Component implements OnInit {
         }
         this.check = false;
       }
-    }, 300);
+    });
   }
 
   //全选，反全选
@@ -125,19 +119,6 @@ export class ListClient1Component implements OnInit {
   }
 
   /**
-   * 分页
-   * @param url
-
-  pagination(url : string) {
-    // console.log('url:'+url);
-    if(url) {
-      this.page = url.substring((url.lastIndexOf('=') + 1), url.length);
-      // console.log(this.page);
-      this.getCustomerList(this.page);
-    }
-  }*/
-
-  /**
    * 页码分页
    * @param page
    */
@@ -156,13 +137,10 @@ export class ListClient1Component implements OnInit {
       return false;
     }
     if(confirm('您确定要删除该条信息吗？')) {
-      this.http.delete(this.globalService.getDomain()+'/api/v1/deleteCustomerById?c_id=' + cid + '&type=id&role=2&page=' + current_page+'&sid='+this.cookiestore.getCookie('sid'))
-          .map((res) => res.json())
+      this.globalService.httpRequest('delete','deleteCustomerById?c_id=' + cid + '&type=id&role=2&page=' + current_page+'&sid='+this.cookiestore.getCookie('sid'))
           .subscribe((data) => {
             this.customerList = data;
-          });
-      setTimeout(() => {
-        // console.log(this.userList);
+
         alert(this.customerList['msg']);
         if(this.customerList['status'] == 202){
           this.cookiestore.removeAll(this.rollback_url);
@@ -180,7 +158,7 @@ export class ListClient1Component implements OnInit {
             this.prev = false;
           }
         }
-      }, 300);
+      });
     }
   }
 
@@ -200,13 +178,10 @@ export class ListClient1Component implements OnInit {
   }
   });
     //type :all 全选删除  id：单条删除
-    this.http.delete(this.globalService.getDomain()+'/api/v1/deleteCustomerById?ids=' + ids + '&type=all&role=2&page=' + current_page+'&sid='+this.cookiestore.getCookie('sid'))
-        .map((res) => res.json())
+    this.globalService.httpRequest('delete','deleteCustomerById?ids=' + ids + '&type=all&role=2&page=' + current_page+'&sid='+this.cookiestore.getCookie('sid'))
         .subscribe((data) => {
           this.customerList = data;
-        });
-    setTimeout(() => {
-      // console.log(this.userList);
+
       alert(this.customerList['msg']);
       if(this.customerList['status'] == 202){
         this.cookiestore.removeAll(this.rollback_url);
@@ -224,7 +199,7 @@ export class ListClient1Component implements OnInit {
           this.prev = false;
         }
       }
-    }, 300);
+    });
   }
 }
 
@@ -233,8 +208,7 @@ export class ListClient1Component implements OnInit {
    * @param c_id
    */
   getCustomerInfo(c_id:number){
-    this.http.get(this.globalService.getDomain()+'/api/v1/getCustomerInfo?c_id='+c_id+'&c_role=2&type=detail')
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get','getCustomerInfo?c_id='+c_id+'&c_role=2&type=detail')
         .subscribe((data)=>{
           this.customer_info = data;
         });

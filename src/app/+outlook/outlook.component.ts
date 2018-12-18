@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs/Rx";
 import {Outlook, Folder} from "./shared/outlook";
 import {OutlookService} from "./shared/outlook.service";
@@ -19,8 +18,7 @@ export class OutlookComponent implements OnInit {
   activeFolder:Folder;
   activeFolderSub:Subscription;
 
-  constructor(private route:ActivatedRoute,
-              private router:Router,
+  constructor(
               private outlookService:OutlookService) {
     this.outlook = new Outlook();
     this.activeFolder = new Folder()

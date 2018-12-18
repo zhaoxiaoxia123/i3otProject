@@ -1,5 +1,4 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Http} from "@angular/http";
 import {Router} from "@angular/router";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
@@ -21,9 +20,9 @@ export class CustomerUnitComponent implements OnInit {
     prev : boolean = false;
     next : boolean = false;
 
-    customerDefault : Array<any> = [];
-    customerList : Array<any> = [];
-    customerInfo : Array<any> = [];
+    customerDefault : any = [];
+    customerList : any = [];
+    customerInfo : any = [];
     //用作全选和反选
     selects : Array<any> = [];
     check : boolean = false;
@@ -47,7 +46,7 @@ export class CustomerUnitComponent implements OnInit {
     user_email: string = '';
     user_qq: string = '';
     user_addr: string = '';
-    departmentInfo : Array<any> = [];//业务员所属部门信息
+    departmentInfo : any = [];//业务员所属部门信息
     department : string = '';
     c_follow_user_id: number = 0;
     c_tax: string = '';
@@ -75,7 +74,6 @@ export class CustomerUnitComponent implements OnInit {
     permissions : Array<any> = [];
     menuInfos : Array<any> = [];
     constructor(
-        private http:Http,
         private router : Router,
         private cookieStore:CookieStoreService,
         private globalService:GlobalService) {
@@ -85,7 +83,6 @@ export class CustomerUnitComponent implements OnInit {
     }
 
     ngOnInit() {
-
         //顶部菜单读取
         this.globalService.getMenuInfo();
         setTimeout(()=>{
@@ -107,15 +104,13 @@ export class CustomerUnitComponent implements OnInit {
         return this.cookieStore.in_array(key, this.permissions);
     }
 
-
     showPinyin(){
         let name = this.c_name;
         if(name.trim() != ''){
-            this.http.get(this.globalService.getDomain()+'/api/v1/getPinyin?name='+name)
-                .map((res)=>res.json())
-                .subscribe((data)=>{
-                    this.c_abbreviation = data['result'];
-                });
+        this.globalService.httpRequest('get','getPinyin?name='+name)
+            .subscribe((data)=>{
+                this.c_abbreviation = data['result'];
+            });
         }
     }
 
@@ -124,8 +119,7 @@ export class CustomerUnitComponent implements OnInit {
      * 获取默认参数
      */
     getCustomerDefault(){
-        this.http.get(this.globalService.getDomain()+'/api/v1/getCustomerDefault?role='+this.role+'&category_type='+this.category_type+'&sid='+this.cookieStore.getCookie('sid'))
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get','getCustomerDefault?role='+this.role+'&category_type='+this.category_type+'&sid='+this.cookieStore.getCookie('sid'))
             .subscribe((data)=>{
                 this.customerDefault = data;
                 console.log(this.customerDefault);
@@ -141,12 +135,11 @@ export class CustomerUnitComponent implements OnInit {
      * @param number
      */
     getCustomerList(number:string) {
-        let url = this.globalService.getDomain()+'/api/v1/getCustomerList?role='+this.role+'&page='+number+'&sid='+this.cookieStore.getCookie('sid');
+        let url = 'getCustomerList?role='+this.role+'&page='+number+'&sid='+this.cookieStore.getCookie('sid');
         if(this.keyword.trim() != '') {
             url += '&keyword='+this.keyword.trim();
         }
-        this.http.get(url)
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get',url)
             .subscribe((data)=>{
                 this.customerList = data;
                 console.log(this.customerList);
@@ -154,7 +147,6 @@ export class CustomerUnitComponent implements OnInit {
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
-
                 this.selects = [];
                 for (let entry of this.customerList['result']['customerList']['data']) {
                     this.selects[entry['c_id']] = false;
@@ -213,12 +205,10 @@ export class CustomerUnitComponent implements OnInit {
             alert(msg);
             return false;
         }
-        this.http.get(this.globalService.getDomain()+'/api/v1/getCustomerInfo?c_id='+c_id)
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get','getCustomerInfo?c_id='+c_id)
             .subscribe((data)=>{
                 this.customerInfo = data;
                 console.log(this.customerInfo);
-
                 if(this.customerInfo['result']['c_follow_user_id'] != 0){
                     this.getDepartment(this.customerInfo['result']['c_follow_user_id'],2);
                 }
@@ -236,23 +226,20 @@ export class CustomerUnitComponent implements OnInit {
         }else{
             id = obj;
         }
-        let url = this.globalService.getDomain()+'/api/v1/getDepartment';
+        let url = 'getDepartment';
         console.log(id);
         if(id != 0){
             url += '?u_id='+id;
         }
-        this.http.get(url)
-            .map((res)=>res.json())
-            .subscribe((data)=>{
-                this.departmentInfo = data;
-
-                if(this.departmentInfo['status'] == 201){
-                    alert(this.departmentInfo['msg']);
-                }else if(this.departmentInfo['status'] == 200){
-                    this.department = this.departmentInfo['result']['department_name'];
-                }
-                console.log(this.department);
-            });
+        this.globalService.httpRequest('get',url).subscribe((data)=>{
+            this.departmentInfo = data;
+            if(this.departmentInfo['status'] == 201){
+                alert(this.departmentInfo['msg']);
+            }else if(this.departmentInfo['status'] == 200){
+                this.department = this.departmentInfo['result']['department_name'];
+            }
+            console.log(this.department);
+        });
     }
 
     /**
@@ -267,7 +254,7 @@ export class CustomerUnitComponent implements OnInit {
             alert('请输入名称！');
             return false;
         }
-        this.http.post(this.globalService.getDomain()+'/api/v1/addCustomer',{
+        this.globalService.httpRequest('post','addCustomer',{
             'c_id' : this.c_id,
             'number' : this.c_number,
             'name' : this.c_name,
@@ -296,13 +283,11 @@ export class CustomerUnitComponent implements OnInit {
             'c_credit_amount' : this.c_credit_amount,
             'c_status' : 1,
             'sid':this.cookieStore.getCookie('sid')
-        }).subscribe(
-            (data)=>{
-                let info = JSON.parse(data['_body']);
-                alert(info['msg']);
-                if(info['status'] == 200) {
+        }).subscribe( (data)=>{
+                alert(data['msg']);
+                if(data['status'] == 200) {
                     this.clear_();
-                    this.customerList = info;
+                    this.customerList = data;
                     this.selects = [];
                     for (let entry of this.customerList['result']['customerList']['data']) {
                         this.selects[entry['c_id']] = false;
@@ -311,7 +296,7 @@ export class CustomerUnitComponent implements OnInit {
                     if(num == 1){
                         this.lgModal.hide();
                     }
-                }else if(info['status'] == 202){
+                }else if(data['status'] == 202){
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
@@ -396,27 +381,7 @@ export class CustomerUnitComponent implements OnInit {
         }else{
             this.detailModal.show();
         }
-        // let isAll = 0;
-        // let c_id = 0;
-        // this.selects.forEach((val, idx, array) => {
-        //     if(val == true) {
-        //         isAll += 1;
-        //         c_id = idx;
-        //     }
-        // });
-        // let msg = '';
-        // if(isAll <= 0){
-        //     msg = '请选中要编辑的信息，再点击此“修改”按钮！';
-        // }else if(isAll > 1){
-        //     msg = '仅支持选择一条要编辑的信息！';
-        // }
-        // if(msg != ''){
-        //     alert(msg);
-        //     return false;
-        // }
-        // this.lgModal.show();
-        this.http.get(this.globalService.getDomain()+'/api/v1/getCustomerInfo?c_id='+this.editStatusCustomerId+'&type='+type+'&role='+this.role+'&sid='+this.cookieStore.getCookie('sid'))
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get','getCustomerInfo?c_id='+this.editStatusCustomerId+'&type='+type+'&role='+this.role+'&sid='+this.cookieStore.getCookie('sid'))
             .subscribe((data)=>{
                 this.customerInfo = data;
                 this.c_id = 0;
@@ -461,12 +426,10 @@ export class CustomerUnitComponent implements OnInit {
         }
         msg = '您确定要删除该信息吗？';
         if(confirm(msg)) {
-            let url = this.globalService.getDomain()+'/api/v1/deleteCustomerById?c_ids=' + c_id + '&role='+this.role+'&type='+type+'&sid=' + this.cookieStore.getCookie('sid');
-            this.http.delete(url)
-                .map((res) => res.json())
+            let url = 'deleteCustomerById?c_ids=' + c_id + '&role='+this.role+'&type='+type+'&sid=' + this.cookieStore.getCookie('sid');
+            this.globalService.httpRequest('delete',url)
                 .subscribe((data) => {
                     this.customerList = data;
-
                     if(this.customerList['status'] == 202){
                         this.cookieStore.removeAll(this.rollback_url);
                         this.router.navigate(['/auth/login']);
@@ -517,32 +480,29 @@ export class CustomerUnitComponent implements OnInit {
             alert('请确保已选中需要批量操作的项！');
             return false;
         }
-        this.http.post(this.globalService.getDomain()+'/api/v1/addCustomer',{
+        this.globalService.httpRequest('post','addCustomer',{
             'c_id':c_id,
             'c_status':status,
             'type':type,
             'role':this.role,
             'keyword':this.keyword.trim(),
             'sid':this.cookieStore.getCookie('sid')
-        }).subscribe(
-            (data)=>{
-                let info = JSON.parse(data['_body']);
-                alert(info['msg']);
-                if(info['status'] == 200) {
-                    this.customerList = info;
-                    this.selects = [];
-                    for (let entry of this.customerList['result']['customerList']['data']) {
-                        this.selects[entry['c_id']] = false;
-                    }
-                    this.check = false;
-                }else if(info['status'] == 202){
-                    this.cookieStore.removeAll(this.rollback_url);
-                    this.router.navigate(['/auth/login']);
+        }).subscribe( (data)=>{
+            alert(data['msg']);
+            if(data['status'] == 200) {
+                this.customerList = data;
+                this.selects = [];
+                for (let entry of this.customerList['result']['customerList']['data']) {
+                    this.selects[entry['c_id']] = false;
                 }
-                this.editStatusCustomerId = 0;
-                this.isStatus = 0;
+                this.check = false;
+            }else if(data['status'] == 202){
+                this.cookieStore.removeAll(this.rollback_url);
+                this.router.navigate(['/auth/login']);
             }
-        );
+            this.editStatusCustomerId = 0;
+            this.isStatus = 0;
+        });
     }
     /**
      * 批量
@@ -559,5 +519,4 @@ export class CustomerUnitComponent implements OnInit {
 
     @ViewChild('lgModal') public lgModal:ModalDirective;
     @ViewChild('detailModal') public detailModal:ModalDirective;
-
 }

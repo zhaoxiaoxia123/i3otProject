@@ -1,6 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FadeInTop} from '../../shared/animations/fade-in-top.decorator';
-import {Http} from '@angular/http';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 import {Router} from '@angular/router';
 import {GlobalService} from '../../core/global.service';
@@ -14,8 +13,8 @@ import {isUndefined} from "util";
   templateUrl: './list-staff.component.html',
 })
 export class ListStaffComponent implements OnInit {
-  userList : Array<any> = [];
-  userDefault : Array<any> = [];
+  userList : any = [];
+  userDefault : any = [];
   page : any;
   prev : boolean = false;
   next : boolean = false;
@@ -42,7 +41,7 @@ export class ListStaffComponent implements OnInit {
 
   customer_name : string = '';
 
-  user_info : Array<any> = [];
+  user_info : any = [];
   uRole : string = '';
   // pageHtml:SafeHtml;
   rollback_url : string = '';
@@ -54,12 +53,10 @@ export class ListStaffComponent implements OnInit {
   permissions : Array<any> = [];
   menuInfos : Array<any> = [];
   constructor(
-      private http:Http,
       fb:FormBuilder,
       private router : Router,
       private cookieStore:CookieStoreService,
-      private globalService:GlobalService,
-      // private sanitizer: DomSanitizer
+      private globalService:GlobalService
   ) {
     this.formModel = fb.group({
       keyword:[''],
@@ -99,8 +96,7 @@ export class ListStaffComponent implements OnInit {
    * 获取默认参数
    */
   getUserDefault() {
-    this.http.get(this.globalService.getDomain()+'/api/v1/getUserDefault?type=list&sid='+this.cookieStore.getCookie('sid'))
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get','getUserDefault?type=list&sid='+this.cookieStore.getCookie('sid'))
         .subscribe((data)=>{
           this.userDefault = data;
           console.log(this.userDefault);
@@ -145,7 +141,7 @@ export class ListStaffComponent implements OnInit {
    * @param number
    */
   getUserList(number:string,department_id:any) {
-    let url = this.globalService.getDomain()+'/api/v1/getUserList?page='+number+'&sid='+this.cookieStore.getCookie('sid');
+    let url = 'getUserList?page='+number+'&sid='+this.cookieStore.getCookie('sid');
     if(this.formModel.value['keyword'].trim() != ''){
       url += '&keyword='+this.formModel.value['keyword'].trim();
     }
@@ -161,8 +157,7 @@ export class ListStaffComponent implements OnInit {
 
       url += '&depart='+depart;
     }
-    this.http.get(url)
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get',url)
         .subscribe((data)=>{
           this.userList = data;
           if(this.userList['status'] == 202){
@@ -222,17 +217,6 @@ export class ListStaffComponent implements OnInit {
       this.check = true;
     }
   }
-  /**
-   * 分页
-   * @param url
-  pagination(url : string) {
-    // console.log('url:'+url);
-    if(url) {
-        this.page = url.substring((url.lastIndexOf('=') + 1), url.length);
-        // console.log(this.page);
-        this.getUserList(this.page);
-    }
-  }*/
 
   /**
    * 页码分页
@@ -277,12 +261,11 @@ export class ListStaffComponent implements OnInit {
       });
     msg = '删除后将不可恢复，您确定要删除吗？';
     if(confirm(msg)) {
-      let url = this.globalService.getDomain() + '/api/v1/deleteUserById?page=1&depart='+depart+'&type='+type+'&u_id='+u_id+'&sid='+this.cookieStore.getCookie('sid');
+      let url = 'deleteUserById?page=1&depart='+depart+'&type='+type+'&u_id='+u_id+'&sid='+this.cookieStore.getCookie('sid');
       if(this.formModel.value['keyword'].trim() != ''){
         url += '&keyword='+this.formModel.value['keyword'].trim();
       }
-      this.http.delete(url)
-          .map((res) => res.json())
+      this.globalService.httpRequest('delete',url)
           .subscribe((data) => {
             this.userList = data;
             if(this.userList['status'] == 202){
@@ -310,8 +293,7 @@ export class ListStaffComponent implements OnInit {
    * @param id
    */
   getUserInfo(){
-    this.http.get(this.globalService.getDomain()+'/api/v1/getUserInfo?u_id='+this.editStatusUserId+'&type=detail')
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get','getUserInfo?u_id='+this.editStatusUserId+'&type=detail')
         .subscribe((data)=>{
           this.user_info = data;
           this.lgModal.show();
@@ -490,26 +472,24 @@ export class ListStaffComponent implements OnInit {
       alert('请确保已选中需要操作的项！');
       return false;
     }
-    this.http.post(this.globalService.getDomain()+'/api/v1/addUser',{
+    this.globalService.httpRequest('post','addUser',{
       'u_id':u_id,
       'u_status':status,
       'type':type,
       'depart':depart,
       'keyword':this.formModel.value['keyword'].trim(),
       'sid':this.cookieStore.getCookie('sid')
-    }).subscribe(
-        (data)=>{
-          let info = JSON.parse(data['_body']);
-          alert(info['msg']);
-          if(info['status'] == 200) {
-            this.userList = info;
+    }).subscribe((data)=>{
+          alert(data['msg']);
+          if(data['status'] == 200) {
+            this.userList = data;
 
             this.selects = [];
             for (let entry of this.userList['result']['userList']['data']) {
               this.selects[entry['id']] = false;
             }
             this.check = false;
-          }else if(info['status'] == 202){
+          }else if(data['status'] == 202){
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }

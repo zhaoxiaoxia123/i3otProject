@@ -1,7 +1,5 @@
-import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {TodoWorkbenchComponent} from "./todo-workbench.component";
-
 
 export const TodoWorkbenchRoutes: Routes = [{
     path: '',

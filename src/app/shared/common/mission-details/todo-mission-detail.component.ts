@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, OnInit, Output,OnDestroy} from '@angular/core';
-import {Http} from "@angular/http";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {stringify} from "querystring";
 import {isUndefined} from "util";
@@ -24,9 +23,9 @@ export class TodoMissionDetailComponent implements OnInit,OnDestroy {
     @Input() is_show_detail ;
     @Output() private isEdit = new EventEmitter();//是否修改过详情里面的东西或是评论过该任务
 
-    todoListPages : Array<any> = [];
+    todoListPages : any = [];
 
-    todo_info : Array<any> = [];
+    todo_info : any = [];
     detail_template_name:string = '';
     //是否显示添加描述发布框
     is_show_publish_detail :number = 0;
@@ -36,7 +35,7 @@ export class TodoMissionDetailComponent implements OnInit,OnDestroy {
     //是否显示标签添加框
     is_show_publish_tag : number = 0; //详情右上方标签添加框
 
-    selected_tag:Array<any> = [];//标签状态
+    selected_tag:any = [];//标签状态
     //是否显示编辑框
     is_expired_at : number = 0;
     //过期日期
@@ -59,7 +58,7 @@ export class TodoMissionDetailComponent implements OnInit,OnDestroy {
      * 以下为评论所需变量
      * @type {Array}
      */
-    comment_list : Array<any> = [];
+    comment_list : any = [];
     replay_content : string = '';
     comment_content : string = '';
     comment_parent_id : number = 0;
@@ -69,8 +68,8 @@ export class TodoMissionDetailComponent implements OnInit,OnDestroy {
     show_user_type : number = 0;
     selected_user : Array<any> = [];
     check : boolean = false;
-    userList : Array<any> = [];
-    userDefault : Array<any> = [];
+    userList : any = [];
+    userDefault : any = [];
     page : any;
     prev : boolean = false;
     next : boolean = false;
@@ -87,17 +86,12 @@ export class TodoMissionDetailComponent implements OnInit,OnDestroy {
 
     rollback_url : string = '/forms/todo-mission';
     constructor(
-      private http:Http,
       private router : Router,
       private routInfo : ActivatedRoute,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService,
       private tododetail:TododetailService
   ) {
-      // this.scroll_ = '0px';
-      // Observable.fromEvent(window, 'scroll').subscribe((event) => {
-      //     this.onWindowScroll();
-      // });
         this.admin_id = this.globalService.getAdminID();
         this.cookie_c_id = this.cookieStore.getCookie('cid');
         this.cookie_u_id = this.cookieStore.getCookie('uid');
@@ -107,15 +101,10 @@ export class TodoMissionDetailComponent implements OnInit,OnDestroy {
             this.project_ids = param['project_id'];
         }); //这种获取方式是参数订阅，解决在本页传参不生效问题
 
-        // console.log(this.project_ids);
         if(this.project_ids) {
             this.todo_id = this.project_ids.split('_')[1];
             this.project_id = this.project_ids.split('_')[0];
-
-            // console.log('.project_id:---');
-            // console.log(this.project_id);
             if (this.project_id != 0) {
-                // this.getTodoDefault(this.project_id,0);
                 this.rollback_url += '/' + this.project_id + '_' + this.todo_id;
             } else {
                 this.rollback_url += '/0_0';
@@ -127,23 +116,7 @@ export class TodoMissionDetailComponent implements OnInit,OnDestroy {
   }
 
 
-    // onWindowScroll() {
-    //   let scroll_1 = (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop);
-    //     if(scroll_1 < document.body.clientHeight) {
-    //         if (scroll_1 > 90) {
-    //             this.scroll_ = (scroll_1 - 90) + 'px';
-    //         } else {
-    //             this.scroll_ = (scroll_1) + 'px';
-    //         }
-    //     }
-    // }
-
     ngOnInit() {
-        // $script("https://cdn.ckeditor.com/4.5.11/standard/ckeditor.js", ()=> {
-        //     const CKEDITOR = window['CKEDITOR'];
-        //     CKEDITOR.replace('ckeditor-showcase');
-        // });
-        // this.is_show_detail.valueChanges.subscribe(this.getInfo);
     }
     ngDoCheck(){
         this.is_show_detail = this.tododetail.is_show_detail;
@@ -156,17 +129,16 @@ export class TodoMissionDetailComponent implements OnInit,OnDestroy {
      * 隐藏详情显示页
      */
     hideDetail(){
-        this.http.post(this.globalService.getDomain()+'/api/v1/editVisitedStatus',{
+        this.globalService.httpRequest('post','editVisitedStatus',{
             'todo_id':this.tododetail.todo_id,
             'sid':this.cookieStore.getCookie('sid')
         }).subscribe((data)=>{
-            let info = JSON.parse(data['_body']);
-            if(info['status'] == 202){
-                alert(info['msg']);
+            if(data['status'] == 202){
+                alert(data['msg']);
                 this.cookieStore.removeAll(this.rollback_url);
                 this.router.navigate(['/auth/login']);
-            }else if(info['status'] == 201){
-                alert(info['msg']);
+            }else if(data['status'] == 201){
+                alert(data['msg']);
             }
 
             this.is_show_detail = '';
@@ -209,8 +181,7 @@ export class TodoMissionDetailComponent implements OnInit,OnDestroy {
      * 获取默认参数
      */
     getUserDefault() {
-        this.http.get(this.globalService.getDomain()+'/api/v1/getUserDefault?type=list&sid='+this.cookieStore.getCookie('sid'))
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get','getUserDefault?type=list&sid='+this.cookieStore.getCookie('sid'))
             .subscribe((data)=>{
                 this.userDefault = data;
                 if(this.userDefault['status'] == 202){
@@ -244,7 +215,7 @@ export class TodoMissionDetailComponent implements OnInit,OnDestroy {
      * @param number
      */
     getUserList(number:string,department_id:any) {
-        let url = this.globalService.getDomain()+'/api/v1/getUserList?page='+number+'&sid='+this.cookieStore.getCookie('sid');
+        let url = 'getUserList?page='+number+'&sid='+this.cookieStore.getCookie('sid');
         if(this.keyword.trim() != ''){
             url += '&keyword='+this.keyword.trim();
         }
@@ -260,8 +231,7 @@ export class TodoMissionDetailComponent implements OnInit,OnDestroy {
 
             url += '&depart='+depart;
         }
-        this.http.get(url)
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get',url)
             .subscribe((data)=>{
                 this.userList = data;
                 if(this.userList['status'] == 202){
@@ -282,12 +252,6 @@ export class TodoMissionDetailComponent implements OnInit,OnDestroy {
                     } else {
                         this.prev = false;
                     }
-                    // if(this.userList['result']['userList']) {
-                    //     for (let entry of this.userList['result']['userList']['data']) {
-                    //
-                    //         this.selected_user[entry['id']] = false;
-                    //     }
-                    // }
                     if(this.show_user_type == 1 && department_id != 0){
                         let assign_list = this.todo_info['result']['assigns'];
                         if(assign_list) {
@@ -447,7 +411,7 @@ export class TodoMissionDetailComponent implements OnInit,OnDestroy {
             msg = '您确定恢复此任务状态为未完成？';
         }
         if(confirm(msg)){
-            this.http.post(this.globalService.getDomain()+'/api/v1/addTodo',{
+            this.globalService.httpRequest('post','addTodo',{
                 'project_id':this.project_id,
                 'todo_id':todo_id,
                 'todo_status':num,
@@ -456,17 +420,16 @@ export class TodoMissionDetailComponent implements OnInit,OnDestroy {
                 'u_id':this.cookie_u_id,
                 'sid':this.cookieStore.getCookie('sid')
             }).subscribe( (data)=>{
-                let info = JSON.parse(data['_body']);
-                if(info['status'] == 200) {
-                    this.todo_info = info;
+                if(data['status'] == 200) {
+                    this.todo_info = data;
                     // this.isEdit = 1;//显示详情的初始化
                     this.isEdit.emit(1);
-                }else if(info['status'] == 202){
-                    alert(info['msg']);
+                }else if(data['status'] == 202){
+                    alert(data['msg']);
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
-                }else if(info['status'] == 201){
-                    alert(info['msg']);
+                }else if(data['status'] == 201){
+                    alert(data['msg']);
                 }
             });
         }
@@ -483,28 +446,24 @@ export class TodoMissionDetailComponent implements OnInit,OnDestroy {
                 alert('请填写任务列表标题！');
                 return false;
             }
-            this.http.post(this.globalService.getDomain()+'/api/v1/addTodo',{
+            this.globalService.httpRequest('post','addTodo',{
                 'todo_id':this.is_show_publish_detail,
                 'todo_title':this.todo_name,
                 'todo_content':this.todo_content,
                 'template_id':this.is_show_detail,
                 'sid':this.cookieStore.getCookie('sid')
-            }).subscribe(
-                (data)=>{
-                    let info = JSON.parse(data['_body']);
-                    if(info['status'] == 200) {
-                        this.todo_info = info;
+            }).subscribe((data)=>{
+                    if(data['status'] == 200) {
+                        this.todo_info = data;
                         // this.isEdit = 1;//显示详情的初始化
                         this.isEdit.emit(1);
-                    }else if(info['status'] == 202){
-                        alert(info['msg']);
+                    }else if(data['status'] == 202){
+                        alert(data['msg']);
                         this.cookieStore.removeAll(this.rollback_url);
                         this.router.navigate(['/auth/login']);
-                    }else if(info['status'] == 201){
-                        alert(info['msg']);
-
+                    }else if(data['status'] == 201){
+                        alert(data['msg']);
                     }
-
                 });
         }
         this.is_show_publish_detail = todo_id;
@@ -518,16 +477,14 @@ export class TodoMissionDetailComponent implements OnInit,OnDestroy {
     removeTags(todo_id:number,category_id:string){
         let alt = '确定移除该标签吗？';
         if(confirm(alt)){
-            this.http.post(this.globalService.getDomain()+'/api/v1/addTodo',{
+            this.globalService.httpRequest('post','addTodo',{
                 'todo_id':todo_id,
                 'category_id':category_id,
                 'is_add':2,//是否是添加或删除 1：添加 0：编辑 2：删除
                 'sid':this.cookieStore.getCookie('sid')
-            }).subscribe(
-                (data)=>{
-                    let info = JSON.parse(data['_body']);
-                    if(info['status'] == 200) {
-                        this.todo_info = info;
+            }).subscribe((data)=>{
+                    if(data['status'] == 200) {
+                        this.todo_info = data;
                         this.selected_tag = [];
                         let tags = this.todo_info['result']['tags'];
                         tags.forEach((val, idx, array) => {
@@ -537,13 +494,12 @@ export class TodoMissionDetailComponent implements OnInit,OnDestroy {
                         });
                         // this.isEdit = 1;//显示详情的初始化
                         this.isEdit.emit(1);
-                    }else if(info['status'] == 202){
-                        alert(info['msg']);
+                    }else if(data['status'] == 202){
+                        alert(data['msg']);
                         this.cookieStore.removeAll(this.rollback_url);
                         this.router.navigate(['/auth/login']);
-                    }else if(info['status'] == 201){
-                        alert(info['msg']);
-
+                    }else if(data['status'] == 201){
+                        alert(data['msg']);
                     }
                 }
             );
@@ -564,25 +520,22 @@ export class TodoMissionDetailComponent implements OnInit,OnDestroy {
      */
     showPublishTag(todo_id:number,num:number){
         if(num == 2){
-            this.http.post(this.globalService.getDomain()+'/api/v1/addTodo',{
+            this.globalService.httpRequest('post','addTodo',{
                 'todo_id': this.is_show_publish_tag,
                 'category_id':stringify(this.selected_tag),
                 'is_add':1,//是否是添加 1：添加 0：编辑
                 'sid':this.cookieStore.getCookie('sid')
-            }).subscribe(
-                (data)=>{
-                    let info = JSON.parse(data['_body']);
-                    if(info['status'] == 200) {
-                        this.todo_info = info;
+            }).subscribe((data)=>{
+                    if(data['status'] == 200) {
+                        this.todo_info = data;
                         // this.isEdit = 1;//显示详情的初始化
                         this.isEdit.emit(1);
-                    }else if(info['status'] == 202){
-                        alert(info['msg']);
+                    }else if(data['status'] == 202){
+                        alert(data['msg']);
                         this.cookieStore.removeAll(this.rollback_url);
                         this.router.navigate(['/auth/login']);
-                    }else if(info['status'] == 201){
-                        alert(info['msg']);
-
+                    }else if(data['status'] == 201){
+                        alert(data['msg']);
                     }
                 }
             );
@@ -595,8 +548,7 @@ export class TodoMissionDetailComponent implements OnInit,OnDestroy {
      */
     deleteTodo(project_id:any,todo_id:any) {
         if(confirm("您确定要删除该任务，以及该任务下的评论信息吗？")) {
-            this.http.delete(this.globalService.getDomain()+'/api/v1/deleteTodoById?todo_id=' + todo_id + '&pages=[]&project_id='+project_id+'&type=id&sid='+this.cookieStore.getCookie('sid'))
-                .map((res) => res.json())
+            this.globalService.httpRequest('delete','deleteTodoById?todo_id=' + todo_id + '&pages=[]&project_id='+project_id+'&type=id&sid='+this.cookieStore.getCookie('sid'))
                 .subscribe((data) => {
                     this.todoList = data;
                     if (this.todoList['status'] == 202) {
@@ -623,25 +575,22 @@ export class TodoMissionDetailComponent implements OnInit,OnDestroy {
             this.is_expired_at = 1;
         }else if(num == 2){//为任务id
             setTimeout(()=>{
-                this.http.post(this.globalService.getDomain()+'/api/v1/addTodo',{
+                this.globalService.httpRequest('post','addTodo',{
                     'todo_id': todo_id,
                     'expired_at':this.expired_at,
                     'sid':this.cookieStore.getCookie('sid')
-                }).subscribe(
-                    (data)=>{
-                        let info = JSON.parse(data['_body']);
-                        if(info['status'] == 200) {
-                            this.todo_info = info;
+                }).subscribe((data)=>{
+                        if(data['status'] == 200) {
+                            this.todo_info = data;
                             this.is_expired_at = 0;
                             // this.isEdit = 1;
                             this.isEdit.emit(1);
-                        }else if(info['status'] == 202){
-                            alert(info['msg']);
+                        }else if(data['status'] == 202){
+                            alert(data['msg']);
                             this.cookieStore.removeAll(this.rollback_url);
                             this.router.navigate(['/auth/login']);
-                        }else if(info['status'] == 201){
-                            alert(info['msg']);
-
+                        }else if(data['status'] == 201){
+                            alert(data['msg']);
                         }
                     }
                 );
@@ -649,14 +598,6 @@ export class TodoMissionDetailComponent implements OnInit,OnDestroy {
         }
     }
 
-    /**
-     * 如果当前登陆的是超级管理员则选择公司
-     * @param obj
-     */
-    // selectCustomer(obj){
-    //     let cid = obj.target.value;
-    //     this.getUserList(cid);
-    // }
 
     //全选，反全选
     changeCheckAll(e){
@@ -767,48 +708,22 @@ export class TodoMissionDetailComponent implements OnInit,OnDestroy {
                 'sid':this.cookieStore.getCookie('sid')
             };
         }
-        this.http.post(this.globalService.getDomain()+'/api/v1/addTodo',data)
+        this.globalService.httpRequest('post','addTodo',data)
             .subscribe( (data)=>{
-                let info = JSON.parse(data['_body']);
-                if(info['status'] == 200) {
-                    this.todo_info = info;
+                if(data['status'] == 200) {
+                    this.todo_info = data;
                     this.selected_user = [];
                     // this.isEdit = 1;
                     this.isEdit.emit(1);
-                }else if(info['status'] == 202){
-                    alert(info['msg']);
+                }else if(data['status'] == 202){
+                    alert(data['msg']);
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
-                }else if(info['status'] == 201){
-                    alert(info['msg']);
-
+                }else if(data['status'] == 201){
+                    alert(data['msg']);
                 }
             });
     }
-    //
-    // /**
-    //  * 删除任务列表 模版下某类和该类下的所有任务信息
-    //  * @param template_id
-    //  */
-    // deleteTodoList(template_id:string ,project_id:any){
-    //     if(confirm("您确定要删除该模版，以及此模版下所有任务及评论信息吗？")) {
-    //         this.http.delete(this.globalService.getDomain()+'/api/v1/deleteTodoById?template_id=' + template_id + '&pages=[]&project_id='+project_id+'&type=all&sid='+this.cookieStore.getCookie('sid'))
-    //             .map((res) => res.json())
-    //             .subscribe((data) => {
-    //                 this.todoList = data;
-    //                 if (this.todoList['status'] == 202) {
-    //                     alert(this.todoList['msg']);
-    //                     this.cookieStore.removeAll(this.rollback_url);
-    //                     this.router.navigate(['/auth/login']);
-    //                 }
-    //                 // this.isEdit = 1;
-    //                 this.isEdit.emit(1);
-    //             });
-    //         this.is_show_detail = '';
-    //     }
-    // }
-
-
 
     /**
      * --------------------以下为评论的方法-------------------------------------------------------
@@ -818,9 +733,8 @@ export class TodoMissionDetailComponent implements OnInit,OnDestroy {
      * @param todo_id
      */
     getCommentList(todo_id:number){
-        let url = this.globalService.getDomain()+'/api/v1/getCommentList?todo_id='+todo_id;
-        this.http.get(url)
-            .map((res)=>res.json())
+        let url = 'getCommentList?todo_id='+todo_id;
+        this.globalService.httpRequest('get',url)
             .subscribe((data)=>{
                 this.comment_list = data;
             });
@@ -848,22 +762,20 @@ export class TodoMissionDetailComponent implements OnInit,OnDestroy {
         }else if(type == 2){//发布回复信息
             content = this.replay_content;
         }
-        this.http.post(this.globalService.getDomain()+'/api/v1/addComment',{
+        this.globalService.httpRequest('post','addComment',{
             'todo_id': todo_id,
             'comment_content':content,
             'comment_depth':this.comment_parent_id,
             'type':type,
             'u_id':this.cookie_u_id,
             'sid':this.cookieStore.getCookie('sid')
-        }).subscribe(
-            (data)=>{
-                let info = JSON.parse(data['_body']);
-                if(info['status'] == 200) {
-                    this.comment_list = info;
+        }).subscribe((data)=>{
+                if(data['status'] == 200) {
+                    this.comment_list = data;
                     // this.isEdit = 1;
                     this.isEdit.emit(1);
-                }else if(info['status'] == 202){
-                    alert(info['msg']);
+                }else if(data['status'] == 202){
+                    alert(data['msg']);
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
@@ -891,7 +803,7 @@ export class TodoMissionDetailComponent implements OnInit,OnDestroy {
             alert('信息有误，无法移除该用户！');
             return false;
         }
-        this.http.post(this.globalService.getDomain()+'/api/v1/addTodo',{
+        this.globalService.httpRequest('post','addTodo',{
             'project_id':this.project_id,
             'todo_id':todo_id,
             'type':type,
@@ -900,17 +812,16 @@ export class TodoMissionDetailComponent implements OnInit,OnDestroy {
             'u_id':this.cookie_u_id,
             'sid':this.cookieStore.getCookie('sid')
         }).subscribe( (data)=>{
-            let info = JSON.parse(data['_body']);
-            if(info['status'] == 200) {
-                this.todo_info = info;
+            if(data['status'] == 200) {
+                this.todo_info = data;
                 // this.isEdit = 1;
                 this.isEdit.emit(1);
-            }else if(info['status'] == 202){
-                alert(info['msg']);
+            }else if(data['status'] == 202){
+                alert(data['msg']);
                 this.cookieStore.removeAll(this.rollback_url);
                 this.router.navigate(['/auth/login']);
-            }else if(info['status'] == 201){
-                alert(info['msg']);
+            }else if(data['status'] == 201){
+                alert(data['msg']);
 
             }
         });
@@ -922,8 +833,7 @@ export class TodoMissionDetailComponent implements OnInit,OnDestroy {
      */
     removeComment(todo_id:number,comment_id:number){
         if(confirm('确定要移除该评论信息吗？')){
-            this.http.delete(this.globalService.getDomain()+'/api/v1/deleteComment?comment_id=' + comment_id + '&todo_id='+todo_id+'&sid='+this.cookieStore.getCookie('sid'))
-                .map((res) => res.json())
+            this.globalService.httpRequest('delete','deleteComment?comment_id=' + comment_id + '&todo_id='+todo_id+'&sid='+this.cookieStore.getCookie('sid'))
                 .subscribe((data) => {
                     if (data['status'] == 202) {
                         alert(data['msg']);

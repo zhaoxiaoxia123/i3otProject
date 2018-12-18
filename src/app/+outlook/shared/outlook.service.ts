@@ -1,12 +1,9 @@
 import {Injectable} from '@angular/core';
 import {Observable, Subject} from 'rxjs/Rx'
-
 import {Outlook} from './outlook'
 import {OutlookMessage} from "./outlook-message.class";
-
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
-
 import {JsonApiService} from "../../core/api/json-api.service";
 
 @Injectable()

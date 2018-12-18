@@ -1,7 +1,5 @@
-import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {MedicalSalesComponent} from "./medical-sales.component";
-
 
 export const MedicalSalesRoutes: Routes = [{
     path: '',

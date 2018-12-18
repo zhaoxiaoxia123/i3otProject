@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {GlobalService} from "../../core/global.service";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {Router} from "@angular/router";
-import {Http} from "@angular/http";
 import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
@@ -15,7 +14,7 @@ export class PhonicsListComponent implements OnInit {
   //用作全选和反选
   selects : Array<any> = [];
   check : boolean = false;
-  broadcastList : Array<any> = [];
+  broadcastList : any = [];
   page : any;
   prev : boolean = false;
   next : boolean = false;
@@ -27,7 +26,7 @@ export class PhonicsListComponent implements OnInit {
   width : string = '0%';
   width_1 : string = '100%';
   
-  broadcastInfo : Array<any> = [];
+  broadcastInfo : any = [];
   rollback_url : string = '';
   /**菜单id */
   menu_id:any;
@@ -37,7 +36,6 @@ export class PhonicsListComponent implements OnInit {
 
   constructor(
       fb:FormBuilder,
-      private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService
@@ -76,12 +74,11 @@ export class PhonicsListComponent implements OnInit {
    * @param number
    */
   getBroadcastList(number:string) {
-    let url = this.globalService.getDomain()+'/api/v1/getBroadcastList?page='+number+'&sid='+this.cookieStore.getCookie('sid');
+    let url = 'getBroadcastList?page='+number+'&sid='+this.cookieStore.getCookie('sid');
     if(this.formModel.value['keyword'].trim() != ''){
       url += '&keyword='+this.formModel.value['keyword'].trim();
     }
-    this.http.get(url)
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get',url)
         .subscribe((data)=>{
           this.broadcastList = data;
           if(this.broadcastList['status'] == 202){
@@ -100,7 +97,6 @@ export class PhonicsListComponent implements OnInit {
               this.prev = false;
             }
           }
-
           this.selects = [];
           for (let entry of this.broadcastList['result']['data']) {
             this.selects[entry['b_id']] = false;
@@ -139,8 +135,7 @@ export class PhonicsListComponent implements OnInit {
     if(this.editStatusBId == 0){
       return false;
     }
-    this.http.get(this.globalService.getDomain()+'/api/v1/getBroadcastInfo?b_id='+this.editStatusBId)
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get','getBroadcastInfo?b_id='+this.editStatusBId)
         .subscribe((data)=>{
           this.broadcastInfo = data;
         });
@@ -204,13 +199,12 @@ export class PhonicsListComponent implements OnInit {
     }
     msg = '您确定要删除该信息吗？';
     if(confirm(msg)) {
-      let url = this.globalService.getDomain()+'/api/v1/deleteBroadcastById?ids=' + category_id + '&page=1&type='+type+'&sid='+this.cookieStore.getCookie('sid');
+      let url = 'deleteBroadcastById?ids=' + category_id + '&page=1&type='+type+'&sid='+this.cookieStore.getCookie('sid');
       if(this.formModel.value['keyword'].trim() != ''){
         url += '&keyword='+this.formModel.value['keyword'].trim();
       }
       //type :all 全选删除  id：单条删除
-      this.http.delete(url)
-          .map((res) => res.json())
+      this.globalService.httpRequest('delete',url)
           .subscribe((data) => {
             this.broadcastList = data;
             alert(this.broadcastList['msg']);

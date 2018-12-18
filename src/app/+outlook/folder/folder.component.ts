@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {Router, ActivatedRoute} from "@angular/router";
+import { ActivatedRoute} from "@angular/router";
 import {OutlookMessage} from "../shared/outlook-message.class";
 import {OutlookService} from "../shared/outlook.service";
 
@@ -14,7 +14,6 @@ export class FolderComponent implements OnInit, OnDestroy {
   public messages:Array<OutlookMessage>;
 
   constructor(private route:ActivatedRoute,
-              private router:Router,
               private outlookService:OutlookService) {
   }
 

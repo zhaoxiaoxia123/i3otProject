@@ -8,7 +8,6 @@ import {I3otpLayoutModule} from "../../shared/layout/layout.module";
   imports: [
     CommonModule,
     Error404RoutingModule,
-
     I3otpLayoutModule,
   ],
   declarations: [Error404Component]

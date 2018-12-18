@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {Http} from "@angular/http";
 import {GlobalService} from "../../core/global.service";
 
 @Component({
@@ -16,11 +15,10 @@ export class IotControlComponent implements OnInit {
   control6 : any = '';
   control7 : any = '';
   pid : string  = 'i3ot00011';
-  control : Array<any> = [];
+  control : any = [];
   rollback_url : string = '';
   menuInfos : Array<any> = [];
   constructor(
-      private http: Http,
       private globalService:GlobalService) { }
 
   ngOnInit() {
@@ -44,21 +42,18 @@ export class IotControlComponent implements OnInit {
   }
 
   sendPublishSjfb(pid:string,type:string,val:any){
-    let url = this.globalService.getTsdbDomain()+'/examples/publishSjfb.php?pid='+pid;
+    let url = 'publishSjfb.php?pid='+pid;
     if(type == 'on'){
       url += '&on='+val;
     }else if(type == 'off'){
       url += '&off='+val;
     }
-    this.http.get(url)
-        .map((res)=>res.json())
+    this.globalService.httpRequest('getTsdbExample', url)
         .subscribe((data)=>{
           this.control = data;
           alert('发送完成');
         });
   }
-
-
 
 
 }

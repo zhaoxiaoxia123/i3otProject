@@ -1,5 +1,4 @@
-import {Renderer,Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
-import {Http} from "@angular/http";
+import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {Router} from "@angular/router";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
@@ -25,15 +24,15 @@ export class SettingArchivesComponent implements OnInit {
     prev : boolean = false;
     next : boolean = false;
 
-    productDefault : Array<any> = [];
-    addProductDefault : Array<any> = [];
-    productList : Array<any> = [];
-    productInfo : Array<any> = [];
+    productDefault : any = [];
+    addProductDefault : any = [];
+    productList : any = [];
+    productInfo : any = [];
     //用作全选和反选
     selects : Array<any> = [];
     check : boolean = false;
 
-    unitCategoryList : Array<any> = [];// 选中类型的分类列表
+    unitCategoryList : any = [];// 选中类型的分类列表
     //商品规格型号改来跟商品走
     //默认值
     p_id:number = 0;
@@ -53,8 +52,6 @@ export class SettingArchivesComponent implements OnInit {
     p_cost: string = '';
     p_retail_method: string = '1';
     p_retail_amout: string = '';
-    // p_stop_use : string = '';
-    // p_stop_time : string = '';
 
     select_property: any = '0';
     property_title : string = '全部';
@@ -93,7 +90,6 @@ export class SettingArchivesComponent implements OnInit {
     permissions : Array<any> = [];
     menuInfos : Array<any> = [];
     constructor(
-        private http:Http,
         private router : Router,
         private cookieStore:CookieStoreService,
         private globalService:GlobalService,
@@ -127,8 +123,7 @@ export class SettingArchivesComponent implements OnInit {
     showPinyin(){
         let name = this.p_name;
         if(name.trim() != ''){
-            this.http.get(this.globalService.getDomain()+'/api/v1/getPinyin?name='+name)
-                .map((res)=>res.json())
+            this.globalService.httpRequest('get','getPinyin?name='+name)
                 .subscribe((data)=>{
                     this.p_shortcode = data['result'];
                 });
@@ -138,8 +133,7 @@ export class SettingArchivesComponent implements OnInit {
      * 获取默认参数
      */
     getProductDefault(){
-        this.http.get(this.globalService.getDomain()+'/api/v1/getProductDefault?type=list&property=1&p_type='+this.p_type+'&category_type='+this.category_type+'&sid='+this.cookieStore.getCookie('sid'))
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get','getProductDefault?type=list&property=1&p_type='+this.p_type+'&category_type='+this.category_type+'&sid='+this.cookieStore.getCookie('sid'))
             .subscribe((data)=>{
                 this.productDefault = data;
                 if(this.productDefault['status'] == 202){
@@ -176,7 +170,7 @@ export class SettingArchivesComponent implements OnInit {
         if(!this.select_property){
             this.select_property = '0';
         }
-        let url = this.globalService.getDomain()+'/api/v1/getProductList?p_type='+this.p_type+'&p_property='+this.select_property+'&page='+number+'&sid='+this.cookieStore.getCookie('sid');
+        let url = 'getProductList?p_type='+this.p_type+'&p_property='+this.select_property+'&page='+number+'&sid='+this.cookieStore.getCookie('sid');
         if(this.keyword.trim() != '') {
             url += '&keyword='+this.keyword.trim();
         }
@@ -191,8 +185,7 @@ export class SettingArchivesComponent implements OnInit {
             });
             url += '&category_ids='+category_ids;
         }
-        this.http.get(url)
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get',url)
             .subscribe((data)=>{
                 this.productList = data;
                 if(this.productList['status'] == 202){
@@ -276,11 +269,10 @@ export class SettingArchivesComponent implements OnInit {
         }else{
             id = this.p_property;
         }
-        let url = this.globalService.getDomain()+'/api/v1/getUnitCategoryList?category_type='+this.category_type+'&sid='+this.cookieStore.getCookie('sid');
+        let url = 'getUnitCategoryList?category_type='+this.category_type+'&sid='+this.cookieStore.getCookie('sid');
         if(id != 0){
             url += '&category_tab='+id;
-            this.http.get(url)
-                .map((res)=>res.json())
+            this.globalService.httpRequest('get',url)
                 .subscribe((data)=>{
                     this.unitCategoryList = data;
                     if(this.unitCategoryList['status'] == 201){
@@ -311,7 +303,7 @@ export class SettingArchivesComponent implements OnInit {
                 category_ids += idx + ',';
             }
         });
-        this.http.post(this.globalService.getDomain()+'/api/v1/addProduct',{
+        this.globalService.httpRequest('post','addProduct',{
             'p_id' : this.p_id,
             'product_id' : this.p_product_id,
             'name' : this.p_name,
@@ -330,19 +322,15 @@ export class SettingArchivesComponent implements OnInit {
             'p_cost' : this.p_cost,
             'p_retail_method' : this.p_retail_method,
             'p_retail_amout' : this.p_retail_amout,
-            // 'p_stop_use' : this.p_stop_use,
-            // 'p_stop_time' : this.p_stop_time,
             'category_ids':category_ids,
             'u_id' : this.cookieStore.getCookie('uid'),
             'sid':this.cookieStore.getCookie('sid')
-        }).subscribe(
-            (data)=>{
-                let info = JSON.parse(data['_body']);
-                if(info['status'] == 201){
-                    alert(info['msg']);
+        }).subscribe((data)=>{
+                if(data['status'] == 201){
+                    alert(data['msg']);
                     return false;
-                }else if(info['status'] == 200) {
-                    this.productList = info;
+                }else if(data['status'] == 200) {
+                    this.productList = data;
                     if(this.productList){
                         if (this.productList['result']['productList']['current_page'] == this.productList['result']['productList']['last_page']) {
                             this.next = true;
@@ -364,7 +352,7 @@ export class SettingArchivesComponent implements OnInit {
                     if(num == 1){
                         this.lgModal.hide();
                     }
-                }else if(info['status'] == 202){
+                }else if(data['status'] == 202){
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
@@ -393,8 +381,6 @@ export class SettingArchivesComponent implements OnInit {
         this.p_cost = '';
         this.p_retail_method = '1';
         this.p_retail_amout = '';
-        // this.p_stop_use  = '';
-        // this.p_stop_time = '';
     }
 
     /**
@@ -417,8 +403,6 @@ export class SettingArchivesComponent implements OnInit {
         this.p_cost = info['result']['p_cost'];
         this.p_retail_method = info['result']['p_retail_method'];
         this.p_retail_amout = info['result']['p_retail_amout'];
-        // this.p_stop_use = info['result']['p_stop_use'];
-        // this.p_stop_time = info['result']['p_stop_time'];
         this.imgList = info['result']['imgs'];
         this.p_property = info['result']['p_property'];
         if(this.p_property != 0){
@@ -434,11 +418,9 @@ export class SettingArchivesComponent implements OnInit {
         if(this.isStatus == 0){
             return false;
         }
-        // this.getAddProductDefault(1);
         this.isDetail = type;
         this.lgModal.show();
-        this.http.get(this.globalService.getDomain()+'/api/v1/getProductInfo?p_id='+this.editStatusProductId+'&p_type='+this.p_type+'&sid='+this.cookieStore.getCookie('sid'))
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get','getProductInfo?p_id='+this.editStatusProductId+'&p_type='+this.p_type+'&sid='+this.cookieStore.getCookie('sid'))
             .subscribe((data)=>{
                 this.productInfo = data;
                 if(this.productInfo['status'] == 200) {// && type == 'edit'
@@ -487,12 +469,10 @@ export class SettingArchivesComponent implements OnInit {
         });
         msg = '您确定要删除该信息吗？';
         if(confirm(msg)) {
-            let url = this.globalService.getDomain()+'/api/v1/deleteProductById?p_id=' + p_id + '&category_ids='+category_ids+'&p_type='+this.p_type+'&type='+type+'&sid=' + this.cookieStore.getCookie('sid');
-            this.http.delete(url)
-                .map((res) => res.json())
+            let url = 'deleteProductById?p_id=' + p_id + '&category_ids='+category_ids+'&p_type='+this.p_type+'&type='+type+'&sid=' + this.cookieStore.getCookie('sid');
+            this.globalService.httpRequest('delete',url)
                 .subscribe((data) => {
                     this.productList = data;
-
                     if(this.productList['status'] == 202){
                         this.cookieStore.removeAll(this.rollback_url);
                         this.router.navigate(['/auth/login']);
@@ -623,7 +603,7 @@ export class SettingArchivesComponent implements OnInit {
             alert('请确保已选中需要操作的项！');
             return false;
         }
-        this.http.post(this.globalService.getDomain()+'/api/v1/addProduct',{
+        this.globalService.httpRequest('post','addProduct',{
             'p_id':p_id,
             'p_status':status,
             'type':type,
@@ -631,12 +611,10 @@ export class SettingArchivesComponent implements OnInit {
             'category_ids':category_ids,
             'keyword':this.keyword.trim(),
             'sid':this.cookieStore.getCookie('sid')
-        }).subscribe(
-            (data)=>{
-                let info = JSON.parse(data['_body']);
-                alert(info['msg']);
-                if(info['status'] == 200) {
-                    this.productList = info;
+        }).subscribe((data)=>{
+                alert(data['msg']);
+                if(data['status'] == 200) {
+                    this.productList = data;
                     if(this.productList){
                         if (this.productList['result']['productList']['current_page'] == this.productList['result']['productList']['last_page']) {
                             this.next = true;
@@ -654,7 +632,7 @@ export class SettingArchivesComponent implements OnInit {
                         }
                         this.check = false;
                     }
-                }else if(info['status'] == 202){
+                }else if(data['status'] == 202){
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }

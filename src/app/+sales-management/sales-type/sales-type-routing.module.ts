@@ -1,7 +1,5 @@
-import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {SalesTypeComponent} from "./sales-type.component";
-
 
 export const salesTypeRoutes: Routes = [{
     path: '',

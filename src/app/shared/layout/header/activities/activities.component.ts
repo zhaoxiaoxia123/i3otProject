@@ -1,5 +1,4 @@
 import {Component, OnInit, ElementRef, Renderer, OnDestroy, Output} from '@angular/core';
-import {Http} from "@angular/http";
 import {CookieStoreService} from "../../../cookies/cookie-store.service";
 import {GlobalService} from "../../../../core/global.service";
 
@@ -15,13 +14,12 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
   active:boolean;
   loading: boolean;
   uid:any;
-  messageList : Array<any>[];
-  taskMessageList : Array<any>[];
-  noticeMessageList : Array<any>[];
-  warningMessageList : Array<any>[];
+  messageList : any=[];
+  taskMessageList : any=[];
+  noticeMessageList : any=[];
+  warningMessageList : any=[];
   isShow:any = 'none';
   constructor(
-      private http:Http,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService,
       private el:ElementRef,
@@ -36,8 +34,7 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.http.get(this.globalService.getDomain() + '/api/v1/getNewMessages?u_id=' + this.uid+'&category=notice,warning,task')
-        .map((res) => res.json())
+    this.globalService.httpRequest('get','getNewMessages?u_id=' + this.uid+'&category=notice,warning,task')
         .subscribe((data) => {
           this.messageList = data;
           this.taskMessageList = this.messageList['result']['task'];

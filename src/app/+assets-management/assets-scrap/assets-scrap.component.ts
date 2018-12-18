@@ -1,9 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ModalDirective} from "ngx-bootstrap";
-import {Http} from "@angular/http";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
-import {NotificationService} from "../../shared/utils/notification.service";
 import {Router} from "@angular/router";
 
 @Component({
@@ -15,10 +13,10 @@ export class AssetsScrapComponent implements OnInit {
   prev : boolean = false;
   next : boolean = false;
 
-  assetsDefault : Array<any> = [];
-  assetsList : Array<any> = [];
-  userList : Array<any> = [];
-  assetsInfo : Array<any> = [];
+  assetsDefault : any = [];
+  assetsList : any = [];
+  userList : any = [];
+  assetsInfo : any = [];
   //用作全选和反选
   selects : Array<any> = [];
   check : boolean = false;
@@ -95,7 +93,6 @@ export class AssetsScrapComponent implements OnInit {
   menuInfos : Array<any> = [];
 
   constructor(
-      private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
@@ -134,8 +131,7 @@ export class AssetsScrapComponent implements OnInit {
    * 获取默认参数
    */
   getAssetsListDefault(){
-    this.http.get(this.globalService.getDomain()+'/api/v1/getAssetsDefault?type=gh&assets_status='+this.assets_status_default+'&sid='+this.cookieStore.getCookie('sid'))
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get','getAssetsDefault?type=gh&assets_status='+this.assets_status_default+'&sid='+this.cookieStore.getCookie('sid'))
         .subscribe((data)=>{
           this.assetsDefault = data;
           console.log(this.assetsDefault);
@@ -152,12 +148,11 @@ export class AssetsScrapComponent implements OnInit {
    * @param number
    */
   getAssetsList(number:string) {
-    let url = this.globalService.getDomain()+'/api/v1/getAssetsList?page='+number+'&assets_status='+this.edit_assets_status_default+'&assets_type='+this.edit_assets_type_default+'&sid='+this.cookieStore.getCookie('sid');
+    let url = 'getAssetsList?page='+number+'&assets_status='+this.edit_assets_status_default+'&assets_type='+this.edit_assets_type_default+'&sid='+this.cookieStore.getCookie('sid');
     if(this.keyword.trim() != '') {
       url += '&keyword='+this.keyword.trim();
     }
-    this.http.get(url)
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get',url)
         .subscribe((data)=>{
           this.assetsList = data;
           console.log(this.assetsList);
@@ -248,7 +243,7 @@ export class AssetsScrapComponent implements OnInit {
         follower_user_ids.push(val['id'].toString());
       });
     }
-    this.http.post(this.globalService.getDomain()+'/api/v1/addAssets',{
+    this.globalService.httpRequest('post','addAssets',{
       'assets_id' : this.assets_id,
       'assets_date' : this.assets_date,
       'assets_reason' : this.assets_reason,
@@ -259,15 +254,13 @@ export class AssetsScrapComponent implements OnInit {
       'assets_assign':JSON.stringify(approve_user_ids),
       'assets_copy_person':JSON.stringify(follower_user_ids),
       'sid':this.cookieStore.getCookie('sid')
-    }).subscribe(
-        (data)=>{
-          let info = JSON.parse(data['_body']);
-          console.log(info['status']);
-          if(info['status'] == 201){
-            alert(info['msg']);
+    }).subscribe( (data)=>{
+          console.log(data['status']);
+          if(data['status'] == 201){
+            alert(data['msg']);
             return false;
-          }else if(info['status'] == 200) {
-            this.assetsList = info;
+          }else if(data['status'] == 200) {
+            this.assetsList = data;
             if(this.assetsList){
               if (this.assetsList['result']['assetsList']['current_page'] == this.assetsList['result']['assetsList']['last_page']) {
                 this.next = true;
@@ -289,7 +282,7 @@ export class AssetsScrapComponent implements OnInit {
             if(num == 1) {
               this.addModal.hide();
             }
-          }else if(info['status'] == 202){
+          }else if(data['status'] == 202){
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
@@ -358,8 +351,7 @@ export class AssetsScrapComponent implements OnInit {
         return false;
       }
       this.isDetail = type;
-      this.http.get(this.globalService.getDomain() + '/api/v1/getAssetsInfo?type=' + type + '&assets_id=' + this.editStatusAssetsId + '&sid=' + this.cookieStore.getCookie('sid'))
-          .map((res) => res.json())
+      this.globalService.httpRequest('get','getAssetsInfo?type=' + type + '&assets_id=' + this.editStatusAssetsId + '&sid=' + this.cookieStore.getCookie('sid'))
           .subscribe((data) => {
             this.assetsInfo = data;
             if (this.assetsInfo['status'] == 200) {
@@ -406,9 +398,8 @@ export class AssetsScrapComponent implements OnInit {
     }
     msg = '您确定要删除该信息吗？';
     if(confirm(msg)) {
-      let url = this.globalService.getDomain()+'/api/v1/deleteAssetsById?assets_id=' + assets_id + '&type='+type+'&sid=' + this.cookieStore.getCookie('sid');
-      this.http.delete(url)
-          .map((res) => res.json())
+      let url = 'deleteAssetsById?assets_id=' + assets_id + '&type='+type+'&sid=' + this.cookieStore.getCookie('sid');
+      this.globalService.httpRequest('delete',url)
           .subscribe((data) => {
             this.assetsList = data;
             if(this.assetsList['status'] == 202){
@@ -495,7 +486,7 @@ export class AssetsScrapComponent implements OnInit {
         id += '"'+val['id']+'",';
       });
 
-      this.http.post(this.globalService.getDomain()+'/api/v1/addAssetsLog',{
+      this.globalService.httpRequest('post','addAssetsLog',{
         'other_id':this.assets_id,
         'other_table_name':this.log_table_name,
         'log_type':this.log_type,
@@ -505,16 +496,14 @@ export class AssetsScrapComponent implements OnInit {
         'u_id':this.cookieStore.getCookie('uid'),
         'sid':this.cookieStore.getCookie('sid')
       }).subscribe((data)=>{
-        let info = JSON.parse(data['_body']);
-
-        if(info['status'] == 200) {
+        if(data['status'] == 200) {
           this.detailAssets('edit');
-        }else if(info['status'] == 202){
-          alert(info['msg']);
+        }else if(data['status'] == 202){
+          alert(data['msg']);
           this.cookieStore.removeAll(this.rollback_url);
           this.router.navigate(['/auth/login']);
-        }else if(info['status'] == 9999 || info['status'] == 201) {
-          alert(info['msg']);
+        }else if(data['status'] == 9999 || data['status'] == 201) {
+          alert(data['msg']);
         }
       });
     }
@@ -595,7 +584,6 @@ export class AssetsScrapComponent implements OnInit {
       this.select_count = is_select;
     }
   }
-
   getOperateTypes(value:any){
     this.operate_type = '';
     this.operate_button_type = '';
@@ -611,10 +599,6 @@ export class AssetsScrapComponent implements OnInit {
     }
   }
 
-
-
   @ViewChild('addModal') public addModal:ModalDirective;
   @ViewChild('detailModal') public detailModal:ModalDirective;
-
-
 }

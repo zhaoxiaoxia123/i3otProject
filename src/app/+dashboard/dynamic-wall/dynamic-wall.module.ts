@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { DynamicWallRoutingModule } from './dynamic-wall-routing.module';
 import {DynamicWallComponent} from "./dynamic-wall.component";
 import {I3otpModule} from "../../shared/i3otp.module";

@@ -1,18 +1,16 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Http} from "@angular/http";
 import { Router} from "@angular/router";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
 import {ModalDirective} from "ngx-bootstrap";
-import {isUndefined} from "util";
 
 @Component({
   selector: 'app-inventory-early',
   templateUrl: './inventory-early.component.html',
 })
 export class InventoryEarlyComponent implements OnInit {
-  productList:Array<any> = [];
-  productInfo:Array<any> = [];
+  productList:any = [];
+  productInfo:any = [];
   //用作全选和反选
   selects : Array<any> = [];
   check : boolean = false;
@@ -40,10 +38,10 @@ export class InventoryEarlyComponent implements OnInit {
 
   /**--------用作选择商品的变量------*/
   isShowProduct : string = '';
-  selectProductList :Array<any> = [];//[{"p_product_id": "0","p_qrcode": "0","category": "0","p_unit": "0","p_count": "0","p_price": "0","p_pur_price": "0","p_note": "","p_is": "1"}]; //选中后的商品列表
+  selectProductList :any = [];//[{"p_product_id": "0","p_qrcode": "0","category": "0","p_unit": "0","p_count": "0","p_price": "0","p_pur_price": "0","p_note": "","p_is": "1"}]; //选中后的商品列表
   category_type_product : number = 6; //商品分类
-  searchProductList : Array<any> = [];//搜索出的商品列表信息
-  productDefault : Array<any> = [];//弹框中商品分类
+  searchProductList : any = [];//搜索出的商品列表信息
+  productDefault : any = [];//弹框中商品分类
   // 弹框中左侧选中商品分类的id
   select_category_ids: Array<any> = [];
   select_category_ids_preporty: Array<any> = [];
@@ -55,7 +53,6 @@ export class InventoryEarlyComponent implements OnInit {
   permissions : Array<any> = [];
   menuInfos: Array<any> = [];
   constructor(
-      private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
@@ -86,8 +83,7 @@ export class InventoryEarlyComponent implements OnInit {
   }
 
   getOpeningInventoryList(p_ids:any=''){
-    this.http.get(this.globalService.getDomain()+'/api/v1/getOpeningInventoryList?p_ids='+p_ids+'&sid='+this.cookieStore.getCookie('sid'))
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get','getOpeningInventoryList?p_ids='+p_ids+'&sid='+this.cookieStore.getCookie('sid'))
         .subscribe((data)=>{
           this.productList = data;
           if(this.productList['status'] == 202){
@@ -165,8 +161,7 @@ export class InventoryEarlyComponent implements OnInit {
       return false;
     }
     this.isDetail = type;
-    this.http.get(this.globalService.getDomain()+'/api/v1/getOpeningInventoryInfo?openinginventory_id='+this.editStatusOpeningInventoryId+'&type=detail&sid='+this.cookieStore.getCookie('sid'))
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get','getOpeningInventoryInfo?openinginventory_id='+this.editStatusOpeningInventoryId+'&type=detail&sid='+this.cookieStore.getCookie('sid'))
         .subscribe((data)=>{
           this.productInfo = data;
           console.log('this.productInfo');
@@ -216,9 +211,8 @@ export class InventoryEarlyComponent implements OnInit {
     }
     msg = '执行该操作可能导致库存数量不对应,您确定要执行删除操作吗？';
     if(confirm(msg)) {
-      let url = this.globalService.getDomain()+'/api/v1/deleteOpeningInventoryById?openinginventory_id=' + oi_id + '&type='+type+'&sid=' + this.cookieStore.getCookie('sid');
-      this.http.delete(url)
-          .map((res) => res.json())
+      let url = 'deleteOpeningInventoryById?openinginventory_id=' + oi_id + '&type='+type+'&sid=' + this.cookieStore.getCookie('sid');
+      this.globalService.httpRequest('delete',url)
           .subscribe((data) => {
             this.productList = data;
             if(this.productList['status'] == 202){
@@ -250,7 +244,7 @@ export class InventoryEarlyComponent implements OnInit {
    * 提交修改
    */
   editOpeningInventory(){
-      this.http.post(this.globalService.getDomain()+'/api/v1/addOpeningInventory',{
+    this.globalService.httpRequest('post','addOpeningInventory',{
         'openinginventory_id':this.editStatusOpeningInventoryId,
         'p_id':this.edit_p_id,
         'storehouse_id':this.storehouse_id,
@@ -258,14 +252,13 @@ export class InventoryEarlyComponent implements OnInit {
         'openinginventory_price':this.p_price,
         'sid':this.cookieStore.getCookie('sid')
       }).subscribe((data)=>{
-            let info = JSON.parse(data['_body']);
-            alert(info['msg']);
-            if(info['status'] == 200) {
-              this.productList = info;
+            alert(data['msg']);
+            if(data['status'] == 200) {
+              this.productList = data;
               this.clear_('');
               this.isDetail = ''
               this.editStatusOpeningInventoryId = 0;
-            }else if(info['status'] == 202){
+            }else if(data['status'] == 202){
               this.cookieStore.removeAll(this.rollback_url);
               this.router.navigate(['/auth/login']);
             }
@@ -292,7 +285,7 @@ export class InventoryEarlyComponent implements OnInit {
    * 搜索库存产品
    */
   searchKey(page:any){
-    let url = this.globalService.getDomain()+'/api/v1/getProductList?page='+page+'&p_type='+this.p_type+'&type=list&sid='+this.cookieStore.getCookie('sid');
+    let url = 'getProductList?page='+page+'&p_type='+this.p_type+'&type=list&sid='+this.cookieStore.getCookie('sid');
     if(this.keyword.trim() != '') {
       url += '&keyword='+this.keyword.trim();
     }
@@ -303,8 +296,7 @@ export class InventoryEarlyComponent implements OnInit {
       }
     });
     url += '&category_ids='+category_ids;
-    this.http.get(url)
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get',url)
         .subscribe((data)=>{
           this.searchProductList = data;
           if(this.searchProductList['status'] == 202){
@@ -319,8 +311,7 @@ export class InventoryEarlyComponent implements OnInit {
    * 获取弹框左侧商品分类列表信息
    */
   getProductDefault(){
-    this.http.get(this.globalService.getDomain()+'/api/v1/getProductDefault?type=list&property=1&p_type='+this.p_type+'&category_type='+this.category_type_product+'&sid='+this.cookieStore.getCookie('sid'))
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get','getProductDefault?type=list&property=1&p_type='+this.p_type+'&category_type='+this.category_type_product+'&sid='+this.cookieStore.getCookie('sid'))
         .subscribe((data)=>{
           this.productDefault = data;
           if(this.productDefault['status'] == 202){
@@ -368,17 +359,16 @@ export class InventoryEarlyComponent implements OnInit {
     if(storehouse_id == 0 ){
       alert('请先确保仓库列表有至少一条仓库信息！');
     }else {
-      this.http.post(this.globalService.getDomain() + '/api/v1/addOpeningInventory', {
+      this.globalService.httpRequest('post','addOpeningInventory', {
         'p_ids': p_ids,
         'storehouse_id': storehouse_id,
         'u_id': this.cookieStore.getCookie('uid'),
         'sid': this.cookieStore.getCookie('sid')
       }).subscribe((data) => {
-          let info = JSON.parse(data['_body']);
-          alert(info['msg']);
-          if (info['status'] == 200) {
-            this.productList = info;
-          } else if (info['status'] == 202) {
+          alert(data['msg']);
+          if (data['status'] == 200) {
+            this.productList = data;
+          } else if (data['status'] == 202) {
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }

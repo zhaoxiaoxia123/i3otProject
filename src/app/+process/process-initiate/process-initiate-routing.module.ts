@@ -1,4 +1,3 @@
-import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {ProcessInitiateComponent} from "./process-initiate.component";
 

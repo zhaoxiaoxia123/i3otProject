@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {Http} from "@angular/http";
 import {Router} from "@angular/router";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
@@ -9,7 +8,7 @@ import {GlobalService} from "../../core/global.service";
   templateUrl: './storage.component.html',
 })
 export class StorageComponent implements OnInit {
-  otherorderList : Array<any> = [];
+  otherorderList : any = [];
   page : any;
   prev : boolean = false;
   next : boolean = false;
@@ -52,7 +51,6 @@ export class StorageComponent implements OnInit {
   permissions : Array<any> = [];
   menuInfos: Array<any> = [];
   constructor(
-      private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
@@ -91,12 +89,11 @@ export class StorageComponent implements OnInit {
    * @param number
    */
   getOtherorderList(number:string) {
-    let url = this.globalService.getDomain()+'/api/v1/getOtherorderList?otherorder_type='+this.otherorder_type+'&page='+number+'&sid='+this.cookieStore.getCookie('sid');
+    let url = 'getOtherorderList?otherorder_type='+this.otherorder_type+'&page='+number+'&sid='+this.cookieStore.getCookie('sid');
     if(this.keyword.trim() != '') {
       url += '&keyword='+this.keyword.trim();
     }
-    this.http.get(url)
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get',url)
         .subscribe((data)=>{
           this.otherorderList = data;
           if(this.otherorderList['status'] == 202){
@@ -180,9 +177,8 @@ export class StorageComponent implements OnInit {
     }
     msg = '您确定要删除该信息吗？';
     if(confirm(msg)) {
-      let url = this.globalService.getDomain()+'/api/v1/deleteOtherorderById?otherorder_id=' + otherorder_id + '&otherorder_type='+this.otherorder_type+'&type='+type+'&sid=' + this.cookieStore.getCookie('sid');
-      this.http.delete(url)
-          .map((res) => res.json())
+      let url = 'deleteOtherorderById?otherorder_id=' + otherorder_id + '&otherorder_type='+this.otherorder_type+'&type='+type+'&sid=' + this.cookieStore.getCookie('sid');
+      this.globalService.httpRequest('delete',url)
           .subscribe((data) => {
             this.otherorderList = data;
             if(this.otherorderList['status'] == 202){
@@ -256,64 +252,6 @@ export class StorageComponent implements OnInit {
     });
 
   }
-  // /**
-  //  * 修改状态
-  //  * @param status
-  //  * type   all 批量   id  单条操作
-  //  */
-  // editStatus(status:any,type:any){
-  //   let otherorder_id = '';
-  //   if(type == 'all'){
-  //     this.selects.forEach((val, idx, array) => {
-  //       if(val == true){
-  //         otherorder_id += idx+',';
-  //       }
-  //     });
-  //   }else{
-  //     otherorder_id = this.editStatusOtherorderId;
-  //   }
-  //   if(! otherorder_id){
-  //     alert('请确保已选中需要操作的项！');
-  //     return false;
-  //   }
-  //   this.http.post(this.globalService.getDomain()+'/api/v1/addOtherorder',{
-  //     'otherorder_id':otherorder_id,
-  //     'pr_status':status,
-  //     'type':type,
-  //     'keyword':this.keyword.trim(),
-  //     'sid':this.cookieStore.getCookie('sid')
-  //   }).subscribe(
-  //       (data)=>{
-  //         let info = JSON.parse(data['_body']);
-  //         alert(info['msg']);
-  //         if(info['status'] == 200) {
-  //           this.otherorderList = info;
-  //           if (this.otherorderList) {
-  //             if (this.otherorderList['result']['otherorderList']['current_page'] == this.otherorderList['result']['otherorderList']['last_page']) {
-  //               this.next = true;
-  //             } else {
-  //               this.next = false;
-  //             }
-  //             if (this.otherorderList['result']['otherorderList']['current_page'] == 1) {
-  //               this.prev = true;
-  //             } else {
-  //               this.prev = false;
-  //             }
-  //             this.selects = [];
-  //             for (let entry of this.otherorderList['result']['otherorderList']['data']) {
-  //               this.selects[entry['otherorder_id']] = false;
-  //             }
-  //             this.check = false;
-  //           }
-  //         }else if(info['status'] == 202){
-  //           this.cookieStore.removeAll(this.rollback_url);
-  //           this.router.navigate(['/auth/login']);
-  //         }
-  //         this.editStatusOtherorderId = 0;
-  //         this.isStatus = 0;
-  //       }
-  //   );
-  // }
 
   /**
    * 批量

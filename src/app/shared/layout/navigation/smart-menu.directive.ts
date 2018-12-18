@@ -5,7 +5,7 @@ import {
 import {Subscription} from "rxjs/Rx";
 
 import {LayoutService} from "../../layout/layout.service";
-import {Router, NavigationEnd} from "@angular/router";
+import {Router} from "@angular/router";
 
 declare var $:any;
 

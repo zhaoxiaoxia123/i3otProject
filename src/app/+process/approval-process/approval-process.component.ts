@@ -1,12 +1,10 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {GlobalService} from "../../core/global.service";
-import {Http} from "@angular/http";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
-import {ActivatedRoute, Params, Router,NavigationStart,NavigationEnd} from "@angular/router";
+import {ActivatedRoute, Params, Router,NavigationEnd} from "@angular/router";
 import {ModalDirective} from "ngx-bootstrap";
 import {isUndefined} from "util";
 import {ProcessAlreadyComponent} from "./process-already/process-already.component";
-
 
 @Component({
   selector: 'app-approval-process',
@@ -25,8 +23,8 @@ export class ApprovalProcessComponent implements OnInit,AfterViewInit {
     submit_user_ids : Array<any> = [];
     selected_user : Array<any> = [];
     check : boolean = false;
-    userList : Array<any> = [];
-    userDefault : Array<any> = [];
+    userList : any = [];
+    userDefault : any = [];
     page : any;
     prev : boolean = false;
     next : boolean = false;
@@ -37,7 +35,7 @@ export class ApprovalProcessComponent implements OnInit,AfterViewInit {
     showUlChild : number  = 0;//二级
     keyword:string = '';
 
-    approvalInfo : Array<any> = [];
+    approvalInfo : any = [];
     approvalInfo_user_id:any = 0; //当前申请的创建者
     count_ : number = 0;//待我审批的个数
     isShowDetail : number = 0; //是否展示详情
@@ -63,7 +61,7 @@ export class ApprovalProcessComponent implements OnInit,AfterViewInit {
     menu_id: any;
     /** 权限 */
     permissions: Array<any> = [];
-    constructor(private http: Http,
+    constructor(
                 private router: Router,
                 private routeInfo: ActivatedRoute,
                 private cookieStore: CookieStoreService,
@@ -131,8 +129,7 @@ export class ApprovalProcessComponent implements OnInit,AfterViewInit {
      * 获取默认参数
      */
     getUserDefault() {
-    this.http.get(this.globalService.getDomain() + '/api/v1/getUserDefault?type=list&sid=' + this.cookieStore.getCookie('sid'))
-        .map((res) => res.json())
+        this.globalService.httpRequest('get','getUserDefault?type=list&sid=' + this.cookieStore.getCookie('sid'))
         .subscribe((data) => {
             this.userDefault = data;
             if (this.userDefault['status'] == 202) {
@@ -177,7 +174,7 @@ export class ApprovalProcessComponent implements OnInit,AfterViewInit {
      */
     getUserList(number:string,department_id:any) {
         if(this.userList.length == 0 && this.keyword.trim() == '') {
-            let url = this.globalService.getDomain() + '/api/v1/getUserList?page=' + number + '&sid=' + this.cookieStore.getCookie('sid');
+            let url = 'getUserList?page=' + number + '&sid=' + this.cookieStore.getCookie('sid');
             if (this.keyword.trim() != '') {
                 url += '&keyword=' + this.keyword.trim();
             }
@@ -193,8 +190,7 @@ export class ApprovalProcessComponent implements OnInit,AfterViewInit {
 
                 url += '&depart=' + depart;
             }
-            this.http.get(url)
-                .map((res) => res.json())
+            this.globalService.httpRequest('get',url)
                 .subscribe((data) => {
                     this.userList = data;
                     if (this.userList['status'] == 202) {
@@ -261,18 +257,17 @@ export class ApprovalProcessComponent implements OnInit,AfterViewInit {
         }
         let url = '';
         if(this.select_propertys == 'approval') {
-            url = url = this.globalService.getDomain() + '/api/v1/getApprovalInfo?approval_id='+this.isShowDetail+'&sid=' + this.cookieStore.getCookie('sid');
+            url = url = 'getApprovalInfo?approval_id='+this.isShowDetail+'&sid=' + this.cookieStore.getCookie('sid');
         }else if(this.select_propertys == 'purchase_cg_after' || this.select_propertys == 'purchase_sale') {
-            url = this.globalService.getDomain() + '/api/v1/getPurchaseInfo?pr_id=' + this.isShowDetail + '&select_property='+this.select_propertys+'&sid=' + this.cookieStore.getCookie('sid');
+            url = 'getPurchaseInfo?pr_id=' + this.isShowDetail + '&select_property='+this.select_propertys+'&sid=' + this.cookieStore.getCookie('sid');
         }else if(this.select_propertys == 'otherorder_in' || this.select_propertys == 'otherorder_out') {
-            url = this.globalService.getDomain() + '/api/v1/getOtherorderInfo?otherorder_id=' + this.isShowDetail + '&select_property='+this.select_propertys+'&sid=' + this.cookieStore.getCookie('sid');
+            url = 'getOtherorderInfo?otherorder_id=' + this.isShowDetail + '&select_property='+this.select_propertys+'&sid=' + this.cookieStore.getCookie('sid');
         }else if(this.select_propertys == 'stockallot') {
-            url = this.globalService.getDomain() + '/api/v1/getStockallotInfo?stock_allot_id=' + this.isShowDetail + '&select_property='+this.select_propertys+'&sid=' + this.cookieStore.getCookie('sid');
+            url = 'getStockallotInfo?stock_allot_id=' + this.isShowDetail + '&select_property='+this.select_propertys+'&sid=' + this.cookieStore.getCookie('sid');
         }else if(this.select_propertys == 'assets_ff' || this.select_propertys == 'assets_bf') {
-            url = this.globalService.getDomain() + '/api/v1/getAssetsInfo?assets_id=' + this.isShowDetail +'&select_property='+this.select_propertys+'&sid=' + this.cookieStore.getCookie('sid');
+            url = 'getAssetsInfo?assets_id=' + this.isShowDetail +'&select_property='+this.select_propertys+'&sid=' + this.cookieStore.getCookie('sid');
         }
-        this.http.get(url)
-            .map((res) => res.json())
+        this.globalService.httpRequest('get',url)
             .subscribe((data) => {
                 this.approvalInfo = data;
                 this.approvalInfo_user_id = this.approvalInfo['result']['u_id'];
@@ -379,7 +374,7 @@ export class ApprovalProcessComponent implements OnInit,AfterViewInit {
                 content = this.content_urge;
             }
 
-            this.http.post(this.globalService.getDomain() + '/api/v1/addLog', {
+            this.globalService.httpRequest('post','addLog', {
                 'other_id': this.isShowDetail,
                 'other_table_name': 'approval',
                 'log_type': 'approval',
@@ -390,36 +385,34 @@ export class ApprovalProcessComponent implements OnInit,AfterViewInit {
                 'u_id': this.cookieStore.getCookie('uid'),
                 'sid': this.cookieStore.getCookie('sid')
             }).subscribe((data) => {
-                let info = JSON.parse(data['_body']);
-
-                if (info['status'] == 200) {
+                if (data['status'] == 200) {
                     this.getStatus(this.isShowDetail,1);
                     this.hideModal();
-                } else if (info['status'] == 202) {
-                    alert(info['msg']);
+                } else if (data['status'] == 202) {
+                    alert(data['msg']);
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
-                } else if (info['status'] == 9999) {
-                    alert(info['msg']);
+                } else if (data['status'] == 9999) {
+                    alert(data['msg']);
                 }
             });
         }else{
             let url = '';
             let other_table_name = '';
             if(this.select_propertys == 'purchase_sale' || this.select_propertys == 'purchase_cg_after'){
-                url = this.globalService.getDomain() + '/api/v1/addLog';
+                url = 'addLog';
                 other_table_name = 'purchase';
             }else if(this.select_propertys == 'stockallot'){
-                url = this.globalService.getDomain() + '/api/v1/addStockAllotLog';
+                url = 'addStockAllotLog';
                 other_table_name = 'stockallot';
             }else if(this.select_propertys == 'otherorder_in' || this.select_propertys == 'otherorder_out'){
-                url = this.globalService.getDomain() + '/api/v1/addOtherorderLog';
+                url = 'addOtherorderLog';
                 other_table_name = 'otherorder';
             }else if(this.select_propertys == 'assets_ff' || this.select_propertys == 'assets_bf'){
-                url = this.globalService.getDomain() + '/api/v1/addAssetsLog';
+                url = 'addAssetsLog';
                 other_table_name = 'assets';
             }
-            this.http.post(url, {
+            this.globalService.httpRequest('post',url, {
                 'other_id': this.isShowDetail,
                 'other_table_name': other_table_name,
                 'log_type': this.select_propertys,
@@ -429,17 +422,15 @@ export class ApprovalProcessComponent implements OnInit,AfterViewInit {
                 'u_id': this.cookieStore.getCookie('uid'),
                 'sid': this.cookieStore.getCookie('sid')
             }).subscribe((data) => {
-                let info = JSON.parse(data['_body']);
-
-                if (info['status'] == 200) {
+                if (data['status'] == 200) {
                     this.getStatus(this.isShowDetail,1);
                     this.hideModal();
-                } else if (info['status'] == 202) {
-                    alert(info['msg']);
+                } else if (data['status'] == 202) {
+                    alert(data['msg']);
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
-                } else if (info['status'] == 9999) {
-                    alert(info['msg']);
+                } else if (data['status'] == 9999) {
+                    alert(data['msg']);
                 }
             });
         }

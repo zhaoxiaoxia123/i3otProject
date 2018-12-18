@@ -1,9 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FadeInTop} from '../../shared/animations/fade-in-top.decorator';
 import {Observable} from "rxjs/Observable";
-import {Http} from "@angular/http";
 import "rxjs/Rx";  // 用于map方法是用
-// import {NotificationService} from '../../shared/utils/notification.service';
 import {ModalDirective} from 'ngx-bootstrap';
 import {GlobalService} from "../../core/global.service";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
@@ -20,9 +18,9 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 export class StationChartComponent implements OnInit {
     // 方法1的 start
     dataSource1: Observable<any>;
-    products1: Array<any> = [];
+    products1: any = [];
     dataSource2: Observable<any>;
-    products2: Array<any> = [];
+    products2: any= [];
     ////方法1的 end
     chartOption1;
     chartOption2;
@@ -42,15 +40,13 @@ export class StationChartComponent implements OnInit {
     cid : string = '';
     pid : string = '';
     metric : string = '';
-    i3otpList : Array<any> = [];
+    i3otpList : any = [];
     page : any;
     prev : boolean = false;
     next : boolean = false;
     size : number = 20;
 
     private interval;
-    // //颜色设置列表信息
-    // colorShow  : Array<any> = [];
     formModel : FormGroup;
 
     //加入以进行对比的数据
@@ -70,11 +66,9 @@ export class StationChartComponent implements OnInit {
     f_width : string = '500px';
     constructor(
         fb:FormBuilder,
-        private http: Http,
         private router:Router,
         private cookieStore:CookieStoreService,
         private globalService:GlobalService,
-        // private notificationService: NotificationService
     ) {
         //顶部菜单读取
         this.globalService.getMenuInfo();
@@ -96,16 +90,13 @@ export class StationChartComponent implements OnInit {
      * @param number
      */
     getI3otpList(number:string) {
-        let url = this.globalService.getDomain()+'/api/v1/getI3otpList?page='+number+'&i3otp_category='+this.globalService.getStation(2)+'&type=pic&sid='+this.cookieStore.getCookie('sid');
+        let url = 'getI3otpList?page='+number+'&i3otp_category='+this.globalService.getStation(2)+'&type=pic&sid='+this.cookieStore.getCookie('sid');
         if(this.formModel.value['keyword'].trim() != ''){
             url += '&keyword='+this.formModel.value['keyword'].trim();
         }
-        this.http.get(url)
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get',url)
             .subscribe((data)=>{
                 this.i3otpList = data;
-                console.log('this.i3otpList:--');
-                console.log(this.i3otpList);
                 if(this.i3otpList['status'] == 202){
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
@@ -117,9 +108,7 @@ export class StationChartComponent implements OnInit {
                 this.pid = this.i3otpList['result']['pid'];
                 this.cid = this.i3otpList['result']['cid'];
                 this.metric = this.i3otpList['result']['metric'];
-
                 this.search_datapoint();
-
             });
     }
     /**
@@ -133,32 +122,12 @@ export class StationChartComponent implements OnInit {
             this.getI3otpList('1');
         }
     }
-    // /**
-    //  * 阶段颜色显示
-    //  */
-    // getColorShow(){
-    //     let url = this.globalService.getDomain()+'/api/v1/getSettingsInfo?sid='+this.cookieStore.getCookie('sid');
-    //     this.http.get(url)
-    //         .map((res)=>res.json())
-    //         .subscribe((data)=>{
-    //             this.colorShow = data;
-    //         });
-    //     setTimeout(() => {
-    //         console.log('this.colorShow:--');
-    //         console.log(this.colorShow);
-    //         if(this.colorShow['status'] == 202){
-    //             this.cookieStore.removeAll(this.rollback_url);
-    //             this.router.navigate(['/auth/login']);
-    //         }
-    //     }, 500);
-    // }
 
     search_datapoint(){
         this.size = 50;
         let str = JSON.stringify(this.selectedStr);
-        let url = this.globalService.getTsdbDomain()+'/tsdb/api/getkybDatapoint.php?size='+this.size+'&cid='+this.cid+'&metric='+this.metric+'&pid='+this.pid+'&selectedStr='+str;
-        this.dataSource1 = this.http.get(url)
-            .map((res)=>res.json());
+        let url = 'getkybDatapoint.php?size='+this.size+'&cid='+this.cid+'&metric='+this.metric+'&pid='+this.pid+'&selectedStr='+str;
+        this.dataSource1 = this.globalService.httpRequest('getTsdb',url);
         this.dataSource1.subscribe(data=>{
             this.products1=data;
             this.chartOption1 = this.getValue(1);
@@ -173,30 +142,6 @@ export class StationChartComponent implements OnInit {
         this.interval &&  clearInterval(this.interval);
         this.isClear &&  clearInterval(this.isClear);
     }
-    // /**
-    //  * 获取颜色
-    //  * @param pro
-    //  */
-    // getColor(pro:Array<any>,entry:string){
-    //     let color_ = {
-    //         'color':'',
-    //         // 'up_color':'#ebcccc'
-    //     };
-    //     if(this.colorShow['result'][entry]) {
-    //         //将颜色便利进（最新数据）显示数组
-    //         for (var s = 0; s < this.colorShow['result'][entry].length; s++) {
-    //             let min = parseInt(this.colorShow['result'][entry][s]['s_interval_1']);
-    //             let max = parseInt(this.colorShow['result'][entry][s]['s_interval_2']);
-    //             let val = parseInt(pro[entry]['value'][this.size - 1]);//this.size - 1
-    //             if (val >= min && val <= max) {
-    //                 color_.color = this.colorShow['result'][entry][s]['s_color'];
-    //                 // color_.up_color = this.colorShow['result'][entry][s]['s_up_color'] == '' ? color_.up_color : this.colorShow['result'][entry][s]['s_up_color'];
-    //             }
-    //         }
-    //     }
-    //     return color_;
-    // }
-
     /**
      * 1:列表图  2：对比图
      * @param num
@@ -225,14 +170,11 @@ export class StationChartComponent implements OnInit {
                         data: this.products1['data'][i]['info'][entry]['value']
                     });
                     //获取区间值的颜色信息
-                    // let color_ = this.getColor(this.products1['data'][i]['info'], entry);
                     let value_n = this.products1['data'][i]['info'][entry]['value'][this.size - 1];
                     let time_n = dataInfo['time'][this.size - 1];
                     this.lastList1.push({
                         name: entry,
-                        time: (time_n?time_n:'无'),//this.size - 1
-                        // color: color_.color,
-                        // up_color: color_.up_color,
+                        time: (time_n?time_n:'无'),
                         value: (value_n?value_n:0)
                     });
                     if (this.lastList1 == []) {
@@ -244,14 +186,10 @@ export class StationChartComponent implements OnInit {
                     }
                     pic_i ++;
                 }
-                // console.log('this.lastList1');
-                // console.log(this.lastList1);
                 result[i] = pic;
                 this.newList[i] = this.lastList1;
                 i++;
             }
-            // console.log('this.newList');
-            // console.log(this.newList);
             return result;
         }else if(num == 2){
             if (this.products2.length == 0 && this.join_str != [] && this.join_pid != []) {
@@ -304,17 +242,6 @@ export class StationChartComponent implements OnInit {
         this.chartOption1 = this.getValue(1);
     }
 
-
-    // removeByValue(arr:Array<any>, val:string) {
-    //     for(let i=0; i<arr.length; i++) {
-    //         if(arr[i] == val) {
-    //             arr.splice(i, 1);
-    //             return i;
-    //             // break;
-    //         }
-    //     }
-    // }
-
     /**
      * 返回画图
      */
@@ -339,12 +266,6 @@ export class StationChartComponent implements OnInit {
                     saveAsImage: {}
                 }
             },
-            // grid: {
-            //     left: '3%',
-            //     right: '4%',
-            //     bottom: '3%',
-            //     containLabel: true
-            // },
             xAxis: [{
                 type: 'category',
                 boundaryGap: false,
@@ -355,7 +276,6 @@ export class StationChartComponent implements OnInit {
             }],
             series: seriesInfo
         };
-
         return chartOption;
     }
 
@@ -374,7 +294,6 @@ export class StationChartComponent implements OnInit {
             },
             legend: {
                 data: [name],
-                // selected:selected
             },
             toolbox: {
                 show: true,
@@ -404,12 +323,6 @@ export class StationChartComponent implements OnInit {
                     saveAsImage: {show: true}
                 }
             },
-            // grid: {
-            //     left: '3%',
-            //     right: '4%',
-            //     bottom: '3%',
-            //     containLabel: true
-            // },
             xAxis: [{
                 type: 'category',
                 boundaryGap: false,
@@ -422,17 +335,6 @@ export class StationChartComponent implements OnInit {
         };
         return chartOption;
     }
-
-    /**
-     * 分页
-     * @param url
-     */
-    // pagination(url : string) {
-    //     if(url) {
-    //         this.page = url.substring((url.lastIndexOf('=') + 1), url.length);
-    //         this.getI3otpList(this.page);
-    //     }
-    // }
 
     pagination(page : any) {
         this.page = page;
@@ -465,16 +367,13 @@ export class StationChartComponent implements OnInit {
             }
             join_metric += this.join_str[a];
         }
-        let url = this.globalService.getTsdbDomain()+'/tsdb/api/getkybDatapoint.php?size='+this.size+'&cid='+this.cid+'&metric='+join_metric+'&pid='+this.join_pid+'&type=join';
-        this.dataSource2 = this.http.get(url)
-            .map((res)=>res.json());
+        let url = 'getkybDatapoint.php?size='+this.size+'&cid='+this.cid+'&metric='+join_metric+'&pid='+this.join_pid+'&type=join';
+        this.dataSource2 = this.globalService.httpRequest('getTsdb',url);
         this.dataSource2.subscribe((data)=>{
             this.products2=data;
-
             this.chartOption2 = this.getValue(2);
             this.loading = '';
         });
-
     }
 
     @ViewChild('lgModal') public lgModal:ModalDirective;
@@ -492,17 +391,6 @@ export class StationChartComponent implements OnInit {
             this.join_str.push(str);
         }
         this.isShowJoin = true;
-        // console.log(this.join_pid);
-        // console.log(this.join_str);
-        // this.notificationService.bigBox({
-        //     title: "设备数据对比",
-        //     icon: "glyphicon glyphicon-adjust swing animated",
-        //     content: "点击查看详情按钮查看对比情况<p class='text-align-right'><a  class='btn btn-warning btn-sm' onclick='showJoinPic();this.lgModal.show()'>查看详情</a> </p>",
-        //     color: "#3276B1",
-        //     /*timeout: 8000,*/
-        //
-        //     number: this.join_pid.length
-        // });
     }
     ngOnClose(){
         this.seriesInfo2 = [];

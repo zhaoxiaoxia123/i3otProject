@@ -1,7 +1,5 @@
-import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {TodoMessageComponent} from "./todo-message.component";
-
 
 export const TodoMessageRoutes: Routes = [{
     path: '',

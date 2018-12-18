@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {Http} from "@angular/http";
 import {Router} from "@angular/router";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
@@ -9,8 +8,8 @@ import {GlobalService} from "../../core/global.service";
   templateUrl: './inventory-requisition.component.html',
 })
 export class InventoryRequisitionComponent implements OnInit {
-  stockallotList : Array<any> = [];
-  stockallotInfo : Array<any> = [];
+  stockallotList : any = [];
+  stockallotInfo : any = [];
   page : any;
   prev : boolean = false;
   next : boolean = false;
@@ -53,7 +52,6 @@ export class InventoryRequisitionComponent implements OnInit {
   menuInfos : Array<any> = [];
 
   constructor(
-      private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
@@ -91,12 +89,11 @@ export class InventoryRequisitionComponent implements OnInit {
    * @param number
    */
   getStockallotList(number:string) {
-    let url = this.globalService.getDomain()+'/api/v1/getStockallotList?page='+number+'&sid='+this.cookieStore.getCookie('sid');
+    let url = 'getStockallotList?page='+number+'&sid='+this.cookieStore.getCookie('sid');
     if(this.keyword.trim() != '') {
       url += '&keyword='+this.keyword.trim();
     }
-    this.http.get(url)
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get',url)
         .subscribe((data)=>{
           this.stockallotList = data;
           console.log(this.stockallotList);
@@ -201,9 +198,8 @@ export class InventoryRequisitionComponent implements OnInit {
       alert(msg);
       return false;
     }
-    let url = this.globalService.getDomain()+'/api/v1/getStockallotInfo?stock_allot_id='+id;
-    this.http.get(url)
-        .map((res)=>res.json())
+    let url = 'getStockallotInfo?stock_allot_id='+id;
+    this.globalService.httpRequest('get',url)
         .subscribe((data)=>{
           this.stockallotInfo = data;
           if(this.stockallotInfo['status'] == 202){
@@ -242,9 +238,8 @@ export class InventoryRequisitionComponent implements OnInit {
     }
     msg = '您确定要删除该信息吗？';
     if(confirm(msg)) {
-      let url = this.globalService.getDomain()+'/api/v1/deleteStockallotById?stock_allot_id=' + stockallot_id + '&type='+type+'&sid=' + this.cookieStore.getCookie('sid');
-      this.http.delete(url)
-          .map((res) => res.json())
+      let url = 'deleteStockallotById?stock_allot_id=' + stockallot_id + '&type='+type+'&sid=' + this.cookieStore.getCookie('sid');
+      this.globalService.httpRequest('delete',url)
           .subscribe((data) => {
             this.stockallotList = data;
 
@@ -338,18 +333,16 @@ export class InventoryRequisitionComponent implements OnInit {
       alert('请确保已选中需要操作的项！');
       return false;
     }
-    this.http.post(this.globalService.getDomain()+'/api/v1/addStockallot',{
+    this.globalService.httpRequest('post','addStockallot',{
       'stock_allot_id':stockallot_id,
       'stock_allot_status':status,
       'type':type,
       'keyword':this.keyword.trim(),
       'sid':this.cookieStore.getCookie('sid')
-    }).subscribe(
-        (data)=>{
-          let info = JSON.parse(data['_body']);
-          alert(info['msg']);
-          if(info['status'] == 200) {
-            this.stockallotList = info;
+    }).subscribe((data)=>{
+          alert(data['msg']);
+          if(data['status'] == 200) {
+            this.stockallotList = data;
             if (this.stockallotList) {
               if (this.stockallotList['result']['stockallotList']['current_page'] == this.stockallotList['result']['stockallotList']['last_page']) {
                 this.next = true;
@@ -367,7 +360,7 @@ export class InventoryRequisitionComponent implements OnInit {
               }
               this.check = false;
             }
-          }else if(info['status'] == 202){
+          }else if(data['status'] == 202){
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }

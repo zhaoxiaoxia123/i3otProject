@@ -2,7 +2,6 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {GlobalService} from "../../core/global.service";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {Router} from "@angular/router";
-import {Http} from "@angular/http";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ModalDirective} from "ngx-bootstrap";
 import {isUndefined} from "util";
@@ -22,9 +21,9 @@ export class SettingDepartmentnewComponent implements OnInit {
     };
 
     formModel : FormGroup;
-    departmentList : Array<any> = [];
-    departmentDefault : Array<any> = [];
-    departmentInfo : Array<any> = [];
+    departmentList : any = [];
+    departmentDefault : any = [];
+    departmentInfo : any = [];
     page : any;
     prev : boolean = false;
     next : boolean = false;
@@ -62,7 +61,6 @@ export class SettingDepartmentnewComponent implements OnInit {
     menuInfos : Array<any> = [];
   constructor(
       fb:FormBuilder,
-      private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
@@ -112,8 +110,7 @@ export class SettingDepartmentnewComponent implements OnInit {
     showPinyin(){
         let name = this.formModel.value['department_name'];
         if(name.trim() != ''){
-            this.http.get(this.globalService.getDomain()+'/api/v1/getPinyin?name='+name)
-                .map((res)=>res.json())
+            this.globalService.httpRequest('get','getPinyin?name='+name)
                 .subscribe((data)=>{
                     this.formModel.patchValue({
                         'department_shortcode': data['result']
@@ -126,7 +123,7 @@ export class SettingDepartmentnewComponent implements OnInit {
      * @param number
      */
     getDepartmentList(number:string,department_id:any) {
-        let url = this.globalService.getDomain()+'/api/v1/getDepartmentList?page='+number+'&sid='+this.cookieStore.getCookie('sid');
+        let url = 'getDepartmentList?page='+number+'&sid='+this.cookieStore.getCookie('sid');
         if(this.keyword.trim() != '') {
             url += '&keyword='+this.keyword.trim();
         }
@@ -141,8 +138,7 @@ export class SettingDepartmentnewComponent implements OnInit {
             });
             url += '&department_ids='+depart;
         }
-        this.http.get(url)
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get',url)
             .subscribe((data)=>{
                 this.departmentList = data;
                 console.log(this.departmentList);
@@ -214,8 +210,7 @@ export class SettingDepartmentnewComponent implements OnInit {
      * 获取默认参数
      */
     getDepartmentDefault() {
-        this.http.get(this.globalService.getDomain()+'/api/v1/getDepartmentDefault?sid='+this.cookieStore.getCookie('sid'))
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get','getDepartmentDefault?sid='+this.cookieStore.getCookie('sid'))
             .subscribe((data)=>{
                 this.departmentDefault = data;
                 if(this.departmentDefault['status'] == 202){
@@ -262,8 +257,7 @@ export class SettingDepartmentnewComponent implements OnInit {
         if(id != 0){
             ids = id;
         }
-        this.http.get(this.globalService.getDomain()+'/api/v1/getDepartmentInfo?department_id='+ids+'&type='+type+'&sid='+this.cookieStore.getCookie('sid'))
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get','getDepartmentInfo?department_id='+ids+'&type='+type+'&sid='+this.cookieStore.getCookie('sid'))
             .subscribe((data)=>{
                 this.departmentInfo = data;
                 if(this.departmentInfo['status'] == 200 && type == 'edit'){
@@ -341,12 +335,11 @@ export class SettingDepartmentnewComponent implements OnInit {
                     depart += idx + ',';
                 }
             });
-            let url = this.globalService.getDomain()+'/api/v1/deleteDepartmentById?department_id=' +department_id + '&department_ids='+depart+'&type='+type+'&sid=' + this.cookieStore.getCookie('sid');
+            let url = 'deleteDepartmentById?department_id=' +department_id + '&department_ids='+depart+'&type='+type+'&sid=' + this.cookieStore.getCookie('sid');
             if(this.keyword.trim() != ''){
                 url += '&keyword='+this.keyword.trim();
             }
-            this.http.delete(url)
-                .map((res) => res.json())
+            this.globalService.httpRequest('delete',url)
                 .subscribe((data) => {
                     this.departmentList = data;
                     if(this.departmentList['status'] == 202){
@@ -390,7 +383,7 @@ export class SettingDepartmentnewComponent implements OnInit {
                 depart += idx + ',';
             }
         });
-        this.http.post(this.globalService.getDomain()+'/api/v1/addDepartment',{
+        this.globalService.httpRequest('post','addDepartment',{
             'department_id':this.formModel.value['department_id'],
             'department_name':this.formModel.value['department_name'],
             'department_number':this.formModel.value['department_number'],
@@ -406,12 +399,10 @@ export class SettingDepartmentnewComponent implements OnInit {
             'department_ids':depart,
             'u_id':this.cookieStore.getCookie('uid'),
             'sid':this.cookieStore.getCookie('sid')
-        }).subscribe(
-            (data)=>{
-                let info = JSON.parse(data['_body']);
-                alert(info['msg']);
-                if(info['status'] == 200) {
-                    this.departmentList = info;
+        }).subscribe((data)=>{
+                alert(data['msg']);
+                if(data['status'] == 200) {
+                    this.departmentList = data;
                     if(num == 1) {
                         this.lgModal.hide();
                     }
@@ -434,7 +425,7 @@ export class SettingDepartmentnewComponent implements OnInit {
                     }
                     this.getDepartmentDefault();
                     this.closeSubmit();
-                }else if(info['status'] == 202){
+                }else if(data['status'] == 202){
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
@@ -598,19 +589,17 @@ export class SettingDepartmentnewComponent implements OnInit {
                 depart += idx + ',';
             }
         });
-        this.http.post(this.globalService.getDomain()+'/api/v1/addDepartment',{
+        this.globalService.httpRequest('post','addDepartment',{
             'department_id':department_id,
             'department_status':status,
             'type':type,
             'keyword':this.keyword.trim(),
             'department_ids':depart,
             'sid':this.cookieStore.getCookie('sid')
-        }).subscribe(
-            (data)=>{
-                let info = JSON.parse(data['_body']);
-                alert(info['msg']);
-                if(info['status'] == 200) {
-                    this.departmentList = info;
+        }).subscribe((data)=>{
+                alert(data['msg']);
+                if(data['status'] == 200) {
+                    this.departmentList = data;
 
                     if (this.departmentList) {
                         if (this.departmentList['result']['departmentList']['current_page'] == this.departmentList['result']['departmentList']['last_page']) {
@@ -629,7 +618,7 @@ export class SettingDepartmentnewComponent implements OnInit {
                         }
                         this.check = false;
                     }
-                }else if(info['status'] == 202){
+                }else if(data['status'] == 202){
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }

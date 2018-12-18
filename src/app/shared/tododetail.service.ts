@@ -1,18 +1,16 @@
 import { Injectable } from '@angular/core';
-import {Http} from "@angular/http";
 import {CookieStoreService} from "./cookies/cookie-store.service";
 import {GlobalService} from "../core/global.service";
 
 @Injectable()
 export class TododetailService {
 
-  todo_info : Array<any> = [];
+  todo_info : any = [];
   detail_template_name : string = '';
   todo_id : number = 0;
   is_visited : number = 1;
   is_show_detail : string = '';
   constructor(
-      private http:Http,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
   }
@@ -27,9 +25,8 @@ export class TododetailService {
   showDetail(todo_id:number,template_name:string,isRead:any){
     this.detail_template_name = template_name;
     this.todo_id = todo_id;
-    let url = this.globalService.getDomain()+'/api/v1/getTodoInfo?todo_id='+todo_id+'&sid='+this.cookieStore.getCookie('sid');
-    this.http.get(url)
-        .map((res)=>res.json())
+    let url = 'getTodoInfo?todo_id='+todo_id+'&sid='+this.cookieStore.getCookie('sid');
+    this.globalService.httpRequest('get',url)
         .subscribe((data)=>{
           this.todo_info = data;
           this.is_visited = this.todo_info['result']['todo_be_visited'];

@@ -1,12 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Http} from "@angular/http";
-import {ActivatedRoute, Params, Router} from "@angular/router";
-import {stringify} from "querystring";
+import {Router} from "@angular/router";
 import {isUndefined} from "util";
 import {FadeInTop} from "../../animations/fade-in-top.decorator";
 import {CookieStoreService} from "../../cookies/cookie-store.service";
 import {GlobalService} from "../../../core/global.service";
-import {TododetailService} from "../../tododetail.service";
 
 @FadeInTop()
 @Component({
@@ -40,8 +37,8 @@ export class SelectUserComponent implements OnInit {
     submit_user_ids : Array<any> = [];
     selected_user : Array<any> = [];
     check : boolean = false;
-    userList : Array<any> = [];
-    userDefault : Array<any> = [];
+    userList : any = [];
+    userDefault : any = [];
     page : any;
     prev : boolean = false;
     next : boolean = false;
@@ -60,15 +57,10 @@ export class SelectUserComponent implements OnInit {
     @Output() private approve_users = new EventEmitter();
     rollback_url : string = '';
     constructor(
-      private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService,
   ) {
-      // this.scroll_ = '0px';
-      // Observable.fromEvent(window, 'scroll').subscribe((event) => {
-      //     this.onWindowScroll();
-      // });
         this.admin_id = this.globalService.getAdminID();
         this.cookie_c_id = this.cookieStore.getCookie('cid');
         this.cookie_u_id = this.cookieStore.getCookie('uid');
@@ -83,8 +75,7 @@ export class SelectUserComponent implements OnInit {
      * 获取默认参数
      */
     getUserDefault() {
-        this.http.get(this.globalService.getDomain()+'/api/v1/getUserDefault?type=list&sid='+this.cookieStore.getCookie('sid'))
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get','getUserDefault?type=list&sid='+this.cookieStore.getCookie('sid'))
             .subscribe((data)=>{
                 this.userDefault = data;
                 if(this.userDefault['status'] == 202){
@@ -119,7 +110,7 @@ export class SelectUserComponent implements OnInit {
      * @param number
      */
     getUserList(number:string,department_id:any) {
-        let url = this.globalService.getDomain()+'/api/v1/getUserList?page='+number+'&sid='+this.cookieStore.getCookie('sid');
+        let url = 'getUserList?page='+number+'&sid='+this.cookieStore.getCookie('sid');
         if(this.keyword.trim() != ''){
             url += '&keyword='+this.keyword.trim();
         }
@@ -135,8 +126,7 @@ export class SelectUserComponent implements OnInit {
 
             url += '&depart='+depart;
         }
-        this.http.get(url)
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get',url)
             .subscribe((data)=>{
                 this.userList = data;
                 if(this.userList['status'] == 202){

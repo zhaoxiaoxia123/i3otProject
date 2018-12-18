@@ -1,10 +1,7 @@
-import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {GlobalService} from "../../core/global.service";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
-import {Http} from "@angular/http";
 import {Router} from "@angular/router";
-import {isUndefined} from "util";
-import {ImageCropperComponent, CropperSettings, Bounds} from 'ng2-img-cropper';
 
 @Component({
   selector: 'app-initiate-requite',
@@ -57,7 +54,6 @@ export class InitiateRequiteComponent implements OnInit {
   /** 权限 */
   permissions : Array<any> = [];
   constructor(
-      private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
@@ -131,7 +127,7 @@ export class InitiateRequiteComponent implements OnInit {
       follower_user_ids.push(val['id']);
     });
 
-    this.http.post(this.globalService.getDomain()+'/api/v1/addApproval',{
+    this.globalService.httpRequest('post','addApproval',{
       'total':this.prices,
       'info' : JSON.stringify(this.requite_list),
       'approval_img' : JSON.stringify(this.imgList),
@@ -141,15 +137,14 @@ export class InitiateRequiteComponent implements OnInit {
       'u_id':this.cookieStore.getCookie('uid'),
       'sid':this.cookieStore.getCookie('sid')
     }).subscribe((data)=>{
-      let info = JSON.parse(data['_body']);
-      alert(info['msg']);
-      if(info['status'] == 200) {
+      alert(data['msg']);
+      if(data['status'] == 200) {
         if(num == 1){
           this.router.navigate(['/process/approval-process/0']);
         }else {
           this.clear_();
         }
-      }else if(info['status'] == 202){
+      }else if(data['status'] == 202){
         this.cookieStore.removeAll(this.rollback_url);
         this.router.navigate(['/auth/login']);
       }

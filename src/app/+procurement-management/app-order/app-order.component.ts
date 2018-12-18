@@ -1,9 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Http} from "@angular/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {ModalDirective} from "ngx-bootstrap";
 import {isUndefined} from "util";
 import {NotificationService} from "../../shared/utils/notification.service";
@@ -16,9 +15,9 @@ export class AppOrderComponent implements OnInit {
 
   formModel : FormGroup;
   pr_id : any = '';
-  purchaseList : Array<any> = [];
-  userList : Array<any> = [];
-  purchaseInfo : Array<any> = [];
+  purchaseList : any = [];
+  userList : any = [];
+  purchaseInfo : any = [];
 
   //默认选中值
   pr_supplier_default : number = 0; //供应商
@@ -29,9 +28,9 @@ export class AppOrderComponent implements OnInit {
   pr_transport_default: number = 0; //运输方式
   pr_payment_method_default: number = 0; //运输方式
 
-  selectProductList :Array<any> = [];//[{"p_product_id": "0","p_qrcode": "0","category": "0","p_unit": "0","p_count": "0","p_price": "0","p_pur_price": "0","p_note": "","p_is": "1"}]; //选中后的商品列表
-  searchProductList : Array<any> = [];//搜索出的商品列表信息
-  productDefault : Array<any> = [];//弹框中商品分类
+  selectProductList :any = [];//[{"p_product_id": "0","p_qrcode": "0","category": "0","p_unit": "0","p_count": "0","p_price": "0","p_pur_price": "0","p_note": "","p_is": "1"}]; //选中后的商品列表
+  searchProductList : any = [];//搜索出的商品列表信息
+  productDefault : any = [];//弹框中商品分类
   //弹框中左侧选中商品分类的id
   select_category_ids: Array<any> = [];
   category_type_product : number = 6; //商品分类
@@ -100,7 +99,6 @@ export class AppOrderComponent implements OnInit {
   log_type:string = 'purchase_cg_before';
 
   constructor( fb:FormBuilder,
-               private http:Http,
                private router : Router,
                private routInfo : ActivatedRoute,
                private cookieStore:CookieStoreService,
@@ -114,16 +112,11 @@ export class AppOrderComponent implements OnInit {
       pr_id:[''],
       pr_order:[''],
       pr_date:[''],
-      // pr_type:[''],
       pr_supplier:[''],
-      // pr_department:[''],
       pr_employee:[''],
       storehouse_id:[''],
       pr_category:[''],
       pr_transport:[''],
-      // pr_discount:[''],
-      // pr_rate:[''],
-      // pr_qrcode:[''],
       pr_detail:[''],
       pr_note:[''],
       pr_payment_method:[''],
@@ -160,8 +153,7 @@ export class AppOrderComponent implements OnInit {
   }
 
   getPurchaseInfo(pr_id:number){
-    this.http.get(this.globalService.getDomain()+'/api/v1/getPurchaseInfo?pr_id='+pr_id)
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get','getPurchaseInfo?pr_id='+pr_id)
         .subscribe((data)=>{
           this.purchaseInfo = data;
           console.log(this.purchaseInfo);
@@ -169,16 +161,11 @@ export class AppOrderComponent implements OnInit {
             pr_id:this.purchaseInfo['result']['pr_id'],
             pr_order:this.purchaseInfo['result']['pr_order'],
             pr_date:this.purchaseInfo['result']['pr_date'],
-            // pr_type:this.purchaseInfo['result']['pr_type'],
             pr_supplier:this.purchaseInfo['result']['pr_supplier'],
-            // pr_department:this.purchaseInfo['result']['pr_department'],
             pr_employee:this.purchaseInfo['result']['pr_employee'],
             storehouse_id:this.purchaseInfo['result']['storehouse_id'],
             pr_category:this.purchaseInfo['result']['pr_category'],
             pr_transport:this.purchaseInfo['result']['pr_transport'],
-            // pr_discount:this.purchaseInfo['result']['pr_discount'],
-            // pr_rate:this.purchaseInfo['result']['pr_rate'],
-            // pr_qrcode:this.purchaseInfo['result']['pr_qrcode'],
             pr_detail:this.purchaseInfo['result']['pr_detail'],
             pr_note:this.purchaseInfo['result']['pr_note'],
             pr_payment_method:this.purchaseInfo['result']['pr_payment_method'],
@@ -195,7 +182,6 @@ export class AppOrderComponent implements OnInit {
           });
 
           this.pr_supplier_default = this.purchaseInfo['result']['pr_supplier']; //供应商
-          // this.pr_department_default = this.purchaseInfo['result']['pr_department']; //采购部门
           this.pr_employee_default = this.purchaseInfo['result']['pr_employee']; //采购员
           this.storehouse_id_default =this.purchaseInfo['result']['storehouse_id']; //仓库
           this.pr_category_default =this.purchaseInfo['result']['pr_category']; //采购类型
@@ -225,13 +211,12 @@ export class AppOrderComponent implements OnInit {
     }else{
       id = obj;
     }
-    let url = this.globalService.getDomain()+'/api/v1/getPurchaseUser';
+    let url = 'getPurchaseUser';
     console.log(id);
     if(id != 0){
       url += '?category_id='+id;
     }
-    this.http.get(url)
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get',url)
         .subscribe((data)=>{
           this.userList = data;
           if(this.userList['status'] == 201){
@@ -245,8 +230,7 @@ export class AppOrderComponent implements OnInit {
    * type : refresh 局部刷新
    */
   getPurchaseDefault(type:any) {
-    this.http.get(this.globalService.getDomain()+'/api/v1/getPurchaseDefault?type=3&role='+this.role+'&category_type='+this.category_type+'&sid='+this.cookieStore.getCookie('sid'))
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get','getPurchaseDefault?type=3&role='+this.role+'&category_type='+this.category_type+'&sid='+this.cookieStore.getCookie('sid'))
         .subscribe((data)=>{
           this.purchaseList = data;
           if(this.purchaseList['status'] == 202){
@@ -279,24 +263,18 @@ export class AppOrderComponent implements OnInit {
       follower_user_ids.push(val['id'].toString());
     });
 
-    this.http.post(this.globalService.getDomain()+'/api/v1/addPurchase',{
+    this.globalService.httpRequest('post','addPurchase',{
       'pr_id':this.formModel.value['pr_id'],
       'pr_order':this.formModel.value['pr_order'],
       'pr_date':this.formModel.value['pr_date'],
       'pr_type':3,
       'pr_supplier':this.formModel.value['pr_supplier'],
-      // 'pr_department':this.formModel.value['pr_department'],
       'pr_employee':this.formModel.value['pr_employee'],
       'storehouse_id':this.formModel.value['storehouse_id'],
       'pr_category':this.formModel.value['pr_category'],
       'pr_transport':this.formModel.value['pr_transport'],
-      // 'pr_discount':this.formModel.value['pr_discount'],
-      // 'pr_rate':this.formModel.value['pr_rate'],
-      // 'pr_qrcode':this.formModel.value['pr_qrcode'],
-      // 'pr_detail':this.formModel.value['pr_detail'],
       'pr_detail' :JSON.stringify(this.selectProductList),
       'pr_note':this.formModel.value['pr_note'],
-
       'pr_payment_method':this.formModel.value['pr_payment_method'],
       'pr_address':this.formModel.value['pr_address'],
       'pr_payment':this.formModel.value['pr_payment'],
@@ -304,18 +282,15 @@ export class AppOrderComponent implements OnInit {
       'pr_cost':this.formModel.value['pr_cost'],
       'pr_payment_note':this.formModel.value['pr_payment_note'],
       'pr_account':this.formModel.value['pr_account'],
-      // 'pr_status':this.formModel.value['pr_id'] ? 0 : 1,
       'pr_assign':JSON.stringify(approve_user_ids),
       'pr_copy_person':JSON.stringify(follower_user_ids),
       'u_id':this.cookieStore.getCookie('uid'),
       'sid':this.cookieStore.getCookie('sid')
-    }).subscribe(
-        (data)=>{
-          let info = JSON.parse(data['_body']);
-          alert(info['msg']);
-          if(info['status'] == 200) {
+    }).subscribe((data)=>{
+          alert(data['msg']);
+          if(data['status'] == 200) {
             this.router.navigate(['/procurement-management/procurement-order']);
-          }else if(info['status'] == 202){
+          }else if(data['status'] == 202){
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
@@ -328,7 +303,7 @@ export class AppOrderComponent implements OnInit {
    * 搜索商品
    */
   searchKey(page:any){
-    let url = this.globalService.getDomain()+'/api/v1/getProductList?page='+page+'&p_type='+this.p_type+'&p_property='+this.p_property+'&type=list&sid='+this.cookieStore.getCookie('sid');
+    let url = 'getProductList?page='+page+'&p_type='+this.p_type+'&p_property='+this.p_property+'&type=list&sid='+this.cookieStore.getCookie('sid');
     if(this.keyword_product.trim() != '') {
       url += '&keyword='+this.keyword_product.trim();
     }else {
@@ -341,8 +316,7 @@ export class AppOrderComponent implements OnInit {
       }
     });
     url += '&category_ids='+category_ids;
-    this.http.get(url)
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get',url)
         .subscribe((data)=>{
           this.searchProductList = data;
           if(this.searchProductList['status'] == 202){
@@ -376,8 +350,7 @@ export class AppOrderComponent implements OnInit {
    * 获取弹框左侧商品分类列表信息
    */
   getProductDefault(){
-    this.http.get(this.globalService.getDomain()+'/api/v1/getProductDefault?type=list&p_type='+this.p_type+'&category_type='+this.category_type_product+'&sid='+this.cookieStore.getCookie('sid'))
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get','getProductDefault?type=list&p_type='+this.p_type+'&category_type='+this.category_type_product+'&sid='+this.cookieStore.getCookie('sid'))
         .subscribe((data)=>{
           this.productDefault = data;
           console.log(this.productDefault);
@@ -625,7 +598,7 @@ export class AppOrderComponent implements OnInit {
         id += '"'+val['id']+'",';
       });
 
-      this.http.post(this.globalService.getDomain()+'/api/v1/addLog',{
+      this.globalService.httpRequest('post','addLog',{
         'other_id':this.pr_id,
         'other_table_name':this.log_table_name,
         'log_type':this.log_type,
@@ -635,16 +608,14 @@ export class AppOrderComponent implements OnInit {
         'u_id':this.cookieStore.getCookie('uid'),
         'sid':this.cookieStore.getCookie('sid')
       }).subscribe((data)=>{
-        let info = JSON.parse(data['_body']);
-
-        if(info['status'] == 200) {
+        if(data['status'] == 200) {
           this.getPurchaseInfo(this.pr_id);
-        }else if(info['status'] == 202){
-          alert(info['msg']);
+        }else if(data['status'] == 202){
+          alert(data['msg']);
           this.cookieStore.removeAll(this.rollback_url);
           this.router.navigate(['/auth/login']);
-        }else if(info['status'] == 9999 || info['status'] == 201) {
-          alert(info['msg']);
+        }else if(data['status'] == 9999 || data['status'] == 201) {
+          alert(data['msg']);
         }
       });
 

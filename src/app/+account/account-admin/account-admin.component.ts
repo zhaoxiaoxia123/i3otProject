@@ -1,6 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {getProvince,getCity} from '../../shared/common/area';
-import {Http} from "@angular/http";
 import {Router} from "@angular/router";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
@@ -18,9 +17,9 @@ export class AccountAdminComponent implements OnInit {
         },
     };
 
-    customerDefault : Array<any> = [];
-    customerList : Array<any> = [];
-    customer_info : Array<any> = [];
+    customerDefault : any = [];
+    customerList : any = [];
+    customer_info : any = [];
 
     page : any;
     prev : boolean = false;
@@ -69,7 +68,6 @@ export class AccountAdminComponent implements OnInit {
     permissions : Array<any> = [];
     menuInfos : Array<any> = [];
   constructor(
-      private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
@@ -81,7 +79,6 @@ export class AccountAdminComponent implements OnInit {
   }
 
     ngOnInit() {
-
         //顶部菜单读取
         this.globalService.getMenuInfo();
         setTimeout(()=>{
@@ -108,8 +105,7 @@ export class AccountAdminComponent implements OnInit {
      * 获取添加客户的默认参数
      */
     getCustomerDefault() {
-        this.http.get(this.globalService.getDomain()+'/api/v1/getCustomerDefault?sid='+this.cookieStore.getCookie('sid'))
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get','getCustomerDefault?sid='+this.cookieStore.getCookie('sid'))
             .subscribe((data)=>{
                 this.customerDefault = data;
                 if(this.customerDefault['status'] == 202){
@@ -117,7 +113,6 @@ export class AccountAdminComponent implements OnInit {
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
-
             });
     }
     /**
@@ -125,12 +120,11 @@ export class AccountAdminComponent implements OnInit {
      * @param number
      */
     getCustomerList(number:string) {
-        let url = this.globalService.getDomain()+'/api/v1/getCustomerList?role=1&page='+number+'&sid='+this.cookieStore.getCookie('sid');
+        let url = 'getCustomerList?role=1&page='+number+'&sid='+this.cookieStore.getCookie('sid');
         if(this.keyword.trim() != ''){
             url += '&keyword='+this.keyword.trim();
         }
-        this.http.get(url)
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get',url)
             .subscribe((data)=>{
                 this.customerList = data;
                 if(this.customerList['status'] == 202){
@@ -155,7 +149,6 @@ export class AccountAdminComponent implements OnInit {
                     this.check = false;
                 }
             });
-
     }
 
     setValue(obj){
@@ -213,8 +206,7 @@ export class AccountAdminComponent implements OnInit {
             if (this.isStatus == 0) {
                 return false;
             }
-            this.http.get(this.globalService.getDomain() + '/api/v1/getCustomerInfo?c_id=' + this.editStatusCustomerId + '&c_role=1&type=user')
-                .map((res) => res.json())
+            this.globalService.httpRequest('get','getCustomerInfo?c_id=' + this.editStatusCustomerId + '&c_role=1&type=user')
                 .subscribe((data) => {
                     this.customer_info = data;
                     if (this.customer_info['status'] == 200) {
@@ -246,7 +238,7 @@ export class AccountAdminComponent implements OnInit {
         if(this.password.trim() == '' && this.c_id == 0){
             alert('密码未填写,系统将会默认’123456‘为您的密码！');
         }
-        this.http.post(this.globalService.getDomain()+'/api/v1/addCustomerAndUser',{
+        this.globalService.httpRequest('post','addCustomerAndUser',{
             //企业信息
             'c_id':this.c_id,
             'c_number':this.c_number,
@@ -269,15 +261,14 @@ export class AccountAdminComponent implements OnInit {
             'email':this.email,
             'sid':this.cookieStore.getCookie('sid'),
         }).subscribe((data)=>{
-            let info = JSON.parse(data['_body']);
-            alert(info['msg']);
-            if(info['status'] == 200) {
-                this.customerList = info;
+            alert(data['msg']);
+            if(data['status'] == 200) {
+                this.customerList = data;
                 this.clear_();
                 if(num == 1) {
                     this.editModal.hide();
                 }
-            }else if(info['status'] == 202){
+            }else if(data['status'] == 202){
                 this.cookieStore.removeAll(this.rollback_url);
                 this.router.navigate(['/auth/login']);
             }
@@ -375,9 +366,8 @@ export class AccountAdminComponent implements OnInit {
         }
         msg = '您确定要执行此删除操作吗？';
         if(confirm(msg)) {
-            let url = this.globalService.getDomain()+'/api/v1/deleteCustomerById?c_ids=' + p_id + '&type='+type+'&role=1&sid=' + this.cookieStore.getCookie('sid');
-            this.http.delete(url)
-                .map((res) => res.json())
+            let url = 'deleteCustomerById?c_ids=' + p_id + '&type='+type+'&role=1&sid=' + this.cookieStore.getCookie('sid');
+            this.globalService.httpRequest('delete',url)
                 .subscribe((data) => {
                     this.customerList = data;
                     if(this.customerList['status'] == 202){
@@ -404,8 +394,5 @@ export class AccountAdminComponent implements OnInit {
                 });
         }
     }
-
-
     @ViewChild('editModal') public editModal:ModalDirective;
-
 }

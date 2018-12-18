@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FadeInTop} from '../../shared/animations/fade-in-top.decorator';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {mobileAsyncValidator, mobileValidator,passwordValidator} from '../../shared/common/validator';//passwordValidator
-
-import {Http} from '@angular/http';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {mobileAsyncValidator, mobileValidator} from '../../shared/common/validator';
 import {Router,ActivatedRoute} from '@angular/router';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 import {GlobalService} from '../../core/global.service';
@@ -16,10 +14,10 @@ import {GlobalService} from '../../core/global.service';
 export class AddCustomerComponent implements OnInit {
 
   formModel : FormGroup;
-  userList : Array<any> = [];
+  userList : any = [];
 
   c_id : number = 0;
-  customer_info : Array<any> = [];
+  customer_info : any = [];
   is_showDiv : boolean = false;
 
   //默认选中值
@@ -29,7 +27,6 @@ export class AddCustomerComponent implements OnInit {
   rollback_url : string = '/forms/customer';
   constructor(
       fb:FormBuilder,
-      private http:Http,
       private router : Router,
       private routInfo : ActivatedRoute,
       private cookieStore:CookieStoreService,
@@ -45,10 +42,6 @@ export class AddCustomerComponent implements OnInit {
       abbreviation:[''],
       industry_category:[''],
       email:[''],
-      // passwords : fb.group({
-      //   password:['',[Validators.minLength(6)]],
-      //   pconfirm:['']
-      // },{validator:passwordValidator}),
       phone:['',mobileValidator,mobileAsyncValidator],
       department:[''],
       address:[''],
@@ -82,13 +75,10 @@ export class AddCustomerComponent implements OnInit {
   }
 
   getCustomerInfo(c_id:number){
-    this.http.get(this.globalService.getDomain()+'/api/v1/getCustomerInfo?c_id='+c_id+'&c_role=1')
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get','getCustomerInfo?c_id='+c_id+'&c_role=1')
         .subscribe((data)=>{
           this.customer_info = data;
-        });
-    setTimeout(() => {
-      console.log(this.customer_info);
+
       this.formModel.patchValue({
         c_id:this.customer_info['result']['c_id'],
         number:this.customer_info['result']['c_number'],
@@ -109,37 +99,28 @@ export class AddCustomerComponent implements OnInit {
         iot_secret:this.customer_info['result']['iot_secret'],
         parent_id:this.customer_info['result']['c_parent_id']
       });
-    }, 500);
+    });
   }
 
   /**
    * 获取添加客户的默认参数
    */
   getCustomerDefault() {
-      this.http.get(this.globalService.getDomain()+'/api/v1/getCustomerDefault?sid='+this.cookieStore.getCookie('sid'))
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get','getCustomerDefault?sid='+this.cookieStore.getCookie('sid'))
         .subscribe((data)=>{
           this.userList = data;
-      });
-
-    setTimeout(() => {
-      console.log('this.userList:----');
-      console.log(this.userList);
-
       if(this.userList['status'] == 202){
         alert(this.userList['msg']);
         this.cookieStore.removeAll(this.rollback_url);
         this.router.navigate(['/auth/login']);
       }
-
       if(this.c_id == 0) {
         //默认选中值
         this.industry_category_default = this.userList['result']['industryCategoryList'].length >= 1 ? this.userList['result']['industryCategoryList'][0]['category_id'] : 0;
         this.source_default = this.userList['result']['sourceList'].length >= 1 ? this.userList['result']['sourceList'][0]['category_id'] : 0;
         this.service_person_default = this.userList['result']['userList'].length >= 1 ? this.userList['result']['userList'][0]['id'] : 0;
-
       }
-    }, 300);
+    });
   }
 
   onSubmit(){
@@ -151,13 +132,11 @@ export class AddCustomerComponent implements OnInit {
       alert('请填写客户名称！');
       return false;
     }
-    // console.log(this.formModel.value['name']);
-    this.http.post(this.globalService.getDomain()+'/api/v1/addCustomer',{
+    this.globalService.httpRequest('post','addCustomer',{
       'c_id':this.formModel.value['c_id'],
       'number':this.formModel.value['number'],
       'name':this.formModel.value['name'],
       'phone':this.formModel.value['phone'],
-      // 'password':this.formModel.value['passwords']['password'],
       'email':this.formModel.value['email'],
       'abbreviation':this.formModel.value['abbreviation'],
       'industry_category':this.formModel.value['industry_category'],
@@ -173,13 +152,11 @@ export class AddCustomerComponent implements OnInit {
       'role':1,
       'parent_id':0,
       'sid':this.cookieStore.getCookie('sid')
-    }).subscribe(
-        (data)=>{
-          let info = JSON.parse(data['_body']);
-          alert(info['msg']);
-          if(info['status'] == 200) {
+    }).subscribe((data)=>{
+          alert(data['msg']);
+          if(data['status'] == 200) {
             this.router.navigateByUrl('/tables/client');
-          }else if(info['status'] == 202){
+          }else if(data['status'] == 202){
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
@@ -189,5 +166,4 @@ export class AddCustomerComponent implements OnInit {
         }
     );
   }
-
 }

@@ -1,7 +1,5 @@
-import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {AddRequisitionComponent} from "./add-requisition.component";
-
 
 export const addRequisitionRoutes: Routes = [{
     path: '',

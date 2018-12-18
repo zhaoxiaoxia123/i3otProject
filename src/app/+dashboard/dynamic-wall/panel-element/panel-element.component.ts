@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {FadeInTop} from "../../../shared/animations/fade-in-top.decorator";
-import {Http} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 
 @FadeInTop()
@@ -17,7 +16,7 @@ export class PanelElementComponent implements OnInit {
     chartOption;
     seriesInfo: Array<any> = [];
 
-    constructor(private http:Http) {
+    constructor() {
     }
 
 

@@ -1,7 +1,6 @@
 import {NgModule} from "@angular/core";
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {HttpModule} from '@angular/http';
 import {RouterModule} from '@angular/router';
 
 import {
@@ -20,12 +19,12 @@ import {I3otpFormsLiteModule} from "./forms/i3otp-forms-lite.module";
 
 @NgModule({
   imports: [
-    CommonModule, FormsModule, HttpModule, RouterModule,
+    CommonModule, FormsModule, RouterModule,
   ],
   declarations: [
   ],
   exports: [
-    CommonModule, FormsModule, HttpModule, RouterModule,
+    CommonModule, FormsModule, RouterModule,
     ModalModule,
     ButtonsModule,
     AlertModule,

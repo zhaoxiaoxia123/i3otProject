@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {Http} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 
 @Component({
@@ -15,7 +14,7 @@ export class PanelMineComponent implements OnInit {
     chartOption;
     seriesInfo: Array<any> = [];
 
-    constructor(private http:Http) {
+    constructor() {
     }
 
 

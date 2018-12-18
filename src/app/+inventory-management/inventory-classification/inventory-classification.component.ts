@@ -1,6 +1,4 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {Http} from "@angular/http";
 import {Router} from "@angular/router";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
@@ -13,10 +11,10 @@ import {isUndefined} from "util";
 })
 
 export class InventoryClassificationComponent implements OnInit {
-    categoryList : Array<any> = [];
-    categoryDefault : Array<any> = [];
-    categoryInfo : Array<any> = [];
-    unitCategoryList : Array<any> = [];// 选中类型的分类列表
+    categoryList : any= [];
+    categoryDefault : any = [];
+    categoryInfo : any = [];
+    unitCategoryList : any = [];// 选中类型的分类列表
 
     button_contrl_id : number = 0;
     index : number = 1;
@@ -58,9 +56,7 @@ export class InventoryClassificationComponent implements OnInit {
     /** 权限 */
     permissions : Array<any> = [];
     menuInfos : Array<any> = [];
-
     constructor(
-        private http:Http,
         private router : Router,
         private cookieStore:CookieStoreService,
         private globalService:GlobalService) {
@@ -94,9 +90,7 @@ export class InventoryClassificationComponent implements OnInit {
      * 获取默认参数
      */
     getCategoryDefault() {
-        // let url = this.globalService.getDomain()+'/api/v1/getCategory?category_type='+this.category_type+'&page=1&sid='+this.cookieStore.getCookie('sid');
-        this.http.get(this.globalService.getDomain()+'/api/v1/getCategory?category_type='+this.category_type+'&type=left&sid='+this.cookieStore.getCookie('sid'))
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get','getCategory?category_type='+this.category_type+'&type=left&sid='+this.cookieStore.getCookie('sid'))
             .subscribe((data)=>{
                 this.categoryDefault = data;
                 console.log(this.categoryDefault);
@@ -129,7 +123,7 @@ export class InventoryClassificationComponent implements OnInit {
      * @param number
      */
     getCategoryList(number:string,category_ids:any) {
-        let url = this.globalService.getDomain()+'/api/v1/getCategory?category_type='+this.category_type+'&type=right&page='+number+'&sid='+this.cookieStore.getCookie('sid');
+        let url = 'getCategory?category_type='+this.category_type+'&type=right&page='+number+'&sid='+this.cookieStore.getCookie('sid');
         if(this.keyword.trim() != '') {
           url += '&keyword='+this.keyword.trim();
         }
@@ -144,8 +138,7 @@ export class InventoryClassificationComponent implements OnInit {
             });
             url += '&category_ids='+cate;
         }
-        this.http.get(url)
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get',url)
             .subscribe((data)=>{
                 this.categoryList = data;
                 if(this.categoryList['status'] == 202){
@@ -184,12 +177,10 @@ export class InventoryClassificationComponent implements OnInit {
         }else{
             id = obj;
         }
-        let url = this.globalService.getDomain()+'/api/v1/getUnitCategoryList?category_type='+this.category_type+'&sid='+this.cookieStore.getCookie('sid');
+        let url = 'getUnitCategoryList?category_type='+this.category_type+'&sid='+this.cookieStore.getCookie('sid');
         if(id != 0){
             url += '&category_tab='+id;
-
-        this.http.get(url)
-            .map((res)=>res.json())
+            this.globalService.httpRequest('get',url)
             .subscribe((data)=>{
                 this.unitCategoryList = data;
                 if(this.unitCategoryList['status'] == 201){
@@ -239,12 +230,11 @@ export class InventoryClassificationComponent implements OnInit {
                     depart += idx + ',';
                 }
             });
-            let url = this.globalService.getDomain()+'/api/v1/deleteCategory?category_id=' + category_id + '&category_ids=' + depart + '&category_type='+this.category_type+'&number=1&sid=' + this.cookieStore.getCookie('sid');
+            let url = 'deleteCategory?category_id=' + category_id + '&category_ids=' + depart + '&category_type='+this.category_type+'&number=1&sid=' + this.cookieStore.getCookie('sid');
             if(this.keyword.trim() != ''){
                 url += '&keyword='+this.keyword.trim();
             }
-            this.http.delete(url)
-                .map((res) => res.json())
+            this.globalService.httpRequest('delete',url)
                 .subscribe((data) => {
                     this.categoryList = data;
                     if(this.categoryList['status'] == 202){
@@ -278,15 +268,11 @@ export class InventoryClassificationComponent implements OnInit {
      * 提交部门
      */
     onSubmit(num:number){
-        // if(this.category_number.trim() == ''){
-        //     alert('请填写编号！');
-        //     return false;
-        // }
         if(this.category_desc.trim() == ''){
             alert('请填写名称！');
             return false;
         }
-        this.http.post(this.globalService.getDomain()+'/api/v1/addCategory',{
+        this.globalService.httpRequest('post','addCategory',{
             'category_id':this.category_id,
             'category_desc':this.category_desc,
             'category_number':this.category_number,
@@ -295,18 +281,15 @@ export class InventoryClassificationComponent implements OnInit {
             'category_type' : this.category_type,
             'u_id':this.cookieStore.getCookie('uid'),
             'sid':this.cookieStore.getCookie('sid')
-        }).subscribe(
-            (data)=>{
-                let info = JSON.parse(data['_body']);
-                alert(info['msg']);
-                if(info['status'] == 200) {
-                    // this.categoryList = info;
+        }).subscribe((data)=>{
+                alert(data['msg']);
+                if(data['status'] == 200) {
                     this.clearSubmit();
                     this.getCategoryDefault();
                     if(num == 1) {
                         this.lgModal.hide();
                     }
-                }else if(info['status'] == 202){
+                }else if(data['status'] == 202){
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
                 }
@@ -391,8 +374,7 @@ export class InventoryClassificationComponent implements OnInit {
         if(id != 0){
             ids = id;
         }
-        this.http.get(this.globalService.getDomain()+'/api/v1/getCategoryById?category_id='+ids+'&number=1&sid='+this.cookieStore.getCookie('sid'))
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get','getCategoryById?category_id='+ids+'&number=1&sid='+this.cookieStore.getCookie('sid'))
             .subscribe((data)=>{
                 this.categoryInfo = data;
                 if(this.categoryInfo['status'] == 200 && (type == 'edit' || type == 'detail')){

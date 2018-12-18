@@ -1,11 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Http} from "@angular/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {ModalDirective} from "ngx-bootstrap";
-import {isNull, isUndefined} from "util";
+import {isNull} from "util";
 import {NotificationService} from "../../shared/utils/notification.service";
 
 @Component({
@@ -15,9 +14,9 @@ import {NotificationService} from "../../shared/utils/notification.service";
 export class AddRequisitionComponent implements OnInit {
     formModel : FormGroup;
     stock_allot_id : any = 0;
-    stockallotList : Array<any> = [];
-    stockallotInfo : Array<any> = [];
-    departmentInfo : Array<any> = [];//经手人所属部门信息
+    stockallotList : any= [];
+    stockallotInfo : any = [];
+    departmentInfo : any = [];//经手人所属部门信息
     department : string = '';
 
     isDetail : string = '';
@@ -32,16 +31,14 @@ export class AddRequisitionComponent implements OnInit {
     };
     //默认选中值
     user_u_id_default : number = 0; //经手人
-    // out_storehouse_id_default : number = 0; //出库仓库id
-    // in_storehouse_id_default : number = 0; //入库仓库id
     rollback_url : string = '';
 
     /**--------用作选择库存产品的变量------*/
     isShowProduct : string = '';
     selectProductList :Array<any> = [];//[{"p_product_id": "0","p_qrcode": "0","category": "0","p_unit": "0","p_count": "0","p_price": "0","p_pur_price": "0","p_note": "","p_is": "1"}]; //选中后的商品列表
     category_type_product : number = 6; //商品分类
-    searchProductList : Array<any> = [];//搜索出的商品列表信息
-    productDefault : Array<any> = [];//弹框中商品分类
+    searchProductList : any = [];//搜索出的商品列表信息
+    productDefault : any = [];//弹框中商品分类
     // 弹框中左侧选中商品分类的id
     select_category_ids: Array<any> = [];
     select_category_ids_preporty: Array<any> = [];
@@ -74,7 +71,6 @@ export class AddRequisitionComponent implements OnInit {
     permissions : Array<any> = [];
   constructor(
       fb:FormBuilder,
-      private http:Http,
       private router : Router,
       private routInfo : ActivatedRoute,
       private cookieStore:CookieStoreService,
@@ -91,8 +87,6 @@ export class AddRequisitionComponent implements OnInit {
       stock_allot_qrcode:[''],
       stock_allot_remark:[''],
       department:[''],
-        // out_storehouse_id:[''],
-        // in_storehouse_id:[''],
         //审核加入
         stock_allot_assign:[''],
         stock_allot_copy_person:[''],
@@ -138,8 +132,7 @@ export class AddRequisitionComponent implements OnInit {
 
 
     getStockallotInfo(stock_allot_id:number){
-    this.http.get(this.globalService.getDomain()+'/api/v1/getStockallotInfo?stock_allot_id='+stock_allot_id)
-        .map((res)=>res.json())
+        this.globalService.httpRequest('get','getStockallotInfo?stock_allot_id='+stock_allot_id)
         .subscribe((data)=>{
           this.stockallotInfo = data;
           this.formModel.patchValue({
@@ -150,8 +143,6 @@ export class AddRequisitionComponent implements OnInit {
             user_u_id:this.stockallotInfo['result']['user_u_id'],
             stock_allot_qrcode:this.stockallotInfo['result']['stock_allot_qrcode'],
             stock_allot_remark:this.stockallotInfo['result']['stock_allot_remark'],
-              // out_storehouse_id:this.stockallotInfo['result']['out_storehouse_id'],
-              // in_storehouse_id:this.stockallotInfo['result']['in_storehouse_id'],
               //审核加入
               stock_allot_assign:this.stockallotInfo['result']['stock_allot_assign'],
               stock_allot_copy_person:this.stockallotInfo['result']['stock_allot_copy_person'],
@@ -162,8 +153,6 @@ export class AddRequisitionComponent implements OnInit {
             this.follower_user = this.stockallotInfo['result']['copy_user'];
 
           this.user_u_id_default = this.stockallotInfo['result']['user_u_id']; //经手人
-            // this.out_storehouse_id_default = this.stockallotInfo['result']['out_storehouse_id']; //
-            // this.in_storehouse_id_default = this.stockallotInfo['result']['in_storehouse_id']; //
 
           this.selectProductList = this.stockallotInfo['result']['detail'];
           if(this.stockallotInfo['result']['user_u_id'] != 0){
@@ -182,12 +171,11 @@ export class AddRequisitionComponent implements OnInit {
     }else{
       id = obj;
     }
-    let url = this.globalService.getDomain()+'/api/v1/getDepartment';
+    let url = 'getDepartment';
     if(id != 0){
       url += '?u_id='+id;
     }
-    this.http.get(url)
-        .map((res)=>res.json())
+      this.globalService.httpRequest('get',url)
         .subscribe((data)=>{
           this.departmentInfo = data;
           if(this.departmentInfo['status'] == 201){
@@ -203,8 +191,7 @@ export class AddRequisitionComponent implements OnInit {
    * type ：  refresh  局部刷新
    */
   getStockallotDefault(type:any) {
-    this.http.get(this.globalService.getDomain()+'/api/v1/getStockallotDefault?sid='+this.cookieStore.getCookie('sid'))
-        .map((res)=>res.json())
+      this.globalService.httpRequest('get','getStockallotDefault?sid='+this.cookieStore.getCookie('sid'))
         .subscribe((data)=>{
           this.stockallotList = data;
           if(this.stockallotList['status'] == 202){
@@ -239,7 +226,7 @@ export class AddRequisitionComponent implements OnInit {
               follower_user_ids.push(val['id'].toString());
           });
       }
-      this.http.post(this.globalService.getDomain()+'/api/v1/addStockallot',{
+      this.globalService.httpRequest('post','addStockallot',{
         'stock_allot_id':this.formModel.value['stock_allot_id'],
         'stock_allot_type':this.formModel.value['stock_allot_type'],
         'stock_allot_number':this.formModel.value['stock_allot_number'],
@@ -250,28 +237,23 @@ export class AddRequisitionComponent implements OnInit {
         'stock_allot_assign':JSON.stringify(approve_user_ids),
         'stock_allot_copy_person':JSON.stringify(follower_user_ids),
         'product_detail' :JSON.stringify(this.selectProductList),
-        // 'out_storehouse_id':this.formModel.value['out_storehouse_id'],
-        // 'in_storehouse_id':this.formModel.value['in_storehouse_id'],
         'u_id':this.cookieStore.getCookie('uid'),
         'sid':this.cookieStore.getCookie('sid')
-    }).subscribe(
-        (data)=>{
-          let info = JSON.parse(data['_body']);
-          alert(info['msg']);
-          if(info['status'] == 200) {
+    }).subscribe((data)=>{
+          alert(data['msg']);
+          if(data['status'] == 200) {
               if(num == 2){
                   this.clear_();
               }else {
                   this.router.navigate(['/inventory-management/inventory-requisition']);
               }
-          }else if(info['status'] == 202){
+          }else if(data['status'] == 202){
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }
         }
     );
   }
-
 
     clear_(){
         this.formModel.patchValue({
@@ -302,7 +284,7 @@ export class AddRequisitionComponent implements OnInit {
      * 搜索库存产品
      */
     searchKey(page:any){
-        let url = this.globalService.getDomain()+'/api/v1/getStockProductList?page='+page+'&p_type='+this.p_type+'&type=list&sid='+this.cookieStore.getCookie('sid');
+        let url = 'getStockProductList?page='+page+'&p_type='+this.p_type+'&type=list&sid='+this.cookieStore.getCookie('sid');
         if(this.keyword.trim() != '') {
             url += '&keyword='+this.keyword.trim();
         }
@@ -313,8 +295,7 @@ export class AddRequisitionComponent implements OnInit {
             }
         });
         url += '&category_ids='+category_ids;
-        this.http.get(url)
-            .map((res)=>res.json())
+        this.globalService.httpRequest('get',url)
             .subscribe((data)=>{
                 this.searchProductList = data;
                 if(this.searchProductList['status'] == 202){
@@ -329,8 +310,7 @@ export class AddRequisitionComponent implements OnInit {
      * 获取弹框左侧商品分类列表信息
      */
     getProductDefault(){
-        this.http.get(this.globalService.getDomain()+'/api/v1/getProductDefault?type=list&property=1&p_type='+this.p_type+'&category_type='+this.category_type_product+'&sid='+this.cookieStore.getCookie('sid'))
-        .map((res)=>res.json())
+        this.globalService.httpRequest('get','getProductDefault?type=list&property=1&p_type='+this.p_type+'&category_type='+this.category_type_product+'&sid='+this.cookieStore.getCookie('sid'))
         .subscribe((data)=>{
             this.productDefault = data;
             if(this.productDefault['status'] == 202){
@@ -418,7 +398,7 @@ export class AddRequisitionComponent implements OnInit {
             this.transfer_user.forEach((val, idx, array) => {
                 id += '"'+val['id']+'",';
             });
-            this.http.post(this.globalService.getDomain()+'/api/v1/addStockAllotLog',{
+            this.globalService.httpRequest('post','addStockAllotLog',{
                 'other_id':this.stock_allot_id,
                 'other_table_name':this.log_table_name,
                 'log_type':this.log_type,
@@ -428,15 +408,14 @@ export class AddRequisitionComponent implements OnInit {
                 'u_id':this.cookieStore.getCookie('uid'),
                 'sid':this.cookieStore.getCookie('sid')
             }).subscribe((data)=>{
-                let info = JSON.parse(data['_body']);
-                if(info['status'] == 200) {
+                if(data['status'] == 200) {
                     this.getStockallotInfo(this.stock_allot_id);
-                }else if(info['status'] == 202){
-                    alert(info['msg']);
+                }else if(data['status'] == 202){
+                    alert(data['msg']);
                     this.cookieStore.removeAll(this.rollback_url);
                     this.router.navigate(['/auth/login']);
-                }else if(info['status'] == 9999 || info['status'] == 201) {
-                    alert(info['msg']);
+                }else if(data['status'] == 9999 || data['status'] == 201) {
+                    alert(data['msg']);
                 }
             });
         }

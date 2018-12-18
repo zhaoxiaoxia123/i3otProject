@@ -1,6 +1,5 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {FadeInTop} from '../../shared/animations/fade-in-top.decorator';
-import {Http,Headers,Response} from '@angular/http';
 import {CookieStoreService} from '../../shared/cookies/cookie-store.service';
 import {Router} from '@angular/router';
 import {GlobalService} from '../../core/global.service';
@@ -17,8 +16,8 @@ declare var $: any;
   templateUrl: './nfc-pcsc.component.html',
 })
 export class NfcPcscComponent implements OnInit,AfterViewInit {
-  userList : Array<any> = [];
-  userDefault : Array<any> = [];
+  userList : any = [];
+  userDefault : any = [];
   page : any;
   prev : boolean = false;
   next : boolean = false;
@@ -45,7 +44,7 @@ export class NfcPcscComponent implements OnInit,AfterViewInit {
 
   customer_name : string = '';
 
-  user_info : Array<any> = [];
+  user_info : any = [];
   uRole : string = '';
   // pageHtml:SafeHtml;
   rollback_url : string = '';
@@ -74,7 +73,6 @@ export class NfcPcscComponent implements OnInit,AfterViewInit {
   permissions : Array<any> = [];
   menuInfos : Array<any> = [];
   constructor(
-      private http:Http,
       fb:FormBuilder,
       private router : Router,
       private cookieStore:CookieStoreService,
@@ -108,7 +106,6 @@ export class NfcPcscComponent implements OnInit,AfterViewInit {
     this.capture = document.getElementById('capture'); // 获取video标签
     this.canvas = document.getElementById("canvas");
     this.context=this.canvas.getContext("2d");
-
   }
 
   publishCard(id:string,u_number:string,c_number:string) {
@@ -118,10 +115,9 @@ export class NfcPcscComponent implements OnInit,AfterViewInit {
 
     this.pcModal.show();
     if(! this.cookieStore.getCookie('access_token')) {
-      this.http.get(this.globalService.getDomain() + '/api/v1/getAccessToken')
-          .map((res) => res.json())
+      this.globalService.httpRequest('get','getAccessToken')
           .subscribe((data) => {
-            this.cookieStore.setCookie('access_token', JSON.parse(data.result).access_token);
+            this.cookieStore.setCookie('access_token', data['result']['access_token']);
           });
     }
     // console.log(this.cookieStore.getCookie('access_token'));
@@ -174,20 +170,19 @@ export class NfcPcscComponent implements OnInit,AfterViewInit {
       "group_id":"gropu001",
       "user_id":"0001"
     };
-    let header: Headers = new Headers();
-    header.set('Content-Type', 'application/x-www-form-urlencoded');
-    // header.set('Access-Control-Allow-Origin', '*');
-      this.http.post('https://aip.baidubce.com/rest/2.0/face/v3/faceset/user/add?access_token='+this.cookieStore.getCookie('access_token'),
+    let options = {
+      'Content-Type':'application/x-www-form-urlencoded'
+    };
+
+    this.globalService.httpRequest('postUrl','https://aip.baidubce.com/rest/2.0/face/v3/faceset/user/add?access_token='+this.cookieStore.getCookie('access_token'),
         contents,
-        { headers:header })
+        options)
         .subscribe((data)=>{
-          console.log(data);
-          let infos = JSON.parse(data['_body']);
-          if(infos.error_code == 0) {
+          if(data['error_code'] == 0) {
             this.isRegisterFaceSuccess = 'yes';
               this.msg('成功录入脸库!!', '#7ef6c7');
           }else{
-            this.msg(infos.error_msg, '#f10d0f');
+            this.msg(data['error_msg'], '#f10d0f');
           }
         });
     // this.http.post(this.globalService.getDomain()+'/api/v1/registerFaceToBaidu',{
@@ -231,18 +226,15 @@ export class NfcPcscComponent implements OnInit,AfterViewInit {
   }
 
   updateUserInfo(){
-    let url1 = this.globalService.nodeDomain + "/open"  ;    //"/read?sector=2";//
-    this.http.get(url1)
-        .map((res1) => res1.json())
+    let url1 = "open"  ;    //"/read?sector=2";//
+    this.globalService.httpRequest('getNode',url1)
         .subscribe((data1) => {
-          let url = this.globalService.nodeDomain + "/write?sector=3&data=" + this.userNumber + "," + this.customerNumber    //"/read?sector=2";//
-          this.http.get(url)
-              .map((res) => res.json())
+          let url = "write?sector=3&data=" + this.userNumber + "," + this.customerNumber    //"/read?sector=2";//
+          this.globalService.httpRequest('getNode',url)
               .subscribe((data) => {
                 if (data['code'] == 0) {
-                  let url_find = this.globalService.nodeDomain + "/findcard?mode=1";//
-                  this.http.get(url_find)
-                      .map((res) => res.json())
+                  let url_find = "findcard?mode=1";
+                  this.globalService.httpRequest('getNode',url_find)
                       .subscribe((data) => {
                         if (data['code'] == 0) {
 
@@ -252,24 +244,23 @@ export class NfcPcscComponent implements OnInit,AfterViewInit {
                               depart += idx + ',';
                             }
                           });
-                          let post_url = this.globalService.getDomain() + '/api/v1/updateUserCardInfo';
-                          this.http.post(post_url, {
+                          let post_url = 'updateUserCardInfo';
+                          this.globalService.httpRequest('post',post_url, {
                             'u_id': this.user_id,
                             'depart': depart,
                             'u_card_info': data['data']['cardNo'],
                             'isSuccess': this.isRegisterFaceSuccess,
                             'sid': this.cookieStore.getCookie('sid')
                           }).subscribe((data1) => {
-                            let info = JSON.parse(data1['_body']);
-                            if (info['status'] == 200) {
-                              this.userList = info;
+                            if (data1['status'] == 200) {
+                              this.userList = data1;
 
                               this.selects = [];
                               for (let entry of this.userList['result']['userList']['data']) {
                                 this.selects[entry['id']] = false;
                               }
                               this.check = false;
-                            } else if (info['status'] == 202) {
+                            } else if (data1['status'] == 202) {
                               this.cookieStore.removeAll(this.rollback_url);
                               this.router.navigate(['/auth/login']);
                             }
@@ -287,9 +278,8 @@ export class NfcPcscComponent implements OnInit,AfterViewInit {
   }
 
   openCard() {
-    let url = this.globalService.nodeDomain+"/open";
-    this.http.get(url)
-        .map((res)=>res.json())
+    let url = "open";
+    this.globalService.httpRequest('getNode',url)
         .subscribe((data)=>{
           console.log(" data:----" );
           console.log( data );
@@ -314,8 +304,7 @@ export class NfcPcscComponent implements OnInit,AfterViewInit {
    * 获取默认参数
    */
   getUserDefault() {
-    this.http.get(this.globalService.getDomain()+'/api/v1/getUserDefault?type=list&sid='+this.cookieStore.getCookie('sid'))
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get','getUserDefault?type=list&sid='+this.cookieStore.getCookie('sid'))
         .subscribe((data)=>{
           this.userDefault = data;
           console.log(this.userDefault);
@@ -360,7 +349,7 @@ export class NfcPcscComponent implements OnInit,AfterViewInit {
    * @param number
    */
   getUserList(number:string,department_id:any) {
-    let url = this.globalService.getDomain()+'/api/v1/getUserList?page='+number+'&sid='+this.cookieStore.getCookie('sid');
+    let url = 'getUserList?page='+number+'&sid='+this.cookieStore.getCookie('sid');
     if(this.formModel.value['keyword'].trim() != ''){
       url += '&keyword='+this.formModel.value['keyword'].trim();
     }
@@ -376,8 +365,7 @@ export class NfcPcscComponent implements OnInit,AfterViewInit {
 
       url += '&depart='+depart;
     }
-    this.http.get(url)
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get',url)
         .subscribe((data)=>{
           this.userList = data;
           if(this.userList['status'] == 202){
@@ -437,17 +425,6 @@ export class NfcPcscComponent implements OnInit,AfterViewInit {
       this.check = true;
     }
   }
-  /**
-   * 分页
-   * @param url
-   pagination(url : string) {
-    // console.log('url:'+url);
-    if(url) {
-        this.page = url.substring((url.lastIndexOf('=') + 1), url.length);
-        // console.log(this.page);
-        this.getUserList(this.page);
-    }
-  }*/
 
   /**
    * 页码分页
@@ -492,12 +469,11 @@ export class NfcPcscComponent implements OnInit,AfterViewInit {
     });
     msg = '删除后将不可恢复，您确定要删除吗？';
     if(confirm(msg)) {
-      let url = this.globalService.getDomain() + '/api/v1/deleteUserById?page=1&depart='+depart+'&type='+type+'&u_id='+u_id+'&sid='+this.cookieStore.getCookie('sid');
+      let url = 'deleteUserById?page=1&depart='+depart+'&type='+type+'&u_id='+u_id+'&sid='+this.cookieStore.getCookie('sid');
       if(this.formModel.value['keyword'].trim() != ''){
         url += '&keyword='+this.formModel.value['keyword'].trim();
       }
-      this.http.delete(url)
-          .map((res) => res.json())
+      this.globalService.httpRequest('delete',url)
           .subscribe((data) => {
             this.userList = data;
             if(this.userList['status'] == 202){
@@ -525,8 +501,7 @@ export class NfcPcscComponent implements OnInit,AfterViewInit {
    * @param id
    */
   getUserInfo(){
-    this.http.get(this.globalService.getDomain()+'/api/v1/getUserInfo?u_id='+this.editStatusUserId+'&type=detail')
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get','getUserInfo?u_id='+this.editStatusUserId+'&type=detail')
         .subscribe((data)=>{
           this.user_info = data;
           this.lgModal.show();
@@ -705,26 +680,24 @@ export class NfcPcscComponent implements OnInit,AfterViewInit {
       alert('请确保已选中需要操作的项！');
       return false;
     }
-    this.http.post(this.globalService.getDomain()+'/api/v1/addUser',{
+    this.globalService.httpRequest('post','addUser',{
       'u_id':u_id,
       'u_status':status,
       'type':type,
       'depart':depart,
       'keyword':this.formModel.value['keyword'].trim(),
       'sid':this.cookieStore.getCookie('sid')
-    }).subscribe(
-        (data)=>{
-          let info = JSON.parse(data['_body']);
-          alert(info['msg']);
-          if(info['status'] == 200) {
-            this.userList = info;
+    }).subscribe((data)=>{
+          alert(data['msg']);
+          if(data['status'] == 200) {
+            this.userList = data;
 
             this.selects = [];
             for (let entry of this.userList['result']['userList']['data']) {
               this.selects[entry['id']] = false;
             }
             this.check = false;
-          }else if(info['status'] == 202){
+          }else if(data['status'] == 202){
             this.cookieStore.removeAll(this.rollback_url);
             this.router.navigate(['/auth/login']);
           }

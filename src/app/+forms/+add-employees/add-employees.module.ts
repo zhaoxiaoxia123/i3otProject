@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-// import { FileUploadModule } from 'ng2-file-upload';  //上传文件
 import { AddEmployeesComponent } from './add-employees.component';
 import { EmployeeFormComponent } from './employee-form/employee-form.component';
 import {addEmployeesRouting} from './add-employees-routing.module';
@@ -20,13 +19,11 @@ import {DpDatePickerModule} from "ng2-date-picker";
     addEmployeesRouting,
     ImageCropperModule,
     ImgCropperSelectModule,
-    DpDatePickerModule,
-    // FileUploadModule,
+    DpDatePickerModule
   ],
   declarations: [
     AddEmployeesComponent,
     RegistrationFormComponent
-    // KeysPipe
   ],
   providers:[ CookieService,CookieStoreService ]
 })

@@ -1,5 +1,4 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Http} from "@angular/http";
 import {Router} from "@angular/router";
 import {CookieStoreService} from "../../shared/cookies/cookie-store.service";
 import {GlobalService} from "../../core/global.service";
@@ -10,9 +9,9 @@ import {ModalDirective} from "ngx-bootstrap";
   templateUrl: './account-menu.component.html',
 })
 export class AccountMenuComponent implements OnInit {
-  menuDefault : Array<any> = [];
-  menuList : Array<any> = [];
-    menuInfo : Array<any> = [];
+    menuDefault : any = [];
+    menuList : any = [];
+    menuInfo : any = [];
 
     //用作全选和反选
     selects : Array<any> = [];
@@ -49,10 +48,9 @@ export class AccountMenuComponent implements OnInit {
     width : string = '0%';
     width_1 : string = '100%';
 
-  rollback_url : string = '';
+    rollback_url : string = '';
     menuInfos: Array<any> = [];
   constructor(
-      private http:Http,
       private router : Router,
       private cookieStore:CookieStoreService,
       private globalService:GlobalService) {
@@ -69,7 +67,6 @@ export class AccountMenuComponent implements OnInit {
           this.menuInfos = this.globalService.getMenuInfos();
       }, this.globalService.getMenuPermissionDelayTime());
   }
-
 
     /**
      * 是否有该元素
@@ -88,12 +85,11 @@ export class AccountMenuComponent implements OnInit {
     }
 
   getMenuList(page:any){
-      let url = this.globalService.getDomain()+'/api/v1/getMenuList?page='+page+'&search_id='+this.search_id+'&sid='+this.cookieStore.getCookie('sid');
+      let url = 'getMenuList?page='+page+'&search_id='+this.search_id+'&sid='+this.cookieStore.getCookie('sid');
       if(this.keyword.trim() != '') {
           url += '&keyword='+this.keyword.trim();
       }
-    this.http.get(url)
-        .map((res)=>res.json())
+      this.globalService.httpRequest('get',url)
         .subscribe((data)=>{
           this.menuList = data;
           if(this.menuList['status'] == 202){
@@ -108,11 +104,9 @@ export class AccountMenuComponent implements OnInit {
    * 获取默认参数
    */
   getMenuDefault() {
-    this.http.get(this.globalService.getDomain()+'/api/v1/getMenuDefault?sid='+this.cookieStore.getCookie('sid'))
-        .map((res)=>res.json())
+    this.globalService.httpRequest('get','getMenuDefault?sid='+this.cookieStore.getCookie('sid'))
         .subscribe((data)=>{
-          this.menuDefault = data;
-          console.log(this.menuDefault);
+            this.menuDefault = data;
             if(this.menuDefault['status'] == 202){
                 alert(this.menuDefault['msg']);
                 this.cookieStore.removeAll(this.rollback_url);
@@ -253,7 +247,7 @@ export class AccountMenuComponent implements OnInit {
             alert('请输入菜单指向的url ！');
             return false;
         }
-        this.http.post(this.globalService.getDomain()+'/api/v1/addMenu',{
+        this.globalService.httpRequest('post','addMenu',{
             'menu_id' :this.editStatusMenuId,
             'menu_number' :this.menu_number,
             'menu_name' :this.menu_name,
@@ -273,13 +267,12 @@ export class AccountMenuComponent implements OnInit {
             'u_id' : this.cookieStore.getCookie('uid'),
             'sid':this.cookieStore.getCookie('sid')
         }).subscribe((data)=>{
-            let info = JSON.parse(data['_body']);
-            console.log(info['status']);
-            if(info['status'] == 201){
-                alert(info['msg']);
+            console.log(data['status']);
+            if(data['status'] == 201){
+                alert(data['msg']);
                 return false;
-            }else if(info['status'] == 200) {
-                this.menuList = info;
+            }else if(data['status'] == 200) {
+                this.menuList = data;
                 if(this.menuList){
                     if (this.menuList['result']['menuList']['current_page'] == this.menuList['result']['menuList']['last_page']) {
                         this.next = true;
@@ -301,7 +294,7 @@ export class AccountMenuComponent implements OnInit {
                 if(num == 1) {
                     this.editModal.hide();
                 }
-            }else if(info['status'] == 202){
+            }else if(data['status'] == 202){
                 this.cookieStore.removeAll(this.rollback_url);
                 this.router.navigate(['/auth/login']);
             }
@@ -316,8 +309,7 @@ export class AccountMenuComponent implements OnInit {
             if (this.editStatusMenuId == 0) {
                 return false;
             }
-            this.http.get(this.globalService.getDomain() + '/api/v1/getMenuInfo?menu_id=' + this.editStatusMenuId + '&sid=' + this.cookieStore.getCookie('sid'))
-                .map((res) => res.json())
+            this.globalService.httpRequest('get','getMenuInfo?menu_id=' + this.editStatusMenuId + '&sid=' + this.cookieStore.getCookie('sid'))
                 .subscribe((data) => {
                     this.menuInfo = data;
                     if (this.menuInfo['status'] == 200) {
@@ -362,36 +354,34 @@ export class AccountMenuComponent implements OnInit {
         }
         msg = '您确定要执行此删除操作吗？';
         if(confirm(msg)) {
-            let url = this.globalService.getDomain()+'/api/v1/deleteMenuById?menu_id=' + p_id + '&type='+type+'&sid=' + this.cookieStore.getCookie('sid');
-            this.http.delete(url)
-                .map((res) => res.json())
-                .subscribe((data) => {
-                    this.menuList = data;
-                    if(this.menuList['status'] == 202){
-                        this.cookieStore.removeAll(this.rollback_url);
-                        this.router.navigate(['/auth/login']);
+            let url = 'deleteMenuById?menu_id=' + p_id + '&type='+type+'&sid=' + this.cookieStore.getCookie('sid');
+            this.globalService.httpRequest('delete',url)
+            .subscribe((data) => {
+                this.menuList = data;
+                if(this.menuList['status'] == 202){
+                    this.cookieStore.removeAll(this.rollback_url);
+                    this.router.navigate(['/auth/login']);
+                }
+                if(this.menuList){
+                    if (this.menuList['result']['menuList']['current_page'] == this.menuList['result']['menuList']['last_page']) {
+                        this.next = true;
+                    } else {
+                        this.next = false;
                     }
-                    if(this.menuList){
-                        if (this.menuList['result']['menuList']['current_page'] == this.menuList['result']['menuList']['last_page']) {
-                            this.next = true;
-                        } else {
-                            this.next = false;
-                        }
-                        if (this.menuList['result']['menuList']['current_page'] == 1) {
-                            this.prev = true;
-                        } else {
-                            this.prev = false;
-                        }
-                        this.selects = [];
-                        for (let entry of this.menuList['result']['menuList']['data']) {
-                            this.selects[entry['menu_id']] = false;
-                        }
-                        this.check = false;
+                    if (this.menuList['result']['menuList']['current_page'] == 1) {
+                        this.prev = true;
+                    } else {
+                        this.prev = false;
                     }
-                });
+                    this.selects = [];
+                    for (let entry of this.menuList['result']['menuList']['data']) {
+                        this.selects[entry['menu_id']] = false;
+                    }
+                    this.check = false;
+                }
+            });
         }
     }
-
 
     @ViewChild('editModal') public editModal:ModalDirective;
 }
