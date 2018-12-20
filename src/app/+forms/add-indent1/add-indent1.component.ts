@@ -120,7 +120,6 @@ export class AddIndent1Component implements OnInit {
       }
       if(this.o_id == 0) {
         this.p_id_default = 0;
-        // this.p_id_default = this.orderList['result']['productList'].length >= 1 ? this.orderList['result']['productList'][0]['p_id'] : 0;
         this.u_id_default = this.orderList['result']['userList'].length >= 1 ? this.orderList['result']['userList'][0]['id'] : 0;
         // this.o_inspector_default = this.orderList['result']['userList'].length >= 1 ? this.orderList['result']['userList'][0]['id'] : 0;
         this.o_payment_method_default = this.orderList['result']['categoryList8'].length >= 1 ? this.orderList['result']['categoryList8'][0]['category_id'] : 0;
