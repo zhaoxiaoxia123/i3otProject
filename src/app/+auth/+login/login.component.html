@@ -60,95 +60,73 @@
 
           <div class="login-user" >
             <div class=""  [style.display] = "item == 0 ? 'block' : 'none'">
-              <div class="" >
 
-                <form class="smart-form client-form" (ngSubmit)="onSubmit(myForm.value, myForm.valid)" #myForm="ngForm" novalidate>
-                  <fieldset>
-                    <section>
-                      <label class="label">客户ID</label>
-                      <label class="input"> <i class="icon-append fa fa-user"></i>
-                        <input type="text" placeholder="请输入客户ID"  minlength="1" ngModel required name="cNumber">
-                      </label>
-                    </section>
+              <form class=" "  (ngSubmit)="onSubmit(myForm.value, myForm.valid)" #myForm="ngForm" novalidate >
+                <div class="form-group">
+                  <label class="label">客户ID</label>
+                  <input class="form-control" type="text" placeholder="请输入客户ID"  minlength="1" ngModel required name="cNumber">
+                </div>
+                <div class="form-group">
+                  <label class="label">用户ID</label>
+                  <input class="form-control" type="text" placeholder="请输入用户ID" minlength="1" ngModel required name="uNumber">
+                </div>
 
-                    <section>
-                      <label class="label">用户ID</label>
-                      <label class="input"> <i class="icon-append fa fa-user"></i>
-                        <input type="text" placeholder="请输入用户ID" minlength="1" ngModel required name="uNumber">
-                      </label>
-                    </section>
+                <div class="form-group">
+                  <label class="label">密码</label>
+                  <input class="form-control" placeholder="请输入密码"  type="password" name="password" ngModel minlength="6" data-smart-validate-input="" data-required="" data-minlength="3" data-message="Please enter your email password">
+                  <b [hidden]="!myForm.form.hasError('minlength','password')" class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i>密码最小长度是6</b>
+                  <div class="note">
+                    <a routerLink="/auth/forgot-password">找回密码</a>
+                  </div>
+                </div>
 
-                    <section>
-                      <label class="label">密码</label>
-                      <label class="input"> <i class="icon-append fa fa-lock"></i>
-                        <input placeholder="请输入密码"  type="password" name="password" ngModel minlength="6" data-smart-validate-input="" data-required="" data-minlength="3" data-message="Please enter your email password">
-                        <b [hidden]="!myForm.form.hasError('minlength','password')" class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i>密码最小长度是6</b>
+                <div class="form-group custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input"  name="remember" checked>
+                  <label class="custom-control-label" >记住密码，下次自动登录</label>
+                </div>
 
+                <div class="form-group">
+                  <button class="btn btn-primary btn-lg btn-block login-btn" [disabled]="!myForm.form.valid">
+                    登录
+                  </button>
+                </div>
 
-                      </label>
-                      <div class="note">
-                        <a routerLink="/auth/forgot-password">找回密码</a>
-                      </div>
-                    </section>
-                    <section>
-                      <label class="checkbox">
-                        <input type="checkbox" name="remember" checked>
-                        <i></i>记住密码，下次自动登录</label>
-                    </section>
-                  </fieldset>
-                  <fieldset>
-                    <button class="btn btn-primary btn-lg btn-block login-btn" [disabled]="!myForm.form.valid">
-                      登录
-                    </button>
-                  </fieldset>
-                </form>
-
-              </div>
-
-
+              </form>
 
             </div>
             <div class=""  [style.display] = "item == 1 ? 'block' : 'none'">
-              <div class="" >
-                <form class="smart-form client-form" novalidate>
-                  <fieldset>
 
-                    <section>
-                      <label class="label">用户名或手机号码</label>
-                      <label class="input"> <i class="icon-append fa fa-user"></i>
-                        <input class="form-control" placeholder="请输入用户名或手机号码" type="text" minlength="1" ngModel required name="uNumber" disabled="disabled">
-                      </label>
-                    </section>
+              <form  novalidate>
+                <div class="form-group">
+                  <label class="label">用户名或手机号码</label>
+                  <input class="form-control" placeholder="请输入用户名或手机号码" type="text" minlength="1" ngModel required name="uNumber" disabled="disabled">
+                </div>
+                <div class="form-group">
+                  <label class="label">密码</label>
+                  <input class="form-control" disabled="disabled" placeholder="请输入密码" type="password" name="password" ngModel minlength="6" data-smart-validate-input="" data-required="" data-minlength="3"  >
+                  <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i>密码最小长度是6</b>
 
-                    <section>
-                      <label class="label">密码</label>
-                      <label class="input"> <i class="icon-append fa fa-lock"></i>
-                        <input class="form-control" disabled="disabled" placeholder="请输入密码" type="password" name="password" ngModel minlength="6" data-smart-validate-input="" data-required="" data-minlength="3"  >
-                        <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i>密码最小长度是6</b>
+                  <div class="note">
+                    <a routerLink="/auth/forgot-password">找回密码</a>
+                  </div>
+                </div>
 
-                      </label>
-                      <div class="note">
-                        <a routerLink="/auth/forgot-password">找回密码</a>
-                      </div>
-                    </section>
-                    <section>
-                      <label class="checkbox">
-                        <input type="checkbox" name="remember" checked>
-                        <i></i>记住密码，下次自动登录</label>
-                    </section>
+                <div class="form-group custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input"  name="remember" checked>
+                  <label class="custom-control-label" >记住密码，下次自动登录</label>
+                </div>
 
-                    <p class="txt-color-red" style="padding-bottom:10px;">暂不开放</p>
-                  </fieldset>
+                <div class="form-group">
+                  <p class="txt-color-red" style="padding-bottom:10px;">暂不开放</p>
+                </div>
 
+                <div class="form-group">
+                  <button class="btn btn-primary btn-lg btn-block login-btn" [disabled]="!myForm.form.valid">
+                    登录
+                  </button>
+                </div>
 
-
-                  <fieldset>
-                    <button class="btn btn-primary btn-lg btn-block login-btn" [disabled]="!myForm.form.valid">
-                      登录
-                    </button>
-                  </fieldset>
-                </form>
-              </div>
+              </form>
 
             </div>
 
@@ -170,13 +148,6 @@
         </ul>
 
       </div>
-
-
-
-
-
-
-
 
     </div>
   </div>

@@ -5,156 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d7a6cc0a-066e-4c53-afa2-0c23e7d44476" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/css/glyphicons.css" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/assets/css/font-awesome.min.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/assets/fonts/font-awesome/fontawesome-webfont.eot" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/assets/fonts/font-awesome/fontawesome-webfont.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/assets/fonts/font-awesome/fontawesome-webfont.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/assets/fonts/font-awesome/fontawesome-webfont.woff" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/assets/fonts/font-awesome/fontawesome-webfont.woff2" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/angular.json" afterPath="$PROJECT_DIR$/angular.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+account/account-admin/account-admin.component.html" afterPath="$PROJECT_DIR$/src/app/+account/account-admin/account-admin.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+account/account-company/account-company.component.html" afterPath="$PROJECT_DIR$/src/app/+account/account-company/account-company.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+account/account-menu/account-menu.component.html" afterPath="$PROJECT_DIR$/src/app/+account/account-menu/account-menu.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+account/account-permissions/account-permissions.component.html" afterPath="$PROJECT_DIR$/src/app/+account/account-permissions/account-permissions.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+account/address-ip/address-ip.component.html" afterPath="$PROJECT_DIR$/src/app/+account/address-ip/address-ip.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+account/personal-settings/account-binding/account-binding.component.html" afterPath="$PROJECT_DIR$/src/app/+account/personal-settings/account-binding/account-binding.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+account/personal-settings/account-password/account-password.component.html" afterPath="$PROJECT_DIR$/src/app/+account/personal-settings/account-password/account-password.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+account/personal-settings/account-personal/account-personal.component.html" afterPath="$PROJECT_DIR$/src/app/+account/personal-settings/account-personal/account-personal.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+account/personal-settings/personal-settings.component.html" afterPath="$PROJECT_DIR$/src/app/+account/personal-settings/personal-settings.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+app-views/helmet-projects/helmet-projects.component.html" afterPath="$PROJECT_DIR$/src/app/+app-views/helmet-projects/helmet-projects.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+assets-management/assets-category/assets-category.component.html" afterPath="$PROJECT_DIR$/src/app/+assets-management/assets-category/assets-category.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+assets-management/assets-issue/assets-issue.component.html" afterPath="$PROJECT_DIR$/src/app/+assets-management/assets-issue/assets-issue.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+assets-management/assets-listing/assets-listing.component.html" afterPath="$PROJECT_DIR$/src/app/+assets-management/assets-listing/assets-listing.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+assets-management/assets-listing/assets-listing.module.ts" afterPath="$PROJECT_DIR$/src/app/+assets-management/assets-listing/assets-listing.module.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+assets-management/assets-return/assets-return.component.html" afterPath="$PROJECT_DIR$/src/app/+assets-management/assets-return/assets-return.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+assets-management/assets-scrap/assets-scrap.component.html" afterPath="$PROJECT_DIR$/src/app/+assets-management/assets-scrap/assets-scrap.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+auth/+forgot/forgot.component.html" afterPath="$PROJECT_DIR$/src/app/+auth/+forgot/forgot.component.html" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/data-page.zip" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+auth/+login/login.component.html" afterPath="$PROJECT_DIR$/src/app/+auth/+login/login.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+auth/+login/login.component.ts" afterPath="$PROJECT_DIR$/src/app/+auth/+login/login.component.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+auth/+register/register.component.html" afterPath="$PROJECT_DIR$/src/app/+auth/+register/register.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+auth/+register/register.component.ts" afterPath="$PROJECT_DIR$/src/app/+auth/+register/register.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+customer-management/customer-unit/customer-unit.component.html" afterPath="$PROJECT_DIR$/src/app/+customer-management/customer-unit/customer-unit.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+customer-management/unit-classify/unit-classify.component.html" afterPath="$PROJECT_DIR$/src/app/+customer-management/unit-classify/unit-classify.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+customer-management/unit-list/unit-list.component.html" afterPath="$PROJECT_DIR$/src/app/+customer-management/unit-list/unit-list.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/dynamic-wall.component.html" afterPath="$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/dynamic-wall.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/panel-element/panel-element.component.html" afterPath="$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/panel-element/panel-element.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/panel-element/panel-element.component.ts" afterPath="$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/panel-element/panel-element.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/panel-mine/panel-mine.component.html" afterPath="$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/panel-mine/panel-mine.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/panel-products/panel-products.component.html" afterPath="$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/panel-products/panel-products.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/panel-sell/panel-sell.component.html" afterPath="$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/panel-sell/panel-sell.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/panel-staff/panel-staff.component.html" afterPath="$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/panel-staff/panel-staff.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/panel-storehouse/panel-storehouse.component.html" afterPath="$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/panel-storehouse/panel-storehouse.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/todo-widget/todo-widget.component.html" afterPath="$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/todo-widget/todo-widget.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+equipment/add-equipment/add-equipment.component.html" afterPath="$PROJECT_DIR$/src/app/+equipment/add-equipment/add-equipment.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+equipment/add-i3otp/add-i3otp.component.html" afterPath="$PROJECT_DIR$/src/app/+equipment/add-i3otp/add-i3otp.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+equipment/add-phonics/add-phonics.component.html" afterPath="$PROJECT_DIR$/src/app/+equipment/add-phonics/add-phonics.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+equipment/chart-setting/chart-setting.component.html" afterPath="$PROJECT_DIR$/src/app/+equipment/chart-setting/chart-setting.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+equipment/data-map/data-map.component.html" afterPath="$PROJECT_DIR$/src/app/+equipment/data-map/data-map.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+equipment/equipment-list/equipment-list.component.html" afterPath="$PROJECT_DIR$/src/app/+equipment/equipment-list/equipment-list.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+equipment/helmet-chart/helmet-chart.component.html" afterPath="$PROJECT_DIR$/src/app/+equipment/helmet-chart/helmet-chart.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+equipment/helmet-list/helmet-list.component.html" afterPath="$PROJECT_DIR$/src/app/+equipment/helmet-list/helmet-list.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+equipment/phonics-list/phonics-list.component.html" afterPath="$PROJECT_DIR$/src/app/+equipment/phonics-list/phonics-list.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+equipment/station-chart/station-chart.component.html" afterPath="$PROJECT_DIR$/src/app/+equipment/station-chart/station-chart.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+equipment/station-list/station-list.component.html" afterPath="$PROJECT_DIR$/src/app/+equipment/station-list/station-list.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+equipment/todo-details/todo-details.component.html" afterPath="$PROJECT_DIR$/src/app/+equipment/todo-details/todo-details.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+forms/+add-employees/add-employees.component.html" afterPath="$PROJECT_DIR$/src/app/+forms/+add-employees/add-employees.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+forms/+add-employees/registration-form/registration-form.component.html" afterPath="$PROJECT_DIR$/src/app/+forms/+add-employees/registration-form/registration-form.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+forms/add-customer1/add-customer1.component.html" afterPath="$PROJECT_DIR$/src/app/+forms/add-customer1/add-customer1.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+forms/add-indent1/add-indent1.component.html" afterPath="$PROJECT_DIR$/src/app/+forms/add-indent1/add-indent1.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+forms/add-inventory1/add-inventory1.component.html" afterPath="$PROJECT_DIR$/src/app/+forms/add-inventory1/add-inventory1.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+forms/add-product1/add-product1.component.html" afterPath="$PROJECT_DIR$/src/app/+forms/add-product1/add-product1.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+forms/todo-mission/todo-mission.component.html" afterPath="$PROJECT_DIR$/src/app/+forms/todo-mission/todo-mission.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+forms/todo-projects/todo-projects.component.html" afterPath="$PROJECT_DIR$/src/app/+forms/todo-projects/todo-projects.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+inventory-management/add-outbound/add-outbound.component.html" afterPath="$PROJECT_DIR$/src/app/+inventory-management/add-outbound/add-outbound.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+inventory-management/add-requisition/add-requisition.component.html" afterPath="$PROJECT_DIR$/src/app/+inventory-management/add-requisition/add-requisition.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+inventory-management/add-storage/add-storage.component.html" afterPath="$PROJECT_DIR$/src/app/+inventory-management/add-storage/add-storage.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+inventory-management/commodity-classify/commodity-classify.component.html" afterPath="$PROJECT_DIR$/src/app/+inventory-management/commodity-classify/commodity-classify.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+inventory-management/inventory-classification/inventory-classification.component.html" afterPath="$PROJECT_DIR$/src/app/+inventory-management/inventory-classification/inventory-classification.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+inventory-management/inventory-early/inventory-early.component.html" afterPath="$PROJECT_DIR$/src/app/+inventory-management/inventory-early/inventory-early.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+inventory-management/inventory-number/inventory-number.component.html" afterPath="$PROJECT_DIR$/src/app/+inventory-management/inventory-number/inventory-number.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+inventory-management/inventory-requisition/inventory-requisition.component.html" afterPath="$PROJECT_DIR$/src/app/+inventory-management/inventory-requisition/inventory-requisition.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+inventory-management/outbound/outbound.component.html" afterPath="$PROJECT_DIR$/src/app/+inventory-management/outbound/outbound.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+inventory-management/storage/storage.component.html" afterPath="$PROJECT_DIR$/src/app/+inventory-management/storage/storage.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+iot/station-block/station-block.component.html" afterPath="$PROJECT_DIR$/src/app/+iot/station-block/station-block.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+management/setting-affiliation/setting-affiliation.component.html" afterPath="$PROJECT_DIR$/src/app/+management/setting-affiliation/setting-affiliation.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+management/setting-archives/setting-archives.component.html" afterPath="$PROJECT_DIR$/src/app/+management/setting-archives/setting-archives.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+management/setting-conversion/setting-conversion.component.html" afterPath="$PROJECT_DIR$/src/app/+management/setting-conversion/setting-conversion.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+management/setting-department/setting-department.component.html" afterPath="$PROJECT_DIR$/src/app/+management/setting-department/setting-department.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+management/setting-departmentnew/setting-departmentnew.component.html" afterPath="$PROJECT_DIR$/src/app/+management/setting-departmentnew/setting-departmentnew.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+management/setting-enterprise/setting-enterprise.component.html" afterPath="$PROJECT_DIR$/src/app/+management/setting-enterprise/setting-enterprise.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+management/setting-enterprise1/setting-enterprise1.component.html" afterPath="$PROJECT_DIR$/src/app/+management/setting-enterprise1/setting-enterprise1.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+management/setting-enterprise2/setting-enterprise2.component.html" afterPath="$PROJECT_DIR$/src/app/+management/setting-enterprise2/setting-enterprise2.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+management/setting-equipment/setting-equipment.component.html" afterPath="$PROJECT_DIR$/src/app/+management/setting-equipment/setting-equipment.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+management/setting-formwork/setting-formwork.component.html" afterPath="$PROJECT_DIR$/src/app/+management/setting-formwork/setting-formwork.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+management/setting-honor/setting-honor.component.html" afterPath="$PROJECT_DIR$/src/app/+management/setting-honor/setting-honor.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+management/setting-labellinga/setting-labellinga.component.html" afterPath="$PROJECT_DIR$/src/app/+management/setting-labellinga/setting-labellinga.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+management/setting-openness/setting-openness.component.html" afterPath="$PROJECT_DIR$/src/app/+management/setting-openness/setting-openness.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+management/setting-personnel/setting-personnel.component.html" afterPath="$PROJECT_DIR$/src/app/+management/setting-personnel/setting-personnel.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+management/setting-price/setting-price.component.html" afterPath="$PROJECT_DIR$/src/app/+management/setting-price/setting-price.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+management/setting-product3type/setting-product3type.component.html" afterPath="$PROJECT_DIR$/src/app/+management/setting-product3type/setting-product3type.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+management/setting-product4parameters/setting-product4parameters.component.html" afterPath="$PROJECT_DIR$/src/app/+management/setting-product4parameters/setting-product4parameters.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+management/setting-repertory/setting-repertory.component.html" afterPath="$PROJECT_DIR$/src/app/+management/setting-repertory/setting-repertory.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+medical/medical-billing/medical-billing.component.html" afterPath="$PROJECT_DIR$/src/app/+medical/medical-billing/medical-billing.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+medical/medical-commodity/medical-commodity.component.html" afterPath="$PROJECT_DIR$/src/app/+medical/medical-commodity/medical-commodity.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+medical/medical-employees/medical-employees.component.html" afterPath="$PROJECT_DIR$/src/app/+medical/medical-employees/medical-employees.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+medical/medical-inventory/medical-inventory.component.html" afterPath="$PROJECT_DIR$/src/app/+medical/medical-inventory/medical-inventory.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+medical/medical-patient/medical-patient.component.html" afterPath="$PROJECT_DIR$/src/app/+medical/medical-patient/medical-patient.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+medical/medical-sales/medical-sales.component.html" afterPath="$PROJECT_DIR$/src/app/+medical/medical-sales/medical-sales.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+nfc/nfc-pcsc/nfc-pcsc.component.html" afterPath="$PROJECT_DIR$/src/app/+nfc/nfc-pcsc/nfc-pcsc.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+process/approval-process/approval-process.component.html" afterPath="$PROJECT_DIR$/src/app/+process/approval-process/approval-process.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+process/approval-process/process-already/process-already.component.html" afterPath="$PROJECT_DIR$/src/app/+process/approval-process/process-already/process-already.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+process/approval-process/process-await/process-await.component.html" afterPath="$PROJECT_DIR$/src/app/+process/approval-process/process-await/process-await.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+process/approval-process/process-copy/process-copy.component.html" afterPath="$PROJECT_DIR$/src/app/+process/approval-process/process-copy/process-copy.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+process/approval-process/process-my/process-my.component.html" afterPath="$PROJECT_DIR$/src/app/+process/approval-process/process-my/process-my.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+process/initiate-evection/initiate-evection.component.html" afterPath="$PROJECT_DIR$/src/app/+process/initiate-evection/initiate-evection.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+process/initiate-general/initiate-general.component.html" afterPath="$PROJECT_DIR$/src/app/+process/initiate-general/initiate-general.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+process/initiate-goout/initiate-goout.component.html" afterPath="$PROJECT_DIR$/src/app/+process/initiate-goout/initiate-goout.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+process/initiate-leave/initiate-leave.component.html" afterPath="$PROJECT_DIR$/src/app/+process/initiate-leave/initiate-leave.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+process/initiate-requite/initiate-requite.component.html" afterPath="$PROJECT_DIR$/src/app/+process/initiate-requite/initiate-requite.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+process/process-initiate/process-initiate.component.html" afterPath="$PROJECT_DIR$/src/app/+process/process-initiate/process-initiate.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+procurement-management/add-receipt/add-receipt.component.html" afterPath="$PROJECT_DIR$/src/app/+procurement-management/add-receipt/add-receipt.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+procurement-management/app-order/app-order.component.html" afterPath="$PROJECT_DIR$/src/app/+procurement-management/app-order/app-order.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+procurement-management/procurement-order/procurement-order.component.html" afterPath="$PROJECT_DIR$/src/app/+procurement-management/procurement-order/procurement-order.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+procurement-management/procurement-receipt/procurement-receipt.component.html" afterPath="$PROJECT_DIR$/src/app/+procurement-management/procurement-receipt/procurement-receipt.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+procurement-management/procurement-type/procurement-type.component.html" afterPath="$PROJECT_DIR$/src/app/+procurement-management/procurement-type/procurement-type.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+sales-management/add-sales/add-sales.component.html" afterPath="$PROJECT_DIR$/src/app/+sales-management/add-sales/add-sales.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+sales-management/add-sales/add-sales.component.ts" afterPath="$PROJECT_DIR$/src/app/+sales-management/add-sales/add-sales.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+sales-management/sales-list/sales-list.component.html" afterPath="$PROJECT_DIR$/src/app/+sales-management/sales-list/sales-list.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+sales-management/sales-type/sales-type.component.html" afterPath="$PROJECT_DIR$/src/app/+sales-management/sales-type/sales-type.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+tables/list-client/list-client.component.html" afterPath="$PROJECT_DIR$/src/app/+tables/list-client/list-client.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+tables/list-client1/list-client1.component.html" afterPath="$PROJECT_DIR$/src/app/+tables/list-client1/list-client1.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+tables/list-indent/list-indent.component.html" afterPath="$PROJECT_DIR$/src/app/+tables/list-indent/list-indent.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+tables/list-inventory/list-inventory.component.html" afterPath="$PROJECT_DIR$/src/app/+tables/list-inventory/list-inventory.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+tables/list-product/list-product.component.html" afterPath="$PROJECT_DIR$/src/app/+tables/list-product/list-product.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+tables/list-staff/list-staff.component.html" afterPath="$PROJECT_DIR$/src/app/+tables/list-staff/list-staff.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+to-do/todo-message/todo-message.component.html" afterPath="$PROJECT_DIR$/src/app/+to-do/todo-message/todo-message.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+to-do/todo-workbench/todo-workbench.component.html" afterPath="$PROJECT_DIR$/src/app/+to-do/todo-workbench/todo-workbench.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/app.routing.ts" afterPath="$PROJECT_DIR$/src/app/app.routing.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/shared/common/big-pic/big-pic.component.html" afterPath="$PROJECT_DIR$/src/app/shared/common/big-pic/big-pic.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/shared/common/mission-details/todo-mission-detail.component.html" afterPath="$PROJECT_DIR$/src/app/shared/common/mission-details/todo-mission-detail.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/shared/common/select-file/select-file.component.html" afterPath="$PROJECT_DIR$/src/app/shared/common/select-file/select-file.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/shared/common/select-product/select-product.component.html" afterPath="$PROJECT_DIR$/src/app/shared/common/select-product/select-product.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/shared/common/select-stock/select-stock.component.html" afterPath="$PROJECT_DIR$/src/app/shared/common/select-stock/select-stock.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/shared/common/select-user/select-user.component.html" afterPath="$PROJECT_DIR$/src/app/shared/common/select-user/select-user.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/shared/common/verify-frame/verify-frame.component.html" afterPath="$PROJECT_DIR$/src/app/shared/common/verify-frame/verify-frame.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/shared/layout/footer/footer.component.html" afterPath="$PROJECT_DIR$/src/app/shared/layout/footer/footer.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/shared/layout/header/activities/activities-notification/activities-notification.component.html" afterPath="$PROJECT_DIR$/src/app/shared/layout/header/activities/activities-notification/activities-notification.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/shared/layout/header/activities/activities.component.html" afterPath="$PROJECT_DIR$/src/app/shared/layout/header/activities/activities.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/shared/layout/navigation/navigation.component.html" afterPath="$PROJECT_DIR$/src/app/shared/layout/navigation/navigation.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/shared/layout/ribbon/ribbon.component.html" afterPath="$PROJECT_DIR$/src/app/shared/layout/ribbon/ribbon.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/shared/layout/ribbon/ribbon.component.ts" afterPath="$PROJECT_DIR$/src/app/shared/layout/ribbon/ribbon.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/api/ui-examples/nestable-lists.json" afterPath="$PROJECT_DIR$/src/assets/api/ui-examples/nestable-lists.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/css/bootstrap.min.css" afterPath="$PROJECT_DIR$/src/assets/css/bootstrap.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/css/i3ot-common.main.css" afterPath="$PROJECT_DIR$/src/assets/css/i3ot-common.main.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/css/i3ot-component.css" afterPath="$PROJECT_DIR$/src/assets/css/i3ot-component.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/css/i3ot-plugins.css" afterPath="$PROJECT_DIR$/src/assets/css/i3ot-plugins.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/css/style.css" afterPath="$PROJECT_DIR$/src/assets/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/index.html" afterPath="$PROJECT_DIR$/src/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/lib.ts" afterPath="$PROJECT_DIR$/src/lib.ts" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -167,7 +20,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375" />
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -225,7 +78,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/app/+equipment/equipment-list/equipment-list.component.html" />
         <option value="$PROJECT_DIR$/src/app/+equipment/data-map/data-map.component.html" />
         <option value="$PROJECT_DIR$/src/app/+customer-management/unit-classify/unit-classify.component.html" />
         <option value="$PROJECT_DIR$/src/app/+tables/list-staff/list-staff.component.html" />
@@ -267,7 +119,6 @@
         <option value="$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/panel-storehouse/panel-storehouse.component.html" />
         <option value="$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/panel-mine/panel-mine.component.html" />
         <option value="$PROJECT_DIR$/src/assets/css/style.css" />
-        <option value="$PROJECT_DIR$/src/app/+auth/+register/register.component.html" />
         <option value="$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/dynamic-wall.component.html" />
         <option value="$PROJECT_DIR$/src/assets/css/i3ot-plugins.css" />
         <option value="$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/panel-staff/panel-staff.component.html" />
@@ -276,6 +127,8 @@
         <option value="$PROJECT_DIR$/src/assets/css/i3ot-component.css" />
         <option value="$PROJECT_DIR$/src/app/app.routing.ts" />
         <option value="$PROJECT_DIR$/src/app/shared/layout/navigation/navigation.component.html" />
+        <option value="$PROJECT_DIR$/src/app/+auth/+register/register.component.html" />
+        <option value="$PROJECT_DIR$/src/app/+auth/+login/login.component.html" />
       </list>
     </option>
   </component>
@@ -323,71 +176,49 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="erp-admin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="erp-admin" type="462c0819:PsiDirectoryNode" />
+              <item name="cdasod-project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cdasod-project" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="erp-admin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="erp-admin" type="462c0819:PsiDirectoryNode" />
+              <item name="cdasod-project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cdasod-project" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="erp-admin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="erp-admin" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="erp-admin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="erp-admin" type="462c0819:PsiDirectoryNode" />
+              <item name="cdasod-project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cdasod-project" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="shared" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="erp-admin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="erp-admin" type="462c0819:PsiDirectoryNode" />
+              <item name="cdasod-project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cdasod-project" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="shared" type="462c0819:PsiDirectoryNode" />
-              <item name="layout" type="462c0819:PsiDirectoryNode" />
+              <item name="+auth" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="erp-admin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="erp-admin" type="462c0819:PsiDirectoryNode" />
+              <item name="cdasod-project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cdasod-project" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="shared" type="462c0819:PsiDirectoryNode" />
-              <item name="layout" type="462c0819:PsiDirectoryNode" />
-              <item name="navigation" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="erp-admin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="erp-admin" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="erp-admin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="erp-admin" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
+              <item name="+auth" type="462c0819:PsiDirectoryNode" />
+              <item name="+login" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../i3othome" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="settings.meteor" />
     <property name="node.js.path.for.package.jscs" value="project" />
     <property name="node.js.selected.package.jscs" value="" />
@@ -401,7 +232,7 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.tslint" value="F:\2019work\code\i3ot\erp-admin\node_modules\tslint" />
-    <property name="SearchEverywhereHistoryKey" value="phonics&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+equipment/add-phonics/add-phonics.component.html&#10;panel-sell&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+dashboard/dynamic-wall/panel-sell/panel-sell.component.html&#10;panel-mine&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+dashboard/dynamic-wall/panel-mine/panel-mine.component.html&#10;panel-staff&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+dashboard/dynamic-wall/panel-staff/panel-staff.component.html&#10;dynamic-wall&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+dashboard/dynamic-wall/dynamic-wall.component.html&#10;register&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+auth/+register/register.component.html&#10;panel-storehouse&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+dashboard/dynamic-wall/panel-storehouse/panel-storehouse.component.html&#10;panel-products&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+dashboard/dynamic-wall/panel-products/panel-products.component.html&#10;styl&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/style/style-dashboard/style-dashboard.component.html&#10;todo-widget&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+dashboard/dynamic-wall/todo-widget/todo-widget.component.css&#10;enterprise&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-enterprise/setting-enterprise.component.ts&#10;panel-element&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+dashboard/dynamic-wall/panel-element/panel-element.component.html&#10;todo-mission&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+forms/todo-mission/todo-mission.component.html&#10;form&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/style/style-form/style-form.component.html&#10;unit-list&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+customer-management/unit-list/unit-list.component.html&#10;todo-projects&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+forms/todo-projects/todo-projects.component.html&#10;account-personal&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+account/personal-settings/account-personal/account-personal.component.html&#10;personal-settings&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+account/personal-settings/personal-settings.component.html&#10;account-company&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+account/account-company/account-company.component.html&#10;approval-process&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+process/approval-process/approval-process.component.html&#10;todo-message&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+to-do/todo-message/todo-message.component.html&#10;assets-listing&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+assets-management/assets-listing/assets-listing.module.ts&#10;assets-l&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+assets-management/assets-listing/assets-listing.component.ts&#10;add-outbound/&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+inventory-management/add-outbound/add-outbound.component.html&#10;setting-archives&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-archives/setting-archives.component.html&#10;inventory-classification&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+inventory-management/inventory-classification/inventory-classification.component.html&#10;setting-departmentnew&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-departmentnew/setting-departmentnew.component.html&#10;activities&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/shared/layout/header/activities/activities.component.html&#10;select-stock&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/shared/common/select-stock/select-stock.component.ts&#10;add-sales&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+sales-management/add-sales/add-sales.component.ts&#10;account-menu&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+account/account-menu/account-menu.component.html&#10;account-admin&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+account/account-admin/account-admin.component.html&#10;address-ip&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+account/address-ip/address-ip.component.html&#10;setting-honor&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-honor/setting-honor.component.html&#10;ribbon&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/shared/layout/ribbon/ribbon.component.html&#10;unit-classify&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+customer-management/unit-classify/unit-classify.component.html&#10;setting-openness&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-openness/setting-openness.component.html&#10;setting-formwork&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-formwork/setting-formwork.component.html&#10;setting-affiliation&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-affiliation/setting-affiliation.component.html&#10;setting-equipment&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-equipment/setting-equipment.component.html&#10;enterprise2&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-enterprise2/setting-enterprise2.component.html&#10;staff&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+tables/list-staff/list-staff.component.html&#10;enterprise1&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-enterprise1/setting-enterprise1.component.html&#10;account-permissions&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+account/account-permissions/account-permissions.component.html&#10;helmet-chart&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+equipment/helmet-chart/helmet-chart.component.html&#10;data-map&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+equipment/data-map/data-map.component.html&#10;equipment-list&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+equipment/equipment-list/equipment-list.component.html&#10;add-equipment&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+equipment/add-equipment/add-equipment.component.html&#10;phonics-list&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+equipment/phonics-list/phonics-list.component.html" />
+    <property name="SearchEverywhereHistoryKey" value="login&#9;FILE&#9;file://F:/2019work/code/i3ot/cdasod-project/src/app/shared/user/login-info/login-info.component.html&#10;register&#9;FILE&#9;file://F:/2019work/code/i3ot/cdasod-project/src/app/+auth/+register/register.component.html&#10;phonics&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+equipment/add-phonics/add-phonics.component.html&#10;panel-sell&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+dashboard/dynamic-wall/panel-sell/panel-sell.component.html&#10;panel-mine&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+dashboard/dynamic-wall/panel-mine/panel-mine.component.html&#10;panel-staff&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+dashboard/dynamic-wall/panel-staff/panel-staff.component.html&#10;dynamic-wall&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+dashboard/dynamic-wall/dynamic-wall.component.html&#10;panel-storehouse&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+dashboard/dynamic-wall/panel-storehouse/panel-storehouse.component.html&#10;panel-products&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+dashboard/dynamic-wall/panel-products/panel-products.component.html&#10;styl&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/style/style-dashboard/style-dashboard.component.html&#10;todo-widget&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+dashboard/dynamic-wall/todo-widget/todo-widget.component.css&#10;enterprise&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-enterprise/setting-enterprise.component.ts&#10;panel-element&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+dashboard/dynamic-wall/panel-element/panel-element.component.html&#10;todo-mission&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+forms/todo-mission/todo-mission.component.html&#10;form&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/style/style-form/style-form.component.html&#10;unit-list&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+customer-management/unit-list/unit-list.component.html&#10;todo-projects&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+forms/todo-projects/todo-projects.component.html&#10;account-personal&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+account/personal-settings/account-personal/account-personal.component.html&#10;personal-settings&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+account/personal-settings/personal-settings.component.html&#10;account-company&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+account/account-company/account-company.component.html&#10;approval-process&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+process/approval-process/approval-process.component.html&#10;todo-message&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+to-do/todo-message/todo-message.component.html&#10;assets-listing&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+assets-management/assets-listing/assets-listing.module.ts&#10;assets-l&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+assets-management/assets-listing/assets-listing.component.ts&#10;add-outbound/&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+inventory-management/add-outbound/add-outbound.component.html&#10;setting-archives&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-archives/setting-archives.component.html&#10;inventory-classification&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+inventory-management/inventory-classification/inventory-classification.component.html&#10;setting-departmentnew&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-departmentnew/setting-departmentnew.component.html&#10;activities&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/shared/layout/header/activities/activities.component.html&#10;select-stock&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/shared/common/select-stock/select-stock.component.ts&#10;add-sales&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+sales-management/add-sales/add-sales.component.ts&#10;account-menu&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+account/account-menu/account-menu.component.html&#10;account-admin&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+account/account-admin/account-admin.component.html&#10;address-ip&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+account/address-ip/address-ip.component.html&#10;setting-honor&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-honor/setting-honor.component.html&#10;ribbon&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/shared/layout/ribbon/ribbon.component.html&#10;unit-classify&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+customer-management/unit-classify/unit-classify.component.html&#10;setting-openness&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-openness/setting-openness.component.html&#10;setting-formwork&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-formwork/setting-formwork.component.html&#10;setting-affiliation&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-affiliation/setting-affiliation.component.html&#10;setting-equipment&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-equipment/setting-equipment.component.html&#10;enterprise2&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-enterprise2/setting-enterprise2.component.html&#10;staff&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+tables/list-staff/list-staff.component.html&#10;enterprise1&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-enterprise1/setting-enterprise1.component.html&#10;account-permissions&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+account/account-permissions/account-permissions.component.html&#10;helmet-chart&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+equipment/helmet-chart/helmet-chart.component.html&#10;data-map&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+equipment/data-map/data-map.component.html&#10;equipment-list&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+equipment/equipment-list/equipment-list.component.html&#10;add-equipment&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+equipment/add-equipment/add-equipment.component.html&#10;phonics-list&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+equipment/phonics-list/phonics-list.component.html" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
   </component>
   <component name="RunDashboard">
@@ -460,16 +291,16 @@
       <workItem from="1552439496152" duration="20433000" />
       <workItem from="1552466975092" duration="1774000" />
       <workItem from="1552525213912" duration="10510000" />
+      <workItem from="1552547729616" duration="1101000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="326581000" />
+    <option name="totallyTimeSpent" value="327682000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
     <layout>
-      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32918552" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24947146" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3020362" sideWeight="0.5021142" order="7" side_tool="true" content_ui="tabs" />
@@ -484,6 +315,7 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32918552" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -525,20 +357,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/node_modules/@angular/forms/esm5/src/directives/ng_control_status.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="91" column="8" lean-forward="false" selection-start-line="91" selection-start-column="8" selection-end-line="91" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+inventory-management/add-outbound/add-outbound.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="111">
-          <caret line="250" column="26" lean-forward="true" selection-start-line="250" selection-start-column="26" selection-end-line="250" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/+assets-management/assets-listing/assets-listing.component.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="368">
@@ -599,9 +417,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-934">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#50#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -675,7 +490,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cdasod-project/src/app/+dashboard/dynamic-wall/panel-element/panel-element.component.html">
+    <entry file="file://$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/panel-element/panel-element.component.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2189">
           <caret line="38" column="33" lean-forward="false" selection-start-line="38" selection-start-column="29" selection-end-line="38" selection-end-column="33" />
@@ -707,9 +522,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="276">
           <caret line="12" column="13" lean-forward="true" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#50#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -759,17 +571,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="276">
           <caret line="12" column="24" lean-forward="false" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+auth/+register/register.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="423">
-          <caret line="116" column="0" lean-forward="true" selection-start-line="116" selection-start-column="0" selection-end-line="116" selection-end-column="0" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#fieldset#0;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -785,9 +586,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="15" column="27" lean-forward="true" selection-start-line="15" selection-start-column="27" selection-end-line="15" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#48#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -795,7 +593,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="97" column="19" lean-forward="false" selection-start-line="97" selection-start-column="19" selection-end-line="101" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -803,13 +600,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-727">
           <caret line="16" column="10" lean-forward="true" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
-          <folding>
-            <element signature="n#div#0;n#div#0;n#div#0;n#sa-widget#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#ul#0;n#div#0;n#div#0;n#sa-widget#0;n#!!top" expanded="false" />
-            <element signature="n#ul#1;n#div#0;n#div#0;n#sa-widget#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#sa-widget#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#0;n#sa-widget#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -817,7 +607,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1748">
           <caret line="8" column="39" lean-forward="false" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="39" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -825,7 +614,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="368">
           <caret line="25" column="13" lean-forward="true" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -841,7 +629,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2159">
           <caret line="80" column="30" lean-forward="false" selection-start-line="80" selection-start-column="26" selection-end-line="80" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -849,9 +636,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="181">
           <caret line="8" column="19" lean-forward="true" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
-          <folding>
-            <element signature="n#style#0;n#ul#0;n#div#1;n#div#0;n#sa-widget#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -882,9 +666,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="276">
           <caret line="12" column="26" lean-forward="false" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="53" />
-          <folding>
-            <element signature="n#style#0;n#div#1;n#div#0;n#sa-widget#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -892,7 +673,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="460">
           <caret line="32" column="23" lean-forward="true" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -900,9 +680,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-796">
           <caret line="103" column="49" lean-forward="true" selection-start-line="103" selection-start-column="49" selection-end-line="103" selection-end-column="49" />
-          <folding>
-            <element signature="n#style#0;n#span#0;n#div#0;n#div#0;n#fieldset#0;n#form#0;n#div#0;n#div#0;n#sa-widget#0;n#article#0;n#div#0;n#sa-widgets-grid#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -910,7 +687,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
           <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -918,7 +694,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="115">
           <caret line="5" column="16" lean-forward="true" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -926,9 +701,30 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="275">
           <caret line="123" column="9" lean-forward="true" selection-start-line="123" selection-start-column="9" selection-end-line="123" selection-end-column="9" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/shared/user/login-info/login-info.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/+auth/+login/login.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="149" column="12" lean-forward="false" selection-start-line="149" selection-start-column="12" selection-end-line="149" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/+auth/+register/register.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="67" column="14" lean-forward="false" selection-start-line="67" selection-start-column="14" selection-end-line="68" selection-end-column="40" />
+          <folding />
         </state>
       </provider>
     </entry>
