@@ -4,7 +4,7 @@
   </div>-->
   <div class="box-header with-border" >
     <a class="btn btn-success btn-sm" routerLink="/equipment/i3otp/:i_id">
-      <span class="glyphicon glyphicon-plus"></span>添加设备</a>
+      <span class="fa-fw fa fa-plus"></span>添加设备</a>
   </div>
   <sa-widget [editbutton]="false" color="blueDark">
     <header>
@@ -64,7 +64,7 @@
             <td (click)="getI3otpInfo(il.i3otp_id);">{{ il.i3otp_sensor_intervan }}</td>
             <td (click)="getI3otpInfo(il.i3otp_id);">{{ il.i3otp_address }}</td>
             <td>
-              <a class="btn btn-warning btn-xs" [routerLink]="['/equipment/i3otp',il.i3otp_id]"><span class="glyphicon glyphicon-pencil"></span>修改</a>
+              <a class="btn btn-warning btn-xs" [routerLink]="['/equipment/i3otp',il.i3otp_id]"><span class="fa-fw fa fa-pencil"></span>修改</a>
               <a class="btn btn-danger btn-xs" (click)="deleteI3otp(il.i3otp_id ,i3otpList.result?.i3otpList?.current_page)"><span class="glyphicon glyphicon-remove"></span>删除</a>
             </td>
           </tr>

@@ -9,70 +9,65 @@
           </header>
           <div>
             <div class="widget-body no-padding">
-              <div class="row">
-                <article class="col-sm-12">
-                  <div class="navbar navbar-default">
-                    <form class="navbar-form navbar-left" role="search" novalidate>
-                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'add')">
-                        <a class="btn btn-success btn-sm" (click)="isDemo('/forms/employees','0')">
-                          <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
+              <article>
+                <div class="navbar navbar-default">
+                  <form  class="navbar-form " novalidate="" role="search" >
+                    <div class="btn-group" *ngIf="isPermission(menu_id,'add')">
+                      <button type="button" class="btn btn-primary"  (click)="isDemo('/forms/employees','0')"><span class="fa-fw fa fa-plus  mr-5"></span>添加</button>
+                    </div>
+                    <div class="btn-group" *ngIf="isPermission(menu_id,'edit')">
+                      <button type="button"   [ngClass]="{'btn btn-warning':true,'not-click':isStatus == 0}" (click)="isDemo('/forms/employees','1')"><span class="fa-fw fa fa-pencil mr-5"></span>修改</button>
+                    </div>
+                    <div class="btn-group" *ngIf="isPermission(menu_id,'delete')">
+                      <button type="button"  [ngClass]="{'btn btn-danger':true,'not-click':isStatus == 0}" (click)="deleteUser('id')" ><span class="fa-fw fa  fa-trash-o mr-5"></span>删除</button>
+                    </div>
+                    <div class="btn-group" *ngIf="isPermission(menu_id,'detail')">
+                      <button type="button"  [ngClass]="{'btn btn-success':true,'not-click':isStatus == 0}" (click)="getUserInfo()"><span class="fa-fw fa fa-list-alt mr-5"></span>详情</button>
+                    </div>
+                    <div class="btn-group"  *ngIf="isStatus == 2 && isPermission(menu_id,'edit')">
+                      <button type="button" class="btn btn-success"  (click)="editStatus(1,'id')"><span class="fa-fw fa fa-play mr-5 "></span>启用</button>
+                    </div>
+                    <div class="btn-group" *ngIf="isStatus == 1 && isPermission(menu_id,'edit')">
+                      <button type="button" class="btn btn-danger"  (click)="editStatus(2,'id')"><span class="fa-fw fa fa-stop mr-5 "></span>无效</button>
+                    </div>
+
+                    <div class="btn-group" *ngIf="isPermission(menu_id,'edit') || isPermission(menu_id,'delete')">
+                      <button type="button" class="btn btn-secondary" (click)="showAllCheck()" ><span class="fa-fw fa fa-th-large mr-5"></span>批处理</button>
+                      <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
+                        <span class="sr-only"></span>
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" *ngIf="isPermission(menu_id,'edit')"  (click)="editStatus(1,'all')" >批量设为启动</a>
+                        <a class="dropdown-item"  *ngIf="isPermission(menu_id,'edit')"  (click)="editStatus(2,'all')" >批量设为无效</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" *ngIf="isPermission(menu_id,'delete')"  (click)="deleteUser('all')">批量删除</a>
                       </div>
-                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'edit')">
-                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="isDemo('/forms/employees','1')" >
-                          <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
-                      </div>
-                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'delete')">
-                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="deleteUser('id')" >
-                          <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
-                      </div>
-                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'detail')">
-                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="getUserInfo()">
-                          <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
-                      </div>
-                      <div class="form-group pdlr-4" *ngIf="isStatus == 2 && isPermission(menu_id,'edit')">
-                        <a class="btn default-btn btn-sm" (click)="editStatus(1,'id')">
-                          <span class="fa-fw fa fa-play mr-5 color-green"></span>启用</a>
-                      </div>
-                      <div class="form-group pdlr-4" *ngIf="isStatus == 1 && isPermission(menu_id,'edit')">
-                        <a class="btn default-btn btn-sm" (click)="editStatus(2,'id')" >
-                          <span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>无效</a>
-                      </div>
-                      <div class="form-group btn-group pdlr-4" *ngIf="isPermission(menu_id,'edit') || isPermission(menu_id,'delete')">
-                        <a class="btn default-btn btn-sm dropdown-toggle"  data-toggle="dropdown" (click)="showAllCheck()">
-                          <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li *ngIf="isPermission(menu_id,'edit')"><a (click)="editStatus(1,'all')" ><span class="fa-fw fa fa-play mr-5 color-green"></span>批量设为启动</a></li>
-                          <li *ngIf="isPermission(menu_id,'edit')"><a (click)="editStatus(2,'all')" ><span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>批量设为无效</a></li>
-                          <li class="divider"></li>
-                          <li *ngIf="isPermission(menu_id,'delete')"><a (click)="deleteUser('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
-                        </ul>
-                      </div>
-                    </form>
-                    <form class="navbar-form navbar-left" role="search" novalidate [formGroup]="formModel">
-                      <div class="form-group pdlr-4">
-                        <input type="text" name="keyword" maxlength="15" formControlName="keyword" class="form-control" placeholder="请输入编号和名称">
-                      </div>
-                      <div class="form-group pdlr-4">
-                        <button type="button" (click)="getUserList(1,0)" class="btn btn-default">
-                          <i class="glyphicon glyphicon-search"></i>
-                          搜索
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </article>
-              </div>
-              <div class="pt">
-                <article class="form-group col col-xs-4">
-                  <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                    </div>
+                  </form>
+                  <form  class="navbar-form" novalidate="" role="search" [formGroup]="formModel" >
+
+                    <div class="btn-group">
+                      <input type="text" class="form-control" name="keyword" maxlength="15" formControlName="keyword"  placeholder="请输入编号和名称">
+                    </div>
+                    <div class="btn-group">
+                      <button type="button" class="btn default-btn" (click)="getUserList(1,0)">搜索</button>
+                    </div>
+
+                  </form>
+
+                </div>
+              </article>
+              <div class="row table-box-pd" >
+                <article class="form-group col-sm-4 col-12 ">
+                  <sa-widget class="jarviswidget" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
                              [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
                     <div>
                       <div class="widget-body no-padding">
-                        <alert type="info" class="no-margin"  >
+                        <div type="info" class="no-margin alert alert-primary"  >
                           <i class="fa-fw fa fa-sitemap"></i>
                           部门分类
-                        </alert>
-                        <div class="pd-10 mt-10 height-overflow">
+                        </div>
+                        <div class="pd-10  height-overflow">
                           <div class="widget-body">
                             <div class="tree smart-form">
                               <ul class="">
@@ -114,23 +109,23 @@
                             </div>
                           </div>
                         </div>
-                        <div class="dt-toolbar">
+                        <div class="footer-size">
                         </div>
 
                       </div>
                     </div>
                   </sa-widget>
                 </article>
-                <article class="form-group col col-xs-8">
-                  <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                <article class="form-group col-sm-8 col-12">
+                  <sa-widget class="jarviswidget" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
                              [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
                     <div>
                       <div class="widget-body no-padding">
-                        <alert type="info" class="no-margin" >
+                        <div type="info" class="no-margin alert alert-primary" >
                           <i class="fa-fw fa fa-table"></i>
                           员工列表
-                        </alert>
-                        <div class="mt-10 height-overflow" style="padding:0;width:100%;">
+                        </div>
+                        <div class=" height-overflow" style="padding:0;width:100%;">
                           <div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-scrolling">
                             <table class="table table-striped smart-form table-height-20">
                               <thead>
@@ -210,19 +205,19 @@
                           </div>
                         </div>
                         <!-- 底部-（分页部分）-->
-                        <div class="dt-toolbar">
-                          <div class="col-xs-12 col-sm-6">
-                            <span>共{{userList.result?.userList?.total}}条</span>
-                          </div>
-                          <div class="hidden-xs right">
-                            <ul class="pagination pagination-sm" *ngIf="userList?.result?.page != ''">
-                              <li *ngFor="let p of userList?.result?.page" class="{{p.class}}">
-                                <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
-                                <a *ngIf="p.method==''">{{p.text}}</a>
-                              </li>
-                            </ul>
-                          </div>
+                        <div class="footer-size flex-justify-end">
+                          <ul class="pagination folat-right" *ngIf="userList?.result?.page != ''">
+                            <li *ngFor="let p of userList?.result?.page" class="{{p.class}}">
+                              <a class="page-link" (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+                              <a class="page-link" *ngIf="p.method==''">{{p.text}}</a>
+                            </li>
+                            <li class="page-item disabled">
+                              <a  class="page-link" disabled>共{{userList.result?.userList?.total}}条</a>
+                            </li>
+                          </ul>
                         </div>
+
+
                       </div>
                     </div>
                   </sa-widget>
@@ -236,20 +231,22 @@
     </div>
   </sa-widgets-grid>
 
-  <div bsModal #lgModal="bs-modal" class="modal fade">
-    <div class="modal-dialog modal-lg ">
+  <div bsModal #lgModal="bs-modal" class="modal fade bd-example-modal-xl">
+    <div class="modal-dialog modal-xl ">
       <div class="modal-content">
         <div class="modal-header">
+          <h4 class="modal-title">{{user_info.result?.u_username}}-{{user_info.result?.name}}</h4>
           <button type="button" class="close" (click)="lgModal.hide()">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h4 class="modal-title">{{user_info.result?.u_username}}-{{user_info.result?.name}}</h4>
         </div>
         <div class="modal-body">
           <div class="row">
             <div class="col-sm-12">
               <div class="text-overflow-y" >
-                <P class="alert alert-info">基本信息</P>
+                <p class="alert alert-info" role="alert">
+                  基本信息
+                </p>
                 <table class="table table-striped table-forum">
                   <tbody>
                   <tr>

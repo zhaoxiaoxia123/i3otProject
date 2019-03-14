@@ -2,105 +2,96 @@
   <sa-widgets-grid>
     <div class="row">
       <article class="col-sm-12 ">
-        <sa-widget [editbutton]="false" [deletebutton]="false" >
+        <sa-widget  [editbutton]="false" [deletebutton]="false" [colorbutton]="false">
           <header *ngIf="pr_id == 0" >
             <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
             <h2 >添加处方单</h2>
           </header>
           <header *ngIf="pr_id != 0 && isDetail!='detail'">
-            <span class="widget-icon"> <i class="glyphicon glyphicon-pencil"></i> </span>
+            <span class="widget-icon"> <i class="fa-fw fa fa-pencil"></i> </span>
             <h2 >修改销售单 </h2>
           </header>
           <header *ngIf="isDetail=='detail'">
-            <span class="widget-icon"> <i class="glyphicon glyphicon-zoom-in"></i> </span>
+            <span class="widget-icon"> <i class="fa-fw fa fa-list-alt"></i> </span>
             <h2 >详情 </h2>
           </header>
           <div>
             <!--小部件内容-->
             <div class="widget-body no-padding">
-              <form id="smart-form-register" class="smart-form" [formGroup]="formModel" (ngSubmit)="onSubmit()">
+              <form id="smart-form-register" class="form-distance" [formGroup]="formModel" (ngSubmit)="onSubmit()">
                 <fieldset>
                   <legend>基本信息</legend>
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <section>
+                  <div class="form-row">
+
+                    <div class="form-group col-sm-4">
                       <label class="label">单据号</label>
-                      <label class="input">
-                        <input *ngIf="isDetail=='detail'" disabled="disabled" type="text" placeholder="单据号" name="pr_order" formControlName="pr_order" >
-                        <input *ngIf="isDetail!='detail'" type="text" placeholder="单据号" name="pr_order" formControlName="pr_order" >
-                      </label>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <section class="mb-6">
+                      <input  class="form-control"  *ngIf="isDetail=='detail'" disabled="disabled" type="text" placeholder="单据号" name="pr_order" formControlName="pr_order" >
+                      <input class="form-control"  *ngIf="isDetail!='detail'" type="text" placeholder="单据号" name="pr_order" formControlName="pr_order" >
+                    </div>
+
+                    <div class="form-group col-sm-4">
                       <label class="label">单据日期</label>
-                      <label  class="input">
-                        <input *ngIf="isDetail=='detail'" disabled="disabled" name="pr_date"  maxlength="20" formControlName="pr_date" placeholder="选择日期" [dpDayPicker]="datePickerConfig" [theme]="'dp-material'" [mode]="'day'" class="form-control ng-binding expire-text-soon"/>
-                        <input *ngIf="isDetail!='detail'" name="pr_date"  maxlength="20" formControlName="pr_date" placeholder="选择日期" [dpDayPicker]="datePickerConfig" [theme]="'dp-material'" [mode]="'day'" class="form-control ng-binding expire-text-soon"/>
-                      </label>
-                    </section>
-                  </div>
+                      <input  class="form-control"  *ngIf="isDetail=='detail'" disabled="disabled" name="pr_date"  maxlength="20" formControlName="pr_date" placeholder="选择日期" [dpDayPicker]="datePickerConfig" [theme]="'dp-material'" [mode]="'day'" />
+                      <input  class="form-control"  *ngIf="isDetail!='detail'" name="pr_date"  maxlength="20" formControlName="pr_date" placeholder="选择日期" [dpDayPicker]="datePickerConfig" [theme]="'dp-material'" [mode]="'day'" />
+                    </div>
 
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <label class="label ">姓名</label>
-                    <section >
-                      <div class="input-group">
-                        <label class="select form-control border-0">
-                          <select *ngIf="isDetail=='detail'" disabled="disabled" name="pr_supplier" formControlName="pr_supplier" [(ngModel)]="pr_supplier_default">
-                            <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
-                            <option *ngFor="let cus of purchaseList.result?.supplier" [selected]="purchaseInfo.result?.pr_supplier == cus.c_id" value="{{ cus.c_id }}">{{cus.c_name}}</option>
-                          </select>
-                          <select *ngIf="isDetail!='detail'" name="pr_supplier" formControlName="pr_supplier" [(ngModel)]="pr_supplier_default" (change)="getCustomerInfo($event,1)">
-                            <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
-                            <option *ngFor="let cus of purchaseList.result?.supplier" [selected]="purchaseInfo.result?.pr_supplier == cus.c_id" value="{{ cus.c_id }}">{{cus.c_name}}</option>
-                          </select><i></i>
-                        </label>
-                        <div class="input-group-btn" *ngIf="isDetail!='detail'">
-                          <a  href="http://cn.i3ot.com/#/medical/medical-patient/add" target="_blank" (click)="smartModEg1()" class="btn btn-default btn-sm pb-6" type="button">添加</a>
-                          <a class="btn btn-default btn-sm pb-6" type="button" (click)="getPurchaseDefault('1')"><i class="fa fa-link"></i>刷新</a>
+                    <div class="form-group col-sm-4">
+                      <label class="label ">姓名</label>
+                      <div class="input-group mb-2 mr-sm-2">
+                        <select   class="form-control"  *ngIf="isDetail=='detail'" disabled="disabled" name="pr_supplier" formControlName="pr_supplier" [(ngModel)]="pr_supplier_default">
+                          <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                          <option *ngFor="let cus of purchaseList.result?.supplier" [selected]="purchaseInfo.result?.pr_supplier == cus.c_id" value="{{ cus.c_id }}">{{cus.c_name}}</option>
+                        </select>
+                        <select   class="form-control"  *ngIf="isDetail!='detail'" name="pr_supplier" formControlName="pr_supplier" [(ngModel)]="pr_supplier_default" (change)="getCustomerInfo($event,1)">
+                          <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                          <option *ngFor="let cus of purchaseList.result?.supplier" [selected]="purchaseInfo.result?.pr_supplier == cus.c_id" value="{{ cus.c_id }}">{{cus.c_name}}</option>
+                        </select>
+                        <div class="input-group-prepend"  *ngIf="isDetail!='detail'">
+                          <a   class="input-group-text" type="button"  href="http://cn.i3ot.com/#/medical/medical-patient/add" target="_blank" (click)="smartModEg1()" >添加
+                          </a>
                         </div>
-                      </div>
-                    </section>
-                  </div>
+                        <div class="input-group-prepend"  *ngIf="isDetail!='detail'">
+                          <a class="input-group-text refresh-page" type="button"  (click)="getPurchaseDefault('1')">
+                            刷新
+                          </a>
+                        </div>
 
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <section>
+                      </div>
+                    </div>
+
+                    <div class="form-group col-sm-4">
                       <label class="label">年龄</label>
-                      <label class="input">
-                        <input disabled="disabled" type="text" placeholder="年龄" name="c_age" formControlName="c_age" >
-                        </label>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <section>
+                      <input class="form-control"  disabled="disabled" type="text" placeholder="年龄" name="c_age" formControlName="c_age" >
+                    </div>
+
+                    <div class="form-group col-sm-4">
                       <label class="label">性别</label>
-                      <label class="input">
-                        <input disabled="disabled" type="text" placeholder="性别" name="c_gender" formControlName="c_gender">
-                      </label>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
-                    <section>
+                      <input  class="form-control"  disabled="disabled" type="text" placeholder="性别" name="c_gender" formControlName="c_gender">
+                    </div>
+
+                    <div class="form-group col-sm-12">
                       <label class="label">病症</label>
-                      <label class="textarea textarea-resizable">
-                        <textarea disabled="disabled" class="custom-scroll" rows="3" name="c_symptom" formControlName="c_symptom"></textarea>
-                      </label>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <section>
-                      <label class="label">搜索选择商品名称</label>
-                      <label class="input">
-                        <i *ngIf="isDetail!='detail'" class="icon-append glyphicon glyphicon-search cursor-pointer" (click)="searchKey(1)"></i><!-- data-toggle="modal" data-target="#myModal"-->
-                        <input *ngIf="isDetail=='detail'" disabled="disabled" type="text" name="keyword" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">
-                        <input *ngIf="isDetail!='detail'" type="text" name="keyword" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">
-                      </label>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 padding20">
-                    <div class="widget-body no-padding">
+                      <textarea class="form-control"  disabled="disabled"  rows="3" name="c_symptom" formControlName="c_symptom"></textarea>
+                    </div>
+
+                    <div class="form-group col-sm-12">
+                      <div class="navbar navbar-default">
+                        <form  class="navbar-form" novalidate="" role="search" >
+                          <div class="btn-group">
+                            <input  class="form-control"  *ngIf="isDetail=='detail'" disabled="disabled" type="text" name="keyword" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">
+                            <input class="form-control"   placeholder="搜索库存商品名称"  *ngIf="isDetail!='detail'" type="text" name="keyword" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">
+                          </div>
+                          <div class="btn-group">
+                            <button type="button" class="btn default-btn" (click)="searchKey(1)">搜索</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+
+                    <div class="form-group col-sm-12">
                       <div  class="padding0">
                         <div style="z-index: 2;width:25%;float:left;" class="table-responsive padding0 table-minheight">
-                          <table style="margin-top: 0!important;" class="table table-hover table-border table-bordered dataTable table-height-50">
+                          <table style="margin-top: 0!important;" class="table table-border table-bordered dataTable table-height-50">
                             <thead>
                             <tr>
                               <th>序号</th>
@@ -122,7 +113,7 @@
                           </table>
                         </div>
                         <div style="padding: 0;z-index:1;width:75%;float:left;" class="table-responsive table-minheight">
-                          <table style="margin-top: 0!important;" class="table table-hover table-border table-bordered dataTable table-height-50">
+                          <table style="margin-top: 0!important;" class="table  table-border table-bordered dataTable table-height-50">
                             <thead>
                             <tr>
                               <th>商品类型</th>
@@ -142,10 +133,10 @@
                                 {{a1.p_count}}
                               </td>
                               <td *ngIf="!a1.assets_current_status">
-                                <label  class="input wi-100">
-                                  <input *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="a1.p_count" value="{{a1.p_count}}" type="text">
-                                  <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="a1.p_count" value="{{a1.p_count}}" type="text" (keyup)="sumPCount($event,ind1,a1.p_count,a1.old_p_count,a1.assets_surplus_count)">
-                                </label>
+                                <div class="form-group">
+                                  <input  class="form-control"  *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="a1.p_count" value="{{a1.p_count}}" type="text">
+                                  <input  class="form-control" *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="a1.p_count" value="{{a1.p_count}}" type="text" (keyup)="sumPCount($event,ind1,a1.p_count,a1.old_p_count,a1.assets_surplus_count)">
+                                </div>
                               </td>
                               <td>{{a1.assets_unit}}</td>
                               <td>{{a1.assets_surplus_count}}</td>
@@ -153,7 +144,7 @@
                               <td>{{a1.assets_price}}</td>
                               <td>{{a1.p_count * a1.assets_price}}</td>
                               <td>
-                                <a *ngIf="isDetail!='detail'" class="btn btn-danger btn-xs" (click)="removeInput(ind1)"><span class="glyphicon glyphicon-remove"></span></a>
+                                <a *ngIf="isDetail!='detail'" class="btn btn-danger btn-xs" (click)="removeInput(ind1)"><span class="fa fa-remove" style="color:#fff;"></span></a>
                               </td>
                             </tr>
                             </tbody>
@@ -172,40 +163,42 @@
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-6 ">
-                    <section>
+
+
+                    <div class="form-group col-sm-4">
                       <label class="label">经办人</label>
-                      <label   class="select form-control border-0">
-                        <select *ngIf="isDetail=='detail'" disabled="disabled" name="pr_employee" formControlName="pr_employee" [(ngModel)]="pr_employee_default">
-                          <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
-                          <option *ngFor="let u of purchaseList?.result?.userList" [selected]="purchaseInfo.result?.pr_employee == u.id" value="{{ u.id }}">{{u.u_username}}</option>
-                        </select>
-                        <select *ngIf="isDetail!='detail'" name="pr_employee" formControlName="pr_employee" [(ngModel)]="pr_employee_default">
-                          <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
-                          <option *ngFor="let u of purchaseList?.result?.userList" [selected]="purchaseInfo.result?.pr_employee == u.id" value="{{ u.id }}">{{u.u_username}}</option>
-                        </select><i></i>
-                      </label>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-8 col-md-8 col-sm-6 col-xs-6 ">
-                    <h4 class="text-align-right">
-                     合计金额:<strong>{{p_sales_price}}</strong>
-                    </h4>
+                      <select  class="form-control"  *ngIf="isDetail=='detail'" disabled="disabled" name="pr_employee" formControlName="pr_employee" [(ngModel)]="pr_employee_default">
+                        <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                        <option *ngFor="let u of purchaseList?.result?.userList" [selected]="purchaseInfo.result?.pr_employee == u.id" value="{{ u.id }}">{{u.u_username}}</option>
+                      </select>
+                      <select  class="form-control"  *ngIf="isDetail!='detail'" name="pr_employee" formControlName="pr_employee" [(ngModel)]="pr_employee_default">
+                        <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                        <option *ngFor="let u of purchaseList?.result?.userList" [selected]="purchaseInfo.result?.pr_employee == u.id" value="{{ u.id }}">{{u.u_username}}</option>
+                      </select>
+
+                    </div>
+
+                    <div class="form-group col-sm-8">
+                      <h4 class="text-align-right">
+                        合计金额:<strong>{{p_sales_price}}</strong>
+                      </h4>
+                    </div>
+
+
                   </div>
 
                 </fieldset>
-                <footer>
+                <div class="footer-size flex-justify-end">
                   <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#particulars"><i class="fa fa-print"></i>
                     打印预览
                   </button>
-                  <!--<button type="button" class="btn btn-success btn-sm" ><span class="glyphicon glyphicon-plus"></span>保存并新增</button>-->
-                  <button *ngIf="pr_id==0 && (isPermission(menu_id,'add') || isPermission(menu_id,'edit'))" type="submit" class="btn btn-primary">保存</button>
-                  <button *ngIf="isDetail!='detail' && pr_id!=0 && (isPermission(menu_id,'add') || isPermission(menu_id,'edit'))" type="submit" class="btn btn-primary">修改</button>
-                  <button type="button" class="btn btn-default" [routerLink]="['/medical/medical-sales']">
+                  <!--<button type="button" class="btn btn-success btn-sm  ml-2" ><span class="fa-fw fa fa-plus"></span>保存并新增</button>-->
+                  <button *ngIf="pr_id==0 && (isPermission(menu_id,'add') || isPermission(menu_id,'edit'))" type="submit" class="btn btn-primary  ml-2">保存</button>
+                  <button *ngIf="isDetail!='detail' && pr_id!=0 && (isPermission(menu_id,'add') || isPermission(menu_id,'edit'))" type="submit" class="btn btn-primary  ml-2">修改</button>
+                  <button type="button" class="btn btn-default  ml-2" [routerLink]="['/medical/medical-sales']">
                     返回
                   </button>
-                </footer>
+                </div>
               </form>
             </div>
           </div>
@@ -215,50 +208,44 @@
   </sa-widgets-grid>
 </div>
 
-<div class="modal fade" bsModal #lgModal="bs-modal">
-  <div class="modal-dialog">
+<div class="modal fade bd-example-modal-xl" bsModal #lgModal="bs-modal">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
+        <!-- 标题 -->
+        <h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>选择商品</h3>
         <!-- 关闭按钮 -->
         <button type="button" class="close" (click)="closeSubmit();lgModal.hide()">
           ×
         </button>
-        <!-- 标题 -->
-        <h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>选择商品</h3>
+
       </div>
       <div class="modal-body ">
         <div  class="row">
           <article  class="col-sm-12">
             <div class="navbar navbar-default">
-              <div class="collapse navbar-collapse">
-
-                <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-                  <div class="form-group pdlr-4">
-                    <div class="form-group padding-left-10">
-                      <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" [(ngModel)]="keyword_product" name="keyword_product" placeholder="请输入搜索内容" type="text">
-                    </div>
-                    <button class="btn btn-default" type="button" (click)="searchKey(1)">
-                      <i  class="glyphicon glyphicon-search"></i>
-                      搜索
-                    </button>
-                  </div>
-
-                </form>
-              </div>
+              <form  class="navbar-form " novalidate="" role="search" >
+                <div class="btn-group">
+                  <input type="text" class="form-control"  maxlength="15" [(ngModel)]="keyword_product" name="keyword_product" placeholder="请输入搜索内容">
+                </div>
+                <div class="btn-group">
+                  <button type="button" class="btn default-btn"   (click)="searchKey(1)">搜索</button>
+                </div>
+              </form>
             </div>
           </article>
         </div>
         <div class="pt">
           <div class="row margin-b50" style="padding:0 10px;">
-            <article class="form-group col col-xs-4 ">
-              <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+            <article class="form-group col-sm-4 col-4 ">
+              <sa-widget class="jarviswidget" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
                          [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
                 <div>
                   <div class="widget-body no-padding">
-                    <alert type="info" class="no-margin">
+                    <div type="info" class="no-margin alert alert-primary">
                       <i class="fa-fw fa fa-sitemap"></i>
                       商品分类
-                    </alert>
+                    </div>
                     <div class="pd-10 border-overflow-320" style="margin-top: -11px;">
                       <div class="widget-body">
                         <div class="tree smart-form">
@@ -300,23 +287,23 @@
                         </div>
                       </div>
                     </div>
-                    <div class="dt-toolbar">
+                    <div class="footer-size">
                     </div>
                   </div>
                 </div>
               </sa-widget>
 
             </article>
-            <article class="form-group col col-xs-8 ">
-              <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+            <article class="form-group col-sm-8 col-8 ">
+              <sa-widget class="jarviswidget" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
                          [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
                 <div>
                   <div class="widget-body no-padding">
-                    <alert type="info" class="no-margin" >
+                    <div type="info" class="no-margin alert alert-primary" >
                       <i class="fa-fw fa fa-table"></i>
                       商品列表
-                    </alert>
-                    <div class="mt-10 "  style="padding:0;">
+                    </div>
+                    <div class=" "  style="padding:0;">
                       <div style="padding: 0;z-index: 1;" class="table-responsive border-overflow-320">
                         <table class="table table-striped   smart-form table-height-20">
                           <thead>
@@ -359,20 +346,20 @@
                         </table>
                       </div>
                     </div>
+
                     <!-- 底部-（分页部分）-->
-                    <div class="dt-toolbar">
-                      <div class="col-xs-12 col-sm-6">
-                        <span>共{{ searchProductList?.result?.productList?.total}}条</span>
-                      </div>
-                      <div class="hidden-xs right">
-                        <ul class="pagination pagination-sm" *ngIf="searchProductList?.result?.page">
-                          <li *ngFor="let p of searchProductList?.result?.page" class="{{p.class}}">
-                            <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
-                            <a *ngIf="p.method==''">{{p.text}}</a>
-                          </li>
-                        </ul>
-                      </div>
+                    <div class="footer-size flex-justify-end">
+                      <ul class="pagination"  *ngIf="searchProductList?.result?.page">
+                        <li *ngFor="let p of searchProductList?.result?.page" class="{{p.class}}">
+                          <a class="page-link" (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>>
+                          <a class="page-link"  *ngIf="p.method==''">{{p.text}}</a>
+                        </li>
+                        <li class="page-item disabled">
+                          <a  class="page-link" disabled>共{{ searchProductList?.result?.productList?.total}}条</a>
+                        </li>
+                      </ul>
                     </div>
+
                   </div>
                 </div>
               </sa-widget>
@@ -382,8 +369,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success" (click)="addInput();lgModal.hide()"><span class="glyphicon glyphicon-plus"></span>选入</button>
-        <button type="button" class="btn btn-default" (click)="closeSubmit();lgModal.hide()">返回</button>
+        <button type="button" class="btn btn-success ml-2" (click)="addInput();lgModal.hide()"><span class="fa-fw fa fa-plus"></span>选入</button>
+        <button type="button" class="btn btn-default ml-2" (click)="closeSubmit();lgModal.hide()">返回</button>
       </div>
     </div>
   </div>
@@ -392,17 +379,18 @@
 
 
 
-<div class="modal fade" id="particulars" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+<div class="modal fade bd-example-modal-xl" id="particulars" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
+        <!-- 标题 -->
+        <h3 class="modal-title" data-ng-bind='results.title'></h3>
+        <h4 class="modal-title">打印预览</h4>
         <!-- 关闭按钮 -->
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
           ×
         </button>
-        <!-- 标题 -->
-        <h3 class="modal-title" data-ng-bind='results.title'></h3>
-        <h4 class="modal-title">打印预览</h4>
+
       </div>
       <div class="modal-body height-overflow-380">
         <div class="row ">

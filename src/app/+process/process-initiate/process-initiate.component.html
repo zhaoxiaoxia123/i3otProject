@@ -3,7 +3,7 @@
   <sa-widgets-grid>
     <div class="row">
       <article class="col-sm-12 ">
-        <sa-widget [editbutton]="false" [deletebutton]="false" >
+        <sa-widget [editbutton]="false" [deletebutton]="false" [colorbutton]="false" >
           <header>
             <span class="widget-icon"> <i class="fa  fa-sign-out"></i> </span>
             <h2>发起审批</h2>
@@ -18,7 +18,7 @@
               <!--</div>-->
               <div class="project-grid-panel" *ngIf="c_id == superAdminId ">
                 <div class="row margin-bottom-10">
-                  <div class="projects-panel-header">
+                  <div class="col-12 projects-panel-header">
                     <span>
                       <i class="fa fa-sitemap padding-left-5"></i>&nbsp;&nbsp;出勤休假
                     </span>
@@ -46,7 +46,7 @@
                   </div>
                 </div>
                 <div class="row margin-bottom-10">
-                  <div class="projects-panel-header">
+                  <div class="col-12 projects-panel-header">
                     <span>
                       <i class="fa fa-sitemap padding-left-5"></i>&nbsp;&nbsp;其他
                     </span>

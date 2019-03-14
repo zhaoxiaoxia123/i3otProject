@@ -8,6 +8,11 @@ import {GlobalService} from '../../core/global.service';
   templateUrl: './login.component.html'
 })
 export class LoginComponent implements OnInit {
+    item:number = 0;
+    OnItemClick(value){
+        this.item = value;
+        console.log(this.item);
+    }
   loginInfo : Array<any> = [];
   username : string = '';
   uid : number = 0;

@@ -7,60 +7,51 @@
     <div class="row">
       <article class="col-sm-12 ">
         <!-- Widget ID (each widget will need unique ID)-->
-        <sa-widget [editbutton]="false" [deletebutton]="false" >
+        <sa-widget [editbutton]="false" [deletebutton]="false" [colorbutton]="false" >
           <header *ngIf="i_id == 0">
             <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
             <h2>添加设备</h2>
           </header>
           <header *ngIf="i_id != 0">
-            <span class="widget-icon"> <i class="glyphicon glyphicon-pencil"></i> </span>
+            <span class="widget-icon"> <i class="fa-fw fa fa-pencil"></i> </span>
             <h2 >修改设备 </h2>
           </header>
           <div>
             <!-- widget content (ngSubmit)="onSubmit()"-->
             <div class="widget-body no-padding">
-              <form id="smart-form-register" class="smart-form" [formGroup]="formModel" >
+              <form id="smart-form-register" class="form-distance" [formGroup]="formModel" >
                <fieldset>
                  <input type="hidden" name="i3otp_id" formControlName="i3otp_id">
-                 <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                   <section >
+                 <div class="form-row">
+
+                   <div class="form-group col-sm-4">
                      <label class="label">产品ID</label>
-                     <label class="input">
-                       <input type="text" placeholder="请输入产品ID" maxlength="20" name="i3otp_pid" formControlName="i3otp_pid"/>
-                     </label>
-                   </section>
-                 </div>
-                 <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                   <section >
+                     <input type="text" class="form-control"  placeholder="请输入产品ID" maxlength="20" name="i3otp_pid" formControlName="i3otp_pid">
+                   </div>
+
+                   <div class="form-group col-sm-4">
                      <label class="label">产品外部编号</label>
-                     <label class="input">
-                       <input type="text" placeholder="请输入产品外部编号" maxlength="20" name="i3otp_c_pid" formControlName="i3otp_c_pid"/>
-                     </label>
-                   </section>
-                 </div>
-                 <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                   <section >
+                     <input type="text" class="form-control"   placeholder="请输入产品外部编号" maxlength="20" name="i3otp_c_pid" formControlName="i3otp_c_pid" >
+                   </div>
+
+                   <div class="form-group col-sm-4">
                      <label class="label">产品名称</label>
-                     <label class="input">
-                       <input type="text"  placeholder="请输入产品名称" maxlength="20" name="i3otp_name" formControlName="i3otp_name"/>
-                     </label>
-                   </section>
-                 </div>
-                 <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                   <section >
+                     <input type="text" class="form-control"  placeholder="请输入产品名称" maxlength="20" name="i3otp_name" formControlName="i3otp_name" >
+                   </div>
+
+                   <div class="form-group col-sm-4">
                      <label class="label">产品类别</label>
-                     <label class="select">
-                       <select name="i3otp_category" formControlName="i3otp_category" [(ngModel)]="i3otp_category_default">
-                        <option value="0" [selected]="this.i_id == 0">--请选择--</option>
-                         <!--选择类型才出现功能选项，基站设备比安全帽少健康复选框-->
-                         <option *ngFor="let cate of i3otpList.result?.categoryList" [selected]="i3otp_info.result?.i3otp_category == cate.category_id" value="{{cate.category_id}}">{{cate.category_desc}}</option>
-                       </select> <i></i> </label>
-                   </section>
-                 </div>
-                 <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                   <section>
-                   <label  class="label">传感器类型</label>
-                   <span class="select2 select2-container select2-container--default select2-container--below select2-container--focus" dir="ltr" style="width: 100%;">
+                     <select class="form-control" name="i3otp_category" formControlName="i3otp_category" [(ngModel)]="i3otp_category_default">
+                       <option value="0" [selected]="this.i_id == 0">--请选择--</option>
+                       <!--选择类型才出现功能选项，基站设备比安全帽少健康复选框-->
+                       <option *ngFor="let cate of i3otpList.result?.categoryList" [selected]="i3otp_info.result?.i3otp_category == cate.category_id" value="{{cate.category_id}}">{{cate.category_desc}}</option>
+                     </select>
+                   </div>
+
+                   <div class="form-group col-sm-4">
+
+                     <label  class="label">传感器类型</label>
+                     <span class="select2 select2-container select2-container--default select2-container--below select2-container--focus" dir="ltr" style="width: 100%;">
                        <span class="selection">
                          <span class="select2-selection select2-selection--multiple" (click)="showColorDivSensor()">
                            <ul class="select2-selection__rendered">
@@ -73,7 +64,7 @@
                          </span>
                        </span>
                      </span>
-                   <span [ngClass]="{'select2 select2-container--open select2-container select2-container--default select2-container--below select2-container--focus':true,'select-hidden':div_show_sensor}" dir="ltr" style="width: 100%;position: absolute;">
+                     <span [ngClass]="{'select2 select2-container--open select2-container select2-container--default select2-container--below select2-container--focus':true,'select-hidden':div_show_sensor}" dir="ltr" style="width: 100%;position: absolute;">
                        <span class="selection">
                          <span class="select2-selection select2-selection--multiple select2-results select2-dropdown select2-drop-active" (mouseleave)="outMouseColor()">
                           <ul class="select2-results__options select2-results__options--nested"><!--  select2-results__option--highlighted-->
@@ -82,10 +73,10 @@
                          </span>
                        </span>
                      </span>
-                   </section>
-                 </div>
-                 <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                   <section>
+
+                   </div>
+
+                   <div class="form-group col-sm-4">
                      <label class="label">通信方式</label>
                      <span class="select2 select2-container select2-container--default select2-container--below select2-container--focus" dir="ltr" style="width: 100%" >
                        <span class="selection">
@@ -109,123 +100,118 @@
                          </span>
                        </span>
                      </span>
-                   </section>
-                 </div>
-                 <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                   <section >
+                   </div>
+
+                   <div class="form-group col-sm-4">
                      <label class="label">Mac</label>
-                     <label class="input">
-                       <input type="text"  placeholder="请输入Mac" maxlength="20" name="i3otp_mac_addr" formControlName="i3otp_mac_addr"/>
-                     </label>
-                   </section>
-                 </div>
-                 <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                   <section >
+                     <input type="text" class="form-control"   placeholder="请输入Mac" maxlength="20" name="i3otp_mac_addr" formControlName="i3otp_mac_addr" >
+                   </div>
+
+                   <div class="form-group col-sm-4">
                      <label class="label">产地</label>
-                     <label class="input">
-                       <input type="text"  placeholder="请输入产地" maxlength="20" name="i3otp_p_origin" formControlName="i3otp_p_origin"/>
-                     </label>
-                   </section>
-                 </div>
-                 <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                   <section >
+                     <input type="text" class="form-control"  placeholder="请输入产地" maxlength="20" name="i3otp_p_origin" formControlName="i3otp_p_origin">
+                   </div>
+
+                   <div class="form-group col-sm-4">
                      <label class="label">硬件版本</label>
-                     <label class="input">
-                       <input type="text"  placeholder="请输入硬件版本" maxlength="20" name="i3otp_hardware" formControlName="i3otp_hardware"/>
-                     </label>
-                   </section>
-                 </div>
-                 <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                   <section >
+                     <input type="text" class="form-control"  placeholder="请输入硬件版本" maxlength="20" name="i3otp_hardware" formControlName="i3otp_hardware">
+                   </div>
+
+                   <div class="form-group col-sm-4">
                      <label class="label">固件版本</label>
-                     <label class="input">
-                       <input type="text"  placeholder="请输入固件版本" maxlength="20" name="i3otp_firmware" formControlName="i3otp_firmware"/>
-                     </label>
-                   </section>
-                 </div>
-                 <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                   <section >
+                     <input type="text" class="form-control"  placeholder="请输入固件版本" maxlength="20" name="i3otp_firmware" formControlName="i3otp_firmware" >
+                   </div>
+
+                   <div class="form-group col-sm-4">
                      <label class="label">固件更新日期</label>
-                     <label class="input">
-                       <input type="date"  name="i3otp_f_update" formControlName="i3otp_f_update"/>
-                     </label>
-                   </section>
-                 </div>
-                 <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                   <section >
+                     <input type="date" class="form-control"  name="i3otp_f_update" formControlName="i3otp_f_update">
+                   </div>
+
+                   <div class="form-group col-sm-4">
                      <label class="label">订单号</label>
-                     <label class="input">
-                       <input type="text"  placeholder="请输入订单号" maxlength="20" name="o_id" formControlName="o_id"/>
-                     </label>
-                   </section>
-                 </div>
-                 <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                   <section >
+                     <input type="text" class="form-control"   placeholder="请输入订单号" maxlength="20" name="o_id" formControlName="o_id" >
+                   </div>
+
+
+                   <div class="form-group col-sm-4">
                      <label class="label">购买公司</label>
-                     <label class="select">
-                       <select name="c_id" formControlName="c_id" [(ngModel)]="c_id_default" (change)="getTheUserList($event,1)">
-                         <option value="0" [selected]="i_id == 0">--请选择--</option>
-                         <option *ngFor="let c of i3otpList.result?.customerList" [selected]="i3otp_info.result?.c_id == c.c_number" value="{{c.c_number}}">{{c.c_name}}</option>
-                       </select> <i></i> </label>
-                   </section>
-                 </div>
-                 <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                   <section >
+                     <select  class="form-control"  name="c_id" formControlName="c_id" [(ngModel)]="c_id_default" (change)="getTheUserList($event,1)">
+                       <option value="0" [selected]="i_id == 0">--请选择--</option>
+                       <option *ngFor="let c of i3otpList.result?.customerList" [selected]="i3otp_info.result?.c_id == c.c_number" value="{{c.c_number}}">{{c.c_name}}</option>
+                     </select>
+                   </div>
+
+                   <div class="form-group col-sm-4">
                      <label class="label">内部质检员</label>
-                     <label class="select">
-                       <select name="u_id" formControlName="u_id" [(ngModel)]="u_id_default">
-                         <option value="0" [selected]="i_id == 0">--请选择--</option>
-                         <option *ngFor="let u of i3otpListUser.result?.userList" [selected]="i3otp_info.result?.u_id == u.name" value="{{u.name}}">{{u.u_username}}</option>
-                       </select> <i></i> </label>
-                   </section>
-                 </div>
-                 <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                   <section >
+                     <select  class="form-control"  name="u_id" formControlName="u_id" [(ngModel)]="u_id_default">
+                       <option value="0" [selected]="i_id == 0">--请选择--</option>
+                       <option *ngFor="let u of i3otpListUser.result?.userList" [selected]="i3otp_info.result?.u_id == u.name" value="{{u.name}}">{{u.u_username}}</option>
+                     </select>
+                   </div>
+
+                   <div class="form-group col-sm-4">
                      <label class="label">内部质检日期</label>
-                     <label class="input">
-                       <input type="date" name="i3otp_qc_date" formControlName="i3otp_qc_date"/>
-                     </label>
-                   </section>
-                 </div>
-                 <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                   <section >
+                     <input type="date" class="form-control"  name="i3otp_qc_date" formControlName="i3otp_qc_date" >
+                   </div>
+
+                   <div class="form-group col-sm-4">
                      <label class="label">绑定地址</label>
-                     <label class="input">
-                       <input type="text" placeholder="请输入绑定地址" maxlength="20" name="i3otp_address" formControlName="i3otp_address"/>
-                     </label>
-                   </section>
-                 </div>
-                 <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                   <section >
+                     <input type="text" class="form-control"   placeholder="请输入绑定地址" maxlength="20" name="i3otp_address" formControlName="i3otp_address" >
+                   </div>
+
+                   <div class="form-group col-sm-4">
                      <label class="label">激活码</label>
-                     <label class="input">
-                       <input type="text"  placeholder="请输入激活码" maxlength="20" name="i3otp_activation" formControlName="i3otp_activation"/>
-                     </label>
-                   </section>
-                 </div>
-                 <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                   <section >
+                     <input type="text" class="form-control"  placeholder="请输入激活码" maxlength="20" name="i3otp_activation" formControlName="i3otp_activation">
+                   </div>
+
+                   <div class="form-group col-sm-4">
                      <label class="label">采样时间</label>
-                     <label class="input">
-                       <input type="date" placeholder="请输入采样时间" maxlength="20" name="i3otp_sensor_intervan" formControlName="i3otp_sensor_intervan"/>
-                     </label>
-                   </section>
-                 </div>
-                 <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                   <section >
+                     <input type="date" class="form-control"  placeholder="请输入采样时间" maxlength="20" name="i3otp_sensor_intervan" formControlName="i3otp_sensor_intervan">
+                   </div>
+
+                   <div class="form-group col-sm-12">
                      <label class="label">产品功能</label>
-                     <label class="textarea textarea-resizable">
-                       <textarea class="custom-scroll" placeholder="请输入产品功能" rows="6" name="i3otp_spec" formControlName="i3otp_spec" ></textarea>
-                     </label>
-                   </section>
-                 </div>
-                 <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                   <section >
+                     <textarea class="form-control"  rows="4"  placeholder="请输入产品功能"  name="i3otp_spec" formControlName="i3otp_spec"></textarea>
+                   </div>
+
+                   <div class="form-group col-sm-6">
                      <label class="label">生产日期</label>
-                     <label class="input">
-                       <input type="date" placeholder="请输入生产日期" maxlength="20" name="i3otp_production_date" formControlName="i3otp_production_date"/>
-                     </label>
-                   </section>
+                     <input type="date" class="form-control"   placeholder="请输入生产日期" maxlength="20" name="i3otp_production_date" formControlName="i3otp_production_date">
+                   </div>
+
+                   <div class="form-group col-sm-6">
+                     <label class="label">是否激活</label>
+                     <div class="input-group  mr-sm-2">
+                       <div class="custom-control custom-radio custom-control-inline">
+                         <input   class="custom-control-input" id="gridRadios1" type="radio" [checked]="i3otp_info.result?.i3otp_status == 1" [value]="1" name="i3otp_status" formControlName="i3otp_status">
+                         <label class="custom-control-label"  for="gridRadios1">激活</label>
+
+                       </div>
+                       <div class="custom-control custom-radio custom-control-inline">
+                         <input   class="custom-control-input" id="gridRadios2" type="radio" [checked]="i3otp_info.result?.i3otp_status == 0" [value]="0" name="i3otp_status" formControlName="i3otp_status">
+                         <label class="custom-control-label"  for="gridRadios2">未激活</label>
+
+                       </div>
+
+                       <div class="custom-control custom-radio custom-control-inline">
+                         <input   class="custom-control-input" id="gridRadios3" type="radio" [checked]="i3otp_info.result?.i3otp_status == 2" [value]="2" name="i3otp_status" formControlName="i3otp_status">
+                         <label class="custom-control-label"  for="gridRadios3">返厂维修</label>
+
+                       </div>
+
+                       <div class="custom-control custom-radio custom-control-inline">
+                         <input  class="custom-control-input" id="gridRadios4"  type="radio" [checked]="i3otp_info.result?.i3otp_status == 3" [value]="3" name="i3otp_status" formControlName="i3otp_status">
+                         <label class="custom-control-label"  for="gridRadios4">报废</label>
+
+                       </div>
+
+
+
+                     </div>
+
+                   </div>
+
+
                  </div>
                  <!--<div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
                    <section >
@@ -235,25 +221,6 @@
                      </label>
                    </section>
                  </div>-->
-                 <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                   <section >
-                     <label class="label">是否激活</label>
-                     <div class="inline-group">
-                       <label class="radio">
-                         <input type="radio" [checked]="i3otp_info.result?.i3otp_status == 1" [value]="1" name="i3otp_status" formControlName="i3otp_status">
-                         <i></i>激活</label>
-                       <label class="radio">
-                         <input type="radio" [checked]="i3otp_info.result?.i3otp_status == 0" [value]="0" name="i3otp_status" formControlName="i3otp_status">
-                         <i></i>未激活</label>
-                       <label class="radio">
-                         <input type="radio" [checked]="i3otp_info.result?.i3otp_status == 2" [value]="2" name="i3otp_status" formControlName="i3otp_status">
-                         <i></i>返厂维修</label>
-                       <label class="radio">
-                         <input type="radio" [checked]="i3otp_info.result?.i3otp_status == 3" [value]="3" name="i3otp_status" formControlName="i3otp_status">
-                         <i></i>报废</label>
-                     </div>
-                   </section>
-                 </div>
                  <div class="row ">
                   <!-- <div class=" col col-6 cl-sm-6">
                      <section>
@@ -291,17 +258,19 @@
                    <!--</section>-->
                  </div>
                </fieldset>
-                <footer>
-                  <button type="button" class="btn btn-default" >
+
+                <div class="footer-size flex-justify-end" >
+                  <div *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')">
+                    <button type="button" class="btn btn-primary  ml-2" (click)="onSubmit(1)">
+                      保存
+                    </button>
+                    <button class="btn btn-success  ml-2" type="button" (click)="onSubmit(2)">提交并新增</button>
+
+                  </div>
+                  <button type="button" class="btn btn-default  ml-2" >
                     返回
                   </button>
-                  <div *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')">
-                  <button class="btn btn-success" type="button" (click)="onSubmit(2)">提交并新增</button>
-                  <button type="button" class="btn btn-primary" (click)="onSubmit(1)">
-                    保存
-                  </button>
-                  </div>
-                </footer>
+                </div>
               </form>
             </div>
             <!-- end widget content -->

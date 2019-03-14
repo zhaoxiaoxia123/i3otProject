@@ -12,59 +12,42 @@
           </header>
           <div>
             <div class="widget-body no-padding" >
-              <div  class="row">
-                <article  class="col-sm-12">
-                  <div class="navbar navbar-default">
-                   <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-                        <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'add')">
-                          <a class="btn btn-success btn-sm" (click)="showAddAssets();">
-                            <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
-                        </div>
-                        <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'edit')">
-                          <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailAssets('edit')">
-                            <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
-                        </div>
-                        <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'delete')">
-                          <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="deleteAssets('id')">
-                            <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
-                        </div>
-                        <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'detail')">
-                          <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailAssets('detail')">
-                            <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
-                        </div>
-                    <!-- <div class="form-group pdlr-4" *ngIf="isStatus == 2">
-                       <a class="btn default-btn btn-sm" (click)="editStatus(1,'id')">
-                         <span class="fa-fw fa fa-play mr-5 color-green"></span>启用</a>
-                     </div>
-                     <div class="form-group pdlr-4" *ngIf="isStatus == 1">
-                       <a class="btn default-btn btn-sm" (click)="editStatus(2,'id')">
-                         <span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>无效</a>
-                     </div>-->
-                        <div class="form-group btn-group pdlr-4" *ngIf="isPermission(menu_id,'delete')">
-                          <a class="btn default-btn btn-sm dropdown-toggle" (click)="showAllCheck()" data-toggle="dropdown">
-                            <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
-                          <ul class="dropdown-menu" role="menu">
-                            <!--<li><a (click)="editStatus(1,'all')"><span class="fa-fw fa fa-play mr-5 color-green"></span>批量设为启动</a></li>
-                            <li><a (click)="editStatus(2,'all')"><span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>批量设为无效</a></li>
-                            <li class="divider"></li>-->
-                            <li><a (click)="deleteAssets('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
-                          </ul>
-                        </div>
-                      </form>
-                    <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-                      <div class="form-group pdlr-4">
-                          <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" [(ngModel)]="keyword" name="keyword" placeholder="请输入搜索内容" type="text">
+              <article>
+                <div class="navbar navbar-default">
+                  <form  class="navbar-form " novalidate="" role="search" >
+                    <div class="btn-group" *ngIf="isPermission(menu_id,'add')">
+                      <button type="button" class="btn btn-primary"  (click)="showAddAssets();"><span class="fa-fw fa fa-plus  mr-5"></span>添加</button>
+                    </div>
+                    <div class="btn-group"   *ngIf="isPermission(menu_id,'edit')">
+                      <button type="button"   [ngClass]="{'btn btn-warning':true,'not-click':isStatus == 0}"  (click)="detailAssets('edit')"><span class="fa-fw fa fa-pencil mr-5"></span>修改</button>
+                    </div>
+                    <div class="btn-group"  *ngIf="isPermission(menu_id,'delete')">
+                      <button type="button"  [ngClass]="{'btn btn-danger':true,'not-click':isStatus == 0}"  (click)="deleteAssets('id')"><span class="fa-fw fa  fa-trash-o mr-5"></span>删除</button>
+                    </div>
+                    <div class="btn-group"  *ngIf="isPermission(menu_id,'detail')">
+                      <button type="button"  [ngClass]="{'btn btn-success':true,'not-click':isStatus == 0}"  (click)="detailAssets('detail')"><span class="fa-fw fa fa-list-alt mr-5"></span>详情</button>
+                    </div>
+                    <div class="btn-group"  *ngIf="isPermission(menu_id,'delete')">
+                      <button type="button" class="btn btn-secondary"  (click)="showAllCheck()"><span class="fa-fw fa fa-th-large mr-5"></span>批处理</button>
+                      <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
+                        <span class="sr-only"></span>
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item"  (click)="deleteAssets('all')">批量删除</a>
                       </div>
-                      <div class="form-group pdlr-4">
-                        <button class="btn btn-default" type="button" (click)="getAssetsList(1,0)">
-                          <i  class="glyphicon glyphicon-search"></i>
-                          搜索
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </article>
-              </div>
+                    </div>
+                  </form>
+                  <form  class="navbar-form" novalidate="" role="search" >
+                    <div class="btn-group">
+                      <input type="text" class="form-control"   maxlength="15" [(ngModel)]="keyword" name="keyword" placeholder="请输入搜索内容">
+                    </div>
+                    <div class="btn-group">
+                      <button type="button" class="btn default-btn"   (click)="getAssetsList(1,0)">搜索</button>
+                    </div>
+
+                  </form>
+                </div>
+              </article>
 
               <div style="padding:0;" class="height-overflow">
                 <div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-scrolling">
@@ -147,20 +130,20 @@
                   </table>
                 </div>
               </div>
+
               <!-- 底部-（分页部分）-->
-              <div class="dt-toolbar">
-                <div class="col-xs-12 col-sm-6">
-                  <span>共{{assetsList.result?.assetsList?.total}}条</span>
-                </div>
-                <div class="hidden-xs right">
-                  <ul class="pagination pagination-sm">
-                    <li *ngFor="let ap of assetsList?.result?.page" class="{{ap.class}}">
-                      <a (click)="pagination(ap.value)" *ngIf="ap.method=='method'">{{ap.text}}</a>
-                      <a *ngIf="ap.method==''">{{ap.text}}</a>
-                    </li>
-                  </ul>
-                </div>
+              <div class="footer-size flex-justify-end">
+                <ul class="pagination" >
+                  <li  *ngFor="let ap of assetsList?.result?.page" class="{{ap.class}}">
+                    <a class="page-link" (click)="pagination(ap.value)" *ngIf="ap.method=='method'">{{ap.text}}</a>
+                    <a class="page-link"  *ngIf="ap.method==''">{{ap.text}}</a>
+                  </li>
+                  <li class="page-item disabled">
+                    <a  class="page-link" disabled>共{{assetsList.result?.assetsList?.total}}条</a>
+                  </li>
+                </ul>
               </div>
+
             </div>
           </div>
         </sa-widget>
@@ -170,192 +153,165 @@
 </div>
 
 
-<div class="modal fade" bsModal #addModal="bs-modal">
-  <div class="modal-dialog">
+<div class="modal fade bd-example-modal-xl" bsModal #addModal="bs-modal">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
-        <!-- 关闭按钮 -->
-        <button type="button" class="close" (click)="clear_('add')">×</button>
         <!-- 标题 -->
         <h3 class="modal-title txt-color-blue" data-ng-bind='results.title' *ngIf="editStatusAssetsId == 0"><i class="fa-fw fa fa-plus"></i>添加资产清单</h3>
-         <h3 class="modal-title color-yellow" data-ng-bind='results.title' *ngIf="editStatusAssetsId != 0"><i class=" glyphicon glyphicon-pencil"></i>修改资产清单</h3>
+        <h3 class="modal-title color-yellow" data-ng-bind='results.title' *ngIf="editStatusAssetsId != 0"><i class=" glyphicon glyphicon-pencil"></i>修改资产清单</h3>
+        <!-- 关闭按钮 -->
+        <button type="button" class="close" (click)="clear_('add')">×</button>
+
       </div>
       <div class="modal-body  height-overflow-380">
         <div class="row mt-20">
-          <form   class="smart-form ">
+          <form class="form-distance">
             <fieldset>
-              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <section>
+              <div class="form-row">
+                <div class="form-group col-sm-4">
                   <label class="label txt-color-blue">资产编号<span class="asterisk-color">*</span></label>
-                  <label class="input">
-                    <input type="text" name="assets_number" [(ngModel)]="assets_number">
-                  </label>
-                </section>
-              </div>
-              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <section>
-                  <label class="label txt-color-blue">资产类别<span class="asterisk-color">*</span></label>
-                  <label class="input">
-                    <i class="icon-append glyphicon glyphicon-search cursor-pointer" (click)="showAssetsType()"></i>
-                    <input type="text" style="display: none;" name="category_type_ids" [(ngModel)]="category_type_ids">
-                  <input type="text" name="category_type_name" [(ngModel)]="category_type_name">
-                  </label>
-                </section>
-              </div>
-              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-              <section>
-                <label class="label txt-color-blue">资产名称<span class="asterisk-color">*</span></label>
-                <label class="input">
-                  <input type="text" name="assets_name" [(ngModel)]="assets_name">
-                </label>
-              </section>
-            </div>
-              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <section>
-                  <label class="label ">规格型号</label>
-                  <label class="input">
-                    <input type="text" name="assets_param" [(ngModel)]="assets_param">
-                  </label>
-                </section>
-              </div>
-              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <section>
-                  <label class="label txt-color-blue">单位<span class="asterisk-color">*</span></label>
-                  <label class="input">
-                    <input type="text" name="assets_unit" [(ngModel)]="assets_unit">
-                  </label>
-                </section>
-              </div>
-              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <section>
-                  <label class="label txt-color-blue">数量<span class="asterisk-color">*</span></label>
-                  <label class="input">
-                    <input type="number" name="assets_count" [(ngModel)]="assets_count">
-                  </label>
-                </section>
-              </div>
-              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <section class="mb-6">
-                  <label class="label txt-color-blue">购买日期<span class="asterisk-color">*</span></label>
-                  <label class="input">
-                    <input type="date" name="assets_buy_date" [(ngModel)]="assets_buy_date">
-                  </label>
-                </section>
-              </div>
-              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <section>
-                  <label class="label ">购买金额</label>
-                  <label class="input">
-                    <input type="number" name="assets_price" [(ngModel)]="assets_price">
-                  </label>
-                </section>
-              </div>
-
-             <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">-->
-                <!--<section>-->
-                  <!--<label  class="label txt-color-blue">当前状态<span class="asterisk-color">*</span></label>-->
-                  <!--<label class="select">-->
-                    <!--<select name="assets_status" [(ngModel)]="assets_status">-->
-                      <!--<option value="0" [selected]="assets_id == 0">&#45;&#45;请选择&#45;&#45;</option>-->
-                      <!--<option value="1">闲置</option>-->
-                      <!--<option value="2">使用</option>-->
-                      <!--<option value="3">报废</option>-->
-                    <!--</select>-->
-                    <!--<i></i>-->
-                  <!--</label>-->
-                <!--</section>-->
-              <!--</div>-->
-              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <section>
-                  <label class="label ">存放地点</label>
-                  <label class="input">
-                    <input type="text" name="assets_check_address" [(ngModel)]="assets_check_address">
-                  </label>
-                </section>
-              </div>
-              <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <div class="margin-left-15">
-                  <label class="labe2">使用部门</label>
-                  <section class="col col-8 col-sm-8 col-xs-8">
-                    <label class="select">
-                      <select name="assets_department_id" [(ngModel)]="assets_department_id" (change)="geteUserList($event,1)">
-                        <option value="0">&#45;&#45;请选择&#45;&#45;</option>
-                        <option value="{{p.department_id}}" [selected]="assetsInfo?.result?.assets_department_id == p.department_id" *ngFor="let p of assetsDefault?.result?.department">{{p.department_name}}</option>
-                      </select>
-                     <i></i> </label>
-                  </section>
-                  <section class="col col-4 col-sm-4 col-xs-4">
-                    <button type="button" class="btn btn-info btn-sm"  >
-                      添加部门
-                    </button>
-                  </section>
+                  <input type="text" class="form-control"  name="assets_number" [(ngModel)]="assets_number">
                 </div>
-              </div>-->
-              <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <section>
-                  <label class="label ">使用人</label>
+
+                <div class="form-group col-sm-4">
+                  <label class="label txt-color-blue">资产类别<span class="asterisk-color">*</span></label>
+                  <div class="input-group mb-2 mr-sm-2">
+                    <input  class="form-control" type="text" style="display: none;" name="category_type_ids" [(ngModel)]="category_type_ids">
+                    <input  class="form-control" type="text" name="category_type_name" [(ngModel)]="category_type_name">
+                    <div class="input-group-prepend">
+                      <a class="input-group-text refresh-page" type="button"  (click)="showAssetsType()">
+                        查看
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                  <label class="label txt-color-blue">资产名称<span class="asterisk-color">*</span></label>
+                  <input type="text" class="form-control"   name="assets_name" [(ngModel)]="assets_name">
+                </div>
+
+                <div class="form-group col-sm-4">
+                  <label class="label ">规格型号</label>
+                  <input type="text" class="form-control"  name="assets_param" [(ngModel)]="assets_param">
+                </div>
+
+                <div class="form-group col-sm-4">
+                  <label class="label txt-color-blue">单位<span class="asterisk-color">*</span></label>
+                  <input type="text" class="form-control" name="assets_unit" [(ngModel)]="assets_unit" >
+                </div>
+
+                <div class="form-group col-sm-4">
+                  <label class="label txt-color-blue">数量<span class="asterisk-color">*</span></label>
+                  <input  class="form-control" type="number" name="assets_count" [(ngModel)]="assets_count" >
+                </div>
+
+                <div class="form-group col-sm-4">
+                  <label class="label txt-color-blue">购买日期<span class="asterisk-color">*</span></label>
+                  <input  class="form-control" type="date" name="assets_buy_date" [(ngModel)]="assets_buy_date">
+                </div>
+
+                <div class="form-group col-sm-4">
+                  <label class="label ">购买金额</label>
+                  <input  class="form-control"  type="number" name="assets_price" [(ngModel)]="assets_price">
+                </div>
+                <!--<div class="form-group col-sm-4">-->
+                  <!--<label  class="label txt-color-blue">当前状态<span class="asterisk-color">*</span></label>-->
+                  <!--<select  class="form-control" name="assets_status" [(ngModel)]="assets_status">-->
+                    <!--<option value="0" [selected]="assets_id == 0">&#45;&#45;请选择&#45;&#45;</option>-->
+                    <!--<option value="1">闲置</option>-->
+                    <!--<option value="2">使用</option>-->
+                    <!--<option value="3">报废</option>-->
+                  <!--</select>-->
+                <!--</div>-->
+
+                <div class="form-group col-sm-4">
+                  <label class="label ">存放地点</label>
+                  <input type="text" class="form-control"  name="assets_check_address" [(ngModel)]="assets_check_address" >
+                </div>
+
+                <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              <div class="margin-left-15">
+                <label class="labe2">使用部门</label>
+                <section class="col col-8 col-sm-8 col-xs-8">
                   <label class="select">
-                    <select name="assets_user_id" [(ngModel)]="assets_user_id">
-                      <option value="0" [selected]="assets_id == 0">&#45;&#45;请选择&#45;&#45;</option>
-                      <option value="{{u.id}}" [selected]="assetsInfo?.result?.assets_user_id == u.id" *ngFor="let u of userList?.result?.userList">{{u.u_username}}</option>
+                    <select name="assets_department_id" [(ngModel)]="assets_department_id" (change)="geteUserList($event,1)">
+                      <option value="0">&#45;&#45;请选择&#45;&#45;</option>
+                      <option value="{{p.department_id}}" [selected]="assetsInfo?.result?.assets_department_id == p.department_id" *ngFor="let p of assetsDefault?.result?.department">{{p.department_name}}</option>
                     </select>
-                    <i></i> </label>
+                   <i></i> </label>
                 </section>
-              </div>-->
-              <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <section>
+                <section class="col col-4 col-sm-4 col-xs-4">
+                  <button type="button" class="btn btn-info btn-sm"  >
+                    添加部门
+                  </button>
+                </section>
+              </div>
+            </div>-->
+                <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                  <section>
+                    <label class="label ">使用人</label>
+                    <label class="select">
+                      <select name="assets_user_id" [(ngModel)]="assets_user_id">
+                        <option value="0" [selected]="assets_id == 0">&#45;&#45;请选择&#45;&#45;</option>
+                        <option value="{{u.id}}" [selected]="assetsInfo?.result?.assets_user_id == u.id" *ngFor="let u of userList?.result?.userList">{{u.u_username}}</option>
+                      </select>
+                      <i></i> </label>
+                  </section>
+                </div>-->
+
+                <div class="form-group col-sm-12">
                   <label class="label">补充说明</label>
-                  <label class="textarea textarea-resizable">
-                    <textarea class="custom-scroll" rows="2" name="assets_note" [(ngModel)]="assets_note" ></textarea>
-                  </label>
-                </section>
+                  <textarea class="form-control" rows="2" name="assets_note" [(ngModel)]="assets_note" ></textarea>
+                </div>
+
+
+
               </div>
             </fieldset>
           </form>
         </div>
       </div>
       <div class="modal-footer">
-        <button *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')" type="button" class="btn btn-primary" (click)="onSubmit(1)">保存</button>
-        <button *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')" class="btn btn-success" type="button" (click)="onSubmit(2)">保存并新增</button>
-        <button type="button" class="btn btn-default" (click)="clear_('add')">返回</button>
+        <button *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')" type="button" class="btn btn-primary  ml-2" (click)="onSubmit(1)">保存</button>
+        <button *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')" class="btn btn-success  ml-2" type="button" (click)="onSubmit(2)">保存并新增</button>
+        <button type="button" class="btn btn-default  ml-2" (click)="clear_('add')">返回</button>
       </div>
     </div>
   </div>
 </div>
 
 
-<div class="modal fade" bsModal #searchModal="bs-modal">
-  <div class="modal-dialog">
+<div class="modal fade  bd-example-modal-xl" bsModal #searchModal="bs-modal">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
-        <!-- 关闭按钮 -->
-        <button type="button" class="close" (click)="closeSubmit()">×</button>
         <!-- 标题 -->
         <h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>选择资产类别</h3>
-      </div>
-      <div class="modal-body height-overflow-380">
-        <div class="row">
-          <article class="col-sm-12">
-            <div class="navbar navbar-default">
-              <div class="collapse navbar-collapse">
+        <!-- 关闭按钮 -->
+        <button type="button" class="close" (click)="closeSubmit()">×</button>
 
-                <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-                  <div class="form-group padding-left-10">
-                    <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" name="keyword" placeholder="请输入搜索内容" type="text">
-                  </div>
-                  <button class="btn btn-default" type="submit">
-                    <i  class="glyphicon glyphicon-search"></i>
-                    搜索
-                  </button>
-                </form>
-              </div>
+      </div>
+      <div class="modal-body ">
+        <div class="row">
+          <article  class="col-sm-12">
+            <div class="navbar navbar-default">
+              <form  class="navbar-form " novalidate="" role="search" >
+                <div class="btn-group">
+                  <input type="text" class="form-control"  maxlength="15" name="keyword" placeholder="请输入搜索内容" >
+                </div>
+                <div class="btn-group">
+                  <button type="button" class="btn default-btn" >搜索</button>
+                </div>
+              </form>
             </div>
           </article>
         </div>
 
         <div style="padding:0;">
-          <div style="padding: 0;z-index: 2;" class="table-responsive">
-            <table class="table table-striped  table-hover smart-form">
+          <div style="padding: 0;z-index: 2;" class="border-overflow-320">
+            <table class="table table-striped  smart-form table-height-20" >
               <thead>
               <tr>
                 <th>
@@ -386,8 +342,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success btn-sm" (click)="addSelect()"><span class="glyphicon glyphicon-plus"></span>选入</button>
-        <button type="button" class="btn btn-default" (click)="closeSubmit()">取消</button>
+        <button type="button" class="btn btn-success btn-sm ml-2" (click)="addSelect()"><span class="fa-fw fa fa-plus"></span>选入</button>
+        <button type="button" class="btn btn-default ml-2" (click)="closeSubmit()">取消</button>
       </div>
     </div>
   </div>
@@ -395,15 +351,16 @@
 
 
 
-<div class="modal fade" bsModal #detailModal="bs-modal">
-  <div class="modal-dialog">
+<div class="modal fade bd-example-modal-xl " bsModal #detailModal="bs-modal">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
-        <!-- 关闭按钮 -->
-        <button type="button" class="close" (click)="clear_('detail')">×</button>
         <!-- 标题 -->
         <h3 class="modal-title" data-ng-bind='results.title'></h3>
         <h4 class="modal-title">{{assetsInfo?.result?.assets_name}}-{{assetsInfo?.result?.assets_number}}</h4>
+        <!-- 关闭按钮 -->
+        <button type="button" class="close" (click)="clear_('detail')">×</button>
+
       </div>
       <div class="modal-body height-overflow-380">
         <div class="row ">

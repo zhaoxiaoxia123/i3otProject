@@ -1,11 +1,11 @@
 <!-- 催办-->
-<div class="modal fade in" style="display: block" *ngIf="operate_type == 'urge'" id="cuiBan" tabindex="-1" role="dialog">
+<div class="modal" style="display: block" *ngIf="operate_type == 'urge'" id="cuiBan" tabindex="-1" role="dialog">
   <div class="modal-dialog" style="width:400px;">
     <div class="modal-content text-center">
       <div class="modal-header">
-        <button type="button" class="close" (click)="close()">&times;</button>
         <!-- 标题 -->
         <h3 class="modal-title " data-ng-bind='results.title'>提示</h3>
+        <button type="button" class="close" (click)="close()">&times;</button>
       </div>
       <div class="pd-20">
         <div class="text-center pd-20">
@@ -22,34 +22,28 @@
 </div><!-- /.modal -->
 
 <!-- 审批 -->
-<div class="modal fade in" style="display: block" *ngIf="operate_type == 'operation' && is_show_result != 'ok'" id="audit" tabindex="-1" role="dialog">
+<div class="modal" style="display: block" *ngIf="operate_type == 'operation' && is_show_result != 'ok'" id="audit" tabindex="-1" role="dialog">
   <div class="modal-dialog" style="width:500px;">
     <div class="modal-content text-center">
       <div class="modal-header">
-        <button type="button" class="close" (click)="close()">&times;</button>
         <!-- 标题 -->
         <h3 class="modal-title " data-ng-bind='results.title'>提示</h3>
+        <button type="button" class="close" (click)="close()">&times;</button>
       </div>
       <div class="modal-body ">
-        <div class="row">
-          <div class="text-align-left pd-15">
-            <h4 *ngIf="operate_button_type == 'operation' && operate_button_type_is_more == ''">{{username}}的单据[{{order_number}}]需要您审批!</h4>
-            <h4 *ngIf="operate_button_type == 'cancel' && operate_button_type_is_more == ''">你确定要将单据[{{order_number}}]作废！</h4>
-            <h4 *ngIf="operate_button_type == 'back_cancel' && operate_button_type_is_more == ''">你确定要将单据[{{order_number}}]弃废！</h4>
-            <h4 *ngIf="operate_button_type == 'cancel' && operate_button_type_is_more == 'all'">您确认批量作废当前选中的[{{select_count}}]张单据吗？</h4>
-            <h4 *ngIf="operate_button_type == 'back_cancel' && operate_button_type_is_more == 'all'">您确认批量弃废当前选中的[{{select_count}}]张单据吗？</h4>
-            <h4 *ngIf="operate_button_type == 'operation' && operate_button_type_is_more == 'all'">您确认批量审核当前选中的[{{select_count}}]张单据吗？</h4>
-          </div>
-          <form  class="smart-form" >
-            <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
-              <section>
-                <label class="textarea textarea-resizable">
-                  <textarea class="custom-scroll" rows="8" name="content" [(ngModel)]="content" placeholder="请输入你的意见"></textarea>
-                </label>
-              </section>
-            </div>
-          </form>
+        <div class="text-align-left pd-15">
+          <h4 *ngIf="operate_button_type == 'operation' && operate_button_type_is_more == ''">{{username}}的单据[{{order_number}}]需要您审批!</h4>
+          <h4 *ngIf="operate_button_type == 'cancel' && operate_button_type_is_more == ''">你确定要将单据[{{order_number}}]作废！</h4>
+          <h4 *ngIf="operate_button_type == 'back_cancel' && operate_button_type_is_more == ''">你确定要将单据[{{order_number}}]弃废！</h4>
+          <h4 *ngIf="operate_button_type == 'cancel' && operate_button_type_is_more == 'all'">您确认批量作废当前选中的[{{select_count}}]张单据吗？</h4>
+          <h4 *ngIf="operate_button_type == 'back_cancel' && operate_button_type_is_more == 'all'">您确认批量弃废当前选中的[{{select_count}}]张单据吗？</h4>
+          <h4 *ngIf="operate_button_type == 'operation' && operate_button_type_is_more == 'all'">您确认批量审核当前选中的[{{select_count}}]张单据吗？</h4>
         </div>
+        <form  >
+          <div class="form-group">
+            <textarea class="form-control"  rows="6" name="content" [(ngModel)]="content" placeholder="请输入你的意见"></textarea>
+          </div>
+        </form>
       </div>
 
       <div class="modal-footer text-center">
@@ -63,15 +57,15 @@
 </div><!-- /.modal -->
 
 
-<div class="modal fade in" *ngIf="is_show_result" style="display: block;">
+<div class="modal " *ngIf="is_show_result" style="display: block;">
 <div class="modal-dialog" style="width:500px;">
 <div class="modal-content text-center">
 <div class="modal-header">
+  <!-- 标题 -->
+  <h3 class="modal-title " *ngIf="operate_button_type == 'operation'">开始执行批量审核，请勿关闭</h3>
+  <h3 class="modal-title " *ngIf="operate_button_type == 'cancel'">开始执行批量作废，请勿关闭</h3>
+  <h3 class="modal-title " *ngIf="operate_button_type == 'back_cancel'">开始执行批量弃废，请勿关闭</h3>
 <button type="button" class="close" (click)="close()">&times;</button>
-<!-- 标题 -->
-<h3 class="modal-title " *ngIf="operate_button_type == 'operation'">开始执行批量审核，请勿关闭</h3>
-<h3 class="modal-title " *ngIf="operate_button_type == 'cancel'">开始执行批量作废，请勿关闭</h3>
-<h3 class="modal-title " *ngIf="operate_button_type == 'back_cancel'">开始执行批量弃废，请勿关闭</h3>
 </div>
 <div class="pd-20">
   <div class="text-center pd-20" *ngFor="let ra of result_array?.result">
@@ -85,5 +79,5 @@
 </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<bs-modal-backdrop class="modal-backdrop fade in" *ngIf="operate_type == 'urge' || operate_type == 'operation'"></bs-modal-backdrop><!--  *ngIf="is_show_detail"-->
+<bs-modal-backdrop class="modal-backdrop" *ngIf="operate_type == 'urge' || operate_type == 'operation'"></bs-modal-backdrop><!--  *ngIf="is_show_detail"-->
 

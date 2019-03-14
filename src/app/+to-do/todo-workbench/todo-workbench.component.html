@@ -3,7 +3,7 @@
   <sa-widgets-grid>
     <div class="row">
       <article class="col-sm-12 ">
-        <sa-widget [editbutton]="false" [deletebutton]="false" >
+        <sa-widget [editbutton]="false" [deletebutton]="false" [colorbutton]="false" >
           <header>
             <span class="widget-icon"> <i class="fa fa-inbox"></i> </span>
             <h2>我的工作台</h2>
@@ -48,28 +48,29 @@
                           <div class="composer-body" >
                             <div class="entry-task-labels">
                             </div>
-                            <textarea rows="2" class="form-control help-block" placeholder="请输入任务标题" [ngModelOptions]="{standalone: true}" [(ngModel)]="publish_todo_title[tl.key]"></textarea>
-                            <form  class="smart-form">
-
-                              <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <div class="margin-lr30" >
-                                  <section class="col col-6">
-                                    <label  class="select form-control border-0">
-                                      <select [(ngModel)]="workbench_project_id[tl.key]" [ngModelOptions]="{standalone: true}" (change)="getTodoInfo($event)" class="ng-valid ng-touched ng-dirty">
-                                        <option value="0" >--请选择项目名--</option>
-                                        <option *ngFor="let pd of projectDefault?.result?.categoryList" [disabled]="(pd.is_parent == 1) ? 'disabled' : false" [ngStyle]="{'font-weight':((pd.is_parent == 1) ? 'bold' : 'normal'),'color':((pd.is_parent == 1) ? 'black' : ' rgb(64, 64, 64)')}" value="{{pd.project_id}}">{{pd.project_title}}</option>
-                                      </select> <i ></i>
-                                    </label>
-                                  </section>
-                                  <section class="col col-6">
-                                    <label class="select">
-                                      <select [(ngModel)]="workbench_template_id[tl.key]" [ngModelOptions]="{standalone: true}">
-                                        <option value="0" >--请选择任务名--</option>
-                                        <option *ngFor="let tt of todoLists?.result?.template_list" value="{{tt.key}}">{{tt.info}}</option>
-                                      </select> <i></i> </label>
-                                  </section>
+                            <form >
+                              <div class="form-row">
+                                <div class="form-group col-sm-12 col-12">
+                                  <textarea rows="2" class="form-control" placeholder="请输入任务标题" [ngModelOptions]="{standalone: true}" [(ngModel)]="publish_todo_title[tl.key]"></textarea>
                                 </div>
+                                <div class="form-group col-sm-6 col-6">
+                                  <select   class="form-control"  [(ngModel)]="workbench_project_id[tl.key]" [ngModelOptions]="{standalone: true}" (change)="getTodoInfo($event)" >
+                                    <option value="0" >--请选择项目名--</option>
+                                    <option *ngFor="let pd of projectDefault?.result?.categoryList" [disabled]="(pd.is_parent == 1) ? 'disabled' : false" [ngStyle]="{'font-weight':((pd.is_parent == 1) ? 'bold' : 'normal'),'color':((pd.is_parent == 1) ? 'black' : ' rgb(64, 64, 64)')}" value="{{pd.project_id}}">{{pd.project_title}}</option>
+                                  </select>
+                                </div>
+
+                                <div class="form-group col-sm-6 col-6">
+                                  <select   class="form-control"  [(ngModel)]="workbench_template_id[tl.key]" [ngModelOptions]="{standalone: true}">
+                                    <option value="0" >--请选择任务名--</option>
+                                    <option *ngFor="let tt of todoLists?.result?.template_list" value="{{tt.key}}">{{tt.info}}</option>
+                                  </select>
+                                </div>
+
+
+
                               </div>
+
                             </form>
 
                             <div class="composer-body-footer">

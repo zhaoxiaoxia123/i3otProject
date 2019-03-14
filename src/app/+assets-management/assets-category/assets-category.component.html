@@ -13,90 +13,87 @@
           <div >
             <div class="widget-body">
               <div id="myTabContent" class="tab-content">
-                <div class="tab-pane fade active in  padding-left-10 no-padding-bottom" id="AA">
+                <div class="tab-pane  active in  padding-left-10 no-padding-bottom" id="AA">
                   <div class="row">
-                    <article class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                      <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                    <article class="form-group col-sm-4">
+                      <sa-widget class="jarviswidget " [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
                                  [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
                         <div>
                           <div class="widget-body no-padding">
-                            <alert type="info" class="no-margin" *ngIf="category_id == 0">
+                            <div type="info" class="no-margin alert alert-primary" *ngIf="category_id == 0">
                               <i class="fa-fw fa fa-plus"></i>
                               添加资产类别
-                            </alert>
-                            <alert type="info" class="no-margin" *ngIf="category_id != 0">
-                              <i class="glyphicon glyphicon-pencil"></i>
+                            </div>
+                            <div type="info" class="no-margin alert alert-primary" *ngIf="category_id != 0">
+                              <i class="fa-fw fa fa-pencil"></i>
                               修改资产类别
-                            </alert>
-                            <div  class="mt-10">
-                              <form class="smart-form ">
+                            </div>
+                            <div  class="">
+                              <form  class="form-distance">
                                 <fieldset>
-                                  <section>
+                                  <div class="form-group">
                                     <label class="label txt-color-blue">类别编号<span class="asterisk-color">*</span></label>
-                                    <label class="input">
-                                      <input type="text" placeholder="请输入类别编号" name="category_number" [(ngModel)]="category_number">
-                                    </label>
-                                  </section>
-                                  <section>
+                                    <input type="text" class="form-control"  placeholder="请输入类别编号" name="category_number" [(ngModel)]="category_number">
+                                  </div>
+                                  <div class="form-group">
                                     <label class="label txt-color-blue">类别名称<span class="asterisk-color">*</span></label>
-                                    <label class="input">
-                                      <input type="text" placeholder="请输入类别名称" name="category_desc" [(ngModel)]="category_desc">
-                                    </label>
-                                  </section>
-                                  <section>
+                                    <input type="text" class="form-control"  placeholder="请输入类别名称" name="category_desc" [(ngModel)]="category_desc">
+                                  </div>
+                                  <div class="form-group">
                                     <label class="label">说明</label>
-                                    <label class="textarea textarea-resizable">
-                                      <textarea class="custom-scroll" rows="2" placeholder="请输分类说明" name="category_tab" [(ngModel)]="category_tab"></textarea>
-                                    </label>
-                                  </section>
+                                    <textarea class="form-control"   rows="2" placeholder="请输分类说明" name="category_tab" [(ngModel)]="category_tab"></textarea>
+                                  </div>
+
                                 </fieldset>
-                                <footer>
+                                <div class="footer-size flex-justify-end">
                                   <div *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')">
-                                  <button class="btn btn-success" type="button" (click)="addCategory()">保存并新增</button>
-                                  <button type="button" class="btn btn-primary" (click)="addCategory()">
+                                  <button class="btn btn-success  ml-2" type="button" (click)="addCategory()">保存并新增</button>
+                                  <button type="button" class="btn btn-primary  ml-2" (click)="addCategory()">
                                     保存
                                   </button>
                                   </div>
-                                </footer>
+                                </div>
                               </form>
                             </div>
                           </div>
                         </div>
                       </sa-widget>
                     </article>
-                    <article class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                      <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                    <article class="form-group col-sm-8">
+                      <sa-widget class="jarviswidget " [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
                                  [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
                         <div>
                           <div class="widget-body no-padding">
-                            <alert type="info" class="no-margin" >
+                            <div type="info" class="no-margin alert alert-primary" >
                               <i class="fa-fw fa fa-table"></i>
                               资产类别
-                            </alert>
-                            <div  class="row mt-10">
+                            </div>
+                            <div  class="row ">
                               <article  class="col-sm-12">
                                 <div class="navbar navbar-default">
-                                  <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-                                    <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'edit')" >
-                                      <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusCategoryId == 0}" (click)="editCategory()" >
-                                        <span class="glyphicon glyphicon-pencil mr-5 color-yellow" ></span>修改</a>
+                                  <form  class="navbar-form " novalidate="" role="search" >
+                                    <div class="btn-group" *ngIf="isPermission(menu_id,'edit')" >
+                                      <button type="button"   [ngClass]="{'btn btn-warning':true,'not-click':editStatusCategoryId == 0}" (click)="editCategory()" ><span class="fa-fw fa fa-pencil mr-5"></span>修改</button>
                                     </div>
-                                    <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'delete')">
-                                      <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusCategoryId == 0}" (click)="deleteCategory('id')">
-                                        <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
+                                    <div class="btn-group" *ngIf="isPermission(menu_id,'delete')">
+                                      <button type="button"  [ngClass]="{'btn btn-danger':true,'not-click':editStatusCategoryId == 0}"  (click)="deleteCategory('id')"><span class="fa-fw fa  fa-trash-o mr-5"></span>删除</button>
                                     </div>
-                                    <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'detail')">
-                                      <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusCategoryId == 0}" (click)="editCategory('detail')">
-                                        <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
+
+                                    <div class="btn-group"  *ngIf="isPermission(menu_id,'detail')">
+                                      <button type="button"  [ngClass]="{'btn btn-success':true,'not-click':editStatusCategoryId == 0}"   (click)="editCategory('detail')"><span class="fa-fw fa fa-list-alt mr-5"></span>详情</button>
                                     </div>
-                                    <div class="form-group btn-group pdlr-4" *ngIf="isPermission(menu_id,'delete')">
-                                      <a class="btn default-btn btn-sm dropdown-toggle" (click)="showAllCheck()" data-toggle="dropdown">
-                                        <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
-                                      <ul class="dropdown-menu" role="menu">
-                                        <li><a (click)="deleteCategory('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
-                                      </ul>
+
+                                    <div class="btn-group"  *ngIf="isPermission(menu_id,'delete')">
+                                      <button type="button" class="btn btn-secondary" (click)="showAllCheck()"><span class="fa-fw fa fa-th-large mr-5"></span>批处理</button>
+                                      <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
+                                        <span class="sr-only"></span>
+                                      </button>
+                                      <div class="dropdown-menu">
+                                        <a class="dropdown-item"  (click)="deleteCategory('all')">批量删除</a>
+                                      </div>
                                     </div>
                                   </form>
+
                                 </div>
                               </article>
                             </div>
@@ -148,20 +145,20 @@
                                 </table>
                               </div>
                             </div>
+
                             <!-- 底部-（分页部分）-->
-                            <div class="dt-toolbar">
-                              <div class="col-xs-12 col-sm-6">
-                                <span>共{{categoryList.result?.categoryList?.total}}条</span>
-                              </div>
-                              <div class="hidden-xs right">
-                                <ul class="pagination pagination-sm">
-                                  <li *ngFor="let p of categoryList?.result?.page" class="{{p.class}}">
-                                    <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
-                                    <a *ngIf="p.method==''">{{p.text}}</a>
-                                  </li>
-                                </ul>
-                              </div>
+                            <div class="footer-size flex-justify-end">
+                              <ul class="pagination" >
+                                <li  *ngFor="let p of categoryList?.result?.page" class="{{p.class}}">
+                                  <a class="page-link" (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+                                  <a class="page-link" *ngIf="p.method==''">{{p.text}}</a>
+                                </li>
+                                <li class="page-item disabled">
+                                  <a  class="page-link" disabled>共{{categoryList.result?.categoryList?.total}}条</a>
+                                </li>
+                              </ul>
                             </div>
+
                           </div>
                         </div>
                       </sa-widget>
@@ -190,15 +187,15 @@
               <div  class="row">
                 <article  class="col-sm-12">
                   <div class="navbar navbar-default">
-                      <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
+                      <form  class="navbar-form navbar-left" novalidate="" role="search" >
 
                         <div class="form-group pdlr-4">
                           <a class="btn btn-success btn-sm" (click)="lgModal.show()">
-                            <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
+                            <span class="fa-fw fa fa-plus mr-5"></span>添加</a>
                         </div>
                         <div class="form-group pdlr-4">
                           <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusCategoryId == 0}" (click)="editCategory('edit')">
-                            <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
+                            <span class="fa-fw fa fa-pencil mr-5 color-yellow"></span>修改</a>
                         </div>
                         <div class="form-group pdlr-4">
                           <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusCategoryId == 0}" (click)="deleteCategory('id')">
@@ -206,7 +203,7 @@
                         </div>
                         <div class="form-group pdlr-4">
                           <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusCategoryId == 0}" (click)="editCategory('detail')">
-                            <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
+                            <span class="fa-fw fa fa-list-alt mr-5 color-green"></span>详情</a>
                         </div>
                         <div class="form-group btn-group pdlr-4">
                           <a class="btn default-btn btn-sm dropdown-toggle" (click)="showAllCheck()" data-toggle="dropdown">
@@ -226,7 +223,7 @@
                       </form>
                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
                       <div class="form-group pdlr-4">
-                          <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" [(ngModel)]="keyword"  name="keyword" placeholder="请输入搜索内容" type="text">
+                          <input  class="form-control" maxlength="15" [(ngModel)]="keyword"  name="keyword" placeholder="请输入搜索内容" type="text">
                       </div>
                       <div class="form-group pdlr-4">
                         <button class="btn btn-default" type="submit" (click)="getCategoryList(1)">
@@ -319,7 +316,7 @@
         </button>
         &lt;!&ndash; 标题 &ndash;&gt;
         <h3 class="modal-title txt-color-blue" data-ng-bind='results.title' *ngIf="category_id == 0"><i class="fa-fw fa fa-plus"></i>添加资产类别</h3>
-         <h3 class="modal-title  color-yellow" data-ng-bind='results.title' *ngIf="category_id != 0"><i class="glyphicon glyphicon-pencil"></i>修改资产类别</h3>
+         <h3 class="modal-title  color-yellow" data-ng-bind='results.title' *ngIf="category_id != 0"><i class="fa-fw fa fa-pencil"></i>修改资产类别</h3>
       </div>
       <div class="modal-body">
         <div class="row mt-20">
@@ -354,24 +351,25 @@
         </div>
       </div>
       <div class="modal-footer">
-        &lt;!&ndash;<button class="btn btn-success btn-sm" type="button"><span class="glyphicon glyphicon-plus"></span>保存并新增</button>&ndash;&gt;
-        <button type="button" class="btn btn-primary" (click)="addCategory()">保存</button>
-        <button type="button" class="btn btn-default" (click)="closeSubmit();lgModal.hide()">取消</button>
+        &lt;!&ndash;<button class="btn btn-success btn-sm  ml-2" type="button"><span class="fa-fw fa fa-plus"></span>保存并新增</button>&ndash;&gt;
+        <button type="button" class="btn btn-primary  ml-2" (click)="addCategory()">保存</button>
+        <button type="button" class="btn btn-default  ml-2" (click)="closeSubmit();lgModal.hide()">取消</button>
       </div>
     </div>
   </div>
 </div>
 -->
 
-<div class="modal fade" bsModal #detailModel="bs-modal">
-  <div class="modal-dialog">
+<div class="modal fade bd-example-modal-xl" bsModal #detailModel="bs-modal">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
-        <!-- 关闭按钮 -->
-        <button type="button" class="close" (click)="closeSubmit();detailModel.hide()">×</button>
         <!-- 标题 -->
         <h3 class="modal-title" data-ng-bind='results.title'></h3>
         <h4 class="modal-title">资产名称-编号</h4>
+        <!-- 关闭按钮 -->
+        <button type="button" class="close" (click)="closeSubmit();detailModel.hide()">×</button>
+
       </div>
       <div class="modal-body height-overflow-380">
         <div class="row ">

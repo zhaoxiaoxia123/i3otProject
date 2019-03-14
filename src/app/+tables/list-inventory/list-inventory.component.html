@@ -13,49 +13,44 @@
           </header>
           <div>
             <div class="widget-body no-padding">
-              <div class="row">
-                <article class="col-sm-12">
-                  <div class="navbar navbar-default">
-                    <form class="navbar-form navbar-left" role="search" [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate>
-                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'add')">
-                        <a class="btn btn-success btn-sm" (click)="isDemo('/forms/inventory1','0')">
-                          <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
+              <article>
+                <div class="navbar navbar-default">
+                  <form  class="navbar-form "  role="search" [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate >
+                    <div class="btn-group" *ngIf="isPermission(menu_id,'add')">
+                      <button type="button" class="btn btn-primary"   (click)="isDemo('/forms/inventory1','0')"><span class="fa-fw fa fa-plus  mr-5"></span>添加</button>
+                    </div>
+                    <div class="btn-group" *ngIf="isPermission(menu_id,'edit')">
+                      <button type="button"   [ngClass]="{'btn btn-warning':true,'not-click':editStatusStorehouseId == 0}" (click)="detailStorehouse('edit')"><span class="fa-fw fa fa-pencil mr-5"></span>修改</button>
+                    </div>
+                    <div class="btn-group" *ngIf="isPermission(menu_id,'delete')" >
+                      <button type="button"  [ngClass]="{'btn btn-danger':true,'not-click':editStatusStorehouseId == 0}" (click)="deleteStorehouse('id')"><span class="fa-fw fa  fa-trash-o mr-5"></span>删除</button>
+                    </div>
+                    <div class="btn-group" *ngIf="isPermission(menu_id,'detail')">
+                      <button type="button"  [ngClass]="{'btn btn-success':true,'not-click':editStatusStorehouseId == 0}" (click)="detailStorehouse('detail')"><span class="fa-fw fa fa-list-alt mr-5"></span>详情</button>
+                    </div>
+                    <div class="btn-group"  *ngIf="isPermission(menu_id,'delete')">
+                      <button type="button" class="btn btn-secondary"   (click)="showAllCheck()" ><span class="fa-fw fa fa-th-large mr-5"></span>批处理</button>
+                      <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
+                        <span class="sr-only"></span>
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" (click)="deleteStorehouse('all')">批量删除</a>
                       </div>
-                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'edit')">
-                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusStorehouseId == 0}" (click)="detailStorehouse('edit')">
-                          <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
-                      </div>
-                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'delete')">
-                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusStorehouseId == 0}" (click)="deleteStorehouse('id')">
-                          <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
-                      </div>
-                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'detail')">
-                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusStorehouseId == 0}" (click)="detailStorehouse('detail')">
-                          <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
-                      </div>
+                    </div>
+                  </form>
+                  <form  class="navbar-form" novalidate="" role="search" [formGroup]="formModel" (ngSubmit)="onSubmit()" >
 
-                      <div class="form-group btn-group pdlr-4" *ngIf="isPermission(menu_id,'delete')">
-                        <a class="btn default-btn btn-sm dropdown-toggle" (click)="showAllCheck()" data-toggle="dropdown">
-                          <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a (click)="deleteStorehouse('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
-                        </ul>
-                      </div>
-                    </form>
-                    <form class="navbar-form navbar-left" role="search" [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate>
-                      <div class="form-group pdlr-4">
-                        <input type="text" name="keyword" maxlength="15" formControlName="keyword" class="form-control" placeholder="请输入搜索内容">
-                      </div>
-                      <div class="form-group pdlr-4">
-                        <button type="submit" class="btn btn-default">
-                          <i class="glyphicon glyphicon-search"></i>
-                          搜索
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </article>
-              </div>
+                    <div class="btn-group">
+                      <input type="text" class="form-control"  maxlength="15" formControlName="keyword"  placeholder="请输入搜索内容">
+                    </div>
+                    <div class="btn-group">
+                      <button type="button" class="btn default-btn" >搜索</button>
+                    </div>
+
+                  </form>
+
+                </div>
+              </article>
               <div style="padding:0;">
                 <div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-scrolling padding0">
                   <table class="table table-striped   smart-form table-height-20">
@@ -109,31 +104,29 @@
                       </td>
                       <td>{{ sl.updated_at }}</td>
                       <!--(click)="editStorehouse(sl.storehouse_id)"   [routerLink]="['/forms/inventory1',sl.storehouse_id]" -->
-                      <!--<td><a class="btn btn-warning btn-xs" (click)="isDemo('/forms/inventory1',sl.storehouse_id)"><span class="glyphicon glyphicon-pencil mr-5"></span>修改</a>
+                      <!--<td><a class="btn btn-warning btn-xs" (click)="isDemo('/forms/inventory1',sl.storehouse_id)"><span class="fa-fw fa fa-pencil mr-5"></span>修改</a>
                         <a class="btn btn-danger btn-xs" (click)="deleteStorehouse(sl.storehouse_id ,storehouseList.result?.current_page)"><span class="glyphicon glyphicon-remove mr-5"></span>删除</a>
-                        <a class="btn btn-success btn-xs" (click)="getStorehouseInfo(sl.storehouse_id);lgModal.show();"><span class="glyphicon glyphicon-zoom-in mr-5"></span>详情</a>
+                        <a class="btn btn-success btn-xs" (click)="getStorehouseInfo(sl.storehouse_id);lgModal.show();"><span class="fa-fw fa fa-list-alt  mr-5"></span>详情</a>
                       </td>-->
                     </tr>
                     </tbody>
                   </table>
                 </div>
               </div>
+
               <!-- 底部-（分页部分）-->
-              <div class="dt-toolbar">
-                <div class="col-xs-12 col-sm-6">
-                  <div class="col-xs-12 col-sm-6">
-                    <span>共{{storehouseList.result?.storehouseList?.total}}条</span>
-                  </div>
-                </div>
-                <div class="hidden-xs right">
-                  <ul class="pagination pagination-sm">
-                    <li *ngFor="let p of storehouseList?.result?.page" class="{{p.class}}">
-                      <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
-                      <a *ngIf="p.method==''">{{p.text}}</a>
-                    </li>
-                  </ul>
-                </div>
+              <div class="footer-size flex-justify-end">
+                <ul class="pagination" >
+                  <li *ngFor="let p of storehouseList?.result?.page" class="{{p.class}}">
+                    <a class="page-link" (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+                    <a class="page-link" *ngIf="p.method==''">{{p.text}}</a>
+                  </li>
+                  <li class="page-item disabled">
+                    <a  class="page-link" disabled>共{{storehouseList.result?.storehouseList?.total}}条</a>
+                  </li>
+                </ul>
               </div>
+
             </div>
           </div>
         </sa-widget>
@@ -146,10 +139,11 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
+          <h4 class="modal-title">{{storehouse_info.result?.storehouse_name}}</h4>
           <button type="button" class="close" (click)="lgModal.hide()" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h4 class="modal-title">{{storehouse_info.result?.storehouse_name}}</h4>
+
         </div>
         <div class="modal-body">
           <div class="row">

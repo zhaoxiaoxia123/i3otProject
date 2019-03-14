@@ -16,14 +16,14 @@
               <div  class="row">
                 <article  class="col-sm-12">
                   <div class="navbar navbar-default">
-                      <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
+                      <form  class="navbar-form navbar-left" novalidate="" role="search" >
                         <div class="form-group pdlr-4">
                           <a class="btn btn-success btn-sm" (click)="isDemo('/procurement-management/app-order','0','')">
-                            <span class="glyphicon glyphicon-plus mr-5"></span>添加采购订单</a>
+                            <span class="fa-fw fa fa-plus mr-5"></span>添加采购订单</a>
                         </div>
                         <div class="form-group pdlr-4">
                           <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="isDemo('/procurement-management/app-order','1','edit')">
-                            <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
+                            <span class="fa-fw fa fa-pencil mr-5 color-yellow"></span>修改</a>
                         </div>
                         <div class="form-group pdlr-4">
                           <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="deletePurchase('id')">
@@ -31,7 +31,7 @@
                         </div>
                         <div class="form-group pdlr-4">
                           <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="isDemo('/procurement-management/app-order','1','detail')" >
-                            <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
+                            <span class="fa-fw fa fa-list-alt mr-5 color-green"></span>详情</a>
                         </div>
                         <!--<div class="form-group pdlr-4" *ngIf="isStatus == 2">-->
                           <!--<a class="btn default-btn btn-sm" (click)="editStatus(1,'id')">-->
@@ -74,9 +74,9 @@
                         </div>
 
                       </form>
-                    <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
+                    <form  class="navbar-form navbar-left" novalidate="" role="search" >
                       <div class="form-group pdlr-4">
-                          <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" name="keyword" [(ngModel)]="keyword" placeholder="请输入搜索内容" type="text">
+                          <input  class="form-control " maxlength="15" name="keyword" [(ngModel)]="keyword" placeholder="请输入搜索内容" type="text">
                       </div>
                       <div class="form-group pdlr-4">
                         <button class="btn btn-default" type="button" (click)="getPurchaseList(1)">

@@ -2,7 +2,7 @@
   <sa-widgets-grid>
     <div class="row">
       <article class="col-sm-12 ">
-        <sa-widget [editbutton]="false" [deletebutton]="false" >
+        <sa-widget [editbutton]="false" [deletebutton]="false" [colorbutton]="false">
           <header >
             <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
             <h2 >请假</h2>
@@ -10,112 +10,102 @@
           <div>
             <!--小部件内容 (ngSubmit)="onSubmit()"-->
             <div class="widget-body no-padding">
-              <form id="smart-form-register" class="smart-form" [formGroup]="formModel" >
+              <form id="smart-form-register" class="form-distance" [formGroup]="formModel" >
                 <fieldset>
                   <legend>基本信息</legend>
                   <input type="hidden" name="">
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <label class="label txt-color-blue">请假类型<span class="asterisk-color">*</span></label>
-                    <section>
-                        <label   class="select form-control border-0">
-                          <select  name="type" formControlName="type" >
-                            <option  value="0" disabled>--请选择--</option>
-                            <option  value="事假">事假</option>
-                            <option  value="病假">病假</option>
-                            <option  value="年假">年假</option>
-                            <option  value="调休">调休</option>
-                            <option  value="婚假">婚假</option>
-                            <option  value="产假">产假</option>
-                            <option  value="陪产假">陪产假</option>
-                            <option  value="路途假">路途假</option>
-                            <option  value="其他">其他</option>
-                          </select><i></i>
-                        </label>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <section >
-                      <label class="label txt-color-blue">开始日期<span class="asterisk-color">*</span></label>
-                      <label  class="input">
-                        <input name="approval_start_date" [ngModelOptions]="{standalone: true}" [(ngModel)]="approval_start_date" value="{{approval_start_date}}" [dpDayPicker]="datePickerConfig" [theme]="'dp-material'" [mode]="'day'"  class="form-control ng-binding expire-text-soon" placeholder="选择日期（必填）" />
-                      </label>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <section >
-                      <label class="label txt-color-blue">结束日期<span class="asterisk-color">*</span></label>
-                      <label  class="input">
-                        <input name="approval_end_date" [ngModelOptions]="{standalone: true}" [(ngModel)]="approval_end_date" value="{{approval_end_date}}" [dpDayPicker]="datePickerConfig" [theme]="'dp-material'" [mode]="'day'"  class="form-control ng-binding expire-text-soon" placeholder="选择日期（必填）" />
-                      </label>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <section>
-                      <label class="label txt-color-blue">请假天数<span class="asterisk-color">*</span></label>
-                      <label class="input">
-                        <input  type="number" placeholder="请假天数（必填）" name="day" formControlName="day">
-                      </label>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
-                    <section>
-                      <label class="label txt-color-blue">请假事由<span class="asterisk-color">*</span></label>
-                      <label class="textarea textarea-resizable">
-                        <textarea class="custom-scroll" rows="4" placeholder="请假事由（必填）" name="reason" formControlName="reason"></textarea>
-                      </label>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
-                    <div class="label ">图片
-                      <a class="txt-color-blue pd-10" (click)="showSelectFileDiv()">添加图片</a>
-                      <span class="txt-color-blueLight pd-10">(最多可以选择10张)</span>
+                  <div class="form-row">
+                    <div class="form-group col-sm-4">
+                      <label class="label txt-color-blue">请假类型<span class="asterisk-color">*</span></label>
+                      <select  class="form-control"  name="type" formControlName="type" >
+                        <option  value="0" disabled>--请选择--</option>
+                        <option  value="事假">事假</option>
+                        <option  value="病假">病假</option>
+                        <option  value="年假">年假</option>
+                        <option  value="调休">调休</option>
+                        <option  value="婚假">婚假</option>
+                        <option  value="产假">产假</option>
+                        <option  value="陪产假">陪产假</option>
+                        <option  value="路途假">路途假</option>
+                        <option  value="其他">其他</option>
+                      </select>
                     </div>
-                    <div  class="picture mb-20">
-                      <div  class="picture-list" *ngFor="let img of imgList;let ind = index;">
-                        <a  class="fa fa-times-circle picture-a" style="display:block;" (click)="removeImg(ind)"></a>
-                        <img width="90px" height="90px" src="{{url}}{{img}}" (click)="showBigPic(url+img)">
+
+                    <div class="form-group col-sm-4">
+                      <label class="label txt-color-blue">开始日期<span class="asterisk-color">*</span></label>
+                      <input class="form-control" name="approval_start_date" [ngModelOptions]="{standalone: true}" [(ngModel)]="approval_start_date" value="{{approval_start_date}}" [dpDayPicker]="datePickerConfig" [theme]="'dp-material'" [mode]="'day'"   placeholder="选择日期（必填）" />
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                      <label class="label txt-color-blue">结束日期<span class="asterisk-color">*</span></label>
+                      <input  class="form-control"  name="approval_end_date" [ngModelOptions]="{standalone: true}" [(ngModel)]="approval_end_date" value="{{approval_end_date}}" [dpDayPicker]="datePickerConfig" [theme]="'dp-material'" [mode]="'day'"   placeholder="选择日期（必填）" />
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                      <label class="label txt-color-blue">请假天数<span class="asterisk-color">*</span></label>
+                      <input   class="form-control"  type="number" placeholder="请假天数（必填）" name="day" formControlName="day">
+                    </div>
+
+                    <div class="form-group col-sm-12">
+                      <label class="label txt-color-blue">请假事由<span class="asterisk-color">*</span></label>
+                      <textarea class="form-control" rows="3" placeholder="请假事由（必填）" name="reason" formControlName="reason"></textarea>
+                    </div>
+
+                    <div class="form-group col-sm-12 ">
+                      <div class="label ">图片
+                        <a class="txt-color-blue pd-10" (click)="showSelectFileDiv()">添加图片</a>
+                        <span class="txt-color-blueLight pd-10">(最多可以选择10张)</span>
+                      </div>
+                      <div  class="picture mb-20">
+                        <div  class="picture-list" *ngFor="let img of imgList;let ind = index;">
+                          <a  class="fa fa-times-circle picture-a" style="display:block;" (click)="removeImg(ind)"></a>
+                          <img width="90px" height="90px" src="{{url}}{{img}}" (click)="showBigPic(url+img)">
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-20">
-                    <div class="label ">附件<a class="txt-color-blue pd-10" >添加附件</a></div>
+                    <div class="form-group col-sm-12 ">
+                      <div class="label ">附件<a class="txt-color-blue pd-10" >添加附件</a></div>
+                    </div>
+
+                    <div class="form-group col-sm-12 ">
+                      <div class="label ">审批人<a class="txt-color-blue pd-10" (click)="showDetail('assign')">添加审批人</a></div>
+                      <ul  class="avatars" *ngIf="approve_user">
+                        <li *ngFor="let su of approve_user;let ind = index;">
+                          <a class="fa fa-times-circle picture-a" style="display:block;" (click)="removeUser(su.id,'assign')"></a>
+                          <a class="portrait-size" title="{{su.u_username}}">
+                            {{su.u_username}}
+                          </a>
+                          <div class="approval-arrow" *ngIf="ind < approve_user.length && ind != 0" >
+                            <img src="assets/img/icon/arrow.png" >
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="form-group col-sm-12 ">
+                      <div class="label ">抄送人<a class="txt-color-blue pd-10" (click)="showDetail('follower')">添加抄送人</a><span class="txt-color-blueLight pd-10">(审批通过后，通知抄送人)</span></div>
+                      <ul  class="avatars" *ngIf="follower_user">
+                        <li *ngFor="let su1 of follower_user;let ind1 = index;">
+                          <a class="fa fa-times-circle picture-a" style="display:block;" (click)="removeUser(su1.id,'follower')"></a>
+                          <a class="portrait-size" title="{{su1.u_username}}">
+                            {{su1.u_username}}
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+
                   </div>
 
-                  <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-20">
-                    <div class="label ">审批人<a class="txt-color-blue pd-10" (click)="showDetail('assign')">添加审批人</a></div>
-                    <ul  class="avatars" *ngIf="approve_user">
-                      <li *ngFor="let su of approve_user;let ind = index;">
-                        <a class="fa fa-times-circle picture-a" style="display:block;" (click)="removeUser(su.id,'assign')"></a>
-                        <a class="portrait-size" title="{{su.u_username}}">
-                          {{su.u_username}}
-                        </a>
-                        <div class="approval-arrow" *ngIf="ind < approve_user.length && ind != 0" >
-                          <img src="assets/img/icon/arrow.png" >
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-20">
-                    <div class="label ">抄送人<a class="txt-color-blue pd-10" (click)="showDetail('follower')">添加抄送人</a><span class="txt-color-blueLight pd-10">(审批通过后，通知抄送人)</span></div>
-                    <ul  class="avatars" *ngIf="follower_user">
-                      <li *ngFor="let su1 of follower_user;let ind1 = index;">
-                        <a class="fa fa-times-circle picture-a" style="display:block;" (click)="removeUser(su1.id,'follower')"></a>
-                        <a class="portrait-size" title="{{su1.u_username}}">
-                          {{su1.u_username}}
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
+
                 </fieldset>
-                <footer>
-                  <button type="button" class="btn btn-default" >
-                    返回
-                  </button>
-                  <button class="btn btn-success" type="button" (click)="onSubmit(2)">提交并新增</button>
-                  <button  type="submit" class="btn btn-primary" (click)="onSubmit(1)">
+                <div class="footer-size flex-justify-end">
+                  <button  type="submit" class="btn btn-primary ml-2" (click)="onSubmit(1)">
                     提交
                   </button>
-                </footer>
+                  <button class="btn btn-success ml-2" type="button" (click)="onSubmit(2)">提交并新增</button>
+                  <button type="button" class="btn btn-default ml-2" >
+                    返回
+                  </button>
+                </div>
               </form>
             </div>
           </div>

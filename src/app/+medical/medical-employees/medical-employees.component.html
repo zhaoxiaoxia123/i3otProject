@@ -10,51 +10,41 @@
 
           <div>
             <div class="widget-body no-padding" >
-              <div  class="row">
-                <article  class="col-sm-12">
-                  <div class="navbar navbar-default">
-                    <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-
-                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'add')">
-                        <a class="btn btn-success btn-sm" (click)="lgModal.show();">
-                          <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
+              <article>
+                <div class="navbar navbar-default">
+                  <form  class="navbar-form " novalidate="" role="search" >
+                    <div class="btn-group"  *ngIf="isPermission(menu_id,'add')">
+                      <button type="button" class="btn btn-primary"  (click)="lgModal.show();"><span class="fa-fw fa fa-plus  mr-5"></span>添加</button>
+                    </div>
+                    <div class="btn-group"  *ngIf="isPermission(menu_id,'edit')">
+                      <button type="button"   [ngClass]="{'btn btn-warning':true,'not-click':isStatus == 0}"  (click)="detailUser('edit')"><span class="fa-fw fa fa-pencil mr-5"></span>修改</button>
+                    </div>
+                    <div class="btn-group" *ngIf="isPermission(menu_id,'delete')">
+                      <button type="button"  [ngClass]="{'btn btn-danger':true,'not-click':isStatus == 0}"  (click)="deleteUser('id')"><span class="fa-fw fa  fa-trash-o mr-5"></span>删除</button>
+                    </div>
+                    <div class="btn-group"  *ngIf="isPermission(menu_id,'detail')">
+                      <button type="button"  [ngClass]="{'btn btn-success':true,'not-click':isStatus == 0}"  (click)="detailUser('detail')"><span class="fa-fw fa fa-list-alt mr-5"></span>详情</button>
+                    </div>
+                    <div class="btn-group"  *ngIf="isPermission(menu_id,'delete')">
+                      <button type="button" class="btn btn-secondary"  (click)="showAllCheck()"><span class="fa-fw fa fa-th-large mr-5"></span>批处理</button>
+                      <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
+                        <span class="sr-only"></span>
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item"  (click)="deleteUser('all')">批量删除</a>
                       </div>
-                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'edit')">
-                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailUser('edit')">
-                          <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
-                      </div>
-                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'delete')">
-                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="deleteUser('id')">
-                          <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
-                      </div>
-                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'detail')">
-                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailUser('detail')">
-                          <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
-                      </div>
-                      <div class="form-group btn-group pdlr-4" *ngIf="isPermission(menu_id,'delete')">
-                        <a class="btn default-btn btn-sm dropdown-toggle"  data-toggle="dropdown" (click)="showAllCheck()">
-                          <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
-
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a (click)="deleteUser('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
-                        </ul>
-                      </div>
-                    </form>
-                    <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-                      <div class="form-group pdlr-4">
-                        <input  class="form-control ng-pristine ng-valid ng-touched" name="keyword" maxlength="15" [(ngModel)]="keyword" placeholder="请输入搜索内容" type="text">
-                      </div>
-                      <div class="form-group pdlr-4">
-                        <button class="btn btn-default" type="button" (click)="getUserList(1)">
-                          <i  class="glyphicon glyphicon-search"></i>
-                          搜索
-                        </button>
-                      </div>
-                    </form>
-
-                  </div>
-                </article>
-              </div>
+                    </div>
+                  </form>
+                  <form  class="navbar-form" novalidate="" role="search" >
+                    <div class="btn-group">
+                      <input type="text" class="form-control"  name="keyword" maxlength="15" [(ngModel)]="keyword" placeholder="请输入搜索内容" >
+                    </div>
+                    <div class="btn-group">
+                      <button type="button" class="btn default-btn" (click)="getUserList(1)" >搜索</button>
+                    </div>
+                  </form>
+                </div>
+              </article>
               <div  class="padding0 height-overflow" >
                 <div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-scrolling">
                   <table class="table table-striped smart-form table-height-20">
@@ -115,20 +105,20 @@
                   </table>
                 </div>
               </div>
+
               <!-- 底部-（分页部分）-->
-              <div class="dt-toolbar">
-                <div class="col-xs-12 col-sm-6">
-                  <span>共{{userList.result?.userList?.total}}条</span>
-                </div>
-                <div class="hidden-xs right">
-                  <ul class="pagination pagination-sm" *ngIf="userList?.result?.page != ''">
-                    <li *ngFor="let p of userList?.result?.page" class="{{p.class}}">
-                      <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
-                      <a *ngIf="p.method==''">{{p.text}}</a>
-                    </li>
-                  </ul>
-                </div>
+              <div class="footer-size flex-justify-end">
+                <ul class="pagination"   *ngIf="userList?.result?.page != ''">
+                  <li  *ngFor="let p of userList?.result?.page" class="{{p.class}}">
+                    <a class="page-link" (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+                    <a class="page-link"  *ngIf="p.method==''">{{p.text}}</a>
+                  </li>
+                  <li class="page-item disabled">
+                    <a  class="page-link" disabled>共{{userList.result?.userList?.total}}条</a>
+                  </li>
+                </ul>
               </div>
+
             </div>
           </div>
         </sa-widget>
@@ -137,130 +127,108 @@
   </sa-widgets-grid>
 </div>
 
-<div class="modal fade" bsModal #lgModal="bs-modal">
-  <div class="modal-dialog">
+<div class="modal fade  bd-example-modal-xl" bsModal #lgModal="bs-modal">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
-        <!-- 关闭按钮 -->
-        <button type="button" class="close" (click)="clear_();lgModal.hide()">×</button>
         <!-- 标题 -->
         <h3 *ngIf="id == 0" class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>添加员工信息</h3>
-        <h3 *ngIf="id != 0" class="modal-title  color-yellow" data-ng-bind='results.title'><i class="glyphicon glyphicon-pencil"></i>修改员工信息</h3>
+        <h3 *ngIf="id != 0" class="modal-title  color-yellow" data-ng-bind='results.title'><i class="fa-fw fa fa-pencil"></i>修改员工信息</h3>
+        <!-- 关闭按钮 -->
+        <button type="button" class="close" (click)="clear_();lgModal.hide()">×</button>
+
       </div>
       <div class="modal-body height-overflow-380">
         <div class="row mt-20">
-          <form   class="smart-form ">
-            <fieldset>
-              <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">-->
-                <!--<section>-->
-                  <!--<label  class="label txt-color-blue">登陆账号</label>-->
-                  <!--<label class="input">-->
-                    <!--<input  type="text" name="name" [(ngModel)]="name">-->
-                  <!--</label>-->
-                <!--</section>-->
-              <!--</div>-->
-              <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">-->
-                <!--<section>-->
-                  <!--<label  class="label txt-color-blue">密码</label>-->
-                  <!--<label class="input">-->
-                    <!--<input  type="text" placeholder="{{passwordPlaceholder}}" maxlength="20" minlength="6" name="u_password" [(ngModel)]="u_password">-->
-                  <!--</label>-->
-                <!--</section>-->
-              <!--</div>-->
 
-              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <section>
+          <form class="form-distance">
+            <fieldset>
+              <div class="form-row">
+
+                <!--<div class="form-group col-sm-4">-->
+                  <!--<label  class="label txt-color-blue">登陆账号</label>-->
+                  <!--<input type="text" class="form-control"  name="name" [(ngModel)]="name">-->
+                <!--</div>-->
+
+                <!--<div class="form-group col-sm-4">-->
+                  <!--<label  class="label txt-color-blue">密码</label>-->
+                  <!--<input type="text" class="form-control" placeholder="{{passwordPlaceholder}}" maxlength="20" minlength="6" name="u_password" [(ngModel)]="u_password">-->
+                <!--</div>-->
+
+                <div class="form-group col-sm-4">
                   <label class="label txt-color-blue">编号<span  class="asterisk-color">*</span></label>
-                  <label class="input">
-                    <input  type="text" name="u_number" [(ngModel)]="u_number">
-                  </label>
-                </section>
-              </div>
-              <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">-->
-                <!--<section>-->
+                  <input type="text" class="form-control" name="u_number" [(ngModel)]="u_number">
+                </div>
+
+                <!--<div class="form-group col-sm-4">-->
                   <!--<label class="label">角色</label>-->
-                  <!--<label class="select">-->
-                    <!--<select name="u_role" [(ngModel)]="u_role">-->
-                      <!--<option [value]="0">&#45;&#45;请选择&#45;&#45;</option>-->
-                      <!--<option [value]="2">管理员</option>-->
-                      <!--<option [value]="3">客户部</option>-->
-                      <!--<option [value]="4">人事部</option>-->
-                      <!--<option [value]="5">产品部</option>-->
-                      <!--<option [value]="6">库管部</option>-->
-                      <!--<option [value]="7">销售部</option>-->
-                      <!--<option [value]="8">自定义</option>-->
-                    <!--</select> <i></i> </label>-->
-                <!--</section>-->
-              <!--</div>-->
-              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <section>
+                  <!--<select   class="form-control" name="u_role" [(ngModel)]="u_role">-->
+                    <!--<option [value]="0">&#45;&#45;请选择&#45;&#45;</option>-->
+                    <!--<option [value]="2">管理员</option>-->
+                    <!--<option [value]="3">客户部</option>-->
+                    <!--<option [value]="4">人事部</option>-->
+                    <!--<option [value]="5">产品部</option>-->
+                    <!--<option [value]="6">库管部</option>-->
+                    <!--<option [value]="7">销售部</option>-->
+                    <!--<option [value]="8">自定义</option>-->
+                  <!--</select>-->
+                <!--</div>-->
+
+                <div class="form-group col-sm-4">
                   <label  class="label txt-color-blue">姓名<span  class="asterisk-color">*</span></label>
-                  <label class="input">
-                    <input  type="text" name="u_username" [(ngModel)]="u_username">
-                  </label>
-                </section>
-              </div>
-              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <section>
+                  <input type="text" class="form-control" name="u_username" [(ngModel)]="u_username">
+                </div>
+
+                <div class="form-group col-sm-4">
                   <label  class="label ">性别</label>
-                  <label   class="select form-control border-0">
-                    <select name="u_gender" [(ngModel)]="u_gender">
-                      <option value="0">--请选择--</option>
-                      <option value="1">男</option>
-                      <option value="2">女</option>
-                    </select><i></i>
-                  </label>
-                </section>
-              </div>
-              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <section>
+                  <select  class="form-control" name="u_gender" [(ngModel)]="u_gender">
+                    <option value="0">--请选择--</option>
+                    <option value="1">男</option>
+                    <option value="2">女</option>
+                  </select>
+                </div>
+
+                <div class="form-group col-sm-4">
                   <label  class="label">年龄</label>
-                  <label class="input">
-                    <input  type="number" name="u_age" [(ngModel)]="u_age">
-                  </label>
-                </section>
-              </div>
-              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <section>
+                  <input type="number" class="form-control"   name="u_age" [(ngModel)]="u_age">
+                </div>
+
+                <div class="form-group col-sm-4">
                   <label  class="label ">电话号码</label>
-                  <label class="input">
-                    <input  type="text" name="u_phone" [(ngModel)]="u_phone">
-                  </label>
-                </section>
-              </div>
-              <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <section>
+                  <input type="text" class="form-control"  name="u_phone" [(ngModel)]="u_phone" >
+                </div>
+
+                <div class="form-group col-sm-12">
                   <label class="label">备注</label>
-                  <label class="textarea textarea-resizable">
-                    <textarea  class="custom-scroll" rows="3" name="u_notes" [(ngModel)]="u_notes"></textarea>
-                  </label>
-                </section>
+                  <textarea class="form-control"  rows="3" name="u_notes" [(ngModel)]="u_notes"></textarea>
+                </div>
+
               </div>
             </fieldset>
           </form>
         </div>
       </div>
       <div class="modal-footer">
-        <button *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')" class="btn btn-success btn-sm" type="button" (click)="onSubmit(2);"><span class="glyphicon glyphicon-plus"></span>保存并新增</button>
-        <button *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')" type="button" class="btn btn-primary" (click)="onSubmit(1);">保存</button>
-        <button type="button" class="btn btn-default" (click)="clear_();lgModal.hide()">返回</button>
+        <button *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')" class="btn btn-success btn-sm  ml-2" type="button" (click)="onSubmit(2);"><span class="fa-fw fa fa-plus"></span>保存并新增</button>
+        <button *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')" type="button" class="btn btn-primary  ml-2" (click)="onSubmit(1);">保存</button>
+        <button type="button" class="btn btn-default  ml-2" (click)="clear_();lgModal.hide()">返回</button>
       </div>
     </div>
   </div>
 </div>
 
 
-<div class="modal fade" bsModal #detailModal="bs-modal">
-  <div class="modal-dialog">
+<div class="modal fade  bd-example-modal-xl" bsModal #detailModal="bs-modal">
+  <div class="modal-dialog  modal-xl">
     <div class="modal-content">
       <div class="modal-header">
+        <!-- 标题 -->
+        <h3 class="modal-title" data-ng-bind='results.title'></h3>
+        <h4 class="modal-title">员工信息</h4>
         <!-- 关闭按钮 -->
         <button type="button" class="close" (click)="clear_();detailModal.hide()">
           ×
         </button>
-        <!-- 标题 -->
-        <h3 class="modal-title" data-ng-bind='results.title'></h3>
-        <h4 class="modal-title">员工信息</h4>
       </div>
       <div class="modal-body height-overflow-380">
         <div class="row ">

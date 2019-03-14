@@ -6,13 +6,13 @@
 
             <article class="col-sm-12 ">
 
-                <sa-widget [editbutton]="false" [deletebutton]="false" >
+                <sa-widget [editbutton]="false" [deletebutton]="false" [colorbutton]="false" >
                     <header *ngIf="b_id == 0" >
                         <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
                         <h2>添加广播信息</h2>
                     </header>
                     <header *ngIf="b_id != 0">
-                        <span class="widget-icon"> <i class="glyphicon glyphicon-pencil"></i> </span>
+                        <span class="widget-icon"> <i class="fa-fw fa fa-pencil"></i> </span>
                         <h2 >修改广播信息 </h2>
                     </header>
 
@@ -20,15 +20,14 @@
                         <!--小部件内容(ngSubmit)="onSubmit()"-->
                         <div class="widget-body no-padding">
 
-                            <form id="smart-form-register" class="smart-form"  [formGroup]="formModel" >
+                            <form id="smart-form-register" class="form-distance"  [formGroup]="formModel" >
                                 <fieldset>
 
                                     <input type="hidden" name="b_id" formControlName="b_id">
                                     <legend>基本信息</legend>
-                                    <div class="form-group col col-lg-8 col-md-8 col-sm-8 col-xs-12 ">
-                                        <section>
+                                    <div class="form-row">
+                                        <div class="form-group col-sm-12">
                                             <label class="label">设备ID</label>
-
                                             <span class="select2 select2-container select2-container--default select2-container--below select2-container--focus "  style="width: 100%;">
                                            <span class="selection">
                                              <span class="select2-selection select2-selection--multiple" (click)="showColorDivI3otp()">
@@ -42,21 +41,7 @@
                                              </span>
                                            </span>
                                          </span>
-                                            <!--<span class="select2 select2-container&#45;&#45;open select2-container select2-container&#45;&#45;default select2-container&#45;&#45;below select2-container&#45;&#45;focus select-hidden" dir="ltr" style="width: 100%;position: absolute;">-->
-                                           <!--<span class="selection">-->
-                                             <!--<span class="select2-selection select2-selection&#45;&#45;multiple select2-results select2-dropdown select2-drop-active">-->
-                                              <!--<ul class="select2-results__options select2-results__options&#45;&#45;nested">-->
-                                                <!--<li class="select2-results__option  select2-results__option&#45;&#45;highlighted" >4566</li>-->
-                                                <!--<li class="select2-results__option">4666</li>-->
-                                                <!--<li class="select2-results__option">456465456</li>-->
-                                                <!--<li class="select2-results__option">4-45665</li>-->
-                                                <!--<li class="select2-results__option">46656</li>-->
-                                                <!--<li class="select2-results__option">456456</li>-->
-                                                <!--<li class="select2-results__option">456546</li>-->
-                                              <!--</ul>-->
-                                             <!--</span>-->
-                                           <!--</span>-->
-                                         <!--</span>-->
+
                                             <span [ngClass]="{'select2 select2-container--open select2-container select2-container--default select2-container--below select2-container--focus':true,'select-hidden':div_show_i3otp}" dir="ltr" style="width: 100%;position: absolute;">
                                                <span class="selection">
                                                  <span class="select2-selection select2-selection--multiple select2-results select2-dropdown select2-drop-active" (mouseleave)="outMouseColor()">
@@ -66,78 +51,101 @@
                                                  </span>
                                                </span>
                                             </span>
-                                        </section>
+
+                                            <!--<select  class="form-control">-->
+                                                <!--<option selected>Choose...</option>-->
+                                                <!--<option>...</option>-->
+                                            <!--</select>-->
+                                        </div>
+
+                                        <div class="form-group col-sm-4">
+                                            <label class="label">警报类型（多选按钮）</label>
+                                            <div class="input-group mb-2 mr-sm-2">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"   value="text" [checked]="selects['text']" (change)="handle($event)" name="b_category" formControlName="b_category">
+                                                    <label class="form-check-label" for="inlineCheckbox1">文字</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="voice" [checked]="selects['voice']" (change)="handle($event)" name="b_category" formControlName="b_category">
+                                                    <label class="form-check-label" for="inlineCheckbox2">语音</label>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group col-sm-4">
+                                            <label class="label">文字输入</label>
+                                            <input type="text" class="form-control" placeholder="请输入内容 " maxlength="150" name="b_info" formControlName="b_info" >
+                                        </div>
+
+                                        <div class="form-group col-sm-4">
+                                            <label class="label">闪烁</label>
+                                            <input type="text" class="form-control"  placeholder="请输入闪烁时间" maxlength="10" name="b_led" formControlName="b_led" >
+                                        </div>
+
+                                        <div class="form-group col-sm-4">
+                                            <label class="label">警报</label>
+                                            <input type="text" class="form-control"   placeholder="请输入警报持续时间" maxlength="10" name="b_buzzer" formControlName="b_buzzer">
+                                        </div>
+
+                                        <div class="form-group col-sm-4">
+                                            <label class="label">广播公司</label>
+                                            <select   class="form-control"  name="c_id" formControlName="c_id" [(ngModel)]="c_id_default" (change)="getTheUserList($event,1)">
+                                                <option value="0" [selected]="b_id == 0">--请选择--</option>
+                                                <option *ngFor="let c of broadcastList.result?.customerList" [selected]="broadcastInfo.result?.c_id == c.c_number" value="{{c.c_number}}">{{c.c_name}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-sm-4">
+                                            <label class="label">广播人员</label>
+                                            <select  class="form-control"  name="u_id" formControlName="u_id" [(ngModel)]="u_id_default">
+                                                <option value="0" [selected]="b_id == 0">--请选择--</option>
+                                                <option *ngFor="let u of broadcastListUser.result?.userList" [selected]="broadcastInfo.result?.u_id == u.name" value="{{u.name}}">{{u.u_username}}</option>
+                                            </select>
+                                        </div>
+
+
                                     </div>
 
-                                    <div class="form-group col col-lg-4 col-md-4 col-sm-4 col-xs-12 ">
-                                        <section>
-                                            <label class="label">警报类型（多选按钮）</label>
-                                            <div class="inline-group">
-                                                <label class="checkbox state-disabled">
-                                                    <input type="checkbox" value="text" [checked]="selects['text']" (change)="handle($event)" name="b_category" formControlName="b_category">
-                                                    <i></i>文字</label>
-                                                <label class="checkbox state-disabled">
-                                                    <input type="checkbox" value="voice" [checked]="selects['voice']" (change)="handle($event)" name="b_category" formControlName="b_category">
-                                                    <i></i>语音</label>
-                                            </div>
-                                        </section>
-                                    </div>
-                                    <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
-                                        <section >
-                                            <label class="label">文字输入</label>
-                                            <label class="input">
-                                                <input type="text" placeholder="请输入内容 " maxlength="150" name="b_info" formControlName="b_info"/>
-                                            </label>
-                                        </section>
-                                    </div>
-                                    <div class="form-group col col-lg-3 col-md-3 col-sm-6 col-xs-12 ">
-                                        <section >
-                                            <label class="label">闪烁</label>
-                                            <label class="input">
-                                                <input type="text" placeholder="请输入闪烁时间" maxlength="10" name="b_led" formControlName="b_led" />
-                                            </label>
-                                        </section>
-                                    </div>
-                                    <div class="form-group col col-lg-3 col-md-3 col-sm-6 col-xs-12 ">
-                                        <section >
-                                            <label class="label">警报</label>
-                                            <label class="input">
-                                                <input type="text" placeholder="请输入警报持续时间" maxlength="10" name="b_buzzer" formControlName="b_buzzer"/>
-                                            </label>
-                                        </section>
-                                    </div>
-                                    <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                                        <section >
-                                            <label class="label">广播公司</label>
-                                            <label class="select">
-                                                <select name="c_id" formControlName="c_id" [(ngModel)]="c_id_default" (change)="getTheUserList($event,1)">
-                                                    <option value="0" [selected]="b_id == 0">--请选择--</option>
-                                                    <option *ngFor="let c of broadcastList.result?.customerList" [selected]="broadcastInfo.result?.c_id == c.c_number" value="{{c.c_number}}">{{c.c_name}}</option>
-                                                </select> <i></i> </label>
-                                        </section>
-                                    </div>
-                                    <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                                        <section >
-                                            <label class="label">广播人员</label>
-                                            <label class="select">
-                                                <select name="u_id" formControlName="u_id" [(ngModel)]="u_id_default">
-                                                    <option value="0" [selected]="b_id == 0">--请选择--</option>
-                                                    <option *ngFor="let u of broadcastListUser.result?.userList" [selected]="broadcastInfo.result?.u_id == u.name" value="{{u.name}}">{{u.u_username}}</option>
-                                                </select> <i></i> </label>
-                                        </section>
-                                    </div>
+                                    <!--<div class="form-group col col-lg-8 col-md-8 col-sm-8 col-xs-12 ">-->
+                                    <!--<section>-->
+
+
+
+                                    <!--&lt;!&ndash;<span class="select2 select2-container&#45;&#45;open select2-container select2-container&#45;&#45;default select2-container&#45;&#45;below select2-container&#45;&#45;focus select-hidden" dir="ltr" style="width: 100%;position: absolute;">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<span class="selection">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<span class="select2-selection select2-selection&#45;&#45;multiple select2-results select2-dropdown select2-drop-active">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<ul class="select2-results__options select2-results__options&#45;&#45;nested">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<li class="select2-results__option  select2-results__option&#45;&#45;highlighted" >4566</li>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<li class="select2-results__option">4666</li>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<li class="select2-results__option">456465456</li>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<li class="select2-results__option">4-45665</li>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<li class="select2-results__option">46656</li>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<li class="select2-results__option">456456</li>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<li class="select2-results__option">456546</li>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</span>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</span>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</span>&ndash;&gt;-->
+
+                                    <!--</section>-->
+                                    <!--</div>-->
+
                                 </fieldset>
-                                <footer>
-                                    <button type="button" class="btn btn-default" routerLink="/equipment/phonics-list">
+
+                                <div class="footer-size flex-justify-end">
+
+                                    <div *ngIf="isPermission(menu_id,'add')">
+                                        <button type="button" class="btn btn-primary  ml-2" (ngSubmit)="onSubmit(1)">
+                                            保存
+                                        </button>
+                                        <button class="btn btn-success  ml-2" type="button" (ngSubmit)="onSubmit(2)">保存并新增</button>
+                                    </div>
+                                    <button type="button" class="btn btn-default  ml-2" routerLink="/equipment/phonics-list">
                                         返回
                                     </button>
-                                    <div *ngIf="isPermission(menu_id,'add')">
-                                    <button class="btn btn-success" type="button" (ngSubmit)="onSubmit(2)">保存并新增</button>
-                                    <button type="button" class="btn btn-primary" (ngSubmit)="onSubmit(1)">
-                                        保存
-                                    </button>
-                                    </div>
-                                </footer>
+                                </div>
+
                             </form>
                         </div>
                     </div>

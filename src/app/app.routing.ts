@@ -115,6 +115,16 @@ export const routes: Routes = [
             path: 'nfc',
             loadChildren: 'app/+nfc/nfc.module#NfcModule',
             data: {pageTitle: 'Nfc'}
+        },
+        // {
+        //     path: 'style',
+        //     loadChildren: 'app/style/style.module#StyleModule',
+        //     data: {pageTitle: 'Style'}
+        // },
+        {
+            path: 'data-page',
+            loadChildren: 'app/data-page/data-page.module#DataPageModule',
+            data: {pageTitle: 'DataPage'}
         }
     ]
   },

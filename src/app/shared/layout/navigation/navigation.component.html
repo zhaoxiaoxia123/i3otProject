@@ -5,6 +5,9 @@
 
     <!--动态读取--->
     <ul saSmartMenu >
+      <!--<li routerLinkActive="active">-->
+        <!--<a routerLink="/style/style-dashboard">{{'首页' | i18n}}</a>-->
+      <!--</li>-->
       <li *ngFor="let c of menuDefault?.result?.menuList">
         <a href="#" *ngIf="c.menu_url == '#' || c.menu_url == ''">
           <i class="fa fa-lg fa-fw {{c.menu_icon}}"></i>

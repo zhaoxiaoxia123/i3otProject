@@ -9,49 +9,44 @@
           </header>
           <div>
             <div class="widget-body no-padding" >
-              <div  class="row">
-                <article  class="col-sm-12">
-                  <div class="navbar navbar-default">
-                    <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
+              <article>
+                <div class="navbar navbar-default">
+                  <form  class="navbar-form " novalidate="" role="search" >
+                    <div class="btn-group"   *ngIf="isPermission(menu_id,'add')">
+                      <button type="button" class="btn btn-primary"  (click)="lgModal.show();" ><span class="fa-fw fa fa-plus  mr-5"></span>添加</button>
+                    </div>
+                    <div class="btn-group"   *ngIf="isPermission(menu_id,'edit')">
+                      <button type="button"   [ngClass]="{'btn btn-warning':true,'not-click':isStatus == 0}"  (click)="detailCustomer('edit')"><span class="fa-fw fa fa-pencil mr-5"></span>修改</button>
+                    </div>
+                    <div class="btn-group"  *ngIf="isPermission(menu_id,'delete')">
+                      <button type="button"  [ngClass]="{'btn btn-danger':true,'not-click':isStatus == 0}"  (click)="deleteCustomer('id')"><span class="fa-fw fa  fa-trash-o mr-5"></span>删除</button>
+                    </div>
+                    <div class="btn-group" *ngIf="isPermission(menu_id,'detail')">
+                      <button type="button"  [ngClass]="{'btn btn-success':true,'not-click':isStatus == 0}"  (click)="detailCustomer('detail')"><span class="fa-fw fa fa-list-alt mr-5"></span>详情</button>
+                    </div>
+                    <div class="btn-group"  *ngIf="isPermission(menu_id,'delete')">
+                      <button type="button" class="btn btn-secondary"   (click)="showAllCheck()"><span class="fa-fw fa fa-th-large mr-5"></span>批处理</button>
+                      <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
+                        <span class="sr-only"></span>
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item"   (click)="deleteCustomer('all')">批量删除</a>
+                      </div>
+                    </div>
+                  </form>
+                  <form  class="navbar-form" novalidate="" role="search" >
 
-                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'add')">
-                        <a class="btn btn-success btn-sm" (click)="lgModal.show();">
-                          <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
-                      </div>
-                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'edit')">
-                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailCustomer('edit')">
-                          <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
-                      </div>
-                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'delete')">
-                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="deleteCustomer('id')">
-                          <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
-                      </div>
-                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'detail')">
-                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailCustomer('detail')">
-                          <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
-                      </div>
-                      <div class="form-group btn-group pdlr-4" *ngIf="isPermission(menu_id,'delete')">
-                        <a class="btn default-btn btn-sm dropdown-toggle" (click)="showAllCheck()" data-toggle="dropdown">
-                          <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a (click)="deleteCustomer('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
-                        </ul>
-                      </div>
-                    </form>
-                    <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-                      <div class="form-group pdlr-4">
-                        <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" name="keyword" [(ngModel)]="keyword" placeholder="请输入搜索内容" type="text">
-                      </div>
-                      <div class="form-group pdlr-4">
-                        <button class="btn btn-default" type="button" (click)="getCustomerList(1)">
-                          <i  class="glyphicon glyphicon-search"></i>
-                          搜索
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </article>
-              </div>
+                    <div class="btn-group">
+                      <input type="text" class="form-control"  maxlength="15" name="keyword" [(ngModel)]="keyword" placeholder="请输入搜索内容" >
+                    </div>
+                    <div class="btn-group">
+                      <button type="button" class="btn default-btn"  (click)="getCustomerList(1)">搜索</button>
+                    </div>
+
+                  </form>
+                </div>
+              </article>
+
               <div class="padding0 height-overflow">
                 <div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-responsive padding0">
                   <table class="table table-striped smart-form table-height-20">
@@ -111,20 +106,20 @@
                   </table>
                 </div>
               </div>
+
               <!-- 底部-（分页部分）-->
-              <div class="dt-toolbar">
-                <div class="col-xs-12 col-sm-6">
-                  <span>共{{customerList.result?.customerList?.total}}条</span>
-                </div>
-                <div class="hidden-xs right">
-                  <ul class="pagination pagination-sm" *ngIf="customerList?.result?.page">
-                    <li *ngFor="let p of customerList?.result?.page" class="{{p.class}}">
-                      <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
-                      <a *ngIf="p.method==''">{{p.text}}</a>
-                    </li>
-                  </ul>
-                </div>
+              <div class="footer-size flex-justify-end">
+                <ul class="pagination"  *ngIf="customerList?.result?.page" >
+                  <li  *ngFor="let p of customerList?.result?.page" class="{{p.class}}" >
+                    <a class="page-link" (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+                    <a class="page-link" *ngIf="p.method==''">{{p.text}}</a>
+                  </li>
+                  <li class="page-item disabled">
+                    <a  class="page-link" disabled>共{{customerList.result?.customerList?.total}}条</a>
+                  </li>
+                </ul>
               </div>
+
             </div>
           </div>
         </sa-widget>
@@ -133,133 +128,102 @@
   </sa-widgets-grid>
 </div>
 
-<div class="modal fade" bsModal #lgModal="bs-modal">
-  <div class="modal-dialog">
+<div class="modal fade  bd-example-modal-xl" bsModal #lgModal="bs-modal">
+  <div class="modal-dialog  modal-xl">
     <div class="modal-content">
       <div class="modal-header">
+        <!-- 标题 -->
+        <h3 class="modal-title txt-color-blue"  *ngIf="c_id == 0"><i class="fa-fw fa fa-plus"></i>添加病人信息</h3>
+        <h3 class="modal-title  color-yellow"  *ngIf="c_id != 0"><i class="fa-fw fa fa-pencil"></i>修改病人信息</h3>
         <!-- 关闭按钮 -->
         <button type="button" class="close"  (click)="clear_();lgModal.hide()">
           ×
         </button>
-        <!-- 标题 -->
-        <h3 class="modal-title txt-color-blue"  *ngIf="c_id == 0"><i class="fa-fw fa fa-plus"></i>添加病人信息</h3>
-        <h3 class="modal-title  color-yellow"  *ngIf="c_id != 0"><i class="glyphicon glyphicon-pencil"></i>修改病人信息</h3>
+
       </div>
       <div class="modal-body height-overflow-380">
         <div class="row mt-20">
-          <form   class="smart-form ">
+          <form class="form-distance">
             <fieldset>
-              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <section>
+              <div class="form-row">
+
+                <div class="form-group col-sm-4">
                   <label class="label">编号</label>
-                  <label class="input">
-                    <input  type="text" name="c_number" [(ngModel)]="c_number">
-                  </label>
-                </section>
-              </div>
-              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <section>
+                  <input  class="form-control"  type="text" name="c_number" [(ngModel)]="c_number">
+                </div>
+
+                <div class="form-group col-sm-4">
                   <label  class="label txt-color-blue">姓名<span  class="asterisk-color">*</span></label>
-                  <label class="input">
-                    <input  type="text" name="c_name" [(ngModel)]="c_name">
-                  </label>
-                </section>
-              </div>
-              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <section>
+                  <input type="text" class="form-control"   name="c_name" [(ngModel)]="c_name">
+                </div>
+
+                <div class="form-group col-sm-4">
                   <label  class="label ">身份证号</label>
-                  <label class="input">
-                    <input  type="text" name="c_id_card" minlength="18" maxlength="18" [(ngModel)]="c_id_card"><!-- (blur)="setAge()"-->
-                    <label [ngStyle]="{'color': 'red','display': isTip==0 ? 'none':'block'}">*请输入18位身份证号码。</label>
-                  </label>
-                </section>
-              </div>
-              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <section>
+                  <input type="text" class="form-control"  name="c_id_card" minlength="18" maxlength="18" [(ngModel)]="c_id_card"><!-- (blur)="setAge()"-->
+                  <div class="invalid-feedback"  [ngStyle]="{'color': 'red','display': isTip==0 ? 'none':'block'}">
+                    *请输入18位身份证号码。
+                  </div>
+                </div>
+
+                <div class="form-group col-sm-4">
                   <label class="label">年龄</label>
-                  <label class="input">
-                    <input  type="number" name="c_age" [(ngModel)]="c_age" >
-                  </label>
-                </section>
-              </div>
-              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <section>
+                  <input type="number" class="form-control" name="c_age" [(ngModel)]="c_age" >
+                </div>
+
+                <div class="form-group col-sm-4">
                   <label  class="label">性别</label>
-                  <!--<label class="input">-->
-                    <!--<input  type="text" name="c_gender" [(ngModel)]="c_gender">-->
-                  <!--</label>-->
-                  <label class="select form-control border-0">
-                    <select name="c_gender" [(ngModel)]="c_gender">
-                      <option value="男">男</option>
-                      <option value="女">女</option>
-                    </select><i></i>
-                  </label>
-                </section>
-              </div>
-              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <section >
+                  <select  class="form-control" name="c_gender" [(ngModel)]="c_gender">
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                  </select>
+                </div>
+
+                <div class="form-group col-sm-4">
                   <label class="label">手机号码</label>
-                  <label class="input"> <i class="icon-append fa fa-phone"></i>
-                    <input name="c_phone" [(ngModel)]="c_phone" class="valid"  maxlength="12">
-                  </label>
-                </section>
-              </div>
-              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <section>
+                  <input type="text" class="form-control"  name="c_phone" [(ngModel)]="c_phone"   maxlength="12">
+                </div>
+
+                <div class="form-group col-sm-4">
                   <label  class="label ">社保卡编码</label>
-                  <label class="input">
-                    <input  type="text" name="c_cost_card" [(ngModel)]="c_cost_card">
-                  </label>
-                </section>
-              </div>
-              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <section>
+                  <input type="text" class="form-control"   name="c_cost_card" [(ngModel)]="c_cost_card">
+                </div>
+
+                <div class="form-group col-sm-4">
                   <label  class="label ">住址</label>
-                  <label class="input">
-                    <input  type="text" name="c_address" [(ngModel)]="c_address">
-                  </label>
-                </section>
-              </div>
-              <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <section>
+                  <input type="text" class="form-control"  name="c_address" [(ngModel)]="c_address">
+                </div>
+
+                <div class="form-group col-sm-12">
                   <label class="label">病情症状</label>
-                  <label class="textarea textarea-resizable">
-                    <textarea  class="custom-scroll" rows="3" name="c_symptom" [(ngModel)]="c_symptom"></textarea>
-                  </label>
-                </section>
-              </div>
-              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <section>
+                  <textarea class="form-control"  rows="3"   name="c_symptom" [(ngModel)]="c_symptom"></textarea>
+                </div>
+
+
+                <div class="form-group col-sm-4">
                   <label  class="label">亲属关系</label>
-                  <label class="input">
-                    <input  type="text" name="c_emergency_contact" [(ngModel)]="c_emergency_contact">
-                  </label>
-                </section>
-              </div>
-              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <section >
+                  <input type="text" class="form-control"   name="c_emergency_contact" [(ngModel)]="c_emergency_contact" >
+                </div>
+
+                <div class="form-group col-sm-4">
                   <label class="label">亲属电话</label>
-                  <label class="input"> <i class="icon-append fa fa-phone"></i>
-                    <input name="c_emergency_phone" [(ngModel)]="c_emergency_phone"  class="valid"  maxlength="12">
-                  </label>
-                </section>
-              </div>
-              <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <section>
+                  <input type="text" class="form-control"   name="c_emergency_phone" [(ngModel)]="c_emergency_phone"   maxlength="12">
+                </div>
+
+                <div class="form-group col-sm-12">
                   <label class="label">备注</label>
-                  <label class="textarea textarea-resizable">
-                    <textarea  class="custom-scroll" rows="3" name="c_notes" [(ngModel)]="c_notes"></textarea>
-                  </label>
-                </section>
+                  <textarea class="form-control"  rows="3"  name="c_notes" [(ngModel)]="c_notes"></textarea>
+                </div>
+
+
               </div>
             </fieldset>
           </form>
         </div>
       </div>
       <div class="modal-footer">
-        <button *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')" class="btn btn-success btn-sm" type="button" (click)="onSubmit(2);"><span class="glyphicon glyphicon-plus"></span>保存并新增</button>
-        <button *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')" type="button" class="btn btn-primary" (click)="onSubmit(1);">保存</button>
-        <button type="button" class="btn btn-default" (click)="clear_();lgModal.hide()">返回</button>
+        <button *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')" class="btn btn-success btn-sm  ml-2" type="button" (click)="onSubmit(2);"><span class="fa-fw fa fa-plus"></span>保存并新增</button>
+        <button *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')" type="button" class="btn btn-primary  ml-2" (click)="onSubmit(1);">保存</button>
+        <button type="button" class="btn btn-default ml-2" (click)="clear_();lgModal.hide()">返回</button>
       </div>
     </div>
   </div>
@@ -267,16 +231,17 @@
 
 
 
-<div class="modal fade" bsModal #detailModal="bs-modal" >
-  <div class="modal-dialog">
+<div class="modal fade bd-example-modal-xl" bsModal #detailModal="bs-modal" >
+  <div class="modal-dialog  modal-xl">
     <div class="modal-content">
       <div class="modal-header">
-        <!-- 关闭按钮 -->
-        <button type="button" class="close" (click)="detailModal.hide()">  ×
-        </button>
         <!-- 标题 -->
         <h3 class="modal-title" data-ng-bind='results.title'></h3>
         <h4 class="modal-title">病人信息</h4>
+        <!-- 关闭按钮 -->
+        <button type="button" class="close" (click)="detailModal.hide()">  ×
+        </button>
+
       </div>
       <div class="modal-body height-overflow-380">
         <div class="row ">

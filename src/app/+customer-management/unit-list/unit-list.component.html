@@ -10,61 +10,54 @@
 
           <div>
             <div class="widget-body no-padding" >
-              <div  class="row">
-                <article  class="col-sm-12">
-                  <div class="navbar navbar-default">
-                    <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
+              <article>
+                <div class="navbar navbar-default">
+                  <form  class="navbar-form " novalidate="" role="search" >
+                    <div class="btn-group" *ngIf="isPermission(menu_id,'add')">
+                      <button type="button" class="btn btn-primary"  (click)="lgModal.show();"><span class="fa-fw fa fa-plus  mr-5"></span>添加</button>
+                    </div>
+                    <div class="btn-group" *ngIf="isPermission(menu_id,'edit')" >
+                      <button type="button"   [ngClass]="{'btn btn-warning':true,'not-click':isStatus == 0}" (click)="detailCustomer('edit')"><span class="fa-fw fa fa-pencil mr-5"></span>修改</button>
+                    </div>
+                    <div class="btn-group"  *ngIf="isPermission(menu_id,'delete')">
+                      <button type="button"  [ngClass]="{'btn btn-danger':true,'not-click':isStatus == 0}" (click)="deleteCustomer('id')"><span class="fa-fw fa  fa-trash-o mr-5"></span>删除</button>
+                    </div>
+                    <div class="btn-group" *ngIf="isPermission(menu_id,'detail')">
+                      <button type="button"  [ngClass]="{'btn btn-success':true,'not-click':isStatus == 0}" (click)="detailCustomer('detail')"><span class="fa-fw fa fa-list-alt mr-5"></span>详情</button>
+                    </div>
+                    <div class="btn-group"   *ngIf="isStatus == 2 && isPermission(menu_id,'edit')">
+                      <button type="button" class="btn btn-success"  (click)="editStatus(1,'id')"><span class="fa-fw fa fa-play mr-5 "></span>启用</button>
+                    </div>
+                    <div class="btn-group"  *ngIf="isStatus == 1 && isPermission(menu_id,'edit')">
+                      <button type="button" class="btn btn-danger"  (click)="editStatus(2,'id')" ><span class="fa-fw fa fa-stop mr-5 "></span>无效</button>
+                    </div>
 
-                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'add')">
-                        <a class="btn btn-success btn-sm" (click)="lgModal.show();">
-                          <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
+                    <div class="btn-group" *ngIf="isPermission(menu_id,'edit') || isPermission(menu_id,'delete')">
+                      <button type="button" class="btn btn-secondary"  (click)="showAllCheck()" ><span class="fa-fw fa fa-th-large mr-5"></span>批处理</button>
+                      <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
+                        <span class="sr-only"></span>
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item"  *ngIf="isPermission(menu_id,'edit')"  (click)="editStatus(1,'all')" >批量设为启动</a>
+                        <a class="dropdown-item" *ngIf="isPermission(menu_id,'edit')"  (click)="editStatus(2,'all')" >批量设为无效</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" *ngIf="isPermission(menu_id,'delete')" (click)="deleteCustomer('all')" >批量删除</a>
                       </div>
-                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'edit')">
-                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailCustomer('edit')">
-                          <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
-                      </div>
-                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'delete')">
-                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="deleteCustomer('id')">
-                          <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
-                      </div>
-                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'detail')">
-                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailCustomer('detail')">
-                          <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
-                      </div>
+                    </div>
+                  </form>
+                  <form  class="navbar-form" novalidate="" role="search" >
 
-                      <div class="form-group pdlr-4" *ngIf="isStatus == 2 && isPermission(menu_id,'edit')">
-                        <a class="btn default-btn btn-sm" (click)="editStatus(1,'id')">
-                          <span class="fa-fw fa fa-play mr-5 color-green"></span>启用</a>
-                      </div>
-                      <div class="form-group pdlr-4" *ngIf="isStatus == 1 && isPermission(menu_id,'edit')">
-                        <a class="btn default-btn btn-sm" (click)="editStatus(2,'id')" >
-                          <span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>无效</a>
-                      </div>
-                      <div class="form-group btn-group pdlr-4" *ngIf="isPermission(menu_id,'edit') || isPermission(menu_id,'delete')">
-                        <a class="btn default-btn btn-sm dropdown-toggle" (click)="showAllCheck()" data-toggle="dropdown">
-                          <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li *ngIf="isPermission(menu_id,'edit')"><a (click)="editStatus(1,'all')" ><span class="fa-fw fa fa-play mr-5 color-green"></span>批量设为启动</a></li>
-                          <li *ngIf="isPermission(menu_id,'edit')"><a (click)="editStatus(2,'all')"><span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>批量设为无效</a></li>
-                          <li class="divider"></li>
-                          <li *ngIf="isPermission(menu_id,'delete')"><a (click)="deleteCustomer('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
-                        </ul>
-                      </div>
-                    </form>
-                    <form class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search">
-                      <div class="form-group pdlr-4">
-                        <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" name="keyword" [(ngModel)]="keyword" placeholder="请输入搜索内容" type="text">
-                      </div>
-                      <div class="form-group pdlr-4">
-                        <button class="btn btn-default" type="button" (click)="getCustomerList(1)">
-                          <i  class="glyphicon glyphicon-search"></i>
-                          搜索
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </article>
-              </div>
+                    <div class="btn-group">
+                      <input type="text" class="form-control"  maxlength="15" name="keyword" [(ngModel)]="keyword" placeholder="请输入搜索内容">
+                    </div>
+                    <div class="btn-group">
+                      <button type="button" class="btn default-btn"  (click)="getCustomerList(1)">搜索</button>
+                    </div>
+
+                  </form>
+
+                </div>
+              </article>
               <div  class="padding0 height-overflow" >
                 <div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-scrolling padding0">
                   <table class="table table-striped smart-form table-height-20">
@@ -144,20 +137,20 @@
                   </table>
                 </div>
               </div>
+
               <!-- 底部-（分页部分）-->
-              <div class="dt-toolbar">
-                <div class="col-xs-12 col-sm-6">
-                  <span>共{{customerList.result?.customerList?.total}}条</span>
-                </div>
-                <div class="hidden-xs right">
-                  <ul class="pagination pagination-sm">
-                    <li *ngFor="let p of customerList?.result?.page" class="{{p.class}}">
-                      <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
-                      <a *ngIf="p.method==''">{{p.text}}</a>
-                    </li>
-                  </ul>
-                </div>
+              <div class="footer-size flex-justify-end">
+                <ul class="pagination" >
+                  <li *ngFor="let p of customerList?.result?.page" class="{{p.class}}">
+                    <a class="page-link" (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+                    <a class="page-link" *ngIf="p.method==''">{{p.text}}</a>
+                  </li>
+                  <li class="page-item disabled">
+                    <a  class="page-link" disabled>共{{customerList.result?.customerList?.total}}条</a>
+                  </li>
+                </ul>
               </div>
+
             </div>
           </div>
         </sa-widget>
@@ -166,349 +159,257 @@
   </sa-widgets-grid>
 </div>
 <!--id="myModal"-->
-<div bsModal #lgModal="bs-modal" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+<div bsModal #lgModal="bs-modal" class="modal fade bd-example-modal-xl"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
     <!--<form class="smart-form "  [formGroup]="formModel">-->
     <div class="modal-content">
       <div class="modal-header">
+        <!-- 标题 -->
+        <h3 class="modal-title txt-color-blue" data-ng-bind='results.title' *ngIf="c_id == 0"><i class="fa-fw fa fa-plus"></i>添加往来单位</h3>
+        <h3 class="modal-title  color-yellow" data-ng-bind='results.title' *ngIf="c_id != 0"><i class="fa-fw fa fa-pencil"></i>修改往来单位</h3>
         <!-- 关闭按钮 -->
         <button type="button" class="close"  (click)="clear_();lgModal.hide()" aria-label="Close">
           ×
         </button>
-        <!-- 标题 -->
-        <h3 class="modal-title txt-color-blue" data-ng-bind='results.title' *ngIf="c_id == 0"><i class="fa-fw fa fa-plus"></i>添加往来单位</h3>
-        <h3 class="modal-title  color-yellow" data-ng-bind='results.title' *ngIf="c_id != 0"><i class="glyphicon glyphicon-pencil"></i>修改往来单位</h3>
+
+
       </div>
       <div class="modal-body">
-        <sa-widget [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
-          <header>
-            <ul class="nav nav-tabs pull-left in">
-              <li [class.active]="state.tabs.demo3=='hr1'" class="active">
-                <a (click)="state.tabs.demo3 = 'hr1'">基本信息</a>
-              </li>
-              <li [class.active]="state.tabs.demo3=='hr2'" class="active">
-                <a (click)="state.tabs.demo3 = 'hr2'">联系人信息</a>
-              </li>
-              <li [class.active]="state.tabs.demo3=='hr3'" class="active">
-                <a (click)="state.tabs.demo3 = 'hr3'">其他信息</a>
-              </li>
-            </ul>
-          </header>
-          <div class="height-overflow-380">
-            <div class="widget-body mt-20">
-              <tabset>
-                <tab [active]="state.tabs.demo3 == 'hr1'">
-                  <tabset >
-                    <tab [active]="state.tabs.demo3 == 'hr1'">
-                      <div class="row">
-                        <form class="smart-form ">
-                          <fieldset>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section>
-                                <label class="label txt-color-blue">单位编号<span class="asterisk-color">*</span></label>
-                                <label class="input">
-                                  <input type="text" placeholder="单位编号" name="c_number" [(ngModel)]="c_number">
-                                </label>
-                              </section>
-                            </div>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section>
-                                <label class="label txt-color-blue">单位名称<span class="asterisk-color">*</span></label>
-                                <label class="input">
-                                  <input type="text" placeholder="" (blur)="showPinyin()" name="c_name" [(ngModel)]="c_name">
-                                </label>
-                              </section>
-                            </div>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <label class="label txt-color-blue">上级分类<span class="asterisk-color">*</span></label>
-                              <section>
-                                <div class="input-group">
-                                  <label   class="select form-control border-0">
-                                    <select class="input-sm" name="c_category_id" [(ngModel)]="c_category_id">
-                                      <option [selected]="c_id == 0" value="0">--请选择--</option>
-                                      <!--<option *ngFor="let c of customerDefault.result?.categoryList" [selected]="customerInfo.result?.c_category_id == c.category_id" value="{{ c.category_id }}">-->
-                                      <!--<b *ngIf="c.category_depth == 0">{{c.category_desc}}</b>-->
-                                      <!--<b *ngIf="c.category_depth != 0">&#45;&#45;{{c.category_desc}}</b>-->
-                                      <!--</option>-->
-                                      <option *ngFor="let c of unitCategoryList?.result?.categoryList" value="{{ c.category_id }}" [disabled]="(c.category_depth == 0 && c.child_count > 0) ? 'disabled' : false" [ngStyle]="{'font-weight':((c.category_depth == 0) ? 'bold' : 'normal'),'color':((c.category_depth == 0 && c.child_count > 0) ? 'black' : '#404040')}">
-                                        <strong *ngIf="c.category_depth == 0">{{c.category_desc}}</strong>
-                                        <span *ngIf="c.category_depth != 0">--{{c.category_desc}}</span>
-                                      </option>
-                                    </select><i></i>
-                                  </label>
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">基本信息</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">联系人信息</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">其他信息</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="pills-tabContent">
+          <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+            <form class="form-distance">
+              <div class="form-row">
+                <div class="form-group col-sm-4">
+                  <label class="label txt-color-blue">单位编号<span class="asterisk-color">*</span></label>
+                  <input type="text" class="form-control"   placeholder="单位编号" name="c_number" [(ngModel)]="c_number">
+                </div>
 
-                                  <div class="input-group-btn">
-                                    <a  href="http://cn.i3ot.com/#/customer-management/unit-classify" target="_blank" (click)="smartModEg1()" class="btn btn-default btn-sm pb-6" type="button">
-                                      <!-- <i class="fa fa-plus "></i>--> 添加
-                                    </a>
-                                    <a class="btn btn-default btn-sm pb-6" type="button" (click)="getUnitCategoryList(c_role,2)"><i class="fa fa-link"></i>
-                                      刷新
-                                    </a>
-                                  </div>
-                                </div>
+                <div class="form-group col-sm-4">
+                  <label class="label txt-color-blue">单位名称<span class="asterisk-color">*</span></label>
+                  <input type="text" class="form-control"  placeholder="" (blur)="showPinyin()" name="c_name" [(ngModel)]="c_name">
+                </div>
 
-                              </section>
-                            </div>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section>
-                                <label class="label">商户类型</label>
-                                <label class="select">
-                                  <select class="input-sm" name="c_role" [(ngModel)]="c_role" (change)="getUnitCategoryList($event,1)">
-                                    <option value="0" disabled="disabled">--请选择--</option>
-                                    <option value="3" >供应商</option>
-                                    <option value="4" >客户</option>
-                                  </select> <i></i>
-                                </label>
-                              </section>
-                            </div>
+                <div class="form-group col-sm-4">
+                  <label class="label">商户类型</label>
 
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section >
-                                <label class="label">单位电话</label>
-                                <label class="input"> <i class="icon-append fa fa-phone"></i>
-                                  <input name="c_phone" [(ngModel)]="c_phone" placeholder="请输入电话号码" maxlength="12">
-                                </label>
-                              </section>
-                            </div>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section>
-                                <label class="label txt-color-blue">单位地址<span class="asterisk-color">*</span></label>
-                                <label class="input">
-                                  <input type="text" placeholder="" name="c_address" [(ngModel)]="c_address">
-                                </label>
-                              </section>
-                            </div>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section>
-                                <label class="label">助记码</label>
-                                <label class="input">
-                                  <input type="text" disabled="disabled" placeholder="助记码(或单位简称)" name="c_abbreviation" [(ngModel)]="c_abbreviation" >
-                                </label>
-                              </section>
-                            </div>
+                  <select class="form-control" name="c_role" [(ngModel)]="c_role" (change)="getUnitCategoryList($event,1)">
+                    <option value="0" disabled="disabled">--请选择--</option>
+                    <option value="3" >供应商</option>
+                    <option value="4" >客户</option>
+                  </select>
+                </div>
 
-                            <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">-->
-                              <!--<section>-->
-                                <!--<label class="label txt-color-blue">价格级别<span class="asterisk-color">*</span></label>-->
-                                <!--<label class="select">-->
-                                  <!--<select name="c_price_type" [(ngModel)]="c_price_type">-->
-                                    <!--<option disabled="" selected="" value="0" >请选择价格级别</option>-->
-                                    <!--<option value="1" >参数默认</option>-->
-                                    <!--<option value="2" >参考价</option>-->
-                                    <!--<option value="3" >零售价</option>-->
-                                    <!--<option value="4" >一级价</option>-->
-                                  <!--</select> <i></i> </label>-->
-                              <!--</section>-->
-                            <!--</div>-->
-                            <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                              <section>
-                                <label class="label">备注</label>
-                                <label class="textarea textarea-resizable">
-                                  <textarea class="custom-scroll" rows="2" name="c_notes" [(ngModel)]="c_notes"></textarea>
-                                </label>
-                              </section>
-                            </div>
-                          </fieldset>
-                        </form>
-                      </div>
-                    </tab>
-                  </tabset>
-                </tab>
-                <tab [active]="state.tabs.demo3 == 'hr2'">
-                  <tabset >
-                    <tab [active]="state.tabs.demo3 == 'hr2'">
-                      <div class="row">
-                        <form   class="smart-form ">
-                          <fieldset>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section >
-                                <label class="label ">联系人</label>
-                                <label class="input">
-                                  <input name="c_contacts" [(ngModel)]="c_contacts" type="text" >
-                                </label>
-                                <!--<label class="select">-->
-                                  <!--<select name="c_contacts" [(ngModel)]="c_contacts">-->
-                                    <!--<option [selected]="c_id == 0" value="0">&#45;&#45;请选择&#45;&#45;</option>-->
-                                    <!--<option *ngFor="let u of customerDefault.result?.userList" [selected]="customerInfo.result?.c_follow_user_id == u.id" value="{{ u.id }}">{{u.u_username}}</option>-->
-                                  <!--</select><i></i>-->
-                                <!--</label>-->
-                              </section>
-                            </div>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section >
-                                <label class="label ">职务</label>
-                                <label class="input">
-                                  <input name="user_title" [(ngModel)]="user_title" type="text" >
-                                </label>
-                              </section>
-                            </div>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section >
-                                <label class="label">电话</label>
-                                <label class="input"> <i class="icon-append fa fa-phone"></i>
-                                  <input name="user_phone" [(ngModel)]="user_phone" placeholder="请输入电话号码" maxlength="12">
-                                </label>
-                              </section>
-                            </div>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section >
-                                <label class="label">手机</label>
-                                <label class="input"> <i class="icon-append fa fa-phone"></i>
-                                  <input name="user_mobile" [(ngModel)]="user_mobile" placeholder="请输入手机号码" maxlength="12">
-                                </label>
-                              </section>
-                            </div>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section >
-                                <label class="label ">Email</label>
-                                <label class="input">
-                                  <input name="user_email" [(ngModel)]="user_email" type="text" >
-                                </label>
-                              </section>
-                            </div>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section >
-                                <label class="label ">QQ</label>
-                                <label class="input">
-                                  <input name="user_qq" [(ngModel)]="user_qq" type="text" >
-                                </label>
-                              </section>
-                            </div>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section >
-                                <label class="label ">地址</label>
-                                <label class="input">
-                                  <input name="user_addr" [(ngModel)]="user_addr" type="text" >
-                                </label>
-                              </section>
-                            </div>
-                          </fieldset>
-                        </form>
-                      </div>
-                    </tab>
-                  </tabset>
-                </tab>
-                <tab [active]="state.tabs.demo3 == 'hr3'">
-                  <tabset >
-                    <tab [active]="state.tabs.demo3 == 'hr3'">
-                      <div class="row">
-                        <form class="smart-form ">
-                          <fieldset>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <label class="label txt-color-blue">业务员<span class="asterisk-color">*</span></label>
-                              <section>
-                                <div class="input-group">
-                                  <label   class="select form-control border-0">
-                                    <select name="c_follow_user_id" [(ngModel)]="c_follow_user_id" (change)="getDepartment($event,1)">
-                                      <option [selected]="c_id == 0" value="0">--请选择业务员--</option>
-                                      <option *ngFor="let u of customerDefault.result?.userList" [selected]="customerInfo.result?.c_follow_user_id == u.id" value="{{ u.id }}">{{u.u_username}}</option>
-                                    </select><i></i>
-                                  </label>
+                <div class="form-group col-sm-4">
+                  <label class="label txt-color-blue">上级分类<span class="asterisk-color">*</span></label>
+                  <div class="input-group mb-2 mr-sm-2">
+                    <select class="form-control" name="c_category_id" [(ngModel)]="c_category_id">
+                      <option [selected]="c_id == 0" value="0">--请选择--</option>
+                      <!--<option *ngFor="let c of customerDefault.result?.categoryList" [selected]="customerInfo.result?.c_category_id == c.category_id" value="{{ c.category_id }}">-->
+                      <!--<b *ngIf="c.category_depth == 0">{{c.category_desc}}</b>-->
+                      <!--<b *ngIf="c.category_depth != 0">&#45;&#45;{{c.category_desc}}</b>-->
+                      <!--</option>-->
+                      <option *ngFor="let c of unitCategoryList?.result?.categoryList" value="{{ c.category_id }}" [disabled]="(c.category_depth == 0 && c.child_count > 0) ? 'disabled' : false" [ngStyle]="{'font-weight':((c.category_depth == 0) ? 'bold' : 'normal'),'color':((c.category_depth == 0 && c.child_count > 0) ? 'black' : '#404040')}">
+                        <strong *ngIf="c.category_depth == 0">{{c.category_desc}}</strong>
+                        <span *ngIf="c.category_depth != 0">--{{c.category_desc}}</span>
+                      </option>
+                    </select>
+                    <div class="input-group-prepend">
+                      <a  href="http://cn.i3ot.com/#/customer-management/unit-classify" target="_blank" (click)="smartModEg1()" class="input-group-text" type="button">
+                        <!-- <i class="fa fa-plus "></i>--> 添加
+                      </a>
+                    </div>
+                    <div class="input-group-prepend">
+                      <a class="input-group-text refresh-page" type="button" (click)="getUnitCategoryList(c_role,2)">
+                        刷新
+                      </a>
+                    </div>
+                  </div>
+                </div>
 
-                                  <div class="input-group-btn">
-                                    <a  href="http://cn.i3ot.com/#/forms/employees/0" target="_blank" (click)="smartModEg1()" class="btn btn-default btn-sm pb-6" type="button">
-                                      <!-- <i class="fa fa-plus "></i>--> 添加
-                                    </a>
-                                    <a class="btn btn-default btn-sm pb-6" type="button" (click)="getCustomerDefault()"><i class="fa fa-link"></i>
-                                      刷新
-                                    </a>
+                <div class="form-group col-sm-4">
+                  <label class="label">单位电话</label>
+                  <input type="text" class="form-control"  name="c_phone" [(ngModel)]="c_phone" placeholder="请输入电话号码" maxlength="12">
+                </div>
 
-                                  </div>
-                                </div>
+                <div class="form-group col-sm-4">
+                  <label class="label txt-color-blue">单位地址<span class="asterisk-color">*</span></label>
+                  <input type="text" class="form-control"  placeholder="" name="c_address" [(ngModel)]="c_address">
+                </div>
+
+                <div class="form-group col-sm-12">
+                  <label class="label">助记码</label>
+                  <input type="text" class="form-control"  disabled="disabled" placeholder="助记码(或单位简称)" name="c_abbreviation" [(ngModel)]="c_abbreviation">
+                </div>
+
+                <!--<div class="form-group col-sm-4">-->
+                <!--<label class="label txt-color-blue">价格级别<span class="asterisk-color">*</span></label>-->
+                <!--<select  class="form-control"name="c_price_type" [(ngModel)]="c_price_type">-->
+                <!--<option disabled="" selected="" value="0" >请选择价格级别</option>-->
+                <!--<option value="1" >参数默认</option>-->
+                <!--<option value="2" >参考价</option>-->
+                <!--<option value="3" >零售价</option>-->
+                <!--<option value="4" >一级价</option>-->
+                <!--</select>-->
+                <!--</div>-->
+                <!---->
+
+                <div class="form-group col-sm-12">
+                  <label class="label">备注</label>
+                  <textarea class="form-control"   rows="2" name="c_notes" [(ngModel)]="c_notes"></textarea>
+                </div>
 
 
-                              </section>
-                            </div>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section>
-                                <label class="label txt-color-blue">分管部门<span class="asterisk-color">*</span></label>
-                                <label class="input">
-                                  <!--<i class="icon-append glyphicon glyphicon-search cursor-pointer" data-toggle="modal" data-target="#myModalname"></i>-->
-                                  <input type="text" placeholder="" disabled="disabled" name="department" [(ngModel)]="department">
-                                </label>
-                              </section>
-                            </div>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section >
-                                <label class="label ">税率%</label>
-                                <label class="input">
-                                  <input name="c_tax" [(ngModel)]="c_tax" type="number" >
-                                </label>
-                              </section>
-                            </div>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section >
-                                <label class="label ">税号</label>
-                                <label class="input">
-                                  <input name="c_tax_number" [(ngModel)]="c_tax_number" type="text" >
-                                </label>
-                              </section>
-                            </div>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section >
-                                <label class="label ">开户行</label>
-                                <label class="input">
-                                  <input name="c_bank" [(ngModel)]="c_bank" type="text" >
-                                </label>
-                              </section>
-                            </div>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section >
-                                <label class="label ">银行帐号</label>
-                                <label class="input">
-                                  <input name="c_bank_account" [(ngModel)]="c_bank_account" type="text" >
-                                </label>
-                              </section>
-                            </div>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section >
-                                <label class="label ">折扣率%</label>
-                                <label class="input">
-                                  <input name="c_discount_rate" [(ngModel)]="c_discount_rate" type="number" >
-                                </label>
-                              </section>
-                            </div>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section >
-                                <label class="label ">信用额度</label>
-                                <label class="input">
-                                  <input name="c_credit_amount" [(ngModel)]="c_credit_amount" type="number" >
-                                </label>
-                              </section>
-                            </div>
-                          </fieldset>
-                        </form>
-                      </div>
-                    </tab>
-                  </tabset>
-                </tab>
-              </tabset>
-            </div>
+              </div>
+            </form>
           </div>
-        </sa-widget>
+          <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+            <form class="form-distance">
+              <div class="form-row">
+
+                <div class="form-group col-sm-4">
+                  <label class="label ">联系人</label>
+                  <input type="text" class="form-control"  name="c_contacts" [(ngModel)]="c_contacts" >
+                  <!--<select  class="form-control" name="c_contacts" [(ngModel)]="c_contacts">-->
+                  <!--<option [selected]="c_id == 0" value="0">&#45;&#45;请选择&#45;&#45;</option>-->
+                  <!--<option *ngFor="let u of customerDefault.result?.userList" [selected]="customerInfo.result?.c_follow_user_id == u.id" value="{{ u.id }}">{{u.u_username}}</option>-->
+                  <!--</select>-->
+                </div>
+
+                <div class="form-group col-sm-4">
+                  <label class="label ">职务</label>
+                  <input type="text" class="form-control" name="user_title" [(ngModel)]="user_title" >
+                </div>
+
+                <div class="form-group col-sm-4">
+                  <label class="label">电话</label>
+                  <input type="text" class="form-control" name="user_phone" [(ngModel)]="user_phone" placeholder="请输入电话号码" maxlength="12" >
+                </div>
+
+                <div class="form-group col-sm-4">
+                  <label class="label">手机</label>
+                  <input type="text" class="form-control"  name="user_mobile" [(ngModel)]="user_mobile" placeholder="请输入手机号码" maxlength="12">
+                </div>
+
+                <div class="form-group col-sm-4">
+                  <label class="label ">Email</label>
+                  <input type="text" class="form-control"  name="user_email" [(ngModel)]="user_email">
+                </div>
+
+                <div class="form-group col-sm-4">
+                  <label class="label ">QQ</label>
+                  <input type="text" class="form-control" name="user_qq" [(ngModel)]="user_qq" >
+                </div>
+
+                <div class="form-group col-sm-4">
+                  <label class="label ">地址</label>
+                  <input type="text" class="form-control"  name="user_addr" [(ngModel)]="user_addr">
+                </div>
+
+
+
+              </div>
+            </form>
+          </div>
+          <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+            <form class="form-distance">
+              <div class="form-row">
+
+                <div class="form-group col-sm-4">
+                  <label class="label txt-color-blue">业务员<span class="asterisk-color">*</span></label>
+                  <div class="input-group mb-2 mr-sm-2">
+                    <select  class="form-control" name="c_follow_user_id" [(ngModel)]="c_follow_user_id" (change)="getDepartment($event,1)">
+                      <option [selected]="c_id == 0" value="0">--请选择业务员--</option>
+                      <option *ngFor="let u of customerDefault.result?.userList" [selected]="customerInfo.result?.c_follow_user_id == u.id" value="{{ u.id }}">{{u.u_username}}</option>
+                    </select>
+                    <div class="input-group-prepend">
+                      <a  href="http://cn.i3ot.com/#/forms/employees/0" target="_blank" (click)="smartModEg1()" class="input-group-text" type="button">
+                        <!-- <i class="fa fa-plus "></i>--> 添加
+                      </a>
+                    </div>
+                    <div class="input-group-prepend">
+                      <a class="input-group-text refresh-page" type="button"  (click)="getCustomerDefault()">
+                        刷新
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                  <label class="label txt-color-blue">分管部门<span class="asterisk-color">*</span></label>
+                  <input type="text" class="form-control"  placeholder="" disabled="disabled" name="department" [(ngModel)]="department">
+                </div>
+
+                <div class="form-group col-sm-4">
+                  <label class="label ">税率%</label>
+                  <input type="text" class="form-control" name="c_tax" [(ngModel)]="c_tax" type="number">
+                </div>
+
+                <div class="form-group col-sm-4">
+                  <label class="label ">税号</label>
+                  <input type="text" class="form-control"  name="c_tax_number" [(ngModel)]="c_tax_number" >
+                </div>
+
+                <div class="form-group col-sm-4">
+                  <label class="label ">开户行</label>
+                  <input type="text" class="form-control"  name="c_bank" [(ngModel)]="c_bank" >
+                </div>
+
+                <div class="form-group col-sm-4">
+                  <label class="label ">银行帐号</label>
+                  <input type="text" class="form-control"  name="c_bank_account" [(ngModel)]="c_bank_account">
+                </div>
+
+                <div class="form-group col-sm-4">
+                  <label class="label ">折扣率%</label>
+                  <input  class="form-control" name="c_discount_rate" [(ngModel)]="c_discount_rate" type="number">
+                </div>
+
+                <div class="form-group col-sm-4">
+                  <label class="label ">信用额度</label>
+                  <input  name="c_credit_amount" [(ngModel)]="c_credit_amount" type="number"  class="form-control" >
+                </div>
+
+
+              </div>
+            </form>
+          </div>
+        </div>
+
       </div>
       <div class="modal-footer">
-        <!--<button class="btn btn-success btn-sm" type="button"><span class="glyphicon glyphicon-plus"></span>保存并新增</button>-->
+        <!--<button class="btn btn-success btn-sm" type="button"><span class="fa-fw fa fa-plus"></span>保存并新增</button>-->
         <div class="display-inline" *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')">
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onSubmit(1);">保存</button>
-        <button class="btn btn-success" type="button" (click)="onSubmit(2);">保存并新增</button>
+        <button type="button" class="btn btn-primary  ml-2" data-dismiss="modal" (click)="onSubmit(1);">保存</button>
+        <button class="btn btn-success  ml-2" type="button" (click)="onSubmit(2);">保存并新增</button>
         </div>
-        <button type="button" class="btn btn-default"  (click)="clear_();lgModal.hide()" aria-label="Close">返回</button>
+        <button type="button" class="btn btn-default  ml-2"  (click)="clear_();lgModal.hide()" aria-label="Close">返回</button>
       </div>
     </div>
   <!--</form>-->
   </div>
 </div>
 
-<div class="modal fade" bsModal #detailModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+<div class="modal fade bd-example-modal-xl" bsModal #detailModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
-        <!-- 关闭按钮 -->
-        <button type="button" class="close" (click)="detailModal.hide()"> × </button>
+
         <!-- 标题 -->
         <h3 class="modal-title" data-ng-bind='results.title'></h3>
         <h4 class="modal-title">{{customerInfo?.result?.c_name}}-{{customerInfo?.result?.c_number}}</h4>
+        <!-- 关闭按钮 -->
+        <button type="button" class="close" (click)="detailModal.hide()"> × </button>
       </div>
       <div class="modal-body height-overflow-380">
         <div class="row ">

@@ -13,15 +13,15 @@
               <div  class="row">
                 <article  class="col-sm-12">
                   <div class="navbar navbar-default">
-                    <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
+                    <form  class="navbar-form navbar-left" novalidate="" role="search" >
 
                       <div class="form-group pdlr-4">
                         <a class="btn btn-success btn-sm"  data-toggle="modal" data-target="#myModal">
-                          <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
+                          <span class="fa-fw fa fa-plus mr-5"></span>添加</a>
                       </div>
                       <div class="form-group pdlr-4">
                         <a class="btn default-btn btn-sm"   data-toggle="modal" data-target="#myModal">
-                          <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
+                          <span class="fa-fw fa fa-pencil mr-5 color-yellow"></span>修改</a>
                       </div>
                       <div class="form-group pdlr-4">
                         <a class="btn default-btn btn-sm" >
@@ -29,7 +29,7 @@
                       </div>
                       <div class="form-group pdlr-4">
                         <a class="btn default-btn btn-sm"  data-toggle="modal" data-target="#particulars" >
-                          <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
+                          <span class="fa-fw fa fa-list-alt mr-5 color-green"></span>详情</a>
                       </div>
                       <div class="form-group btn-group pdlr-4">
                         <a class="btn default-btn btn-sm dropdown-toggle"  data-toggle="dropdown">
@@ -42,7 +42,7 @@
                     </form>
                     <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
                       <div class="form-group pdlr-4">
-                        <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" name="" placeholder="请输入搜索内容" type="text">
+                        <input  class="form-control" maxlength="15" name="" placeholder="请输入搜索内容" type="text">
                       </div>
                       <div class="form-group pdlr-4">
                         <button class="btn btn-default" type="submit">
@@ -63,10 +63,10 @@
                              [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
                     <div>
                       <div class="widget-body no-padding">
-                        <alert type="info" class="no-margin">
+                        <div type="info" class="no-margin alert alert-primary">
                           <i class="fa-fw fa fa-sitemap"></i>
                           商品分类
-                        </alert>
+                        </div>
                         <div class="pd-10">
                           <div class="widget-body">
                             <div class="tree smart-form">
@@ -146,11 +146,11 @@
                              [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
                     <div>
                       <div class="widget-body no-padding">
-                        <alert type="info" class="no-margin" >
+                        <div type="info" class="no-margin alert alert-primary" >
                           <i class="fa-fw fa fa-table"></i>
                           商品分类列表
-                        </alert>
-                        <div class="mt-10" style="padding:0;">
+                        </div>
+                        <div class="" style="padding:0;">
                           <div style="padding: 0;z-index: 2;" class="table-responsive">
                             <table class="table table-striped  smart-form">
                               <thead>
@@ -339,7 +339,7 @@
         </button>
         <!-- 标题 -->
         <h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>添加商品分类</h3>
-        <h3 class="modal-title  color-yellow" data-ng-bind='results.title'><i class="glyphicon glyphicon-pencil"></i>修改商品分类</h3>
+        <h3 class="modal-title  color-yellow" data-ng-bind='results.title'><i class="fa-fw fa fa-pencil"></i>修改商品分类</h3>
       </div>
       <div class="modal-body">
         <div class="row mt-20">

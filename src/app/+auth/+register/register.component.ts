@@ -7,6 +7,11 @@ import {Router} from "@angular/router";
   styles: []
 })
 export class RegisterComponent implements OnInit {
+    item:number = 0;
+    OnItemClick(value){
+        this.item = value;
+        console.log(this.item);
+    }
 
   constructor(private router: Router) { }
 

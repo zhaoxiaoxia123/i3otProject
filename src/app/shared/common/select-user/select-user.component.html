@@ -1,43 +1,40 @@
-<div class="modal fade in bg-transparent" style="display: block"><!--  *ngIf="is_show_detail"-->
-  <div class="modal-dialog">
+<div class="modal bd-example-modal-xl" style="display: block"><!--  *ngIf="is_show_detail"-->
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
-        <!-- 关闭按钮 -->
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="closeSelectedUser()">×</button>
+
         <!-- 标题 -->
         <h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>选择人</h3>
+        <!-- 关闭按钮 -->
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="closeSelectedUser()">×</button>
+
       </div>
       <div class="modal-body ">
         <div  class="row">
           <article  class="col-sm-12">
             <div class="navbar navbar-default">
-              <div class="collapse navbar-collapse">
-                <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-                  <div class="form-group pdlr-4">
-                    <div class="form-group padding-left-10">
-                      <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" [(ngModel)]="keyword" name="keyword" placeholder="请输入搜索内容" type="text">
-                    </div>
-                    <button class="btn btn-default" type="button" (click)="getUserList(1,0)">
-                      <i  class="glyphicon glyphicon-search"></i>
-                      搜索
-                    </button>
-                  </div>
-                </form>
-              </div>
+              <form  class="navbar-form " novalidate="" role="search" >
+                <div class="btn-group">
+                  <input type="text" class="form-control"   maxlength="15" [(ngModel)]="keyword" name="keyword" placeholder="请输入搜索内容" >
+                </div>
+                <div class="btn-group">
+                  <button type="button" class="btn default-btn"   (click)="getUserList(1,0)">搜索</button>
+                </div>
+              </form>
             </div>
           </article>
         </div>
         <div class="pt">
           <div class="row margin-b50" style="padding:0 10px;">
-            <article class="form-group col col-xs-4 ">
-              <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+            <article class="form-group col-sm-4 col-4 ">
+              <sa-widget class="jarviswidget " [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
                          [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
                 <div>
                   <div class="widget-body no-padding">
-                    <alert type="info" class="no-margin">
+                    <div type="info" class="no-margin alert alert-primary">
                       <i class="fa-fw fa fa-sitemap"></i>
                       部门分类
-                    </alert>
+                    </div>
                     <div class="pd-10 border-overflow-320" style="margin-top: -11px;">
                       <div class="widget-body">
                         <div class="tree smart-form">
@@ -80,24 +77,24 @@
                         </div>
                       </div>
                     </div>
-                    <div class="dt-toolbar">
+                    <div class="footer-size">
                     </div>
                   </div>
                 </div>
               </sa-widget>
 
             </article>
-            <article class="form-group col col-xs-8 ">
-              <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+            <article class="form-group col-sm-8 col-8">
+              <sa-widget class="jarviswidget" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
                          [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
                 <div>
                   <div class="widget-body no-padding">
-                    <alert type="info" class="no-margin" >
+                    <div type="info" class="no-margin alert alert-primary">
                       <i class="fa-fw fa fa-table"></i>
                       员工列表
-                    </alert>
-                    <div class="mt-10  "  style="padding:0;">
-                      <div style="padding: 0;z-index: 1;" class="table-responsive border-overflow-320">
+                    </div>
+                    <div class="  "  style="padding:0;">
+                      <div style="padding: 0;z-index: 1;" class=" border-overflow-320">
                         <table class="table table-striped   smart-form table-height-20">
                           <thead>
                           <tr>
@@ -133,20 +130,20 @@
                       </div>
 
                     </div>
+
                     <!-- 底部-（分页部分）-->
-                    <div class="dt-toolbar">
-                      <div class="col-xs-12 col-sm-6">
-                        <span>共{{userList.result?.userList?.total}}条</span>
-                      </div>
-                      <div class="hidden-xs right">
-                        <ul class="pagination pagination-sm" *ngIf="userList?.result?.page != ''">
-                          <li *ngFor="let p of userList?.result?.page" class="{{p.class}}">
-                            <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
-                            <a *ngIf="p.method==''">{{p.text}}</a>
-                          </li>
-                        </ul>
-                      </div>
+                    <div class="footer-size flex-justify-end">
+                      <ul class="pagination"  *ngIf="userList?.result?.page != ''">
+                        <li  *ngFor="let p of userList?.result?.page" class="{{p.class}}">
+                          <a class="page-link" (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+                          <a class="page-link" *ngIf="p.method==''">{{p.text}}</a>
+                        </li>
+                        <li class="page-item disabled">
+                          <a  class="page-link" disabled>共{{userList.result?.userList?.total}}条</a>
+                        </li>
+                      </ul>
                     </div>
+
                   </div>
                 </div>
               </sa-widget>
@@ -156,7 +153,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success btn-sm" (click)="submitSelectedUser()"><span class="glyphicon glyphicon-plus"></span>选入</button>
+        <button type="button" class="btn btn-success btn-sm" (click)="submitSelectedUser()"><span class="fa-fw fa fa-plus"></span>选入</button>
         <button type="button" class="btn btn-default" (click)="closeSelectedUser()">返回</button>
       </div>
     </div><!-- /.modal-content -->

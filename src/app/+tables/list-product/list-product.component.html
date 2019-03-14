@@ -4,7 +4,7 @@
   </div>-->
   <div class="box-header with-border" >
     <a class="btn btn-success btn-sm" (click)="isDemo('/forms/product1','0')">
-      <span class="glyphicon glyphicon-plus"></span>添加产品</a>
+      <span class="fa-fw fa fa-plus"></span>添加产品</a>
   </div>
 
   <sa-widgets-grid>
@@ -108,13 +108,13 @@
                   <td>{{ pl.storehouse_name }}</td>
                   <td>
                     <a class="btn btn-warning btn-xs" (click)="isDemo('/forms/product1',pl.p_id)">
-                      <span class="glyphicon glyphicon-pencil mr-5"></span>修改
+                      <span class="fa-fw fa fa-pencil mr-5"></span>修改
                     </a>
                     <a class="btn btn-danger btn-xs" (click)="deleteProduct( pl.p_id ,productList.result?.current_page)">
                       <span class="glyphicon glyphicon-remove mr-5"></span>删除
                     </a>
                     <a class="btn btn-success btn-xs" (click)="getProductInfo( pl.p_id );lgModal.show();">
-                      <span class="glyphicon glyphicon-zoom-in mr-5"></span>详情
+                      <span class="fa-fw fa fa-list-alt mr-5"></span>详情
                     </a>
                   </td>
                 </tr>

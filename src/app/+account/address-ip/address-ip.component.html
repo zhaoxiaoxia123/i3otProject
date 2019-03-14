@@ -2,7 +2,7 @@
   <sa-widgets-grid>
     <div class="row">
       <article class="col-sm-12 ">
-        <sa-widget [editbutton]="false" [deletebutton]="false" >
+        <sa-widget [editbutton]="false" [deletebutton]="false" [colorbutton]="false">
           <header  >
             <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
             <h2 >常规设置</h2>
@@ -12,75 +12,61 @@
           <div>
             <!--小部件内容-->
             <div class="widget-body no-padding">
-              <form  class="smart-form" >
+              <form  class="form-distance" >
                 <fieldset>
                   <legend>常规信息</legend>
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <section>
+                  <div class="form-row">
+                    <div class="form-group col-sm-4">
                       <label class="label">IP</label>
-                      <label class="input">
-                        <input  type="text" placeholder="请输入IP地址：如162.122.11.22" name=""  >
-                      </label>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <section>
+                      <input  class="form-control" type="text" placeholder="请输入IP地址：如162.122.11.22" name=""  >
+                    </div>
+
+                    <div class="form-group col-sm-4">
                       <label class="label">子网掩码</label>
-                      <label class="input">
-                        <input  type="text" placeholder="请输入子网掩码：如162.122.11.22" name=""  >
-                      </label>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <section>
+                      <input  class="form-control" type="text" placeholder="请输入子网掩码：如162.122.11.22" name=""  >
+                    </div>
+
+                    <div class="form-group col-sm-4">
                       <label class="label">默认网关</label>
-                      <label class="input">
-                        <input  type="text" placeholder="请输入默认网关：如162.122.11.22" name=""  >
-                      </label>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <section>
+                      <input  class="form-control" type="text" placeholder="请输入默认网关：如162.122.11.22" name=""  >
+                    </div>
+
+                    <div class="form-group col-sm-4">
                       <label class="label">DNS</label>
-                      <label class="input">
-                        <input  type="text" placeholder="请输入DNS：如162.122.11.22" name=""  >
-                      </label>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <section>
+                      <input  class="form-control" type="text" placeholder="请输入DNS：如162.122.11.22" name=""  >
+                    </div>
+
+                    <div class="form-group col-sm-4">
                       <label class="label">端口号</label>
-                      <label class="input">
-                        <input  type="text" placeholder="请输入端口号：如5002" name=""  >
-                      </label>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <section>
+                      <input  class="form-control" type="text" placeholder="请输入端口号：如5002" name=""  >
+                    </div>
+
+                    <div class="form-group col-sm-4">
                       <label class="label">设备号</label>
-                      <label class="input">
-                        <input  type="text" placeholder="请输入设备号：如12" name=""  >
-                      </label>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <section>
+                      <input  class="form-control" type="text" placeholder="请输入设备号：如12" name=""  >
+                    </div>
+
+                    <div class="form-group">
                       <label class="label">DHCP</label>
-                      <div class="inline-group">
-                        <label class="radio">
-                          <input type="radio" name="radio-inline" checked="checked">
-                          <i></i>静态IP</label>
-                        <label class="radio">
-                          <input type="radio" name="radio-inline" >
-                          <i></i>动态IP</label>
+                      <div class="input-group  mr-sm-2">
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                          <input class="custom-control-input" id="customCheck1"   type="checkbox" name="radio-inline" >
+                          <label class="custom-control-label" for="customCheck1">静态IP</label>
+                        </div>
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                          <input  class="custom-control-input" id="customCheck2"  type="checkbox" name="radio-inline" >
+                          <label class="custom-control-label" for="customCheck2">动态IP</label>
+                        </div>
                       </div>
-                    </section>
+
+                    </div>
+
                   </div>
 
                 </fieldset>
-                <footer>
+                <div class="footer-size flex-justify-end">
                   <button  type="submit" class="btn btn-primary">提交</button>
-                </footer>
+                </div>
               </form>
             </div>
           </div>

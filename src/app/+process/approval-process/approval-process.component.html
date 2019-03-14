@@ -2,7 +2,7 @@
     <sa-widgets-grid>
         <div class="row">
             <article class="col-sm-12 ">
-                <sa-widget  [editbutton]="false" [deletebutton]="false">
+                <sa-widget  [editbutton]="false" [deletebutton]="false" [colorbutton]="false">
                     <header>
                         <ul class="nav nav-tabs pull-left in">
                             <li [class.active]="state.tabs.demo5=='iss1'" class="active">
@@ -20,27 +20,19 @@
                         </ul>
                     </header>
                     <div>
-                        <div class="widget-body">
+                        <div class="widget-body no-padding">
                             <tabset>
                                 <tab [active]="state.tabs.demo5 == 'iss1'">
-                                    <div class="row">
-                                        <app-process-await (isShowDetail)="getStatus($event,0)" (count_)="getData($event)" [rollback_url]="rollback_url" *ngIf="isInTabs('iss1')"></app-process-await>
-                                    </div>
+                                    <app-process-await (isShowDetail)="getStatus($event,0)" (count_)="getData($event)" [rollback_url]="rollback_url" *ngIf="isInTabs('iss1')"></app-process-await>
                                 </tab>
                                 <tab [active]="state.tabs.demo5 == 'iss2'">
-                                    <div class="row">
-                                        <app-process-already (isShowDetail)="getStatus($event,0)" [rollback_url]="rollback_url" *ngIf="isInTabs('iss2')"></app-process-already>
-                                    </div>
+                                    <app-process-already (isShowDetail)="getStatus($event,0)" [rollback_url]="rollback_url" *ngIf="isInTabs('iss2')"></app-process-already>
                                 </tab>
                                 <tab [active]="state.tabs.demo5 == 'iss3'">
-                                    <div class="row">
-                                        <app-process-my (isShowDetail)="getStatus($event,0)" [rollback_url]="rollback_url" *ngIf="isInTabs('iss3')"></app-process-my>
-                                    </div>
+                                    <app-process-my (isShowDetail)="getStatus($event,0)" [rollback_url]="rollback_url" *ngIf="isInTabs('iss3')"></app-process-my>
                                 </tab>
                                 <tab [active]="state.tabs.demo5 == 'iss4'">
-                                    <div class="row">
-                                        <app-process-copy (isShowDetail)="getStatus($event,0)" [rollback_url]="rollback_url" *ngIf="isInTabs('iss4')"></app-process-copy>
-                                    </div>
+                                    <app-process-copy (isShowDetail)="getStatus($event,0)" [rollback_url]="rollback_url" *ngIf="isInTabs('iss4')"></app-process-copy>
                                 </tab>
                             </tabset>
                         </div>
@@ -936,7 +928,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn btn-primary" (click)="setModal()">确定</button>
+                <button type="button" class="btn btn-primary" (click)="setModal()">确定</button>
                 <button type="button" class="btn btn-default" (click)="hideModal()">取消</button>
             </div>
         </div><!-- /.modal-content -->
@@ -959,7 +951,7 @@
                     <article  class="col-sm-12">
                         <div class="navbar navbar-default">
                             <div class="collapse navbar-collapse">
-                                <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
+                                <form  class="navbar-form navbar-left " novalidate="" role="search" >
                                     <div class="form-group pdlr-4">
                                         <div class="form-group padding-left-10">
                                             <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" [(ngModel)]="keyword" name="keyword" placeholder="请输入搜索内容" type="text">
@@ -981,10 +973,10 @@
                                        [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
                                 <div>
                                     <div class="widget-body no-padding">
-                                        <alert type="info" class="no-margin">
+                                        <div type="info" class="no-margin alert alert-primary">
                                             <i class="fa-fw fa fa-sitemap"></i>
                                             部门分类
-                                        </alert>
+                                        </div>
                                         <div class="pd-10 border-overflow-320" style="margin-top: -11px;">
                                             <div class="widget-body">
                                                 <div class="tree smart-form">
@@ -1039,11 +1031,11 @@
                                        [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
                                 <div>
                                     <div class="widget-body no-padding">
-                                        <alert type="info" class="no-margin" >
+                                        <div type="info" class="no-margin alert alert-primary">
                                             <i class="fa-fw fa fa-table"></i>
                                             员工列表
-                                        </alert>
-                                        <div class="mt-10 "  style="padding:0;">
+                                        </div>
+                                        <div class=" "  style="padding:0;">
                                             <div style="padding: 0;z-index: 1;" class="table-responsive border-overflow-320">
                                                 <table class="table table-striped   smart-form table-height-20">
                                                     <thead>
@@ -1100,9 +1092,9 @@
             </div>
             <div class="modal-footer">
 
-                <button type="button" class="btn btn-success" (click)="setModal()"><span class="glyphicon glyphicon-plus"></span>选入</button>
+                <button type="button" class="btn btn-success" (click)="setModal()"><span class="fa-fw fa fa-plus"></span>选入</button>
                 <button type="button" class="btn btn-default" (click)="hideModal()" >返回</button>
-                <!--<button type="button" class="btn btn-success btn-sm" (click)="submitSelectedUser()"><span class="glyphicon glyphicon-plus"></span>选入</button>-->
+                <!--<button type="button" class="btn btn-success btn-sm" (click)="submitSelectedUser()"><span class="fa-fw fa fa-plus"></span>选入</button>-->
                 <!--<button type="button" class="btn btn-default" data-dismiss="modal" (click)="closeSelectedUser()">返回</button>-->
             </div>
         </div><!-- /.modal-content -->

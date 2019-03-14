@@ -7,26 +7,24 @@
 
   <sa-widgets-grid>
     <div class="row">
-
       <article class="col-sm-12 ">
-
-        <sa-widget [editbutton]="false" [deletebutton]="false" >
+        <sa-widget [editbutton]="false" [deletebutton]="false" [colorbutton]="false">
           <header *ngIf="pr_id == 0">
             <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
             <h2 >添加销售单</h2>
           </header>
           <header *ngIf="pr_id != 0 && isDetail!='detail'">
-            <span class="widget-icon"> <i class="glyphicon glyphicon-pencil"></i> </span>
+            <span class="widget-icon"> <i class="fa-fw fa fa-pencil"></i> </span>
             <h2 >修改销售单 </h2>
           </header>
           <header *ngIf="isDetail=='detail'">
-            <span class="widget-icon"> <i class="glyphicon glyphicon-zoom-in"></i> </span>
+            <span class="widget-icon"> <i class="fa-fw fa fa-list-alt"></i> </span>
             <h2>详情</h2>
           </header>
           <div>
             <!--小部件内容-->
             <div class="widget-body no-padding">
-              <form id="smart-form-register" class="smart-form" [formGroup]="formModel" ><!---(ngSubmit)="onSubmit()"-->
+              <form id="smart-form-register" class="form-distance" [formGroup]="formModel" ><!---(ngSubmit)="onSubmit()"-->
                 <fieldset>
                   <legend>基本信息</legend>
                   <input type="hidden" name="pr_id" formControlName="pr_id">
@@ -38,208 +36,214 @@
                     <!--作废-->
                     <img src="assets/img/chapter4.png" *ngIf="purchaseInfo?.result?.pr_status == 'cancel'">
                   </div>
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <section>
+                  <div class="form-row">
+
+                    <div class="form-group col-sm-4">
                       <label class="label ">销货方式</label>
-                      <div class="inline-group">
-                        <label class="radio">
-                          <input *ngIf="isDetail=='detail'" disabled="disabled" [checked]="purchaseInfo.result?.pr_type == 4 || this.pr_id == 0" [value]="4" type="radio" name="pr_type" formControlName="pr_type">
-                          <input *ngIf="isDetail!='detail'" [checked]="purchaseInfo.result?.pr_type == 4 || this.pr_id == 0" [value]="4" type="radio" name="pr_type" formControlName="pr_type">
-                          <i></i>销货单</label>
-                        <label class="radio">
-                          <input *ngIf="isDetail=='detail'" disabled="disabled" type="radio" [checked]="purchaseInfo.result?.pr_type == 5" [value]="5" name="pr_type" formControlName="pr_type">
-                          <input *ngIf="isDetail!='detail'" type="radio" [checked]="purchaseInfo.result?.pr_type == 5" [value]="5" name="pr_type" formControlName="pr_type">
-                          <i></i>退货单</label>
+                      <div class="input-group  mr-sm-2">
+                        <div class="custom-control custom-radio custom-control-inline">
+
+                          <input  class="custom-control-input" *ngIf="isDetail=='detail'" disabled="disabled" [checked]="purchaseInfo.result?.pr_type == 4 || this.pr_id == 0" [value]="4" type="radio" name="pr_type" formControlName="pr_type">
+                          <input  class="custom-control-input" id="gridRadios1" *ngIf="isDetail!='detail'" [checked]="purchaseInfo.result?.pr_type == 4 || this.pr_id == 0" [value]="4" type="radio" name="pr_type" formControlName="pr_type">
+                          <label class="custom-control-label"  for="gridRadios1">销货单</label>
+
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                          <input  class="custom-control-input" *ngIf="isDetail=='detail'" disabled="disabled" type="radio" [checked]="purchaseInfo.result?.pr_type == 5" [value]="5" name="pr_type" formControlName="pr_type">
+                          <input  class="custom-control-input" id="gridRadios2" *ngIf="isDetail!='detail'" type="radio" [checked]="purchaseInfo.result?.pr_type == 5" [value]="5" name="pr_type" formControlName="pr_type">
+                          <label class="custom-control-label"  for="gridRadios2">退货单</label>
+
+                        </div>
                       </div>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <section class="mb-6">
+
+                    </div>
+
+
+
+                    <div class="form-group col-sm-4">
                       <label class="label txt-color-blue">单据日期<span class="asterisk-color">*</span></label>
-                      <label  class="input">
-                        <!--<input *ngIf="isDetail=='detail'" disabled="disabled" type="date" name="pr_date" formControlName="pr_date">-->
-                        <!--<input *ngIf="isDetail!='detail'" type="date" name="pr_date" formControlName="pr_date">-->
-                        <input *ngIf="isDetail=='detail'" disabled="disabled" name="pr_date"  maxlength="20" formControlName="pr_date" placeholder="选择日期" [dpDayPicker]="datePickerConfig" [theme]="'dp-material'" [mode]="'day'" class="form-control ng-binding expire-text-soon"/>
-                        <input *ngIf="isDetail!='detail'" name="pr_date"  maxlength="20" formControlName="pr_date" placeholder="选择日期" [dpDayPicker]="datePickerConfig" [theme]="'dp-material'" [mode]="'day'" class="form-control ng-binding expire-text-soon"/>
-                      </label>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <section>
+                      <input  class="form-control" *ngIf="isDetail=='detail'" disabled="disabled" name="pr_date"  maxlength="20" formControlName="pr_date" placeholder="选择日期" [dpDayPicker]="datePickerConfig" [theme]="'dp-material'" [mode]="'day'"/>
+                      <input class="form-control" *ngIf="isDetail!='detail'" name="pr_date"  maxlength="20" formControlName="pr_date" placeholder="选择日期" [dpDayPicker]="datePickerConfig" [theme]="'dp-material'" [mode]="'day'" />
+                    </div>
+
+
+                    <div class="form-group col-sm-4">
                       <label class="label txt-color-blue">单据号<span class="asterisk-color">*</span></label>
-                      <label class="input">
-                        <input *ngIf="isDetail=='detail'" disabled="disabled" type="text" placeholder="单据号" name="pr_order" formControlName="pr_order" >
-                        <input *ngIf="isDetail!='detail'" type="text" placeholder="单据号" name="pr_order" formControlName="pr_order" >
-                      </label>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <label class="label ">客户</label>
-                    <section>
-                      <div class="input-group">
-                        <!--<label class="input">-->
-                        <!--<i class="icon-append glyphicon glyphicon-search cursor-pointer" data-toggle="modal" data-target="#myModal"></i>-->
-                        <!--<input type="text" placeholder="" name="pr_order" formControlName="pr_order" >-->
-                        <!--</label>-->
-                        <label   class="select form-control border-0">
-                          <select *ngIf="isDetail=='detail'" disabled="disabled" name="pr_supplier" formControlName="pr_supplier" [(ngModel)]="pr_supplier_default">
-                            <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
-                            <option *ngFor="let cus of purchaseList.result?.supplier" [selected]="purchaseInfo.result?.pr_supplier == cus.c_id" value="{{ cus.c_id }}">{{cus.c_name}}</option>
-                          </select>
-                          <select *ngIf="isDetail!='detail'" name="pr_supplier" formControlName="pr_supplier" [(ngModel)]="pr_supplier_default">
-                            <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
-                            <option *ngFor="let cus of purchaseList.result?.supplier" [selected]="purchaseInfo.result?.pr_supplier == cus.c_id" value="{{ cus.c_id }}">{{cus.c_name}}</option>
-                          </select><i></i>
-                        </label>
-                        <div class="input-group-btn">
-                          <a  href="http://cn.i3ot.com/#/customer-management/unit-list" target="_blank" (click)="smartModEg1()" class="btn btn-default btn-sm pb-6" type="button">
-                            <!-- <i class="fa fa-plus "></i>--> 添加
-                          </a>
-                          <a class="btn btn-default btn-sm pb-6" type="button" (click)="getPurchaseDefault('refresh')"><i class="fa fa-link"></i>
-                            刷新
-                          </a>
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <label  class="label ">销售部门</label>
-                    <section>
-                      <div class="input-group">
-                        <label   class="select form-control border-0">
-                          <select *ngIf="isDetail=='detail'" disabled="disabled" name="pr_department" formControlName="pr_department" [(ngModel)]="pr_department_default" (change)="getUserList($event,1)">
-                            <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
-                            <option *ngFor="let d of purchaseList.result?.department" [selected]="purchaseInfo.result?.pr_department == d.category_id" value="{{ d.category_id}}">{{d.category_desc}}</option>
-                          </select>
-                          <select *ngIf="isDetail!='detail'" name="pr_department" formControlName="pr_department" [(ngModel)]="pr_department_default" (change)="getUserList($event,1)">
-                            <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
-                            <option *ngFor="let d of purchaseList.result?.department" [selected]="purchaseInfo.result?.pr_department == d.category_id" value="{{ d.category_id}}">{{d.category_desc}}</option>
-                          </select><i></i>
-                        </label>
-                        <div class="input-group-btn">
-                          <a  href="http://cn.i3ot.com/#/management/setting-departmentnew" target="_blank" (click)="smartModEg1()" class="btn btn-default btn-sm pb-6" type="button">
-                            <!-- <i class="fa fa-plus "></i>--> 添加
-                          </a>
-                          <a class="btn btn-default btn-sm pb-6" type="button" (click)="getPurchaseDefault('refresh')"><i class="fa fa-link"></i>
-                            刷新
-                          </a>
+                      <input  class="form-control" *ngIf="isDetail=='detail'" disabled="disabled" type="text" placeholder="单据号" name="pr_order" formControlName="pr_order" >
+                      <input class="form-control" *ngIf="isDetail!='detail'" type="text" placeholder="单据号" name="pr_order" formControlName="pr_order" >
 
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <label  class="label">销售员</label>
-                    <section>
-                      <div class="input-group">
-                        <label   class="select form-control border-0">
-                          <select *ngIf="isDetail=='detail'" disabled="disabled" name="pr_employee" formControlName="pr_employee" [(ngModel)]="pr_employee_default">
-                            <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
-                            <option *ngFor="let u of userList.result" [selected]="purchaseInfo.result?.pr_employee == u.id" value="{{ u.id }}">{{u.u_username}}</option>
-                          </select>
-                          <select *ngIf="isDetail!='detail'" name="pr_employee" formControlName="pr_employee" [(ngModel)]="pr_employee_default">
-                            <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
-                            <option *ngFor="let u of userList.result" [selected]="purchaseInfo.result?.pr_employee == u.id" value="{{ u.id }}">{{u.u_username}}</option>
-                          </select><i></i>
-                        </label>
-                        <div class="input-group-btn">
-                          <a  href="http://cn.i3ot.com/#/forms/employees/0" target="_blank" (click)="smartModEg1()" class="btn btn-default btn-sm pb-6" type="button">
-                            <!-- <i class="fa fa-plus "></i>--> 添加
-                          </a>
-                          <a class="btn btn-default btn-sm pb-6" type="button" (click)="getUserList(pr_department_default,2)"><i class="fa fa-link"></i>
-                            刷新
-                          </a>
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <label class="label">默认仓库</label>
-                    <section>
-                      <div class="input-group">
-                        <label   class="select form-control border-0">
-                          <select *ngIf="isDetail=='detail'" disabled="disabled" name="storehouse_id" formControlName="storehouse_id" [(ngModel)]="storehouse_id_default">
-                            <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
-                            <option *ngFor="let s of purchaseList.result?.storehouse" [selected]="purchaseInfo.result?.storehouse_id == s.storehouse_id" value="{{s.storehouse_id }}">{{s.storehouse_name}}</option>
-                          </select>
-                          <select *ngIf="isDetail!='detail'" name="storehouse_id" formControlName="storehouse_id" [(ngModel)]="storehouse_id_default">
-                            <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
-                            <option *ngFor="let s of purchaseList.result?.storehouse" [selected]="purchaseInfo.result?.storehouse_id == s.storehouse_id" value="{{s.storehouse_id }}">{{s.storehouse_name}}</option>
-                          </select><i></i>
-                        </label>
-                        <div class="input-group-btn">
-                          <a  href="http://cn.i3ot.com/#/forms/inventory1/0" target="_blank" (click)="smartModEg1()" class="btn btn-default btn-sm pb-6" type="button">
-                            <!-- <i class="fa fa-plus "></i>--> 添加
-                          </a>
-                          <a class="btn btn-default btn-sm pb-6" type="button" (click)="getPurchaseDefault('refresh')"><i class="fa fa-link"></i>
-                            刷新
-                          </a>
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <label class="label">销售类型</label>
-                    <section>
-                      <div class="input-group">
-                        <label   class="select form-control border-0">
-                          <select *ngIf="isDetail=='detail'" disabled="disabled" name="pr_category" formControlName="pr_category" [(ngModel)]="pr_category_default">
-                            <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
-                            <option *ngFor="let ca of purchaseList.result?.category" [selected]="purchaseInfo.result?.pr_category == ca.category_id" value="{{ca.category_id }}">{{ca.category_desc}}</option>
-                          </select>
-                          <select *ngIf="isDetail!='detail'" name="pr_category" formControlName="pr_category" [(ngModel)]="pr_category_default">
-                            <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
-                            <option *ngFor="let ca of purchaseList.result?.category" [selected]="purchaseInfo.result?.pr_category == ca.category_id" value="{{ca.category_id }}">{{ca.category_desc}}</option>
-                          </select><i></i>
-                        </label>
-                        <div class="input-group-btn">
-                          <a  href="http://cn.i3ot.com/#/sales-management/sales-type" target="_blank" (click)="smartModEg1()" class="btn btn-default btn-sm pb-6" type="button">
-                            <!-- <i class="fa fa-plus "></i>--> 添加
-                          </a>
-                          <a class="btn btn-default btn-sm pb-6" type="button" (click)="getPurchaseDefault('refresh')"><i class="fa fa-link"></i>
-                            刷新
-                          </a>
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <section>
-                      <label  class="label">运输方式</label>
-                      <label class="select">
-                        <select *ngIf="isDetail=='detail'" disabled="disabled" name="pr_transport" formControlName="pr_transport" [(ngModel)]="pr_transport_default">
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                      <label class="label">客户</label>
+                      <div class="input-group mb-2 mr-sm-2">
+                        <select  class="form-control" *ngIf="isDetail=='detail'" disabled="disabled" name="pr_supplier" formControlName="pr_supplier" [(ngModel)]="pr_supplier_default">
                           <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
-                          <option *ngFor="let tr of purchaseList.result?.transport" [selected]="purchaseInfo.result?.pr_transport == tr.category_id" value="{{tr.category_id }}">{{tr.category_desc}}</option>
+                          <option *ngFor="let cus of purchaseList.result?.supplier" [selected]="purchaseInfo.result?.pr_supplier == cus.c_id" value="{{ cus.c_id }}">{{cus.c_name}}</option>
                         </select>
-                        <select *ngIf="isDetail!='detail'" name="pr_transport" formControlName="pr_transport" [(ngModel)]="pr_transport_default">
+                        <select  class="form-control" *ngIf="isDetail!='detail'" name="pr_supplier" formControlName="pr_supplier" [(ngModel)]="pr_supplier_default">
                           <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
-                          <option *ngFor="let tr of purchaseList.result?.transport" [selected]="purchaseInfo.result?.pr_transport == tr.category_id" value="{{tr.category_id }}">{{tr.category_desc}}</option>
-                        </select><i></i>
-                      </label>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
-                    <section>
-                      <label class="label">扫码</label>
-                      <label class="textarea textarea-resizable">
-                        <textarea  *ngIf="isDetail=='detail'" disabled="disabled" class="custom-scroll" rows="1" name="pr_qrcode" formControlName="pr_qrcode"></textarea>
-                        <textarea  *ngIf="isDetail!='detail'" class="custom-scroll" rows="1" name="pr_qrcode" formControlName="pr_qrcode"></textarea>
-                      </label>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <section>
-                      <label  class="label">搜索库存商品名称</label>
-                      <label class="input">
-                        <i *ngIf="isDetail!='detail'" class="icon-append glyphicon glyphicon-search cursor-pointer" (click)="showProduct()"></i><!--  searchKey(1) data-toggle="modal" data-target="#myModal"-->
-                        <input *ngIf="isDetail=='detail'" disabled="disabled" type="text" placeholder="" name="keyword" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">
-                        <input *ngIf="isDetail!='detail'" type="text" placeholder="" name="keyword" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">
-                      </label>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 padding20">
+                          <option *ngFor="let cus of purchaseList.result?.supplier" [selected]="purchaseInfo.result?.pr_supplier == cus.c_id" value="{{ cus.c_id }}">{{cus.c_name}}</option>
+                        </select>
 
-                    <div class="widget-body no-padding">
+                        <div class="input-group-prepend">
+                          <a   class="input-group-text" type="button"  href="http://cn.i3ot.com/#/customer-management/unit-list" target="_blank" (click)="smartModEg1()">添加
+                          </a>
+                        </div>
+                        <div class="input-group-prepend">
+                          <a class="input-group-text refresh-page" type="button" (click)="getPurchaseDefault('refresh')" >
+                            刷新
+                          </a>
+                        </div>
+
+                      </div>
+                    </div>
+
+
+                    <div class="form-group col-sm-4">
+                      <label class="label">销售部门</label>
+                      <div class="input-group mb-2 mr-sm-2">
+                        <select   class="form-control" *ngIf="isDetail=='detail'" disabled="disabled" name="pr_department" formControlName="pr_department" [(ngModel)]="pr_department_default" (change)="getUserList($event,1)">
+                          <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                          <option *ngFor="let d of purchaseList.result?.department" [selected]="purchaseInfo.result?.pr_department == d.category_id" value="{{ d.category_id}}">{{d.category_desc}}</option>
+                        </select>
+                        <select   class="form-control" *ngIf="isDetail!='detail'" name="pr_department" formControlName="pr_department" [(ngModel)]="pr_department_default" (change)="getUserList($event,1)">
+                          <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                          <option *ngFor="let d of purchaseList.result?.department" [selected]="purchaseInfo.result?.pr_department == d.category_id" value="{{ d.category_id}}">{{d.category_desc}}</option>
+                        </select>
+
+                        <div class="input-group-prepend">
+                          <a   class="input-group-text" type="button"  href="http://cn.i3ot.com/#/management/setting-departmentnew" target="_blank" (click)="smartModEg1()">添加
+                          </a>
+                        </div>
+                        <div class="input-group-prepend">
+                          <a class="input-group-text refresh-page" type="button"  (click)="getPurchaseDefault('refresh')">
+                            刷新
+                          </a>
+                        </div>
+
+                      </div>
+                    </div>
+
+
+                    <div class="form-group col-sm-4">
+                      <label class="label">销售员</label>
+                      <div class="input-group mb-2 mr-sm-2">
+                        <select  class="form-control" *ngIf="isDetail=='detail'" disabled="disabled" name="pr_employee" formControlName="pr_employee" [(ngModel)]="pr_employee_default">
+                          <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                          <option *ngFor="let u of userList.result" [selected]="purchaseInfo.result?.pr_employee == u.id" value="{{ u.id }}">{{u.u_username}}</option>
+                        </select>
+                        <select class="form-control"  *ngIf="isDetail!='detail'" name="pr_employee" formControlName="pr_employee" [(ngModel)]="pr_employee_default">
+                          <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                          <option *ngFor="let u of userList.result" [selected]="purchaseInfo.result?.pr_employee == u.id" value="{{ u.id }}">{{u.u_username}}</option>
+                        </select>
+
+                        <div class="input-group-prepend">
+                          <a   class="input-group-text" type="button" href="http://cn.i3ot.com/#/forms/employees/0" target="_blank" (click)="smartModEg1()" >添加
+                          </a>
+                        </div>
+                        <div class="input-group-prepend">
+                          <a class="input-group-text refresh-page" type="button" (click)="getUserList(pr_department_default,2)" >
+                            刷新
+                          </a>
+                        </div>
+
+                      </div>
+                    </div>
+
+
+                    <div class="form-group col-sm-4">
+                      <label class="label">默认仓库</label>
+                      <div class="input-group mb-2 mr-sm-2">
+                        <select  class="form-control" *ngIf="isDetail=='detail'" disabled="disabled" name="storehouse_id" formControlName="storehouse_id" [(ngModel)]="storehouse_id_default">
+                          <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                          <option *ngFor="let s of purchaseList.result?.storehouse" [selected]="purchaseInfo.result?.storehouse_id == s.storehouse_id" value="{{s.storehouse_id }}">{{s.storehouse_name}}</option>
+                        </select>
+                        <select  class="form-control" *ngIf="isDetail!='detail'" name="storehouse_id" formControlName="storehouse_id" [(ngModel)]="storehouse_id_default">
+                          <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                          <option *ngFor="let s of purchaseList.result?.storehouse" [selected]="purchaseInfo.result?.storehouse_id == s.storehouse_id" value="{{s.storehouse_id }}">{{s.storehouse_name}}</option>
+                        </select>
+
+                        <div class="input-group-prepend">
+                          <a   class="input-group-text" type="button"  href="http://cn.i3ot.com/#/forms/inventory1/0" target="_blank" (click)="smartModEg1()" >添加
+                          </a>
+                        </div>
+                        <div class="input-group-prepend">
+                          <a class="input-group-text refresh-page" type="button"  (click)="getPurchaseDefault('refresh')">
+                            刷新
+                          </a>
+                        </div>
+
+                      </div>
+                    </div>
+
+
+                    <div class="form-group col-sm-4">
+                      <label class="label">销售类型</label>
+                      <div class="input-group mb-2 mr-sm-2">
+
+                        <select  class="form-control" *ngIf="isDetail=='detail'" disabled="disabled" name="pr_category" formControlName="pr_category" [(ngModel)]="pr_category_default">
+                          <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                          <option *ngFor="let ca of purchaseList.result?.category" [selected]="purchaseInfo.result?.pr_category == ca.category_id" value="{{ca.category_id }}">{{ca.category_desc}}</option>
+                        </select>
+                        <select  class="form-control" *ngIf="isDetail!='detail'" name="pr_category" formControlName="pr_category" [(ngModel)]="pr_category_default">
+                          <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                          <option *ngFor="let ca of purchaseList.result?.category" [selected]="purchaseInfo.result?.pr_category == ca.category_id" value="{{ca.category_id }}">{{ca.category_desc}}</option>
+                        </select>
+
+                        <div class="input-group-prepend">
+                          <a   class="input-group-text" type="button"  href="http://cn.i3ot.com/#/sales-management/sales-type" target="_blank" (click)="smartModEg1()">添加
+                          </a>
+                        </div>
+                        <div class="input-group-prepend">
+                          <a class="input-group-text refresh-page" type="button"  (click)="getPurchaseDefault('refresh')">
+                            刷新
+                          </a>
+                        </div>
+
+                      </div>
+                    </div>
+
+
+                    <div class="form-group col-sm-4">
+                      <label  class="label">运输方式</label>
+
+                      <select  class="form-control" *ngIf="isDetail=='detail'" disabled="disabled" name="pr_transport" formControlName="pr_transport" [(ngModel)]="pr_transport_default">
+                        <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                        <option *ngFor="let tr of purchaseList.result?.transport" [selected]="purchaseInfo.result?.pr_transport == tr.category_id" value="{{tr.category_id }}">{{tr.category_desc}}</option>
+                      </select>
+                      <select  class="form-control" *ngIf="isDetail!='detail'" name="pr_transport" formControlName="pr_transport" [(ngModel)]="pr_transport_default">
+                        <option [selected]="this.pr_id == 0" value="0">--请选择--</option>
+                        <option *ngFor="let tr of purchaseList.result?.transport" [selected]="purchaseInfo.result?.pr_transport == tr.category_id" value="{{tr.category_id }}">{{tr.category_desc}}</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group col-sm-12">
+                      <label class="label">扫码</label>
+                      <textarea  *ngIf="isDetail=='detail'" disabled="disabled" class="form-control" rows="1" name="pr_qrcode" formControlName="pr_qrcode"></textarea>
+                      <textarea  *ngIf="isDetail!='detail'" class="form-control" rows="1" name="pr_qrcode" formControlName="pr_qrcode"></textarea>
+                    </div>
+
+
+
+
+                    <div class="form-group col-sm-12">
+                      <div class="navbar navbar-default">
+                        <form  class="navbar-form" novalidate="" role="search" >
+                          <div class="btn-group">
+                            <input  class="form-control" *ngIf="isDetail=='detail'" disabled="disabled" type="text" placeholder="" name="keyword" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">
+                            <input class="form-control" *ngIf="isDetail!='detail'" type="text" placeholder="搜索库存商品名称" name="keyword" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">
+                          </div>
+                          <div class="btn-group">
+                            <button type="button" class="btn default-btn"  (click)="showProduct()">搜索</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+
+
+                    <div class="form-group col-sm-12">
+
                       <div  class="padding0">
                         <div style="z-index: 2;width:20%;float:left;" class="table-responsive padding0 table-minheight">
                           <table style="margin-top: 0!important;" class="table table-border table-hover table-bordered dataTable table-height-50">
@@ -252,8 +256,8 @@
                             <tbody>
                             <tr *ngFor="let p of selectProductList;let ind = index;">
                               <td>
-                                <!--<a *ngIf="isDetail!='detail'" class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-plus"></span>添加</a>-->
-                                <a *ngIf="isDetail!='detail'" class="btn btn-danger btn-xs" (click)="removeInput(ind)"><span class="glyphicon glyphicon-remove"></span></a>
+                                <!--<a *ngIf="isDetail!='detail'" class="btn btn-warning btn-xs" ><span class="fa-fw fa fa-plus"></span>添加</a>-->
+                                <a *ngIf="isDetail!='detail'" class="btn btn-danger btn-xs" (click)="removeInput(ind)"><span class="fa fa-remove" style="color:#fff;"></span></a>
                               </td>
                               <td>
                                 {{p.p_name}}
@@ -291,28 +295,29 @@
                               <td>{{p.p_unit}}</td>
                               <td>{{p.openinginventory_surplus_count}}</td>
                               <td>
-                                <label  class="input wi-100">
-                                  <input *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_count" value="{{p.p_count}}" type="number">
-                                  <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_count" value="{{p.p_count}}" type="number" (keyup)="canInput($event,p.p_count,p.old_p_count,p.openinginventory_surplus_count)">
-                                </label>
+                                <div class="form-group">
+                                  <input  class="form-control"  *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_count" value="{{p.p_count}}" type="number">
+                                  <input class="form-control"  *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_count" value="{{p.p_count}}" type="number" (keyup)="canInput($event,p.p_count,p.old_p_count,p.openinginventory_surplus_count)">
+                                </div>
+
                               </td>
                               <td>
-                                <label  class="input wi-100">
-                                <input *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_price" value="{{p.p_price}}" type="number">
-                                  <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_price" value="{{p.p_price}}" type="number">
-                                </label>
+                                <div class="form-group">
+                                  <input  class="form-control"   *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_price" value="{{p.p_price}}" type="number">
+                                  <input  class="form-control"  *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_price" value="{{p.p_price}}" type="number">
+                                </div>
                               </td>
                               <td>
-                                <label  class="input wi-100">
-                                <input *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_pur_price" value="{{p.p_pur_price}}" type="number" (blur)="sumPCount()">
-                                  <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_pur_price" value="{{p.p_pur_price}}" type="number" (blur)="sumPCount()">
-                                </label>
+                                <div class="form-group">
+                                  <input  class="form-control" *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_pur_price" value="{{p.p_pur_price}}" type="number" (blur)="sumPCount()">
+                                  <input   class="form-control"  *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_pur_price" value="{{p.p_pur_price}}" type="number" (blur)="sumPCount()">
+                                </div>
                               </td>
                               <td>
-                                <label  class="input wi-200">
-                                <input *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_note" value="{{p.p_note}}" type="text">
-                                  <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_note" value="{{p.p_note}}" type="text">
-                                </label>
+                                <div class="form-group">
+                                  <input  class="form-control" *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_note" value="{{p.p_note}}" type="text">
+                                  <input  class="form-control" *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_note" value="{{p.p_note}}" type="text">
+                                </div>
                               </td>
                             </tr>
                             </tbody>
@@ -334,71 +339,78 @@
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
-                    <section>
+
+
+
+                    <div class="form-group col-sm-12">
                       <label class="label">备注</label>
-                      <label class="textarea textarea-resizable">
-                        <textarea *ngIf="isDetail=='detail'" disabled="disabled" class="custom-scroll" rows="2" name="pr_note" formControlName="pr_note" ></textarea>
-                        <textarea *ngIf="isDetail!='detail'" class="custom-scroll" rows="2" name="pr_note" formControlName="pr_note" ></textarea>
-                      </label>
-                    </section>
+                      <textarea *ngIf="isDetail=='detail'" disabled="disabled" class="form-control" rows="2" name="pr_note" formControlName="pr_note" ></textarea>
+                      <textarea *ngIf="isDetail!='detail'" class="form-control" rows="2" name="pr_note" formControlName="pr_note" ></textarea>
+                    </div>
+
+
+                    <div class="form-group col-sm-12">
+                      <div class="label ">审批人<a *ngIf="isDetail!='detail' && pr_id==0" class="txt-color-blue pd-10" (click)="showDetail('assign')">添加审批人</a></div>
+                      <ul  class="avatars" *ngIf="approve_user">
+                        <li *ngFor="let su of approve_user;let ind = index;">
+                          <a *ngIf="isDetail!='detail' && pr_id==0" class="fa fa-times-circle picture-a" style="display:block;" (click)="removeUser(su.id,'assign')"></a>
+                          <a class="portrait-size" title="{{su.u_username}}">
+                            {{su.u_username}}
+                          </a>
+                          <div class="approval-arrow" *ngIf="ind < approve_user.length && ind != 0" >
+                            <img src="assets/img/icon/arrow.png" >
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="form-group col-sm-12">
+                      <div class="label ">抄送人<a *ngIf="isDetail!='detail' && pr_id==0" class="txt-color-blue pd-10" (click)="showDetail('follower')">添加抄送人</a><span class="txt-color-blueLight pd-10">(审批通过后，通知抄送人)</span></div>
+                      <ul  class="avatars" *ngIf="follower_user">
+                        <li *ngFor="let su1 of follower_user;let ind1 = index;">
+                          <a *ngIf="isDetail!='detail' && pr_id==0" class="fa fa-times-circle picture-a" style="display:block;" (click)="removeUser(su1.id,'follower')"></a>
+                          <a class="portrait-size" title="{{su1.u_username}}">
+                            {{su1.u_username}}
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+
+
                   </div>
-                  <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-20">
-                    <div class="label ">审批人<a *ngIf="isDetail!='detail' && pr_id==0" class="txt-color-blue pd-10" (click)="showDetail('assign')">添加审批人</a></div>
-                    <ul  class="avatars" *ngIf="approve_user">
-                      <li *ngFor="let su of approve_user;let ind = index;">
-                        <a *ngIf="isDetail!='detail' && pr_id==0" class="fa fa-times-circle picture-a" style="display:block;" (click)="removeUser(su.id,'assign')"></a>
-                        <a class="portrait-size" title="{{su.u_username}}">
-                          {{su.u_username}}
-                        </a>
-                        <div class="approval-arrow" *ngIf="ind < approve_user.length && ind != 0" >
-                          <img src="assets/img/icon/arrow.png" >
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-20">
-                    <div class="label ">抄送人<a *ngIf="isDetail!='detail' && pr_id==0" class="txt-color-blue pd-10" (click)="showDetail('follower')">添加抄送人</a><span class="txt-color-blueLight pd-10">(审批通过后，通知抄送人)</span></div>
-                    <ul  class="avatars" *ngIf="follower_user">
-                      <li *ngFor="let su1 of follower_user;let ind1 = index;">
-                        <a *ngIf="isDetail!='detail' && pr_id==0" class="fa fa-times-circle picture-a" style="display:block;" (click)="removeUser(su1.id,'follower')"></a>
-                        <a class="portrait-size" title="{{su1.u_username}}">
-                          {{su1.u_username}}
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
+
 
                 </fieldset>
-                <footer>
+                <div class="footer-size flex-justify-end">
 
                 <div *ngIf="isPermission(menu_id,'verify') && isDetail!='detail'">
-                  <button type="button" class="btn btn-primary"  (click)="showDetail('transfer')" *ngIf="uid == purchaseInfo?.result?.pr_status">
+                  <button type="button" class="btn btn-primary ml-2"  (click)="showDetail('transfer')" *ngIf="uid == purchaseInfo?.result?.pr_status">
                     转交
                   </button>
-                  <button type="button" class="btn btn-primary" (click)="showModal('urge','urge')" *ngIf="uid == purchaseInfo?.result?.u_id && purchaseInfo?.result?.pr_status != 'yes' && purchaseInfo?.result?.pr_status != 'no' && purchaseInfo?.result?.pr_status != 'cancel'">
+                  <button type="button" class="btn btn-primary ml-2" (click)="showModal('urge','urge')" *ngIf="uid == purchaseInfo?.result?.u_id && purchaseInfo?.result?.pr_status != 'yes' && purchaseInfo?.result?.pr_status != 'no' && purchaseInfo?.result?.pr_status != 'cancel'">
                     催办
                   </button>
-                  <button type="button" class="btn btn-primary" (click)="showModal('operation','back_cancel')" *ngIf="uid == purchaseInfo?.result?.u_id && purchaseInfo?.result?.pr_status == 'cancel'">
+                  <button type="button" class="btn btn-primary ml-2" (click)="showModal('operation','back_cancel')" *ngIf="uid == purchaseInfo?.result?.u_id && purchaseInfo?.result?.pr_status == 'cancel'">
                     弃废
                   </button>
-                  <button type="button" class="btn btn-warning"  (click)="showModal('operation','cancel')" *ngIf="uid == purchaseInfo?.result?.u_id && purchaseInfo?.result?.pr_status != 'yes' && purchaseInfo?.result?.pr_status != 'no' && purchaseInfo?.result?.pr_status != 'cancel'">
+                  <button type="button" class="btn btn-warning ml-2"  (click)="showModal('operation','cancel')" *ngIf="uid == purchaseInfo?.result?.u_id && purchaseInfo?.result?.pr_status != 'yes' && purchaseInfo?.result?.pr_status != 'no' && purchaseInfo?.result?.pr_status != 'cancel'">
                     作废
                   </button>
-                  <button type="button" class="btn btn-warning" (click)="showModal('operation','operation')" *ngIf="uid == purchaseInfo?.result?.pr_status">
+                  <button type="button" class="btn btn-warning ml-2" (click)="showModal('operation','operation')" *ngIf="uid == purchaseInfo?.result?.pr_status">
                     审核
                   </button>
                 </div>
-                  <button type="button" class="btn btn-default" [routerLink]="['/sales-management/sales-list']">
+                  <button *ngIf="isPermission(menu_id,'edit') && isDetail!='detail' && pr_id!=0 && purchaseInfo?.result?.pr_status != 'no' && purchaseInfo?.result?.pr_status != 'yes' && purchaseInfo?.result?.pr_status != 'cancel'" type="button" class="btn btn-primary ml-2" (click)="onSubmit(1)">提交</button>
+
+                  <div *ngIf="isPermission(menu_id,'add') && isDetail!='detail'">
+                    <button *ngIf="pr_id==0" type="button" class="btn btn-primary  ml-2" (click)="onSubmit(1)">提交</button>
+                  <button *ngIf="pr_id==0" class="btn btn-success  ml-2" type="button" (click)="onSubmit(2)">提交并新增</button>
+
+                  </div>
+                  <button type="button" class="btn btn-default ml-2" [routerLink]="['/sales-management/sales-list']">
                     返回
                   </button>
-                  <div *ngIf="isPermission(menu_id,'add') && isDetail!='detail'">
-                  <button *ngIf="pr_id==0" class="btn btn-success" type="button" (click)="onSubmit(2)">提交并新增</button>
-                  <button *ngIf="pr_id==0" type="button" class="btn btn-primary" (click)="onSubmit(1)">提交</button>
-                  </div>
-                  <button *ngIf="isPermission(menu_id,'edit') && isDetail!='detail' && pr_id!=0 && purchaseInfo?.result?.pr_status != 'no' && purchaseInfo?.result?.pr_status != 'yes' && purchaseInfo?.result?.pr_status != 'cancel'" type="button" class="btn btn-primary" (click)="onSubmit(1)">提交</button>
-                </footer>
+
+                </div>
               </form>
             </div>
           </div>

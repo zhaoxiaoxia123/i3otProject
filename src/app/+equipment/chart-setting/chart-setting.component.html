@@ -29,14 +29,14 @@
                         <div>
                           <!-- widget content -->
                           <div class="widget-body no-padding">
-                            <alert type="info" class="no-margin" *ngIf="s_id == 0">
+                            <div type="info" class="no-margin alert alert-primary" *ngIf="s_id == 0">
                               <i class="fa-fw fa fa-plus"></i>
                               添加图表取值范围和颜色效果
-                            </alert>
-                            <alert type="info" class="no-margin" *ngIf="s_id != 0">
+                            </div>
+                            <div type="info" class="no-margin alert alert-primary" *ngIf="s_id != 0">
                               <i class="fa-fw fa fa-plus"></i>
                               修改图表取值范围和颜色效果
-                            </alert>
+                            </div>
                             <div class="widget-body">
 
                                 <form class="" [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate>
@@ -176,11 +176,11 @@
                                     </div>
                                   </fieldset>
                                   <div class="widget-footer" style="padding-bottom: 8px;margin-bottom: -13px;">
-                                    <button type="button" class="btn btn-default" >
+                                    <button type="button" class="btn btn-default  ml-2" >
                                       返回
                                     </button>
-                                    <button class="btn btn-success" type="button">保存并新增</button>
-                                    <button class="btn btn-primary" type="submit">
+                                    <button class="btn btn-success  ml-2" type="button">保存并新增</button>
+                                    <button class="btn btn-primary  ml-2" type="submit">
                                       保存
                                     </button>
                                   </div>
@@ -199,18 +199,18 @@
                         <div>
                           <!-- widget content -->
                           <div class="widget-body no-padding">
-                            <alert type="info" class="no-margin" >
+                            <div type="info" class="no-margin alert alert-primary" >
                               <i class="fa-fw fa fa-table"></i>
                               显示图表取值范围和颜色效果
-                            </alert>
+                            </div>
 
-                            <div  class="row mt-10">
+                            <div  class="row ">
                               <article  class="col-sm-12">
                                 <div class="navbar navbar-default">
-                                    <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
+                                    <form  class="navbar-form navbar-left " novalidate="" role="search" >
                                       <div class="form-group pdlr-4">
                                         <a class="btn default-btn btn-sm" >
-                                          <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
+                                          <span class="fa-fw fa fa-pencil mr-5 color-yellow"></span>修改</a>
                                       </div>
                                       <div class="form-group pdlr-4">
                                         <a class="btn default-btn btn-sm" >
@@ -277,7 +277,7 @@
                                       <small class="text-muted">
                                         <i>{{slc.s_interval_1}}-{{slc.s_interval_2}}</i>
                                       </small></td>
-                                    <!--<td><a class="btn btn-warning btn-xs" (click)="getSettingsInfo(sl.s_id)"><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                    <!--<td><a class="btn btn-warning btn-xs" (click)="getSettingsInfo(sl.s_id)"><span class="fa-fw fa fa-pencil"></span>修改</a>
                                       <a class="btn btn-danger btn-xs" (click)="deleteSettings(sl.s_id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
                                       <a class="btn btn-success btn-xs" (click)="toDefault(sl.s_id)">默认颜色</a>
                                     </td>-->

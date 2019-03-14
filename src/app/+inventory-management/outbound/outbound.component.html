@@ -10,68 +10,62 @@
 
           <div>
             <div class="widget-body no-padding" >
-              <div  class="row">
-                <article  class="col-sm-12">
-                  <div class="navbar navbar-default">
-                    <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search">
-                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'add')">
-                        <a class="btn btn-success btn-sm" (click)="isDemo('/inventory-management/add-outbound','0','')">
-                          <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
+
+              <article>
+                <div class="navbar navbar-default">
+                  <form  class="navbar-form " novalidate="" role="search" >
+                    <div class="btn-group" *ngIf="isPermission(menu_id,'add')">
+                      <button type="button" class="btn btn-primary"  (click)="isDemo('/inventory-management/add-outbound','0','')"><span class="fa-fw fa fa-plus  mr-5"></span>添加</button>
+                    </div>
+                    <div class="btn-group"  *ngIf="isPermission(menu_id,'edit')">
+                      <button type="button"   [ngClass]="{'btn btn-warning':true,'not-click':isStatus == 0}"   (click)="isDemo('/inventory-management/add-outbound','1','edit')"><span class="fa-fw fa fa-pencil mr-5"></span>修改</button>
+                    </div>
+                    <div class="btn-group"  *ngIf="isPermission(menu_id,'delete')">
+                      <button type="button"  [ngClass]="{'btn btn-danger':true,'not-click':isStatus == 0}"   (click)="deleteOtherorder('id')"><span class="fa-fw fa  fa-trash-o mr-5"></span>删除</button>
+                    </div>
+                    <div class="btn-group" *ngIf="isPermission(menu_id,'detail')">
+                      <button type="button"  [ngClass]="{'btn btn-success':true,'not-click':isStatus == 0}"  (click)="isDemo('/inventory-management/add-outbound','1','detail')" ><span class="fa-fw fa fa-list-alt mr-5"></span>详情</button>
+                    </div>
+                    <div class="btn-group"  *ngIf="isPermission(menu_id,'verify')">
+                      <div class="btn-group"  (click)="showModal('operation','operation','')" *ngIf="uid == sa_status">
+                        <button type="button" class="btn btn-primary" ><span class="fa-fw fa fa-stop mr-5 "></span>审核</button>
                       </div>
-                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'edit')">
-                        <a class="btn default-btn btn-sm" [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="isDemo('/inventory-management/add-outbound','1','edit')">
-                          <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
+                      <div class="btn-group" (click)="showModal('operation','cancel','')" *ngIf="uid == sa_u_id && sa_status != 'yes' && sa_status != 'no' && sa_status != 'cancel'">
+                        <button type="button" class="btn btn-warning" ><span class="fa-fw fa fa-trash-o mr-5 "></span>作废</button>
                       </div>
-                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'delete')">
-                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="deleteOtherorder('id')">
-                          <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
-                      </div>
-                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'detail')">
-                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="isDemo('/inventory-management/add-outbound','1','detail')" >
-                          <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
+                      <div class="btn-group"  (click)="showModal('operation','back_cancel','')" *ngIf="uid == sa_u_id && sa_status == 'cancel'">
+                        <button type="button" class="btn btn-danger" ><span class="fa-fw fa fa-mail-reply-all mr-5 "></span>弃废</button>
                       </div>
 
-                      <div class="form-group " *ngIf="isPermission(menu_id,'verify')">
-                      <div class="form-group pdlr-4" (click)="showModal('operation','operation','')" *ngIf="uid == sa_status">
-                        <a class="btn default-btn btn-sm" >
-                          <span class="fa-fw fa fa-stop  mr-5 text-warning"></span>审核</a>
+                    </div>
+
+                    <div class="btn-group"  *ngIf="isPermission(menu_id,'verify') || isPermission(menu_id,'delete')">
+                      <button type="button" class="btn btn-secondary"  (click)="showAllCheck()"><span class="fa-fw fa fa-th-large mr-5"></span>批处理</button>
+                      <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
+                        <span class="sr-only"></span>
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" *ngIf="isPermission(menu_id,'verify')"   (click)="showModal('operation','operation','all')">批量审核</a>
+                        <a class="dropdown-item"  *ngIf="isPermission(menu_id,'verify')"  (click)="showModal('operation','cancel','all')">批量作废</a>
+                        <a class="dropdown-item"  *ngIf="isPermission(menu_id,'verify')"  (click)="showModal('operation','back_cancel','all')">批量弃废</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item"  *ngIf="isPermission(menu_id,'delete')"   (click)="deleteOtherorder('all')">批量删除</a>
                       </div>
-                      <div class="form-group pdlr-4" (click)="showModal('operation','cancel','')" *ngIf="uid == sa_u_id && sa_status != 'yes' && sa_status != 'no' && sa_status != 'cancel'">
-                        <a  class="btn default-btn btn-sm" >
-                          <span class="fa-fw fa fa-trash-o mr-5 text-warning"></span>作废</a>
-                      </div>
-                      <div class="form-group pdlr-4" (click)="showModal('operation','back_cancel','')" *ngIf="uid == sa_u_id && sa_status == 'cancel'">
-                        <a class="btn default-btn btn-sm" >
-                          <span class="fa-fw fa fa-mail-reply-all mr-5 text-primary"></span>弃废</a>
-                      </div>
-                      </div>
-                      <div class="form-group btn-group pdlr-4" *ngIf="isPermission(menu_id,'verify') || isPermission(menu_id,'delete')">
-                        <a class="btn default-btn btn-sm dropdown-toggle" (click)="showAllCheck()" data-toggle="dropdown">
-                          <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li *ngIf="isPermission(menu_id,'verify')"><a (click)="showModal('operation','operation','all')"><span class="fa-fw fa  fa-stop  mr-5 text-warning"></span>批量审核</a></li>
-                          <li class="divider"></li>
-                          <li *ngIf="isPermission(menu_id,'verify')"><a (click)="showModal('operation','cancel','all')"><span class="fa-fw fa fa-trash-o mr-5 text-warning"></span>批量作废</a></li>
-                          <li *ngIf="isPermission(menu_id,'verify')"><a (click)="showModal('operation','back_cancel','all')"><span class="fa-fw fa fa-mail-reply-all mr-5 text-primary"></span>批量弃废</a></li>
-                          <li class="divider"></li>
-                          <li *ngIf="isPermission(menu_id,'delete')"><a (click)="deleteOtherorder('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
-                        </ul>
-                      </div>
-                    </form>
-                    <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-                      <div class="form-group pdlr-4">
-                        <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" name="keyword" [(ngModel)]="keyword" placeholder="请输入搜索内容" type="text">
-                      </div>
-                      <div class="form-group pdlr-4">
-                        <button class="btn btn-default" type="button" (click)="getOtherorderList(1)">
-                          <i  class="glyphicon glyphicon-search"></i>
-                          搜索
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </article>
-              </div>
+                    </div>
+                  </form>
+                  <form  class="navbar-form" novalidate="" role="search" >
+
+                    <div class="btn-group">
+                      <input type="text" class="form-control"  maxlength="15" name="keyword" [(ngModel)]="keyword" placeholder="请输入搜索内容"  >
+                    </div>
+                    <div class="btn-group">
+                      <button type="button" class="btn default-btn" (click)="getOtherorderList(1)" >搜索</button>
+                    </div>
+
+                  </form>
+
+                </div>
+              </article>
               <div style="padding:0;" class="height-overflow">
                 <div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-scrolling padding0">
                   <table class="table table-striped   smart-form table-height-20">
@@ -155,20 +149,20 @@
                   </table>
                 </div>
               </div>
+
               <!-- 底部-（分页部分）-->
-              <div class="dt-toolbar">
-                <div class="col-xs-12 col-sm-6">
-                  <span>共{{otherorderList?.result?.otherorderList?.total}}条</span>
-                </div>
-                <div class="hidden-xs right">
-                  <ul class="pagination pagination-sm">
-                    <li *ngFor="let p of otherorderList?.result?.page" class="{{p.class}}">
-                      <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
-                      <a *ngIf="p.method==''">{{p.text}}</a>
-                    </li>
-                  </ul>
-                </div>
+              <div class="footer-size flex-justify-end">
+                <ul class="pagination" >
+                  <li *ngFor="let p of otherorderList?.result?.page" class="{{p.class}}">
+                    <a class="page-link" (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+                    <a class="page-link"  *ngIf="p.method==''">{{p.text}}</a>
+                  </li>
+                  <li class="page-item disabled">
+                    <a  class="page-link" disabled>共{{otherorderList?.result?.otherorderList?.total}}条</a>
+                  </li>
+                </ul>
               </div>
+
             </div>
           </div>
         </sa-widget>

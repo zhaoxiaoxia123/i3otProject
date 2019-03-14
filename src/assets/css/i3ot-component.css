@@ -436,10 +436,8 @@ fieldset {
     background-color: #fff!important;
 }
 .jarviswidget>div {
-    float: left;
     width: 100%;
     position: relative;
-    font-size: 13px;
     -moz-border-radius: 0;
     -khtml-border-radius: 0;
     -webkit-border-radius: 0;
@@ -800,16 +798,18 @@ body.nooverflow {
 .jarviswidget>header>.nav-tabs.pull-left>li:first-child a {
     border-left-width: 0!important;
 }
+
+.jarviswidget header:first-child .nav-tabs li a {
+    color: #333;
+    line-height:32px;
+}
 .jarviswidget header .nav-tabs>li.active>a, .jarviswidget header .nav-tabs>li.active>a:focus, .jarviswidget header .nav-tabs>li.active>a:hover {
-    color: #555;
-    background-color: #FFF;
-    border: 1px solid #C2C2C2;
+    color: #fff;
+    background-color: #007bff;
+    border: 1px solid #007bff;
     border-bottom-color: transparent;
     border-top: none;
     cursor: default;
-}
-.jarviswidget header:first-child .nav-tabs li a {
-    color: #333;
 }
 .nav-tabs>li>a {
     border-radius: 0;
@@ -818,12 +818,9 @@ body.nooverflow {
 .jarviswidget header .nav-tabs>li>a {
     border-radius: 0;
     border: none;
-    padding: 7px 15px 6px;
+    padding: 7px;
 }
 .nav-tabs>li.active>a {
-    -webkit-box-shadow: 0 -2px 0 #57889c;
-    -moz-box-shadow: 0 -2px 0 #57889c;
-    box-shadow: 0 -2px 0 #57889c;
     border-top-width: 0!important;
     margin-top: 1px!important;
     font-weight: 700;
@@ -885,9 +882,6 @@ body.nooverflow {
     font-weight: 400
 }
 
-.nav-tabs>li>a>.fa {
-    opacity: .5
-}
 
 .tabs-left .nav-tabs>li>a .badge {
     margin-right: 5px;
@@ -1145,29 +1139,13 @@ body.nooverflow {
     -webkit-border-radius: 0!important;
     -moz-border-radius: 0!important;
 }
-.alert {
-    margin-bottom: 20px;
-    margin-top: 0;
-    color: #675100;
-    border-width: 0;
-    border-left-width: 5px;
-    padding: 10px;
-    border-radius: 0;
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
-}
-.alert-info {
-    border-color: #9cb4c5;
-    color: #305d8c;
-    background-color: #d6dde7;
-}
 
 
 /*表单--------------------------------------------------------------------*/
 
 .navbar {
-    margin-bottom: -6px;
-    min-height: 0;
+    min-height:60px;
+    padding:10px;
 }
 .smart-form {
     margin: 0;
@@ -1178,32 +1156,10 @@ body.nooverflow {
 label {
     font-weight: 400;
 }
-.smart-form fieldset {
-    display: block;
-    padding: 25px 14px 5px;
-    border: none;
-    background: rgba(255,255,255,.9);
-    position: relative;
-}
 .smart-form legend {
     padding-top: 15px;
 }
 
-.bootstrap-duallistbox-container label,.form header,legend {
-    display: block;
-    padding: 8px 0;
-    border-bottom: 1px dashed rgba(0,0,0,.2);
-    background: #fff;
-    font-size: 16px;
-    font-weight: 300;
-    color: #222;
-    margin: 0 15px!important;
-}
-legend {
-    font-weight: 400;
-    margin-top: 0;
-    background: 0 0;
-}
 .smart-form .row {
     margin: 0 -15px
 }
@@ -1422,12 +1378,20 @@ legend {
     box-sizing: content-box;
     -moz-box-sizing: content-box
 }
+
+.form-fieldset {
+    display: block;
+    padding: 25px 14px 5px;
+    border: none;
+    background: rgba(255,255,255,.9);
+    position: relative;
+}
 .smart-form .btn {
     box-sizing: border-box;
     moz-box-sizing: border-box;
 }
 .smart-form fieldset+fieldset {
-    border-top: 1px solid rgba(0,0,0,.1);
+    /*border-top: 1px solid rgba(0,0,0,.1);*/
 }
 .smart-form footer {
     display: block;
@@ -1465,7 +1429,7 @@ legend {
     left: -9999px;
 }
 .smart-form .checkbox input:checked+i, .smart-form .radio input:checked+i, .smart-form .toggle input:checked+i {
-    border-color: #3276B1;
+    border-color: #007bff;
 }
 .smart-form .radio i {
     border-radius: 50%;
@@ -1475,8 +1439,8 @@ legend {
     top: 3px;
     left: 0;
     display: block;
-    width: 17px;
-    height: 17px;
+    width: 16px;
+    height: 16px;
     outline: 0;
     border-width: 1px;
     border-style: solid;
@@ -1487,7 +1451,7 @@ legend {
     opacity: 1;
 }
 .smart-form .radio input+i:after {
-    background-color: #3276B1;
+    background-color: #007bff;
 }
 .smart-form .radio input+i:after {
     content: '';
@@ -1511,16 +1475,6 @@ legend {
 .smart-form .checkbox:hover i, .smart-form .radio:hover i, .smart-form .toggle:hover i {
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.1);
     box-shadow: inset 0 1px 1px rgba(0,0,0,.1);
-}
-.form-control,.input-lg,.input-sm,.input-xs {
-    border-radius: 0!important;
-    -webkit-border-radius: 0!important;
-    -moz-border-radius: 0!important
-}
-.form-control {
-    box-shadow: none!important;
-    -webkit-box-shadow: none!important;
-    -moz-box-shadow: none!important
 }
 .smart-form .tooltip-top-right {
     bottom: 100%;
@@ -1560,13 +1514,26 @@ legend {
  * https://github.com/select2/select2/blob/master/LICENSE.md
  */
 .select2-container {
-    margin: 0;
-    border: 1px solid #bdbdbd;
-    min-height:32px;
-    position: relative;
-    display: inline-block;
-    zoom:1;*display: inline;
-    vertical-align: middle
+    /*margin: 0;*/
+    /*border: 1px solid #bdbdbd;*/
+    min-height:40px;
+    /*position: relative;*/
+    /*display: inline-block;*/
+    /*zoom:1;*display: inline;*/
+    /*vertical-align: middle*/
+    display: block;
+    width: 100%;
+    /*height: calc(2.25rem + 2px);*/
+    /*padding: .375rem .75rem;*/
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
 .select2-container,.select2-drop,.select2-search,.select2-search input {
@@ -1660,7 +1627,7 @@ legend {
     width: 100%;
     position: absolute;
     z-index: 9999;
-    top: 100%;
+    /*top: 100%;*/
     background: #fff;
     color: #000;
     border: 1px solid #ccc;
@@ -1847,10 +1814,10 @@ legend {
 
 .select2-results {
     max-height: 200px;
-    padding: 0;
-    margin: 4px;
-    position: relative;
-    overflow-x: hidden;
+    /*padding: 0;*/
+    /*margin: 4px;*/
+    /*position: relative;*/
+    /*overflow-x: hidden;*/
     overflow-y: auto;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
     display: block
@@ -1919,7 +1886,7 @@ legend {
 }
 
 .select2-results .select2-highlighted,.select2-results__option--highlighted {
-    background: #3276b1;
+    background: #007bff;
     color: #fff
 }
 
@@ -2004,14 +1971,14 @@ legend {
 
 .select2-container-multi .select2-choices,.select2-selection--multiple {
     height: auto!important;
-    margin: 0;
+    /*margin: 0;*/
     padding: 0;
-    position: relative;
-    border: 1px solid #ccc;
-    cursor: text;
-    /*overflow: hidden;*/
+    /*position: relative;*/
+    /*border: 1px solid #ccc;*/
+    /*cursor: text;*/
+    /*!*overflow: hidden;*!*/
     overflow: auto;
-    background-color: #fff
+    /*background-color: #fff*/
 }
 
 .select2-locked {
@@ -2065,12 +2032,12 @@ legend {
 
 .select2-container-multi .select2-choices .select2-search-choice,.select2-selection__choice {
     padding: 1px 28px 1px 8px;
-    margin: 4px 0 3px 5px;
+    margin: 2px 4px;
     position: relative;
     line-height: 18px;
     color: #fff;
     cursor: default;
-    border: 1px solid #2a6395;
+    border-radius:4px;
     -webkit-background-clip: padding-box;
     background-clip: padding-box;
     -webkit-touch-callout: none;
@@ -2079,7 +2046,7 @@ legend {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    background-color: #3276b1
+    background-color: #007bff
 }
 
 .smart-rtl .select2-container-multi .select2-choices .select2-search-choice,.smart-rtl .select2-selection__choice {
@@ -2253,8 +2220,8 @@ legend {
     font-weight: 400;
     padding: 3px 28px 4px 8px;
     font-size: 13px;
-    border: 1px solid #285E8E;
-    background: #3276B1
+    border: 1px solid #086aff;
+    background: #007bff
 }
 
 .bootstrap-tagsinput input {
@@ -2537,7 +2504,7 @@ table.dataTable {
     top: 0!important;
 }
 .smart-form .checkbox input+i:after {
-    color: #3276B1;
+    color: #007bff;
 }
 .smart-form .checkbox input+i:after {
     content: '\f00c';
@@ -2852,7 +2819,7 @@ table.dataTable thead .sorting_asc,table.dataTable thead .sorting_desc {
 }
 
 .table>tbody>tr>td,.table>tbody>tr>th,.table>tfoot>tr>td,.table>tfoot>tr>th,.table>thead>tr>td,.table>thead>tr>th {
-    padding: 8px 10px
+    padding:10px
 }
 
 table.dataTable tfoot>tr>th,table.dataTable thead>tr>th {
@@ -3521,7 +3488,7 @@ div.dataTables_editor{
 }
 
 .pace .pace-progress {
-    background: #3276b1;
+    background: #007bff;
     position: fixed;
     z-index: 2000;
     top: 0;
@@ -3640,7 +3607,7 @@ div.dataTables_editor{
     padding-left: 45px;
 }
 .icon-set li a{
-    font-size: 28px;
+    font-size: 32px;
 }
 .icon-set_nailing{
     background: rgba(0, 0, 0, 0) url(../img/login.png) no-repeat scroll -43px -4px;
@@ -4174,7 +4141,7 @@ div.dataTables_editor{
     position: relative;
     float: left;
 }
-.btn--fancy.btn-success {
+.btn--fancy {
     color: #fff!important;
     background-color: #54d09f;
 }
@@ -4524,15 +4491,6 @@ div.dataTables_editor{
 .ng-hide{
     display: none !important;
 }
-.btn.btn-success {
-    color: #fff;
-    background-color: #54d09f;
-    border-color: #54d09f;
-}
-.btn.btn-success:hover {
-    background-color: #4dbe91;
-    border-color: #4dbe91;
-}
 .btn.btn-toolbar{
     color: #646464;
     border: 0 !important;
@@ -4767,8 +4725,6 @@ div.dataTables_editor{
     vertical-align: bottom;
 }
 .entity-well .entity-well-content .entity-desc {
-    font-size: 15px;
-    padding: 5px 0 38px 5px;
     color: #333;
 }
 .markdown {
@@ -4923,7 +4879,7 @@ ul.avatars li {
 .portrait-size{
     width: 60px;
     height: 30px;
-    color: #ffffff;
+    color: #fff!important;
     border: solid 1px #169af6;
     display: inline-block;
     font-size: 13px!important;
@@ -5669,9 +5625,6 @@ ul.checkable.checkable--popboxmenu li a .label-name {
     padding: 0;
     font-weight: 400!important;
 }
-.show {
-    display: block!important;
-}
 .approve-foot {
     border-bottom: none;
     align-self: flex-end;
@@ -5786,7 +5739,7 @@ ul.checkable.checkable--popboxmenu li a .label-name {
 .approval-arrow>img{
     display: inline-block;
     width: 20px;
-    margin-top: 18px;
+    margin-top: 8px;
     text-align: center;
 }
 .approval-icon{
@@ -6013,7 +5966,7 @@ ul.checkable.checkable--popboxmenu li a .label-name {
     content: attr(data-swchon-text);
     text-shadow: 0 -1px 0 #333;
     padding-left: 12px;
-    background-color: #3276b1;
+    background-color: #007bff;
     color: #fff;
     box-shadow: inset 0 2px 6px rgba(0,0,0,.5),0 1px 2px rgba(0,0,0,.05);
     text-align: left
@@ -6109,7 +6062,7 @@ ul.checkable.checkable--popboxmenu li a .label-name {
 }
 
 .onoffswitch-checkbox:checked+.onoffswitch-label {
-    border-color: #3276b1 #2a6395 #255681
+    border-color: #007bff #2a6395 #255681
 }
 
 .onoffswitch+span,.onoffswitch-title {

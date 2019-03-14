@@ -7,7 +7,7 @@
       <ul class="nav nav-tabs pull-left in" id="myTab">
 
         <li  class="active"  [routerLink]="['/management/setting-affiliation']">
-          <a data-toggle="tab" href="#s1"><span
+          <a data-toggle="tab" ><span
                   class="hidden-mobile hidden-tablet">项目所属</span></a>
         </li>
         <li routerLink="/management/setting-openness">
@@ -20,151 +20,139 @@
         </li>
       </ul>
     </header>
-    <div class="no-padding">
-      <div class="widget-body">
-        <div id="myTabContent" class="tab-content">
-          <div class="tab-pane fade  active in  pd-10 no-padding-bottom" id="s1">
-            <div class="row">
-              <article class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
-                           [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
-                  <div>
-                    <div class="widget-body no-padding">
-                      <alert type="info" class="no-margin" *ngIf="category_id == 0">
-                        <i class="fa-fw fa fa-plus"></i>
-                        添加项目所属
-                      </alert>
-                      <alert type="info" class="no-margin"  *ngIf="category_id != 0">
-                        <i class="glyphicon glyphicon-pencil"></i>
-                        修改项目所属
-                      </alert>
-                      <div class="mt-10">
-                        <form class="smart-form ">
-                          <fieldset>
-                            <section>
-                              <label class="label txt-color-blue">职称编号<span class="asterisk-color">*</span></label>
-                              <label class="input">
-                                <input type="text" placeholder="职称编号" name="category_number" [(ngModel)]="category_number">
-                              </label>
-                            </section>
-                            <section>
-                              <label class="label txt-color-blue">项目所属名称<span class="asterisk-color">*</span></label>
-                              <label class="input">
-                                <input type="text" placeholder="请输项目所属名称" name="category_desc" [(ngModel)]="category_desc">
-                              </label>
-                            </section>
-                          </fieldset>
-                          <footer *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')">
-                            <button class="btn btn-success" type="button" (click)="addCategory()">保存并新增</button>
-                            <button type="button" class="btn btn-primary" (click)="addCategory()"> 保存 </button>
-                          </footer>
-                        </form>
+    <div class="widget-body">
+      <div class="row">
+        <article class="col-sm-12 col-md-6 col-lg-6">
+          <sa-widget class="jarviswidget" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                     [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+            <div>
+              <div class="widget-body no-padding">
+                <div type="info" class="no-margin alert alert-primary" *ngIf="category_id == 0">
+                  <i class="fa-fw fa fa-plus"></i>
+                  添加项目所属
+                </div>
+                <div type="info" class="no-margin alert alert-primary"  *ngIf="category_id != 0">
+                  <i class="fa-fw fa fa-pencil"></i>
+                  修改项目所属
+                </div>
+                <div class="">
+                  <form class="form-distance ">
+                    <fieldset>
+                      <div class="form-group">
+                        <label class="label txt-color-blue">职称编号<span class="asterisk-color">*</span></label>
+                        <input type="text" class="form-control"  placeholder="职称编号" name="category_number" [(ngModel)]="category_number" >
                       </div>
+                      <div class="form-group">
+                        <label class="label txt-color-blue">项目所属名称<span class="asterisk-color">*</span></label>
+                        <input type="text" class="form-control"  placeholder="请输项目所属名称" name="category_desc" [(ngModel)]="category_desc">
+                      </div>
+                    </fieldset>
+                    <div class="footer-size flex-justify-end"  *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')">
+                      <button type="button" class="btn btn-primary  ml-2" (click)="addCategory()"> 保存 </button>
+                      <button class="btn btn-success  ml-2" type="button" (click)="addCategory()">保存并新增</button>
 
                     </div>
-                  </div>
-                </sa-widget>
-              </article>
-              <article class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
-                           [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
-                  <div>
-                    <div class="widget-body no-padding">
-                      <alert type="info" class="no-margin" >
-                        <i class="fa-fw fa fa-table"></i>
-                        项目所属
-                      </alert>
-                      <div  class="row mt-10">
-                        <article  class="col-sm-12">
-                          <div class="navbar navbar-default">
+                  </form>
+                </div>
 
-                            <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-                              <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'edit')">
-                                <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusCategoryId == 0}" (click)="editCategory()">
-                                  <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
-                              </div>
-                              <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'delete')">
-                                <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':editStatusCategoryId == 0}" (click)="deleteCategory('id')">
-                                  <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
-                              </div>
-                              <div class="form-group btn-group pdlr-4" *ngIf="isPermission(menu_id,'delete')">
-                                <a class="btn default-btn btn-sm dropdown-toggle" (click)="showAllCheck()" data-toggle="dropdown">
-                                  <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
-                                <ul class="dropdown-menu" role="menu">
-                                  <li><a  (click)="deleteCategory('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
-                                </ul>
-                              </div>
-                            </form>
-                          </div>
-                        </article>
-                      </div>
-
-                      <div style="padding:0;" class="height-overflow"><div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-responsive">
-                        <table class="table table-striped smart-form">
-                          <thead>
-                          <tr style="height: 37px" >
-                            <td><label class="checkbox">
-                              <input type="checkbox" name="checkbox-inline"  [checked]="check" (change)="changeCheckAll($event)">
-                              <i></i>
-                            </label>
-                            </td>
-                          </tr>
-                          </thead>
-                          <tbody>
-                          <tr style="height: 34px" *ngFor="let c of categoryList?.result?.categoryList?.data" >
-                            <td>
-                              <label class="checkbox" >
-                                <input type="checkbox" name="checkbox-inline" value="{{ c.category_id }}" [checked]="selects[c.category_id]" (change)="handle($event)">
-                                <i></i>
-                              </label>
-                            </td>
-                          </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                        <div [ngStyle]="{'padding': '0','z-index': '2','width':width_1,'float':'left'}" class="table-responsive">
-                        <table class="table table-striped smart-form">
-                            <thead>
-                            <tr >
-                              <th>项目所属编号</th>
-                              <th>项目所属名称</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr *ngFor="let c of categoryList?.result?.categoryList?.data" (click)="isStatusShow(c.category_id)" [ngClass]="{'table-color':editStatusCategoryId == c.category_id}">
-                              <td>{{c.category_number}}</td>
-                              <td>{{c.category_desc}}</td><!--yellow-label-->
-                            </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-
-                      <!-- 底部-（分页部分）-->
-                      <div class="dt-toolbar">
-                        <div class="col-xs-12 col-sm-6">
-                          <div class="col-xs-12 col-sm-6">
-                            <span>共{{categoryList?.result?.categoryList?.total}}条</span>
-                          </div>
-                        </div>
-                        <div class="hidden-xs right">
-                          <ul class="pagination pagination-sm">
-                            <li *ngFor="let p of categoryList?.result?.page" class="{{p.class}}">
-                              <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
-                              <a *ngIf="p.method==''">{{p.text}}</a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
-                </sa-widget>
-                <!-- end widget -->
-              </article>
+              </div>
             </div>
-          </div>
-        </div>
+          </sa-widget>
+        </article>
+        <article class="col-sm-12 col-md-6 col-lg-6">
+          <sa-widget class="jarviswidget " [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                     [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+            <div>
+              <div class="widget-body no-padding">
+                <div type="info" class="no-margin alert alert-primary" >
+                  <i class="fa-fw fa fa-table"></i>
+                  项目所属
+                </div>
+                <div  class="row ">
+                  <article  class="col-sm-12">
+                    <div class="navbar navbar-default">
+                      <form  class="navbar-form " novalidate="" role="search" >
+                        <div class="btn-group"  *ngIf="isPermission(menu_id,'edit')">
+                          <button type="button"   [ngClass]="{'btn btn-warning':true,'not-click':editStatusCategoryId == 0}"   (click)="editCategory()"><span class="fa-fw fa fa-pencil mr-5"></span>修改</button>
+                        </div>
+                        <div class="btn-group" *ngIf="isPermission(menu_id,'delete')">
+                          <button type="button"  [ngClass]="{'btn btn-danger':true,'not-click':editStatusCategoryId == 0}"  (click)="deleteCategory('id')"><span class="fa-fw fa  fa-trash-o mr-5"></span>删除</button>
+                        </div>
+
+                        <div class="btn-group"  *ngIf="isPermission(menu_id,'delete')">
+                          <button type="button" class="btn btn-secondary"  (click)="showAllCheck()"><span class="fa-fw fa fa-th-large mr-5"></span>批处理</button>
+                          <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
+                            <span class="sr-only"></span>
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item"  (click)="deleteCategory('all')">批量删除</a>
+                          </div>
+                        </div>
+                      </form>
+
+                    </div>
+                  </article>
+                </div>
+
+                <div style="padding:0;" class="height-overflow"><div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-responsive">
+                  <table class="table table-striped smart-form table-height-20">
+                    <thead>
+                    <tr  >
+                      <td><label class="checkbox mt-8">
+                        <input type="checkbox" name="checkbox-inline"  [checked]="check" (change)="changeCheckAll($event)">
+                        <i></i>
+                      </label>
+                      </td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr  *ngFor="let c of categoryList?.result?.categoryList?.data" >
+                      <td>
+                        <label class="checkbox mt-8" >
+                          <input type="checkbox" name="checkbox-inline" value="{{ c.category_id }}" [checked]="selects[c.category_id]" (change)="handle($event)">
+                          <i></i>
+                        </label>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+                  <div [ngStyle]="{'padding': '0','z-index': '2','width':width_1,'float':'left'}" class="table-responsive">
+                    <table class="table table-striped smart-form table-height-20">
+                      <thead>
+                      <tr >
+                        <th>项目所属编号</th>
+                        <th>项目所属名称</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr *ngFor="let c of categoryList?.result?.categoryList?.data" (click)="isStatusShow(c.category_id)" [ngClass]="{'table-color':editStatusCategoryId == c.category_id}">
+                        <td>{{c.category_number}}</td>
+                        <td>{{c.category_desc}}</td><!--yellow-label-->
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <!-- 底部-（分页部分）-->
+                <div class="footer-size flex-justify-end">
+                  <ul class="pagination" >
+                    <li *ngFor="let p of categoryList?.result?.page" class="{{p.class}}">
+                      <a class="page-link" (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+                      <a class="page-link" *ngIf="p.method==''">{{p.text}}</a>
+                    </li>
+                    <li class="page-item disabled">
+                      <a  class="page-link" disabled>共{{categoryList?.result?.categoryList?.total}}条</a>
+                    </li>
+                  </ul>
+                </div>
+
+              </div>
+            </div>
+          </sa-widget>
+          <!-- end widget -->
+        </article>
       </div>
     </div>
   </sa-widget>

@@ -1,4 +1,4 @@
-<sa-widget [editbutton]="false"  color="blueDark">
+<sa-widget  [editbutton]="false" [deletebutton]="false" [colorbutton]="false" >
 
   <header>
     <span class="widget-icon"> <i class="fa  fa-child  txt-color-white"></i> </span>
@@ -6,36 +6,27 @@
     <h2> 员工井下人数 </h2>
   </header>
 
-  <div>
-    <div class="col-sm-12">
-      <div class="col-sm-6">
-        <div echarts [options]="chartOption" class="demo-chart-220"  ></div>
-      </div>
-      <div class="col-sm-6">
-        <ul class="list-group ">
-          <li class="list-group-item ">总人数：<strong>160</strong>
-           <!-- <span class="label label-success">160</span>-->
-          </li>
-          <li class="list-group-item">井上：40
-           <!-- <span class="label label-primary">40</span>-->
-          </li>
-          <li class="list-group-item">井下：120
-            <!--<span class="label label-info">120</span>-->
-          </li>
-          <li class="list-group-item">
-            <a  routerLink="/equipment/station-chart" class="btn btn-warning btn-block hidden-xs">查看详情</a>
-          </li>
-
-        </ul>
-
-      </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div echarts [options]="chartOption" class="demo-chart-220"  ></div>
     </div>
+    <div class="col-sm-6">
+      <ul class="list-group ">
+        <li class="list-group-item ">总人数：<strong>160</strong>
+          <!-- <span class="label label-success">160</span>-->
+        </li>
+        <li class="list-group-item">井上：40
+          <!-- <span class="label label-primary">40</span>-->
+        </li>
+        <li class="list-group-item">井下：120
+          <!--<span class="label label-info">120</span>-->
+        </li>
+        <li class="list-group-item">
+          <a  routerLink="/equipment/station-chart" class="btn btn-warning btn-block hidden-xs">查看详情</a>
+        </li>
 
-    <!--<div class="ibox-content">
-      <h1 class="no-margins">30</h1>
-      <div class="stat-percent text-success">活跃用户20%<i class="fa fa-bolt"></i>
-      </div>
-      <small>总人数</small>
-    </div>-->
+      </ul>
+
+    </div>
   </div>
 </sa-widget>

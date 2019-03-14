@@ -3,7 +3,7 @@
 
   <div class="box-header with-border" >
     <a class="btn btn-success btn-sm"  (click)="isDemo('/forms/customer1','0')">
-      <span class="glyphicon glyphicon-plus"></span>添加客户</a>
+      <span class="fa-fw fa fa-plus"></span>添加客户</a>
 
   </div>
 
@@ -122,9 +122,9 @@
                   <td><span>{{ cl.c_products }}</span></td>
                   <!--<td>{{ cl.c_address }}</td>-->
                   <!--<td>{{ cl.updated_at }}</td>-->
-                  <td><a class="btn btn-warning btn-xs"  (click)="isDemo('/forms/customer1',cl.c_id)"><span class="glyphicon glyphicon-pencil mr-5"></span>修改</a>
+                  <td><a class="btn btn-warning btn-xs"  (click)="isDemo('/forms/customer1',cl.c_id)"><span class="fa-fw fa fa-pencil mr-5"></span>修改</a>
                     <a class="btn btn-danger btn-xs" (click)="deleteCustomer(cl.c_id ,customerList.result?.current_page)"><span class="glyphicon glyphicon-remove mr-5"></span>删除</a>
-                    <a class="btn btn-success btn-xs" (click)="getCustomerInfo(cl.c_id);lgModal.show();"><span class="glyphicon glyphicon-zoom-in mr-5"></span>详情</a>
+                    <a class="btn btn-success btn-xs" (click)="getCustomerInfo(cl.c_id);lgModal.show();"><span class="fa-fw fa fa-list-alt mr-5"></span>详情</a>
                   </td>
                 </tr>
                 </tbody>

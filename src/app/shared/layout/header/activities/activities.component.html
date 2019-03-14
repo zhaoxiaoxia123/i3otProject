@@ -2,21 +2,15 @@
   <i class="fa fa-user"></i>
   <b class="badge bg-color-red" *ngIf="taskMessageList?.count != 0 || noticeMessageList?.count != 0">{{taskMessageList?.count+noticeMessageList?.count}}</b>
 </span>
+
+
 <div class="ajax-dropdown" [ngStyle]="{'z-index':'1051','display':isShow=='none'?'none':'block'}">
-    <div class="btn-group btn-group-justified" data-toggle="buttons">
-    <label [ngClass]="{'btn btn-default':true,'active':(isShow == 'notice' || isShow == 1)}" (click)="showMessageDiv('notice')">
-        <input name="activity" type="radio">
-        通知 ({{noticeMessageList?.count}})
-    </label>
-    <label [ngClass]="{'btn btn-default':true,'active':(isShow == 'warning')}" (click)="showMessageDiv('warning')">
-        <input name="activity" type="radio">
-        预警 ({{warningMessageList?.count}})
-    </label>
-    <label [ngClass]="{'btn btn-default':true,'active':isShow == 'task'}" (click)="showMessageDiv('task')" >
-        <input name="activity" type="radio">
-        待办事项 ({{taskMessageList?.count}})
-    </label>
-    </div>
+
+    <nav class="nav nav-pills nav-fill"  data-toggle="buttons">
+        <a  [ngClass]="{'nav-item nav-link':true,'active':(isShow == 'notice' || isShow == 1)}" (click)="showMessageDiv('notice')">通知 ({{noticeMessageList?.count}})</a>
+        <a  [ngClass]="{'nav-item nav-link':true,'active':(isShow == 'warning')}" (click)="showMessageDiv('warning')">预警 ({{warningMessageList?.count}})</a>
+        <a  [ngClass]="{'nav-item nav-link':true,'active':isShow == 'task'}" (click)="showMessageDiv('task')">待办事项 ({{taskMessageList?.count}})</a>
+    </nav>
     <div class="ajax-notifications custom-scroll">
         <ul class="notification-body" activitiesMessage *ngIf="isShow == 'notice' || isShow == 1"  (noticeMessageLists)="getNoticeMessageListsData($event)" (toParent)="getData($event)" [noticeMessageList]="noticeMessageList" [isShow]="isShow" [ngStyle]="{'display':(isShow == 'notice' || isShow == 1)?'block':'none'}"></ul>
         <ul class="notification-body" activitiesNotification [ngStyle]="{'display':(isShow == 'warning')?'block':'none'}"></ul>
@@ -27,7 +21,7 @@
      <button type="button" (click)="update()" class="btn btn-xs btn-default pull-right">
         <i class="fa fa-refresh" *ngIf="!loading"></i>
         <i class="fa fa-refresh fa-spin" *ngIf="loading"></i>
-        <span *ngIf="loading">loading...</span>
+        <span *ngIf="loading">更新...</span>
     </button>
     </span>
 </div>

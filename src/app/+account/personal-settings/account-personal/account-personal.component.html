@@ -9,7 +9,7 @@
           </div>
           <h1 class="no-margin  title-h1">姓名<span class="padding-left-5" href="" style="font-size:16px;">({{userInfo?.result?.u_username}})</span></h1><hr />
         </div>
-        <div class="col-xs-6" (click)="editPersonal('edit')">
+        <div class="col-sm-6" (click)="editPersonal('edit')">
           <div class="editor padding-left-20 line-2">
             <h4 class="no-margin size-bold">{{userInfo?.result?.c_name}}</h4>
           </div>
@@ -29,7 +29,7 @@
             </div>
           </div>
         </div>
-        <div class="col-xs-6">
+        <div class="col-sm-6">
           <div class="text-align-center">
             <span class="user-image">
               <img *ngIf="!userInfo?.result?.u_avatar" style="width: 160px; height: 160px;" src="assets/img/default_user.png">
@@ -43,130 +43,85 @@
   </div>
 </div>
 
-<div class="modal fade" bsModal #lgModal="bs-modal">
-<div class="modal-dialog">
+<div class="modal fade bd-example-modal-xl" bsModal #lgModal="bs-modal">
+<div class="modal-dialog modal-xl">
   <div class="modal-content">
     <div class="modal-header">
-      <!-- 关闭按钮 -->
-      <button type="button" class="close" (click)="lgModal.hide()">×</button>
       <!-- 标题 -->
       <h3 class="modal-title" data-ng-bind='results.title'>个人信息</h3>
+      <!-- 关闭按钮 -->
+      <button type="button" class="close" (click)="lgModal.hide()">×</button>
     </div>
     <div class="modal-body">
-      <sa-widget [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
-        <header>
-          <ul class="nav nav-tabs pull-left in">
-            <li [class.active]="state.tabs.demo3=='hr1'" class="active">
-              <a (click)="state.tabs.demo3 = 'hr1'">基本信息</a>
-            </li>
-            <li [class.active]="state.tabs.demo3=='hr2'" class="active">
-              <a (click)="state.tabs.demo3 = 'hr2'">其他信息</a>
-            </li>
-          </ul>
-        </header>
-        <div class="height-overflow-380">
-          <div class="widget-body mt-20">
-            <tabset>
-              <tab [active]="state.tabs.demo3 == 'hr1'">
-                <tabset >
-                  <tab [active]="state.tabs.demo3 == 'hr1'">
-                    <div class="row">
-                      <form [formGroup]="formModel" class="smart-form ">
-                        <fieldset>
-                          <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <section>
-                              <label class="label">单位编码</label>
-                              <label class="input">
-                                <input type="text" name="c_number" formControlName="c_number" disabled="disabled">
-                              </label>
-                            </section>
-                          </div>
-                          <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <section>
-                              <label class="label">姓名</label>
-                              <label class="input">
-                                <input type="text" name="u_username" formControlName="u_username">
-                              </label>
-                            </section>
-                          </div>
-                          <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <section>
-                              <label class="label">助记码</label>
-                              <label class="input">
-                                <input type="text" name="employee_id" formControlName="employee_id">
-                              </label>
-                            </section>
-                          </div>
-                          <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <section>
-                              <label class="label">所属部门</label>
-                              <label class="input">
-                                <input type="text" placeholder="" name="u_department" formControlName="u_department" disabled="disabled">
-                              </label>
-                            </section>
-                          </div>
-                          <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <section>
-                              <label class="label">职称</label>
-                              <label class="input">
-                                <input type="text" placeholder="" name="u_position" formControlName="u_position" disabled="disabled">
-                              </label>
-                            </section>
-                          </div>
-                        </fieldset>
-                      </form>
-                    </div>
-                  </tab>
-                </tabset>
-              </tab>
-              <tab [active]="state.tabs.demo3 == 'hr2'">
-                <tabset >
-                  <tab [active]="state.tabs.demo3 == 'hr2'">
-                    <div class="row">
-                      <form [formGroup]="formModel1" class="smart-form ">
-                        <fieldset>
-                          <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <section>
-                              <label class="label">联系电话</label>
-                              <label class="input">
-                                <input type="text" name="u_phone" formControlName="u_phone">
-                              </label>
-                            </section>
-                          </div>
-                          <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <section>
-                              <label class="label">Email</label>
-                              <label class="input">
-                                <input type="text" name="email" formControlName="email">
-                              </label>
-                            </section>
-                          </div>
-                          <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <section>
-                              <label class="label">联系地址</label>
-                              <label class="input">
-                                <input type="text" name="u_address" formControlName="u_address">
-                              </label>
-                            </section>
-                          </div>
-                          <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <section>
-                              <label class="label">备注</label>
-                              <label class="textarea textarea-resizable">
-                                <textarea class="custom-scroll" rows="2" name="u_notes" formControlName="u_notes"></textarea>
-                              </label>
-                            </section>
-                          </div>
-                        </fieldset>
-                      </form>
-                    </div>
-                  </tab>
-                </tabset>
-              </tab>
-            </tabset>
-          </div>
+      <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">基本信息</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">其他信息</a>
+        </li>
+
+      </ul>
+      <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+          <form [formGroup]="formModel" class="form-distance ">
+            <div class="form-row">
+              <div class="form-group col-sm-4">
+                <label class="label">单位编码</label>
+                <input type="text" class="form-control"  name="c_number" formControlName="c_number" disabled="disabled">
+              </div>
+
+              <div class="form-group col-sm-4">
+                <label class="label">姓名</label>
+                <input type="text" class="form-control"  name="u_username" formControlName="u_username" >
+              </div>
+
+              <div class="form-group col-sm-4">
+                <label class="label">助记码</label>
+                <input type="text" class="form-control" name="employee_id" formControlName="employee_id" >
+              </div>
+
+              <div class="form-group col-sm-4">
+                <label class="label">所属部门</label>
+                <input type="text" class="form-control"  name="u_department" formControlName="u_department" disabled="disabled">
+              </div>
+
+              <div class="form-group col-sm-4">
+                <label class="label">职称</label>
+                <input type="text" class="form-control"   name="u_position" formControlName="u_position" disabled="disabled">
+              </div>
+
+            </div>
+
+          </form>
         </div>
-      </sa-widget>
+        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+          <form [formGroup]="formModel1" class="form-distance ">
+            <div class="form-row">
+              <div class="form-group col-sm-6">
+                <label class="label">联系电话</label>
+                <input type="text" class="form-control"  name="u_phone" formControlName="u_phone">
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label class="label">Email</label>
+                <input type="text" class="form-control"  name="email" formControlName="email" >
+              </div>
+
+              <div class="form-group col-sm-12">
+                <label class="label">联系地址</label>
+                <input type="text" class="form-control"  name="u_address" formControlName="u_address" >
+              </div>
+              <div class="form-group col-sm-12">
+                <label class="label">备注</label>
+                <textarea class="form-control"  rows="2" name="u_notes" formControlName="u_notes"></textarea>
+              </div>
+
+            </div>
+
+          </form>
+        </div>
+      </div>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-primary" (click)="onSubmit();">确定</button>

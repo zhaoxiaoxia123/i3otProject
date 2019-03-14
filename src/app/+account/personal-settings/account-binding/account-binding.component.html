@@ -1,41 +1,33 @@
 <div class="row">
-  <div class="col-sm-12 col-md-12 col-lg-12">
-    <div class=" no-margin no-padding">
-      <div class="row margin-bottom-40">
-        <div class="col-sm-12">
-          <h1 class="no-margin  title-h1">账号绑定<span class="padding-left-5" href="" style="font-size:16px;color:#ccc;">(绑定账号：{{userInfo?.result?.name}})</span></h1><hr />
-        </div>
-        <div class="col-sm-12 ">
-          <ul class="col-sm-12 list-inline  icon-set">
-            <li class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 mb-20">
-              <a (click)="(null)" ><i class="icon-set_phone"></i></a>
-              <span class="icon-account" title="">{{userInfo?.result?.u_phone}}</span>
-              <span class="icon-click" (click)="bindAccount('bind','phone')" *ngIf="! userInfo?.result?.u_phone">绑定</span>
-              <span class="icon-click" (click)="bindAccount('unbind','phone')" *ngIf="userInfo?.result?.u_phone">解除绑定</span>
-            </li>
-            <li class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 mb-20">
-              <a (click)="(null)" ><i class="icon-set_wechat"></i></a>
-              <span class="icon-account" title="3427870036@qq.com">微信未绑定</span>
-              <span class="icon-click" (click)="bindAccount('bind','wechat')" *ngIf="! userInfo?.result?.wechat">绑定</span>
-              <span class="icon-click" (click)="bindAccount('unbind','wechat')" *ngIf="userInfo?.result?.wechat">解除绑定</span>
-            </li>
-            <li class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 mb-20">
-              <a (click)="(null)" ><i class="icon-set_nailing"></i></a>
-              <span class="icon-account" title="">钉钉未绑定</span>
-              <span class="icon-click" (click)="bindAccount('bind','ding')" *ngIf="! userInfo?.result?.ding">绑定</span>
-              <span class="icon-click" (click)="bindAccount('unbind','ding')" *ngIf="userInfo?.result?.ding">解除绑定</span>
-            </li>
-            <li class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 mb-20">
-              <a (click)="(null)" ><i class="icon-set_email"></i></a>
-              <span class="icon-account" title="">{{userInfo?.result?.email}}</span>
-              <span class="icon-click" (click)="bindAccount('bind','email')" *ngIf="! userInfo?.result?.email">绑定</span>
-              <span class="icon-click" (click)="bindAccount('unbind','email')" *ngIf="userInfo?.result?.email">解除绑定</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
+  <div class="col-sm-12">
+    <h1 class="no-margin  title-h1">账号绑定<span class="padding-left-5" href="" style="font-size:16px;color:#ccc;">(绑定账号：{{userInfo?.result?.name}})</span></h1><hr />
   </div>
+  <ul class="col-sm-12 list-inline  icon-set">
+    <li class="form-group col-md-4 col-sm-6 mb-20">
+      <a (click)="(null)" ><i class="icon-set_phone"></i></a>
+      <span class="icon-account" title="">{{userInfo?.result?.u_phone}}</span>
+      <span class="icon-click" (click)="bindAccount('bind','phone')" *ngIf="! userInfo?.result?.u_phone">绑定</span>
+      <span class="icon-click" (click)="bindAccount('unbind','phone')" *ngIf="userInfo?.result?.u_phone">解除绑定</span>
+    </li>
+    <li class="form-group col-md-4 col-sm-6 mb-20">
+      <a (click)="(null)" ><i class="icon-set_wechat"></i></a>
+      <span class="icon-account" title="3427870036@qq.com">微信未绑定</span>
+      <span class="icon-click" (click)="bindAccount('bind','wechat')" *ngIf="! userInfo?.result?.wechat">绑定</span>
+      <span class="icon-click" (click)="bindAccount('unbind','wechat')" *ngIf="userInfo?.result?.wechat">解除绑定</span>
+    </li>
+    <li class="form-group col-md-4 col-sm-6 mb-20">
+      <a (click)="(null)" ><i class="icon-set_nailing"></i></a>
+      <span class="icon-account" title="">钉钉未绑定</span>
+      <span class="icon-click" (click)="bindAccount('bind','ding')" *ngIf="! userInfo?.result?.ding">绑定</span>
+      <span class="icon-click" (click)="bindAccount('unbind','ding')" *ngIf="userInfo?.result?.ding">解除绑定</span>
+    </li>
+    <li class="form-group col-md-4 col-sm-6 mb-20">
+      <a (click)="(null)" ><i class="icon-set_email"></i></a>
+      <span class="icon-account" title="">{{userInfo?.result?.email}}</span>
+      <span class="icon-click" (click)="bindAccount('bind','email')" *ngIf="! userInfo?.result?.email">绑定</span>
+      <span class="icon-click" (click)="bindAccount('unbind','email')" *ngIf="userInfo?.result?.email">解除绑定</span>
+    </li>
+  </ul>
 </div>
 <!-- end row -->
 
@@ -45,43 +37,49 @@
 
     <div class="modal-content" *ngIf="type == 'phone'">
       <div class="modal-header">
-        <!-- 关闭按钮 -->
-        <button type="button" class="close" (click)="lgModal.hide()">×</button>
         <!-- 标题 -->
         <h3 class="modal-title" data-ng-bind='results.title' *ngIf="bindType == 'bind'">绑定手机</h3>
         <h3 class="modal-title" data-ng-bind='results.title' *ngIf="bindType == 'unbind'">解绑手机</h3>
+        <!-- 关闭按钮 -->
+        <button type="button" class="close" (click)="lgModal.hide()">×</button>
       </div>
       <div class="modal-body">
-        <div class=" no-margin no-padding">
-          <div class="row pd-80">
-            <div class="cpwd">
-              <div class="pwd">
-                <div><span>手机号：</span><input type="password" class="old" /></div>
-                <div>
-                  <span>验证码：</span>
-                  <input type="password" class="now" style="width:180px;" />
-                  <button class="binding-bt">获取验证码</button>
-                  <button class="binding-bt">重新获取(49s)</button>
-                </div>
-                <div class="text-align-center margin-top-24">
-                  <button class="btn-save" (click)="saveAccountSetting('phone')">保存</button>
-                  <button class="btn-cancel" (click)="lgModal.hide()">取消</button>
-                </div>
+        <form class="form-distance">
+          <div class="form-group col-sm-12">
+            <label >手机号：</label>
+            <input type="password"   class="form-control" >
+          </div>
+          <div class="form-group col-sm-12">
+            <label class="sr-only" >验证码:</label>
+            <div class="input-group mb-2">
+              <input type="password" class="form-control"  >
+              <div class="input-group-prepend">
+                <button class="input-group-text">获取验证码</button>
+                <button class="input-group-text">重新获取(49s)</button>
               </div>
+
             </div>
           </div>
-        </div>
+
+        </form>
+
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn-save  ml-2" (click)="saveAccountSetting('phone')">保存</button>
+        <button class="btn-cancel  ml-2" (click)="lgModal.hide()">取消</button>
       </div>
     </div><!-- /.modal-content -->
 
 
     <div class="modal-content" *ngIf="type == 'wechat' || type == 'ding'">
       <div class="modal-header">
-        <!-- 关闭按钮 -->
-        <button type="button" class="close" (click)="lgModal.hide()">×</button>
         <!-- 标题 -->
         <h3 class="modal-title" data-ng-bind='results.title' *ngIf="bindType == 'bind'">微信绑定</h3>
         <h3 class="modal-title" data-ng-bind='results.title' *ngIf="bindType == 'unbind'">钉钉绑定</h3>
+        <!-- 关闭按钮 -->
+        <button type="button" class="close" (click)="lgModal.hide()">×</button>
+
       </div>
       <div class="modal-body">
         <div class=" no-margin no-padding">
@@ -102,28 +100,48 @@
 
     <div class="modal-content" *ngIf="type == 'email'">
       <div class="modal-header">
-        <!-- 关闭按钮 -->
-        <button type="button" class="close" (click)="lgModal.hide()">×</button>
         <!-- 标题 -->
         <h3 class="modal-title" data-ng-bind='results.title' *ngIf="bindType == 'bind'">邮箱绑定</h3>
         <h3 class="modal-title" data-ng-bind='results.title' *ngIf="bindType == 'unbind'">解除绑定</h3>
+        <!-- 关闭按钮 -->
+        <button type="button" class="close" (click)="lgModal.hide()">×</button>
+
       </div>
       <div class="modal-body">
-        <div class=" no-margin no-padding">
-          <div class="row pd-80">
-            <div class="cpwd">
-              <div class="pwd">
-                <div><span>输入密码：</span><input type="password" class="old" /></div>
-                <div><span>确认密码：</span><input type="password" class="old" /></div>
-
-                <div class="text-align-center margin-top-24">
-                  <button class="btn-save" (click)="saveAccountSetting('phone')">保存</button>
-                  <button class="btn-cancel" (click)="lgModal.hide()">取消</button>
-                </div>
-              </div>
-            </div>
+        <form class="form-distance">
+          <div class="form-group col-sm-12">
+            <label >输入密码：</label>
+            <input type="password" class="form-control" >
           </div>
-        </div>
+
+          <div class="form-group col-sm-12">
+            <label >确认密码：</label>
+            <input type="password" class="form-control" >
+          </div>
+
+        </form>
+
+        <!--<div class=" no-margin no-padding">-->
+          <!--<div class="row pd-80">-->
+            <!--<div class="cpwd">-->
+              <!--<div class="pwd">-->
+                <!--<div><span>输入密码：</span><input type="password" class="old" /></div>-->
+                <!--<div><span>确认密码：</span><input type="password" class="old" /></div>-->
+
+                <!--<div class="text-align-center margin-top-24">-->
+                  <!---->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn-save  ml-2" (click)="saveAccountSetting('phone')">保存</button>
+        <button class="btn-cancel  ml-2" (click)="lgModal.hide()">取消</button>
       </div>
     </div><!-- /.modal-content -->
 

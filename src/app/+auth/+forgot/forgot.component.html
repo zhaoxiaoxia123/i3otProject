@@ -3,8 +3,10 @@
   <div id="logo-group">
     <span id="logo"> <img src="assets/img/logo.png" alt="I3OT"> </span>
   </div>
+  <span id="extr-page-header-space">
+    <a routerLink="/auth/login" class="btn btn-danger">登录</a>
+  </span>
 
-  <span id="extr-page-header-space"> <span class="hidden-mobile hiddex-xs">需要一个帐户吗?</span> <a routerLink="/auth/register" class="btn btn-danger">注册账户</a> </span>
 
 </header>
 <div id="main" role="main" class="animated fadeInDown">
@@ -12,20 +14,41 @@
   <div id="content" class="container">
 
     <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-7 col-lg-8 hidden-xs hidden-sm text-align-center">
+      <div class="col-xs-12 col-sm-12 col-md-7 col-lg-8 hidden-xs hidden-sm">
+        <h1 class="text-primary login-header-big">I3oT一体化办公云平台</h1>
+
         <div class="hero">
-
-        </div>
-        <div class="row">
-          <div class="col-xs-12 col-sm-12">
-            <h5 class=" txt-color-red login-header-big">演示账号</h5>
-
-            <p>
-              企业登录：（客户ID:demo 用户ID：ux9528 密码：123456）
-            </p>
+          <div class="pull-left login-desc-box-l">
           </div>
-
+          <img src="assets/img/login-img.png" class="pull-right display-image" alt="" style="width:400px">
         </div>
+        <ul class="login-text" >
+          <li>
+            <div class="col">
+              <h5 class="about-heading">关于</h5>
+              <p>
+                版权所有 © 2015-2018 成都矿易帮信息科技有限公司     蜀ICP备16000670号-1
+              </p>
+            </div>
+          </li>
+          <li>
+            <div class="col">
+              <h5 class="about-heading">联系我们</h5>
+
+              <p>
+                单位地址：四川省成都市下南大街59号世代锦江国际酒店25楼
+                如有任何意见与建议请写信至：i3ot@kuangyibang.com
+              </p>
+              <h5 class=" txt-color-red login-header-big">演示账号</h5>
+
+              <p>
+                企业登录：（客户ID:demo 用户ID：ux9528 密码：123456）
+              </p>
+            </div>
+
+          </li>
+
+        </ul>
 
       </div>
       <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
@@ -35,7 +58,7 @@
               忘记了密码
             </header>
 
-            <fieldset>
+            <fieldset style="padding: 10px;">
 
               <section>
                 <label class="label">请输入你的手机号码</label>

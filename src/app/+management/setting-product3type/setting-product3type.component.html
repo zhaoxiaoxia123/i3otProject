@@ -22,16 +22,16 @@
                                [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
                       <div>
                         <div class="widget-body no-padding">
-                          <alert type="info" class="no-margin" *ngIf="category_id1 == 0 && category_id2 == 0 ">
+                          <div type="info" class="no-margin alert alert-primary" *ngIf="category_id1 == 0 && category_id2 == 0 ">
                             <i class="fa-fw fa fa-plus"></i>
                             添加类型
-                          </alert>
-                          <alert type="info" class="no-margin" *ngIf="category_id1 != 0 || category_id2 != 0 ">
-                            <i class="glyphicon glyphicon-pencil"></i>
+                          </div>
+                          <div type="info" class="no-margin alert alert-primary" *ngIf="category_id1 != 0 || category_id2 != 0 ">
+                            <i class="fa-fw fa fa-pencil"></i>
                             修改类型
-                          </alert>
+                          </div>
 
-                          <div  class="mt-10">
+                          <div  class="">
                             <form class="smart-form ">
                               <fieldset>
                                 <section >
@@ -90,10 +90,10 @@
                                [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
                       <div>
                         <div class="widget-body no-padding">
-                          <alert type="info" class="no-margin" >
+                          <div type="info" class="no-margin alert alert-primary" >
                             <i class="fa-fw fa fa-table"></i>
                             类型
-                          </alert>
+                          </div>
                           <div class="widget-body">
                             <div class="row text-center" style="padding:10px 40px;">
                               <div class="dd" id="nestable2">
@@ -104,7 +104,7 @@
                                     <div class="dd-handle">
                                       {{cl.category_desc}}
                                       <div *ngIf="cid == super_admin_id || cl.c_id == cid">
-                                        <a class="btn pull-right btn-warning btn-xs btn-20" (click)="editCategory(1,cl.category_id)"><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                        <a class="btn pull-right btn-warning btn-xs btn-20" (click)="editCategory(1,cl.category_id)"><span class="fa-fw fa fa-pencil"></span>修改</a>
                                         <a class="btn pull-right btn-danger btn-xs btn-20" (click)="deleteCategory(1,cl.category_id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
                                       </div>
                                       <div *ngIf="cid != super_admin_id && cl.c_id != cid"><a class="btn pull-right btn-danger btn-xs btn-20">无权操作</a></div>
@@ -115,7 +115,7 @@
                                       <div class="dd-handle">
                                         {{clc.category_desc}}
                                         <div *ngIf="cid == super_admin_id || clc.c_id == cid">
-                                          <a class="btn pull-right btn-warning btn-xs btn-20" (click)="editCategory(2,clc.category_id)"><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                          <a class="btn pull-right btn-warning btn-xs btn-20" (click)="editCategory(2,clc.category_id)"><span class="fa-fw fa fa-pencil"></span>修改</a>
                                           <a class="btn pull-right btn-danger btn-xs btn-20" (click)="deleteCategory(2,clc.category_id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
                                         </div>
                                         <div *ngIf="cid != super_admin_id && clc.c_id != cid"><a class="btn pull-right btn-danger btn-xs btn-20">无权操作</a></div>

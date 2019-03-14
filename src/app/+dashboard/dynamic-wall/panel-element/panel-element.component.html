@@ -1,9 +1,5 @@
 <sa-widget
-        [togglebutton]="false"
-        [editbutton]="false"
-        [fullscreenbutton]="false"
-        [colorbutton]="false"
-        [deletebutton]="false" saSparklineContainer saEasyPieChartContainer>
+        [editbutton]="false" [deletebutton]="false" [colorbutton]="false">
 
   <header>
                     <span class="widget-icon">
@@ -11,146 +7,135 @@
 
     <h2>实时数据</h2>
 
-    <ul class="nav nav-tabs pull-right in" id="myTab">
-      <li >
-        <a data-toggle="tab" href="#s1"><span
-                class="hidden-mobile hidden-tablet">甲烷</span></a>
+    <ul class="nav nav-tabs pull-right in">
+      <li [class.active]="state.tabs.demo3=='hr1'">
+        <a (click)="state.tabs.demo3 = 'hr1'"> <i class="fa fa-lg fa-suitcase"></i>
+          <span class="hidden-mobile hidden-tablet"> 甲烷 </span>
+        </a>
+      </li>
+      <li [class.active]="state.tabs.demo3=='hr2'">
+        <a (click)="state.tabs.demo3 = 'hr2'"> <i class="fa fa-lg fa-child"></i>
+          <span class="hidden-mobile hidden-tablet"> 氧气 </span>
+        </a>
       </li>
 
-      <li class="active">
-        <a data-toggle="tab" href="#s2"> <span
-                class="hidden-mobile hidden-tablet">氧气</span></a>
-      </li>
-
-      <li>
-        <a data-toggle="tab" href="#s3"><span
-                class="hidden-mobile hidden-tablet">一氧化碳</span></a>
+      <li [class.active]="state.tabs.demo3=='hr3'">
+        <a (click)="state.tabs.demo3 = 'hr3'"> <i class="fa fa-lg fa-child"></i>
+          <span class="hidden-mobile hidden-tablet"> 一氧化碳 </span>
+        </a>
       </li>
     </ul>
 
   </header>
 
-  <div class="no-padding">
+  <div class="widget-body">
 
-    <div class="widget-body">
-
-      <div id="myTabContent" class="tab-content">
-
-        <div class="tab-pane fade active in pd-10 no-padding-bottom" id="s1">
-          <div>
-            <div class="row no-space">
-              <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-                <div echarts [options]="chartOption" class="demo-chart-220"  ></div>
-              <!--  <div class="demo-chart" > <img src="assets/img/chat/chat1.png" class="img-responsive" style="margin: 10px 0 10px 60px;" alt=""></div>-->
+    <tabset>
+      <tab [active]="state.tabs.demo3 == 'hr1'">
+        <div class="row no-space">
+          <div class="col-sm-8 col-md-8">
+            <div echarts [options]="chartOption" class="demo-chart-220"  ></div>
+            <!--  <div class="demo-chart" > <img src="assets/img/chat/chat1.png" class="img-responsive" style="margin: 10px 0 10px 60px;" alt=""></div>-->
 
 
-              </div>
-              <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 show-stats">
+          </div>
+          <div class="col-sm-4 col-md-4 show-stats">
 
-                <div class="margin-top-10">
-                  <table class="table table-hover table-striped table-bordered" >
-                    <thead>
-                    <tr>
-                      <th >时间</th>
-                      <th >数据</th>
-                    </tr>
-                    </thead>
-                    <tbody >
-                    <tr>
-                      <td >2017-12-01 17:00:51</td>
-                      <td >4.20</td>
-                    </tr>
-                    <tr>
-                      <td >2017-12-01 17:00:21</td>
-                      <td >2.53</td>
-                    </tr>
-                    <tr>
-                      <td >2017-12-01 17:00:51</td>
-                      <td >4.20</td>
-                    </tr>
-                    <tr>
-                      <td >2017-12-01 17:00:21</td>
-                      <td >2.53</td>
-                    </tr>
-                    </tbody>
-                  </table>
+            <div class="margin-top-10">
+              <table class="table table-hover table-striped table-bordered" >
+                <thead>
+                <tr>
+                  <th >时间</th>
+                  <th >数据</th>
+                </tr>
+                </thead>
+                <tbody >
+                <tr>
+                  <td >2017-12-01 17:00:51</td>
+                  <td >4.20</td>
+                </tr>
+                <tr>
+                  <td >2017-12-01 17:00:21</td>
+                  <td >2.53</td>
+                </tr>
+                <tr>
+                  <td >2017-12-01 17:00:51</td>
+                  <td >4.20</td>
+                </tr>
+                <tr>
+                  <td >2017-12-01 17:00:21</td>
+                  <td >2.53</td>
+                </tr>
+                </tbody>
+              </table>
 
-                  <span class="show-stat-buttons text-align-center">
+              <span class="show-stat-buttons text-align-center">
           <span class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
               <a  routerLink="/equipment/helmet-chart" class="btn btn-default btn-block hidden-xs">查看异常数据</a>
           </span>
         </span>
-                </div>
-              </div>
-
-
             </div>
           </div>
 
+
         </div>
+      </tab>
 
-        <div class="tab-pane fade pd-10 no-padding-bottom" id="s2" >
-          <div>
-            <div class="row no-space">
-              <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-                <div class="demo-chart" > <img src="assets/img/chat/chat1.png" class="img-responsive" style="margin: 10px 0 10px 60px;" alt=""></div>
+      <tab [active]="state.tabs.demo3 == 'hr2'">
+        <div class="row no-space">
+          <div class="col-sm-8 col-md-8">
+            <div class="demo-chart" > <img src="assets/img/chat/chat1.png" class="img-responsive" style="width:100%;" alt=""></div>
+          </div>
+          <div class="col-sm-4 col-md-4 show-stats">
 
+            <div class="margin-top-10">
+              <table class="table table-hover table-striped table-bordered" >
+                <thead>
+                <tr>
+                  <th >时间</th>
+                  <th >数据</th>
+                </tr>
+                </thead>
+                <tbody >
+                <tr>
+                  <td >2017-12-01 17:00:51</td>
+                  <td >4.20</td>
+                </tr>
+                <tr>
+                  <td >2017-12-01 17:00:21</td>
+                  <td >2.53</td>
+                </tr>
+                <tr>
+                  <td >2017-12-01 17:00:51</td>
+                  <td >4.20</td>
+                </tr>
+                <tr>
+                  <td >2017-12-01 17:00:21</td>
+                  <td >2.53</td>
+                </tr>
+                <tr>
+                  <td >2017-12-01 17:00:51</td>
+                  <td >4.20</td>
+                </tr>
+                </tbody>
+              </table>
 
-              </div>
-              <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 show-stats">
-
-                <div class="margin-top-10">
-                  <table class="table table-hover table-striped table-bordered" >
-                    <thead>
-                    <tr>
-                      <th >时间</th>
-                      <th >数据</th>
-                    </tr>
-                    </thead>
-                    <tbody >
-                    <tr>
-                      <td >2017-12-01 17:00:51</td>
-                      <td >4.20</td>
-                    </tr>
-                    <tr>
-                      <td >2017-12-01 17:00:21</td>
-                      <td >2.53</td>
-                    </tr>
-                    <tr>
-                      <td >2017-12-01 17:00:51</td>
-                      <td >4.20</td>
-                    </tr>
-                    <tr>
-                      <td >2017-12-01 17:00:21</td>
-                      <td >2.53</td>
-                    </tr>
-                    <tr>
-                      <td >2017-12-01 17:00:51</td>
-                      <td >4.20</td>
-                    </tr>
-                    </tbody>
-                  </table>
-
-                  <span class="show-stat-buttons text-align-center">
+              <span class="show-stat-buttons text-align-center">
           <span class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
               <a (click)="(null)" class="btn btn-default btn-block hidden-xs">查看异常数据</a>
           </span>
         </span>
-                </div>
-              </div>
-
-
             </div>
           </div>
+
+
         </div>
+      </tab>
 
-        <div class="tab-pane fade pd-10 no-padding-bottom" id="s3" >
-          一氧化碳
-        </div>
-
-      </div>
-
-    </div>
+      <tab [active]="state.tabs.demo3 == 'hr3'">
+        一氧化碳
+      </tab>
+    </tabset>
 
   </div>
 

@@ -35,8 +35,8 @@
                 </li>
                 <li>
                   <div class="form-group">
-                    <button  data-loading-text="保存中…" class="btn btn-success mr_15 ng-binding" (click)="showPublishTag('',2)">保&nbsp;&nbsp;存</button>
-                    <button  class="btn btn-link btn-cancel ng-binding" (click)="showPublishTag('',3)">取&nbsp;&nbsp;消</button>
+                    <button  data-loading-text="保存中…" class="btn btn-success " (click)="showPublishTag('',2)">保&nbsp;&nbsp;存</button>
+                    <button  class="btn btn-secondary ml-2" (click)="showPublishTag('',3)">取&nbsp;&nbsp;消</button>
                   </div>
                 </li>
               </ul>
@@ -96,24 +96,34 @@
               </div>
               <a class="entity-desc-edit ng-binding ng-scope" *ngIf="! todo_info?.result?.todo_content && !is_show_publish_detail" (click)="showPublishDetail(todo_info?.result?.todo_id,1)">添加任务描述</a>
             </div>
-            <div class="edit-section ng-scope well"  *ngIf="is_show_publish_detail">
-              <div>
-                <input type="text" name="todo_name" [(ngModel)]="todo_name" class="form-control help-block ng-pristine ng-valid ng-not-empty ng-valid-required ng-touched text-color-black" placeholder="任务名称" required="">
-                <sa-widget [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [fullscreenbutton]="false" [sortable]="false">
-                  <header>
-                    <span class="widget-icon"> <i class="fa fa-pencil"></i> </span>
-                    <h2>添加任务描述 </h2>
-                  </header>
-                  <div>
-                    <div class="widget-body no-padding">
-                      <textarea class="form-control help-block todo-mh" placeholder="请输入任务描述" name="todo_content" [(ngModel)]="todo_content"></textarea>
-                    </div>
-                  </div>
-                </sa-widget>
+            <div class="edit-section  card  card-body mb-2"  *ngIf="is_show_publish_detail">
+              <!--<div class="form-group ">-->
+                <!--<input type="text" name="todo_name" [(ngModel)]="todo_name" class="form-control help-block text-color-black" placeholder="任务名称" required="">-->
+                <!---->
+                <!--<sa-widget [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [fullscreenbutton]="false" [sortable]="false" class="mt-2">-->
+                  <!--<header>-->
+                    <!--<span class="widget-icon"> <i class="fa fa-pencil"></i> </span>-->
+                    <!--<h2>添加任务描述 </h2>-->
+                  <!--</header>-->
+                  <!--<div>-->
+                    <!--<div class="widget-body no-padding">-->
+                      <!--<textarea class="form-control help-block todo-mh" placeholder="请输入任务描述" name="todo_content" [(ngModel)]="todo_content"></textarea>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                <!--</sa-widget>-->
+                <!---->
+                <!---->
+              <!--</div>-->
+              <div class="form-group">
+                <input  class="form-control" type="text" name="todo_name" [(ngModel)]="todo_name"  placeholder="任务名称" required="">
               </div>
               <div class="form-group">
-                <button  class="btn btn-success mr_15 ng-binding" (click)="showPublishDetail('',2)">保&nbsp;&nbsp;存</button>
-                <button  class="btn btn-link btn-cancel ng-binding" (click)="showPublishDetail('',3)">取&nbsp;&nbsp;消</button>
+                <label >添加任务描述</label>
+                <textarea class="form-control" placeholder="请输入任务描述" name="todo_content" [(ngModel)]="todo_content"></textarea>
+              </div>
+              <div class="form-group">
+                <button  class="btn btn-success " (click)="showPublishDetail('',2)">保&nbsp;&nbsp;存</button>
+                <button  class="btn btn-secondary ml-2" (click)="showPublishDetail('',3)">取&nbsp;&nbsp;消</button>
               </div>
             </div>
             <div class="entity-members">
@@ -241,45 +251,43 @@
                 <div class="widget-body">
                   <tabset>
                     <tab [active]="state.tabs.demo3 == 'hr1'">
-                      <tabset >
-                        <tab [active]="state.tabs.demo3 == 'hr1'">
-                          <div class="row">
-                            <div class="comment-list">
-                              <div *ngFor="let clr of comment_list?.result;">
-                              <div class="timeline-seperator text-center mb-20"><span>{{clr.date}}</span>
-                              </div>
-                              <div class="chat-body no-padding profile-message" *ngFor="let cl of clr.commentList;let ind=index;">
-                                <ul>
-                                  <li class="message">
-                                    <img alt="{{cl.u_username}}" class="online" src="{{domain_url}}{{cl.u_avatar}}" *ngIf="cl.u_avatar">
-                                    <img alt="{{cl.u_username}}" class="online" src="assets/img/avatars/male.png" *ngIf="!cl.u_avatar">
-                                    <span class="message-text">
+                      <div class="row">
+                        <div class="col comment-list">
+                          <div *ngFor="let clr of comment_list?.result;">
+                            <div class="timeline-seperator text-center mb-20"><span>{{clr.date}}</span>
+                            </div>
+                            <div class="chat-body no-padding profile-message" *ngFor="let cl of clr.commentList;let ind=index;">
+                              <ul>
+                                <li class="message">
+                                  <img alt="{{cl.u_username}}" class="online" src="{{domain_url}}{{cl.u_avatar}}" *ngIf="cl.u_avatar">
+                                  <img alt="{{cl.u_username}}" class="online" src="assets/img/avatars/male.png" *ngIf="!cl.u_avatar">
+                                  <span class="message-text">
                                       <a class="username text-color-black">{{cl.u_username}}
-                                          <small class="text-muted pull-right ultra-light"> {{cl.return_time}}</small>
+                                          <small class="text-muted pull-right ultra-light ml-2"> {{cl.return_time}}</small>
                                       </a> {{cl.comment_content}}
                                     </span>
-                                    <ul class="list-inline font-xs">
-                                      <li class="margin-top-20">
-                                        <a class="text-info " (click)="showComment(cl.comment_id,ind)"><i class="fa fa-reply"></i> 回复</a>
-                                      </li>
-                                      <!--<li>
-                                        <a class="text-danger"><i class="fa fa-thumbs-up"></i>赞</a>
-                                      </li>-->
-                                      <li>
-                                        <a class="text-muted">评论数 ({{cl.replayCount}})</a>
-                                      </li>
-                                      <li *ngIf="is_show_replay != ind && cl.replayCount > 0">
-                                        <a class="text-primary" (click)="isShowReplayList(ind)">显示回复</a>
-                                      </li>
-                                      <li *ngIf="is_show_replay == ind && cl.replayCount > 0">
-                                        <a class="text-primary" (click)="isShowReplayList(99999)">隐藏回复</a>
-                                      </li>
-                                      <li *ngIf="todo_info?.result?.u_id == cookie_u_id">
-                                        <a class="text-muted" (click)="removeComment(todo_info?.result?.todo_id,cl.comment_id)">删除</a>
-                                      </li>
-                                    </ul>
-                                  </li>
-                                  <li class="message message-reply" *ngIf="is_show_replay == ind && cl.replayCount > 0">
+                                  <ul class="list-inline font-xs">
+                                    <li class="margin-top-20">
+                                      <a class="text-info " (click)="showComment(cl.comment_id,ind)"><i class="fa fa-reply"></i> 回复</a>
+                                    </li>
+                                    <!--<li>
+                                      <a class="text-danger"><i class="fa fa-thumbs-up"></i>赞</a>
+                                    </li>-->
+                                    <li>
+                                      <a class="text-muted">评论数 ({{cl.replayCount}})</a>
+                                    </li>
+                                    <li *ngIf="is_show_replay != ind && cl.replayCount > 0">
+                                      <a class="text-primary" (click)="isShowReplayList(ind)">显示回复</a>
+                                    </li>
+                                    <li *ngIf="is_show_replay == ind && cl.replayCount > 0">
+                                      <a class="text-primary" (click)="isShowReplayList(99999)">隐藏回复</a>
+                                    </li>
+                                    <li *ngIf="todo_info?.result?.u_id == cookie_u_id">
+                                      <a class="text-muted" (click)="removeComment(todo_info?.result?.todo_id,cl.comment_id)">删除</a>
+                                    </li>
+                                  </ul>
+                                </li>
+                                <li class="message message-reply" *ngIf="is_show_replay == ind && cl.replayCount > 0">
                                   <div  *ngFor="let rl of cl.replayList">
                                     <img src="assets/img/avatars/female.png" class="online" alt="user">
                                     <span class="message-text"> <a class="username text-color-black">{{rl.u_username}} </a> {{rl.comment_content}} <i class="fa fa-smile-o txt-color-orange"></i> </span>
@@ -295,71 +303,78 @@
                                       </li>-->
                                     </ul>
                                   </div>
-                                  </li>
-                                  <li *ngIf="comment_parent_id == cl.comment_id">
-                                    <div class="input-group wall-comment-reply">
-                                      <input  type="text" class="form-control" placeholder="这里输入您回复的消息..." name="replay_content" [(ngModel)]="replay_content">
-                                      <span class="input-group-btn">
+                                </li>
+                                <li *ngIf="comment_parent_id == cl.comment_id">
+                                  <div class="input-group ">
+                                    <input  type="text" class="form-control" placeholder="这里输入您回复的消息..." name="replay_content" [(ngModel)]="replay_content">
+                                    <span class="input-group-btn">
                                         <button class="btn btn-success" (click)="publishComment(todo_info?.result?.todo_id,2)">
                                             <i class="fa fa-reply"></i> 回复
                                         </button> </span>
-                                    </div>
-                                  </li>
-                                </ul>
-                              </div>
-                              </div>
-
-                              <div class="new-comment ng-scope" >
-                                <hr class="ng-scope">
-                                <form method="post" class="well  margin-10" onsubmit="return false;">
-                                  <textarea rows="2" class="form-control" placeholder="你在想什么?" name="comment_content" [(ngModel)]="comment_content"></textarea>
-
-                                  <div class="margin-top-10">
-                                    <!--<button type="submit" class="btn btn-sm btn-primary pull-right">
-                                      发布
-                                    </button>-->
-                                    <button class="btn btn-success pull-right ng-binding" (click)="publishComment(todo_info?.result?.todo_id,1)">发表评论</button>
-                                    <a class="btn btn-link profile-link-btn" rel="tooltip" data-placement="bottom" title="添加位置"><i class="fa fa-location-arrow"></i></a>
-                                    <a class="btn btn-link profile-link-btn" rel="tooltip" data-placement="bottom" title="添加声音"><i class="fa fa-microphone"></i></a>
-                                    <a class="btn btn-link profile-link-btn" rel="tooltip" data-placement="bottom" title="添加照片"><i class="fa fa-camera"></i></a>
-                                    <a class="btn btn-link profile-link-btn" rel="tooltip" data-placement="bottom" title="添加文件"><i class="fa fa-file"></i></a>
                                   </div>
-                                </form>
-                              </div>
+                                </li>
+                              </ul>
                             </div>
+                          </div>
 
+                          <div class="card bg-light mb-3 mt-2" >
+                            <div class="card-body">
+                              <form  method="post"onsubmit="return false;">
+                                <textarea rows="2" class="form-control" placeholder="你在想什么?" name="comment_content" [(ngModel)]="comment_content"></textarea>
+                                <div class="mt-2">
+                                  <button class="btn btn-success pull-right ng-binding " (click)="publishComment(todo_info?.result?.todo_id,1)">发表评论</button>
+                                </div>
+
+
+                                <div class="margin-top-10" style="display: none;">
+                                  <!--<button type="submit" class="btn btn-sm btn-primary pull-right">
+                                    发布
+                                  </button>-->
+
+                                  <a class="btn btn-link profile-link-btn" rel="tooltip" data-placement="bottom" title="添加位置"><i class="fa fa-location-arrow"></i></a>
+                                  <a class="btn btn-link profile-link-btn" rel="tooltip" data-placement="bottom" title="添加声音"><i class="fa fa-microphone"></i></a>
+                                  <a class="btn btn-link profile-link-btn" rel="tooltip" data-placement="bottom" title="添加照片"><i class="fa fa-camera"></i></a>
+                                  <a class="btn btn-link profile-link-btn" rel="tooltip" data-placement="bottom" title="添加文件"><i class="fa fa-file"></i></a>
+                                </div>
+                              </form>
+                            </div>
 
                           </div>
-                        </tab>
-                      </tabset>
+                        </div>
+
+
+                      </div>
                     </tab>
                     <tab [active]="state.tabs.demo3 == 'hr2'">
-                      <tabset >
-                        <tab [active]="state.tabs.demo3 == 'hr2'">
-                          <div class="row">
-                            <div class="empty-panel ng-scope" >
-                              <i class="fa fa-clock-o"></i>
-                              <br>
-                              <span class="ng-binding">还没有任何活动</span>
-                            </div>
-                            <div class="activity-list m_15 ng-scope">
-                              <ul class="activities">
-                                <li class="activity-item activity-item-day" >
-                                  <div class="activity-day" >
-                                    <span class="year" >2017<br></span>
-                                    <strong >12/19</strong>
-                                    <span class="weekday">周二</span>
-                                  </div>
-                                  <div class="activity-icon">
-                                    <i class="fa ai-blue fa-comment" ></i>
-                                  </div>
-                                  <div class="activity-meta">
-                                    <span class="date" >10:08</span>
-                                  </div>
-                                  <a class="activity-avatar avatar avatar-30"  title="兴凤" >
-                                    <img alt="user" class="online width-28" src="assets/img/avatars/male.png">
-                                  </a>
-                                  <div class="activity-itemwarp">
+                      <div class="row">
+                        <div class="empty-panel ng-scope" >
+                          <span class="ng-binding">正在开发中</span>
+                        </div>
+                      </div>
+                      <div class="row" style="display: none;">
+                        <div class="empty-panel ng-scope" >
+                          <i class="fa fa-clock-o"></i>
+                          <br>
+                          <span class="ng-binding">还没有任何活动</span>
+                        </div>
+                        <div class="activity-list m_15 ng-scope">
+                          <ul class="activities">
+                            <li class="activity-item activity-item-day" >
+                              <div class="activity-day" >
+                                <span class="year" >2017<br></span>
+                                <strong >12/19</strong>
+                                <span class="weekday">周二</span>
+                              </div>
+                              <div class="activity-icon">
+                                <i class="fa ai-blue fa-comment" ></i>
+                              </div>
+                              <div class="activity-meta">
+                                <span class="date" >10:08</span>
+                              </div>
+                              <a class="activity-avatar avatar avatar-30"  title="兴凤" >
+                                <img alt="user" class="online width-28" src="assets/img/avatars/male.png">
+                              </a>
+                              <div class="activity-itemwarp">
                                     <span class="activity">
 
                                           <span class="actor ng-scope" >兴凤</span>
@@ -368,168 +383,168 @@
                                           </span>
 
                                     </span>
-                                  </div>
-                                </li>
-                                <li class="activity-item" >
-                                  <div class="activity-day ng-hide" >
-                                    <span class="year" >2017<br></span>
-                                    <strong>12/19</strong>
-                                    <span class="weekday">周二</span>
-                                  </div>
-                                  <div class="activity-icon">
-                                    <i class="fa ai-blue fa-comment" ></i>
-                                  </div>
-                                  <div class="activity-meta">
-                                    <span class="date">10:08</span>
-                                  </div>
-                                  <a class="activity-avatar avatar avatar-30" >
-                                    <img alt="user" class="online width-28" src="assets/img/avatars/male.png">
-                                  </a>
-                                  <div class="activity-itemwarp">
+                              </div>
+                            </li>
+                            <li class="activity-item" >
+                              <div class="activity-day ng-hide" >
+                                <span class="year" >2017<br></span>
+                                <strong>12/19</strong>
+                                <span class="weekday">周二</span>
+                              </div>
+                              <div class="activity-icon">
+                                <i class="fa ai-blue fa-comment" ></i>
+                              </div>
+                              <div class="activity-meta">
+                                <span class="date">10:08</span>
+                              </div>
+                              <a class="activity-avatar avatar avatar-30" >
+                                <img alt="user" class="online width-28" src="assets/img/avatars/male.png">
+                              </a>
+                              <div class="activity-itemwarp">
                                     <span class="activity">
                                           <span class="actor ng-scope" >兴凤</span>
                                           <span class="verb ng-scope">发表了评论
                                               <strong >fgghhh</strong>
                                           </span>
                                     </span>
-                                  </div>
-                                </li>
-                                <li class="activity-item">
-                                  <div class="activity-day ng-hide" >
-                                    <span class="year" >2017<br></span>
-                                    <strong >12/19</strong>
-                                    <span class="weekday" >周二</span>
-                                  </div>
-                                  <div class="activity-icon">
-                                    <i class="fa ai-green fa-tag"></i>
-                                  </div>
-                                  <div class="activity-meta">
-                                    <span class="date" >10:07</span>
-                                  </div>
-                                  <a class="activity-avatar avatar avatar-30">
-                                    <img alt="user" class="online width-28" src="assets/img/avatars/male.png">
-                                  </a>
-                                  <div class="activity-itemwarp">
+                              </div>
+                            </li>
+                            <li class="activity-item">
+                              <div class="activity-day ng-hide" >
+                                <span class="year" >2017<br></span>
+                                <strong >12/19</strong>
+                                <span class="weekday" >周二</span>
+                              </div>
+                              <div class="activity-icon">
+                                <i class="fa ai-green fa-tag"></i>
+                              </div>
+                              <div class="activity-meta">
+                                <span class="date" >10:07</span>
+                              </div>
+                              <a class="activity-avatar avatar avatar-30">
+                                <img alt="user" class="online width-28" src="assets/img/avatars/male.png">
+                              </a>
+                              <div class="activity-itemwarp">
                                     <span class="activity">
                                           <span class="actor ng-scope" >兴凤</span>
                                           <span class="verb ng-scope">设置标签</span>
                                           <span class="label ng-scope orange-label">&nbsp;</span>
                                           <span  class="ng-scope"> 紧急</span>
                                     </span>
-                                  </div>
-                                </li>
-                                <li class="activity-item">
-                                  <div class="activity-day ng-hide" >
-                                    <span class="year" >2017<br></span>
-                                    <strong >12/19</strong>
-                                    <span class="weekday" >周二</span>
-                                  </div>
-                                  <div class="activity-icon">
-                                    <i class="fa ai-green fa-tag"></i>
-                                  </div>
-                                  <div class="activity-meta">
-                                    <span class="date" >10:07</span>
-                                  </div>
-                                  <a class="activity-avatar avatar avatar-30">
-                                    <img alt="user" class="online width-28" src="assets/img/avatars/male.png">
-                                  </a>
-                                  <div class="activity-itemwarp">
+                              </div>
+                            </li>
+                            <li class="activity-item">
+                              <div class="activity-day ng-hide" >
+                                <span class="year" >2017<br></span>
+                                <strong >12/19</strong>
+                                <span class="weekday" >周二</span>
+                              </div>
+                              <div class="activity-icon">
+                                <i class="fa ai-green fa-tag"></i>
+                              </div>
+                              <div class="activity-meta">
+                                <span class="date" >10:07</span>
+                              </div>
+                              <a class="activity-avatar avatar avatar-30">
+                                <img alt="user" class="online width-28" src="assets/img/avatars/male.png">
+                              </a>
+                              <div class="activity-itemwarp">
                                     <span class="activity">
                                           <span class="actor ng-scope" >兴凤</span>
                                           <span class="verb ng-scope">设置标签</span>
                                           <span class="label ng-scope green-label">&nbsp;</span>
                                           <span  class="ng-scope">重要</span>
                                     </span>
-                                  </div>
-                                </li>
-                                <li class="activity-item">
-                                  <div class="activity-day ng-hide" >
-                                    <span class="year" >2017<br></span>
-                                    <strong >12/19</strong>
-                                    <span class="weekday" >周二</span>
-                                  </div>
-                                  <div class="activity-icon">
-                                    <i class="fa ai-green fa-tag"></i>
-                                  </div>
-                                  <div class="activity-meta">
-                                    <span class="date" >10:07</span>
-                                  </div>
-                                  <a class="activity-avatar avatar avatar-30">
-                                    <img alt="user" class="online width-28" src="assets/img/avatars/male.png">
-                                  </a>
-                                  <div class="activity-itemwarp">
+                              </div>
+                            </li>
+                            <li class="activity-item">
+                              <div class="activity-day ng-hide" >
+                                <span class="year" >2017<br></span>
+                                <strong >12/19</strong>
+                                <span class="weekday" >周二</span>
+                              </div>
+                              <div class="activity-icon">
+                                <i class="fa ai-green fa-tag"></i>
+                              </div>
+                              <div class="activity-meta">
+                                <span class="date" >10:07</span>
+                              </div>
+                              <a class="activity-avatar avatar avatar-30">
+                                <img alt="user" class="online width-28" src="assets/img/avatars/male.png">
+                              </a>
+                              <div class="activity-itemwarp">
                                     <span class="activity">
                                           <span class="actor ng-scope" >兴凤</span>
                                           <span class="verb ng-scope">设置标签</span>
                                           <span class="label ng-scope red-label">&nbsp;</span>
                                           <span  class="ng-scope">非常紧急</span>
                                     </span>
-                                  </div>
-                                </li>
-                                <li class="activity-item">
-                                  <div class="activity-day ng-hide" >
-                                    <span class="year" >2017<br></span>
-                                    <strong >12/19</strong>
-                                    <span class="weekday" >周二</span>
-                                  </div>
-                                  <div class="activity-icon">
-                                    <i class="fa ai-green fa-tag"></i>
-                                  </div>
-                                  <div class="activity-meta">
-                                    <span class="date" >10:07</span>
-                                  </div>
-                                  <a class="activity-avatar avatar avatar-30">
-                                    <img alt="user" class="online width-28" src="assets/img/avatars/male.png">
-                                  </a>
-                                  <div class="activity-itemwarp">
+                              </div>
+                            </li>
+                            <li class="activity-item">
+                              <div class="activity-day ng-hide" >
+                                <span class="year" >2017<br></span>
+                                <strong >12/19</strong>
+                                <span class="weekday" >周二</span>
+                              </div>
+                              <div class="activity-icon">
+                                <i class="fa ai-green fa-tag"></i>
+                              </div>
+                              <div class="activity-meta">
+                                <span class="date" >10:07</span>
+                              </div>
+                              <a class="activity-avatar avatar avatar-30">
+                                <img alt="user" class="online width-28" src="assets/img/avatars/male.png">
+                              </a>
+                              <div class="activity-itemwarp">
                                     <span class="activity">
                                           <span class="actor ng-scope" >兴凤</span>
                                           <span class="verb ng-scope">设置标签</span>
                                           <span class="label ng-scope yellow-label">&nbsp;</span>
                                           <span  class="ng-scope">一般</span>
                                     </span>
-                                  </div>
-                                </li>
-                                <li class="activity-item" >
-                                  <div class="activity-day ng-hide">
-                                    <span class="year" >2017<br></span>
-                                    <strong>12/19</strong>
-                                    <span class="weekday" >周二</span>
-                                  </div>
-                                  <div class="activity-icon">
-                                    <i class="fa ai-yellow fa-clock-o" ></i>
-                                  </div>
-                                  <div class="activity-meta">
-                                    <span class="date" >10:07</span>
-                                  </div>
-                                  <a class="activity-avatar avatar avatar-30" >
-                                    <img alt="user" class="online width-28" src="assets/img/avatars/male.png">
-                                </a>
-                                  <div class="activity-itemwarp">
+                              </div>
+                            </li>
+                            <li class="activity-item" >
+                              <div class="activity-day ng-hide">
+                                <span class="year" >2017<br></span>
+                                <strong>12/19</strong>
+                                <span class="weekday" >周二</span>
+                              </div>
+                              <div class="activity-icon">
+                                <i class="fa ai-yellow fa-clock-o" ></i>
+                              </div>
+                              <div class="activity-meta">
+                                <span class="date" >10:07</span>
+                              </div>
+                              <a class="activity-avatar avatar avatar-30" >
+                                <img alt="user" class="online width-28" src="assets/img/avatars/male.png">
+                              </a>
+                              <div class="activity-itemwarp">
                                     <span class="activity">
                                           <span class="actor ng-scope">兴凤</span>
                                           <span class="verb ng-scope">设置截止日期</span>
                                           <span  class="ng-scope">2017-12-19 23:59</span>
                                       </span>
-                                  </div>
-                                </li>
-                                <li class="activity-item" >
-                                  <div class="activity-day ng-hide" >
+                              </div>
+                            </li>
+                            <li class="activity-item" >
+                              <div class="activity-day ng-hide" >
                                     <span class="year" >2017<br>
                                     </span>
-                                    <strong >12/19</strong>
-                                    <span class="weekday" >周二</span>
-                                  </div>
-                                  <div class="activity-icon">
-                                    <i class="fa ai-green fa-user" ></i>
-                                  </div>
-                                  <div class="activity-meta">
-                                    <span class="date" >10:07</span>
-                                  </div>
-                                  <a class="activity-avatar avatar avatar-30">
-                                    <img alt="user" class="online width-28" src="assets/img/avatars/male.png">
-                                  </a>
-                                  <div class="activity-itemwarp">
+                                <strong >12/19</strong>
+                                <span class="weekday" >周二</span>
+                              </div>
+                              <div class="activity-icon">
+                                <i class="fa ai-green fa-user" ></i>
+                              </div>
+                              <div class="activity-meta">
+                                <span class="date" >10:07</span>
+                              </div>
+                              <a class="activity-avatar avatar avatar-30">
+                                <img alt="user" class="online width-28" src="assets/img/avatars/male.png">
+                              </a>
+                              <div class="activity-itemwarp">
                                     <span class="activity">
                                           <span class="actor ng-scope">兴凤</span>
                                           <span class="verb ng-scope">分配任务给</span>
@@ -538,25 +553,25 @@
                                             <span class="avatar-name ">兴凤</span>
                                           </a>
                                      </span>
-                                  </div>
-                                </li>
-                                <li class="activity-item" >
-                                  <div class="activity-day ng-hide" >
+                              </div>
+                            </li>
+                            <li class="activity-item" >
+                              <div class="activity-day ng-hide" >
                                     <span class="year" >2017<br>
                                     </span>
-                                    <strong >12/19</strong>
-                                    <span class="weekday" >周二</span>
-                                  </div>
-                                  <div class="activity-icon">
-                                    <i class="fa ai-red fa-user" ></i>
-                                  </div>
-                                  <div class="activity-meta">
-                                    <span class="date" >10:07</span>
-                                  </div>
-                                  <a class="activity-avatar avatar avatar-30">
-                                    <img alt="user" class="online width-28" src="assets/img/avatars/male.png">
-                                  </a>
-                                  <div class="activity-itemwarp">
+                                <strong >12/19</strong>
+                                <span class="weekday" >周二</span>
+                              </div>
+                              <div class="activity-icon">
+                                <i class="fa ai-red fa-user" ></i>
+                              </div>
+                              <div class="activity-meta">
+                                <span class="date" >10:07</span>
+                              </div>
+                              <a class="activity-avatar avatar avatar-30">
+                                <img alt="user" class="online width-28" src="assets/img/avatars/male.png">
+                              </a>
+                              <div class="activity-itemwarp">
                                     <span class="activity">
                                           <span class="actor ng-scope" >兴凤</span>
                                           <span class="verb ng-scope">取消分配任务给</span>
@@ -564,25 +579,25 @@
                                             <img alt="user" class="online width-28" src="assets/img/avatars/male.png">
                                             <span class="avatar-name ">兴凤</span></a>
                                       </span>
-                                  </div>
-                                </li>
-                                <li class="activity-item" >
-                                  <div class="activity-day ng-hide" >
+                              </div>
+                            </li>
+                            <li class="activity-item" >
+                              <div class="activity-day ng-hide" >
                                     <span class="year" >2017<br>
                                     </span>
-                                    <strong >12/19</strong>
-                                    <span class="weekday" >周二</span>
-                                  </div>
-                                  <div class="activity-icon">
-                                    <i class="fa ai-green fa-user" ></i>
-                                  </div>
-                                  <div class="activity-meta">
-                                    <span class="date" >10:07</span>
-                                  </div>
-                                  <a class="activity-avatar avatar avatar-30">
-                                    <img alt="user" class="online width-28" src="assets/img/avatars/male.png">
-                                  </a>
-                                  <div class="activity-itemwarp">
+                                <strong >12/19</strong>
+                                <span class="weekday" >周二</span>
+                              </div>
+                              <div class="activity-icon">
+                                <i class="fa ai-green fa-user" ></i>
+                              </div>
+                              <div class="activity-meta">
+                                <span class="date" >10:07</span>
+                              </div>
+                              <a class="activity-avatar avatar avatar-30">
+                                <img alt="user" class="online width-28" src="assets/img/avatars/male.png">
+                              </a>
+                              <div class="activity-itemwarp">
                                     <span class="activity">
                                           <span class="actor ng-scope">兴凤</span>
                                           <span class="verb ng-scope">添加审批人</span>
@@ -591,25 +606,25 @@
                                             <span class="avatar-name ">兴凤</span>
                                           </a>
                                      </span>
-                                  </div>
-                                </li>
-                                <li class="activity-item" >
-                                  <div class="activity-day ng-hide" >
+                              </div>
+                            </li>
+                            <li class="activity-item" >
+                              <div class="activity-day ng-hide" >
                                     <span class="year" >2017<br>
                                     </span>
-                                    <strong >12/19</strong>
-                                    <span class="weekday" >周二</span>
-                                  </div>
-                                  <div class="activity-icon">
-                                    <i class="fa ai-red fa-user" ></i>
-                                  </div>
-                                  <div class="activity-meta">
-                                    <span class="date" >10:07</span>
-                                  </div>
-                                  <a class="activity-avatar avatar avatar-30">
-                                    <img alt="user" class="online width-28" src="assets/img/avatars/male.png">
-                                  </a>
-                                  <div class="activity-itemwarp">
+                                <strong >12/19</strong>
+                                <span class="weekday" >周二</span>
+                              </div>
+                              <div class="activity-icon">
+                                <i class="fa ai-red fa-user" ></i>
+                              </div>
+                              <div class="activity-meta">
+                                <span class="date" >10:07</span>
+                              </div>
+                              <a class="activity-avatar avatar avatar-30">
+                                <img alt="user" class="online width-28" src="assets/img/avatars/male.png">
+                              </a>
+                              <div class="activity-itemwarp">
                                     <span class="activity">
                                           <span class="actor ng-scope" >兴凤</span>
                                           <span class="verb ng-scope">取消审批人</span>
@@ -617,25 +632,25 @@
                                             <img alt="user" class="online width-28" src="assets/img/avatars/male.png">
                                             <span class="avatar-name ">兴凤</span></a>
                                       </span>
-                                  </div>
-                                </li>
-                                <li class="activity-item" >
-                                  <div class="activity-day ng-hide" >
+                              </div>
+                            </li>
+                            <li class="activity-item" >
+                              <div class="activity-day ng-hide" >
                                     <span class="year" >2017<br>
                                     </span>
-                                    <strong >12/19</strong>
-                                    <span class="weekday" >周二</span>
-                                  </div>
-                                  <div class="activity-icon">
-                                    <i class="fa ai-green fa-eye" ></i>
-                                  </div>
-                                  <div class="activity-meta">
-                                    <span class="date" >10:07</span>
-                                  </div>
-                                  <a class="activity-avatar avatar avatar-30">
-                                    <img alt="user" class="online width-28" src="assets/img/avatars/male.png">
-                                  </a>
-                                  <div class="activity-itemwarp">
+                                <strong >12/19</strong>
+                                <span class="weekday" >周二</span>
+                              </div>
+                              <div class="activity-icon">
+                                <i class="fa ai-green fa-eye" ></i>
+                              </div>
+                              <div class="activity-meta">
+                                <span class="date" >10:07</span>
+                              </div>
+                              <a class="activity-avatar avatar avatar-30">
+                                <img alt="user" class="online width-28" src="assets/img/avatars/male.png">
+                              </a>
+                              <div class="activity-itemwarp">
                                     <span class="activity">
                                           <span class="actor ng-scope">兴凤</span>
                                           <span class="verb ng-scope">提醒</span>
@@ -645,25 +660,25 @@
                                             <span class="ng-scope">关注任务</span>
                                           </a>
                                      </span>
-                                  </div>
-                                </li>
-                                <li class="activity-item" >
-                                  <div class="activity-day ng-hide" >
+                              </div>
+                            </li>
+                            <li class="activity-item" >
+                              <div class="activity-day ng-hide" >
                                     <span class="year" >2017<br>
                                     </span>
-                                    <strong >12/19</strong>
-                                    <span class="weekday" >周二</span>
-                                  </div>
-                                  <div class="activity-icon">
-                                    <i class="fa ai-red fa-eye" ></i>
-                                  </div>
-                                  <div class="activity-meta">
-                                    <span class="date" >10:07</span>
-                                  </div>
-                                  <a class="activity-avatar avatar avatar-30">
-                                    <img alt="user" class="online width-28" src="assets/img/avatars/male.png">
-                                  </a>
-                                  <div class="activity-itemwarp">
+                                <strong >12/19</strong>
+                                <span class="weekday" >周二</span>
+                              </div>
+                              <div class="activity-icon">
+                                <i class="fa ai-red fa-eye" ></i>
+                              </div>
+                              <div class="activity-meta">
+                                <span class="date" >10:07</span>
+                              </div>
+                              <a class="activity-avatar avatar avatar-30">
+                                <img alt="user" class="online width-28" src="assets/img/avatars/male.png">
+                              </a>
+                              <div class="activity-itemwarp">
                                     <span class="activity">
                                           <span class="actor ng-scope" >兴凤</span>
                                           <span class="verb ng-scope"> 移除</span>
@@ -673,85 +688,83 @@
                                           <span class="ng-scope">关注任务</span>
                                           </a>
                                       </span>
-                                  </div>
-                                </li>
-                                <li class="activity-item" >
-                                  <div class="activity-day ng-hide" >
-                                    <span class="year" >2017<br></span>
-                                    <strong >12/19</strong>
-                                    <span class="weekday" >周二</span></div>
-                                  <div class="activity-icon">
-                                    <i class="fa ai-yellow fa-square-o" >
-                                    </i>
-                                  </div>
-                                  <div class="activity-meta">
-                                    <span class="date" >10:07</span>
-                                  </div>
-                                  <a class="activity-avatar avatar avatar-30" >
-                                    <img alt="user" class="online width-28" src="assets/img/avatars/male.png">
-                                  </a>
-                                  <div class="activity-itemwarp">
+                              </div>
+                            </li>
+                            <li class="activity-item" >
+                              <div class="activity-day ng-hide" >
+                                <span class="year" >2017<br></span>
+                                <strong >12/19</strong>
+                                <span class="weekday" >周二</span></div>
+                              <div class="activity-icon">
+                                <i class="fa ai-yellow fa-square-o" >
+                                </i>
+                              </div>
+                              <div class="activity-meta">
+                                <span class="date" >10:07</span>
+                              </div>
+                              <a class="activity-avatar avatar avatar-30" >
+                                <img alt="user" class="online width-28" src="assets/img/avatars/male.png">
+                              </a>
+                              <div class="activity-itemwarp">
                                     <span class="activity">
                                           <span class="actor ng-scope" >兴凤</span>
                                           <span class="verb ng-scope">修改任务</span>
                                           <span class="ng-scope"> 描述为 <strong>vcbcvbcvbcvb</strong></span>
                                     </span>
-                                  </div>
-                                </li>
-                                <li class="activity-item" >
-                                  <div class="activity-day ng-hide">
-                                    <span class="year" >2017<br></span>
-                                    <strong >12/19</strong>
-                                    <span class="weekday">周二</span>
-                                  </div>
-                                  <div class="activity-icon">
-                                    <i class="fa ai-red fa-square-o" ></i>
-                                  </div>
-                                  <div class="activity-meta">
-                                    <span class="date" >10:07</span>
-                                  </div>
-                                  <a class="activity-avatar avatar avatar-30">
-                                    <img alt="user" class="online width-28" src="assets/img/avatars/male.png">
-                                  </a>
-                                  <div class="activity-itemwarp">
+                              </div>
+                            </li>
+                            <li class="activity-item" >
+                              <div class="activity-day ng-hide">
+                                <span class="year" >2017<br></span>
+                                <strong >12/19</strong>
+                                <span class="weekday">周二</span>
+                              </div>
+                              <div class="activity-icon">
+                                <i class="fa ai-red fa-square-o" ></i>
+                              </div>
+                              <div class="activity-meta">
+                                <span class="date" >10:07</span>
+                              </div>
+                              <a class="activity-avatar avatar avatar-30">
+                                <img alt="user" class="online width-28" src="assets/img/avatars/male.png">
+                              </a>
+                              <div class="activity-itemwarp">
                                     <span class="activity">
                                           <span class="actor ng-scope" >兴凤</span>
                                           <span class="verb ng-scope">取消完成任务</span>
                                     </span>
-                                  </div>
-                                </li>
-                                <li class="activity-item activity-item-day">
-                                  <div class="activity-day" >
-                                    <span class="year" >2017<br></span>
-                                    <strong >12/13</strong>
-                                    <span class="weekday">周三</span>
-                                  </div>
-                                  <div class="activity-icon">
-                                    <i class="fa ai-green fa-check-square" ></i>
-                                  </div>
-                                  <div class="activity-meta">
-                                    <span class="date" >17:05</span>
-                                  </div>
-                                  <a class="activity-avatar avatar avatar-30">
-                                    <img alt="user" class="online width-28" src="assets/img/avatars/male.png">
-                                  </a>
-                                  <div class="activity-itemwarp">
+                              </div>
+                            </li>
+                            <li class="activity-item activity-item-day">
+                              <div class="activity-day" >
+                                <span class="year" >2017<br></span>
+                                <strong >12/13</strong>
+                                <span class="weekday">周三</span>
+                              </div>
+                              <div class="activity-icon">
+                                <i class="fa ai-green fa-check-square" ></i>
+                              </div>
+                              <div class="activity-meta">
+                                <span class="date" >17:05</span>
+                              </div>
+                              <a class="activity-avatar avatar avatar-30">
+                                <img alt="user" class="online width-28" src="assets/img/avatars/male.png">
+                              </a>
+                              <div class="activity-itemwarp">
                                     <span class="activity">
                                           <span class="actor ng-scope" >兴凤</span>
                                           <span class="verb ng-scope">完成任务</span>
                                      </span>
-                                  </div>
-                                </li>
-                              </ul>
-                            </div>
-                            <div class="loading-more-panel ng-scope">
-                              <div class="part-loading ng-hide" >
                               </div>
-                              <button class="btn ng-binding btn-default " >加载更多…</button>
-                            </div>
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="loading-more-panel ng-scope">
+                          <div class="part-loading ng-hide" >
                           </div>
-                        </tab>
-                      </tabset>
+                          <button class="btn ng-binding btn-default " >加载更多…</button>
+                        </div>
+                      </div>
                     </tab>
                   </tabset>
                 </div>
@@ -767,47 +780,43 @@
 <div class="modal fade in" (click)="hideDetail()" [ngStyle]="{'display':is_show_detail?'block':'none'}">
 </div>
 
-<div class="modal fade" id="myModalname" style="z-index:9999;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
+<div class="modal fade bd-example-modal-xl" id="myModalname" style="z-index:9999;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
         <div class="modal-content">
           <div class="modal-header">
-            <!-- 关闭按钮 -->
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             <!-- 标题 -->
             <h3 class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>选择人</h3>
+            <!-- 关闭按钮 -->
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
           </div>
           <div class="modal-body ">
             <div  class="row">
               <article  class="col-sm-12">
                 <div class="navbar navbar-default">
-                  <div class="collapse navbar-collapse">
-                    <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-                      <div class="form-group pdlr-4">
-                        <div class="form-group padding-left-10">
-                          <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" [(ngModel)]="keyword" name="keyword" placeholder="请输入搜索内容" type="text">
-                        </div>
-                        <button class="btn btn-default" type="button" (click)="getUserList(1,0)">
-                          <i  class="glyphicon glyphicon-search"></i>
-                          搜索
-                        </button>
-                      </div>
-                    </form>
-                  </div>
+                  <form  class="navbar-form " novalidate="" role="search" >
+                    <div class="btn-group">
+                      <input type="text" class="form-control"   maxlength="15" name="keyword"  [(ngModel)]="keyword"  placeholder="请输入搜索内容">
+                    </div>
+                    <div class="btn-group">
+                      <button type="button" class="btn default-btn"   (click)="getUserList(1,0)">搜索</button>
+                    </div>
+                  </form>
                 </div>
               </article>
             </div>
             <div class="pt">
               <div class="row margin-b50" style="padding:0 10px;">
-                <article class="form-group col col-xs-4 ">
-                  <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                <article class="form-group col-sm-4 col-4 ">
+                  <sa-widget class="jarviswidget " [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
                              [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
                     <div>
                       <div class="widget-body no-padding">
-                        <alert type="info" class="no-margin">
+                        <div type="info" class="no-margin alert alert-primary">
                           <i class="fa-fw fa fa-sitemap"></i>
                           部门分类
-                        </alert>
-                        <div class="pd-10 border-overflow-320" style="margin-top: -11px;">
+                        </div>
+                        <div class=" border-overflow-320" style="margin-top: -11px;">
                           <div class="widget-body">
                             <div class="tree smart-form">
                               <ul class="">
@@ -849,24 +858,24 @@
                             </div>
                           </div>
                         </div>
-                        <div class="dt-toolbar">
+                        <div class="footer-size">
                         </div>
                       </div>
                     </div>
                   </sa-widget>
 
                 </article>
-                <article class="form-group col col-xs-8 ">
-                  <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                <article class="form-group col-sm-8 col-8 ">
+                  <sa-widget class="jarviswidget " [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
                              [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
                     <div>
                       <div class="widget-body no-padding">
-                        <alert type="info" class="no-margin" >
+                        <div type="info" class="no-margin alert alert-primary">
                           <i class="fa-fw fa fa-table"></i>
                           员工列表
-                        </alert>
-                        <div class="mt-10 "  style="padding:0;">
-                          <div style="padding: 0;z-index: 1;" class="table-responsive border-overflow-320">
+                        </div>
+                        <div class=" "  style="padding:0;">
+                          <div style="padding: 0;z-index: 1;" class=" border-overflow-320">
                             <table class="table table-striped   smart-form table-height-20">
                               <thead>
                               <tr>
@@ -898,20 +907,21 @@
                           </div>
 
                         </div>
+
                         <!-- 底部-（分页部分）-->
-                        <div class="dt-toolbar">
-                          <div class="col-xs-12 col-sm-6">
-                            <span>共{{userList.result?.userList?.total}}条</span>
-                          </div>
-                          <div class="hidden-xs right">
-                            <ul class="pagination pagination-sm" *ngIf="userList?.result?.page != ''">
-                              <li *ngFor="let p of userList?.result?.page" class="{{p.class}}">
-                                <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
-                                <a *ngIf="p.method==''">{{p.text}}</a>
-                              </li>
-                            </ul>
-                          </div>
+                        <div class="footer-size flex-justify-end">
+                          <ul class="pagination"  *ngIf="userList?.result?.page != ''">
+                            <li *ngFor="let p of userList?.result?.page" class="{{p.class}}">
+                              <a class="page-link" (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+                              <a class="page-link"  *ngIf="p.method==''">{{p.text}}</a>
+                            </li>
+                            <li class="page-item disabled">
+                              <a  class="page-link" disabled>共{{userList.result?.userList?.total}}条</a>
+                            </li>
+                          </ul>
                         </div>
+
+
                       </div>
                     </div>
                   </sa-widget>
@@ -921,7 +931,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-success btn-sm" data-ng-click="ok()" data-dismiss="modal" (click)="submitSelectedUser(todo_info?.result?.todo_id)"><span class="glyphicon glyphicon-plus"></span>选入</button>
+            <button type="button" class="btn btn-success btn-sm" data-ng-click="ok()" data-dismiss="modal" (click)="submitSelectedUser(todo_info?.result?.todo_id)"><span class="fa-fw fa fa-plus"></span>选入</button>
             <button type="button" class="btn btn-default" data-dismiss="modal" >返回</button>
           </div>
         </div><!-- /.modal-content -->

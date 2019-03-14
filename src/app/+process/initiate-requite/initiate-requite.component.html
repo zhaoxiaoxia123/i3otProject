@@ -2,7 +2,7 @@
   <sa-widgets-grid>
     <div class="row">
       <article class="col-sm-12 ">
-        <sa-widget [editbutton]="false" [deletebutton]="false" >
+        <sa-widget  [editbutton]="false" [deletebutton]="false" [colorbutton]="false" >
           <header >
             <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
             <h2 >报销</h2>
@@ -10,97 +10,92 @@
           <div>
             <!--小部件内容-->
             <div class="widget-body no-padding">
-              <form id="smart-form-register" class="smart-form" >
+              <form id="smart-form-register" class="form-distance" >
                 <fieldset *ngFor="let xc of requite_list;let ind_xc = index;">
                   <legend>报销明细({{ind_xc+1}})</legend>
                   <input type="hidden" name="">
-                  <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
-                    <section>
+                  <div class="form-row">
+                    <div class="form-group col-sm-6">
                       <label class="label txt-color-blue">报销金额（元）<span class="asterisk-color">*</span></label>
-                      <label class="input">
-                        <input type="number" placeholder="请输入报销金额（必填）" name="xc.price" [ngModelOptions]="{standalone: true}" [(ngModel)]="xc.price" (blur)="sumPCount()">
-                      </label>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
-                    <section>
+                      <input  class="form-control"  type="number" placeholder="请输入报销金额（必填）" name="xc.price" [ngModelOptions]="{standalone: true}" [(ngModel)]="xc.price" (blur)="sumPCount()">
+                    </div>
+
+                    <div class="form-group col-sm-6">
                       <label class="label txt-color-blue">报销类别<span class="asterisk-color">*</span></label>
-                      <label class="input">
-                        <input  type="text" placeholder="如采购经费、活动经费（必填）" name="xc.type" [ngModelOptions]="{standalone: true}" [(ngModel)]="xc.type" value="{{xc.type}}">
-                      </label>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
-                    <section>
+                      <input type="text" class="form-control"   placeholder="如采购经费、活动经费（必填）" name="xc.type" [ngModelOptions]="{standalone: true}" [(ngModel)]="xc.type" value="{{xc.type}}">
+                    </div>
+
+                    <div class="form-group col-sm-12">
                       <label class="label ">费用明细</label>
-                      <label class="textarea textarea-resizable">
-                        <textarea class="custom-scroll" rows="4" name="xc.reason" [ngModelOptions]="{standalone: true}" [(ngModel)]="xc.reason" placeholder="请输入费用明细描述"></textarea>
-                      </label>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-20 text-center">
-                    <button class="btn btn-default btn-xs " (click)="deleteRequite(ind_xc)">
-                      <span class="hidden-mobile">删除报销明细({{ind_xc + 1}})</span>
-                    </button>
+                      <textarea class="form-control" rows="4" name="xc.reason" [ngModelOptions]="{standalone: true}" [(ngModel)]="xc.reason" placeholder="请输入费用明细描述"></textarea>
+                    </div>
+
+                    <div class="form-group col-sm-12 text-center">
+                      <button class="btn btn-default btn-xs " (click)="deleteRequite(ind_xc)">
+                        <span class="hidden-mobile">删除报销明细({{ind_xc + 1}})</span>
+                      </button>
+                    </div>
+
                   </div>
                 </fieldset>
 
                 <fieldset>
-                  <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-20 text-center">
-                    <button class="btn btn-save btn-xs " (click)="joinRequite()" >
-                      <i class="fa fa-plus"></i> <span class="hidden-mobile">添加报销明细</span>
-                    </button>
-                  </div>
-                  <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-20">
-                    <div class="txt-color-blueLight">总报销金额（元）：<span class=" txt-color-blue pd-10" style="font-size: 24px;">{{prices}}</span></div>
-                  </div>
-                  <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
-                    <div class="label ">图片<a class="txt-color-blue pd-10" (click)="showSelectFileDiv()">添加图片</a><span class="txt-color-blueLight pd-10">(最多可以选择10张)</span></div>
-                    <div  class="picture mb-20">
-                      <div  class="picture-list" *ngFor="let img of imgList;let ind = index;">
-                        <a  class="fa fa-times-circle picture-a" style="display:block;" (click)="removeImg(ind)"></a>
-                        <img width="90px" height="90px" src="{{url}}{{img}}" (click)="showBigPic(url+img)">
+                  <div class="form-row">
+                    <div class="form-group col-sm-12 text-center">
+                      <button class="btn btn-save btn-xs " (click)="joinRequite()" >
+                        <i class="fa fa-plus"></i> <span class="hidden-mobile">添加报销明细</span>
+                      </button>
+                    </div>
+                    <div class="form-group col-sm-12">
+                      <div class="txt-color-blueLight">总报销金额（元）：<span class=" txt-color-blue pd-10" style="font-size: 24px;">{{prices}}</span></div>
+                    </div>
+
+                    <div class="form-group col-sm-12">
+                      <div class="label ">图片<a class="txt-color-blue pd-10" (click)="showSelectFileDiv()">添加图片</a><span class="txt-color-blueLight pd-10">(最多可以选择10张)</span></div>
+                      <div  class="picture mb-20">
+                        <div  class="picture-list" *ngFor="let img of imgList;let ind = index;">
+                          <a  class="fa fa-times-circle picture-a" style="display:block;" (click)="removeImg(ind)"></a>
+                          <img width="90px" height="90px" src="{{url}}{{img}}" (click)="showBigPic(url+img)">
+                        </div>
                       </div>
                     </div>
+                    <div class="form-group col-sm-12">
+                      <div class="label ">附件<a class="txt-color-blue pd-10" >添加附件</a></div>
+                    </div>
+                    <div class="form-group col-sm-12">
+                      <div class="label ">审批人<a class="txt-color-blue pd-10" (click)="showDetail('assign')">添加审批人</a></div>
+                      <ul  class="avatars" *ngIf="approve_user">
+                        <li *ngFor="let su of approve_user;let ind = index;">
+                          <a class="fa fa-times-circle picture-a" style="display:block;" (click)="removeUser(su.id,'assign')"></a>
+                          <a class="portrait-size" title="{{su.u_username}}">
+                            {{su.u_username}}
+                          </a>
+                          <div class="approval-arrow" *ngIf="ind < approve_user.length && ind != 0" >
+                            <img src="assets/img/icon/arrow.png" >
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="form-group col-sm-12">
+                      <div class="label ">抄送人<a class="txt-color-blue pd-10" (click)="showDetail('follower')">添加抄送人</a><span class="txt-color-blueLight pd-10">(审批通过后，通知抄送人)</span></div>
+                      <ul  class="avatars" *ngIf="follower_user">
+                        <li *ngFor="let su1 of follower_user;let ind1 = index;">
+                          <a class="fa fa-times-circle picture-a" style="display:block;" (click)="removeUser(su1.id,'follower')"></a>
+                          <a class="portrait-size" title="{{su1.u_username}}">
+                            {{su1.u_username}}
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+
                   </div>
-                  <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-20">
-                    <div class="label ">附件<a class="txt-color-blue pd-10" >添加附件</a></div>
-                  </div>
-                  <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-20">
-                    <div class="label ">审批人<a class="txt-color-blue pd-10" (click)="showDetail('assign')">添加审批人</a></div>
-                    <ul  class="avatars" *ngIf="approve_user">
-                      <li *ngFor="let su of approve_user;let ind = index;">
-                        <a class="fa fa-times-circle picture-a" style="display:block;" (click)="removeUser(su.id,'assign')"></a>
-                        <a class="portrait-size" title="{{su.u_username}}">
-                          {{su.u_username}}
-                        </a>
-                        <div class="approval-arrow" *ngIf="ind < approve_user.length && ind != 0" >
-                          <img src="assets/img/icon/arrow.png" >
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-20">
-                    <div class="label ">抄送人<a class="txt-color-blue pd-10" (click)="showDetail('follower')">添加抄送人</a><span class="txt-color-blueLight pd-10">(审批通过后，通知抄送人)</span></div>
-                    <ul  class="avatars" *ngIf="follower_user">
-                      <li *ngFor="let su1 of follower_user;let ind1 = index;">
-                        <a class="fa fa-times-circle picture-a" style="display:block;" (click)="removeUser(su1.id,'follower')"></a>
-                        <a class="portrait-size" title="{{su1.u_username}}">
-                          {{su1.u_username}}
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
+
                 </fieldset>
-                <footer>
-                  <button type="button" class="btn btn-default" >
-                    返回
-                  </button>
-                  <button class="btn btn-success" type="button" (click)="onSubmit(2)">提交并新增</button>
-                  <button  type="submit" class="btn btn-primary" (click)="onSubmit(1)">
-                    提交
-                  </button>
-                </footer>
+                <div class="footer-size flex-justify-end">
+                  <button  type="submit" class="btn btn-primary ml-2" (click)="onSubmit(1)">提交</button>
+                  <button class="btn btn-success ml-2" type="button" (click)="onSubmit(2)">提交并新增</button>
+                  <button type="button" class="btn btn-default ml-2" >返回</button>
+                </div>
               </form>
             </div>
           </div>

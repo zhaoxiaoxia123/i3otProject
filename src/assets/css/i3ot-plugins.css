@@ -77,6 +77,9 @@ a:focus, a:hover {
     background-color: #ccc!important;
     border: #ccc;
     pointer-events: none;
+    padding: .4rem .8rem;
+    font-size: 1rem;
+    line-height: 1.5;
 }
 .not-click>span{
     color: #fff !important;
@@ -398,7 +401,7 @@ div.dataTables_paginate ul.pagination {
     border-radius: 0;
     -webkit-border-radius: 0;
     font-weight: normal;
-    font-size: 95%;
+    font-size: 1rem;
 }
 .label-default {
     background-color: #a1a1a1;
@@ -428,6 +431,10 @@ div.dataTables_paginate ul.pagination {
 
 
 /*标签*/
+.label-pc{
+    padding:4px 10px;
+    color:#fff;
+}
 .label-normal{
     background-color: #60C060!important;
     color: #fff;
@@ -883,7 +890,7 @@ div.dataTables_paginate ul.pagination {
     padding:20px!important;
 }
 .pd-80{
-    padding:80px!important;
+    padding:0 80px;
 }
 .padding20{
     padding:20px!important;
@@ -1065,7 +1072,6 @@ h1 {
 }
 
 h1 small {
-    font-size: 18px;
     font-weight: 300;
     letter-spacing: -1px
 }
@@ -1076,14 +1082,12 @@ h1 small {
 
 h2 {
     letter-spacing: -1px;
-    font-size: 22px;
     margin: 20px 0;
     line-height: normal
 }
 
 h3 {
     display: block;
-    font-size: 19px;
     font-weight: 400;
     margin: 20px 0;
     line-height: normal;
@@ -1094,22 +1098,22 @@ h4 {
 }
 
 h5 {
-    font-size: 17px;
     font-weight: 300;
     margin: 10px 0;
     line-height: normal
 }
 
 h6 {
-    font-size: 15px;
     margin: 10px 0;
     font-weight: 700;
     line-height: normal
 }
 h1,h2,h3,h4 {
     margin: 0;
-    font-family: "Open Sans",Arial,Helvetica,Sans-Serif;
     font-weight: 300
+}
+.h4, h4{
+    font-size:1.2rem;
 }
 
 .semi-bold {
@@ -1200,7 +1204,7 @@ h1,h2,h3,h4 {
     box-shadow: none;
     border: 1px solid #CCC;
     overflow: auto;
-    height: 560px;
+    height: 460px;
     padding: 10px;
 }
 .height-overflow::-webkit-scrollbar
@@ -1338,64 +1342,37 @@ h1,h2,h3,h4 {
 .btn-default i {
     color: #444;
 }
-.btn-primary,
-.btn-primary:focus {
-    background-color: #169af6;
-    border-color: #3680BF;
-}
-.btn-primary:hover,
-.btn-primary:active,
-.btn-primary.active,
 .open .dropdown-toggle.btn-primary {
     background-color: #4e9dff;
     border-color: #357ebd;
 }
-.btn-primary:active {
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.125) inset;
-}
-.btn-success,
-.btn-success:focus {
-    background-color: #60C060;
-    border-color: #54A754;
-}
-.btn-success:hover,
-.btn-success:active,
-.btn-success.active,
 .open .dropdown-toggle.btn-success {
     background-color: #65ca65;
     border-color: #54A754;
 }
-.btn-info,
-.btn-info:focus {
-    background-color: #5BC0DE;
-    border-color: #28a1c4;
-}
-.btn-info:hover,
-.btn-info:active,
-.btn-info.active,
 .open .dropdown-toggle.btn-info {
     background-color: #5fc8e7;
     border-color: #28A1C4;
+}
+.btn-warning{
+    color:#fff;
 }
 .btn-warning,
 .btn-warning:focus {
     background-color: #FF9900;
     border-color: #E38800;
 }
+.btn-warning:hover {
+    color: #fff;
+    background-color: #E38800;
+    border-color: #e37903;
+}
 .btn-warning:hover,
 .btn-warning:active,
 .btn-warning.active,
 .open .dropdown-toggle.btn-warning {
-    background-color: #ffa800;
+    background-color: #E38800;
 }
-.btn-danger,
-.btn-danger:focus {
-    background-color: #DF4B33;
-    border-color: #CA452E;
-}
-.btn-danger:hover,
-.btn-danger:active,
-.btn-danger.active,
 .open .dropdown-toggle.btn-danger {
     background-color: #e64d35;
 }
@@ -1473,14 +1450,17 @@ h1,h2,h3,h4 {
 }
 .modal-content h4,
 .modal-content h4 {
+    font-size: 1rem;
     font-weight: 400;
 }
 .modal-content h3,
 .modal-content h3 {
+    font-size: 1.2rem;
     font-weight: 300;
     margin-top: 0;
 }
 .modal-content h2 {
+    font-size: 1.4rem;
     margin: 0;
 }
 .modal-content .modal-footer {
@@ -1552,7 +1532,6 @@ h1,h2,h3,h4 {
 }
 .text-muted {
     color: #999;
-    font-size:50%;
 }
 .dd-handle>span {
     font-size: 13px;
@@ -1873,7 +1852,7 @@ span.input-icon {
 }
 
 .table-height-50>tbody>tr>td{
-    height:50px;
+    height:60px;
     vertical-align: middle
 }
 

@@ -9,6 +9,13 @@ import {Observable} from "rxjs/Observable";
 })
 export class PanelElementComponent implements OnInit {
 
+    public states: Array<any>;
+    public state: any = {
+        tabs: {
+            demo3: 'hr1',
+        },
+    };
+
     //方法1的 start
     dataSource: Observable<any>;
     products: Array<any> = [];

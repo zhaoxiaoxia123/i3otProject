@@ -13,8 +13,8 @@ import {CookieStoreService} from "../../cookies/cookie-store.service";
 })
 export class RibbonComponent implements OnInit {
 
-  navLists : Array<any> = [{"title":"公司信息","url":"/account/account-company","class_":"active"}];
-  navList : Array<any> = [{"title":"公司信息","url":"/account/account-company","class_":"active"}];
+  navLists : Array<any> = [{"title":"公司信息","url":"/account/account-company","class_":"active,nav-item"}];
+  navList : Array<any> = [{"title":"公司信息","url":"/account/account-company","class_":"active,nav-item"}];
   navListMore : Array<any> = [];
   countN : any = 5 ;
 

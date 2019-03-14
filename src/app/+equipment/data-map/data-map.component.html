@@ -3,165 +3,291 @@
     <sa-big-breadcrumbs [items]="['物联网管理', '全部实时数据']" icon="file-text-o" ></sa-big-breadcrumbs>
   </div>-->
   <sa-widgets-grid>
-    <div class="row" *ngIf="products['data'] && products1['data'] && products['data'][0] && is_show_products">
-      <div *ngFor="let entry of (products['data'][0]['info'] | keys)" >
-      <article class="col-sm-3" *ngIf="entry.value.value[0]">
-        <sa-widget [editbutton]="false" [deletebutton]="false" color="darken" >
+
+    <div class="row">
+      <article class="col-sm-12 ">
+        <!-- Widget ID (each widget will need unique ID)-->
+        <sa-widget [editbutton]="false" [deletebutton]="false"  [colorbutton]="false">
           <header>
-            <h2 *ngIf="entry.key == 'ch4'">甲烷(ch4)</h2>
-            <h2 *ngIf="entry.key == 'co'">一氧化碳(co)</h2>
-            <h2 *ngIf="entry.key == 'co2'">二氧化碳(co2)</h2>
-            <h2 *ngIf="entry.key == 'o2'">氧气(o2)</h2>
-            <h2 *ngIf="entry.key == 'tem'">温度(tem)</h2>
-            <h2 *ngIf="entry.key == 'humi'">湿度(humi)</h2>
-            <h2 *ngIf="entry.key == 'eeg'">脑电(eeg)</h2>
-            <h2 *ngIf="entry.key == 'ecg'">心率(ecg)</h2>
-            <h2 *ngIf="entry.key == 'spo2h'">血氧(spo2h)</h2>
+            <span class="widget-icon"> <i class="fa fa-table"></i></span>
+            <h2>实时数据</h2>
           </header>
           <div>
-            <div class="widget-body no-padding">
-              <div class="the-price pricing-big">
-                <div class="panel-heading">
-                  <h1 class="panel-title font-headline">
-                    <span class="txt-color-greenbrigh">{{entry.value.value[0]}}</span>
-                    <small class="subscript" >
-                      <sub *ngIf="entry.key == 'ch4' || entry.key == 'co2' || entry.key == 'o2' || entry.key == 'humi'">%</sub>
-                      <sub *ngIf="entry.key == 'co'">PPM</sub>
-                      <sub *ngIf="entry.key == 'tem'">°C</sub>
-                    </small>
-                    <!-- {{entry.key}}
-                     <small class="subscript" ><span>{{entry.value.value[0]}}</span></small>-->
-                  </h1>
+            <!-- widget content -->
+            <div class="widget-body">
+
+              <div   class="row" *ngIf="products['data'] && products1['data'] && products['data'][0] && is_show_products">
+                <div [ngClass]="{'col-sm-4':products['data'][0]['info'].length > 0}"   *ngFor="let entry of (products['data'][0]['info'] | keys)" style="margin:0 10px;">
+                  <div class="card bg-light mb-3"   *ngIf="entry.value.value[0]">
+                    <div class="card-header" *ngIf="entry.key == 'ch4'">甲烷(ch4)</div>
+                    <div class="card-header" *ngIf="entry.key == 'co'">一氧化碳(co)</div>
+                    <div class="card-header"  *ngIf="entry.key == 'co2'">二氧化碳(co2)</div>
+                    <div class="card-header"  *ngIf="entry.key == 'o2'">氧气(o2)</div>
+                    <div class="card-header"  *ngIf="entry.key == 'tem'">温度(tem)</div>
+                    <div class="card-header"  *ngIf="entry.key == 'humi'">湿度(humi)</div>
+                    <div class="card-header"  *ngIf="entry.key == 'eeg'">脑电(eeg)</div>
+                    <div class="card-header"   *ngIf="entry.key == 'ecg'">心率(ecg)</div>
+                    <div class="card-header"  *ngIf="entry.key == 'spo2h'">血氧(spo2h)</div>
+
+                    <div class="the-price pricing-big">
+                      <div class="panel-heading">
+                        <h1 class="panel-title font-headline">
+                          <span class="txt-color-greenbrigh">{{entry.value.value[0]}}</span>
+                          <small class="subscript" >
+                            <sub *ngIf="entry.key == 'ch4' || entry.key == 'co2' || entry.key == 'o2' || entry.key == 'humi'">%</sub>
+                            <sub *ngIf="entry.key == 'co'">PPM</sub>
+                            <sub *ngIf="entry.key == 'tem'">°C</sub>
+                          </small>
+                          <!-- {{entry.key}}
+                           <small class="subscript" ><span>{{entry.value.value[0]}}</span></small>-->
+                        </h1>
+                      </div>
+                    </div>
+                    <table class="table  table-striped " style="margin: -5px 0;">
+                      <thead>
+                      <tr>
+                        <th>产品ID</th>
+                        <th >时间</th>
+                        <th class="text-align-center">数据</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr *ngFor="let val of entry.value.value;let idx0=index" [ngStyle]="{'background-color': entry.value.color[idx0]}">
+                        <td>p10017</td>
+                        <td>{{ products['data'][0]['time'][idx0] }}</td>
+                        <td class="text-align-center">{{ val }}</td>
+                      </tr>
+                      </tbody>
+                    </table>
+
+                    <div class="card-body">
+                      <button class="btn btn-primary"  (click)="showPic(entry.key);lgModal.show()">查看更多数据</button>
+                    </div>
+                  </div>
                 </div>
+
               </div>
-              <table class="table table-hover table-striped " style="margin: -5px 0;">
-                <thead>
-                <tr>
-                  <th>产品ID</th>
-                  <th >时间</th>
-                  <th class="text-align-center">数据</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let val of entry.value.value;let idx0=index" [ngStyle]="{'background-color': entry.value.color[idx0]}">
-                  <td>p10017</td>
-                  <td>{{ products['data'][0]['time'][idx0] }}</td>
-                  <td class="text-align-center">{{ val }}</td>
-                </tr>
-                </tbody>
-              </table>
-              <div class="panel-footer no-padding">
-                <a (click)="showPic(entry.key);lgModal.show()" class="btn bg-color-greenbrigh txt-color-white btn-block" role="button">
-                  查看更多数据
-                </a>
+
+              <div   class="row"  *ngIf="products1['data'] && products1['data'][0] && is_show_products">
+                <div [ngClass]="{'col-sm-4':products1['data'][0]['info'].length > 0}"   *ngFor="let entry of (products1['data'][0]['info'] | keys)" style="margin:0 10px;">
+                  <div class="card bg-light mb-3"   *ngIf="entry.value.value[0]">
+                    <div class="card-header" *ngIf="entry.key == 'ch4'">甲烷(ch4)</div>
+                    <div class="card-header" *ngIf="entry.key == 'co'">一氧化碳(co)</div>
+                    <div class="card-header"  *ngIf="entry.key == 'co2'">二氧化碳(co2)</div>
+                    <div class="card-header"  *ngIf="entry.key == 'o2'">氧气(o2)</div>
+                    <div class="card-header"  *ngIf="entry.key == 'tem'">温度(tem)</div>
+                    <div class="card-header"  *ngIf="entry.key == 'humi'">湿度(humi)</div>
+                    <div class="card-header"  *ngIf="entry.key == 'eeg'">脑电(eeg)</div>
+                    <div class="card-header"   *ngIf="entry.key == 'ecg'">心率(ecg)</div>
+                    <div class="card-header"  *ngIf="entry.key == 'spo2h'">血氧(spo2h)</div>
+                    <div class="the-price pricing-big">
+                      <div class="panel-heading">
+                        <h1 class="panel-title font-headline">
+                          <span class="txt-color-greenbrigh">{{entry.value.value[0]}}</span>
+                          <small class="subscript" >
+                            <sub *ngIf="entry.key == 'ch4' || entry.key == 'co2' || entry.key == 'o2' || entry.key == 'humi'">%</sub>
+                            <sub *ngIf="entry.key == 'co'">PPM</sub>
+                            <sub *ngIf="entry.key == 'tem'">°C</sub>
+                          </small>
+                        </h1>
+                      </div>
+                    </div>
+                    <table class="table table-striped  " style="margin: -5px 0;">
+                      <thead>
+                      <tr>
+                        <th>产品ID</th>
+                        <th >时间</th>
+                        <th class="text-align-center">数据</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr *ngFor="let val of entry.value.value;let idx1=index" [ngStyle]="{'background-color': entry.value.color[idx1]}">
+                        <td>p10017</td>
+                        <td>{{ products1['data'][0]['time'][idx1] }}</td>
+                        <td class="text-align-center">{{ val }}</td>
+                      </tr>
+                      </tbody>
+                    </table>
+
+                    <div class="card-body">
+                      <button class="btn btn-primary"  (click)="showPic(entry.key);lgModal.show()" >查看更多数据</button>
+                    </div>
+                  </div>
+                </div>
+
               </div>
+
+              <!--<div class="row" *ngIf="products['data'] && products1['data'] && products['data'][0] && is_show_products">-->
+                <!--<div *ngFor="let entry of (products['data'][0]['info'] | keys)" >-->
+                  <!--<article class="col-sm-3" *ngIf="entry.value.value[0]">-->
+                    <!--<sa-widget [editbutton]="false" [deletebutton]="false" color="darken" >-->
+                      <!--<header>-->
+                        <!--<h2 *ngIf="entry.key == 'ch4'">甲烷(ch4)</h2>-->
+                        <!--<h2 *ngIf="entry.key == 'co'">一氧化碳(co)</h2>-->
+                        <!--<h2 *ngIf="entry.key == 'co2'">二氧化碳(co2)</h2>-->
+                        <!--<h2 *ngIf="entry.key == 'o2'">氧气(o2)</h2>-->
+                        <!--<h2 *ngIf="entry.key == 'tem'">温度(tem)</h2>-->
+                        <!--<h2 *ngIf="entry.key == 'humi'">湿度(humi)</h2>-->
+                        <!--<h2 *ngIf="entry.key == 'eeg'">脑电(eeg)</h2>-->
+                        <!--<h2 *ngIf="entry.key == 'ecg'">心率(ecg)</h2>-->
+                        <!--<h2 *ngIf="entry.key == 'spo2h'">血氧(spo2h)</h2>-->
+                      <!--</header>-->
+                      <!--<div>-->
+                        <!--<div class="widget-body no-padding">-->
+                          <!--<div class="the-price pricing-big">-->
+                            <!--<div class="panel-heading">-->
+                              <!--<h1 class="panel-title font-headline">-->
+                                <!--<span class="txt-color-greenbrigh">{{entry.value.value[0]}}</span>-->
+                                <!--<small class="subscript" >-->
+                                  <!--<sub *ngIf="entry.key == 'ch4' || entry.key == 'co2' || entry.key == 'o2' || entry.key == 'humi'">%</sub>-->
+                                  <!--<sub *ngIf="entry.key == 'co'">PPM</sub>-->
+                                  <!--<sub *ngIf="entry.key == 'tem'">°C</sub>-->
+                                <!--</small>-->
+                                <!--&lt;!&ndash; {{entry.key}}-->
+                                 <!--<small class="subscript" ><span>{{entry.value.value[0]}}</span></small>&ndash;&gt;-->
+                              <!--</h1>-->
+                            <!--</div>-->
+                          <!--</div>-->
+                          <!--<table class="table table-hover table-striped " style="margin: -5px 0;">-->
+                            <!--<thead>-->
+                            <!--<tr>-->
+                              <!--<th>产品ID</th>-->
+                              <!--<th >时间</th>-->
+                              <!--<th class="text-align-center">数据</th>-->
+                            <!--</tr>-->
+                            <!--</thead>-->
+                            <!--<tbody>-->
+                            <!--<tr *ngFor="let val of entry.value.value;let idx0=index" [ngStyle]="{'background-color': entry.value.color[idx0]}">-->
+                              <!--<td>p10017</td>-->
+                              <!--<td>{{ products['data'][0]['time'][idx0] }}</td>-->
+                              <!--<td class="text-align-center">{{ val }}</td>-->
+                            <!--</tr>-->
+                            <!--</tbody>-->
+                          <!--</table>-->
+                          <!--<div class="panel-footer no-padding">-->
+                            <!--<a (click)="showPic(entry.key);lgModal.show()" class="btn bg-color-greenbrigh txt-color-white btn-block" role="button">-->
+                              <!--查看更多数据-->
+                            <!--</a>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</sa-widget>-->
+                  <!--</article>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div class="row" *ngIf="products1['data'] && products1['data'][0] && is_show_products">-->
+                <!--<div *ngFor="let entry of (products1['data'][0]['info'] | keys)">-->
+                  <!--<article class="col-sm-3" *ngIf="entry.value.value[0]">-->
+                    <!--<sa-widget  [editbutton]="false" [deletebutton]="false" color="darken">-->
+                      <!--<header>-->
+                        <!--<h2 *ngIf="entry.key == 'ch4'">甲烷(ch4)</h2>-->
+                        <!--<h2 *ngIf="entry.key == 'co'">一氧化碳(co)</h2>-->
+                        <!--<h2 *ngIf="entry.key == 'co2'">二氧化碳(co2)</h2>-->
+                        <!--<h2 *ngIf="entry.key == 'o2'">氧气(o2)</h2>-->
+                        <!--<h2 *ngIf="entry.key == 'tem'">温度(tem)</h2>-->
+                        <!--<h2 *ngIf="entry.key == 'humi'">湿度(humi)</h2>-->
+                        <!--<h2 *ngIf="entry.key == 'eeg'">脑电(eeg)</h2>-->
+                        <!--<h2 *ngIf="entry.key == 'ecg'">心率(ecg)</h2>-->
+                        <!--<h2 *ngIf="entry.key == 'spo2h'">血氧(spo2h)</h2>-->
+                      <!--</header>-->
+                      <!--<div>-->
+                        <!--<div class="widget-body no-padding">-->
+                          <!--<div class="the-price pricing-big">-->
+                            <!--<div class="panel-heading">-->
+                              <!--<h1 class="panel-title font-headline">-->
+                                <!--<span class="txt-color-greenbrigh">{{entry.value.value[0]}}</span>-->
+                                <!--<small class="subscript" >-->
+                                  <!--<sub *ngIf="entry.key == 'ch4' || entry.key == 'co2' || entry.key == 'o2' || entry.key == 'humi'">%</sub>-->
+                                  <!--<sub *ngIf="entry.key == 'co'">PPM</sub>-->
+                                  <!--<sub *ngIf="entry.key == 'tem'">°C</sub>-->
+                                <!--</small>-->
+                              <!--</h1>-->
+                            <!--</div>-->
+                          <!--</div>-->
+                          <!--<table class="table table-hover table-striped  " style="margin: -5px 0;">-->
+                            <!--<thead>-->
+                            <!--<tr>-->
+                              <!--<th>产品ID</th>-->
+                              <!--<th >时间</th>-->
+                              <!--<th class="text-align-center">数据</th>-->
+                            <!--</tr>-->
+                            <!--</thead>-->
+                            <!--<tbody>-->
+                            <!--<tr *ngFor="let val of entry.value.value;let idx1=index" [ngStyle]="{'background-color': entry.value.color[idx1]}">-->
+                              <!--<td>p10017</td>-->
+                              <!--<td>{{ products1['data'][0]['time'][idx1] }}</td>-->
+                              <!--<td class="text-align-center">{{ val }}</td>-->
+                            <!--</tr>-->
+                            <!--</tbody>-->
+                          <!--</table>-->
+                          <!--<div class="panel-footer no-padding">-->
+                            <!--<a (click)="showPic(entry.key);lgModal.show()" class="btn bg-color-greenbrigh txt-color-white btn-block" role="button">-->
+                              <!--查看更多数据-->
+                            <!--</a>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</sa-widget>-->
+                  <!--</article>-->
+                <!--</div>-->
+              <!--</div>-->
+
+
             </div>
+            <!-- end widget content -->
           </div>
+          <!-- end widget div -->
         </sa-widget>
       </article>
-      </div>
+      <!-- END COL -->
     </div>
-      <div class="row" *ngIf="products1['data'] && products1['data'][0] && is_show_products">
-      <div *ngFor="let entry of (products1['data'][0]['info'] | keys)">
-      <article class="col-sm-3" *ngIf="entry.value.value[0]">
-        <sa-widget  [editbutton]="false" [deletebutton]="false" color="darken">
-          <header>
-            <h2 *ngIf="entry.key == 'ch4'">甲烷(ch4)</h2>
-            <h2 *ngIf="entry.key == 'co'">一氧化碳(co)</h2>
-            <h2 *ngIf="entry.key == 'co2'">二氧化碳(co2)</h2>
-            <h2 *ngIf="entry.key == 'o2'">氧气(o2)</h2>
-            <h2 *ngIf="entry.key == 'tem'">温度(tem)</h2>
-            <h2 *ngIf="entry.key == 'humi'">湿度(humi)</h2>
-            <h2 *ngIf="entry.key == 'eeg'">脑电(eeg)</h2>
-            <h2 *ngIf="entry.key == 'ecg'">心率(ecg)</h2>
-            <h2 *ngIf="entry.key == 'spo2h'">血氧(spo2h)</h2>
-          </header>
-          <div>
-            <div class="widget-body no-padding">
-              <div class="the-price pricing-big">
-                <div class="panel-heading">
-                  <h1 class="panel-title font-headline">
-                    <span class="txt-color-greenbrigh">{{entry.value.value[0]}}</span>
-                    <small class="subscript" >
-                      <sub *ngIf="entry.key == 'ch4' || entry.key == 'co2' || entry.key == 'o2' || entry.key == 'humi'">%</sub>
-                      <sub *ngIf="entry.key == 'co'">PPM</sub>
-                      <sub *ngIf="entry.key == 'tem'">°C</sub>
-                    </small>
-                  </h1>
-                </div>
-              </div>
-              <table class="table table-hover table-striped  " style="margin: -5px 0;">
-                <thead>
-                <tr>
-                  <th>产品ID</th>
-                  <th >时间</th>
-                  <th class="text-align-center">数据</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let val of entry.value.value;let idx1=index" [ngStyle]="{'background-color': entry.value.color[idx1]}">
-                  <td>p10017</td>
-                  <td>{{ products1['data'][0]['time'][idx1] }}</td>
-                  <td class="text-align-center">{{ val }}</td>
-                </tr>
-                </tbody>
-              </table>
-              <div class="panel-footer no-padding">
-                <a (click)="showPic(entry.key);lgModal.show()" class="btn bg-color-greenbrigh txt-color-white btn-block" role="button">
-                  查看更多数据
-                </a>
-              </div>
-            </div>
-          </div>
-        </sa-widget>
-      </article>
-      </div>
-    </div>
+
+
+
   </sa-widgets-grid>
-  <div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  <div bsModal #lgModal="bs-modal" class="modal fade  bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
        aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
+          <h4 class="modal-title">数据对比图</h4>
           <button type="button" class="close" (click)="ngOnClose();lgModal.hide()" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h4 class="modal-title">数据对比图</h4>
+
         </div>
         <div class="modal-body">
           <div class="row">
             <div class="col-sm-12">
               <div class="form-group">
-                <button class="btn btn-primary"  (click)="showDayData('new',0)">{{showMetric}}实时数据</button>
-                <button class="btn btn-primary"  (click)="showDayData('day',2)">日平均</button>
+                <button class="btn btn-primary "  (click)="showDayData('new',0)">{{showMetric}}实时数据</button>
+                <button class="btn btn-primary ml-2"  (click)="showDayData('day',2)">日平均</button>
                 </div>
             </div>
           </div>
-        </div>
 
-        <div class="row text-align-center" *ngIf="!chartOption_">
-          <img  src="assets/img/select2-spinner.gif" >
-          <h4 class="txt-color-darken" >加载中</h4>
-        </div>
-        <div class="modal-body" [style.display]="is_show_2">
-          <div class="row">
+          <div class="row text-align-center" *ngIf="!chartOption_">
+            <img  src="assets/img/select2-spinner.gif" >
+            <h4 class="txt-color-darken" >加载中</h4>
+          </div>
+
+          <div class="row"  [style.display]="is_show_2">
             <div class="col-md-12">
               <div echarts [options]="chartOption_" class="demo-chart" ></div>
             </div>
           </div>
-        </div>
 
-        <div class="row text-align-center" *ngIf="!chartOption_day" [style.display]="is_show_1">
-          <img  src="assets/img/select2-spinner.gif" >
-          <h4 class="txt-color-darken" >加载中</h4>
-        </div>
-        <div class="modal-body" *ngIf="chartOption_day" [style.display]="is_show_1">
+          <div class="row text-align-center" *ngIf="!chartOption_day" [style.display]="is_show_1">
+            <img  src="assets/img/select2-spinner.gif" >
+            <h4 class="txt-color-darken" >加载中</h4>
+          </div>
 
-          <div class="row">
+          <div class="row"  *ngIf="chartOption_day" [style.display]="is_show_1">
             <div class="col-md-12">
               <div echarts [options]="chartOption_day" class="demo-chart" ></div>
             </div>
           </div>
+
         </div>
 
         <div class="modal-footer">
@@ -179,10 +305,16 @@
   <!--加载-->
   <div class="modal-backdrop modal-dialog-head fade in" *ngIf="! (products['data'] && products['data'][0] && products1['data'] && products1['data'][0] && is_show_products)">
     <div class="modal-dialog modal-dialog-loading">
-      <div class="row">
-        <img  src="assets/img/loading3.gif" >
-        <h4 class="txt-color-white" >加载中</h4>
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="row">
+            <img  src="assets/img/loading3.gif" >
+            <h4 class="txt-color-white" >加载中</h4>
+          </div>
+        </div>
+
       </div>
+
     </div>
 
   </div>

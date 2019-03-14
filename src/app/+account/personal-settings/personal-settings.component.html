@@ -11,33 +11,30 @@
           <div>
             <!-- widget content -->
             <div class="widget-body">
-              <div class="tabs-left">
-                <ul class="nav nav-tabs tabs-left personal-lb" id="demo-pill-nav">
-                  <li [class.active]="state.tabs.demo2=='tab-r1'" class="active">
-                    <a (click)="state.tabs.demo2 = 'tab-r1'" class="pd-20-10"><!--<span class="badge bg-color-blue txt-color-white">12</span>-->
-                      个人信息 </a>
-                  </li>
-                  <li [class.active]="state.tabs.demo2=='tab-r2'">
-                    <a (click)="state.tabs.demo2 = 'tab-r2'" class="pd-20-10"><!--<span
-                            class="badge bg-color-blueDark txt-color-white">3</span>--> 修改密码</a>
-                  </li>
-                  <li [class.active]="state.tabs.demo2=='tab-r3'">
-                    <a (click)="state.tabs.demo2 = 'tab-r3'" class="pd-20-10"><!--<span
-                            class="badge bg-color-greenLight txt-color-white">0</span>--> 账号绑定</a>
-                  </li>
-                </ul>
-                <tabset>
-                  <tab [active]="state.tabs.demo2 == 'tab-r1'" class="personal-l">
-                    <app-account-personal [fromFatherValue]="userInfo" [rollback_url]="rollback_url" [menu_id]="menu_id" [permissions]="permissions"></app-account-personal>
-                  </tab>
-                  <tab [active]="state.tabs.demo2 == 'tab-r2'" class="personal-l">
-                    <app-account-password [fromFatherValue]="userInfo" [rollback_url]="rollback_url" [menu_id]="menu_id" [permissions]="permissions"></app-account-password>
-                  </tab>
-                  <tab [active]="state.tabs.demo2 == 'tab-r3'" class="personal-l">
-                    <app-account-binding [fromFatherValue]="userInfo" [rollback_url]="rollback_url" [menu_id]="menu_id" [permissions]="permissions"></app-account-binding>
-                  </tab>
-                </tabset>
+
+              <div class="row">
+                <div class="col-3">
+                  <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">个人信息</a>
+                    <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">修改密码</a>
+                    <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">账号绑定</a>
+                  </div>
+                </div>
+                <div class="col-9">
+                  <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                      <app-account-personal [fromFatherValue]="userInfo" [rollback_url]="rollback_url" [menu_id]="menu_id" [permissions]="permissions"></app-account-personal>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                      <app-account-password [fromFatherValue]="userInfo" [rollback_url]="rollback_url" [menu_id]="menu_id" [permissions]="permissions"></app-account-password>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                      <app-account-binding [fromFatherValue]="userInfo" [rollback_url]="rollback_url" [menu_id]="menu_id" [permissions]="permissions"></app-account-binding>
+                    </div>
+                  </div>
+                </div>
               </div>
+
             </div>
             <!-- end widget content -->
           </div>

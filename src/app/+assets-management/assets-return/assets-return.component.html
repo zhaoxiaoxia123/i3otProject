@@ -14,48 +14,42 @@
 
           <div>
             <div class="widget-body no-padding" >
-              <div  class="row">
-                <article  class="col-sm-12">
-                  <div class="navbar navbar-default">
-                    <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate=""  >
-                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'add')">
-                        <a class="btn btn-success btn-sm" (click)="detailAssets('add');">
-                          <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
+              <article>
+                <div class="navbar navbar-default">
+                  <form  class="navbar-form " novalidate="" role="search" >
+                    <div class="btn-group" *ngIf="isPermission(menu_id,'add')">
+                      <button type="button" class="btn btn-primary"   (click)="detailAssets('add');"><span class="fa-fw fa fa-plus  mr-5"></span>添加</button>
+                    </div>
+                    <div class="btn-group"  *ngIf="isPermission(menu_id,'edit')">
+                      <button type="button"   [ngClass]="{'btn btn-warning':true,'not-click':isStatus == 0}"  (click)="detailAssets('edit')"><span class="fa-fw fa fa-pencil mr-5"></span>修改</button>
+                    </div>
+                    <div class="btn-group"  *ngIf="isPermission(menu_id,'delete')">
+                      <button type="button"  [ngClass]="{'btn btn-danger':true,'not-click':isStatus == 0}"  (click)="deleteAssets('id')"><span class="fa-fw fa  fa-trash-o mr-5"></span>删除</button>
+                    </div>
+                    <div class="btn-group"   *ngIf="isPermission(menu_id,'detail')">
+                      <button type="button"  [ngClass]="{'btn btn-success':true,'not-click':isStatus == 0}"  (click)="detailAssets('detail')"><span class="fa-fw fa fa-list-alt mr-5"></span>详情</button>
+                    </div>
+                    <div class="btn-group"   *ngIf="isPermission(menu_id,'delete')">
+                      <button type="button" class="btn btn-secondary"  (click)="showAllCheck()" ><span class="fa-fw fa fa-th-large mr-5"></span>批处理</button>
+                      <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
+                        <span class="sr-only"></span>
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item"  (click)="deleteAssets('all')">批量删除</a>
                       </div>
-                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'edit')">
-                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailAssets('edit')">
-                          <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
-                      </div>
-                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'delete')">
-                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="deleteAssets('id')">
-                          <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
-                      </div>
-                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'detail')">
-                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailAssets('detail')">
-                          <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
-                      </div>
-                      <div class="form-group btn-group pdlr-4" *ngIf="isPermission(menu_id,'delete')">
-                        <a class="btn default-btn btn-sm dropdown-toggle" (click)="showAllCheck()" data-toggle="dropdown">
-                          <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a (click)="deleteAssets('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
-                        </ul>
-                      </div>
-                    </form>
-                    <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-                      <div class="form-group pdlr-4">
-                          <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" [(ngModel)]="keyword" name="keyword" placeholder="请输入搜索内容" type="text">
-                      </div>
-                      <div class="form-actions pdlr-4">
-                        <button class="btn btn-default" type="button" (click)="getAssetsList(1,0)">
-                          <i  class="glyphicon glyphicon-search"></i>
-                          搜索
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </article>
-              </div>
+                    </div>
+                  </form>
+                  <form  class="navbar-form" novalidate="" role="search" >
+                    <div class="btn-group">
+                      <input type="text" class="form-control"  maxlength="15" [(ngModel)]="keyword" name="keyword" placeholder="请输入搜索内容">
+                    </div>
+                    <div class="btn-group">
+                      <button type="button" class="btn default-btn"  (click)="getAssetsList(1,0)">搜索</button>
+                    </div>
+
+                  </form>
+                </div>
+              </article>
               <div style="padding:0;" class="height-overflow">
                 <div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-scrolling">
                   <table class="table table-striped   smart-form table-height-20">
@@ -123,20 +117,20 @@
                   </table>
                 </div>
               </div>
+
               <!-- 底部-（分页部分）-->
-              <div class="dt-toolbar">
-                <div class="col-xs-12 col-sm-6">
-                  <span>共{{assetsList.result?.assetsList?.total}}条</span>
-                </div>
-                <div class="hidden-xs right">
-                  <ul class="pagination pagination-sm">
-                    <li *ngFor="let p of assetsList?.result?.page" class="{{p.class}}">
-                      <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
-                      <a *ngIf="p.method==''">{{p.text}}</a>
-                    </li>
-                  </ul>
-                </div>
+              <div class="footer-size flex-justify-end">
+                <ul class="pagination" >
+                  <li  *ngFor="let p of assetsList?.result?.page" class="{{p.class}}">
+                    <a class="page-link" (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+                    <a class="page-link"  *ngIf="p.method==''">{{p.text}}</a>
+                  </li>
+                  <li class="page-item disabled">
+                    <a  class="page-link" disabled>共{{assetsList.result?.assetsList?.total}}条</a>
+                  </li>
+                </ul>
               </div>
+
             </div>
           </div>
         </sa-widget>
@@ -145,83 +139,73 @@
   </sa-widgets-grid>
 </div>
 
-<div class="modal fade" bsModal #addModal="bs-modal">
-  <div class="modal-dialog">
+<div class="modal fade bd-example-modal-xl" bsModal #addModal="bs-modal">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
-        <!-- 关闭按钮 -->
-        <button type="button" class="close" (click)="clear_('add')">×</button>
         <!-- 标题 -->
         <h3 class="modal-title txt-color-blue" *ngIf="editStatusAssetsId == 0"><i class="fa-fw fa fa-plus"></i>添加资产归还</h3>
-        <h3 class="modal-title  color-yellow" *ngIf="editStatusAssetsId != 0"><i class="glyphicon glyphicon-pencil"></i>修改资产归还</h3>
+        <h3 class="modal-title  color-yellow" *ngIf="editStatusAssetsId != 0"><i class="fa-fw fa fa-pencil"></i>修改资产归还</h3>
+        <!-- 关闭按钮 -->
+        <button type="button" class="close" (click)="clear_('add')">×</button>
       </div>
       <div class="modal-body  height-overflow-380">
         <div class="row mt-20">
-          <form   class="smart-form ">
+          <form   class="form-distance ">
             <fieldset>
-              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <section>
+              <div class="form-row">
+                <div class="form-group col-sm-6">
                   <label class="label txt-color-blue">资产<span class="asterisk-color">*</span></label>
-                  <label class="select" *ngIf="editStatusAssetsId == 0">
-                    <select name="assets_id" [(ngModel)]="assets_id">
-                      <option value="0">--请选择--</option>
-                      <option value="{{a.assets_id}}" [selected]="assetsInfo?.result?.assets_id == a.assets_id" *ngFor="let a of assetsDefault?.result?.assetsList">{{a.assets_name}}</option>
-                    </select>
-                    <i></i>
-                  </label>
-                  <label class="input" *ngIf="editStatusAssetsId != 0">
-                    <input type="text" disabled="disabled" name="assets_name" [(ngModel)]="assets_name">
-                  </label>
-                </section>
-              </div>
-              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <section class="mb-6">
+                  <select  class="form-control"  name="assets_id"  *ngIf="editStatusAssetsId == 0"  [(ngModel)]="assets_id">
+                    <option value="0">--请选择--</option>
+                    <option value="{{a.assets_id}}" [selected]="assetsInfo?.result?.assets_id == a.assets_id" *ngFor="let a of assetsDefault?.result?.assetsList">{{a.assets_name}}</option>
+                  </select>
+                  <input  class="form-control"  type="text" disabled="disabled" name="assets_name" *ngIf="editStatusAssetsId != 0" [(ngModel)]="assets_name">
+                </div>
+
+                <div class="form-group col-sm-6">
                   <label class="label txt-color-blue">收回日期<span class="asterisk-color">*</span></label>
-                  <label class="input">
-                    <input type="date" name="assets_date" [(ngModel)]="assets_date">
-                  </label>
-                </section>
-              </div>
-              <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <section>
+                  <input type="date" name="assets_date" [(ngModel)]="assets_date" class="form-control" >
+                </div>
+
+                <div class="form-group col-sm-12">
                   <label class="label">存放地点</label>
-                  <label class="input">
-                    <input type="text" name="assets_address" [(ngModel)]="assets_address">
-                  </label>
-                </section>
-              </div>
-              <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <section>
+                  <input type="text" class="form-control"  name="assets_address" [(ngModel)]="assets_address">
+                </div>
+
+                <div class="form-group col-sm-12">
                   <label class="label">说明</label>
-                  <label class="textarea textarea-resizable">
-                    <textarea class="custom-scroll" rows="2" name="assets_use_note" [(ngModel)]="assets_use_note"></textarea>
-                  </label>
-                </section>
+                  <textarea class="form-control"   rows="2" name="assets_use_note" [(ngModel)]="assets_use_note"></textarea>
+                </div>
+
+
               </div>
+
             </fieldset>
           </form>
         </div>
       </div>
       <div class="modal-footer">
-        <button *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')" type="button" class="btn btn-primary" (click)="onSubmit(1)">保存</button>
-        <button *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')" class="btn btn-success" type="button" (click)="onSubmit(2)">保存并新增</button>
-        <button type="button" class="btn btn-default" (click)="clear_('add')">返回</button>
+        <button *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')" type="button" class="btn btn-primary  ml-2" (click)="onSubmit(1)">保存</button>
+        <button *ngIf="isPermission(menu_id,'add') || isPermission(menu_id,'edit')" class="btn btn-success  ml-2" type="button" (click)="onSubmit(2)">保存并新增</button>
+        <button type="button" class="btn btn-default  ml-2" (click)="clear_('add')">返回</button>
       </div>
     </div>
   </div>
 </div>
 
-<div class="modal fade" bsModal #detailModal="bs-modal">
-  <div class="modal-dialog">
+<div class="modal fade bd-example-modal-xl" bsModal #detailModal="bs-modal">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
+        <!-- 标题 -->
+        <h3 class="modal-title" data-ng-bind='results.title'></h3>
+        <h4 class="modal-title">{{assetsInfo?.result?.assets_name}}-{{assetsInfo?.result?.assets_number}}</h4>
         <!-- 关闭按钮 -->
         <button type="button" class="close" (click)="clear_('detail')">
           ×
         </button>
-        <!-- 标题 -->
-        <h3 class="modal-title" data-ng-bind='results.title'></h3>
-        <h4 class="modal-title">{{assetsInfo?.result?.assets_name}}-{{assetsInfo?.result?.assets_number}}</h4>
+
       </div>
       <div class="modal-body height-overflow-380">
         <div class="row ">

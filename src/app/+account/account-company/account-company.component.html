@@ -3,14 +3,14 @@
     <div class="col-sm-12 col-md-12 col-lg-12">
       <div class="well well-light well-sm no-margin no-padding">
         <div class="row margin-bottom-40">
-          <div class="col-sm-12">
+          <div class="col-12">
             <div class="air air-right pd-20 text-align-center">
               <!--<a href="" class="btn txt-color-white bg-color-teal btn-sm"><i class="fa fa-check"></i> 关注</a>&#xA0;-->
               <a *ngIf="isPermission(menu_id,'edit')" (click)="editCompany('edit')" class="btn txt-color-white bg-color-lightBlue btn-sm"><!--<i class="fa fa-link"></i>--> 编辑公司信息</a>
             </div>
             <h1 class="title-h1">{{customerInfo?.result?.customerInfo?.c_name}}<a class="padding-left-5" href="">({{customerInfo?.result?.customerInfo?.c_number}})</a></h1><hr />
           </div>
-          <div class="col-xs-8" (click)="editCompany('edit')">
+          <div class="col-8" (click)="editCompany('edit')">
               <div class="editor padding-left-20 line-2">
                 <h4 class="no-margin size-bold">{{customerInfo?.result?.customerInfo?.c_abbreviation}}</h4>
                 <p>{{customerInfo?.result?.customerInfo?.c_notes}}</p>
@@ -31,7 +31,7 @@
                 </div>
               </div>
           </div>
-          <div class="col-xs-4">
+          <div class="col">
             <div class="text-align-center " >
               <span class="user-image"  >
               <img  alt="" style="width: 160px; height: 160px;" src="assets/img/default_user.png"  >
@@ -46,14 +46,14 @@
   <!-- end row -->
 </div>
 
-<div class="modal fade" bsModal #lgModal="bs-modal">
-  <div class="modal-dialog">
+<div class="modal fade bd-example-modal-xl" bsModal #lgModal="bs-modal">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
-        <!-- 关闭按钮 -->
-        <button type="button" class="close" (click)="lgModal.hide()">×</button>
         <!-- 标题 -->
         <h3 class="modal-title" data-ng-bind='results.title'>公司信息</h3>
+        <!-- 关闭按钮 -->
+        <button type="button" class="close" (click)="lgModal.hide()">×</button>
       </div>
       <div class="modal-body">
         <sa-widget [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
@@ -67,138 +67,95 @@
               </li>
             </ul>
           </header>
-          <div class="height-overflow-380">
-            <div class="widget-body mt-20">
+          <div class="widget-body">
+            <div class="row">
               <tabset>
                 <tab [active]="state.tabs.demo3 == 'hr1'">
-                  <tabset >
-                    <tab [active]="state.tabs.demo3 == 'hr1'">
-                      <div class="row">
-                        <form class="smart-form " [formGroup]="formModel">
-                          <fieldset>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section>
-                                <label class="label">公司编码</label>
-                                <label class="input">
-                                  <input type="text" placeholder="自动生成" disabled="disabled" name="c_number" formControlName="c_number">
-                                </label>
-                              </section>
-                            </div>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section>
-                                <label class="label txt-color-blue">公司名称<span class="asterisk-color">*</span></label>
-                                <label class="input">
-                                  <input type="text" name="c_name" formControlName="c_name">
-                                </label>
-                              </section>
-                            </div>
-                            <div *ngIf="medical_c_id == c_id" class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section>
-                                <label class="label">识别码</label>
-                                <label class="input">
-                                  <input type="text" placeholder="公司简称" name="c_abbreviation" formControlName="c_abbreviation">
-                                </label>
-                              </section>
-                            </div>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section>
-                                <label class="label txt-color-blue">公司网址<span class="asterisk-color">*</span></label>
-                                <label class="input">
-                                  <input type="text" name="c_link" formControlName="c_link">
-                                </label>
-                              </section>
-                            </div>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <div class="margin-left-15" >
+                  <form class="form-distance"  [formGroup]="formModel">
+                    <fieldset>
+                      <div class="form-row">
+                        <div class="form-group col-sm-4">
+                          <label class="label">公司编码</label>
+                          <input type="text" class="form-control"  placeholder="自动生成" disabled="disabled" name="c_number" formControlName="c_number" >
+                        </div>
 
-                                <section class="col col-4">
-                                  <label class="label txt-color-blue">所在城市<span class="asterisk-color">*</span></label>
-                                  <label class="select ">
-                                    <select name="c_city1"  formControlName="c_city1" [(ngModel)]="c_city1_default" (change)="getCity()">
-                                      <option value="0">--请选择省--</option>
-                                      <option *ngFor="let p of province" [selected]="customerInfo?.result?.customerInfo?.c_city1 == p" value="{{p}}">{{p}}</option>
-                                    </select>
-                                    <i></i>
-                                  </label>
-                                </section>
-                                <section class="col col-8">
-                                  <label class="select margin-top-24">
-                                    <select name="c_city2"  formControlName="c_city2" [(ngModel)]="c_city2_default">
-                                      <option value="0">--请选择市--</option>
-                                      <option *ngFor="let c of city" [selected]="customerInfo?.result?.customerInfo?.c_city2 == c" value="{{c}}">{{c}}</option>
-                                    </select> <i></i> </label>
-                                </section>
-                              </div>
-                            </div>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section>
-                                <label class="label">详细地址</label>
-                                <label class="input">
-                                  <input type="text" name="c_address" formControlName="c_address">
-                                </label>
-                              </section>
-                            </div>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section>
-                                <label class="label ">行业领域</label>
-                                <label class="select">
-                                  <select name="c_industry_category" formControlName="c_industry_category" [(ngModel)]="industry_category_default">
-                                    <option *ngFor="let c of customerInfo?.result?.categoryInfo" [selected]="customerInfo?.result?.customerInfo?.c_industry_category == c.category_id || this.cid == 0" value="{{c.category_id}}">{{c.category_desc}}</option>
-                                  </select>
-                                  <i></i> </label>
-                              </section>
-                            </div>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section>
-                                <label class="label"  *ngIf="medical_c_id != cid">公司规模</label>
-                                <label class="label"  *ngIf="medical_c_id == cid">经验范围</label>
-                                <label class="input">
-                                  <input type="text" name="c_company_size" formControlName="c_company_size">
-                                </label>
-                              </section>
-                            </div>
-                            <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                              <section>
-                                <label class="label">说明</label>
-                                <label class="textarea textarea-resizable">
-                                  <textarea class="custom-scroll" rows="2" name="c_notes" formControlName="c_notes"></textarea>
-                                </label>
-                              </section>
-                            </div>
-                          </fieldset>
-                        </form>
+                        <div class="form-group col-sm-4">
+                          <label class="label txt-color-blue">公司名称<span class="asterisk-color">*</span></label>
+                          <input type="text" class="form-control"  name="c_name" formControlName="c_name" >
+                        </div>
+
+                        <div *ngIf="medical_c_id == c_id" class="form-group col-sm-4">
+                          <label class="label">识别码</label>
+                          <input type="text" class="form-control"  placeholder="公司简称" name="c_abbreviation" formControlName="c_abbreviation" >
+                        </div>
+
+                        <div class="form-group col-sm-4">
+                          <label class="label txt-color-blue">公司网址<span class="asterisk-color">*</span></label>
+                          <input type="text" class="form-control"  name="c_link" formControlName="c_link" >
+                        </div>
+
+                        <div class="form-group col-sm-4">
+                          <label class="label txt-color-blue">所在城市<span class="asterisk-color">*</span></label>
+                          <div class="input-group">
+                            <select   class="form-control"  name="c_city1"  formControlName="c_city1" [(ngModel)]="c_city1_default" (change)="getCity()">
+                              <option value="0">--请选择省--</option>
+                              <option *ngFor="let p of province" [selected]="customerInfo?.result?.customerInfo?.c_city1 == p" value="{{p}}">{{p}}</option>
+                            </select>
+
+                            <select  class="form-control" name="c_city2"  formControlName="c_city2" [(ngModel)]="c_city2_default">
+                              <option value="0">--请选择市--</option>
+                              <option *ngFor="let c of city" [selected]="customerInfo?.result?.customerInfo?.c_city2 == c" value="{{c}}">{{c}}</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="form-group col-sm-4">
+                          <label class="label">详细地址</label>
+                          <input type="text" class="form-control"   name="c_address" formControlName="c_address">
+                        </div>
+
+                        <div class="form-group col-sm-4">
+                          <label class="label ">行业领域</label>
+                          <select  class="form-control"  name="c_industry_category" formControlName="c_industry_category" [(ngModel)]="industry_category_default">
+                            <option *ngFor="let c of customerInfo?.result?.categoryInfo" [selected]="customerInfo?.result?.customerInfo?.c_industry_category == c.category_id || this.cid == 0" value="{{c.category_id}}">{{c.category_desc}}</option>
+                          </select>
+                        </div>
+
+                        <div class="form-group col-sm-4">
+                          <label class="label"  *ngIf="medical_c_id != cid">公司规模</label>
+                          <label class="label"  *ngIf="medical_c_id == cid">经验范围</label>
+                          <input type="text" class="form-control"  name="c_company_size" formControlName="c_company_size" >
+                        </div>
+
+                        <div class="form-group col-sm-12">
+                          <label class="label">说明</label>
+                          <textarea class="form-control"  rows="2" name="c_notes" formControlName="c_notes"></textarea>
+                        </div>
+
 
                       </div>
-                    </tab>
-                  </tabset>
+                    </fieldset>
+                  </form>
                 </tab>
                 <tab [active]="state.tabs.demo3 == 'hr2'">
-                  <tabset >
-                    <tab [active]="state.tabs.demo3 == 'hr2'">
-                      <div class="row">
-                        <form class="smart-form " [formGroup]="formModel1">
-                          <fieldset>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section>
-                                <label class="label">联系电话</label>
-                                <label class="input">
-                                  <input type="text" name="c_phone" formControlName="c_phone">
-                                </label>
-                              </section>
-                            </div>
-                            <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                              <section>
-                                <label class="label">Email</label>
-                                <label class="input">
-                                  <input type="text" name="c_email" formControlName="c_email">
-                                </label>
-                              </section>
-                            </div>
-                          </fieldset>
-                        </form>
+
+                  <form class="form-distance"   [formGroup]="formModel1">
+                    <fieldset>
+                      <div class="form-row">
+                        <div class="form-group col-sm-6">
+                          <label class="label">联系电话</label>
+                          <input type="text" class="form-control"  name="c_phone" formControlName="c_phone" >
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                          <label class="label">Email</label>
+                          <input type="text" class="form-control"  name="c_email" formControlName="c_email">
+                        </div>
+
                       </div>
-                    </tab>
-                  </tabset>
+                    </fieldset>
+                  </form>
+
                 </tab>
               </tabset>
             </div>

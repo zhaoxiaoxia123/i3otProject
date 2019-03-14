@@ -29,16 +29,16 @@
 
                       <div>
                         <div class="widget-body no-padding">
-                          <alert type="info" class="no-margin" >
+                          <div type="info" class="no-margin alert alert-primary" >
                             <i class="fa-fw fa fa-plus"></i>
                             添加规格/参数
-                          </alert>
-                          <alert type="info" class="no-margin">
-                            <i class="glyphicon glyphicon-pencil"></i>
+                          </div>
+                          <div type="info" class="no-margin alert alert-primary">
+                            <i class="fa-fw fa fa-pencil"></i>
                             修改规格/参数
-                          </alert>
+                          </div>
                           <!--[formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate-->
-                          <div  class="mt-10">
+                          <div  class="">
                             <form class="smart-form ">
                               <input  type="hidden" name="edit_key"  [(ngModel)]="edit_key">
 
@@ -81,7 +81,7 @@
 
                               </fieldset>
                               <footer>
-                                <button (click)="onSubmit()"  type="button" class="btn btn-primary">
+                                <button (click)="onSubmit()"  type="button" class="btn btn-primary  ml-2">
                                   保存
                                 </button>
 
@@ -106,10 +106,10 @@
 
                       <div>
                         <div class="widget-body no-padding">
-                          <alert type="info" class="no-margin" >
+                          <div type="info" class="no-margin alert alert-primary" >
                             <i class="fa-fw fa fa-table"></i>
                             规格/参数
-                          </alert>
+                          </div>
                           <!--form包含的内容替换成上面的-->
                           <form class="smart-form ">
                             <fieldset>
@@ -133,7 +133,7 @@
                           <div  class="row mt-10">
                             <article  class="col-sm-12">
                               <div class="navbar navbar-default">
-                                  <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
+                                  <form  class="navbar-form navbar-left" novalidate="" role="search" >
 
                                      <div class="form-group pdlr-4">
                                        <select class="form-control">
@@ -145,7 +145,7 @@
                                      </div>
                                     <div class="form-group pdlr-4">
                                       <a class="btn default-btn btn-sm" >
-                                        <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
+                                        <span class="fa-fw fa fa-pencil mr-5 color-yellow"></span>修改</a>
                                     </div>
                                     <div class="form-group pdlr-4">
                                       <a class="btn default-btn btn-sm" >
@@ -153,7 +153,7 @@
                                     </div>
                                     <div class="form-group pdlr-4">
                                       <a class="btn default-btn btn-sm"  data-toggle="modal" data-target="#particulars" >
-                                        <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
+                                        <span class="fa-fw fa fa-list-alt mr-5 color-green"></span>详情</a>
                                     </div>
                                     <div class="form-group btn-group pdlr-4">
                                       <a class="btn default-btn btn-sm dropdown-toggle"  data-toggle="dropdown">
@@ -198,7 +198,7 @@
                                   <td>{{cl.value.specification_value}}</td>
                                   <!--<td>
                                     <div *ngIf="cid == super_admin_id || select_cid == cid">
-                                      <a class="btn btn-warning btn-xs" (click)="editSpecification(cl.key,cl.value.specification_name,cl.value.specification_value)"><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                      <a class="btn btn-warning btn-xs" (click)="editSpecification(cl.key,cl.value.specification_name,cl.value.specification_value)"><span class="fa-fw fa fa-pencil"></span>修改</a>
                                       <a class="btn btn-danger btn-xs" (click)="deleteSpecification(cl.key)"><span class="glyphicon glyphicon-remove"></span>删除</a>
                                     </div>
                                     <div *ngIf="cid != super_admin_id && select_cid != cid"><a class="btn btn-danger btn-xs">无权操作</a></div>
@@ -244,7 +244,7 @@
                                 <td>{{cl.value.specification_value}}</td>
                                 <td>
                                   <div *ngIf="cid == super_admin_id || select_cid == cid">
-                                    <a class="btn btn-warning btn-xs" (click)="editSpecification(cl.key,cl.value.specification_name,cl.value.specification_value)"><span class="glyphicon glyphicon-pencil"></span>修改</a>
+                                    <a class="btn btn-warning btn-xs" (click)="editSpecification(cl.key,cl.value.specification_name,cl.value.specification_value)"><span class="fa-fw fa fa-pencil"></span>修改</a>
                                     <a class="btn btn-danger btn-xs" (click)="deleteSpecification(cl.key)"><span class="glyphicon glyphicon-remove"></span>删除</a>
                                   </div>
                                   <div *ngIf="cid != super_admin_id && select_cid != cid"><a class="btn btn-danger btn-xs">无权操作</a></div>

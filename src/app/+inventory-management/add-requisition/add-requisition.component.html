@@ -2,23 +2,23 @@
   <sa-widgets-grid>
     <div class="row">
       <article class="col-sm-12 ">
-        <sa-widget [editbutton]="false" [deletebutton]="false" >
+        <sa-widget  [editbutton]="false" [deletebutton]="false" [colorbutton]="false"  >
           <header *ngIf="stock_allot_id == 0">
             <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
             <h2 >添加调拨单</h2>
           </header>
           <header *ngIf="stock_allot_id != 0 && isDetail!='detail'">
-            <span class="widget-icon"> <i class="glyphicon glyphicon-pencil"></i> </span>
+            <span class="widget-icon"> <i class="fa-fw fa fa-pencil"></i> </span>
             <h2 >修改调拨单 </h2>
           </header>
           <header *ngIf="isDetail=='detail'">
-            <span class="widget-icon"> <i class="glyphicon glyphicon-zoom-in"></i> </span>
+            <span class="widget-icon"> <i class="fa-fw fa fa-list-alt"></i> </span>
             <h2 >详情 </h2>
           </header>
           <div>
             <!--小部件内容-->
             <div class="widget-body no-padding">
-              <form id="smart-form-register" class="smart-form" [formGroup]="formModel"><!--- (ngSubmit)="onSubmit()"--->
+              <form id="smart-form-register" class="form-distance" [formGroup]="formModel"><!--- (ngSubmit)="onSubmit()"--->
                 <fieldset>
                   <legend>基本信息</legend>
                   <input type="hidden" name="stock_allot_id" formControlName="stock_allot_id">
@@ -30,153 +30,91 @@
                     <!--作废-->
                     <img src="assets/img/chapter4.png" *ngIf="stockallotInfo?.result?.stock_allot_status == 'cancel'">
                   </div>
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <section>
+                  <div class="form-row">
+
+                    <div class="form-group col-sm-4">
                       <label class="label ">调拨方式</label>
-                      <div class="inline-group">
-                        <label class="radio">
-                          <input *ngIf="isDetail=='detail'" disabled="disabled" type="radio" [checked]="stockallotInfo.result?.stock_allot_type == 1 || stock_allot_id == 0" [value]="1" name="stock_allot_type" formControlName="stock_allot_type">
-                          <input *ngIf="isDetail!='detail'" type="radio" [checked]="stockallotInfo.result?.stock_allot_type == 1 || stock_allot_id == 0" [value]="1" name="stock_allot_type" formControlName="stock_allot_type">
-                          <i></i>等价调拨</label>
-                        <label class="radio">
-                          <input *ngIf="isDetail=='detail'" disabled="disabled" type="radio" [checked]="stockallotInfo.result?.stock_allot_type == 2" [value]="2" name="stock_allot_type" formControlName="stock_allot_type">
-                          <input *ngIf="isDetail!='detail'" type="radio" [checked]="stockallotInfo.result?.stock_allot_type == 2" [value]="2" name="stock_allot_type" formControlName="stock_allot_type">
-                          <i></i>差价调拨</label>
+                      <div class="input-group  mr-sm-2">
+                        <div class="custom-control custom-radio custom-control-inline">
+                          <input class="custom-control-input" *ngIf="isDetail=='detail'"   disabled="disabled" type="radio" [checked]="stockallotInfo.result?.stock_allot_type == 1 || stock_allot_id == 0" [value]="1" name="stock_allot_type" formControlName="stock_allot_type">
+                          <input class="custom-control-input" *ngIf="isDetail!='detail'" type="radio" [checked]="stockallotInfo.result?.stock_allot_type == 1 || stock_allot_id == 0" [value]="1" id="gridRadios1"  name="stock_allot_type" formControlName="stock_allot_type">
+                          <label class="custom-control-label"  for="gridRadios1">等价调拨</label></div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                          <input class="custom-control-input" *ngIf="isDetail=='detail'" disabled="disabled" type="radio" [checked]="stockallotInfo.result?.stock_allot_type == 2" [value]="2" name="stock_allot_type"   formControlName="stock_allot_type">
+                          <input  class="custom-control-input" *ngIf="isDetail!='detail'" type="radio" [checked]="stockallotInfo.result?.stock_allot_type == 2" [value]="2" name="stock_allot_type" id="gridRadios2" formControlName="stock_allot_type">
+                          <label class="custom-control-label"  for="gridRadios2">差价调拨</label></div>
                       </div>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <section class="mb-6">
+
+                    </div>
+
+                    <div class="form-group col-sm-4">
                       <label class="label txt-color-blue">单据日期<span class="asterisk-color">*</span></label>
-                      <label  class="input">
-                        <input *ngIf="isDetail=='detail'" disabled="disabled" name="stock_allot_date"  maxlength="20" formControlName="stock_allot_date" placeholder="选择日期" [dpDayPicker]="datePickerConfig" [theme]="'dp-material'" [mode]="'day'" class="form-control ng-binding expire-text-soon"/>
-                        <input *ngIf="isDetail!='detail'" name="stock_allot_date"  maxlength="20" formControlName="stock_allot_date" placeholder="选择日期" [dpDayPicker]="datePickerConfig" [theme]="'dp-material'" [mode]="'day'" class="form-control ng-binding expire-text-soon"/>
-                        <!--<input *ngIf="isDetail=='detail'" disabled="disabled" type="date" name="stock_allot_date" formControlName="stock_allot_date">-->
-                        <!--<input *ngIf="isDetail!='detail'" type="date" name="stock_allot_date" formControlName="stock_allot_date">-->
-                      </label>
-                    </section>
-                  </div>
+                      <input class="form-control" *ngIf="isDetail=='detail'" disabled="disabled" name="stock_allot_date"  maxlength="20" formControlName="stock_allot_date" placeholder="选择日期" [dpDayPicker]="datePickerConfig" [theme]="'dp-material'" [mode]="'day'" class="form-control ng-binding expire-text-soon"/>
+                      <input class="form-control" *ngIf="isDetail!='detail'" name="stock_allot_date"  maxlength="20" formControlName="stock_allot_date" placeholder="选择日期" [dpDayPicker]="datePickerConfig" [theme]="'dp-material'" [mode]="'day'" class="form-control ng-binding expire-text-soon"/>
+                      <!--<input *ngIf="isDetail=='detail'" disabled="disabled" type="date" name="stock_allot_date" formControlName="stock_allot_date">-->
+                      <!--<input *ngIf="isDetail!='detail'" type="date" name="stock_allot_date" formControlName="stock_allot_date">-->
+                    </div>
 
-
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <section>
+                    <div class="form-group col-sm-4">
                       <label class="label txt-color-blue">单据号<span class="asterisk-color">*</span></label>
-                      <label class="input">
-                        <input *ngIf="isDetail=='detail'" disabled="disabled" type="text" placeholder="单据号" name="stock_allot_number" formControlName="stock_allot_number">
-                        <input *ngIf="isDetail!='detail'" type="text" placeholder="单据号" name="stock_allot_number" formControlName="stock_allot_number">
-                      </label>
-                    </section>
-                  </div>
+                      <input  class="form-control"  *ngIf="isDetail=='detail'" disabled="disabled" type="text" placeholder="单据号" name="stock_allot_number" formControlName="stock_allot_number">
+                      <input  class="form-control"  *ngIf="isDetail!='detail'" type="text" placeholder="单据号" name="stock_allot_number" formControlName="stock_allot_number">
+                    </div>
 
-                  <!--<div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">-->
-                    <!--<label class="label">调出仓库</label>-->
-                    <!--<section>-->
-                      <!--<div class="input-group">-->
-                        <!--<label class="select form-control border-0">-->
-                          <!--<select *ngIf="isDetail=='detail'" disabled="disabled" name="out_storehouse_id" formControlName="out_storehouse_id" [(ngModel)]="out_storehouse_id_default" >-->
-                            <!--<option [selected]="stock_allot_id == 0" value="0">&#45;&#45;请选择&#45;&#45;</option>-->
-                            <!--<option *ngFor="let s of stockallotList.result?.storehouse" [selected]="stockallotInfo.result?.out_storehouse_id == s.storehouse_id" value="{{ s.storehouse_id }}">{{s.storehouse_name}}</option>-->
-                          <!--</select>-->
-                          <!--<select *ngIf="isDetail!='detail'" name="out_storehouse_id" formControlName="out_storehouse_id" [(ngModel)]="out_storehouse_id_default">-->
-                            <!--<option [selected]="stock_allot_id == 0" value="0">&#45;&#45;请选择&#45;&#45;</option>-->
-                            <!--<option *ngFor="let s of stockallotList.result?.storehouse" [selected]="stockallotInfo.result?.out_storehouse_id == s.storehouse_id" value="{{ s.storehouse_id }}">{{s.storehouse_name}}</option>-->
-                          <!--</select>-->
-                          <!--<i></i>-->
-                        <!--</label>-->
-                        <!--<div class="input-group-btn">-->
-                          <!--<a  href="http://cn.i3ot.com/#/forms/inventory1/0" (click)="smartModEg1()" target="_blank"  class="btn btn-default btn-sm pb-6" type="button">-->
-                            <!--&lt;!&ndash; <i class="fa fa-plus "></i>&ndash;&gt; 添加-->
-                          <!--</a>-->
-                          <!--<a class="btn btn-default btn-sm pb-6" type="button" ><i class="fa fa-link"></i>-->
-                            <!--刷新-->
-                          <!--</a>-->
-                        <!--</div>-->
-                      <!--</div>-->
-                    <!--</section>-->
-                  <!--</div>-->
-                  <!--<div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">-->
-                    <!--<label class="label">调入仓库</label>-->
-                    <!--<section>-->
-                      <!--<div class="input-group">-->
-                        <!--<label   class="select form-control border-0">-->
-                          <!--<select *ngIf="isDetail=='detail'" disabled="disabled" name="in_storehouse_id" formControlName="in_storehouse_id" [(ngModel)]="in_storehouse_id_default" >-->
-                            <!--<option [selected]="stock_allot_id == 0" value="0">&#45;&#45;请选择&#45;&#45;</option>-->
-                            <!--<option *ngFor="let s of stockallotList.result?.storehouse" [selected]="stockallotInfo.result?.in_storehouse_id == s.storehouse_id" value="{{ s.storehouse_id }}">{{s.storehouse_name}}</option>-->
-                          <!--</select>-->
-                          <!--<select *ngIf="isDetail!='detail'" name="in_storehouse_id" formControlName="in_storehouse_id" [(ngModel)]="in_storehouse_id_default">-->
-                            <!--<option [selected]="stock_allot_id == 0" value="0">&#45;&#45;请选择&#45;&#45;</option>-->
-                            <!--<option *ngFor="let s of stockallotList.result?.storehouse" [selected]="stockallotInfo.result?.in_storehouse_id == s.storehouse_id" value="{{ s.storehouse_id }}">{{s.storehouse_name}}</option>-->
-                          <!--</select><i></i>-->
-                        <!--</label>-->
-                        <!--<div class="input-group-btn">-->
-                          <!--<a  href="http://cn.i3ot.com/#/forms/inventory1/0" (click)="smartModEg1()" target="_blank"  class="btn btn-default btn-sm pb-6" type="button">-->
-                            <!--&lt;!&ndash; <i class="fa fa-plus "></i>&ndash;&gt; 添加-->
-                          <!--</a>-->
-                          <!--<a class="btn btn-default btn-sm pb-6" type="button" ><i class="fa fa-link"></i>-->
-                            <!--刷新-->
-                          <!--</a>-->
-                        <!--</div>-->
-                      <!--</div>-->
-                    <!--</section>-->
-                  <!--</div>-->
+                    <div class="form-group col-sm-4">
+                      <label class="label">经手人</label>
+                      <div class="input-group mb-2 mr-sm-2">
+                        <select class="form-control" *ngIf="isDetail=='detail'" disabled="disabled" name="user_u_id" formControlName="user_u_id" [(ngModel)]="user_u_id_default" (change)="getDepartment($event,1)">
+                          <option [selected]="stock_allot_id == 0" value="0">--请选择--</option>
+                          <option *ngFor="let u of stockallotList.result?.user" [selected]="stockallotInfo.result?.user_u_id == u.id" value="{{ u.id }}">{{u.u_username}}</option>
+                        </select>
+                        <select class="form-control" *ngIf="isDetail!='detail'" name="user_u_id" formControlName="user_u_id" [(ngModel)]="user_u_id_default" (change)="getDepartment($event,1)">
+                          <option [selected]="stock_allot_id == 0" value="0">--请选择--</option>
+                          <option *ngFor="let u of stockallotList.result?.user" [selected]="stockallotInfo.result?.user_u_id == u.id" value="{{ u.id }}">{{u.u_username}}</option>
+                        </select>
 
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <label class="label">经手人</label>
-                    <section>
-                      <div class="input-group">
-                        <label   class="select form-control border-0">
-                          <select *ngIf="isDetail=='detail'" disabled="disabled" name="user_u_id" formControlName="user_u_id" [(ngModel)]="user_u_id_default" (change)="getDepartment($event,1)">
-                            <option [selected]="stock_allot_id == 0" value="0">--请选择--</option>
-                            <option *ngFor="let u of stockallotList.result?.user" [selected]="stockallotInfo.result?.user_u_id == u.id" value="{{ u.id }}">{{u.u_username}}</option>
-                          </select>
-                          <select *ngIf="isDetail!='detail'" name="user_u_id" formControlName="user_u_id" [(ngModel)]="user_u_id_default" (change)="getDepartment($event,1)">
-                            <option [selected]="stock_allot_id == 0" value="0">--请选择--</option>
-                            <option *ngFor="let u of stockallotList.result?.user" [selected]="stockallotInfo.result?.user_u_id == u.id" value="{{ u.id }}">{{u.u_username}}</option>
-                          </select><i></i>
-                        </label>
-                        <div class="input-group-btn">
-                          <a  href="http://cn.i3ot.com/#/forms/employees/0" target="_blank" (click)="smartModEg1()" class="btn btn-default btn-sm pb-6" type="button">
-                            <!-- <i class="fa fa-plus "></i>--> 添加
+                        <div class="input-group-prepend">
+                          <a  href="http://cn.i3ot.com/#/forms/employees/0" target="_blank" (click)="smartModEg1()" class="input-group-text" type="button">添加
                           </a>
-                          <a class="btn btn-default btn-sm pb-6" type="button" (click)="getStockallotDefault('refresh')"><i class="fa fa-link"></i>
+                        </div>
+                        <div class="input-group-prepend">
+                          <a class="input-group-text refresh-page" type="button" (click)="getStockallotDefault('refresh')">
                             刷新
                           </a>
                         </div>
-                      </div>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <section>
-                      <label class="label ">业务部门</label>
-                      <label class="input">
-                        <!--<i class="icon-append glyphicon glyphicon-search cursor-pointer" data-toggle="modal" data-target="#myModal"></i>-->
-                        <input *ngIf="isDetail=='detail'" disabled="disabled" type="text" placeholder="" name="department" formControlName="department" [(ngModel)]="department">
-                        <input *ngIf="isDetail!='detail'" type="text" placeholder="" disabled="disabled" name="department" formControlName="department" [(ngModel)]="department">
-                      </label>
-                    </section>
-                  </div>
 
-                  <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
-                    <section>
+                      </div>
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                      <label class="label ">业务部门</label>
+                      <input class="form-control" *ngIf="isDetail=='detail'" disabled="disabled" type="text" placeholder="" name="department" formControlName="department" [(ngModel)]="department">
+                      <input class="form-control" *ngIf="isDetail!='detail'" type="text" placeholder="" disabled="disabled" name="department" formControlName="department" [(ngModel)]="department">
+                    </div>
+
+                    <div class="form-group col-sm-12">
                       <label class="label">扫码</label>
-                      <label class="textarea textarea-resizable">
-                        <textarea *ngIf="isDetail=='detail'" disabled="disabled" class="custom-scroll" rows="2" name="stock_allot_qrcode" formControlName="stock_allot_qrcode" ></textarea>
-                        <textarea *ngIf="isDetail!='detail'" class="custom-scroll" rows="2" name="stock_allot_qrcode" formControlName="stock_allot_qrcode" ></textarea>
-                      </label>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                    <section>
-                      <label class="label">搜索库存商品名称</label>
-                      <label class="input">
-                        <i *ngIf="isDetail!='detail'" class="icon-append glyphicon glyphicon-search cursor-pointer" (click)="showProduct()"></i><!-- data-toggle="modal" data-target="#myModal"-->
-                        <input *ngIf="isDetail=='detail'" disabled="disabled" type="text" placeholder="" name="keyword" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">
-                        <input *ngIf="isDetail!='detail'" type="text" placeholder="" name="keyword" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">
-                      </label>
-                    </section>
-                  </div>
-                  <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 padding20">
-                    <div class="widget-body no-padding">
+                      <textarea *ngIf="isDetail=='detail'" disabled="disabled" class="form-control" rows="1" name="stock_allot_qrcode" formControlName="stock_allot_qrcode" ></textarea>
+                      <textarea *ngIf="isDetail!='detail'" class="form-control" rows="1" name="stock_allot_qrcode" formControlName="stock_allot_qrcode" ></textarea>
+                    </div>
+
+
+                    <div class="form-group col-sm-12">
+                      <div class="navbar navbar-default">
+                        <form  class="navbar-form" novalidate="" role="search" >
+                          <div class="btn-group">
+                            <input   class="form-control" *ngIf="isDetail=='detail'" disabled="disabled" type="text" placeholder="" name="keyword" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">
+                            <input  class="form-control" *ngIf="isDetail!='detail'" type="text" placeholder="搜索库存商品名称" name="keyword" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">
+                          </div>
+                          <div class="btn-group">
+                            <button type="button" class="btn default-btn"  (click)="showProduct()">搜索</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+
+
+                    <div class="form-group col-sm-12">
                       <div  class="padding0">
                         <div style="z-index: 2;width:20%;float:left;" class="table-responsive padding0 table-minheight">
                           <table style="margin-top: 0!important;" class="table table-hover table-border table-bordered dataTable table-height-50">
@@ -189,34 +127,10 @@
                             <tbody>
                             <tr *ngFor="let p of selectProductList;let ind = index;">
                               <td style=" width: 112px;">
-                                <!--<a *ngIf="isDetail!='detail'" class="btn btn-warning btn-xs"  ><span class="glyphicon glyphicon-plus"></span></a>-->
-                                <a *ngIf="isDetail!='detail'" class="btn btn-danger btn-xs" (click)="removeInput(ind)"><span class="glyphicon glyphicon-remove"></span></a>
+                                <a *ngIf="isDetail!='detail'" class="btn btn-danger btn-xs" (click)="removeInput(ind)"><span class="fa fa-remove" style="color:#fff;"></span></a>
                               </td>
                               <td>
                                 {{p.p_name}}
-                                <!--<div  >-->
-                                  <!--<table border="0" cellspacing="0" cellpadding="1">-->
-                                    <!--<tbody>-->
-                                    <!--<tr>-->
-                                      <!--<td>-->
-                                        <!--<span>-->
-                                          <!--<label class="input wi-200">-->
-                                              <!--<i *ngIf="isDetail!='detail'" class="icon-append glyphicon glyphicon-search cursor-pointer" (click)="searchKey()"></i>&lt;!&ndash; data-toggle="modal" data-target="#myModal"&ndash;&gt;-->
-                                              <!--<input *ngIf="isDetail=='detail'" disabled="disabled" type="text" placeholder="" name="keyword" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">-->
-                                              <!--<input *ngIf="isDetail!='detail'" type="text" placeholder="" name="keyword" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">-->
-                                            <!--</label>-->
-                                        <!--</span>-->
-                                        <!--&lt;!&ndash;<form class="smart-form">-->
-                                          <!--<section>-->
-                                          <!--</section>-->
-                                        <!--</form>&ndash;&gt;-->
-                                      <!--</td>-->
-                                      <!--<td>-->
-                                      <!--</td>-->
-                                    <!--</tr>-->
-                                    <!--</tbody>-->
-                                  <!--</table>-->
-                                <!--</div>-->
                               </td>
                             </tr>
                             </tbody>
@@ -254,47 +168,41 @@
                               <td>{{p.openinginventory_surplus_count}}</td>
                               <td>{{p.storehouse_name}}</td>
                               <td>
-                                <span>
-                                  <label class="select form-control border-0 wi-100">
-                                    <select *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_storehouse_id">
-                                      <option [selected]="stock_allot_id == 0" value="0">--请选择--</option>
-                                      <option *ngFor="let s of stockallotList.result?.storehouse" value="{{ s.storehouse_id }}">{{s.storehouse_name}}</option>
-                                      </select>
-                                      <select *ngIf="isDetail!='detail'" [(ngModel)]="p.p_storehouse_id" [ngModelOptions]="{standalone: true}" >
-                                      <option [selected]="stock_allot_id == 0" value="0">--请选择--</option>
-                                      <option *ngFor="let s of stockallotList.result?.storehouse" value="{{ s.storehouse_id }}">{{s.storehouse_name}}</option>
-                                      </select><i></i>
-                                  </label>
-                                </span>
-                              </td>
-                              <!--<td>-->
-                                <!--<label  class="input">-->
-                                  <!--<input [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_count" value="{{p.p_count}}" type="number">-->
-                                <!--</label>-->
-                              <!--</td>-->
-                              <!--<td>-->
-                                <!--<label  class="input">-->
-                                  <!--<input [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_price" value="{{p.p_price}}" type="number">-->
-                                <!--</label>-->
-                              <!--</td>-->
-                              <td>
-                                <label class="input wi-100">
-                                  <input *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_count" value="{{p.p_count}}" type="number">
-                                  <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_count" value="{{p.p_count}}" type="number" (keyup)="sumPCount($event,ind1,p.p_count,p.old_p_count,p.openinginventory_surplus_count)">
-                                </label>
+                                <div class="form-group">
+                                  <select  class="form-control" *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_storehouse_id">
+                                    <option [selected]="stock_allot_id == 0" value="0">--请选择--</option>
+                                    <option *ngFor="let s of stockallotList.result?.storehouse" value="{{ s.storehouse_id }}">{{s.storehouse_name}}</option>
+                                  </select>
+
+
+                                  <select class="form-control" *ngIf="isDetail!='detail'" [(ngModel)]="p.p_storehouse_id" [ngModelOptions]="{standalone: true}" >
+                                    <option [selected]="stock_allot_id == 0" value="0">--请选择--</option>
+                                    <option *ngFor="let s of stockallotList.result?.storehouse" value="{{ s.storehouse_id }}">{{s.storehouse_name}}</option>
+                                  </select>
+
+
+
+                                </div>
                               </td>
                               <td>
-                                <label class="input wi-100">
-                                  <input *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_price" value="{{p.p_price}}" type="text">
-                                  <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_price" value="{{p.p_price}}" type="number">
-                                </label>
+                                <div class="form-group">
+                                  <input  class="form-control"  *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_count" value="{{p.p_count}}" type="number">
+                                  <input  class="form-control"  *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_count" value="{{p.p_count}}" type="number" (keyup)="sumPCount($event,ind1,p.p_count,p.old_p_count,p.openinginventory_surplus_count)">
+                                </div>
+                              </td>
+                              <td>
+
+                                <div class="form-group">
+                                  <input  class="form-control"  *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_price" value="{{p.p_price}}" type="text">
+                                  <input class="form-control"  *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_price" value="{{p.p_price}}" type="number">
+                                </div>
                               </td>
                               <td>{{p.p_count * p.p_price}}</td>
                               <td>
-                                <label class="input wi-100">
-                                  <input *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_total_price" value="{{p.p_total_price}}" type="text">
-                                  <input *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_total_price" value="{{p.p_total_price}}" type="number">
-                                </label>
+                                <div class="form-group">
+                                  <input  class="form-control" *ngIf="isDetail=='detail'" disabled="disabled" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_total_price" value="{{p.p_total_price}}" type="text">
+                                  <input class="form-control" *ngIf="isDetail!='detail'" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.p_total_price" value="{{p.p_total_price}}" type="number">
+                                </div>
                               </td>
                             </tr>
                             </tbody>
@@ -316,70 +224,80 @@
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
-                    <section>
+
+
+                    <div class="form-group col-sm-12">
                       <label class="label">备注</label>
-                      <label class="textarea textarea-resizable">
-                        <textarea *ngIf="isDetail=='detail'" disabled="disabled" class="custom-scroll" rows="2" name="stock_allot_remark" formControlName="stock_allot_remark"></textarea>
-                        <textarea *ngIf="isDetail!='detail'" class="custom-scroll" rows="2" name="stock_allot_remark" formControlName="stock_allot_remark"></textarea>
-                      </label>
-                    </section>
+                      <textarea  class="form-control" *ngIf="isDetail=='detail'" disabled="disabled"  rows="2" name="stock_allot_remark" formControlName="stock_allot_remark"></textarea>
+                      <textarea  class="form-control" *ngIf="isDetail!='detail'"  rows="2" name="stock_allot_remark" formControlName="stock_allot_remark"></textarea>
+                    </div>
+
+
+                    <div class="form-group col-sm-12">
+                      <div class="label ">审批人<a *ngIf="isDetail!='detail'" class="txt-color-blue pd-10" (click)="showDetail('assign')">添加审批人</a></div>
+                      <ul  class="avatars" *ngIf="approve_user">
+                        <li *ngFor="let su of approve_user;let ind = index;">
+                          <a *ngIf="isDetail!='detail'" class="fa fa-times-circle picture-a" style="display:block;" (click)="removeUser(su.id,'assign')"></a>
+                          <a class="portrait-size" title="{{su.u_username}}">
+                            {{su.u_username}}
+                          </a>
+                          <div class="approval-arrow" *ngIf="ind < approve_user.length && ind != 0" >
+                            <img  src="assets/img/icon/arrow.png" >
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div class="form-group col-sm-12">
+
+                      <div class="label ">抄送人<a *ngIf="isDetail!='detail'" class="txt-color-blue pd-10" (click)="showDetail('follower')">添加抄送人</a><span class="txt-color-blueLight pd-10">(审批通过后，通知抄送人)</span></div>
+                      <ul  class="avatars" *ngIf="follower_user">
+                        <li *ngFor="let su1 of follower_user;let ind1 = index;">
+                          <a *ngIf="isDetail!='detail'" class="fa fa-times-circle picture-a" style="display:block;" (click)="removeUser(su1.id,'follower')"></a>
+                          <a class="portrait-size" title="{{su1.u_username}}">
+                            {{su1.u_username}}
+                          </a>
+                        </li>
+                      </ul>
+
+                    </div>
+
+
+
+
                   </div>
-                  <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-20">
-                    <div class="label ">审批人<a *ngIf="isDetail!='detail'" class="txt-color-blue pd-10" (click)="showDetail('assign')">添加审批人</a></div>
-                    <ul  class="avatars" *ngIf="approve_user">
-                      <li *ngFor="let su of approve_user;let ind = index;">
-                        <a *ngIf="isDetail!='detail'" class="fa fa-times-circle picture-a" style="display:block;" (click)="removeUser(su.id,'assign')"></a>
-                        <a class="portrait-size" title="{{su.u_username}}">
-                          {{su.u_username}}
-                        </a>
-                        <div class="approval-arrow" *ngIf="ind < approve_user.length && ind != 0" >
-                          <img  src="assets/img/icon/arrow.png" >
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-20">
-                    <div class="label ">抄送人<a *ngIf="isDetail!='detail'" class="txt-color-blue pd-10" (click)="showDetail('follower')">添加抄送人</a><span class="txt-color-blueLight pd-10">(审批通过后，通知抄送人)</span></div>
-                    <ul  class="avatars" *ngIf="follower_user">
-                      <li *ngFor="let su1 of follower_user;let ind1 = index;">
-                        <a *ngIf="isDetail!='detail'" class="fa fa-times-circle picture-a" style="display:block;" (click)="removeUser(su1.id,'follower')"></a>
-                        <a class="portrait-size" title="{{su1.u_username}}">
-                          {{su1.u_username}}
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
+
+
                 </fieldset>
-                <footer>
+                <div class="footer-size flex-justify-end">
                   <div *ngIf="isPermission(menu_id,'verify') && isDetail!='detail'">
-                  <button type="button" class="btn btn-primary"  (click)="showDetail('transfer')" *ngIf="uid == stockallotInfo?.result?.stock_allot_status">
+                  <button type="button" class="btn btn-primary ml-2"  (click)="showDetail('transfer')" *ngIf="uid == stockallotInfo?.result?.stock_allot_status">
                     转交
                   </button>
-                  <button type="button" class="btn btn-primary" (click)="showModal('urge','urge')" *ngIf="uid == stockallotInfo?.result?.u_id && stockallotInfo?.result?.stock_allot_status != 'yes' && stockallotInfo?.result?.stock_allot_status != 'no' && stockallotInfo?.result?.stock_allot_status != 'cancel'" >
+                  <button type="button" class="btn btn-primary ml-2" (click)="showModal('urge','urge')" *ngIf="uid == stockallotInfo?.result?.u_id && stockallotInfo?.result?.stock_allot_status != 'yes' && stockallotInfo?.result?.stock_allot_status != 'no' && stockallotInfo?.result?.stock_allot_status != 'cancel'" >
                     催办
                   </button>
-                  <button type="button" class="btn btn-primary" (click)="showModal('operation','back_cancel')" *ngIf="uid == stockallotInfo?.result?.u_id && stockallotInfo?.result?.stock_allot_status == 'cancel'">
+                  <button type="button" class="btn btn-primary ml-2" (click)="showModal('operation','back_cancel')" *ngIf="uid == stockallotInfo?.result?.u_id && stockallotInfo?.result?.stock_allot_status == 'cancel'">
                     弃废
                   </button>
-                  <button type="button" class="btn btn-warning"  (click)="showModal('operation','cancel')" *ngIf="uid == stockallotInfo?.result?.u_id && stockallotInfo?.result?.stock_allot_status != 'yes' && stockallotInfo?.result?.stock_allot_status != 'no' && stockallotInfo?.result?.stock_allot_status != 'cancel'">
+                  <button type="button" class="btn btn-warning ml-2"  (click)="showModal('operation','cancel')" *ngIf="uid == stockallotInfo?.result?.u_id && stockallotInfo?.result?.stock_allot_status != 'yes' && stockallotInfo?.result?.stock_allot_status != 'no' && stockallotInfo?.result?.stock_allot_status != 'cancel'">
                     作废
                   </button>
-                  <button type="button" class="btn btn-warning" (click)="showModal('operation','operation')" *ngIf="uid == stockallotInfo?.result?.stock_allot_status">
+                  <button type="button" class="btn btn-warning ml-2" (click)="showModal('operation','operation')" *ngIf="uid == stockallotInfo?.result?.stock_allot_status">
                     审核
                   </button>
                   </div>
-                  <button type="button" class="btn btn-default" [routerLink]="['/inventory-management/inventory-requisition']">
+                  <div *ngIf="isPermission(menu_id,'add') && isDetail!='detail'">
+                    <button *ngIf="stock_allot_id==0" type="button" class="btn btn-primary ml-2" (click)="onSubmit(1)">提交</button>
+                    <button *ngIf="stock_allot_id==0" class="btn btn-success ml-2" type="button" (click)="onSubmit(2)">提交并新增</button>
+                  </div>
+                  <button type="button" class="btn btn-default ml-2" [routerLink]="['/inventory-management/inventory-requisition']">
                     返回
                   </button>
-                  <div *ngIf="isPermission(menu_id,'add') && isDetail!='detail'">
-                  <button *ngIf="stock_allot_id==0" class="btn btn-success" type="button" (click)="onSubmit(2)">提交并新增</button>
-                  <button *ngIf="stock_allot_id==0" type="button" class="btn btn-primary" (click)="onSubmit(1)">提交</button>
-                  </div>
-                  <button *ngIf="isPermission(menu_id,'edit') && isDetail!='detail' && stock_allot_id!=0 && stockallotInfo?.result?.stock_allot_status != 'no' && stockallotInfo?.result?.stock_allot_status != 'yes' && stockallotInfo?.result?.stock_allot_status != 'cancel'" type="button" class="btn btn-primary" (click)="onSubmit(1)">提交</button>
 
-                </footer>
+                  <button *ngIf="isPermission(menu_id,'edit') && isDetail!='detail' && stock_allot_id!=0 && stockallotInfo?.result?.stock_allot_status != 'no' && stockallotInfo?.result?.stock_allot_status != 'yes' && stockallotInfo?.result?.stock_allot_status != 'cancel'" type="button" class="btn btn-primary ml-2" (click)="onSubmit(1)">提交</button>
+
+                </div>
               </form>
             </div>
           </div>

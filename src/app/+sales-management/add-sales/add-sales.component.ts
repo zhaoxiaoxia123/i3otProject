@@ -429,7 +429,6 @@ export class AddSalesComponent implements OnInit {
             this.is_show_detail =  '1';
         },500);
     }
-
     /**
      * 获取任务通知点击后的状态
      * @param value

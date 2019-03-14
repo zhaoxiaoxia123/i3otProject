@@ -8,14 +8,14 @@
     <div class="row">
       <article class="col-sm-12 ">
         <!-- Widget ID (each widget will need unique ID)-->
-        <sa-widget [editbutton]="false" [deletebutton]="false" >
+        <sa-widget [editbutton]="false" [deletebutton]="false" [colorbutton]="false" >
           <header  *ngIf="u_id == 0">
             <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
             <h2>添加员工</h2>
           </header>
 
           <header *ngIf="u_id != 0">
-            <span class="widget-icon"> <i class="glyphicon glyphicon-pencil"></i> </span>
+            <span class="widget-icon"> <i class="fa-fw fa fa-pencil"></i> </span>
             <h2 >修改员工 </h2>
           </header>
           <div>

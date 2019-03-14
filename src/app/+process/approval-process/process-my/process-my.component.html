@@ -1,37 +1,74 @@
-<div  class="row ">
-  <div  class="col-sm-12 mt-13">
+<article>
     <div class="navbar navbar-default">
-      <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-          <div class="form-group pdlr-4">
-              <strong> 筛选：</strong>
-          </div>
-          <div class="form-group btn-group pdlr-4">
-              <a class="btn default-btn btn-sm dropdown-toggle" data-toggle="dropdown">
-                  {{property_title}}<i class="fa fa-fw fa-chevron-down"></i></a>
-              <ul class="dropdown-menu" role="menu">
-                  <li (click)="setProperty('approval','流程审批')"><a >流程审批</a></li>
-                  <li (click)="setProperty('purchase_cg_after','采购审批')"><a >采购审批</a></li>
-                  <li (click)="setProperty('purchase_sale','销售审批')"><a >销售审批</a></li>
-                  <li (click)="setProperty('stockallot','调拨审批')"><a >调拨审批</a></li>
-                  <li (click)="setProperty('otherorder_in','其他入库审批')"><a >其他入库审批</a></li>
-                  <li (click)="setProperty('otherorder_out','其他出库审批')"><a >其他出库审批</a></li>
-                  <li (click)="setProperty('assets_ff','资产发放审批')"><a >资产发放审批</a></li>
-                  <li (click)="setProperty('assets_bf','资产报废审批')"><a >资产报废审批</a></li>
-              </ul>
-          </div>
-          <div class="form-group pdlr-4">
-          <input  class="form-control ng-pristine ng-valid ng-touched" name="keyword" maxlength="15" [(ngModel)]="keyword" placeholder="请输入搜索内容" type="text">
-        </div>
-        <div class="form-group pdlr-4">
-          <button class="btn btn-default" type="button" (click)="onSubmit()">
-            <i  class="glyphicon glyphicon-search"></i>
-            搜索
-          </button>
-        </div>
-      </form>
+        <form  class="navbar-form" novalidate="" role="search" >
+
+            <div class="btn-group">
+                <h5> 筛选：</h5>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn default-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{property_title}}
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" (click)="setProperty('approval','流程审批')">流程审批</a>
+                    <a class="dropdown-item" (click)="setProperty('purchase_cg_after','采购审批')">采购审批</a>
+                    <a class="dropdown-item" (click)="setProperty('purchase_sale','销售审批')">销售审批</a>
+                    <a class="dropdown-item"   (click)="setProperty('stockallot','调拨审批')">调拨审批</a>
+                    <a class="dropdown-item"  (click)="setProperty('otherorder_in','其他入库审批')" >其他入库审批</a>
+                    <a class="dropdown-item" (click)="setProperty('otherorder_out','其他出库审批')" >其他出库审批</a>
+                    <a class="dropdown-item"  (click)="setProperty('assets_ff','资产发放审批')" >资产发放审批</a>
+                    <a class="dropdown-item"  (click)="setProperty('assets_bf','资产报废审批')" >资产报废审批</a>
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <input type="text" class="form-control" name="keyword" maxlength="15" [(ngModel)]="keyword" placeholder="请输入搜索内容"  >
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn default-btn"   (click)="onSubmit()">搜索</button>
+            </div>
+
+        </form>
     </div>
-  </div>
-</div>
+</article>
+
+
+<!--<div  class="row ">-->
+  <!--<div  class="col-sm-12 mt-13">-->
+    <!--<div class="navbar navbar-default">-->
+      <!--<form  class="navbar-form navbar-left " novalidate="" role="search" >-->
+          <!--<div class="form-group pdlr-4">-->
+              <!--<strong> 筛选：</strong>-->
+          <!--</div>-->
+          <!--<div class="form-group btn-group pdlr-4">-->
+              <!--<a class="btn default-btn btn-sm dropdown-toggle" data-toggle="dropdown">-->
+                  <!--{{property_title}}<i class="fa fa-fw fa-chevron-down"></i></a>-->
+              <!--<ul class="dropdown-menu" role="menu">-->
+                  <!--<li (click)="setProperty('approval','流程审批')"><a >流程审批</a></li>-->
+                  <!--<li (click)="setProperty('purchase_cg_after','采购审批')"><a >采购审批</a></li>-->
+                  <!--<li (click)="setProperty('purchase_sale','销售审批')"><a >销售审批</a></li>-->
+                  <!--<li (click)="setProperty('stockallot','调拨审批')"><a >调拨审批</a></li>-->
+                  <!--<li (click)="setProperty('otherorder_in','其他入库审批')"><a >其他入库审批</a></li>-->
+                  <!--<li (click)="setProperty('otherorder_out','其他出库审批')"><a >其他出库审批</a></li>-->
+                  <!--<li (click)="setProperty('assets_ff','资产发放审批')"><a >资产发放审批</a></li>-->
+                  <!--<li (click)="setProperty('assets_bf','资产报废审批')"><a >资产报废审批</a></li>-->
+              <!--</ul>-->
+          <!--</div>-->
+          <!--<div class="form-group pdlr-4">-->
+          <!--<input  class="form-control ng-pristine ng-valid ng-touched" name="keyword" maxlength="15" [(ngModel)]="keyword" placeholder="请输入搜索内容" type="text">-->
+        <!--</div>-->
+        <!--<div class="form-group pdlr-4">-->
+          <!--<button class="btn btn-default" type="button" (click)="onSubmit()">-->
+            <!--<i  class="glyphicon glyphicon-search"></i>-->
+            <!--搜索-->
+          <!--</button>-->
+        <!--</div>-->
+      <!--</form>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
+
+
 <div class="" style="padding:0;">
   <div style="padding: 0;z-index: 2;" class="table-responsive">
     <table class="table table-striped  smart-form table-hover">
@@ -197,17 +234,16 @@
     </table>
   </div>
 </div>
+
 <!-- 底部-（分页部分）-->
-<div class="dt-toolbar mb-13">
-  <div class="col-xs-12 col-sm-6">
-    <span>共{{processMyList?.result?.approvalList?.total}}条</span>
-  </div>
-  <div class="hidden-xs right">
-    <ul class="pagination pagination-sm" *ngIf="processMyList?.result?.page">
-      <li *ngFor="let p of processMyList?.result?.page" class="{{p.class}}">
-        <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
-        <a *ngIf="p.method==''">{{p.text}}</a>
-      </li>
+<div class="footer-size flex-justify-end">
+    <ul class="pagination" *ngIf="processMyList?.result?.page">
+        <li *ngFor="let p of processMyList?.result?.page" class="{{p.class}}">
+            <a class="page-link" (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+            <a class="page-link" *ngIf="p.method==''">{{p.text}}</a>
+        </li>
+        <li class="page-item disabled">
+            <a  class="page-link" disabled>共{{processMyList?.result?.approvalList?.total}}条</a>
+        </li>
     </ul>
-  </div>
 </div>

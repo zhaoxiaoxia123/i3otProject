@@ -13,83 +13,78 @@
 
           <div>
             <div class="widget-body no-padding" >
-              <div  class="row">
-                <article  class="col-sm-12">
-                  <div class="navbar navbar-default">
-                    <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'add')">
-                        <!---->
-                        <a class="btn btn-success btn-sm" (click)="lgModal.show()">
-                          <span class="glyphicon glyphicon-plus mr-5"></span>添加</a>
+              <article >
+                <div class="navbar navbar-default">
+                  <form  class="navbar-form " novalidate="" role="search" >
+                    <div class="btn-group" *ngIf="isPermission(menu_id,'add')">
+                      <button type="button" class="btn btn-primary"  (click)="lgModal.show()"><span class="fa-fw fa fa-plus  mr-5"></span>添加</button>
+                    </div>
+                    <div class="btn-group" *ngIf="isPermission(menu_id,'edit')">
+                      <button type="button"  [ngClass]="{'btn btn-warning':true,'not-click':isStatus == 0}" (click)="detailProduct('edit')"><span class="fa-fw fa fa-pencil mr-5"></span>修改</button>
+                    </div>
+                    <div class="btn-group" *ngIf="isPermission(menu_id,'delete')">
+                      <button type="button"  [ngClass]="{'btn btn-danger ':true,'not-click':isStatus == 0}"  (click)="deleteProduct('id')" ><span class="fa-fw fa  fa-trash-o mr-5"></span>删除</button>
+                    </div>
+                    <div class="btn-group" *ngIf="isPermission(menu_id,'detail')">
+                      <button type="button"  [ngClass]="{'btn btn-success':true,'not-click':isStatus == 0}" (click)="detailProduct('detail')"><span class="fa-fw fa fa-list-alt mr-5"></span>详情</button>
+                    </div>
+
+                    <div class="btn-group" *ngIf="isStatus == 2 && isPermission(menu_id,'edit')">
+                      <button type="button" class="btn btn-success"  (click)="editStatus(1,'id')"><span class="fa-fw fa fa-play mr-5 "></span>启用</button>
+                    </div>
+
+                    <div class="btn-group" *ngIf="isStatus == 1 && isPermission(menu_id,'edit')">
+                      <button type="button" class="btn btn-danger" (click)="editStatus(2,'id')"><span class="fa-fw fa fa-stop mr-5 "></span>无效</button>
+                    </div>
+
+                    <div class="btn-group"  *ngIf="isPermission(menu_id,'edit') || isPermission(menu_id,'delete')">
+                      <button type="button" class="btn btn-secondary"  (click)="showAllCheck()"><span class="fa-fw fa fa-th-large mr-5"></span>批处理</button>
+                      <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
+                        <span class="sr-only"></span>
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" *ngIf="isPermission(menu_id,'edit')" (click)="editStatus(1,'all')">批量设为启动</a>
+                        <a class="dropdown-item" *ngIf="isPermission(menu_id,'edit')" (click)="editStatus(2,'all')">批量设为无效</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" *ngIf="isPermission(menu_id,'delete')"  (click)="deleteProduct('all')">批量删除</a>
                       </div>
-                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'edit')">
-                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailProduct('edit')">
-                          <span class="glyphicon glyphicon-pencil mr-5 color-yellow"></span>修改</a>
+                    </div>
+                  </form>
+                  <form  class="navbar-form " novalidate="" role="search" >
+                    <div class="btn-group">
+                      <h5> 筛选：</h5>
+                    </div>
+                    <div class="btn-group">
+                      <button type="button" class="btn default-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{property_title}}
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" (click)="setProperty('','全部')">全部</a>
+                        <a class="dropdown-item" (click)="setProperty('1','销售')">销售</a>
+                        <a class="dropdown-item" (click)="setProperty('2','外购')">外购</a>
                       </div>
-                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'delete')">
-                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}"  (click)="deleteProduct('id')">
-                          <span class="fa-fw fa  fa-trash-o mr-5 color-red"></span>删除</a>
-                      </div>
-                      <div class="form-group pdlr-4" *ngIf="isPermission(menu_id,'detail')">
-                        <a [ngClass]="{'btn default-btn btn-sm':true,'not-click':isStatus == 0}" (click)="detailProduct('detail')">
-                          <span class="glyphicon glyphicon-zoom-in mr-5 color-green"></span>详情</a>
-                      </div>
-                      <div class="form-group pdlr-4" *ngIf="isStatus == 2 && isPermission(menu_id,'edit')">
-                        <a class="btn default-btn btn-sm" (click)="editStatus(1,'id')">
-                          <span class="fa-fw fa fa-play mr-5 color-green"></span>启用</a>
-                      </div>
-                      <div class="form-group pdlr-4" *ngIf="isStatus == 1 && isPermission(menu_id,'edit')">
-                        <a class="btn default-btn btn-sm" (click)="editStatus(2,'id')" >
-                          <span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>无效</a>
-                      </div>
-                      <div class="form-group btn-group pdlr-4" *ngIf="isPermission(menu_id,'edit') || isPermission(menu_id,'delete')">
-                        <a class="btn default-btn btn-sm dropdown-toggle" (click)="showAllCheck()" data-toggle="dropdown">
-                          <span class="fa-fw fa fa-th-large mr-5 color-red"></span>批处理<i class="fa fa-fw fa-chevron-down"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li *ngIf="isPermission(menu_id,'edit')"><a  (click)="editStatus(1,'all')"><span class="fa-fw fa fa-play mr-5 color-green"></span>批量设为启动</a></li>
-                          <li *ngIf="isPermission(menu_id,'edit')"><a  (click)="editStatus(2,'all')"><span class="fa-fw fa fa-stop mr-5 txt-color-blueDark"></span>批量设为无效</a></li>
-                          <li class="divider"></li>
-                          <li *ngIf="isPermission(menu_id,'delete')"><a (click)="deleteProduct('all')"><span class="fa-fw fa  fa-trash-o color-red mr-5"></span>批量删除</a></li>
-                        </ul>
-                      </div>
-                    </form>
-                    <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-                      <div class="form-group pdlr-4">
-                        <strong> 筛选：</strong>
-                      </div>
-                      <div class="form-group btn-group pdlr-4">
-                        <a class="btn default-btn btn-sm dropdown-toggle" data-toggle="dropdown">
-                        {{property_title}}<i class="fa fa-fw fa-chevron-down"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li (click)="setProperty('','全部')"><a >全部</a></li>
-                          <li (click)="setProperty('1','销售')"><a>销售</a></li>
-                          <li (click)="setProperty('2','外购')"><a >外购</a></li>
-                        </ul>
-                      </div>
-                      <div class="form-group pdlr-4">
-                        <input  class="form-control ng-pristine ng-valid ng-touched" maxlength="15" [(ngModel)]="keyword"  name="keyword" placeholder="请输入搜索内容" type="text">
-                      </div>
-                      <div class="form-group pdlr-4">
-                        <button class="btn btn-default" type="button" (click)="getProductList(1,0)">
-                          <i class="glyphicon glyphicon-search"></i>
-                          搜索
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </article>
-              </div>
-              <div class="pt">
-                <article class="form-group col col-xs-4">
-                  <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                    </div>
+                    
+                    <div class="btn-group">
+                      <input type="text" class="form-control" maxlength="15" [(ngModel)]="keyword"  name="keyword" placeholder="请输入搜索内容" >
+                    </div>
+                    <div class="btn-group">
+                      <button type="button" class="btn default-btn" (click)="getProductList(1,0)" >搜索</button>
+                    </div>
+                  </form>
+                </div>
+              </article>
+              <div class="row table-box-pd">
+                <article class="form-group col-sm-4 col-12">
+                  <sa-widget class="jarviswidget " [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
                              [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
                     <div>
                       <div class="widget-body no-padding">
-                        <alert type="info" class="no-margin">
+                        <div type="info" class="no-margin alert alert-primary">
                           <i class="fa-fw fa fa-sitemap"></i>
                           商品分类
-                        </alert>
-                        <div class="pd-10 mt-10 height-overflow">
+                        </div>
+                        <div class="pd-10  height-overflow">
                           <div class="widget-body">
                             <div class="tree smart-form">
                               <ul class="">
@@ -179,26 +174,25 @@
                             </div>
                           </div>
                         </div>
-                        <div class="dt-toolbar">
-                        </div>
+                        <div class="footer-size"></div>
                       </div>
                     </div>
                   </sa-widget>
                 </article>
-                <article class="form-group col col-xs-8">
-                  <sa-widget class="jarviswidget well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
+                <article class="form-group col-sm-8 col-12">
+                  <sa-widget class="jarviswidget " [colorbutton]="false" [editbutton]="false" [togglebutton]="false"
                              [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
                     <div>
                       <div class="widget-body no-padding">
-                        <alert type="info" class="no-margin" >
+                        <div type="info" class="no-margin alert alert-primary">
                           <i class="fa-fw fa fa-table"></i>
                           商品列表
-                        </alert>
-                        <div class="mt-10 height-overflow"  style="padding:0;">
+                        </div>
+                        <div class=" height-overflow"  style="padding:0;">
                           <div *ngIf="isAll != 0" [ngStyle]="{'padding': '0','z-index': '2','width':width,'float':'left'}" class="table-scrolling">
                             <table class="table table-striped   smart-form table-height-32">
                               <thead>
-                              <tr  >
+                              <tr>
                                 <td><label class="checkbox " >
                                   <input type="checkbox" name="checkbox-inline" [checked]="check" (change)="changeCheckAll($event)" >
                                   <i></i>
@@ -272,20 +266,20 @@
                             </table>
                           </div>
                         </div>
+
                         <!-- 底部-（分页部分）-->
-                        <div class="dt-toolbar">
-                          <div class="col-xs-12 col-sm-6">
-                            <span>共{{productList.result?.productList?.total}}条</span>
-                          </div>
-                          <div class="hidden-xs right">
-                            <ul class="pagination pagination-sm" *ngIf="productList?.result?.page">
-                              <li *ngFor="let p of productList?.result?.page" class="{{p.class}}">
-                                <a (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
-                                <a *ngIf="p.method==''">{{p.text}}</a>
-                              </li>
-                            </ul>
-                          </div>
+                        <div class="footer-size flex-justify-end">
+                          <ul class="pagination folat-right" *ngIf="productList?.result?.page" >
+                            <li *ngFor="let p of productList?.result?.page" class="{{p.class}}">
+                              <a class="page-link" (click)="pagination(p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+                              <a class="page-link" *ngIf="p.method==''">{{p.text}}</a>
+                            </li>
+                            <li class="page-item disabled">
+                              <a  class="page-link" disabled>共{{productList.result?.productList?.total}}条</a>
+                            </li>
+                          </ul>
                         </div>
+
                       </div>
                     </div>
                   </sa-widget>
@@ -299,447 +293,411 @@
     </div>
   </sa-widgets-grid>
 
-  <div class="modal fade" bsModal #lgModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+  <div class="modal fade bd-example-modal-xl" bsModal #lgModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
-          <!-- 关闭按钮 -->
-          <button type="button" class="close"  (click)="clear_();lgModal.hide()">×</button>
           <!-- 标题 -->
           <h3 *ngIf="editStatusProductId == 0" class="modal-title txt-color-blue" data-ng-bind='results.title'><i class="fa-fw fa fa-plus"></i>添加商品档案</h3>
-          <h3 *ngIf="editStatusProductId != 0 && isDetail != 'detail'" class="modal-title  color-yellow" data-ng-bind='results.title'><i class="glyphicon glyphicon-pencil"></i>修改商品档案</h3>
+          <h3 *ngIf="editStatusProductId != 0 && isDetail != 'detail'" class="modal-title  color-yellow" data-ng-bind='results.title'><i class="fa-fw fa fa-pencil"></i>修改商品档案</h3>
           <h3 *ngIf="editStatusProductId != 0 && isDetail == 'detail'" class="modal-title  color-yellow" data-ng-bind='results.title'>{{p_name}}-{{p_product_id}}</h3>
+          <!-- 关闭按钮 -->
+          <button type="button" class="close"  (click)="clear_();lgModal.hide()">×</button>
         </div>
         <div class="modal-body">
-          <sa-widget [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
-            <header>
-              <ul class="nav nav-tabs pull-left in">
-                <li [class.active]="state.tabs.demo3=='hr1'" class="active">
-                  <a (click)="state.tabs.demo3 = 'hr1'">基本信息</a>
-                </li>
-                <li [class.active]="state.tabs.demo3=='hr2'" class="active">
-                  <a (click)="state.tabs.demo3 = 'hr2'">其他信息</a>
-                </li>
-                <li [class.active]="state.tabs.demo3=='hr3'" class="active">
-                  <a (click)="state.tabs.demo3 = 'hr3'">多单位</a>
-                </li>
-                <li [class.active]="state.tabs.demo3=='hr5'" class="active">
-                  <a (click)="state.tabs.demo3 = 'hr5'">图片信息</a>
-                </li>
-              </ul>
-            </header>
-            <div class="height-overflow-380">
-              <div class="widget-body">
-                <tabset>
-                  <tab [active]="state.tabs.demo3 == 'hr1'">
-                    <tabset >
-                      <tab [active]="state.tabs.demo3 == 'hr1'">
-                        <div class="row">
-                          <form   class="smart-form ">
-                            <fieldset>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section>
-                                  <label class="label txt-color-blue">商品编号<span class="asterisk-color">*</span></label>
-                                  <label class="input">
-                                    <input type="text" name="p_product_id" [(ngModel)]="p_product_id" placeholder="商品编号" [disabled]="isDetail=='detail'" >
-                                  </label>
-                                </section>
-                              </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section>
-                                  <label class="label txt-color-blue">商品名称<span class="asterisk-color">*</span></label>
-                                  <label class="input">
-                                    <input type="text" placeholder="商品名称" (blur)="showPinyin()" name="p_name" [(ngModel)]="p_name" [disabled]="isDetail=='detail'">
-                                  </label>
-                                </section>
-                              </div>
+          <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">基本信息</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">其他信息</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">图片信息</a>
+            </li>
+          </ul>
+          <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+              <form class="form-distance">
+                <fieldset>
+                  <div class="form-row">
 
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section>
-                                  <label class="label">商品属性</label>
-                                  <label class="select">
-                                    <select class="input-sm" name="p_property" [(ngModel)]="p_property" (change)="getUnitCategoryList($event,1)" [disabled]="isDetail=='detail'">
-                                      <option value="0">--请选择--</option>
-                                      <option value="1">销售</option>
-                                      <option value="2">外购</option>
-                                    </select> <i></i>
-                                  </label>
-                                </section>
-                              </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <label class="label txt-color-blue">商品分类<span class="asterisk-color">*</span></label>
-                                <section>
-                                  <div class="input-group">
-                                    <label   class="select form-control border-0">
-                                      <select class="input-sm" name="p_category_id" [(ngModel)]="p_category_id" [disabled]="isDetail=='detail'">
-                                        <option [selected]="p_id == 0" value="0">--请选择--</option>
-                                        <!--<option *ngFor="let c of addProductDefault?.result?.categoryListForAdd" [selected]="productInfo?.result?.p_category_id == c.category_id" value="{{ c.category_id }}" [disabled]="(c.category_depth == 0 && c.child_count > 0) ? 'disabled' : false" [ngStyle]="{'font-weight':((c.category_depth == 0) ? 'bold' : 'normal'),'color':((c.category_depth == 0 && c.child_count > 0) ? 'black' : '#404040')}">-->
-                                          <!--<strong *ngIf="c.category_depth == 0">{{c.category_desc}}</strong>-->
-                                          <!--<span *ngIf="c.category_depth != 0">&#45;&#45;{{c.category_desc}}</span>-->
-                                        <!--</option>-->
-                                        <option *ngFor="let c of unitCategoryList?.result?.categoryList" value="{{ c.category_id }}" [selected]="productInfo.result?.p_category_id == c.category_id" [disabled]="(c.category_depth == 0 && c.child_count > 0) ? 'disabled' : false" [ngStyle]="{'font-weight':((c.category_depth == 0) ? 'bold' : 'normal'),'color':((c.category_depth == 0 && c.child_count > 0) ? 'black' : '#404040')}">
-                                          <strong *ngIf="c.category_depth == 0">{{c.category_desc}}</strong>
-                                          <span *ngIf="c.category_depth != 0">--{{c.category_desc}}</span>
-                                        </option>
-                                      </select><i></i>
-                                    </label>
-                                    <div class="input-group-btn">
-                                      <a  href="http://cn.i3ot.com/#/inventory-management/inventory-classification" target="_blank" (click)="smartModEg1()" class="btn btn-default btn-sm pb-6" type="button">
-                                        <!-- <i class="fa fa-plus "></i>--> 添加
-                                      </a>
-                                      <a class="btn btn-default btn-sm pb-6" type="button" (click)="getUnitCategoryList(0,2)"><i class="fa fa-link"></i>
-                                        刷新
-                                      </a>
-                                    </div>
-                                  </div>
-                                </section>
-                              </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section>
-                                  <label class="label">规格型号</label>
-                                  <label class="input">
-                                    <input type="text" placeholder=""  name="p_specification" [(ngModel)]="p_specification" [disabled]="isDetail=='detail'">
-                                  </label>
-                                </section>
-                              </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section>
-                                  <label class="label">助记码</label>
-                                  <label class="input">
-                                    <input type="text" placeholder="助记码" name="p_shortcode" [(ngModel)]="p_shortcode" disabled="disabled">
-                                  </label>
-                                </section>
-                              </div>
 
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section>
-                                  <label class="label">计量单位</label>
-                                  <label class="select">
-                                    <select class="input-sm" name="p_unit" [(ngModel)]="p_unit" [disabled]="isDetail=='detail'">
-                                      <option value="0" disabled="disabled" >选择计量单位</option>
-                                      <option value="件" >件</option>
-                                      <option value="颗" >颗</option>
-                                      <option value="kg" >kg</option>
-                                      <option value="吨" >吨</option>
-                                    </select> <i></i> </label>
-                                </section>
-                              </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12" *ngIf="p_property_id == 2">
-                                <section>
-                                  <label class="label ">参考进价</label>
-                                  <label class="input">
-                                    <input type="number" placeholder="参考进价"  name="p_purchase_price" [(ngModel)]="p_purchase_price" [disabled]="isDetail=='detail'">
-                                  </label>
-                                </section>
-                              </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12" *ngIf="p_property_id == 1">
-                                <section>
-                                  <label class="label ">参考售价</label>
-                                  <label class="input">
-                                    <input type="number" placeholder="参考售价"  name="p_purchase_price" [(ngModel)]="p_purchase_price" [disabled]="isDetail=='detail'">
-                                  </label>
-                                </section>
-                              </div>
+                    <div class="form-group col-sm-4">
+                      <label class="label txt-color-blue">商品编号<span class="asterisk-color">*</span></label>
+                      <input type="text" class="form-control"  name="p_product_id" [(ngModel)]="p_product_id" placeholder="商品编号" [disabled]="isDetail=='detail'" >
+                    </div>
 
-                              <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <section>
-                                  <label class="label">备注</label>
-                                  <label class="textarea textarea-resizable">
-                                    <textarea class="custom-scroll" rows="2" name="p_notes" [(ngModel)]="p_notes" [disabled]="isDetail=='detail'"></textarea>
-                                  </label>
-                                </section>
-                              </div>
-                              <div class="form-group col col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <section>
-                                  <label class="label ">条码</label>
-                                  <label class="input">
-                                    <input type="text" placeholder="" name="p_qrcode" [(ngModel)]="p_qrcode" [disabled]="isDetail=='detail'">
-                                  </label>
-                                </section>
-                              </div>
-                            </fieldset>
-                          </form>
+                    <div class="form-group col-sm-4">
+                      <label class="label txt-color-blue">商品名称<span class="asterisk-color">*</span></label>
+                      <input type="text" class="form-control"   placeholder="商品名称" (blur)="showPinyin()" name="p_name" [(ngModel)]="p_name" [disabled]="isDetail=='detail'">
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                      <label class="label">商品属性</label>
+                      <select class="form-control"  name="p_property" [(ngModel)]="p_property" (change)="getUnitCategoryList($event,1)" [disabled]="isDetail=='detail'">
+                        <option value="0">--请选择--</option>
+                        <option value="1">销售</option>
+                        <option value="2">外购</option>
+                      </select>
+
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                      <label class="label txt-color-blue">商品分类<span class="asterisk-color">*</span></label>
+                      <div class="input-group mb-2 mr-sm-2">
+                        <select class="form-control" name="p_category_id" [(ngModel)]="p_category_id" [disabled]="isDetail=='detail'">
+                          <option [selected]="p_id == 0" value="0">--请选择--</option>
+                          <!--<option *ngFor="let c of addProductDefault?.result?.categoryListForAdd" [selected]="productInfo?.result?.p_category_id == c.category_id" value="{{ c.category_id }}" [disabled]="(c.category_depth == 0 && c.child_count > 0) ? 'disabled' : false" [ngStyle]="{'font-weight':((c.category_depth == 0) ? 'bold' : 'normal'),'color':((c.category_depth == 0 && c.child_count > 0) ? 'black' : '#404040')}">-->
+                          <!--<strong *ngIf="c.category_depth == 0">{{c.category_desc}}</strong>-->
+                          <!--<span *ngIf="c.category_depth != 0">&#45;&#45;{{c.category_desc}}</span>-->
+                          <!--</option>-->
+                          <option *ngFor="let c of unitCategoryList?.result?.categoryList" value="{{ c.category_id }}" [selected]="productInfo.result?.p_category_id == c.category_id" [disabled]="(c.category_depth == 0 && c.child_count > 0) ? 'disabled' : false" [ngStyle]="{'font-weight':((c.category_depth == 0) ? 'bold' : 'normal'),'color':((c.category_depth == 0 && c.child_count > 0) ? 'black' : '#404040')}">
+                            <strong *ngIf="c.category_depth == 0">{{c.category_desc}}</strong>
+                            <span *ngIf="c.category_depth != 0">--{{c.category_desc}}</span>
+                          </option>
+                        </select>
+                        <div class="input-group-prepend">
+                          <a  href="http://cn.i3ot.com/#/inventory-management/inventory-classification" target="_blank" (click)="smartModEg1()" class="input-group-text" type="button">
+                            <!-- <i class="fa fa-plus "></i>--> 添加
+                          </a>
                         </div>
-                      </tab>
-                    </tabset>
-                  </tab>
-                  <tab [active]="state.tabs.demo3 == 'hr2'">
-                    <tabset >
-                      <tab [active]="state.tabs.demo3 == 'hr2'">
-                        <div class="row">
-                          <form   class="smart-form ">
-                            <fieldset>
-                              <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">-->
-                                <!--<section >-->
-                                  <!--<label class="label ">厂家</label>-->
-                                  <!--<label class="input">-->
-                                    <!--<input name="c_id" [(ngModel)]="c_id" type="text" >-->
-                                  <!--</label>-->
-                                <!--</section>-->
-                              <!--</div>-->
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section >
-                                  <label class="label ">最高库存</label>
-                                  <label class="input">
-                                    <input name="p_max_stock" [(ngModel)]="p_max_stock" type="text" [disabled]="isDetail=='detail'">
-                                  </label>
-                                </section>
-                              </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section >
-                                  <label class="label ">最低库存</label>
-                                  <label class="input">
-                                    <input name="p_min_stock" [(ngModel)]="p_min_stock" type="text" [disabled]="isDetail=='detail'">
-                                  </label>
-                                </section>
-                              </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section >
-                                  <label class="label ">参考成本</label>
-                                  <label class="input">
-                                    <input name="p_cost" [(ngModel)]="p_cost" type="text" [disabled]="isDetail=='detail'">
-                                  </label>
-                                </section>
-                              </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section>
-                                  <label class="label">销售提成方式</label>
-                                  <label class="select">
-                                    <select class="input-sm" name="p_retail_method" [(ngModel)]="p_retail_method" [disabled]="isDetail=='detail'">
-                                      <option value="1" >不设置</option>
-                                      <option value="2" >按金额</option>
-                                      <option value="3" >按比例</option>
-                                    </select> <i></i> </label>
-                                </section>
-                              </div>
-                              <div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <section >
-                                  <label class="label ">销售提成设置</label>
-                                  <label class="input">
-                                    <input name="p_retail_amout" [(ngModel)]="p_retail_amout" type="text" [disabled]="isDetail=='detail'">
-                                  </label>
-                                </section>
-                              </div>
-                              <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">-->
-                                <!--<section >-->
-                                  <!--<label class="label ">停用时间</label>-->
-                                  <!--<label class="input">-->
-                                    <!--<input name="p_stop_time" [(ngModel)]="p_stop_time" disabled="disabled" type="text" [disabled]="isDetail=='detail'">-->
-                                  <!--</label>-->
-                                <!--</section>-->
-                              <!--</div>-->
-                              <!--<div class="form-group col col-lg-6 col-md-6 col-sm-6 col-xs-12">-->
-                                <!--<section >-->
-                                  <!--<label class="label ">停用人</label>-->
-                                  <!--<label class="input">-->
-                                    <!--<input name="p_stop_use" [(ngModel)]="p_stop_use" disabled="disabled" type="text" [disabled]="isDetail=='detail'">-->
-                                  <!--</label>-->
-                                <!--</section>-->
-                              <!--</div>-->
-                            </fieldset>
-                          </form>
+                        <div class="input-group-prepend">
+                          <a class="input-group-text refresh-page" type="button" (click)="getUnitCategoryList(0,2)">
+                            刷新
+                          </a>
                         </div>
-                      </tab>
-                    </tabset>
-                  </tab>
-                  <tab [active]="state.tabs.demo3 == 'hr3'">
-                    <tabset >
-                      <tab [active]="state.tabs.demo3 == 'hr3'">
-                        <div class="row">
-                          <div class="well padding">
-                            只能设置一个库存单位,当库存单位设置为浮动换算时,只能设置一个辅单位。
-                            主计量单位数量=辅计量单位数量*换算率。<br/>
-                            例如：一箱有100包，主单位为"包"，辅单位为"箱"，换算率为100（包装数）, 或者 主单位为"箱"，辅单位为"包"，换算率为0.01（1/100）
-                          </div>
-                          <div class="table-responsive padding0 table-minheight">
-                            <table class="table table-striped  table-hover smart-form">
-                              <thead>
-                              <tr>
-                                <th>操作</th>
-                                <th>辅单位 </th>
-                                <th>库存单位 </th>
-                                <th>浮动换算</th>
-                                <th>换算率  </th>
-                                <th>条码 </th>
-                              </tr>
-                              </thead>
-                              <tbody>
-                              <tr>
-                                <td><a class="btn btn-warning btn-xs"  ><span class="glyphicon glyphicon-plus"></span></a>
-                                  <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span></a>
-                                </td>
-                                <td>
-                                  <div style="text-align: center; width: 100px;" >
-                                    <table border="0" cellspacing="0" cellpadding="1">
-                                      <tbody>
-                                      <tr>
-                                        <td>
-                                          <form class="smart-form">
-                                            <section>
-                                              <label class="input">
-                                                <select class="form-control">
-                                                  <option value="">选择辅助单位</option>
-                                                  <option value="">包</option>
-                                                  <option value="">箱</option>
-                                                  <option value="">条</option>
-                                                </select>
-                                              </label>
-                                            </section>
-                                          </form>
-                                        </td>
-                                        <td>
-                                        </td>
-                                      </tr>
-                                      </tbody>
-                                    </table>
-                                  </div>
-                                </td>
-                                <td>
-                                  <div style="text-align: center; width: 100px;" >
-                                    否
-                                    <span class="txt-color-red">请先设置辅单位</span>
-                                    <table border="0" cellspacing="0" cellpadding="1">
-                                      <tbody>
-                                      <tr>
-                                        <td>
-                                          <form class="smart-form">
-                                            <section>
-                                              <div class="inline-group">
-                                                <label class="radio">
-                                                  <input  name="radio-inline" type="radio">
-                                                  <i></i>是</label>
-                                                <label class="radio">
-                                                  <input name="radio-inline" checked="" type="radio">
-                                                  <i></i>否</label>
-                                              </div>
-                                            </section>
-                                          </form>
-                                        </td>
-                                      </tr>
-                                      </tbody>
-                                    </table>
-                                  </div>
-                                </td>
-                                <td>
-                                  <div style="text-align: center; width: 100px;" >
-                                    否
-                                    <span class="txt-color-red">请先设置辅单位</span>
-                                    <table border="0" cellspacing="0" cellpadding="1">
-                                      <tbody>
-                                      <tr>
-                                        <td>
-                                          <form class="smart-form">
-                                            <section>
-                                              <div class="inline-group">
-                                                <label class="radio">
-                                                  <input  name="radio-inline" type="radio">
-                                                  <i></i>是</label>
-                                                <label class="radio">
-                                                  <input name="radio-inline" checked="" type="radio">
-                                                  <i></i>否</label>
-                                              </div>
-                                            </section>
-                                          </form>
-                                        </td>
-                                      </tr>
-                                      </tbody>
-                                    </table>
-                                  </div>
-                                </td>
-                                <td>
-                                  <div style="text-align: center; width: 100px;" >
-                                    <span class="txt-color-red">请先设置辅单位</span>
-                                    <table border="0" cellspacing="0" cellpadding="1">
-                                      <tbody>
-                                      <tr>
-                                        <td>
-                                          <form class="smart-form">
-                                            <section>
-                                              <label class="input">
-                                                <input  name="" type="text">
-                                              </label>
-                                            </section>
-                                          </form>
-                                        </td>
-                                      </tr>
-                                      </tbody>
-                                    </table>
-                                  </div>
-                                </td>
-                                <td>
-                                  <div style="text-align: center; width: 100px;" >
-                                    <span class="txt-color-red">请先设置辅单位</span>
-                                    <table border="0" cellspacing="0" cellpadding="1">
-                                      <tbody>
-                                      <tr>
-                                        <td>
-                                          <form class="smart-form">
-                                            <section>
-                                              <label class="input">
-                                                <input  name="" type="text">
-                                              </label>
-                                            </section>
-                                          </form>
-                                        </td>
-                                      </tr>
-                                      </tbody>
-                                    </table>
-                                  </div>
-                                </td>
-                              </tr>
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </tab>
-                    </tabset>
-                  </tab>
-                  <tab [active]="state.tabs.demo3 == 'hr5'">
-                    <tabset >
-                      <tab [active]="state.tabs.demo3 == 'hr5'">
-                        <div class="row">
-                          <div class="col-xs-12">
-                            <div>
-                              <ul class="ace-thumbnails clearfix">
-                                <li class="canDel" *ngFor="let img of imgList;let ind = index;">
-                                  <a class="cboxElement" (click)="showBigPic(url+img)">
-                                    <img width="150" height="150" alt="150x150" src="{{url}}{{img}}">
-                                  </a>
-                                  <div class="tools tools-top" *ngIf="isDetail!='detail'">
-                                    <a class="pull-right" (click)="removeImg(ind)">
-                                      <i class="ace-icon fa fa-times txt-color-red">
-                                      </i>
-                                    </a>
-                                  </div>
-                                </li>
-                                <li *ngIf="isDetail!='detail'">
-                                  <div class="c-file-upload">
-                                    <a class="btn" (click)="showSelectFileDiv()" style="border: 0;">
-                                      点击选择上传图片
-                                    </a>
-                                    <!--<a class="btn btn-default" (click)="showSelectFileDiv()" style="width: 150px; height: 150px;border: 0;">-->
-                                      <!--<i class="fa fa-plus fa-2x" style="color: #ccc;  font-size: 152px;"></i>-->
-                                    <!--</a>-->
-                                  </div>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                      </tab>
-                    </tabset>
-                  </tab>
-                </tabset>
+                      </div>
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                      <label class="label">规格型号</label>
+                      <input type="text" class="form-control"  placeholder=""  name="p_specification" [(ngModel)]="p_specification" [disabled]="isDetail=='detail'">
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                      <label class="label">助记码</label>
+                      <input type="text" class="form-control"  placeholder="助记码" name="p_shortcode" [(ngModel)]="p_shortcode" disabled="disabled" >
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                      <label class="label">计量单位</label>
+                      <select class="form-control" name="p_unit" [(ngModel)]="p_unit" [disabled]="isDetail=='detail'">
+                        <option value="0" disabled="disabled" >选择计量单位</option>
+                        <option value="件" >件</option>
+                        <option value="颗" >颗</option>
+                        <option value="kg" >kg</option>
+                        <option value="吨" >吨</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                      <label class="label ">参考进价</label>
+                      <input  class="form-control"  type="number" placeholder="参考进价"  name="p_purchase_price" [(ngModel)]="p_purchase_price" [disabled]="isDetail=='detail'">
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                      <label class="label ">参考售价</label>
+                      <input  class="form-control"   type="number" placeholder="参考售价"  name="p_purchase_price" [(ngModel)]="p_purchase_price" [disabled]="isDetail=='detail'" >
+                    </div>
+
+                    <div class="form-group col-sm-12">
+                      <label class="label ">条码</label>
+                      <input type="text" class="form-control" placeholder="" name="p_qrcode" [(ngModel)]="p_qrcode" [disabled]="isDetail=='detail'">
+                    </div>
+
+                    <div class="form-group col-sm-12">
+                      <label class="label">备注</label>
+                      <textarea class="form-control"   rows="2" name="p_notes" [(ngModel)]="p_notes" [disabled]="isDetail=='detail'"></textarea>
+                    </div>
+
+
+                  </div>
+                </fieldset>
+              </form>
+            </div>
+            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+              <form class="form-distance">
+                <fieldset>
+                  <div class="form-row">
+
+                    <!--<div class="form-group col-sm-4">-->
+                    <!--<label class="label ">厂家</label>-->
+                    <!--<input type="text" class="form-control"  name="c_id" [(ngModel)]="c_id">-->
+                    <!--</div>-->
+
+                    <div class="form-group col-sm-4">
+                      <label class="label ">最高库存</label>
+                      <input type="text" class="form-control" name="p_max_stock" [(ngModel)]="p_max_stock"  [disabled]="isDetail=='detail'">
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                      <label class="label ">最低库存</label>
+                      <input type="text" class="form-control" name="p_min_stock" [(ngModel)]="p_min_stock"  [disabled]="isDetail=='detail'">
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                      <label class="label ">参考成本</label>
+                      <input type="text" class="form-control" name="p_cost" [(ngModel)]="p_cost"   [disabled]="isDetail=='detail'" >
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                      <label class="label">销售提成方式</label>
+
+                      <select class="form-control" name="p_retail_method" [(ngModel)]="p_retail_method" [disabled]="isDetail=='detail'">
+                        <option value="1" >不设置</option>
+                        <option value="2" >按金额</option>
+                        <option value="3" >按比例</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                      <label class="label ">销售提成设置</label>
+                      <input type="text" class="form-control"  name="p_retail_amout" [(ngModel)]="p_retail_amout" [disabled]="isDetail=='detail'">
+                    </div>
+
+
+
+                    <!--<div class="form-group col-sm-4">-->
+                    <!--<label class="label ">停用时间</label>-->
+                    <!--<input type="text" class="form-control"  name="p_stop_time" [(ngModel)]="p_stop_time" disabled="disabled"  [disabled]="isDetail=='detail'" >-->
+                    <!--</div>-->
+
+
+                    <!--<div class="form-group col-sm-4">-->
+                    <!--<label class="label ">停用人</label>-->
+                    <!--<input type="text" class="form-control"  name="p_stop_use" [(ngModel)]="p_stop_use" disabled="disabled"       [disabled]="isDetail=='detail'">-->
+                    <!--</div>-->
+
+
+
+                  </div>
+                </fieldset>
+              </form>
+            </div>
+            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+              <div style="padding:0 10px;">
+                <ul class="ace-thumbnails clearfix">
+                  <li class="canDel" *ngFor="let img of imgList;let ind = index;">
+                    <a class="cboxElement" (click)="showBigPic(url+img)">
+                      <img width="150" height="150" alt="150x150" src="{{url}}{{img}}">
+                    </a>
+                    <div class="tools tools-top" *ngIf="isDetail!='detail'">
+                      <a class="pull-right" (click)="removeImg(ind)">
+                        <i class="ace-icon fa fa-times txt-color-red">
+                        </i>
+                      </a>
+                    </div>
+                  </li>
+                  <li *ngIf="isDetail!='detail'">
+                    <div class="c-file-upload">
+                      <a class="btn" (click)="showSelectFileDiv()" style="border: 0;">
+                        点击选择上传图片
+                      </a>
+                      <!--<a class="btn btn-default" (click)="showSelectFileDiv()" style="width: 150px; height: 150px;border: 0;">-->
+                      <!--<i class="fa fa-plus fa-2x" style="color: #ccc;  font-size: 152px;"></i>-->
+                      <!--</a>-->
+                    </div>
+                  </li>
+                </ul>
+
               </div>
             </div>
-          </sa-widget>
+          </div>
+
+
+
+          <!--<sa-widget [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">-->
+            <!--<header>-->
+              <!--<ul class="nav nav-tabs pull-left in">-->
+                <!--<li [class.active]="state.tabs.demo3=='hr1'" class="active">-->
+                  <!--<a (click)="state.tabs.demo3 = 'hr1'">基本信息</a>-->
+                <!--</li>-->
+                <!--<li [class.active]="state.tabs.demo3=='hr2'" class="active">-->
+                  <!--<a (click)="state.tabs.demo3 = 'hr2'">其他信息</a>-->
+                <!--</li>-->
+                <!--<li [class.active]="state.tabs.demo3=='hr3'" class="active" style="display: none;">-->
+                  <!--<a (click)="state.tabs.demo3 = 'hr3'">多单位</a>-->
+                <!--</li>-->
+                <!--<li [class.active]="state.tabs.demo3=='hr5'" class="active">-->
+                  <!--<a (click)="state.tabs.demo3 = 'hr5'">图片信息</a>-->
+                <!--</li>-->
+              <!--</ul>-->
+            <!--</header>-->
+            <!--<div class="widget-body">-->
+              <!--<div class="row">-->
+                <!--<tabset>-->
+                  <!--<tab [active]="state.tabs.demo3 == 'hr1'">-->
+                   <!---->
+
+                  <!--</tab>-->
+                  <!--<tab [active]="state.tabs.demo3 == 'hr2'">-->
+                    <!---->
+                  <!--</tab>-->
+                  <!--<tab [active]="state.tabs.demo3 == 'hr3'" style="display: none;">-->
+                    <!--<div class="row">-->
+                      <!--<div class=" padding">-->
+                        <!--只能设置一个库存单位,当库存单位设置为浮动换算时,只能设置一个辅单位。-->
+                        <!--主计量单位数量=辅计量单位数量*换算率。<br/>-->
+                        <!--例如：一箱有100包，主单位为"包"，辅单位为"箱"，换算率为100（包装数）, 或者 主单位为"箱"，辅单位为"包"，换算率为0.01（1/100）-->
+                      <!--</div>-->
+                      <!--<div class="table-responsive padding0 table-minheight">-->
+                        <!--<table class="table table-striped  table-hover smart-form">-->
+                          <!--<thead>-->
+                          <!--<tr>-->
+                            <!--<th>操作</th>-->
+                            <!--<th>辅单位 </th>-->
+                            <!--<th>库存单位 </th>-->
+                            <!--<th>浮动换算</th>-->
+                            <!--<th>换算率  </th>-->
+                            <!--<th>条码 </th>-->
+                          <!--</tr>-->
+                          <!--</thead>-->
+                          <!--<tbody>-->
+                          <!--<tr>-->
+                            <!--<td><a class="btn btn-warning btn-xs"  ><span class="fa-fw fa fa-plus"></span></a>-->
+                              <!--<a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span></a>-->
+                            <!--</td>-->
+                            <!--<td>-->
+                              <!--<div style="text-align: center; width: 100px;" >-->
+                                <!--<table border="0" cellspacing="0" cellpadding="1">-->
+                                  <!--<tbody>-->
+                                  <!--<tr>-->
+                                    <!--<td>-->
+                                      <!--<form class="smart-form">-->
+                                        <!--<section>-->
+                                          <!--<label class="input">-->
+                                            <!--<select class="form-control">-->
+                                              <!--<option value="">选择辅助单位</option>-->
+                                              <!--<option value="">包</option>-->
+                                              <!--<option value="">箱</option>-->
+                                              <!--<option value="">条</option>-->
+                                            <!--</select>-->
+                                          <!--</label>-->
+                                        <!--</section>-->
+                                      <!--</form>-->
+                                    <!--</td>-->
+                                    <!--<td>-->
+                                    <!--</td>-->
+                                  <!--</tr>-->
+                                  <!--</tbody>-->
+                                <!--</table>-->
+                              <!--</div>-->
+                            <!--</td>-->
+                            <!--<td>-->
+                              <!--<div style="text-align: center; width: 100px;" >-->
+                                <!--否-->
+                                <!--<span class="txt-color-red">请先设置辅单位</span>-->
+                                <!--<table border="0" cellspacing="0" cellpadding="1">-->
+                                  <!--<tbody>-->
+                                  <!--<tr>-->
+                                    <!--<td>-->
+                                      <!--<form class="smart-form">-->
+                                        <!--<section>-->
+                                          <!--<div class="inline-group">-->
+                                            <!--<label class="radio">-->
+                                              <!--<input  name="radio-inline" type="radio">-->
+                                              <!--<i></i>是</label>-->
+                                            <!--<label class="radio">-->
+                                              <!--<input name="radio-inline" checked="" type="radio">-->
+                                              <!--<i></i>否</label>-->
+                                          <!--</div>-->
+                                        <!--</section>-->
+                                      <!--</form>-->
+                                    <!--</td>-->
+                                  <!--</tr>-->
+                                  <!--</tbody>-->
+                                <!--</table>-->
+                              <!--</div>-->
+                            <!--</td>-->
+                            <!--<td>-->
+                              <!--<div style="text-align: center; width: 100px;" >-->
+                                <!--否-->
+                                <!--<span class="txt-color-red">请先设置辅单位</span>-->
+                                <!--<table border="0" cellspacing="0" cellpadding="1">-->
+                                  <!--<tbody>-->
+                                  <!--<tr>-->
+                                    <!--<td>-->
+                                      <!--<form class="smart-form">-->
+                                        <!--<section>-->
+                                          <!--<div class="inline-group">-->
+                                            <!--<label class="radio">-->
+                                              <!--<input  name="radio-inline" type="radio">-->
+                                              <!--<i></i>是</label>-->
+                                            <!--<label class="radio">-->
+                                              <!--<input name="radio-inline" checked="" type="radio">-->
+                                              <!--<i></i>否</label>-->
+                                          <!--</div>-->
+                                        <!--</section>-->
+                                      <!--</form>-->
+                                    <!--</td>-->
+                                  <!--</tr>-->
+                                  <!--</tbody>-->
+                                <!--</table>-->
+                              <!--</div>-->
+                            <!--</td>-->
+                            <!--<td>-->
+                              <!--<div style="text-align: center; width: 100px;" >-->
+                                <!--<span class="txt-color-red">请先设置辅单位</span>-->
+                                <!--<table border="0" cellspacing="0" cellpadding="1">-->
+                                  <!--<tbody>-->
+                                  <!--<tr>-->
+                                    <!--<td>-->
+                                      <!--<form class="smart-form">-->
+                                        <!--<section>-->
+                                          <!--<label class="input">-->
+                                            <!--<input  name="" type="text">-->
+                                          <!--</label>-->
+                                        <!--</section>-->
+                                      <!--</form>-->
+                                    <!--</td>-->
+                                  <!--</tr>-->
+                                  <!--</tbody>-->
+                                <!--</table>-->
+                              <!--</div>-->
+                            <!--</td>-->
+                            <!--<td>-->
+                              <!--<div style="text-align: center; width: 100px;" >-->
+                                <!--<span class="txt-color-red">请先设置辅单位</span>-->
+                                <!--<table border="0" cellspacing="0" cellpadding="1">-->
+                                  <!--<tbody>-->
+                                  <!--<tr>-->
+                                    <!--<td>-->
+                                      <!--<form class="smart-form">-->
+                                        <!--<section>-->
+                                          <!--<label class="input">-->
+                                            <!--<input  name="" type="text">-->
+                                          <!--</label>-->
+                                        <!--</section>-->
+                                      <!--</form>-->
+                                    <!--</td>-->
+                                  <!--</tr>-->
+                                  <!--</tbody>-->
+                                <!--</table>-->
+                              <!--</div>-->
+                            <!--</td>-->
+                          <!--</tr>-->
+                          <!--</tbody>-->
+                        <!--</table>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</tab>-->
+                  <!--<tab [active]="state.tabs.demo3 == 'hr5'">-->
+
+                   <!---->
+                  <!--</tab>-->
+                <!--</tabset>-->
+              <!--</div>-->
+
+            <!--</div>-->
+          <!--</sa-widget>-->
         </div>
         <div class="modal-footer">
          <div class="display-inline" *ngIf="(isPermission(menu_id,'add') || isPermission(menu_id,'edit')) && isDetail!='detail'">
-          <button [disabled]="isDetail=='detail'" type="button" class="btn btn-primary" (click)="onSubmit(1);">保存</button>
-          <button [disabled]="isDetail=='detail'" class="btn btn-success" type="button" (click)="onSubmit(2);">保存并新增</button>
+          <button [disabled]="isDetail=='detail'" type="button" class="btn btn-primary  ml-2" (click)="onSubmit(1);">保存</button>
+          <button [disabled]="isDetail=='detail'" class="btn btn-success  ml-2" type="button" (click)="onSubmit(2);">保存并新增</button>
          </div>
-          <button type="button" class="btn btn-default"  (click)="clear_();lgModal.hide()">返回</button>
+          <button type="button" class="btn btn-default  ml-2"  (click)="clear_();lgModal.hide()">返回</button>
         </div>
       </div>
     </div>

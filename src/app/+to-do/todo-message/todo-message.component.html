@@ -1,204 +1,209 @@
 <div id="content">
-  <sa-widget [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
-    <header>
-        <ul class="nav nav-tabs pull-left in">
-            <li [class.active]="state.tabs.demo5=='iss1'" class="active">
-                <a (click)="showMessages('iss1',1)">未读</a>
-            </li>
-            <!--<li [class.active]="state.tabs.demo5=='iss2'">-->
-                <!--<a (click)="showMessages('iss2',1)">处理中 </a>-->
-            <!--</li>-->
-            <li [class.active]="state.tabs.demo5=='iss3'">
-                <a (click)="showMessages('iss3',1)">已读 </a>
-            </li>
-        </ul>
-    </header>
-    <div>
-      <div class="widget-body">
-          <tabset>
-              <tab [active]="state.tabs.demo5 == 'iss1'">
-                  <div class="row" *ngIf="unreadMessageList?.result?.task?.count == 0">
-                      <!--没有消息的时候显示的内容-->
-                    <div class="col-xs-12">
-                      <div class="empty-panel text-center margin-bottom-40" ><i class="fa fa-bell"></i><br><br>
-                          <span class="ng-binding">没有未读的消息</span>
-                      </div>
-                  </div>
-                  </div>
-                  <div class="row"  *ngIf="unreadMessageList?.result?.task?.count != 0">
-                      <div class="col-xs-12">
-                          <div class="navbar navbar-default">
-                              <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-                                  <div class="form-group pdlr-4">
-                                      <input  class="form-control ng-pristine ng-valid ng-touched" name="keyword_unread" [(ngModel)]="keyword_unread" maxlength="15"  placeholder="请输入搜索内容" type="text">
-                                  </div>
-                                  <div class="form-group pdlr-4">
-                                      <button class="btn btn-default" type="button" (click)="showMessages('iss1',1)">
-                                          <i  class="glyphicon glyphicon-search"></i>
-                                          搜索
-                                      </button>
-                                  </div>
-                              </form>
-                          </div>
-                          <div class="list-group contact-group">
-                              <a href="#" class="list-group-item" *ngFor="let ml of unreadMessageList?.result?.task?.data;let indu = index;" (click)="readTask(ml.project_id,ml.todo_id,ml.userId,indu)">
-                                  <div class="media">
-                                      <div class="pull-left">
-                                          <img class="img-circle img-online online profile-img" src="assets/img/avatars/male.png" alt="..." style="width: 40px; height: auto;">
-                                      </div>
-                                      <div class="media-body">
-                                          <h4 class="media-heading">
-                                              <a>{{ml.username}}</a> {{ml.messageTitle}} <small></small></h4>
-                                          <div class="media-content">
-                                              <i class="fa fa-check-square-o"></i>{{ml.taskTitle}}
-                                          </div>
-                                          <div class="media-content">
-                                              {{ml.expired_at}}
-                                          </div>
-                                      </div>
-                                  </div><!-- media -->
-                              </a>
-                          </div>
-                          <div class="hidden-xs right">
-                              <!--<ul class="pagination pagination-sm">-->
-                                  <!--<li class="disabled"><a>上一页</a></li>-->
-                                  <!--<li class="active"><a>1</a></li>-->
-                                  <!--<li class=""><a>2</a> </li>-->
-                                  <!--<li class=""><a>下一页</a></li>-->
-                              <!--</ul>-->
+    <sa-widgets-grid>
+        <div class="row">
+            <article class="col-sm-12 ">
+                <sa-widget [editbutton]="false" [deletebutton]="false" [colorbutton]="false">
+                    <header>
+                        <ul class="nav nav-tabs pull-left in">
+                            <li [class.active]="state.tabs.demo5=='iss1'" class="active">
+                                <a (click)="showMessages('iss1',1)">未读</a>
+                            </li>
+                            <!--<li [class.active]="state.tabs.demo5=='iss2'">-->
+                            <!--<a (click)="showMessages('iss2',1)">处理中 </a>-->
+                            <!--</li>-->
+                            <li [class.active]="state.tabs.demo5=='iss3'">
+                                <a (click)="showMessages('iss3',1)">已读 </a>
+                            </li>
+                        </ul>
+                    </header>
+                    <div>
+                        <div class="widget-body  no-padding">
+                            <tabset>
+                                <tab [active]="state.tabs.demo5 == 'iss1'">
+                                    <div class="row" *ngIf="unreadMessageList?.result?.task?.count == 0">
+                                        <!--没有消息的时候显示的内容-->
+                                        <div class="col-xs-12">
+                                            <div class="empty-panel text-center margin-bottom-40" ><i class="fa fa-bell"></i><br><br>
+                                                <span class="ng-binding">没有未读的消息</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <article>
+                                        <div class="navbar navbar-default" >
+                                            <form  class="navbar-form" novalidate="" role="search" >
+                                                <div class="btn-group">
+                                                    <input type="text" class="form-control" name="keyword_unread" [(ngModel)]="keyword_unread" maxlength="15"  placeholder="请输入搜索内容" >
+                                                </div>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn default-btn"  (click)="showMessages('iss1',1)">搜索</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </article>
+                                    <div   style="padding:0;" *ngIf="unreadMessageList?.result?.task?.count != 0">
 
-                              <ul class="pagination pagination-sm" *ngIf="unreadMessageList?.result?.task?.pageHtml">
-                                  <li *ngFor="let p of unreadMessageList?.result?.task?.pageHtml" class="{{p.class}}">
-                                      <a (click)="showMessages('iss1',p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
-                                      <a *ngIf="p.method==''">{{p.text}}</a>
-                                  </li>
-                              </ul>
-                          </div>
-                      </div>
-                  </div>
-              </tab>
-              <!--<tab [active]="state.tabs.demo5 == 'iss2'">-->
-                  <!--<div class="row">-->
-                      <!--&lt;!&ndash;没有消息的时候显示的内容&ndash;&gt;-->
-                      <!--&lt;!&ndash; <div class="col-xs-12">-->
-                           <!--<div class="empty-panel text-center margin-bottom-40" ><i class="fa fa-bell"></i><br><br>-->
-                               <!--<span class="ng-binding">没有待处理的消息</span>-->
-                           <!--</div>-->
-                       <!--</div>&ndash;&gt;-->
+                                        <div class="list-group contact-group">
+                                            <a href="#" class="list-group-item" *ngFor="let ml of unreadMessageList?.result?.task?.data;let indu = index;" (click)="readTask(ml.project_id,ml.todo_id,ml.userId,indu)">
+                                                <div class="media">
+                                                    <div class="pull-left">
+                                                        <img class="img-circle img-online online profile-img" src="assets/img/avatars/male.png" alt="..." style="width: 40px; height: auto;">
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">
+                                                            <a>{{ml.username}}</a> {{ml.messageTitle}} <small></small></h4>
+                                                        <div class="media-content">
+                                                            <i class="fa fa-check-square-o"></i>{{ml.taskTitle}}
+                                                        </div>
+                                                        <div class="media-content">
+                                                            {{ml.expired_at}}
+                                                        </div>
+                                                    </div>
+                                                </div><!-- media -->
+                                            </a>
+                                        </div>
+
+                                        <!-- 底部-（分页部分）-->
+                                        <div class="footer-size flex-justify-end">
+                                            <ul class="pagination"   *ngIf="unreadMessageList?.result?.task?.pageHtml">
+                                                <li *ngFor="let p of unreadMessageList?.result?.task?.pageHtml" class="{{p.class}}">
+                                                    <a class="page-link" (click)="showMessages('iss1',p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+                                                    <a class="page-link"  *ngIf="p.method==''">{{p.text}}</a>
+                                                </li>
+                                                <!--<li class="page-item disabled">-->
+                                                <!--<a  class="page-link" disabled>共0条</a>-->
+                                                <!--</li>-->
+                                            </ul>
+                                        </div>
+
+                                    </div>
+
+                                </tab>
+                                <tab [active]="state.tabs.demo5 == 'iss3'">
+                                    <div class="row" *ngIf="readMessageList?.result?.task?.count == 0">
+                                        <!--没有消息的时候显示的内容-->
+                                        <div class="col-xs-12">
+                                            <div class="empty-panel text-center margin-bottom-40" ><i class="fa fa-bell"></i><br><br>
+                                                <span class="ng-binding">没有已读的消息</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <article>
+                                        <div class="navbar navbar-default" >
+                                            <form  class="navbar-form" novalidate="" role="search" >
+                                                <div class="btn-group">
+                                                    <input type="text" class="form-control" name="keyword_read" [(ngModel)]="keyword_read" maxlength="15"  placeholder="请输入搜索内容">
+                                                </div>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn default-btn"  (click)="showMessages('iss3',1)">搜索</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </article>
+                                    <div  style="padding:0;" *ngIf="readMessageList?.result?.task?.count != 0">
+                                        <div class="list-group contact-group">
+                                            <a href="#" class="list-group-item" *ngFor="let mr of readMessageList?.result?.task?.data;let indr = index;" (click)="readTask(mr.project_id,mr.todo_id,mr.userId,indr)">
+                                                <div class="media">
+                                                    <div class="pull-left">
+                                                        <img class="img-circle img-online online profile-img" src="assets/img/avatars/male.png" alt="...">
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">
+                                                            <a>{{mr.username}}</a> {{mr.messageTitle}} <small></small></h4>
+                                                        <div class="media-content">
+                                                            <i class="fa fa-check-square-o"></i>{{mr.taskTitle}}
+                                                        </div>
+                                                        <div class="media-content">
+                                                            {{mr.expired_at}}
+                                                        </div>
+                                                    </div>
+                                                </div><!-- media -->
+                                            </a>
+                                        </div>
 
 
-                  <!--</div>-->
-                  <!--<div class="row">-->
-                      <!--<div class="col-xs-12">-->
-                          <!--<div class="navbar navbar-default">-->
-                              <!--<form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >-->
-                                  <!--<div class="form-group pdlr-4">-->
-                                      <!--<input  class="form-control ng-pristine ng-valid ng-touched" name="keyword" maxlength="15"  placeholder="请输入搜索内容" type="text">-->
-                                  <!--</div>-->
-                                  <!--<div class="form-group pdlr-4">-->
-                                      <!--<button class="btn btn-default" type="button" >-->
-                                          <!--<i  class="glyphicon glyphicon-search"></i>-->
-                                          <!--搜索-->
-                                      <!--</button>-->
-                                  <!--</div>-->
-                              <!--</form>-->
-                          <!--</div>-->
-                          <!--<div class="list-group contact-group">-->
-                              <!--<a href="#" class="list-group-item">-->
-                                  <!--<div class="media">-->
-                                      <!--<div class="pull-left">-->
-                                          <!--<img class="img-circle img-online online profile-img" src="assets/img/avatars/male.png" alt="...">-->
-                                      <!--</div>-->
-                                      <!--<div class="media-body">-->
-                                          <!--<h4 class="media-heading">-->
-                                              <!--<a>某某</a> 给你分配了新的任务 <small></small></h4>-->
-                                          <!--<div class="media-content">-->
-                                              <!--<i class="fa fa-check-square-o"></i>任务名-->
-                                          <!--</div>-->
-                                          <!--<div class="media-content">-->
-                                              <!--2017-12-25 15:51-->
-                                          <!--</div>-->
-                                      <!--</div>-->
-                                  <!--</div>&lt;!&ndash; media &ndash;&gt;-->
-                              <!--</a>-->
+                                        <!-- 底部-（分页部分）-->
+                                        <div class="footer-size flex-justify-end">
+                                            <ul class="pagination" *ngIf="readMessageList?.result?.task?.pageHtml">
+                                                <li *ngFor="let p of readMessageList?.result?.task?.pageHtml" class="{{p.class}}">
+                                                    <a class="page-link" (click)="showMessages('iss3',p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
+                                                    <a class="page-link" *ngIf="p.method==''">{{p.text}}</a>
+                                                </li>
+                                                <!--<li class="page-item disabled">-->
+                                                <!--<a  class="page-link" disabled>共0条</a>-->
+                                                <!--</li>-->
+                                            </ul>
+                                        </div>
 
-                          <!--</div>-->
+                                    </div>
+                                </tab>
+                                <!--<tab [active]="state.tabs.demo5 == 'iss2'">-->
+                                <!--<div class="row">-->
+                                <!--&lt;!&ndash;没有消息的时候显示的内容&ndash;&gt;-->
+                                <!--&lt;!&ndash; <div class="col-xs-12">-->
+                                <!--<div class="empty-panel text-center margin-bottom-40" ><i class="fa fa-bell"></i><br><br>-->
+                                <!--<span class="ng-binding">没有待处理的消息</span>-->
+                                <!--</div>-->
+                                <!--</div>&ndash;&gt;-->
 
-                          <!--<div class="hidden-xs right">-->
-                              <!--<ul class="pagination pagination-sm">-->
-                                  <!--<li class="disabled"><a>上一页</a></li>-->
-                                  <!--<li class="active"><a>1</a></li>-->
-                                  <!--<li class=""><a>2</a> </li>-->
-                                  <!--<li class=""><a>下一页</a></li>-->
-                              <!--</ul>-->
-                          <!--</div>-->
-                      <!--</div>-->
-                  <!--</div>-->
-              <!--</tab>-->
-              <tab [active]="state.tabs.demo5 == 'iss3'">
-                  <div class="row" *ngIf="readMessageList?.result?.task?.count == 0">
-                      <!--没有消息的时候显示的内容-->
-                      <div class="col-xs-12">
-                           <div class="empty-panel text-center margin-bottom-40" ><i class="fa fa-bell"></i><br><br>
-                               <span class="ng-binding">没有已读的消息</span>
-                           </div>
-                       </div>
-                  </div>
-                  <div class="row" *ngIf="readMessageList?.result?.task?.count != 0">
-                      <div class="col-xs-12">
-                          <div class="navbar navbar-default">
-                              <form  class="navbar-form navbar-left ng-pristine ng-valid ng-touched" novalidate="" role="search" >
-                                  <div class="form-group pdlr-4">
-                                      <input  class="form-control ng-pristine ng-valid ng-touched" name="keyword_read" [(ngModel)]="keyword_read" maxlength="15"  placeholder="请输入搜索内容" type="text">
-                                  </div>
-                                  <div class="form-group pdlr-4">
-                                      <button class="btn btn-default" type="button" (click)="showMessages('iss3',1)">
-                                          <i  class="glyphicon glyphicon-search"></i>
-                                          搜索
-                                      </button>
-                                  </div>
-                              </form>
-                          </div>
-                          <div class="list-group contact-group">
-                              <a href="#" class="list-group-item" *ngFor="let mr of readMessageList?.result?.task?.data;let indr = index;" (click)="readTask(mr.project_id,mr.todo_id,mr.userId,indr)">
-                                  <div class="media">
-                                      <div class="pull-left">
-                                          <img class="img-circle img-online online profile-img" src="assets/img/avatars/male.png" alt="...">
-                                      </div>
-                                      <div class="media-body">
-                                          <h4 class="media-heading">
-                                              <a>{{mr.username}}</a> {{mr.messageTitle}} <small></small></h4>
-                                          <div class="media-content">
-                                              <i class="fa fa-check-square-o"></i>{{mr.taskTitle}}
-                                          </div>
-                                          <div class="media-content">
-                                              {{mr.expired_at}}
-                                          </div>
-                                      </div>
-                                  </div><!-- media -->
-                              </a>
-                          </div>
-                          <div class="hidden-xs right">
-                              <ul class="pagination pagination-sm" *ngIf="readMessageList?.result?.task?.pageHtml">
-                                  <li *ngFor="let p of readMessageList?.result?.task?.pageHtml" class="{{p.class}}">
-                                      <a (click)="showMessages('iss3',p.value)" *ngIf="p.method=='method'">{{p.text}}</a>
-                                      <a *ngIf="p.method==''">{{p.text}}</a>
-                                  </li>
-                              </ul>
-                              <!--<ul class="pagination pagination-sm">-->
-                                  <!--<li class="disabled"><a>上一页</a></li>-->
-                                  <!--<li class="active"><a>1</a></li>-->
-                                  <!--<li class=""><a>2</a> </li>-->
-                                  <!--<li class=""><a>下一页</a></li>-->
-                              <!--</ul>-->
-                          </div>
-                      </div>
-                  </div>
-              </tab>
 
-          </tabset>
-      </div>
-    </div>
-  </sa-widget>
+                                <!--</div>-->
+                                <!--<div class="row">-->
+                                <!--<div class="col-xs-12">-->
+                                <!--<div class="navbar navbar-default">-->
+                                <!--<form  class="navbar-form navbar-left " novalidate="" role="search" >-->
+                                <!--<div class="form-group pdlr-4">-->
+                                <!--<input  class="form-control ng-pristine ng-valid ng-touched" name="keyword" maxlength="15"  placeholder="请输入搜索内容" type="text">-->
+                                <!--</div>-->
+                                <!--<div class="form-group pdlr-4">-->
+                                <!--<button class="btn btn-default" type="button" >-->
+                                <!--<i  class="glyphicon glyphicon-search"></i>-->
+                                <!--搜索-->
+                                <!--</button>-->
+                                <!--</div>-->
+                                <!--</form>-->
+                                <!--</div>-->
+                                <!--<div class="list-group contact-group">-->
+                                <!--<a href="#" class="list-group-item">-->
+                                <!--<div class="media">-->
+                                <!--<div class="pull-left">-->
+                                <!--<img class="img-circle img-online online profile-img" src="assets/img/avatars/male.png" alt="...">-->
+                                <!--</div>-->
+                                <!--<div class="media-body">-->
+                                <!--<h4 class="media-heading">-->
+                                <!--<a>某某</a> 给你分配了新的任务 <small></small></h4>-->
+                                <!--<div class="media-content">-->
+                                <!--<i class="fa fa-check-square-o"></i>任务名-->
+                                <!--</div>-->
+                                <!--<div class="media-content">-->
+                                <!--2017-12-25 15:51-->
+                                <!--</div>-->
+                                <!--</div>-->
+                                <!--</div>&lt;!&ndash; media &ndash;&gt;-->
+                                <!--</a>-->
+
+                                <!--</div>-->
+
+                                <!--<div class="hidden-xs right">-->
+                                <!--<ul class="pagination pagination-sm">-->
+                                <!--<li class="disabled"><a>上一页</a></li>-->
+                                <!--<li class="active"><a>1</a></li>-->
+                                <!--<li class=""><a>2</a> </li>-->
+                                <!--<li class=""><a>下一页</a></li>-->
+                                <!--</ul>-->
+                                <!--</div>-->
+                                <!--</div>-->
+                                <!--</div>-->
+                                <!--</tab>-->
+
+
+                            </tabset>
+                        </div>
+                    </div>
+                </sa-widget>
+
+            </article>
+        </div>
+    </sa-widgets-grid>
+
 </div>
 
