@@ -6,8 +6,8 @@ import {HttpClient,HttpHeaders} from "@angular/common/http";
 @Injectable()
 export class GlobalService {
   nodeDomain ='http://127.0.0.1:8800';
-  domain ='http://182.61.53.58:8080';
-  tsdbDomain ='http://182.61.53.58:10088';
+  domain ='http://192.168.0.241:8080';
+  tsdbDomain ='http://192.168.0.241:10088';
   station2 = '2';//基站
   station1 = '3';//安全帽
   adminID = 1;//超级管理员c_id

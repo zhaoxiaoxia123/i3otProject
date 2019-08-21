@@ -5,9 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d7a6cc0a-066e-4c53-afa2-0c23e7d44476" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/data-page.zip" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+auth/+login/login.component.html" afterPath="$PROJECT_DIR$/src/app/+auth/+login/login.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/+auth/+register/register.component.html" afterPath="$PROJECT_DIR$/src/app/+auth/+register/register.component.html" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/assets/img/login.png" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/core/global.service.ts" afterPath="$PROJECT_DIR$/src/app/core/global.service.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/shared/layout/header/header.component.html" afterPath="$PROJECT_DIR$/src/app/shared/layout/header/header.component.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/shared/layout/navigation/navigation.component.html" afterPath="$PROJECT_DIR$/src/app/shared/layout/navigation/navigation.component.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/css/demo.min.css" afterPath="$PROJECT_DIR$/src/assets/css/demo.min.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/css/i3ot-component.css" afterPath="$PROJECT_DIR$/src/assets/css/i3ot-component.css" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -20,7 +24,18 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
+      <file leaf-file-name="navigation.component.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/app/shared/layout/navigation/navigation.component.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="322">
+              <caret line="14" column="40" lean-forward="true" selection-start-line="14" selection-start-column="40" selection-end-line="14" selection-end-column="40" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -31,16 +46,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>nav-pills</find>
-      <find>地址</find>
-      <find>.ng-pristine</find>
-      <find>ng-pristine</find>
-      <find>页面</find>
-      <find>badge bg-color-red</find>
-      <find>dp</find>
-      <find>created_at</find>
-      <find>updated_at</find>
-      <find>时间</find>
       <find>datePickerConfig</find>
       <find>datePick</find>
       <find>备注</find>
@@ -61,6 +66,16 @@
       <find>设备ID</find>
       <find>3276b1</find>
       <find>285E8E</find>
+      <find>class=&quot;collapse-sign&quot;</find>
+      <find>收藏</find>
+      <find>ECharts</find>
+      <find>echarts</find>
+      <find>TodoMissionDetailComponent</find>
+      <find>entry_header_title</find>
+      <find>dropdown-toggle</find>
+      <find>entries_panel</find>
+      <find>task-badge</find>
+      <find>entry-task-composer</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -78,10 +93,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/app/+equipment/data-map/data-map.component.html" />
-        <option value="$PROJECT_DIR$/src/app/+customer-management/unit-classify/unit-classify.component.html" />
-        <option value="$PROJECT_DIR$/src/app/+tables/list-staff/list-staff.component.html" />
-        <option value="$PROJECT_DIR$/src/app/+management/setting-enterprise/setting-enterprise.component.html" />
         <option value="$PROJECT_DIR$/src/app/+management/setting-enterprise1/setting-enterprise1.component.html" />
         <option value="$PROJECT_DIR$/src/app/+management/setting-enterprise2/setting-enterprise2.component.html" />
         <option value="$PROJECT_DIR$/src/app/style/style-form/style-form.component.html" />
@@ -120,15 +131,19 @@
         <option value="$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/panel-mine/panel-mine.component.html" />
         <option value="$PROJECT_DIR$/src/assets/css/style.css" />
         <option value="$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/dynamic-wall.component.html" />
-        <option value="$PROJECT_DIR$/src/assets/css/i3ot-plugins.css" />
         <option value="$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/panel-staff/panel-staff.component.html" />
         <option value="$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/panel-sell/panel-sell.component.html" />
         <option value="$PROJECT_DIR$/src/app/+equipment/add-phonics/add-phonics.component.html" />
-        <option value="$PROJECT_DIR$/src/assets/css/i3ot-component.css" />
         <option value="$PROJECT_DIR$/src/app/app.routing.ts" />
-        <option value="$PROJECT_DIR$/src/app/shared/layout/navigation/navigation.component.html" />
         <option value="$PROJECT_DIR$/src/app/+auth/+register/register.component.html" />
         <option value="$PROJECT_DIR$/src/app/+auth/+login/login.component.html" />
+        <option value="$PROJECT_DIR$/src/assets/css/demo.min.css" />
+        <option value="$PROJECT_DIR$/src/app/shared/layout/header/header.component.html" />
+        <option value="$PROJECT_DIR$/src/assets/css/i3ot-plugins.css" />
+        <option value="$PROJECT_DIR$/src/assets/css/i3ot-component.css" />
+        <option value="$PROJECT_DIR$/src/assets/css/i3ot-angular-next.css" />
+        <option value="$PROJECT_DIR$/src/app/core/global.service.ts" />
+        <option value="$PROJECT_DIR$/src/app/shared/layout/navigation/navigation.component.html" />
       </list>
     </option>
   </component>
@@ -156,9 +171,9 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="425" />
-    <option name="y" value="58" />
-    <option name="width" value="1382" />
+    <option name="x" value="136" />
+    <option name="y" value="17" />
+    <option name="width" value="1685" />
     <option name="height" value="983" />
   </component>
   <component name="ProjectView">
@@ -176,6 +191,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -194,26 +210,10 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="cdasod-project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="cdasod-project" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="+auth" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="cdasod-project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="cdasod-project" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="+auth" type="462c0819:PsiDirectoryNode" />
-              <item name="+login" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -232,7 +232,7 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.tslint" value="F:\2019work\code\i3ot\erp-admin\node_modules\tslint" />
-    <property name="SearchEverywhereHistoryKey" value="login&#9;FILE&#9;file://F:/2019work/code/i3ot/cdasod-project/src/app/shared/user/login-info/login-info.component.html&#10;register&#9;FILE&#9;file://F:/2019work/code/i3ot/cdasod-project/src/app/+auth/+register/register.component.html&#10;phonics&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+equipment/add-phonics/add-phonics.component.html&#10;panel-sell&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+dashboard/dynamic-wall/panel-sell/panel-sell.component.html&#10;panel-mine&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+dashboard/dynamic-wall/panel-mine/panel-mine.component.html&#10;panel-staff&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+dashboard/dynamic-wall/panel-staff/panel-staff.component.html&#10;dynamic-wall&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+dashboard/dynamic-wall/dynamic-wall.component.html&#10;panel-storehouse&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+dashboard/dynamic-wall/panel-storehouse/panel-storehouse.component.html&#10;panel-products&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+dashboard/dynamic-wall/panel-products/panel-products.component.html&#10;styl&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/style/style-dashboard/style-dashboard.component.html&#10;todo-widget&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+dashboard/dynamic-wall/todo-widget/todo-widget.component.css&#10;enterprise&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-enterprise/setting-enterprise.component.ts&#10;panel-element&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+dashboard/dynamic-wall/panel-element/panel-element.component.html&#10;todo-mission&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+forms/todo-mission/todo-mission.component.html&#10;form&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/style/style-form/style-form.component.html&#10;unit-list&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+customer-management/unit-list/unit-list.component.html&#10;todo-projects&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+forms/todo-projects/todo-projects.component.html&#10;account-personal&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+account/personal-settings/account-personal/account-personal.component.html&#10;personal-settings&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+account/personal-settings/personal-settings.component.html&#10;account-company&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+account/account-company/account-company.component.html&#10;approval-process&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+process/approval-process/approval-process.component.html&#10;todo-message&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+to-do/todo-message/todo-message.component.html&#10;assets-listing&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+assets-management/assets-listing/assets-listing.module.ts&#10;assets-l&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+assets-management/assets-listing/assets-listing.component.ts&#10;add-outbound/&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+inventory-management/add-outbound/add-outbound.component.html&#10;setting-archives&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-archives/setting-archives.component.html&#10;inventory-classification&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+inventory-management/inventory-classification/inventory-classification.component.html&#10;setting-departmentnew&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-departmentnew/setting-departmentnew.component.html&#10;activities&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/shared/layout/header/activities/activities.component.html&#10;select-stock&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/shared/common/select-stock/select-stock.component.ts&#10;add-sales&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+sales-management/add-sales/add-sales.component.ts&#10;account-menu&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+account/account-menu/account-menu.component.html&#10;account-admin&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+account/account-admin/account-admin.component.html&#10;address-ip&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+account/address-ip/address-ip.component.html&#10;setting-honor&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-honor/setting-honor.component.html&#10;ribbon&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/shared/layout/ribbon/ribbon.component.html&#10;unit-classify&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+customer-management/unit-classify/unit-classify.component.html&#10;setting-openness&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-openness/setting-openness.component.html&#10;setting-formwork&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-formwork/setting-formwork.component.html&#10;setting-affiliation&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-affiliation/setting-affiliation.component.html&#10;setting-equipment&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-equipment/setting-equipment.component.html&#10;enterprise2&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-enterprise2/setting-enterprise2.component.html&#10;staff&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+tables/list-staff/list-staff.component.html&#10;enterprise1&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-enterprise1/setting-enterprise1.component.html&#10;account-permissions&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+account/account-permissions/account-permissions.component.html&#10;helmet-chart&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+equipment/helmet-chart/helmet-chart.component.html&#10;data-map&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+equipment/data-map/data-map.component.html&#10;equipment-list&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+equipment/equipment-list/equipment-list.component.html&#10;add-equipment&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+equipment/add-equipment/add-equipment.component.html&#10;phonics-list&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+equipment/phonics-list/phonics-list.component.html" />
+    <property name="SearchEverywhereHistoryKey" value="todo-mission&#9;FILE&#9;file://F:/2019work/code/i3ot/cdasod-project/src/app/+forms/todo-mission/todo-mission.component.html&#10;approval-process&#9;FILE&#9;file://F:/2019work/code/i3ot/cdasod-project/src/app/+process/approval-process/approval-process.component.html&#10;todo-workbench&#9;FILE&#9;file://F:/2019work/code/i3ot/cdasod-project/src/app/+to-do/todo-workbench/todo-workbench.component.ts&#10;unit-list&#9;FILE&#9;file://F:/2019work/code/i3ot/cdasod-project/src/app/+customer-management/unit-list/unit-list.component.html&#10;header&#9;FILE&#9;file://F:/2019work/code/i3ot/cdasod-project/src/app/shared/layout/header/header.component.html&#10;login&#9;FILE&#9;file://F:/2019work/code/i3ot/cdasod-project/src/app/shared/user/login-info/login-info.component.html&#10;register&#9;FILE&#9;file://F:/2019work/code/i3ot/cdasod-project/src/app/+auth/+register/register.component.html&#10;phonics&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+equipment/add-phonics/add-phonics.component.html&#10;panel-sell&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+dashboard/dynamic-wall/panel-sell/panel-sell.component.html&#10;panel-mine&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+dashboard/dynamic-wall/panel-mine/panel-mine.component.html&#10;panel-staff&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+dashboard/dynamic-wall/panel-staff/panel-staff.component.html&#10;dynamic-wall&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+dashboard/dynamic-wall/dynamic-wall.component.html&#10;panel-storehouse&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+dashboard/dynamic-wall/panel-storehouse/panel-storehouse.component.html&#10;panel-products&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+dashboard/dynamic-wall/panel-products/panel-products.component.html&#10;styl&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/style/style-dashboard/style-dashboard.component.html&#10;todo-widget&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+dashboard/dynamic-wall/todo-widget/todo-widget.component.css&#10;enterprise&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-enterprise/setting-enterprise.component.ts&#10;panel-element&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+dashboard/dynamic-wall/panel-element/panel-element.component.html&#10;form&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/style/style-form/style-form.component.html&#10;todo-projects&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+forms/todo-projects/todo-projects.component.html&#10;account-personal&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+account/personal-settings/account-personal/account-personal.component.html&#10;personal-settings&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+account/personal-settings/personal-settings.component.html&#10;account-company&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+account/account-company/account-company.component.html&#10;todo-message&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+to-do/todo-message/todo-message.component.html&#10;assets-listing&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+assets-management/assets-listing/assets-listing.module.ts&#10;assets-l&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+assets-management/assets-listing/assets-listing.component.ts&#10;add-outbound/&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+inventory-management/add-outbound/add-outbound.component.html&#10;setting-archives&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-archives/setting-archives.component.html&#10;inventory-classification&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+inventory-management/inventory-classification/inventory-classification.component.html&#10;setting-departmentnew&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-departmentnew/setting-departmentnew.component.html&#10;activities&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/shared/layout/header/activities/activities.component.html&#10;select-stock&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/shared/common/select-stock/select-stock.component.ts&#10;add-sales&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+sales-management/add-sales/add-sales.component.ts&#10;account-menu&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+account/account-menu/account-menu.component.html&#10;account-admin&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+account/account-admin/account-admin.component.html&#10;address-ip&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+account/address-ip/address-ip.component.html&#10;setting-honor&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-honor/setting-honor.component.html&#10;ribbon&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/shared/layout/ribbon/ribbon.component.html&#10;unit-classify&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+customer-management/unit-classify/unit-classify.component.html&#10;setting-openness&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-openness/setting-openness.component.html&#10;setting-formwork&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-formwork/setting-formwork.component.html&#10;setting-affiliation&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-affiliation/setting-affiliation.component.html&#10;setting-equipment&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-equipment/setting-equipment.component.html&#10;enterprise2&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-enterprise2/setting-enterprise2.component.html&#10;staff&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+tables/list-staff/list-staff.component.html&#10;enterprise1&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+management/setting-enterprise1/setting-enterprise1.component.html&#10;account-permissions&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+account/account-permissions/account-permissions.component.html&#10;helmet-chart&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+equipment/helmet-chart/helmet-chart.component.html&#10;data-map&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+equipment/data-map/data-map.component.html&#10;equipment-list&#9;FILE&#9;file://F:/2019work/code/i3ot/erp-admin/src/app/+equipment/equipment-list/equipment-list.component.html" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
   </component>
   <component name="RunDashboard">
@@ -291,31 +291,50 @@
       <workItem from="1552439496152" duration="20433000" />
       <workItem from="1552466975092" duration="1774000" />
       <workItem from="1552525213912" duration="10510000" />
-      <workItem from="1552547729616" duration="1101000" />
+      <workItem from="1552547729616" duration="1199000" />
+      <workItem from="1552548988534" duration="7000" />
+      <workItem from="1552549080492" duration="13000" />
+      <workItem from="1552553802443" duration="2149000" />
+      <workItem from="1552613313947" duration="10485000" />
+      <workItem from="1552870513483" duration="5436000" />
+      <workItem from="1552889252532" duration="3404000" />
+      <workItem from="1552915411314" duration="5000" />
+      <workItem from="1552957044595" duration="3090000" />
+      <workItem from="1553045475341" duration="2975000" />
+      <workItem from="1553756649667" duration="648000" />
+      <workItem from="1554085181649" duration="611000" />
+      <workItem from="1554260458579" duration="654000" />
+      <workItem from="1554967983714" duration="1029000" />
+      <workItem from="1554969916630" duration="282000" />
+      <workItem from="1555030667895" duration="1141000" />
+      <workItem from="1555057664027" duration="1558000" />
+      <workItem from="1555297722275" duration="4953000" />
+      <workItem from="1555405268007" duration="107000" />
+      <workItem from="1566374074417" duration="1768000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="327682000" />
+    <option name="totallyTimeSpent" value="368095000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24947146" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32918552" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2463002" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3020362" sideWeight="0.5021142" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32918552" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27262443" sideWeight="0.49788582" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39140272" sideWeight="0.49788582" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32918552" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -357,373 +376,373 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/app/+assets-management/assets-listing/assets-listing.component.ts">
+    <entry file="file://$PROJECT_DIR$/src/styles.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="103" column="5" lean-forward="true" selection-start-line="103" selection-start-column="5" selection-end-line="103" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+forms/+add-employees/registration-form/registration-form.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="8" column="79" lean-forward="false" selection-start-line="8" selection-start-column="78" selection-end-line="8" selection-end-column="79" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+assets-management/assets-listing/assets-listing.module.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="10" column="16" lean-forward="true" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+forms/+add-employees/add-employees.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="10" column="54" lean-forward="true" selection-start-line="10" selection-start-column="54" selection-end-line="10" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+forms/+add-employees/add-employees.module.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="12" column="26" lean-forward="false" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+forms/+add-employees/registration-form/registration-form.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="131" column="46" lean-forward="true" selection-start-line="131" selection-start-column="46" selection-end-line="131" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+assets-management/assets-listing/assets-listing.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="211" column="111" lean-forward="false" selection-start-line="211" selection-start-column="111" selection-end-line="211" selection-end-column="111" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+to-do/todo-message/todo-message.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="667">
-          <caret line="131" column="84" lean-forward="false" selection-start-line="131" selection-start-column="84" selection-end-line="131" selection-end-column="84" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/panel-products/panel-products.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-934">
+        <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/style/style.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="23">
+            <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="3" />
+          </first_editor>
+          <second_editor>
+            <markdownNavigatorState />
+          </second_editor>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/dynamic-wall.component.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="114">
+          <caret line="8" column="2" lean-forward="false" selection-start-line="8" selection-start-column="2" selection-end-line="8" selection-end-column="2" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+process/approval-process/approval-process.component.html">
+    <entry file="file://$PROJECT_DIR$/src/assets/css/demo.min.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="13" column="74" lean-forward="true" selection-start-line="13" selection-start-column="74" selection-end-line="13" selection-end-column="74" />
+        <state relative-caret-position="1021">
+          <caret line="180" column="0" lean-forward="true" selection-start-line="180" selection-start-column="0" selection-end-line="180" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+account/account-company/account-company.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+account/personal-settings/personal-settings.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="25" column="27" lean-forward="true" selection-start-line="25" selection-start-column="27" selection-end-line="25" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+account/personal-settings/account-personal/account-personal.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="10" column="14" lean-forward="true" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+account/account-company/account-company.component.html">
+    <entry file="file://$PROJECT_DIR$/src/app/shared/layout/header/activities/activities.component.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="138">
-          <caret line="40" column="16" lean-forward="true" selection-start-line="40" selection-start-column="16" selection-end-line="40" selection-end-column="16" />
+          <caret line="8" column="28" lean-forward="false" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="28" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+forms/+form-elements/form-elements.component.html">
+    <entry file="file://$PROJECT_DIR$/src/app/shared/layout/footer/footer.component.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="14" column="19" lean-forward="true" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
+        <state relative-caret-position="276">
+          <caret line="12" column="18" lean-forward="true" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="18" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+forms/todo-mission/todo-mission.component.html">
+    <entry file="file://$PROJECT_DIR$/src/app/shared/layout/header/header.module.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="175" column="129" lean-forward="false" selection-start-line="175" selection-start-column="128" selection-end-line="175" selection-end-column="129" />
+        <state relative-caret-position="-839">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/shared/common/mission-details/todo-mission-detail.component.html">
+    <entry file="file://$PROJECT_DIR$/src/app/shared/layout/header/full-screen/full-screen.component.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="576" column="71" lean-forward="false" selection-start-line="576" selection-start-column="70" selection-end-line="576" selection-end-column="71" />
+        <state relative-caret-position="69">
+          <caret line="3" column="6" lean-forward="true" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+forms/todo-projects/todo-projects.component.html">
+    <entry file="file://$PROJECT_DIR$/src/app/style/style-dashboard/style-dashboard.component.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="12" column="37" lean-forward="true" selection-start-line="12" selection-start-column="37" selection-end-line="12" selection-end-column="37" />
+        <state relative-caret-position="253">
+          <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/panel-element/panel-element.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2189">
-          <caret line="38" column="33" lean-forward="false" selection-start-line="38" selection-start-column="29" selection-end-line="38" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/dynamic-wall.module.ts">
+    <entry file="file://$PROJECT_DIR$/src/app/style/style-layouts/style-layouts.component.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+management/setting-enterprise/setting-enterprise.component.ts">
+    <entry file="file://$PROJECT_DIR$/src/app/style/style-layouts/style-layouts.module.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1748">
-          <caret line="20" column="6" lean-forward="true" selection-start-line="20" selection-start-column="6" selection-end-line="20" selection-end-column="6" />
+        <state relative-caret-position="184">
+          <caret line="8" column="63" lean-forward="false" selection-start-line="8" selection-start-column="63" selection-end-line="8" selection-end-column="63" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+management/setting-enterprise/setting-enterprise.component.html">
+    <entry file="file://$PROJECT_DIR$/src/app/style/style-routing.module.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="20" column="15" lean-forward="true" selection-start-line="20" selection-start-column="15" selection-end-line="20" selection-end-column="15" />
+        <state relative-caret-position="334">
+          <caret line="68" column="2" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="70" selection-end-column="53" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/panel-element/panel-element.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="12" column="13" lean-forward="true" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/panel-element/panel-element.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="26" column="9" lean-forward="false" selection-start-line="26" selection-start-column="9" selection-end-line="26" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/todo-widget/todo-widget.component.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+customer-management/unit-list/unit-list.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="4" column="19" lean-forward="false" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="84" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/style/style-dashboard/style-dashboard.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="151" column="58" lean-forward="true" selection-start-line="151" selection-start-column="30" selection-end-line="151" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/panel-products/panel-products.component.html">
+    <entry file="file://$PROJECT_DIR$/src/app/shared/layout/navigation/smart-menu.directive.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="161">
-          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <caret line="7" column="39" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/panel-storehouse/panel-storehouse.component.html">
+    <entry file="file://$PROJECT_DIR$/src/app/style/style.module.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="2" column="10" lean-forward="true" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/shared/layout/layout-switcher.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="12" column="24" lean-forward="false" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/assets/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="59" column="14" lean-forward="false" selection-start-line="59" selection-start-column="14" selection-end-line="59" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/shared/layout/navigation/navigation.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="15" column="27" lean-forward="true" selection-start-line="15" selection-start-column="27" selection-end-line="15" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/style/style-form/style-form.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="97" column="19" lean-forward="false" selection-start-line="97" selection-start-column="19" selection-end-line="101" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/todo-widget/todo-widget.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-727">
-          <caret line="16" column="10" lean-forward="true" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1748">
-          <caret line="8" column="39" lean-forward="false" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/panel-mine/panel-mine.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="25" column="13" lean-forward="true" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/assets/css/bootstrap.min.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="5" column="25567" lean-forward="false" selection-start-line="5" selection-start-column="25555" selection-end-line="5" selection-end-column="25567" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+equipment/phonics-list/phonics-list.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2159">
-          <caret line="80" column="30" lean-forward="false" selection-start-line="80" selection-start-column="26" selection-end-line="80" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/panel-sell/panel-sell.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="8" column="19" lean-forward="true" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/assets/css/i3ot-component.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
-          <caret line="2010" column="0" lean-forward="true" selection-start-line="2010" selection-start-column="0" selection-end-line="2010" selection-end-column="0" />
-          <folding>
-            <element signature="e#66073#66276#1" expanded="true" />
-            <element signature="e#66356#66539#1" expanded="true" />
-            <element signature="e#66620#66803#1" expanded="true" />
-            <element signature="e#66892#67079#1" expanded="true" />
-            <element signature="e#67169#67352#1" expanded="true" />
-            <element signature="e#78412#78567#2" expanded="true" />
-          </folding>
+        <state relative-caret-position="299">
+          <caret line="13" column="28" lean-forward="false" selection-start-line="13" selection-start-column="28" selection-end-line="13" selection-end-column="28" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/assets/css/i3ot-plugins.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="33">
-          <caret line="433" column="1" lean-forward="true" selection-start-line="433" selection-start-column="1" selection-end-line="433" selection-end-column="9" />
+        <state relative-caret-position="148">
+          <caret line="29" column="20" lean-forward="false" selection-start-line="29" selection-start-column="20" selection-end-line="29" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/assets/css/i3ot-common.main.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="10">
+          <caret line="2749" column="11" lean-forward="false" selection-start-line="2749" selection-start-column="2" selection-end-line="2749" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/+customer-management/unit-list/unit-list.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="262">
+          <caret line="168" column="59" lean-forward="false" selection-start-line="168" selection-start-column="59" selection-end-line="168" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/style/style-dashboard/style-dashboard.module.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/shared/layout/header/header.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/assets/img/login-register.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/assets/css/i3ot-angular-next.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/+auth/+login/login.module.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/+auth/+login/login-routing.module.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/angular.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="82" column="35" lean-forward="false" selection-start-line="82" selection-start-column="28" selection-end-line="82" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="55" column="12" lean-forward="false" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/assets/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="81" column="11" lean-forward="false" selection-start-line="81" selection-start-column="1" selection-end-line="81" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/panel-staff/panel-staff.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="12" column="26" lean-forward="false" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/dynamic-wall.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="32" column="23" lean-forward="true" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+equipment/add-phonics/add-phonics.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-796">
-          <caret line="103" column="49" lean-forward="true" selection-start-line="103" selection-start-column="49" selection-end-line="103" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/src/app/+auth/+login/login.component.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
-          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/shared/layout/navigation/navigation.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="5" column="16" lean-forward="true" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/app.routing.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="123" column="9" lean-forward="true" selection-start-line="123" selection-start-column="9" selection-end-line="123" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/shared/user/login-info/login-info.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
+          <caret line="12" column="26" lean-forward="false" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="26" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/+auth/+login/login.component.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="149" column="12" lean-forward="false" selection-start-line="149" selection-start-column="12" selection-end-line="149" selection-end-column="12" />
+        <state relative-caret-position="426">
+          <caret line="61" column="27" lean-forward="false" selection-start-line="61" selection-start-column="27" selection-end-line="61" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="21" column="91" lean-forward="false" selection-start-line="21" selection-start-column="91" selection-end-line="21" selection-end-column="91" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/shared/common/mission-details/index.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="44" lean-forward="true" selection-start-line="0" selection-start-column="44" selection-end-line="0" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/shared/common/mission-details/todo-mission-detail.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="12" column="18" lean-forward="false" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/shared/common/area.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-6125">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/shared/common/demoAlert.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/shared/common/validator.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-472">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/app.resolver.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/shared/i3otp.config.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1231">
+          <caret line="186" column="19" lean-forward="false" selection-start-line="186" selection-start-column="10" selection-end-line="186" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/shared/i3otp.module.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="28" column="18" lean-forward="true" selection-start-line="28" selection-start-column="18" selection-end-line="28" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/shared/common/mission-details/todo-mission-detail.module.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="46">
+          <caret line="2" column="56" lean-forward="true" selection-start-line="2" selection-start-column="44" selection-end-line="2" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/+to-do/todo-workbench/todo-workbench.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="17" column="15" lean-forward="false" selection-start-line="17" selection-start-column="15" selection-end-line="17" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/app.module.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="173">
+          <caret line="48" column="21" lean-forward="false" selection-start-line="48" selection-start-column="21" selection-end-line="48" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/+process/approval-process/approval-process.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-26230">
+          <caret line="5" column="28" lean-forward="true" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/+to-do/todo-workbench/todo-workbench.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="8" column="26" lean-forward="false" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/shared/layout/app-layouts/main-layout.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/shared/layout/app-layouts/empty-layout.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/assets/css/i3ot-component.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96071">
+          <caret line="4177" column="29" lean-forward="false" selection-start-line="4177" selection-start-column="29" selection-end-line="4177" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/+auth/+register/register.component.html">
+    <entry file="file://$PROJECT_DIR$/src/app/+forms/todo-mission/todo-mission.component.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="67" column="14" lean-forward="false" selection-start-line="67" selection-start-column="14" selection-end-line="68" selection-end-column="40" />
+        <state relative-caret-position="3082">
+          <caret line="134" column="38" lean-forward="false" selection-start-line="134" selection-start-column="38" selection-end-line="134" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/shared/layout/app-layouts/empty-layout.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="14" column="3" lean-forward="true" selection-start-line="14" selection-start-column="3" selection-end-line="14" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/core/global.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="9" column="35" lean-forward="false" selection-start-line="9" selection-start-column="35" selection-end-line="9" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#55#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/+dashboard/dynamic-wall/dynamic-wall.module.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="65">
+          <caret line="21" column="14" lean-forward="false" selection-start-line="21" selection-start-column="2" selection-end-line="21" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/app.routing.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="239">
+          <caret line="132" column="2" lean-forward="false" selection-start-line="132" selection-start-column="2" selection-end-line="132" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/shared/layout/navigation/navigation.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="14" column="40" lean-forward="true" selection-start-line="14" selection-start-column="40" selection-end-line="14" selection-end-column="40" />
           <folding />
         </state>
       </provider>

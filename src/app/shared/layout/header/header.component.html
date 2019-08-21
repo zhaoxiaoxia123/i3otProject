@@ -23,40 +23,58 @@
 
     <!-- #移动 -->
     <!-- 顶级菜单配置文件链接：仅当顶级菜单处于活动状态时才显示 -->
-    <ul id="mobile-profile-img" class="header-dropdown-list hidden-xs padding-5">
-      <li class="">
-        <a href="#" class="dropdown-toggle no-margin userdropdown" data-toggle="dropdown">
-          <img src="assets/img/avatars/male.png" alt="John Doe" class="online"/>
-        </a>
-        <ul class="dropdown-menu pull-right">
-          <li>
-            <a routerLink="/account/account-company" (click)="(null)" class="pd-10 padding-top-0 padding-bottom-0"><i
-              class="fa fa-cog"></i> 公司信息</a>
-          </li>
-          <li class="divider"></li>
-          <li>
-            <a routerLink="/account/account-personal" class="pd-10 padding-top-0 padding-bottom-0"> <i
-              class="fa fa-user"></i>
-              个人信息</a>
-          </li>
-          <li class="divider"></li>
-          <li>
-            <a routerLink="/account/account-password" class="pd-10 padding-top-0 padding-bottom-0"
-               data-action="toggleShortcut"><i class="fa fa-arrow-down"></i> 修改密码</a>
-          </li>
-          <li class="divider"></li>
-          <li>
-            <a (click)="(null)" class="pd-10 padding-top-0 padding-bottom-0"
-               data-action="launchFullscreen"><i class="fa fa-arrows-alt"></i> 全屏</a>
-          </li>
-          <li class="divider"></li>
-          <li>
-            <a (click)="showPopup()" class="pd-10 padding-top-5 padding-bottom-5" data-action="userLogout"><i
-              class="fa fa-sign-out fa-lg"></i> <strong>退出</strong></a>
-          </li>
-        </ul>
-      </li>
-    </ul>
+    <div id="mobile-profile-img" class="header-dropdown-list hidden-xs padding-5 dropdown" >
+      <a href="#" class="dropdown-toggle no-margin userdropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <img src="assets/img/avatars/male.png" alt="John Doe" class="online"/>
+      </a>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a  class="dropdown-item" routerLink="/account/account-company" (click)="(null)"><i
+                class="fa fa-cog"></i> 公司信息</a>
+        <a class="dropdown-item" routerLink="/account/account-personal"> <i
+                class="fa fa-user"></i>
+          个人信息</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item"  routerLink="/account/account-password"  data-action="toggleShortcut"><i class="fa fa-arrow-down"></i> 修改密码</a>
+        <a class="dropdown-item" (click)="(null)"  data-action="launchFullscreen"><i class="fa fa-arrows-alt"></i> 全屏</a>
+        <a class="dropdown-item" (click)="showPopup()"  data-action="userLogout"><i
+                class="fa fa-sign-out fa-lg"></i> <strong>退出</strong></a>
+      </div>
+    </div>
+    <!--<ul id="mobile-profile-img" class="header-dropdown-list hidden-xs padding-5">-->
+
+      <!--<li class="">-->
+        <!--<a href="#" class="dropdown-toggle no-margin userdropdown" data-toggle="dropdown">-->
+          <!--<img src="assets/img/avatars/male.png" alt="John Doe" class="online"/>-->
+        <!--</a>-->
+        <!--<ul class="dropdown-menu pull-right">-->
+          <!--<li>-->
+            <!--<a routerLink="/account/account-company" (click)="(null)" class="pd-10 padding-top-0 padding-bottom-0"><i-->
+              <!--class="fa fa-cog"></i> 公司信息</a>-->
+          <!--</li>-->
+          <!--<li class="divider"></li>-->
+          <!--<li>-->
+            <!--<a routerLink="/account/account-personal" class="pd-10 padding-top-0 padding-bottom-0"> <i-->
+              <!--class="fa fa-user"></i>-->
+              <!--个人信息</a>-->
+          <!--</li>-->
+          <!--<li class="divider"></li>-->
+          <!--<li>-->
+            <!--<a routerLink="/account/account-password" class="pd-10 padding-top-0 padding-bottom-0"-->
+               <!--data-action="toggleShortcut"><i class="fa fa-arrow-down"></i> 修改密码</a>-->
+          <!--</li>-->
+          <!--<li class="divider"></li>-->
+          <!--<li>-->
+            <!--<a (click)="(null)" class="pd-10 padding-top-0 padding-bottom-0"-->
+               <!--data-action="launchFullscreen"><i class="fa fa-arrows-alt"></i> 全屏</a>-->
+          <!--</li>-->
+          <!--<li class="divider"></li>-->
+          <!--<li>-->
+            <!--<a (click)="showPopup()" class="pd-10 padding-top-5 padding-bottom-5" data-action="userLogout"><i-->
+              <!--class="fa fa-sign-out fa-lg"></i> <strong>退出</strong></a>-->
+          <!--</li>-->
+        <!--</ul>-->
+      <!--</li>-->
+    <!--</ul>-->
 
     <!-- logout button -->
     <sa-logout></sa-logout>

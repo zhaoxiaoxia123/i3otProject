@@ -5,6 +5,18 @@
 
     <!--动态读取--->
     <ul saSmartMenu >
+
+      <li>
+        <a href="#">{{'物联网管理' | i18n}}</a>
+        <ul>
+          <li routerLinkActive="active">
+            <a routerLink="/nfc/nfc-pcsc">{{'传感器列表' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/nfc/nfc-pcsc">{{'网关列表' | i18n}}</a>
+          </li>
+        </ul>
+      </li>
       <!--<li routerLinkActive="active">-->
         <!--<a routerLink="/style/style-dashboard">{{'首页' | i18n}}</a>-->
       <!--</li>-->

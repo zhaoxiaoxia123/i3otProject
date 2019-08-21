@@ -3603,22 +3603,22 @@ div.dataTables_editor{
 /*账号绑定*/
 
 .icon-set_wechat{
-    background: rgba(0, 0, 0, 0) url(../img/login.png) no-repeat scroll -2px -4px;
+    background: rgba(0, 0, 0, 0) url(../img/login-register.png) no-repeat scroll -2px -4px;
     padding-left: 45px;
 }
 .icon-set li a{
     font-size: 32px;
 }
 .icon-set_nailing{
-    background: rgba(0, 0, 0, 0) url(../img/login.png) no-repeat scroll -43px -4px;
+    background: rgba(0, 0, 0, 0) url(../img/login-register.png) no-repeat scroll -43px -4px;
     padding-left: 45px;
 }
 .icon-set_phone{
-    background: rgba(0, 0, 0, 0) url(../img/login.png) no-repeat scroll -82px -4px;
+    background: rgba(0, 0, 0, 0) url(../img/login-register.png) no-repeat scroll -82px -4px;
     padding-left: 45px;
 }
 .icon-set_email{
-    background: rgba(0, 0, 0, 0) url(../img/login.png) no-repeat scroll -124px -4px;
+    background: rgba(0, 0, 0, 0) url(../img/login-register.png) no-repeat scroll -124px -4px;
     padding-left: 45px;
 }
 .icon-account{
